@@ -2,9 +2,9 @@
 
 [日本語版](#falco-nginx-プラグイン)
 
-> **📢 Update (2025-08-04)**: Plugin initialization improved - now works even without existing log files!
+> **📢 Update (2025-08-04)**: Fixed CGO pointer safety issue - plugin now works correctly on Ubuntu!
 > ```bash
-> # New SHA256: 2eba662d43bf0fb14bd5dcc7a523c582c56ba06ee143d3ae2c773999ab2a75cb
+> # New SHA256: 289370c8b161826e036e46454023dbd263eec01aabc3e4cc3f7601113b2fa7ec
 > # API Version: 3.11.0 (Falco 0.41.3 compatible)
 > ```
 
@@ -22,7 +22,7 @@ Download the latest release files from the [releases](releases/) directory:
 - `nginx_rules.yaml` - Falco detection rules
 - `libfalco-nginx-plugin-linux-amd64.so.sha256` - Checksum file
 
-**Latest SHA256**: `2eba662d43bf0fb14bd5dcc7a523c582c56ba06ee143d3ae2c773999ab2a75cb`
+**Latest SHA256**: `289370c8b161826e036e46454023dbd263eec01aabc3e4cc3f7601113b2fa7ec`
 
 ### Installation
 
@@ -74,9 +74,9 @@ Apache License 2.0
 
 [English](#falco-plugin-for-nginx)
 
-> **📢 更新 (2025-08-04)**: プラグイン初期化を改善 - ログファイルが存在しなくても動作するようになりました！
+> **📢 更新 (2025-08-04)**: CGOポインタ安全性の問題を修正 - Ubuntuで正しく動作するようになりました！
 > ```bash
-> # 新しいSHA256: 2eba662d43bf0fb14bd5dcc7a523c582c56ba06ee143d3ae2c773999ab2a75cb
+> # 新しいSHA256: 289370c8b161826e036e46454023dbd263eec01aabc3e4cc3f7601113b2fa7ec
 > # APIバージョン: 3.11.0 (Falco 0.41.3対応)
 > ```
 
@@ -94,7 +94,7 @@ Falcoを使用したnginx Webサーバー向けのリアルタイムセキュリ
 - `nginx_rules.yaml` - Falco検出ルール
 - `libfalco-nginx-plugin-linux-amd64.so.sha256` - チェックサムファイル
 
-**最新SHA256**: `2eba662d43bf0fb14bd5dcc7a523c582c56ba06ee143d3ae2c773999ab2a75cb`
+**最新SHA256**: `289370c8b161826e036e46454023dbd263eec01aabc3e4cc3f7601113b2fa7ec`
 
 ### インストール
 
