@@ -2,7 +2,22 @@
 
 All notable changes to the Falco nginx plugin binaries will be documented in this file.
 
-## [2025-08-04] - CGO Pointer Safety Fix (Latest)
+## [2025-08-04] - Linux Binary with CGO Fix (Latest)
+
+### Fixed
+- **Critical fix**: Resolved CGO "unpinned Go pointer" panic that was preventing plugin initialization
+- Built on Linux environment to produce proper ELF binary format
+- Plugin now uses ID-based state management instead of returning Go pointers to C code
+- Binary SHA256: `a98cd2d8dffc0634d03638c149ae9f58b93df289b5acff2ebfa6ab4f64b995c0`
+
+### Technical Details
+- Changed from direct pointer return to ID-based state tracking
+- Prevents runtime panic: "cgo result is unpinned Go pointer or points to unpinned Go pointer"
+- Built using GitHub Actions self-hosted Linux runner
+- Plugin now successfully initializes on Ubuntu 22.04 and other Linux systems
+- Fixes "invalid ELF header" error from previous macOS-built binaries
+
+## [2025-08-04] - CGO Pointer Safety Fix
 
 ### Fixed
 - **Critical fix**: Resolved CGO "unpinned Go pointer" panic that was preventing plugin initialization
