@@ -2,7 +2,20 @@
 
 All notable changes to the Falco nginx plugin binaries will be documented in this file.
 
-## [2025-08-04] - NULL Pointer Fix (Latest)
+## [2025-08-04] - plugin_get_last_error Fix (Latest)
+
+### Fixed
+- **Critical fix**: plugin_get_last_error now handles nil plugin state correctly
+- Stores initialization errors in global variable for retrieval
+- Fixes 'plugin handle or get_last_error function not defined' error in Falco
+- Binary SHA256: `d6b8ead21a52a5c12ea1b8ae27e3afca15bee28059a0093e228d63dd711cad11`
+
+### Technical Details
+- plugin_get_last_error can now return initialization errors when called with nil
+- Maintains all previous fixes (NULL pointer check, CGO pointer safety, Linux ELF format)
+- Designed to help Falco properly retrieve error messages after plugin_init failures
+
+## [2025-08-04] - NULL Pointer Fix
 
 ### Fixed
 - **Critical fix**: Added NULL pointer check in plugin_init rc parameter
