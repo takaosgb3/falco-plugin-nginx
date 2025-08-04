@@ -253,7 +253,7 @@ sudo systemctl restart falco-modern-bpf.service
 sudo systemctl restart falco-bpf.service
 
 # Check status
-sudo systemctl status falco-modern-bpf.service
+sudo systemctl status falco-bpf.service
 ```
 
 ## Getting Help

@@ -276,10 +276,10 @@ plugins:
 EOF
 
 # Verify Falco service is running
-sudo systemctl status falco-modern-bpf.service || sudo systemctl status falco
+sudo systemctl status falco-bpf.service || sudo systemctl status falco
 
 # Restart Falco
-sudo systemctl restart falco-modern-bpf.service || sudo systemctl restart falco
+sudo systemctl restart falco-bpf.service || sudo systemctl restart falco
 ```
 
 ## ✅ Operation Verification and Attack Testing
@@ -838,10 +838,10 @@ plugins:
 EOF
 
 # Falcoサービスが実行中か確認
-sudo systemctl status falco-modern-bpf.service || sudo systemctl status falco
+sudo systemctl status falco-bpf.service || sudo systemctl status falco
 
 # Falco再起動
-sudo systemctl restart falco-modern-bpf.service || sudo systemctl restart falco
+sudo systemctl restart falco-bpf.service || sudo systemctl restart falco
 ```
 
 ## ✅ 動作確認と攻撃テスト
