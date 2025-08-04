@@ -35,7 +35,8 @@ wget https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/release
 wget https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/releases/nginx_rules.yaml
 
 # Verify checksum (optional)
-wget https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/releases/libfalco-nginx-plugin-linux-amd64.so.sha256
+# Note: Use curl to avoid GitHub CDN cache issues
+curl -s https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/releases/libfalco-nginx-plugin-linux-amd64.so.sha256 -o libfalco-nginx-plugin-linux-amd64.so.sha256
 sha256sum -c libfalco-nginx-plugin-linux-amd64.so.sha256
 
 # Rename to a convenient name
@@ -599,7 +600,8 @@ wget https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/release
 wget https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/releases/nginx_rules.yaml
 
 # チェックサムを確認（オプション）
-wget https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/releases/libfalco-nginx-plugin-linux-amd64.so.sha256
+# 注: GitHub CDNキャッシュ問題を回避するためcurlを使用
+curl -s https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/releases/libfalco-nginx-plugin-linux-amd64.so.sha256 -o libfalco-nginx-plugin-linux-amd64.so.sha256
 sha256sum -c libfalco-nginx-plugin-linux-amd64.so.sha256
 
 # 使いやすい名前にリネーム

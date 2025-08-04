@@ -22,6 +22,8 @@ Download the latest release files from the [releases](releases/) directory:
 - `nginx_rules.yaml` - Falco detection rules
 - `libfalco-nginx-plugin-linux-amd64.so.sha256` - Checksum file
 
+**Latest SHA256**: `2eba662d43bf0fb14bd5dcc7a523c582c56ba06ee143d3ae2c773999ab2a75cb`
+
 ### Installation
 
 Follow the [Quick Start Binary Installation Guide](docs/QUICK_START_BINARY_INSTALLATION.md) for detailed setup instructions.
@@ -91,6 +93,8 @@ Falcoを使用したnginx Webサーバー向けのリアルタイムセキュリ
 - `libfalco-nginx-plugin-linux-amd64.so` - Linux x86_64用プラグインバイナリ
 - `nginx_rules.yaml` - Falco検出ルール
 - `libfalco-nginx-plugin-linux-amd64.so.sha256` - チェックサムファイル
+
+**最新SHA256**: `2eba662d43bf0fb14bd5dcc7a523c582c56ba06ee143d3ae2c773999ab2a75cb`
 
 ### インストール
 
