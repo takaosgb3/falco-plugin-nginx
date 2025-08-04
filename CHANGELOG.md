@@ -2,7 +2,22 @@
 
 All notable changes to the Falco nginx plugin binaries will be documented in this file.
 
-## [2025-08-04] - plugin_get_last_error Fix (Latest)
+## [2025-08-04] - Complete Rewrite with Falco Plugin SDK (Latest)
+
+### Changed
+- **Major rewrite**: Plugin completely rewritten using official Falco Plugin SDK for Go
+- Replaced manual CGO implementation with SDK-based approach
+- Much simpler and more maintainable codebase
+- Binary SHA256: `5eab89337302337022ab05e3d3c5c69b1f25fa2517ce34e4e3268fce03301e13`
+
+### Technical Details
+- Uses github.com/falcosecurity/plugin-sdk-go v0.8.1
+- Implements both source and extractor capabilities
+- SDK handles all low-level plugin API requirements
+- Maintains full compatibility with Falco 0.41.3 (API version 3.11.0)
+- All previous issues resolved through proper SDK usage
+
+## [2025-08-04] - plugin_get_last_error Fix
 
 ### Fixed
 - **Critical fix**: plugin_get_last_error now handles nil plugin state correctly

@@ -2,11 +2,12 @@
 
 [日本語版](#falco-nginx-プラグイン)
 
-> **📢 Update (2025-08-04)**: Improved error handling - plugin_get_last_error now works correctly!
+> **📢 Update (2025-08-04)**: Rewritten using Falco Plugin SDK for Go!
 > ```bash
-> # New SHA256: d6b8ead21a52a5c12ea1b8ae27e3afca15bee28059a0093e228d63dd711cad11
+> # New SHA256: 5eab89337302337022ab05e3d3c5c69b1f25fa2517ce34e4e3268fce03301e13
 > # API Version: 3.11.0 (Falco 0.41.3 compatible)
-> # Fixes 'plugin handle or get_last_error function not defined' error
+> # Complete rewrite using official Falco Plugin SDK
+> # Simpler, more maintainable, and fully compatible
 > ```
 
 Real-time security monitoring plugin for nginx web servers powered by Falco.
@@ -23,7 +24,7 @@ Download the latest release files from the [releases](releases/) directory:
 - `nginx_rules.yaml` - Falco detection rules
 - `libfalco-nginx-plugin-linux-amd64.so.sha256` - Checksum file
 
-**Latest SHA256**: `d6b8ead21a52a5c12ea1b8ae27e3afca15bee28059a0093e228d63dd711cad11`
+**Latest SHA256**: `5eab89337302337022ab05e3d3c5c69b1f25fa2517ce34e4e3268fce03301e13`
 
 ### Installation
 
@@ -75,11 +76,12 @@ Apache License 2.0
 
 [English](#falco-plugin-for-nginx)
 
-> **📢 更新 (2025-08-04)**: エラーハンドリング改善 - plugin_get_last_errorが正しく動作します！
+> **📢 更新 (2025-08-04)**: Falco Plugin SDK for Goで完全に書き直しました！
 > ```bash
-> # 新しいSHA256: d6b8ead21a52a5c12ea1b8ae27e3afca15bee28059a0093e228d63dd711cad11
+> # 新しいSHA256: 5eab89337302337022ab05e3d3c5c69b1f25fa2517ce34e4e3268fce03301e13
 > # APIバージョン: 3.11.0 (Falco 0.41.3対応)
-> # 'plugin handle or get_last_error function not defined'エラーを修正
+> # 公式Falco Plugin SDKを使用した完全な書き直し
+> # よりシンプルで保守しやすく、完全な互換性
 > ```
 
 Falcoを使用したnginx Webサーバー向けのリアルタイムセキュリティ監視プラグインです。
@@ -96,7 +98,7 @@ Falcoを使用したnginx Webサーバー向けのリアルタイムセキュリ
 - `nginx_rules.yaml` - Falco検出ルール
 - `libfalco-nginx-plugin-linux-amd64.so.sha256` - チェックサムファイル
 
-**最新SHA256**: `d6b8ead21a52a5c12ea1b8ae27e3afca15bee28059a0093e228d63dd711cad11`
+**最新SHA256**: `5eab89337302337022ab05e3d3c5c69b1f25fa2517ce34e4e3268fce03301e13`
 
 ### インストール
 
