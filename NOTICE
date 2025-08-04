@@ -1,0 +1,17 @@
+Falco Plugin for Nginx
+Copyright 2025 Falco Nginx Plugin Contributors
+
+This product includes software developed by The Falco Authors (https://falco.org).
+
+This product includes the following third-party software:
+- Falco Plugin SDK for Go (https://github.com/falcosecurity/plugin-sdk-go)
+  Licensed under the Apache License, Version 2.0
+  
+The binary distribution includes compiled code from:
+- Go standard library (https://golang.org)
+  Licensed under the BSD-style license
+- fsnotify (https://github.com/fsnotify/fsnotify)
+  Licensed under the BSD-3-Clause license
+
+For specific license information about these components, please see their
+respective project pages.

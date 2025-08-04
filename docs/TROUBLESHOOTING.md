@@ -6,6 +6,16 @@ This guide helps resolve common issues when installing and running the Falco ngi
 
 **Important Update (2025-08-04)**: The plugin has been completely rewritten using the Falco Plugin SDK for Go. This resolves many previous initialization issues.
 
+### Latest Known Issues and Fixes
+
+1. **No Alerts Appearing**
+   - **Cause**: Rules file not installed in `/etc/falco/rules.d/`
+   - **Fix**: Copy `nginx_rules.yaml` to the correct location
+   
+2. **Rule Compilation Error**
+   - **Cause**: Field name error in rules (nginx.body_bytes)
+   - **Fix**: Update to latest rules file with nginx.bytes_sent
+
 ## Common Issues and Solutions
 
 ### 1. Plugin Rule Syntax Errors (SDK-based Plugin)

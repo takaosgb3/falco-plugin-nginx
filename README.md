@@ -2,14 +2,12 @@
 
 [日本語版](#falco-nginx-プラグイン)
 
-> **📢 Update (2025-08-04)**: Fixed version now processes existing logs!
-> ```bash
-> # Fixed SHA256: 2b97aaa085ce514a6075c49ba166ea7cf47d30533475eb51dd614acbb3a5c244
-> # API Version: 3.11.0 (Falco 0.41.3 compatible)
-> # Complete rewrite using official Falco Plugin SDK
-> # Now detects threats in existing logs on startup
-> # Tested and verified on Ubuntu 22.04
-> ```
+> **📢 Latest Update (2025-08-04)**: SDK-based plugin with real-time threat detection!
+> - Complete rewrite using official Falco Plugin SDK for Go v0.8.1
+> - Processes both existing and new log entries
+> - Fixed nginx_rules.yaml syntax for SDK compatibility
+> - Tested and verified on Ubuntu 22.04 with Falco 0.41.3
+> - Binary SHA256: `2b97aaa085ce514a6075c49ba166ea7cf47d30533475eb51dd614acbb3a5c244`
 
 Real-time security monitoring plugin for nginx web servers powered by Falco.
 
@@ -64,7 +62,16 @@ Follow the [Quick Start Binary Installation Guide](docs/QUICK_START_BINARY_INSTA
 
 ## 📄 License
 
-Apache License 2.0
+This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
+
+### Binary Distribution
+
+The pre-compiled binaries include code from several open-source projects:
+- Falco Plugin SDK for Go (Apache 2.0)
+- Go standard library (BSD-style)
+- fsnotify (BSD-3-Clause)
+
+See [NOTICE](NOTICE) for full attribution.
 
 ## 🔗 Links
 
@@ -77,14 +84,12 @@ Apache License 2.0
 
 [English](#falco-plugin-for-nginx)
 
-> **📢 更新 (2025-08-04)**: 修正版は既存ログも処理します！
-> ```bash
-> # 修正版SHA256: 2b97aaa085ce514a6075c49ba166ea7cf47d30533475eb51dd614acbb3a5c244
-> # APIバージョン: 3.11.0 (Falco 0.41.3対応)
-> # 公式Falco Plugin SDKを使用した完全な書き直し
-> # 起動時に既存ログの脅威を検出
-> # Ubuntu 22.04でテスト済み
-> ```
+> **📢 最新更新 (2025-08-04)**: SDKベースのプラグインでリアルタイム脅威検出！
+> - 公式Falco Plugin SDK for Go v0.8.1を使用した完全な書き直し
+> - 既存ログと新規ログの両方を処理
+> - nginx_rules.yamlをSDK互換構文に修正
+> - Ubuntu 22.04とFalco 0.41.3でテスト・検証済み
+> - バイナリSHA256: `2b97aaa085ce514a6075c49ba166ea7cf47d30533475eb51dd614acbb3a5c244`
 
 Falcoを使用したnginx Webサーバー向けのリアルタイムセキュリティ監視プラグインです。
 
@@ -139,7 +144,16 @@ Falcoを使用したnginx Webサーバー向けのリアルタイムセキュリ
 
 ## 📄 ライセンス
 
-Apache License 2.0
+このプロジェクトはApache License 2.0でライセンスされています - 詳細は[LICENSE](LICENSE)ファイルをご覧ください。
+
+### バイナリ配布について
+
+プリコンパイルされたバイナリには、以下のオープンソースプロジェクトのコードが含まれています：
+- Falco Plugin SDK for Go (Apache 2.0)
+- Go標準ライブラリ (BSDスタイル)
+- fsnotify (BSD-3-Clause)
+
+完全な帰属情報については[NOTICE](NOTICE)をご覧ください。
 
 ## 🔗 リンク
 
@@ -148,4 +162,34 @@ Apache License 2.0
 
 ---
 
-**Note / 注意**: This repository contains only the compiled binaries and documentation. Source code is maintained separately. / このリポジトリにはコンパイル済みのバイナリとドキュメントのみが含まれています。ソースコードは別途管理されています。
+## 🔧 Technical Details
+
+### Plugin Architecture
+- Built with Falco Plugin SDK for Go v0.8.1
+- Implements both source and extractor capabilities
+- Real-time file monitoring using fsnotify
+- Zero-copy event processing with GOB encoding
+
+### Supported Fields
+- `nginx.remote_addr` - Client IP address
+- `nginx.method` - HTTP method (GET, POST, etc.)
+- `nginx.path` - Request URI path
+- `nginx.query_string` - Query parameters
+- `nginx.status` - HTTP response status code
+- `nginx.bytes_sent` - Response size in bytes
+- `nginx.user_agent` - Client user agent
+- And 6 more fields for comprehensive monitoring
+
+### Binary Distribution Notice
+
+This repository provides pre-compiled binaries for ease of deployment. The binaries are:
+- Built on Ubuntu 22.04 LTS
+- Compiled with Go 1.22+
+- Statically linked for maximum compatibility
+- Tested across multiple Linux distributions
+
+For source code access or custom builds, please contact the maintainers.
+
+---
+
+**Note**: This is a binary distribution repository. Source code is maintained in a separate private repository for security reasons.
