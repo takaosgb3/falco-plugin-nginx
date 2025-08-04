@@ -16,17 +16,29 @@
     (nginx.path contains " union " or
      nginx.path contains "union select" or
      nginx.path contains "' or " or
+     nginx.path contains "' OR " or
      nginx.path contains "' and " or
+     nginx.path contains "' AND " or
      nginx.path contains "insert into" or
      nginx.path contains "delete from" or
      nginx.path contains "drop table" or
      nginx.path contains "--" or
      nginx.path contains "/*" or
-     nginx.path contains "*/")
+     nginx.path contains "*/" or
+     nginx.query_string contains " union " or
+     nginx.query_string contains "union select" or
+     nginx.query_string contains "' or " or
+     nginx.query_string contains "' OR " or
+     nginx.query_string contains "' and " or
+     nginx.query_string contains "' AND " or
+     nginx.query_string contains "insert into" or
+     nginx.query_string contains "delete from" or
+     nginx.query_string contains "drop table" or
+     nginx.query_string contains "--")
   output: >
     Potential SQL injection attempt detected 
     (client=%nginx.remote_addr method=%nginx.method path=%nginx.path 
-    user_agent=%nginx.user_agent status=%nginx.status)
+    query=%nginx.query_string user_agent=%nginx.user_agent status=%nginx.status)
   priority: WARNING
   tags: [web, nginx, sql_injection]
 
@@ -38,11 +50,15 @@
     (nginx.path contains "<script" or
      nginx.path contains "javascript:" or
      nginx.path contains "onerror=" or
-     nginx.path contains "<iframe")
+     nginx.path contains "<iframe" or
+     nginx.query_string contains "<script" or
+     nginx.query_string contains "javascript:" or
+     nginx.query_string contains "onerror=" or
+     nginx.query_string contains "<iframe")
   output: >
     Potential XSS attempt detected
     (client=%nginx.remote_addr method=%nginx.method path=%nginx.path
-    user_agent=%nginx.user_agent status=%nginx.status)
+    query=%nginx.query_string user_agent=%nginx.user_agent status=%nginx.status)
   priority: WARNING
   tags: [web, nginx, xss]
 
@@ -53,11 +69,17 @@
   condition: >
     (nginx.path contains "../" or
      nginx.path contains "..%2f" or
-     nginx.path contains "..%5c")
+     nginx.path contains "..%2F" or
+     nginx.path contains "..%5c" or
+     nginx.path contains "..%5C" or
+     nginx.path contains "/etc/passwd" or
+     nginx.query_string contains "../" or
+     nginx.query_string contains "..%2f" or
+     nginx.query_string contains "..%2F")
   output: >
     Path traversal attempt detected
     (client=%nginx.remote_addr method=%nginx.method path=%nginx.path
-    user_agent=%nginx.user_agent status=%nginx.status)
+    query=%nginx.query_string user_agent=%nginx.user_agent status=%nginx.status)
   priority: WARNING
   tags: [web, nginx, path_traversal]
 
