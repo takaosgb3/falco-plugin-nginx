@@ -1,6 +1,529 @@
+# 🚀 Quick Start: Binary Installation
+
+[日本語版](#-クイックスタート-バイナリを使用したインストール)
+
+This guide provides the quickest way to set up the Falco nginx plugin using pre-built binaries without cloning any source code.
+
+## 📋 What This Guide Covers
+
+- ✅ nginx Web server setup
+- ✅ Deploying web content for attack testing
+- ✅ Installing Falco and nginx plugin
+- ✅ Testing security attack detection (SQL injection, XSS, directory traversal, etc.)
+- ✅ Real-time alert verification
+
+**Time Required**: About 7 minutes
+**Prerequisites**: Ubuntu 20.04+ or Debian 10+
+
+## 📦 Required Binary Files
+
+To run the plugin, you need the following files:
+
+1. **libfalco-nginx-plugin-linux-amd64.so** - Plugin binary (approx. 3.5MB)
+2. **nginx_rules.yaml** - Falco detection rules (approx. 10KB)
+3. **falco.yaml** - Falco configuration file (optional)
+
+Note: After download, rename the binary to `libfalco-nginx-plugin.so` for use.
+
+## 🎯 How to Obtain Binaries
+
+### Option 1: Download from GitHub Release
+
+```bash
+# Check latest release
+curl -s https://api.github.com/repos/takaosgb3/falco-nginx-plugin-claude/releases/latest | jq -r '.tag_name'
+
+# Download binaries (change version as needed)
+VERSION="v0.1.0"
+wget https://github.com/takaosgb3/falco-nginx-plugin-claude/releases/download/${VERSION}/libfalco-nginx-plugin-linux-amd64.so
+wget https://github.com/takaosgb3/falco-nginx-plugin-claude/releases/download/${VERSION}/nginx_rules.yaml
+
+# Verify checksum (optional)
+wget https://github.com/takaosgb3/falco-nginx-plugin-claude/releases/download/${VERSION}/libfalco-nginx-plugin-linux-amd64.so.sha256
+sha256sum -c libfalco-nginx-plugin-linux-amd64.so.sha256
+
+# Rename to a convenient name
+mv libfalco-nginx-plugin-linux-amd64.so libfalco-nginx-plugin.so
+```
+
+### Option 2: Direct Binary Provision
+
+Obtain the following files from the developer:
+- `libfalco-nginx-plugin-linux-amd64.so` (for Linux x86_64)
+- `nginx_rules.yaml`
+
+## ⚡ 5-Minute Setup
+
+### 1. Environment Preparation (1 minute)
+
+```bash
+# Create working directory
+mkdir -p ~/falco-nginx-test
+cd ~/falco-nginx-test
+
+# Update system
+sudo apt update
+```
+
+### 2. nginx Installation and Configuration (2 minutes)
+
+```bash
+# Install nginx
+sudo apt install -y nginx
+
+# Basic nginx configuration
+sudo tee /etc/nginx/sites-available/test-site << 'EOF'
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    root /var/www/test-site;
+    index index.html index.php;
+
+    server_name _;
+
+    # Log configuration (monitored by Falco plugin)
+    access_log /var/log/nginx/access.log combined;
+    error_log /var/log/nginx/error.log;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    # PHP file processing (for attack testing)
+    location ~ \.php$ {
+        # Logs are recorded even without PHP
+        try_files $uri =404;
+    }
+
+    # Admin area (for brute force testing)
+    location /admin {
+        try_files $uri $uri/ /admin.html;
+    }
+}
+EOF
+
+# Enable site
+sudo rm -f /etc/nginx/sites-enabled/default
+sudo ln -s /etc/nginx/sites-available/test-site /etc/nginx/sites-enabled/
+
+# Create web content directory
+sudo mkdir -p /var/www/test-site
+```
+
+### 3. Preparing Web Content for Attack Testing (1 minute)
+
+```bash
+# Basic index.html
+sudo tee /var/www/test-site/index.html << 'EOF'
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Falco Nginx Plugin Test Site</title>
+</head>
+<body>
+    <h1>Welcome to Test Site</h1>
+    <p>This site is designed for security testing with Falco nginx plugin.</p>
+    <ul>
+        <li><a href="/admin/">Admin Area</a></li>
+        <li><a href="/api/users.php">User API</a></li>
+        <li><a href="/search.php">Search</a></li>
+        <li><a href="/upload.php">File Upload</a></li>
+    </ul>
+</body>
+</html>
+EOF
+
+# Admin page (for brute force testing)
+sudo mkdir -p /var/www/test-site/admin
+sudo tee /var/www/test-site/admin/index.html << 'EOF'
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Login</title>
+</head>
+<body>
+    <h1>Administrator Login</h1>
+    <form method="POST" action="/admin/login.php">
+        <input type="text" name="username" placeholder="Username"><br>
+        <input type="password" name="password" placeholder="Password"><br>
+        <input type="submit" value="Login">
+    </form>
+</body>
+</html>
+EOF
+
+# Search page (for SQL injection testing)
+sudo tee /var/www/test-site/search.php << 'EOF'
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search</title>
+</head>
+<body>
+    <h1>Product Search</h1>
+    <form method="GET">
+        <input type="text" name="q" placeholder="Search products...">
+        <input type="submit" value="Search">
+    </form>
+    <?php
+    // This file doesn't actually run, but nginx logs the access
+    if (isset($_GET['q'])) {
+        echo "<p>Searching for: " . htmlspecialchars($_GET['q']) . "</p>";
+    }
+    ?>
+</body>
+</html>
+EOF
+
+# API endpoint (for various attack tests)
+sudo mkdir -p /var/www/test-site/api
+sudo tee /var/www/test-site/api/users.php << 'EOF'
+<?php
+// No actual PHP processing needed. nginx logging the request is sufficient
+header('Content-Type: application/json');
+echo json_encode(['status' => 'ok', 'users' => []]);
+?>
+EOF
+
+# File upload page (for directory traversal testing)
+sudo tee /var/www/test-site/upload.php << 'EOF'
+<!DOCTYPE html>
+<html>
+<head>
+    <title>File Upload</title>
+</head>
+<body>
+    <h1>File Upload</h1>
+    <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <input type="submit" value="Upload">
+    </form>
+</body>
+</html>
+EOF
+
+# Set file permissions
+sudo chown -R www-data:www-data /var/www/test-site
+sudo chmod -R 755 /var/www/test-site
+
+# Restart nginx
+sudo systemctl restart nginx
+
+# Verify operation
+curl -s http://localhost/ | grep -q "Welcome to Test Site" && echo "✅ Site is working properly" || echo "❌ Cannot access site"
+```
+
+### 4. Falco Installation (2 minutes)
+
+```bash
+# Add Falco repository
+curl -fsSL https://falco.org/repo/falcosecurity-packages.asc | \
+  sudo gpg --dearmor -o /usr/share/keyrings/falco-archive-keyring.gpg
+
+echo "deb [signed-by=/usr/share/keyrings/falco-archive-keyring.gpg] \
+  https://download.falco.org/packages/deb stable main" | \
+  sudo tee /etc/falco/apt/sources.list.d/falcosecurity.list
+
+# Install
+sudo apt update && sudo apt install -y falco
+```
+
+### 5. Plugin Deployment (30 seconds)
+
+```bash
+# Create plugin directory
+sudo mkdir -p /usr/share/falco/plugins
+
+# Deploy binary (assuming file is available)
+sudo cp libfalco-nginx-plugin.so /usr/share/falco/plugins/
+sudo chmod 644 /usr/share/falco/plugins/libfalco-nginx-plugin.so
+
+# Deploy rules file
+sudo mkdir -p /etc/falco/rules.d
+sudo cp nginx_rules.yaml /etc/falco/rules.d/
+```
+
+### 6. Minimal Configuration (30 seconds)
+
+```bash
+# Append to Falco configuration
+sudo tee -a /etc/falco/falco.yaml << 'EOF'
+
+plugins:
+  - name: nginx
+    library_path: /usr/share/falco/plugins/libfalco-nginx-plugin.so
+    init_config:
+      log_paths:
+        - /var/log/nginx/access.log
+EOF
+
+# Restart Falco
+sudo systemctl restart falco
+```
+
+## ✅ Operation Verification and Attack Testing
+
+### Basic Operation Check
+```bash
+# Check Falco startup
+sudo systemctl status falco --no-pager
+
+# Check plugin loading
+sudo falco --list-plugins | grep nginx
+
+# Start log monitoring (run in separate terminal)
+sudo journalctl -u falco -f
+```
+
+### Running Attack Tests
+
+#### 1. SQL Injection Attack
+```bash
+# Basic SQL injection
+curl "http://localhost/search.php?q=' OR '1'='1"
+curl "http://localhost/api/users.php?id=1' UNION SELECT * FROM users--"
+curl "http://localhost/search.php?q='; DROP TABLE users;--"
+
+# Encoded attacks
+curl "http://localhost/search.php?q=%27%20OR%20%271%27%3D%271"
+```
+
+#### 2. XSS Attack
+```bash
+# Basic XSS
+curl "http://localhost/search.php?q=<script>alert('XSS')</script>"
+curl "http://localhost/search.php?q=<img src=x onerror=alert(1)>"
+
+# Encoded XSS
+curl "http://localhost/search.php?q=%3Cscript%3Ealert%28%27XSS%27%29%3C%2Fscript%3E"
+```
+
+#### 3. Directory Traversal Attack
+```bash
+# Path traversal
+curl "http://localhost/upload.php?file=../../../../../../etc/passwd"
+curl "http://localhost/api/users.php?path=../../../config/database.yml"
+
+# Encoded attacks
+curl "http://localhost/upload.php?file=..%2F..%2F..%2Fetc%2Fpasswd"
+```
+
+#### 4. Command Injection Attack
+```bash
+# Command execution attempts
+curl "http://localhost/api/users.php?cmd=; cat /etc/passwd"
+curl "http://localhost/search.php?q=test; whoami"
+curl "http://localhost/api/users.php?action=test|id"
+```
+
+#### 5. Brute Force Attack Simulation
+```bash
+# Consecutive login attempts
+for i in {1..10}; do
+    curl -X POST "http://localhost/admin/login.php" \
+         -d "username=admin&password=password$i"
+    sleep 0.1
+done
+```
+
+#### 6. Scanner Detection
+```bash
+# Common scanner User-Agents
+curl -H "User-Agent: sqlmap/1.5.2" "http://localhost/"
+curl -H "User-Agent: Nikto/2.1.5" "http://localhost/"
+curl -H "User-Agent: nmap scripting engine" "http://localhost/"
+```
+
+### How to Check Alerts
+```bash
+# Check alerts in real-time
+sudo journalctl -u falco -f | grep -E "SQL injection|XSS|Directory traversal|Command injection|Brute force|Scanner"
+
+# Search past alerts
+sudo journalctl -u falco --since "5 minutes ago" | grep "CRITICAL"
+
+# Alert statistics
+sudo journalctl -u falco --since "1 hour ago" | grep -c "priority=CRITICAL"
+```
+
+## 📊 Complete Configuration File Example
+
+If nginx_rules.yaml is not available, create the following comprehensive rules file:
+
+```bash
+sudo tee /etc/falco/rules.d/nginx_rules.yaml << 'EOF'
+- required_plugin_versions:
+  - name: nginx
+    version: 0.1.0
+
+# SQL injection detection
+- rule: SQL Injection Attempt
+  desc: Detects various SQL injection patterns
+  condition: >
+    nginx.request_uri contains "' OR" or
+    nginx.request_uri contains "\" OR" or
+    nginx.request_uri contains "UNION SELECT" or
+    nginx.request_uri contains "'; DROP" or
+    nginx.request_uri contains "--" or
+    nginx.request_uri contains "/*" or
+    nginx.request_uri contains "*/"
+  output: "SQL injection detected (ip=%nginx.client_ip% uri=%nginx.request_uri% method=%nginx.method%)"
+  priority: CRITICAL
+  tags: [attack, sql_injection]
+
+# XSS attack detection
+- rule: XSS Attack Attempt
+  desc: Detects cross-site scripting attempts
+  condition: >
+    nginx.request_uri contains "<script" or
+    nginx.request_uri contains "</script>" or
+    nginx.request_uri contains "javascript:" or
+    nginx.request_uri contains "onerror=" or
+    nginx.request_uri contains "onload=" or
+    nginx.request_uri contains "<iframe"
+  output: "XSS attack detected (ip=%nginx.client_ip% uri=%nginx.request_uri%)"
+  priority: CRITICAL
+  tags: [attack, xss]
+
+# Directory traversal detection
+- rule: Directory Traversal Attempt
+  desc: Detects path traversal attacks
+  condition: >
+    nginx.request_uri contains "../" or
+    nginx.request_uri contains "..%2F" or
+    nginx.request_uri contains "..%5C" or
+    nginx.request_uri contains "..\\" or
+    nginx.request_uri contains "/etc/passwd" or
+    nginx.request_uri contains "C:\\Windows"
+  output: "Directory traversal detected (ip=%nginx.client_ip% uri=%nginx.request_uri%)"
+  priority: CRITICAL
+  tags: [attack, path_traversal]
+
+# Command injection detection
+- rule: Command Injection Attempt
+  desc: Detects command injection patterns
+  condition: >
+    nginx.request_uri contains ";" and nginx.request_uri contains "cat " or
+    nginx.request_uri contains "|" and nginx.request_uri contains "id" or
+    nginx.request_uri contains "&" and nginx.request_uri contains "whoami" or
+    nginx.request_uri contains "`" or
+    nginx.request_uri contains "$(" or
+    nginx.request_uri contains "${"
+  output: "Command injection detected (ip=%nginx.client_ip% uri=%nginx.request_uri%)"
+  priority: CRITICAL
+  tags: [attack, command_injection]
+
+# Scanner detection
+- rule: Security Scanner Detected
+  desc: Detects common security scanning tools
+  condition: >
+    nginx.user_agent contains "sqlmap" or
+    nginx.user_agent contains "nikto" or
+    nginx.user_agent contains "nmap" or
+    nginx.user_agent contains "masscan" or
+    nginx.user_agent contains "w3af" or
+    nginx.user_agent contains "burp"
+  output: "Security scanner detected (ip=%nginx.client_ip% scanner=%nginx.user_agent%)"
+  priority: WARNING
+  tags: [scanner, reconnaissance]
+
+# Brute force detection (multiple requests from same IP in short time)
+- rule: Potential Brute Force Attack
+  desc: Multiple failed login attempts
+  condition: >
+    nginx.request_uri contains "/admin" and
+    nginx.method = "POST" and
+    nginx.status >= 400 and nginx.status < 500
+  output: "Potential brute force attack (ip=%nginx.client_ip% uri=%nginx.request_uri% status=%nginx.status%)"
+  priority: WARNING
+  tags: [attack, brute_force]
+EOF
+```
+
+## 🆘 Troubleshooting
+
+### If Binary Not Found
+
+```bash
+# Check file existence
+ls -la /usr/share/falco/plugins/libfalco-nginx-plugin.so
+
+# Check if plugin is loaded
+sudo falco --list-plugins | grep nginx
+```
+
+### If Logs Cannot Be Read
+
+```bash
+# Check nginx log permissions
+ls -la /var/log/nginx/access.log
+
+# Grant permissions to Falco user
+sudo usermod -a -G adm falco
+sudo systemctl restart falco
+```
+
+## 🎯 Attack Testing Summary
+
+### Expected Results
+If properly set up, the following attacks can be detected:
+
+| Attack Type | Test Command Example | Expected Alert |
+|------------|---------------------|----------------|
+| SQL Injection | `curl "http://localhost/search.php?q=' OR '1'='1"` | "SQL injection detected" |
+| XSS | `curl "http://localhost/search.php?q=<script>alert(1)</script>"` | "XSS attack detected" |
+| Directory Traversal | `curl "http://localhost/upload.php?file=../../etc/passwd"` | "Directory traversal detected" |
+| Command Injection | `curl "http://localhost/api/users.php?cmd=;whoami"` | "Command injection detected" |
+| Scanner | `curl -H "User-Agent: sqlmap" http://localhost/` | "Security scanner detected" |
+
+### One-liner for Testing
+```bash
+# Test all attack types at once
+for attack in \
+  "search.php?q=' OR '1'='1" \
+  "search.php?q=<script>alert(1)</script>" \
+  "upload.php?file=../../etc/passwd" \
+  "api/users.php?cmd=;whoami"; do
+  echo "Testing: $attack"
+  curl -s "http://localhost/$attack"
+  sleep 1
+done
+
+# Check results
+sudo journalctl -u falco --since "2 minutes ago" | grep -E "CRITICAL|WARNING"
+```
+
+## 📝 Next Steps
+
+1. **Advanced Configuration**
+   - Creating custom rules
+   - Performance tuning
+   - Alert notification setup
+
+2. **Production Deployment**
+   - Log rotation configuration
+   - Metrics collection
+   - Dashboard building
+
+3. **Detailed Documentation**
+   - [Complete Setup Guide](./LOCAL_TEST_ENVIRONMENT_GUIDE.md)
+   - [Falco Rule Creation Guide](../development/FALCO_RULES_GUIDE.md)
+   - [Troubleshooting](../operations/troubleshooting.md)
+
+---
+
+**Time Required**: About 7 minutes (including web content preparation)
+**Difficulty**: Beginner
+**Last Updated**: 2025-08-04
+
+---
+
 # 🚀 クイックスタート: バイナリを使用したインストール
 
-このガイドは、ソースコードをクローンせずに、ビルド済みのバイナリを使用してFalco nginxプラグインをセットアップする最短手順です。
+[English](#-quick-start-binary-installation)
+
+このガイドでは、ソースコードをクローンせずに、ビルド済みバイナリを使用してFalco nginxプラグインを最も迅速にセットアップする方法を説明します。
 
 ## 📋 このガイドでできること
 
