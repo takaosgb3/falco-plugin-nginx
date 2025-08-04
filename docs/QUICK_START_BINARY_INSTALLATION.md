@@ -394,12 +394,17 @@ sudo tee /etc/falco/rules.d/nginx_rules.yaml << 'EOF'
   source: nginx
   condition: >
     nginx.path contains "' OR" or
+    nginx.path contains "' or " or
     nginx.path contains "\" OR" or
     nginx.path contains "UNION SELECT" or
+    nginx.path contains "union select" or
     nginx.path contains "'; DROP" or
     nginx.path contains "--" or
     nginx.query_string contains "' OR" or
-    nginx.query_string contains "UNION SELECT"
+    nginx.query_string contains "' or " or
+    nginx.query_string contains "UNION SELECT" or
+    nginx.query_string contains "union select" or
+    nginx.query_string contains "--"
   output: "SQL injection detected (client=%nginx.remote_addr method=%nginx.method path=%nginx.path query=%nginx.query_string)"
   priority: CRITICAL
   tags: [attack, sql_injection]
@@ -426,10 +431,13 @@ sudo tee /etc/falco/rules.d/nginx_rules.yaml << 'EOF'
   condition: >
     nginx.path contains "../" or
     nginx.path contains "..%2F" or
+    nginx.path contains "..%2f" or
     nginx.path contains "..%5C" or
+    nginx.path contains "..%5c" or
     nginx.path contains "/etc/passwd" or
     nginx.query_string contains "../" or
-    nginx.query_string contains "..%2F"
+    nginx.query_string contains "..%2F" or
+    nginx.query_string contains "..%2f"
   output: "Directory traversal detected (client=%nginx.remote_addr path=%nginx.path query=%nginx.query_string)"
   priority: CRITICAL
   tags: [attack, path_traversal]
@@ -507,6 +515,31 @@ If you're not seeing any alerts after running attack tests:
 4. **Test Falco manually to see errors:**
    ```bash
    sudo /usr/bin/falco -o engine.kind=ebpf -o log_level=info 2>&1 | head -20
+   ```
+
+### SQL Injection Not Detected
+
+If SQL injection attacks aren't being detected:
+
+1. **Check case sensitivity** - The rules are case-sensitive. Make sure to test with both uppercase and lowercase:
+   ```bash
+   # Both should be detected
+   curl "http://localhost/search.php?q=%27%20OR%20%271%27%3D%271"  # ' OR '1'='1
+   curl "http://localhost/search.php?q=%27%20or%20%271%27%3D%271"  # ' or '1'='1
+   ```
+
+2. **Use URL encoding for special characters**:
+   ```bash
+   # Correct (URL encoded)
+   curl "http://localhost/search.php?q=%27%20OR%20%271%27%3D%271"
+   
+   # Incorrect (will fail due to shell parsing)
+   curl "http://localhost/search.php?q=' OR '1'='1"
+   ```
+
+3. **Check nginx access log format** - Verify how the attack appears in logs:
+   ```bash
+   sudo tail -f /var/log/nginx/access.log
    ```
 
 ### Falco Installation Issues
@@ -1088,6 +1121,47 @@ EOF
 ```
 
 ## 🆘 トラブルシューティング
+
+### アラートが表示されない場合
+
+攻撃テストを実行してもアラートが表示されない場合：
+
+1. **ルールファイルがインストールされているか確認:**
+   ```bash
+   sudo ls -la /etc/falco/rules.d/nginx_rules.yaml
+   # ない場合はコピー:
+   sudo cp nginx_rules.yaml /etc/falco/rules.d/
+   ```
+
+2. **Falcoサービスの状態を確認:**
+   ```bash
+   sudo systemctl status falco-bpf.service
+   # 失敗している場合はログを確認:
+   sudo journalctl -u falco-bpf.service -n 50
+   ```
+
+3. **プラグインがロードされているか確認:**
+   ```bash
+   sudo journalctl -u falco-bpf.service | grep "Loading plugin 'nginx'"
+   ```
+
+### SQLインジェクションが検出されない場合
+
+1. **大文字小文字の区別** - ルールは大文字小文字を区別します：
+   ```bash
+   # 両方とも検出されるはずです
+   curl "http://localhost/search.php?q=%27%20OR%20%271%27%3D%271"  # ' OR '1'='1
+   curl "http://localhost/search.php?q=%27%20or%20%271%27%3D%271"  # ' or '1'='1
+   ```
+
+2. **特殊文字はURLエンコードを使用**:
+   ```bash
+   # 正しい（URLエンコード済み）
+   curl "http://localhost/search.php?q=%27%20OR%20%271%27%3D%271"
+   
+   # 間違い（シェルの解析でエラー）
+   curl "http://localhost/search.php?q=' OR '1'='1"
+   ```
 
 ### Falcoインストールの問題
 
