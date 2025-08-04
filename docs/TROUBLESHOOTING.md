@@ -15,24 +15,7 @@ Error: could not initialize plugin: plugin handle or 'get_last_error' function n
 
 **Causes and Solutions:**
 
-#### A. CGO Build Issue
-The plugin must be built with CGO enabled to export C functions properly.
-
-**Check if plugin was built correctly:**
-```bash
-# Check exported symbols
-nm -D /usr/share/falco/plugins/libfalco-nginx-plugin.so | grep plugin_
-
-# Should see symbols like:
-# plugin_get_required_api_version
-# plugin_init
-# plugin_get_last_error
-```
-
-**Solution:**
-Download the pre-built binary which is compiled with CGO enabled.
-
-#### B. Missing Log File
+#### A. Missing Log File
 The plugin may fail to initialize if the nginx log file doesn't exist.
 
 **Create log file if missing:**
@@ -44,7 +27,7 @@ sudo chown www-data:adm /var/log/nginx/access.log
 sudo chmod 644 /var/log/nginx/access.log
 ```
 
-#### C. Falco Configuration Issue
+#### B. Falco Configuration Issue
 Ensure the falco.yaml is properly formatted.
 
 **Fix configuration:**
@@ -154,8 +137,7 @@ falco --version
 ```
 
 **If version mismatch:**
-1. Update Falco to latest version
-2. Or build plugin from source with matching API version
+- Update Falco to a compatible version (0.36.0 or later)
 
 ### 5. Alternative Installation Method
 
@@ -249,9 +231,6 @@ falco --version
 ls -la /usr/share/falco/plugins/
 ls -la /var/log/nginx/
 
-# Plugin symbols
-nm -D /usr/share/falco/plugins/libfalco-nginx-plugin.so | grep plugin_ | head -20
-
 # Falco logs
 sudo journalctl -u falco-modern-bpf.service --since "10 minutes ago"
 ```
@@ -277,24 +256,7 @@ Error: could not initialize plugin: plugin handle or 'get_last_error' function n
 
 **原因と解決方法:**
 
-#### A. CGOビルドの問題
-プラグインはC関数を適切にエクスポートするためにCGOを有効にしてビルドする必要があります。
-
-**プラグインが正しくビルドされているか確認:**
-```bash
-# エクスポートされたシンボルを確認
-nm -D /usr/share/falco/plugins/libfalco-nginx-plugin.so | grep plugin_
-
-# 以下のようなシンボルが表示されるはずです:
-# plugin_get_required_api_version
-# plugin_init
-# plugin_get_last_error
-```
-
-**解決方法:**
-CGOを有効にしてコンパイルされた事前ビルドバイナリをダウンロードしてください。
-
-#### B. ログファイルの不在
+#### A. ログファイルの不在
 nginxログファイルが存在しない場合、プラグインの初期化に失敗する可能性があります。
 
 **ログファイルが存在しない場合は作成:**
@@ -306,7 +268,7 @@ sudo chown www-data:adm /var/log/nginx/access.log
 sudo chmod 644 /var/log/nginx/access.log
 ```
 
-#### C. Falco設定の問題
+#### B. Falco設定の問題
 falco.yamlが正しくフォーマットされていることを確認してください。
 
 **設定を修正:**
@@ -416,8 +378,7 @@ falco --version
 ```
 
 **バージョンが一致しない場合:**
-1. Falcoを最新バージョンに更新
-2. またはソースから一致するAPIバージョンでプラグインをビルド
+- Falcoを互換性のあるバージョン（0.36.0以降）に更新してください
 
 ## 完全な動作例
 
@@ -497,9 +458,6 @@ uname -a
 falco --version
 ls -la /usr/share/falco/plugins/
 ls -la /var/log/nginx/
-
-# プラグインシンボル
-nm -D /usr/share/falco/plugins/libfalco-nginx-plugin.so | grep plugin_ | head -20
 
 # Falcoログ
 sudo journalctl -u falco-modern-bpf.service --since "10 minutes ago"
