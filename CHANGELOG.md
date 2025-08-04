@@ -1,0 +1,38 @@
+# Changelog
+
+All notable changes to the Falco nginx plugin binaries will be documented in this file.
+
+## [2025-08-04] - API Version 3.6.0
+
+### Changed
+- Updated plugin API version from 3.3.0 to 3.6.0
+- Improved compatibility with Falco 0.41.x
+- Binary SHA256: `2eb55f496a2a4be86f7ab35ca34d5c979d28cbed1404e51056b5b8537fa7174a`
+
+### Fixed
+- Resolved plugin initialization errors with Falco 0.41.3
+- Fixed "plugin handle or 'get_last_error' function not defined" error
+
+## [2025-08-04] - API Version 3.3.0
+
+### Changed
+- Updated plugin API version from 3.0.0 to 3.3.0
+- First attempt to improve Falco 0.41.x compatibility
+- Binary SHA256: `242d6b8d467abbb8dc8edc29f4a718d145537b78f1d4a15beb3a4359912bee0b`
+
+## [2025-08-03] - Initial Release
+
+### Added
+- Pre-built binary for Linux x86_64
+- Falco detection rules for nginx security monitoring
+- Support for SQL injection detection
+- Support for XSS attack detection
+- Support for directory traversal detection
+- Support for command injection detection
+- Support for security scanner detection
+- API version 3.0.0
+
+### Documentation
+- Quick start binary installation guide
+- Troubleshooting guide
+- Bilingual support (English/Japanese)

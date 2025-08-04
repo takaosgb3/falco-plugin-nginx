@@ -2,10 +2,9 @@
 
 [日本語版](#falco-nginx-プラグイン)
 
-> **⚠️ Notice (2025-08-04)**: SHA256 checksum file has been updated. If you get an error with `sha256sum -c`, please verify manually:
+> **📢 Update (2025-08-04)**: Plugin has been updated to API version 3.6.0 for better compatibility with Falco 0.41.x
 > ```bash
-> sha256sum libfalco-nginx-plugin-linux-amd64.so
-> # Expected: 242d6b8d467abbb8dc8edc29f4a718d145537b78f1d4a15beb3a4359912bee0b
+> # New SHA256: 2eb55f496a2a4be86f7ab35ca34d5c979d28cbed1404e51056b5b8537fa7174a
 > ```
 
 Real-time security monitoring plugin for nginx web servers powered by Falco.
@@ -72,10 +71,9 @@ Apache License 2.0
 
 [English](#falco-plugin-for-nginx)
 
-> **⚠️ 注意 (2025-08-04)**: SHA256チェックサムファイルが更新されました。`sha256sum -c`でエラーが出る場合は、手動で確認してください：
+> **📢 更新 (2025-08-04)**: Falco 0.41.xとの互換性向上のため、プラグインをAPIバージョン3.6.0に更新しました
 > ```bash
-> sha256sum libfalco-nginx-plugin-linux-amd64.so
-> # 期待値: 242d6b8d467abbb8dc8edc29f4a718d145537b78f1d4a15beb3a4359912bee0b
+> # 新しいSHA256: 2eb55f496a2a4be86f7ab35ca34d5c979d28cbed1404e51056b5b8537fa7174a
 > ```
 
 Falcoを使用したnginx Webサーバー向けのリアルタイムセキュリティ監視プラグインです。

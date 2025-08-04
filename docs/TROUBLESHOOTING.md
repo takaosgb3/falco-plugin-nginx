@@ -161,19 +161,27 @@ sudo apt install -y linux-headers-$(uname -r)
 sudo apt install -y linux-headers-aws
 ```
 
-### 5. API Version Mismatch
+### 5. API Version Compatibility
 
-**For Falco 0.41.3:**
-- Requires plugin API version 3.0.0 or compatible
-- The pre-built binary should work with Falco 0.36.0+
+**Current Plugin Version:**
+- API version: 3.6.0 (as of 2025-08-04)
+- Compatible with Falco 0.36.0 - 0.41.x
 
 **Check Falco version:**
 ```bash
 falco --version
 ```
 
-**If version mismatch:**
-- Update Falco to a compatible version (0.36.0 or later)
+**Compatibility Table:**
+| Falco Version | Recommended Plugin API Version |
+|---------------|-------------------------------|
+| 0.35.x        | 3.0.0                        |
+| 0.36.x-0.40.x | 3.3.0                        |
+| 0.41.x        | 3.6.0 (current)              |
+
+**If you have compatibility issues:**
+- Ensure you have the latest binary from this repository
+- Consider updating Falco to version 0.41.x for best compatibility
 
 ### 6. Alternative Installation Method
 
@@ -442,19 +450,27 @@ sudo apt install -y linux-headers-$(uname -r)
 sudo apt install -y linux-headers-aws
 ```
 
-### 5. APIバージョンの不一致
+### 5. APIバージョンの互換性
 
-**Falco 0.41.3の場合:**
-- プラグインAPIバージョン3.0.0または互換バージョンが必要
-- 事前ビルドバイナリはFalco 0.36.0以降で動作するはずです
+**現在のプラグインバージョン:**
+- APIバージョン: 3.6.0（2025-08-04時点）
+- Falco 0.36.0 - 0.41.xに対応
 
 **Falcoバージョンを確認:**
 ```bash
 falco --version
 ```
 
-**バージョンが一致しない場合:**
-- Falcoを互換性のあるバージョン（0.36.0以降）に更新してください
+**互換性表:**
+| Falcoバージョン | 推奨プラグインAPIバージョン |
+|----------------|---------------------------|
+| 0.35.x         | 3.0.0                     |
+| 0.36.x-0.40.x  | 3.3.0                     |
+| 0.41.x         | 3.6.0（現在）              |
+
+**互換性の問題がある場合:**
+- このリポジトリから最新のバイナリを取得していることを確認
+- 最高の互換性のため、Falcoをバージョン0.41.xに更新することを検討
 
 ## 完全な動作例
 

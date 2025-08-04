@@ -212,7 +212,9 @@ curl -s http://localhost/ | grep -q "Welcome to Test Site" && echo "✅ Site is 
 
 ### 4. Falco Installation (2 minutes)
 
-**Important**: For Falco 0.36.0 and later, use `rules_files` (plural) instead of `rules_file` in configuration.
+**Important**: 
+- For Falco 0.36.0 and later, use `rules_files` (plural) instead of `rules_file` in configuration.
+- The current plugin binary uses API version 3.6.0, optimized for Falco 0.41.x compatibility.
 
 ```bash
 # Install prerequisites (optional, not needed for Modern eBPF driver)
@@ -774,7 +776,9 @@ curl -s http://localhost/ | grep -q "Welcome to Test Site" && echo "✅ サイ�
 
 ### 4. Falcoインストール（2分）
 
-**重要**: Falco 0.36.0以降では、設定で`rules_file`の代わりに`rules_files`（複数形）を使用してください。
+**重要**: 
+- Falco 0.36.0以降では、設定で`rules_file`の代わりに`rules_files`（複数形）を使用してください。
+- 現在のプラグインバイナリはAPIバージョン3.6.0を使用し、Falco 0.41.xとの互換性に最適化されています。
 
 ```bash
 # 前提条件のインストール（オプション、Modern eBPFドライバーには不要）
