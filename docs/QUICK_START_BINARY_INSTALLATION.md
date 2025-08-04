@@ -27,19 +27,15 @@ Note: After download, rename the binary to `libfalco-nginx-plugin.so` for use.
 
 ## 🎯 How to Obtain Binaries
 
-### Option 1: Download from GitHub Release
+### Option 1: Download from Repository
 
 ```bash
-# Check latest release
-curl -s https://api.github.com/repos/takaosgb3/falco-nginx-plugin-claude/releases/latest | jq -r '.tag_name'
-
-# Download binaries (change version as needed)
-VERSION="v0.1.0"
-wget https://github.com/takaosgb3/falco-nginx-plugin-claude/releases/download/${VERSION}/libfalco-nginx-plugin-linux-amd64.so
-wget https://github.com/takaosgb3/falco-nginx-plugin-claude/releases/download/${VERSION}/nginx_rules.yaml
+# Download binaries directly from the repository
+wget https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/releases/libfalco-nginx-plugin-linux-amd64.so
+wget https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/releases/nginx_rules.yaml
 
 # Verify checksum (optional)
-wget https://github.com/takaosgb3/falco-nginx-plugin-claude/releases/download/${VERSION}/libfalco-nginx-plugin-linux-amd64.so.sha256
+wget https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/releases/libfalco-nginx-plugin-linux-amd64.so.sha256
 sha256sum -c libfalco-nginx-plugin-linux-amd64.so.sha256
 
 # Rename to a convenient name
@@ -548,19 +544,15 @@ sudo journalctl -u falco --since "2 minutes ago" | grep -E "CRITICAL|WARNING"
 
 ## 🎯 バイナリの入手方法
 
-### オプション1: GitHubリリースからダウンロード
+### オプション1: リポジトリからダウンロード
 
 ```bash
-# 最新リリースを確認
-curl -s https://api.github.com/repos/takaosgb3/falco-nginx-plugin-claude/releases/latest | jq -r '.tag_name'
-
-# バイナリをダウンロード（バージョンは適宜変更）
-VERSION="v0.1.0"
-wget https://github.com/takaosgb3/falco-nginx-plugin-claude/releases/download/${VERSION}/libfalco-nginx-plugin-linux-amd64.so
-wget https://github.com/takaosgb3/falco-nginx-plugin-claude/releases/download/${VERSION}/nginx_rules.yaml
+# リポジトリから直接バイナリをダウンロード
+wget https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/releases/libfalco-nginx-plugin-linux-amd64.so
+wget https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/releases/nginx_rules.yaml
 
 # チェックサムを確認（オプション）
-wget https://github.com/takaosgb3/falco-nginx-plugin-claude/releases/download/${VERSION}/libfalco-nginx-plugin-linux-amd64.so.sha256
+wget https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/releases/libfalco-nginx-plugin-linux-amd64.so.sha256
 sha256sum -c libfalco-nginx-plugin-linux-amd64.so.sha256
 
 # 使いやすい名前にリネーム
