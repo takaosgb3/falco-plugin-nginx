@@ -49,6 +49,7 @@ Follow the [Quick Start Binary Installation Guide](docs/QUICK_START_BINARY_INSTA
 ## 📖 Documentation
 
 - [Quick Start Binary Installation](docs/QUICK_START_BINARY_INSTALLATION.md) - Get started in 7 minutes
+- [Troubleshooting Guide](docs/TROUBLESHOOTING.md) - Common issues and solutions
 
 ## 📄 License
 
@@ -112,6 +113,7 @@ Falcoを使用したnginx Webサーバー向けのリアルタイムセキュリ
 ## 📖 ドキュメント
 
 - [クイックスタートバイナリインストール](docs/QUICK_START_BINARY_INSTALLATION.md) - 7分で開始
+- [トラブルシューティングガイド](docs/TROUBLESHOOTING.md) - よくある問題と解決方法
 
 ## 📄 ライセンス
 
