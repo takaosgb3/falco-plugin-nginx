@@ -218,6 +218,7 @@ curl -s http://localhost/ | grep -q "Welcome to Test Site" && echo "✅ Site is 
 - The current plugin binary has been completely rewritten using the Falco Plugin SDK for Go.
 - Uses API version 3.11.0, optimized for Falco 0.41.3 compatibility.
 - Plugin events are identified by `source` attribute, so rules must include `source: nginx`.
+- **Critical**: Rules file must be installed in `/etc/falco/rules.d/` or Falco won't detect any attacks!
 
 ```bash
 # Install prerequisites (optional, not needed for Modern eBPF driver)
@@ -248,9 +249,12 @@ sudo mkdir -p /usr/share/falco/plugins
 sudo cp libfalco-nginx-plugin.so /usr/share/falco/plugins/
 sudo chmod 644 /usr/share/falco/plugins/libfalco-nginx-plugin.so
 
-# Deploy rules file
+# Deploy rules file (CRITICAL STEP!)
 sudo mkdir -p /etc/falco/rules.d
 sudo cp nginx_rules.yaml /etc/falco/rules.d/
+
+# Verify rules file is in place
+sudo ls -la /etc/falco/rules.d/nginx_rules.yaml
 ```
 
 ### 6. Minimal Configuration (30 seconds)
@@ -389,14 +393,14 @@ sudo tee /etc/falco/rules.d/nginx_rules.yaml << 'EOF'
   desc: Detects various SQL injection patterns
   source: nginx
   condition: >
-    nginx.request_uri contains "' OR" or
-    nginx.request_uri contains "\" OR" or
-    nginx.request_uri contains "UNION SELECT" or
-    nginx.request_uri contains "'; DROP" or
-    nginx.request_uri contains "--" or
-    nginx.request_uri contains "/*" or
-    nginx.request_uri contains "*/"
-  output: "SQL injection detected (ip=%nginx.client_ip% uri=%nginx.request_uri% method=%nginx.method%)"
+    nginx.path contains "' OR" or
+    nginx.path contains "\" OR" or
+    nginx.path contains "UNION SELECT" or
+    nginx.path contains "'; DROP" or
+    nginx.path contains "--" or
+    nginx.query_string contains "' OR" or
+    nginx.query_string contains "UNION SELECT"
+  output: "SQL injection detected (client=%nginx.remote_addr method=%nginx.method path=%nginx.path query=%nginx.query_string)"
   priority: CRITICAL
   tags: [attack, sql_injection]
 
@@ -405,13 +409,13 @@ sudo tee /etc/falco/rules.d/nginx_rules.yaml << 'EOF'
   desc: Detects cross-site scripting attempts
   source: nginx
   condition: >
-    nginx.request_uri contains "<script" or
-    nginx.request_uri contains "</script>" or
-    nginx.request_uri contains "javascript:" or
-    nginx.request_uri contains "onerror=" or
-    nginx.request_uri contains "onload=" or
-    nginx.request_uri contains "<iframe"
-  output: "XSS attack detected (ip=%nginx.client_ip% uri=%nginx.request_uri%)"
+    nginx.path contains "<script" or
+    nginx.path contains "</script>" or
+    nginx.path contains "javascript:" or
+    nginx.query_string contains "<script" or
+    nginx.query_string contains "onerror=" or
+    nginx.query_string contains "onload="
+  output: "XSS attack detected (client=%nginx.remote_addr path=%nginx.path query=%nginx.query_string)"
   priority: CRITICAL
   tags: [attack, xss]
 
@@ -420,13 +424,13 @@ sudo tee /etc/falco/rules.d/nginx_rules.yaml << 'EOF'
   desc: Detects path traversal attacks
   source: nginx
   condition: >
-    nginx.request_uri contains "../" or
-    nginx.request_uri contains "..%2F" or
-    nginx.request_uri contains "..%5C" or
-    nginx.request_uri contains "..\\" or
-    nginx.request_uri contains "/etc/passwd" or
-    nginx.request_uri contains "C:\\Windows"
-  output: "Directory traversal detected (ip=%nginx.client_ip% uri=%nginx.request_uri%)"
+    nginx.path contains "../" or
+    nginx.path contains "..%2F" or
+    nginx.path contains "..%5C" or
+    nginx.path contains "/etc/passwd" or
+    nginx.query_string contains "../" or
+    nginx.query_string contains "..%2F"
+  output: "Directory traversal detected (client=%nginx.remote_addr path=%nginx.path query=%nginx.query_string)"
   priority: CRITICAL
   tags: [attack, path_traversal]
 
@@ -435,13 +439,14 @@ sudo tee /etc/falco/rules.d/nginx_rules.yaml << 'EOF'
   desc: Detects command injection patterns
   source: nginx
   condition: >
-    nginx.request_uri contains ";" and nginx.request_uri contains "cat " or
-    nginx.request_uri contains "|" and nginx.request_uri contains "id" or
-    nginx.request_uri contains "&" and nginx.request_uri contains "whoami" or
-    nginx.request_uri contains "`" or
-    nginx.request_uri contains "$(" or
-    nginx.request_uri contains "${"
-  output: "Command injection detected (ip=%nginx.client_ip% uri=%nginx.request_uri%)"
+    (nginx.path contains ";" or nginx.query_string contains ";") and 
+    (nginx.path contains "cat " or nginx.query_string contains "cat ") or
+    (nginx.path contains "|" or nginx.query_string contains "|") and
+    (nginx.path contains "id" or nginx.query_string contains "id") or
+    nginx.query_string contains "`" or
+    nginx.query_string contains "$(" or
+    nginx.query_string contains "${"
+  output: "Command injection detected (client=%nginx.remote_addr path=%nginx.path query=%nginx.query_string)"
   priority: CRITICAL
   tags: [attack, command_injection]
 
@@ -456,7 +461,7 @@ sudo tee /etc/falco/rules.d/nginx_rules.yaml << 'EOF'
     nginx.user_agent contains "masscan" or
     nginx.user_agent contains "w3af" or
     nginx.user_agent contains "burp"
-  output: "Security scanner detected (ip=%nginx.client_ip% scanner=%nginx.user_agent%)"
+  output: "Security scanner detected (client=%nginx.remote_addr scanner=%nginx.user_agent path=%nginx.path)"
   priority: WARNING
   tags: [scanner, reconnaissance]
 
@@ -465,16 +470,44 @@ sudo tee /etc/falco/rules.d/nginx_rules.yaml << 'EOF'
   desc: Multiple failed login attempts
   source: nginx
   condition: >
-    nginx.request_uri contains "/admin" and
+    nginx.path contains "/admin" and
     nginx.method = "POST" and
     nginx.status >= 400 and nginx.status < 500
-  output: "Potential brute force attack (ip=%nginx.client_ip% uri=%nginx.request_uri% status=%nginx.status%)"
+  output: "Potential brute force attack (client=%nginx.remote_addr path=%nginx.path status=%nginx.status)"
   priority: WARNING
   tags: [attack, brute_force]
 EOF
 ```
 
 ## 🆘 Troubleshooting
+
+### No Alerts Appearing
+
+If you're not seeing any alerts after running attack tests:
+
+1. **Check if rules file is installed:**
+   ```bash
+   sudo ls -la /etc/falco/rules.d/nginx_rules.yaml
+   # If missing, copy it:
+   sudo cp nginx_rules.yaml /etc/falco/rules.d/
+   ```
+
+2. **Check Falco service status:**
+   ```bash
+   sudo systemctl status falco-bpf.service
+   # If failed, check logs:
+   sudo journalctl -u falco-bpf.service -n 50
+   ```
+
+3. **Verify plugin is loaded:**
+   ```bash
+   sudo journalctl -u falco-bpf.service | grep "Loading plugin 'nginx'"
+   ```
+
+4. **Test Falco manually to see errors:**
+   ```bash
+   sudo /usr/bin/falco -o engine.kind=ebpf -o log_level=info 2>&1 | head -20
+   ```
 
 ### Falco Installation Issues
 
@@ -793,6 +826,7 @@ curl -s http://localhost/ | grep -q "Welcome to Test Site" && echo "✅ サイ�
 - 現在のプラグインバイナリはFalco Plugin SDK for Goを使用して完全に書き直されました。
 - APIバージョン3.11.0を使用し、Falco 0.41.3との互換性に最適化されています。
 - プラグインイベントは`source`属性で識別されるため、ルールに`source: nginx`を含める必要があります。
+- **必須**: ルールファイルを`/etc/falco/rules.d/`にインストールしないと攻撃を検出できません！
 
 ```bash
 # 前提条件のインストール（オプション、Modern eBPFドライバーには不要）
@@ -823,9 +857,12 @@ sudo mkdir -p /usr/share/falco/plugins
 sudo cp libfalco-nginx-plugin.so /usr/share/falco/plugins/
 sudo chmod 644 /usr/share/falco/plugins/libfalco-nginx-plugin.so
 
-# ルールファイルを配置
+# ルールファイルを配置（必須ステップ！）
 sudo mkdir -p /etc/falco/rules.d
 sudo cp nginx_rules.yaml /etc/falco/rules.d/
+
+# ルールファイルが正しく配置されたか確認
+sudo ls -la /etc/falco/rules.d/nginx_rules.yaml
 ```
 
 ### 6. 最小限の設定（30秒）
@@ -964,14 +1001,14 @@ sudo tee /etc/falco/rules.d/nginx_rules.yaml << 'EOF'
   desc: Detects various SQL injection patterns
   source: nginx
   condition: >
-    nginx.request_uri contains "' OR" or
-    nginx.request_uri contains "\" OR" or
-    nginx.request_uri contains "UNION SELECT" or
-    nginx.request_uri contains "'; DROP" or
-    nginx.request_uri contains "--" or
-    nginx.request_uri contains "/*" or
-    nginx.request_uri contains "*/"
-  output: "SQL injection detected (ip=%nginx.client_ip% uri=%nginx.request_uri% method=%nginx.method%)"
+    nginx.path contains "' OR" or
+    nginx.path contains "\" OR" or
+    nginx.path contains "UNION SELECT" or
+    nginx.path contains "'; DROP" or
+    nginx.path contains "--" or
+    nginx.query_string contains "' OR" or
+    nginx.query_string contains "UNION SELECT"
+  output: "SQL injection detected (client=%nginx.remote_addr method=%nginx.method path=%nginx.path query=%nginx.query_string)"
   priority: CRITICAL
   tags: [attack, sql_injection]
 
@@ -980,13 +1017,13 @@ sudo tee /etc/falco/rules.d/nginx_rules.yaml << 'EOF'
   desc: Detects cross-site scripting attempts
   source: nginx
   condition: >
-    nginx.request_uri contains "<script" or
-    nginx.request_uri contains "</script>" or
-    nginx.request_uri contains "javascript:" or
-    nginx.request_uri contains "onerror=" or
-    nginx.request_uri contains "onload=" or
-    nginx.request_uri contains "<iframe"
-  output: "XSS attack detected (ip=%nginx.client_ip% uri=%nginx.request_uri%)"
+    nginx.path contains "<script" or
+    nginx.path contains "</script>" or
+    nginx.path contains "javascript:" or
+    nginx.query_string contains "<script" or
+    nginx.query_string contains "onerror=" or
+    nginx.query_string contains "onload="
+  output: "XSS attack detected (client=%nginx.remote_addr path=%nginx.path query=%nginx.query_string)"
   priority: CRITICAL
   tags: [attack, xss]
 
@@ -1010,13 +1047,14 @@ sudo tee /etc/falco/rules.d/nginx_rules.yaml << 'EOF'
   desc: Detects command injection patterns
   source: nginx
   condition: >
-    nginx.request_uri contains ";" and nginx.request_uri contains "cat " or
-    nginx.request_uri contains "|" and nginx.request_uri contains "id" or
-    nginx.request_uri contains "&" and nginx.request_uri contains "whoami" or
-    nginx.request_uri contains "`" or
-    nginx.request_uri contains "$(" or
-    nginx.request_uri contains "${"
-  output: "Command injection detected (ip=%nginx.client_ip% uri=%nginx.request_uri%)"
+    (nginx.path contains ";" or nginx.query_string contains ";") and 
+    (nginx.path contains "cat " or nginx.query_string contains "cat ") or
+    (nginx.path contains "|" or nginx.query_string contains "|") and
+    (nginx.path contains "id" or nginx.query_string contains "id") or
+    nginx.query_string contains "`" or
+    nginx.query_string contains "$(" or
+    nginx.query_string contains "${"
+  output: "Command injection detected (client=%nginx.remote_addr path=%nginx.path query=%nginx.query_string)"
   priority: CRITICAL
   tags: [attack, command_injection]
 
@@ -1031,7 +1069,7 @@ sudo tee /etc/falco/rules.d/nginx_rules.yaml << 'EOF'
     nginx.user_agent contains "masscan" or
     nginx.user_agent contains "w3af" or
     nginx.user_agent contains "burp"
-  output: "Security scanner detected (ip=%nginx.client_ip% scanner=%nginx.user_agent%)"
+  output: "Security scanner detected (client=%nginx.remote_addr scanner=%nginx.user_agent path=%nginx.path)"
   priority: WARNING
   tags: [scanner, reconnaissance]
 
@@ -1040,10 +1078,10 @@ sudo tee /etc/falco/rules.d/nginx_rules.yaml << 'EOF'
   desc: Multiple failed login attempts
   source: nginx
   condition: >
-    nginx.request_uri contains "/admin" and
+    nginx.path contains "/admin" and
     nginx.method = "POST" and
     nginx.status >= 400 and nginx.status < 500
-  output: "Potential brute force attack (ip=%nginx.client_ip% uri=%nginx.request_uri% status=%nginx.status%)"
+  output: "Potential brute force attack (client=%nginx.remote_addr path=%nginx.path status=%nginx.status)"
   priority: WARNING
   tags: [attack, brute_force]
 EOF
