@@ -15,16 +15,38 @@ Error: could not initialize plugin: plugin handle or 'get_last_error' function n
 
 **Causes and Solutions:**
 
-#### A. Missing Log File
-The plugin may fail to initialize if the nginx log file doesn't exist.
+#### A. Missing Log File or Invalid Configuration
+The plugin initialization fails and returns NULL if:
+- The nginx log file doesn't exist
+- The configuration validation fails (e.g., invalid paths)
 
-**Create log file if missing:**
+This causes Falco to report: "plugin handle or 'get_last_error' function not defined"
+
+**Solution 1: Create log file if missing:**
 ```bash
 # Create nginx log directory and file
 sudo mkdir -p /var/log/nginx
 sudo touch /var/log/nginx/access.log
 sudo chown www-data:adm /var/log/nginx/access.log
 sudo chmod 644 /var/log/nginx/access.log
+```
+
+**Solution 2: Test with minimal config (no init_config):**
+```bash
+# Test without init_config to use defaults
+cat > /tmp/minimal-falco.yaml << 'EOF'
+rules_files:
+  - /etc/falco/falco_rules.yaml
+  - /etc/falco/rules.d
+
+load_plugins: [nginx]
+
+plugins:
+  - name: nginx
+    library_path: /usr/share/falco/plugins/libfalco-nginx-plugin.so
+EOF
+
+sudo falco -c /tmp/minimal-falco.yaml --validate
 ```
 
 #### B. Falco Configuration Issue
@@ -124,6 +146,31 @@ ls -la /var/log/nginx/access.log
 ```bash
 # Run falco in debug mode
 sudo falco -o log_level=debug -c /tmp/test-falco.yaml 2>&1 | grep -i plugin
+```
+
+4. **Debug exact initialization failure:**
+```bash
+# Test with strace to see exact system calls
+sudo strace -e openat,access,stat falco -c /tmp/test-falco.yaml --validate 2>&1 | grep -E "(nginx|access.log)"
+
+# Check if plugin can find the log file
+ls -la /var/log/nginx/access.log
+
+# Test with explicit empty config
+cat > /tmp/debug-falco.yaml << 'EOF'
+rules_files:
+  - /etc/falco/falco_rules.yaml
+  - /etc/falco/rules.d
+
+load_plugins: [nginx]
+
+plugins:
+  - name: nginx
+    library_path: /usr/share/falco/plugins/libfalco-nginx-plugin.so
+    init_config: '{}'
+EOF
+
+sudo falco -c /tmp/debug-falco.yaml --validate
 ```
 
 ### 4. Service Continuously Restarting
@@ -304,16 +351,38 @@ Error: could not initialize plugin: plugin handle or 'get_last_error' function n
 
 **原因と解決方法:**
 
-#### A. ログファイルの不在
-nginxログファイルが存在しない場合、プラグインの初期化に失敗する可能性があります。
+#### A. ログファイルの不在または無効な設定
+以下の場合、プラグインの初期化が失敗してNULLを返します：
+- nginxログファイルが存在しない
+- 設定の検証が失敗する（例：無効なパス）
 
-**ログファイルが存在しない場合は作成:**
+これによりFalcoは次のエラーを報告します: "plugin handle or 'get_last_error' function not defined"
+
+**解決方法1: ログファイルが存在しない場合は作成:**
 ```bash
 # nginxログディレクトリとファイルを作成
 sudo mkdir -p /var/log/nginx
 sudo touch /var/log/nginx/access.log
 sudo chown www-data:adm /var/log/nginx/access.log
 sudo chmod 644 /var/log/nginx/access.log
+```
+
+**解決方法2: 最小設定でテスト（init_configなし）:**
+```bash
+# デフォルトを使用するためinit_configなしでテスト
+cat > /tmp/minimal-falco.yaml << 'EOF'
+rules_files:
+  - /etc/falco/falco_rules.yaml
+  - /etc/falco/rules.d
+
+load_plugins: [nginx]
+
+plugins:
+  - name: nginx
+    library_path: /usr/share/falco/plugins/libfalco-nginx-plugin.so
+EOF
+
+sudo falco -c /tmp/minimal-falco.yaml --validate
 ```
 
 #### B. Falco設定の問題
@@ -413,6 +482,31 @@ ls -la /var/log/nginx/access.log
 ```bash
 # デバッグモードでfalcoを実行
 sudo falco -o log_level=debug -c /tmp/test-falco.yaml 2>&1 | grep -i plugin
+```
+
+4. **初期化失敗の正確な原因をデバッグ:**
+```bash
+# straceで正確なシステムコールを確認
+sudo strace -e openat,access,stat falco -c /tmp/test-falco.yaml --validate 2>&1 | grep -E "(nginx|access.log)"
+
+# プラグインがログファイルを見つけられるか確認
+ls -la /var/log/nginx/access.log
+
+# 明示的な空の設定でテスト
+cat > /tmp/debug-falco.yaml << 'EOF'
+rules_files:
+  - /etc/falco/falco_rules.yaml
+  - /etc/falco/rules.d
+
+load_plugins: [nginx]
+
+plugins:
+  - name: nginx
+    library_path: /usr/share/falco/plugins/libfalco-nginx-plugin.so
+    init_config: '{}'
+EOF
+
+sudo falco -c /tmp/debug-falco.yaml --validate
 ```
 
 ### 4. サービスが継続的に再起動する
