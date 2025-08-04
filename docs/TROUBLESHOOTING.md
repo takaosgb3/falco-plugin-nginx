@@ -87,7 +87,8 @@ sudo mv falco.yaml /etc/falco/falco.yaml
 ```bash
 # Create test configuration
 cat > /tmp/test-falco.yaml << 'EOF'
-rules_file:
+# Use the new plural form for Falco 0.36.0+
+rules_files:
   - /etc/falco/falco_rules.yaml
   - /etc/falco/rules.d
 
@@ -125,7 +126,42 @@ ls -la /var/log/nginx/access.log
 sudo falco -o log_level=debug -c /tmp/test-falco.yaml 2>&1 | grep -i plugin
 ```
 
-### 4. API Version Mismatch
+### 4. Service Continuously Restarting
+
+**Symptoms:**
+- Service shows "activating (auto-restart)" repeatedly
+- Exit code 1 with no clear error message
+
+**Debug Steps:**
+
+1. **Check detailed logs:**
+```bash
+# View recent service logs
+sudo journalctl -u falco-bpf.service -n 50 --no-pager
+
+# Check for configuration errors
+sudo falco -c /etc/falco/falco.yaml --validate
+
+# Run Falco manually to see errors
+sudo /usr/bin/falco -o engine.kind=ebpf
+```
+
+2. **Common causes:**
+- Corrupted falco.yaml
+- Missing kernel headers for eBPF
+- Insufficient permissions
+- Plugin binary incompatibility
+
+3. **Fix kernel headers (for eBPF):**
+```bash
+# Install kernel headers
+sudo apt install -y linux-headers-$(uname -r)
+
+# For AWS EC2 instances
+sudo apt install -y linux-headers-aws
+```
+
+### 5. API Version Mismatch
 
 **For Falco 0.41.3:**
 - Requires plugin API version 3.0.0 or compatible
@@ -139,7 +175,7 @@ falco --version
 **If version mismatch:**
 - Update Falco to a compatible version (0.36.0 or later)
 
-### 5. Alternative Installation Method
+### 6. Alternative Installation Method
 
 If the pre-built binary doesn't work, try using the Falco plugin registry:
 
@@ -181,7 +217,8 @@ sudo chmod 644 /usr/share/falco/plugins/libfalco-nginx-plugin.so
 ```bash
 # Create minimal config
 sudo tee /etc/falco/falco.yaml << 'EOF'
-rules_file:
+# Use the new plural form for Falco 0.36.0+
+rules_files:
   - /etc/falco/falco_rules.yaml
   - /etc/falco/rules.d
 
@@ -232,7 +269,10 @@ ls -la /usr/share/falco/plugins/
 ls -la /var/log/nginx/
 
 # Falco logs
-sudo journalctl -u falco-modern-bpf.service --since "10 minutes ago"
+sudo journalctl -u falco-bpf.service --since "10 minutes ago"
+
+# Manual test
+sudo /usr/bin/falco -o engine.kind=ebpf 2>&1 | head -50
 ```
 
 2. Report issue at: https://github.com/takaosgb3/falco-nginx-plugin-claude/issues
@@ -366,7 +406,42 @@ ls -la /var/log/nginx/access.log
 sudo falco -o log_level=debug -c /tmp/test-falco.yaml 2>&1 | grep -i plugin
 ```
 
-### 4. APIバージョンの不一致
+### 4. サービスが継続的に再起動する
+
+**症状:**
+- サービスが「activating (auto-restart)」を繰り返す
+- 明確なエラーメッセージなしで終了コード1
+
+**デバッグ手順:**
+
+1. **詳細なログを確認:**
+```bash
+# 最近のサービスログを表示
+sudo journalctl -u falco-bpf.service -n 50 --no-pager
+
+# 設定エラーを確認
+sudo falco -c /etc/falco/falco.yaml --validate
+
+# 手動でFalcoを実行してエラーを確認
+sudo /usr/bin/falco -o engine.kind=ebpf
+```
+
+2. **一般的な原因:**
+- falco.yamlの破損
+- eBPF用のカーネルヘッダーの欠如
+- 権限不足
+- プラグインバイナリの非互換性
+
+3. **カーネルヘッダーを修正（eBPF用）:**
+```bash
+# カーネルヘッダーをインストール
+sudo apt install -y linux-headers-$(uname -r)
+
+# AWS EC2インスタンスの場合
+sudo apt install -y linux-headers-aws
+```
+
+### 5. APIバージョンの不一致
 
 **Falco 0.41.3の場合:**
 - プラグインAPIバージョン3.0.0または互換バージョンが必要
@@ -460,7 +535,10 @@ ls -la /usr/share/falco/plugins/
 ls -la /var/log/nginx/
 
 # Falcoログ
-sudo journalctl -u falco-modern-bpf.service --since "10 minutes ago"
+sudo journalctl -u falco-bpf.service --since "10 minutes ago"
+
+# 手動テスト
+sudo /usr/bin/falco -o engine.kind=ebpf 2>&1 | head -50
 ```
 
 2. 問題を報告: https://github.com/takaosgb3/falco-nginx-plugin-claude/issues

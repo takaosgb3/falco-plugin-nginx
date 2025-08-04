@@ -249,8 +249,21 @@ sudo cp nginx_rules.yaml /etc/falco/rules.d/
 ### 6. Minimal Configuration (30 seconds)
 
 ```bash
-# Append to Falco configuration
-sudo tee -a /etc/falco/falco.yaml << 'EOF'
+# Create complete Falco configuration (don't append)
+sudo tee /etc/falco/falco.yaml << 'EOF'
+# Use the new plural form for Falco 0.36.0+
+rules_files:
+  - /etc/falco/falco_rules.yaml
+  - /etc/falco/rules.d
+
+json_output: true
+json_include_output_property: true
+log_level: info
+
+engine:
+  kind: modern_ebpf
+
+load_plugins: [nginx]
 
 plugins:
   - name: nginx
@@ -796,8 +809,21 @@ sudo cp nginx_rules.yaml /etc/falco/rules.d/
 ### 6. 最小限の設定（30秒）
 
 ```bash
-# Falco設定に追記
-sudo tee -a /etc/falco/falco.yaml << 'EOF'
+# 完全なFalco設定を作成（追記ではなく新規作成）
+sudo tee /etc/falco/falco.yaml << 'EOF'
+# Falco 0.36.0以降用の新しい複数形を使用
+rules_files:
+  - /etc/falco/falco_rules.yaml
+  - /etc/falco/rules.d
+
+json_output: true
+json_include_output_property: true
+log_level: info
+
+engine:
+  kind: modern_ebpf
+
+load_plugins: [nginx]
 
 plugins:
   - name: nginx
