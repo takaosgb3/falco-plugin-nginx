@@ -58,11 +58,11 @@ sudo sh -c 'cat /tmp/plugin_config.yaml >> /etc/falco/falco.yaml'
 
 **Error Message:**
 ```
-schema validation: failed for <root>: Object contains a property that could not be validated using 'properties'
+schema validation: failed for <root>: Object contains a property that could not be validated using 'properties' or 'additionalProperties' constraints: 'rules_file'.
 ```
 
 **Solution:**
-This usually means falco.yaml has been corrupted or has duplicate entries.
+This error occurs when using the deprecated `rules_file` (singular) instead of `rules_files` (plural) in Falco 0.36.0+.
 
 ```bash
 # Restore from backup or recreate
@@ -339,11 +339,11 @@ sudo sh -c 'cat /tmp/plugin_config.yaml >> /etc/falco/falco.yaml'
 
 **エラーメッセージ:**
 ```
-schema validation: failed for <root>: Object contains a property that could not be validated using 'properties'
+schema validation: failed for <root>: Object contains a property that could not be validated using 'properties' or 'additionalProperties' constraints: 'rules_file'.
 ```
 
 **解決方法:**
-これは通常、falco.yamlが破損しているか、重複エントリがあることを意味します。
+このエラーは、Falco 0.36.0以降で廃止された`rules_file`（単数形）を使用している場合に発生します。`rules_files`（複数形）を使用する必要があります。
 
 ```bash
 # バックアップから復元または再作成
@@ -368,7 +368,8 @@ sudo mv falco.yaml /etc/falco/falco.yaml
 ```bash
 # テスト設定を作成
 cat > /tmp/test-falco.yaml << 'EOF'
-rules_file:
+# Falco 0.36.0以降用の新しい複数形を使用
+rules_files:
   - /etc/falco/falco_rules.yaml
   - /etc/falco/rules.d
 
@@ -484,7 +485,8 @@ sudo chmod 644 /usr/share/falco/plugins/libfalco-nginx-plugin.so
 ```bash
 # 最小限の設定を作成
 sudo tee /etc/falco/falco.yaml << 'EOF'
-rules_file:
+# Falco 0.36.0以降用の新しい複数形を使用
+rules_files:
   - /etc/falco/falco_rules.yaml
   - /etc/falco/rules.d
 
