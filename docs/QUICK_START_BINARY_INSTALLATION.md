@@ -271,8 +271,12 @@ json_output: true
 json_include_output_property: true
 log_level: info
 
-engine:
-  kind: modern_ebpf
+# Output configuration (required)
+stdout_output:
+  enabled: true
+
+# Note: For nginx plugin only mode (no kernel module needed)
+# you can start Falco with: falco --disable-source syscall
 
 load_plugins: [nginx]
 
@@ -284,11 +288,30 @@ plugins:
         - /var/log/nginx/access.log
 EOF
 
-# Verify Falco service is running
-sudo systemctl status falco-bpf.service || sudo systemctl status falco
+# For plugin-only mode (recommended for nginx plugin):
+# Create a dedicated service
+sudo tee /etc/systemd/system/falco-nginx.service << 'EOF'
+[Unit]
+Description=Falco nginx Plugin Monitor
+After=network.target nginx.service
 
-# Restart Falco
-sudo systemctl restart falco-bpf.service || sudo systemctl restart falco
+[Service]
+Type=simple
+ExecStart=/usr/bin/falco -c /etc/falco/falco.yaml --disable-source syscall
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+# Enable and start the nginx-specific Falco service
+sudo systemctl daemon-reload
+sudo systemctl enable falco-nginx.service
+sudo systemctl start falco-nginx.service
+
+# Check service status
+sudo systemctl status falco-nginx.service --no-pager
 ```
 
 ## ✅ Operation Verification and Attack Testing
@@ -912,8 +935,12 @@ json_output: true
 json_include_output_property: true
 log_level: info
 
-engine:
-  kind: modern_ebpf
+# 出力設定（必須）
+stdout_output:
+  enabled: true
+
+# 注意: nginxプラグインのみのモード（カーネルモジュール不要）
+# 次のように起動できます: falco --disable-source syscall
 
 load_plugins: [nginx]
 
@@ -925,11 +952,30 @@ plugins:
         - /var/log/nginx/access.log
 EOF
 
-# Falcoサービスが実行中か確認
-sudo systemctl status falco-bpf.service || sudo systemctl status falco
+# プラグイン専用モード（nginxプラグインに推奨）:
+# 専用サービスを作成
+sudo tee /etc/systemd/system/falco-nginx.service << 'EOF'
+[Unit]
+Description=Falco nginx Plugin Monitor
+After=network.target nginx.service
 
-# Falco再起動
-sudo systemctl restart falco-bpf.service || sudo systemctl restart falco
+[Service]
+Type=simple
+ExecStart=/usr/bin/falco -c /etc/falco/falco.yaml --disable-source syscall
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+# nginx専用Falcoサービスを有効化して起動
+sudo systemctl daemon-reload
+sudo systemctl enable falco-nginx.service
+sudo systemctl start falco-nginx.service
+
+# サービス状態を確認
+sudo systemctl status falco-nginx.service --no-pager
 ```
 
 ## ✅ 動作確認と攻撃テスト
