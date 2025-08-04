@@ -2,7 +2,19 @@
 
 All notable changes to the Falco nginx plugin binaries will be documented in this file.
 
-## [2025-08-04] - Linux Binary with CGO Fix (Latest)
+## [2025-08-04] - NULL Pointer Fix (Latest)
+
+### Fixed
+- **Critical fix**: Added NULL pointer check in plugin_init rc parameter
+- Prevents segmentation fault when Falco calls plugin_init with NULL rc
+- Binary SHA256: `23e28085a4f1cb83e8b63e47b1cfbf95610b249f65f27fd6ab642c3bf5cc9ab8`
+
+### Technical Details
+- plugin_init now checks if rc parameter is NULL before dereferencing
+- Fixes 'plugin handle or get_last_error function not defined' error in Falco
+- Maintains all previous fixes (CGO pointer safety, Linux ELF format)
+
+## [2025-08-04] - Linux Binary with CGO Fix
 
 ### Fixed
 - **Critical fix**: Resolved CGO "unpinned Go pointer" panic that was preventing plugin initialization
