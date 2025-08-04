@@ -2,6 +2,17 @@
 
 All notable changes to the Falco nginx plugin binaries will be documented in this file.
 
+## [2025-08-04] - API Version 3.11.0
+
+### Changed
+- Updated plugin API version from 3.6.0 to 3.11.0
+- Full compatibility with Falco 0.41.3
+- Binary SHA256: `876051e825118171bc17b0a3d9ca41e47d53be2b0eeabe3ed68098a45b18ee6a`
+
+### Fixed
+- Finally resolved plugin initialization errors with Falco 0.41.3
+- Plugin now uses the exact API version that Falco 0.41.3 expects
+
 ## [2025-08-04] - API Version 3.6.0
 
 ### Changed

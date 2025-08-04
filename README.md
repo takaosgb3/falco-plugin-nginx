@@ -2,9 +2,9 @@
 
 [日本語版](#falco-nginx-プラグイン)
 
-> **📢 Update (2025-08-04)**: Plugin has been updated to API version 3.6.0 for better compatibility with Falco 0.41.x
+> **📢 Update (2025-08-04)**: Plugin has been updated to API version 3.11.0 for full compatibility with Falco 0.41.3
 > ```bash
-> # New SHA256: 2eb55f496a2a4be86f7ab35ca34d5c979d28cbed1404e51056b5b8537fa7174a
+> # New SHA256: 876051e825118171bc17b0a3d9ca41e47d53be2b0eeabe3ed68098a45b18ee6a
 > ```
 
 Real-time security monitoring plugin for nginx web servers powered by Falco.
@@ -71,9 +71,9 @@ Apache License 2.0
 
 [English](#falco-plugin-for-nginx)
 
-> **📢 更新 (2025-08-04)**: Falco 0.41.xとの互換性向上のため、プラグインをAPIバージョン3.6.0に更新しました
+> **📢 更新 (2025-08-04)**: Falco 0.41.3との完全な互換性のため、プラグインをAPIバージョン3.11.0に更新しました
 > ```bash
-> # 新しいSHA256: 2eb55f496a2a4be86f7ab35ca34d5c979d28cbed1404e51056b5b8537fa7174a
+> # 新しいSHA256: 876051e825118171bc17b0a3d9ca41e47d53be2b0eeabe3ed68098a45b18ee6a
 > ```
 
 Falcoを使用したnginx Webサーバー向けのリアルタイムセキュリティ監視プラグインです。

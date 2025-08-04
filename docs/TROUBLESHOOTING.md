@@ -164,8 +164,8 @@ sudo apt install -y linux-headers-aws
 ### 5. API Version Compatibility
 
 **Current Plugin Version:**
-- API version: 3.6.0 (as of 2025-08-04)
-- Compatible with Falco 0.36.0 - 0.41.x
+- API version: 3.11.0 (as of 2025-08-04)
+- Compatible with Falco 0.36.0 - 0.41.3
 
 **Check Falco version:**
 ```bash
@@ -177,7 +177,7 @@ falco --version
 |---------------|-------------------------------|
 | 0.35.x        | 3.0.0                        |
 | 0.36.x-0.40.x | 3.3.0                        |
-| 0.41.x        | 3.6.0 (current)              |
+| 0.41.x        | 3.11.0 (current)             |
 
 **If you have compatibility issues:**
 - Ensure you have the latest binary from this repository
@@ -453,8 +453,8 @@ sudo apt install -y linux-headers-aws
 ### 5. APIバージョンの互換性
 
 **現在のプラグインバージョン:**
-- APIバージョン: 3.6.0（2025-08-04時点）
-- Falco 0.36.0 - 0.41.xに対応
+- APIバージョン: 3.11.0（2025-08-04時点）
+- Falco 0.36.0 - 0.41.3に対応
 
 **Falcoバージョンを確認:**
 ```bash
@@ -466,7 +466,7 @@ falco --version
 |----------------|---------------------------|
 | 0.35.x         | 3.0.0                     |
 | 0.36.x-0.40.x  | 3.3.0                     |
-| 0.41.x         | 3.6.0（現在）              |
+| 0.41.x         | 3.11.0（現在）             |
 
 **互換性の問題がある場合:**
 - このリポジトリから最新のバイナリを取得していることを確認
