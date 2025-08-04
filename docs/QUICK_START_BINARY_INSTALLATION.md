@@ -213,16 +213,22 @@ curl -s http://localhost/ | grep -q "Welcome to Test Site" && echo "✅ Site is 
 ### 4. Falco Installation (2 minutes)
 
 ```bash
+# Install prerequisites (optional, not needed for Modern eBPF driver)
+sudo apt install -y dialog
+
 # Add Falco repository
 curl -fsSL https://falco.org/repo/falcosecurity-packages.asc | \
   sudo gpg --dearmor -o /usr/share/keyrings/falco-archive-keyring.gpg
 
-echo "deb [signed-by=/usr/share/keyrings/falco-archive-keyring.gpg] \
-  https://download.falco.org/packages/deb stable main" | \
-  sudo tee /etc/falco/apt/sources.list.d/falcosecurity.list
+echo "deb [signed-by=/usr/share/keyrings/falco-archive-keyring.gpg] https://download.falco.org/packages/deb stable main" | \
+  sudo tee -a /etc/apt/sources.list.d/falcosecurity.list
 
-# Install
-sudo apt update && sudo apt install -y falco
+# Update and install Falco
+sudo apt update
+sudo apt install -y falco
+
+# For non-interactive installation (recommended for automation):
+# FALCO_FRONTEND=noninteractive sudo apt install -y falco
 ```
 
 ### 5. Plugin Deployment (30 seconds)
@@ -254,8 +260,11 @@ plugins:
         - /var/log/nginx/access.log
 EOF
 
+# Verify Falco service is running
+sudo systemctl status falco-modern-bpf.service || sudo systemctl status falco
+
 # Restart Falco
-sudo systemctl restart falco
+sudo systemctl restart falco-modern-bpf.service || sudo systemctl restart falco
 ```
 
 ## ✅ Operation Verification and Attack Testing
@@ -438,6 +447,27 @@ EOF
 ```
 
 ## 🆘 Troubleshooting
+
+### Falco Installation Issues
+
+If the Falco installation fails:
+
+```bash
+# Check if the repository was added correctly
+ls -la /etc/apt/sources.list.d/falcosecurity.list
+
+# If the file path was incorrect, remove and re-add:
+sudo rm -f /etc/falco/apt/sources.list.d/falcosecurity.list
+sudo rm -f /etc/apt/sources.list.d/falcosecurity.list
+
+# Re-add the repository with correct path
+echo "deb [signed-by=/usr/share/keyrings/falco-archive-keyring.gpg] https://download.falco.org/packages/deb stable main" | \
+  sudo tee -a /etc/apt/sources.list.d/falcosecurity.list
+
+# Update and install
+sudo apt update
+sudo apt install -y falco
+```
 
 ### If Binary Not Found
 
@@ -730,16 +760,22 @@ curl -s http://localhost/ | grep -q "Welcome to Test Site" && echo "✅ サイ�
 ### 4. Falcoインストール（2分）
 
 ```bash
+# 前提条件のインストール（オプション、Modern eBPFドライバーには不要）
+sudo apt install -y dialog
+
 # Falcoリポジトリ追加
 curl -fsSL https://falco.org/repo/falcosecurity-packages.asc | \
   sudo gpg --dearmor -o /usr/share/keyrings/falco-archive-keyring.gpg
 
-echo "deb [signed-by=/usr/share/keyrings/falco-archive-keyring.gpg] \
-  https://download.falco.org/packages/deb stable main" | \
-  sudo tee /etc/falco/apt/sources.list.d/falcosecurity.list
+echo "deb [signed-by=/usr/share/keyrings/falco-archive-keyring.gpg] https://download.falco.org/packages/deb stable main" | \
+  sudo tee -a /etc/apt/sources.list.d/falcosecurity.list
 
-# インストール
-sudo apt update && sudo apt install -y falco
+# 更新とFalcoのインストール
+sudo apt update
+sudo apt install -y falco
+
+# 非対話型インストール（自動化に推奨）：
+# FALCO_FRONTEND=noninteractive sudo apt install -y falco
 ```
 
 ### 5. プラグイン配置（30秒）
@@ -771,8 +807,11 @@ plugins:
         - /var/log/nginx/access.log
 EOF
 
+# Falcoサービスが実行中か確認
+sudo systemctl status falco-modern-bpf.service || sudo systemctl status falco
+
 # Falco再起動
-sudo systemctl restart falco
+sudo systemctl restart falco-modern-bpf.service || sudo systemctl restart falco
 ```
 
 ## ✅ 動作確認と攻撃テスト
@@ -955,6 +994,27 @@ EOF
 ```
 
 ## 🆘 トラブルシューティング
+
+### Falcoインストールの問題
+
+Falcoのインストールが失敗する場合：
+
+```bash
+# リポジトリが正しく追加されているか確認
+ls -la /etc/apt/sources.list.d/falcosecurity.list
+
+# ファイルパスが間違っていた場合、削除して再追加：
+sudo rm -f /etc/falco/apt/sources.list.d/falcosecurity.list
+sudo rm -f /etc/apt/sources.list.d/falcosecurity.list
+
+# 正しいパスでリポジトリを再追加
+echo "deb [signed-by=/usr/share/keyrings/falco-archive-keyring.gpg] https://download.falco.org/packages/deb stable main" | \
+  sudo tee -a /etc/apt/sources.list.d/falcosecurity.list
+
+# 更新とインストール
+sudo apt update
+sudo apt install -y falco
+```
 
 ### バイナリが見つからない場合
 
