@@ -2,12 +2,13 @@
 
 [日本語版](#falco-nginx-プラグイン)
 
-> **📢 Update (2025-08-04)**: Rewritten using Falco Plugin SDK for Go!
+> **📢 Update (2025-08-04)**: Fixed version now processes existing logs!
 > ```bash
-> # New SHA256: 5eab89337302337022ab05e3d3c5c69b1f25fa2517ce34e4e3268fce03301e13
+> # Fixed SHA256: 2b97aaa085ce514a6075c49ba166ea7cf47d30533475eb51dd614acbb3a5c244
 > # API Version: 3.11.0 (Falco 0.41.3 compatible)
 > # Complete rewrite using official Falco Plugin SDK
-> # Simpler, more maintainable, and fully compatible
+> # Now detects threats in existing logs on startup
+> # Tested and verified on Ubuntu 22.04
 > ```
 
 Real-time security monitoring plugin for nginx web servers powered by Falco.
@@ -24,7 +25,7 @@ Download the latest release files from the [releases](releases/) directory:
 - `nginx_rules.yaml` - Falco detection rules
 - `libfalco-nginx-plugin-linux-amd64.so.sha256` - Checksum file
 
-**Latest SHA256**: `5eab89337302337022ab05e3d3c5c69b1f25fa2517ce34e4e3268fce03301e13`
+**Latest SHA256**: `2b97aaa085ce514a6075c49ba166ea7cf47d30533475eb51dd614acbb3a5c244`
 
 ### Installation
 
@@ -76,12 +77,13 @@ Apache License 2.0
 
 [English](#falco-plugin-for-nginx)
 
-> **📢 更新 (2025-08-04)**: Falco Plugin SDK for Goで完全に書き直しました！
+> **📢 更新 (2025-08-04)**: 修正版は既存ログも処理します！
 > ```bash
-> # 新しいSHA256: 5eab89337302337022ab05e3d3c5c69b1f25fa2517ce34e4e3268fce03301e13
+> # 修正版SHA256: 2b97aaa085ce514a6075c49ba166ea7cf47d30533475eb51dd614acbb3a5c244
 > # APIバージョン: 3.11.0 (Falco 0.41.3対応)
 > # 公式Falco Plugin SDKを使用した完全な書き直し
-> # よりシンプルで保守しやすく、完全な互換性
+> # 起動時に既存ログの脅威を検出
+> # Ubuntu 22.04でテスト済み
 > ```
 
 Falcoを使用したnginx Webサーバー向けのリアルタイムセキュリティ監視プラグインです。
@@ -98,7 +100,7 @@ Falcoを使用したnginx Webサーバー向けのリアルタイムセキュリ
 - `nginx_rules.yaml` - Falco検出ルール
 - `libfalco-nginx-plugin-linux-amd64.so.sha256` - チェックサムファイル
 
-**最新SHA256**: `5eab89337302337022ab05e3d3c5c69b1f25fa2517ce34e4e3268fce03301e13`
+**最新SHA256**: `2b97aaa085ce514a6075c49ba166ea7cf47d30533475eb51dd614acbb3a5c244`
 
 ### インストール
 

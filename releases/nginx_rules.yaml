@@ -1,11 +1,18 @@
 # Falco rules for nginx plugin
 # Detects security events in nginx logs
+#
+# Updated for SDK-based plugin (2025-08-04)
+# All rules now include 'source: nginx' as required by SDK plugins
+
+- required_plugin_versions:
+  - name: nginx
+    version: 0.1.0
 
 # SQL Injection attempts
 - rule: Nginx SQL Injection Attempt
   desc: Detects potential SQL injection attempts in nginx logs
-  condition: >
-    evt.type=nginx and 
+  source: nginx
+  condition: > 
     (nginx.path contains " union " or
      nginx.path contains "union select" or
      nginx.path contains "' or " or
@@ -26,8 +33,8 @@
 # XSS attempts
 - rule: Nginx XSS Attempt
   desc: Detects potential XSS attempts in nginx logs
+  source: nginx
   condition: >
-    evt.type=nginx and
     (nginx.path contains "<script" or
      nginx.path contains "javascript:" or
      nginx.path contains "onerror=" or
@@ -42,8 +49,8 @@
 # Path traversal attempts
 - rule: Nginx Path Traversal
   desc: Detects path traversal attempts in nginx logs
+  source: nginx
   condition: >
-    evt.type=nginx and
     (nginx.path contains "../" or
      nginx.path contains "..%2f" or
      nginx.path contains "..%5c")
@@ -57,8 +64,8 @@
 # Suspicious HTTP methods
 - rule: Nginx Suspicious Method
   desc: Detects suspicious HTTP methods
+  source: nginx
   condition: >
-    evt.type=nginx and
     nginx.method in (CONNECT, TRACE, TRACK, OPTIONS, PROPFIND)
   output: >
     Suspicious HTTP method detected
@@ -70,8 +77,8 @@
 # High error rate from single IP
 - rule: Nginx High Error Rate
   desc: Detects high error rate from a single IP
+  source: nginx
   condition: >
-    evt.type=nginx and
     nginx.status >= 400 and
     nginx.status < 500
   output: >
@@ -84,8 +91,8 @@
 # Potential scanner detection
 - rule: Nginx Scanner Detection
   desc: Detects potential vulnerability scanners
+  source: nginx
   condition: >
-    evt.type=nginx and
     (nginx.user_agent contains "sqlmap" or
      nginx.user_agent contains "nikto" or
      nginx.user_agent contains "nmap" or
@@ -101,8 +108,8 @@
 # Large response size
 - rule: Nginx Large Response
   desc: Detects unusually large responses
+  source: nginx
   condition: >
-    evt.type=nginx and
     nginx.body_bytes > 10485760
   output: >
     Large response detected
@@ -114,8 +121,8 @@
 # Command injection attempts
 - rule: Nginx Command Injection
   desc: Detects potential command injection attempts
+  source: nginx
   condition: >
-    evt.type=nginx and
     (nginx.path contains "; " or
      nginx.path contains " | " or
      nginx.path contains " && " or
@@ -135,8 +142,8 @@
 # Access denied patterns
 - rule: Nginx Access Denied
   desc: Monitors access denied responses
+  source: nginx
   condition: >
-    evt.type=nginx and
     nginx.status = 403
   output: >
     Access denied
@@ -148,8 +155,8 @@
 # 404 scanning patterns
 - rule: Nginx 404 Scan
   desc: Detects potential scanning via 404 errors
+  source: nginx
   condition: >
-    evt.type=nginx and
     nginx.status = 404
   output: >
     Resource not found - potential scan

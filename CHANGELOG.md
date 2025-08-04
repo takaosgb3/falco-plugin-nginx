@@ -2,7 +2,20 @@
 
 All notable changes to the Falco nginx plugin binaries will be documented in this file.
 
-## [2025-08-04] - Complete Rewrite with Falco Plugin SDK (Latest)
+## [2025-08-04] - Fixed SDK Plugin for Log Reading (Latest)
+
+### Fixed
+- **Critical fix**: Plugin now reads existing log entries on startup
+- Removed file seek to end, allowing detection of attacks in existing logs
+- Binary SHA256: `2b97aaa085ce514a6075c49ba166ea7cf47d30533475eb51dd614acbb3a5c244`
+
+### Technical Details
+- Previous version only monitored new log entries after startup
+- Now processes all existing log entries for immediate threat detection
+- Built on Ubuntu 22.04 EC2 instance as local runner
+- Tested and verified with Falco 0.41.3
+
+## [2025-08-04] - Complete Rewrite with Falco Plugin SDK
 
 ### Changed
 - **Major rewrite**: Plugin completely rewritten using official Falco Plugin SDK for Go

@@ -215,7 +215,9 @@ curl -s http://localhost/ | grep -q "Welcome to Test Site" && echo "✅ Site is 
 
 **Important**: 
 - For Falco 0.36.0 and later, use `rules_files` (plural) instead of `rules_file` in configuration.
-- The current plugin binary uses API version 3.11.0, optimized for Falco 0.41.3 compatibility.
+- The current plugin binary has been completely rewritten using the Falco Plugin SDK for Go.
+- Uses API version 3.11.0, optimized for Falco 0.41.3 compatibility.
+- Plugin events are identified by `source` attribute, so rules must include `source: nginx`.
 
 ```bash
 # Install prerequisites (optional, not needed for Modern eBPF driver)
@@ -374,6 +376,8 @@ sudo journalctl -u falco --since "1 hour ago" | grep -c "priority=CRITICAL"
 
 If nginx_rules.yaml is not available, create the following comprehensive rules file:
 
+**Important: SDK-based plugins require `source: nginx` in all rules**
+
 ```bash
 sudo tee /etc/falco/rules.d/nginx_rules.yaml << 'EOF'
 - required_plugin_versions:
@@ -383,6 +387,7 @@ sudo tee /etc/falco/rules.d/nginx_rules.yaml << 'EOF'
 # SQL injection detection
 - rule: SQL Injection Attempt
   desc: Detects various SQL injection patterns
+  source: nginx
   condition: >
     nginx.request_uri contains "' OR" or
     nginx.request_uri contains "\" OR" or
@@ -398,6 +403,7 @@ sudo tee /etc/falco/rules.d/nginx_rules.yaml << 'EOF'
 # XSS attack detection
 - rule: XSS Attack Attempt
   desc: Detects cross-site scripting attempts
+  source: nginx
   condition: >
     nginx.request_uri contains "<script" or
     nginx.request_uri contains "</script>" or
@@ -412,6 +418,7 @@ sudo tee /etc/falco/rules.d/nginx_rules.yaml << 'EOF'
 # Directory traversal detection
 - rule: Directory Traversal Attempt
   desc: Detects path traversal attacks
+  source: nginx
   condition: >
     nginx.request_uri contains "../" or
     nginx.request_uri contains "..%2F" or
@@ -426,6 +433,7 @@ sudo tee /etc/falco/rules.d/nginx_rules.yaml << 'EOF'
 # Command injection detection
 - rule: Command Injection Attempt
   desc: Detects command injection patterns
+  source: nginx
   condition: >
     nginx.request_uri contains ";" and nginx.request_uri contains "cat " or
     nginx.request_uri contains "|" and nginx.request_uri contains "id" or
@@ -440,6 +448,7 @@ sudo tee /etc/falco/rules.d/nginx_rules.yaml << 'EOF'
 # Scanner detection
 - rule: Security Scanner Detected
   desc: Detects common security scanning tools
+  source: nginx
   condition: >
     nginx.user_agent contains "sqlmap" or
     nginx.user_agent contains "nikto" or
@@ -454,6 +463,7 @@ sudo tee /etc/falco/rules.d/nginx_rules.yaml << 'EOF'
 # Brute force detection (multiple requests from same IP in short time)
 - rule: Potential Brute Force Attack
   desc: Multiple failed login attempts
+  source: nginx
   condition: >
     nginx.request_uri contains "/admin" and
     nginx.method = "POST" and
@@ -780,7 +790,9 @@ curl -s http://localhost/ | grep -q "Welcome to Test Site" && echo "✅ サイ�
 
 **重要**: 
 - Falco 0.36.0以降では、設定で`rules_file`の代わりに`rules_files`（複数形）を使用してください。
-- 現在のプラグインバイナリはAPIバージョン3.11.0を使用し、Falco 0.41.3との互換性に最適化されています。
+- 現在のプラグインバイナリはFalco Plugin SDK for Goを使用して完全に書き直されました。
+- APIバージョン3.11.0を使用し、Falco 0.41.3との互換性に最適化されています。
+- プラグインイベントは`source`属性で識別されるため、ルールに`source: nginx`を含める必要があります。
 
 ```bash
 # 前提条件のインストール（オプション、Modern eBPFドライバーには不要）
@@ -939,6 +951,8 @@ sudo journalctl -u falco --since "1 hour ago" | grep -c "priority=CRITICAL"
 
 もしnginx_rules.yamlが手に入らない場合は、以下の包括的なルールファイルを作成：
 
+**重要: SDKベースのプラグインは、すべてのルールに`source: nginx`が必要です**
+
 ```bash
 sudo tee /etc/falco/rules.d/nginx_rules.yaml << 'EOF'
 - required_plugin_versions:
@@ -948,6 +962,7 @@ sudo tee /etc/falco/rules.d/nginx_rules.yaml << 'EOF'
 # SQLインジェクション検出
 - rule: SQL Injection Attempt
   desc: Detects various SQL injection patterns
+  source: nginx
   condition: >
     nginx.request_uri contains "' OR" or
     nginx.request_uri contains "\" OR" or
@@ -963,6 +978,7 @@ sudo tee /etc/falco/rules.d/nginx_rules.yaml << 'EOF'
 # XSS攻撃検出
 - rule: XSS Attack Attempt
   desc: Detects cross-site scripting attempts
+  source: nginx
   condition: >
     nginx.request_uri contains "<script" or
     nginx.request_uri contains "</script>" or
@@ -977,6 +993,7 @@ sudo tee /etc/falco/rules.d/nginx_rules.yaml << 'EOF'
 # ディレクトリトラバーサル検出
 - rule: Directory Traversal Attempt
   desc: Detects path traversal attacks
+  source: nginx
   condition: >
     nginx.request_uri contains "../" or
     nginx.request_uri contains "..%2F" or
@@ -991,6 +1008,7 @@ sudo tee /etc/falco/rules.d/nginx_rules.yaml << 'EOF'
 # コマンドインジェクション検出
 - rule: Command Injection Attempt
   desc: Detects command injection patterns
+  source: nginx
   condition: >
     nginx.request_uri contains ";" and nginx.request_uri contains "cat " or
     nginx.request_uri contains "|" and nginx.request_uri contains "id" or
@@ -1005,6 +1023,7 @@ sudo tee /etc/falco/rules.d/nginx_rules.yaml << 'EOF'
 # スキャナー検出
 - rule: Security Scanner Detected
   desc: Detects common security scanning tools
+  source: nginx
   condition: >
     nginx.user_agent contains "sqlmap" or
     nginx.user_agent contains "nikto" or
@@ -1019,6 +1038,7 @@ sudo tee /etc/falco/rules.d/nginx_rules.yaml << 'EOF'
 # ブルートフォース検出（同一IPから短時間に多数のリクエスト）
 - rule: Potential Brute Force Attack
   desc: Multiple failed login attempts
+  source: nginx
   condition: >
     nginx.request_uri contains "/admin" and
     nginx.method = "POST" and

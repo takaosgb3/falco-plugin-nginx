@@ -4,23 +4,40 @@
 
 This guide helps resolve common issues when installing and running the Falco nginx plugin.
 
+**Important Update (2025-08-04)**: The plugin has been completely rewritten using the Falco Plugin SDK for Go. This resolves many previous initialization issues.
+
 ## Common Issues and Solutions
 
-### 1. Plugin Initialization Error
+### 1. Plugin Rule Syntax Errors (SDK-based Plugin)
 
 **Error Message:**
+```
+Error: filter_check called with nonexistent field evt.type
+```
+
+**Cause:**
+SDK-based plugins require all rules to include `source: nginx` attribute. The traditional `evt.type=pluginevent` syntax does not work with SDK plugins.
+
+**Solution:**
+Ensure all rules include the `source` attribute:
+```yaml
+- rule: SQL Injection Attempt
+  desc: Detects SQL injection patterns
+  source: nginx  # REQUIRED for SDK plugins
+  condition: nginx.request_uri contains "' OR"
+  output: "SQL injection detected"
+  priority: CRITICAL
+```
+
+### 2. Previous CGO-related Errors (Now Resolved)
+
+**Historical Error:**
 ```
 Error: could not initialize plugin: plugin handle or 'get_last_error' function not defined
 ```
 
-**Causes and Solutions:**
-
-#### A. Missing Log File or Invalid Configuration
-The plugin initialization fails and returns NULL if:
-- The nginx log file doesn't exist
-- The configuration validation fails (e.g., invalid paths)
-
-This causes Falco to report: "plugin handle or 'get_last_error' function not defined"
+**Status:** ✅ RESOLVED
+This error was common with the previous CGO-based implementation. The SDK rewrite has eliminated these initialization issues.
 
 **Solution 1: Create log file if missing:**
 ```bash
@@ -211,8 +228,10 @@ sudo apt install -y linux-headers-aws
 ### 5. API Version Compatibility
 
 **Current Plugin Version:**
-- API version: 3.11.0 (as of 2025-08-04)
+- Implementation: Falco Plugin SDK for Go (complete rewrite as of 2025-08-04)
+- API version: 3.11.0
 - Compatible with Falco 0.36.0 - 0.41.3
+- SHA256: `5eab89337302337022ab05e3d3c5c69b1f25fa2517ce34e4e3268fce03301e13`
 
 **Check Falco version:**
 ```bash
@@ -340,23 +359,40 @@ sudo /usr/bin/falco -o engine.kind=ebpf 2>&1 | head -50
 
 このガイドは、Falco nginxプラグインのインストールと実行時の一般的な問題を解決するのに役立ちます。
 
+**重要な更新（2025-08-04）**: プラグインはFalco Plugin SDK for Goを使用して完全に書き直されました。これにより、以前の多くの初期化問題が解決されています。
+
 ## よくある問題と解決方法
 
-### 1. プラグイン初期化エラー
+### 1. プラグインルール構文エラー（SDKベースプラグイン）
 
 **エラーメッセージ:**
+```
+Error: filter_check called with nonexistent field evt.type
+```
+
+**原因:**
+SDKベースのプラグインでは、すべてのルールに`source: nginx`属性を含める必要があります。従来の`evt.type=pluginevent`構文はSDKプラグインでは機能しません。
+
+**解決方法:**
+すべてのルールに`source`属性を含めてください：
+```yaml
+- rule: SQL Injection Attempt
+  desc: SQLインジェクションパターンを検出
+  source: nginx  # SDKプラグインでは必須
+  condition: nginx.request_uri contains "' OR"
+  output: "SQLインジェクション検出"
+  priority: CRITICAL
+```
+
+### 2. 以前のCGO関連エラー（現在は解決済み）
+
+**過去のエラー:**
 ```
 Error: could not initialize plugin: plugin handle or 'get_last_error' function not defined
 ```
 
-**原因と解決方法:**
-
-#### A. ログファイルの不在または無効な設定
-以下の場合、プラグインの初期化が失敗してNULLを返します：
-- nginxログファイルが存在しない
-- 設定の検証が失敗する（例：無効なパス）
-
-これによりFalcoは次のエラーを報告します: "plugin handle or 'get_last_error' function not defined"
+**ステータス:** ✅ 解決済み
+このエラーは以前のCGOベースの実装で一般的でした。SDKへの書き直しにより、これらの初期化問題は解消されています。
 
 **解決方法1: ログファイルが存在しない場合は作成:**
 ```bash
@@ -547,8 +583,10 @@ sudo apt install -y linux-headers-aws
 ### 5. APIバージョンの互換性
 
 **現在のプラグインバージョン:**
-- APIバージョン: 3.11.0（2025-08-04時点）
+- 実装: Falco Plugin SDK for Go（2025-08-04に完全書き直し）
+- APIバージョン: 3.11.0
 - Falco 0.36.0 - 0.41.3に対応
+- SHA256: `5eab89337302337022ab05e3d3c5c69b1f25fa2517ce34e4e3268fce03301e13`
 
 **Falcoバージョンを確認:**
 ```bash
