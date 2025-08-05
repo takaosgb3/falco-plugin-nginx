@@ -84,7 +84,7 @@ server {
     # PHP file processing (for attack testing)
     location ~ \.php$ {
         include snippets/fastcgi-php.conf;
-        fastcgi_pass unix:/var/run/php/php-fpm.sock;
+        fastcgi_pass unix:/var/run/php/php8.1-fpm.sock;
         try_files $uri =404;
     }
 
@@ -529,7 +529,7 @@ server {
     # PHPファイルの処理（攻撃テスト用）
     location ~ \.php$ {
         include snippets/fastcgi-php.conf;
-        fastcgi_pass unix:/var/run/php/php-fpm.sock;
+        fastcgi_pass unix:/var/run/php/php8.1-fpm.sock;
         try_files $uri =404;
     }
 
