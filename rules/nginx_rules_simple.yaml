@@ -1,0 +1,47 @@
+# Nginx Security Rules for Falco (Simplified)
+# Version: 0.3.2
+# Compatible with: Falco 0.41.3+
+
+# Test Rule
+- rule: Test nginx
+  desc: Test rule for nginx plugin
+  condition: nginx.method = "GET"
+  output: "GET request detected from nginx"
+  priority: NOTICE
+  source: nginx
+
+# SQL Injection Detection
+- rule: SQL Injection Attempt
+  desc: Detects SQL injection attacks
+  condition: nginx.path contains "' OR" or nginx.query_string contains "' OR" or nginx.path contains "UNION SELECT" or nginx.query_string contains "UNION SELECT"
+  output: "SQL injection detected: method=%nginx.method path=%nginx.path query=%nginx.query_string from=%nginx.remote_addr"
+  priority: CRITICAL
+  source: nginx
+  tags: [attack, sql_injection]
+
+# XSS Attack Detection
+- rule: XSS Attack Attempt
+  desc: Detects XSS attacks
+  condition: nginx.path contains "<script" or nginx.query_string contains "<script" or nginx.path contains "javascript:" or nginx.query_string contains "javascript:"
+  output: "XSS attack detected: method=%nginx.method path=%nginx.path query=%nginx.query_string from=%nginx.remote_addr"
+  priority: WARNING
+  source: nginx
+  tags: [attack, xss]
+
+# Path Traversal Detection
+- rule: Path Traversal Attempt
+  desc: Detects path traversal attacks
+  condition: nginx.path contains "../" or nginx.query_string contains "../" or nginx.path contains "../../" or nginx.query_string contains "../../"
+  output: "Path traversal detected: method=%nginx.method path=%nginx.path query=%nginx.query_string from=%nginx.remote_addr"
+  priority: WARNING
+  source: nginx
+  tags: [attack, path_traversal]
+
+# Scanner Detection
+- rule: Scanner Detection
+  desc: Detects security scanners
+  condition: nginx.user_agent contains "sqlmap" or nginx.user_agent contains "nikto" or nginx.user_agent contains "nmap"
+  output: "Scanner detected: agent=%nginx.user_agent from=%nginx.remote_addr path=%nginx.path"
+  priority: NOTICE
+  source: nginx
+  tags: [scanner, reconnaissance]
