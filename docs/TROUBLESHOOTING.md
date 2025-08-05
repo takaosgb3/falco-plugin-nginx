@@ -6,15 +6,46 @@ This guide helps resolve common issues when installing and running the Falco ngi
 
 **Important Update (2025-08-04)**: The plugin has been completely rewritten using the Falco Plugin SDK for Go. This resolves many previous initialization issues.
 
-### Latest Known Issues and Fixes
+### Latest Known Issues and Fixes (Updated 2025-08-05)
 
-1. **No Alerts Appearing**
-   - **Cause**: Rules file not installed in `/etc/falco/rules.d/`
-   - **Fix**: Copy `nginx_rules.yaml` to the correct location
-   
-2. **Rule Compilation Error**
-   - **Cause**: Field name error in rules (nginx.body_bytes)
-   - **Fix**: Update to latest rules file with nginx.bytes_sent
+1. **YAML Parse Error**
+   - **Cause**: Multi-line output strings or incorrect indentation in rules file
+   - **Fix**: Ensure all output strings are on a single line
+   - **Example Error**: `LOAD_ERR_YAML_PARSE: yaml-cpp: error at line X, column Y: illegal map value`
+
+2. **Container Plugin Dependency**
+   - **Cause**: Default Falco rules require container plugin
+   - **Fix**: Comment out `/etc/falco/falco_rules.yaml` in falco.yaml
+
+3. **Field Name Errors**
+   - **Cause**: Using old field names from v0.2.x
+   - **Fix**: Use correct field names:
+     - `nginx.remote_addr` (not `nginx.client_ip`)
+     - `nginx.path` and `nginx.query_string` (not `nginx.request_uri`)
+     - `nginx.bytes_sent` (not `nginx.body_bytes_sent`)
+
+4. **Priority Value Errors**
+   - **Cause**: Using lowercase priority values
+   - **Fix**: Use uppercase: CRITICAL, WARNING, NOTICE, INFORMATIONAL
+
+### Quick Fix Script
+
+If the service fails to start, run this script to clean up and restore working configuration:
+
+```bash
+#!/bin/bash
+# Clean up problematic files
+sudo rm -f /etc/falco/rules.d/attack_test.yaml
+sudo rm -f /etc/falco/rules.d/query_string_test.yaml
+sudo rm -f /etc/falco/rules.d/nginx_rules_minimal.yaml
+
+# Download working rules
+sudo curl -fsSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/rules/nginx_rules_simple.yaml \
+    -o /etc/falco/rules.d/nginx_rules.yaml
+
+# Restart service
+sudo systemctl restart falco-nginx.service
+```
 
 ## Common Issues and Solutions
 
