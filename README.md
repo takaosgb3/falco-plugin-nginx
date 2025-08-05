@@ -163,9 +163,11 @@ sudo falco -A --disable-source syscall
 
 ## 🏗️ Building from Source
 
+See [Building Guide](docs/BUILDING.md) for detailed instructions.
+
 ```bash
-git clone https://github.com/takaosgb3/falco-nginx-plugin-claude
-cd falco-nginx-plugin-claude
+git clone https://github.com/takaosgb3/falco-plugin-nginx
+cd falco-plugin-nginx
 make build
 ```
 
@@ -350,9 +352,11 @@ sudo falco -A --disable-source syscall
 
 ## 🏗️ ソースからのビルド
 
+詳細な手順については[ビルドガイド](docs/BUILDING.md)を参照してください。
+
 ```bash
-git clone https://github.com/takaosgb3/falco-nginx-plugin-claude
-cd falco-nginx-plugin-claude
+git clone https://github.com/takaosgb3/falco-plugin-nginx
+cd falco-plugin-nginx
 make build
 ```
 
