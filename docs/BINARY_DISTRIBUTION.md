@@ -93,7 +93,7 @@ A: Yes, the Apache 2.0 license allows commercial use.
 A: No, your custom rules remain your property.
 
 **Q: Can I contribute to the project?**
-A: Yes! See our [Contributing Guide](../CONTRIBUTING.md).
+A: This is currently a prototype project. Contributions are not being accepted at this time.
 
 **Q: How do I report security issues?**
 A: Please report security vulnerabilities privately to the maintainers.
@@ -101,7 +101,6 @@ A: Please report security vulnerabilities privately to the maintainers.
 ## Support
 
 - **Issues**: [GitHub Issues](https://github.com/takaosgb3/falco-plugin-nginx/issues)
-- **Contributions**: [Contributing Guide](../CONTRIBUTING.md)
 - **Updates**: Watch this repository for new releases
 
 ---
@@ -197,7 +196,7 @@ A: はい、Apache 2.0ライセンスは商用利用を許可しています。
 A: いいえ、カスタムルールはあなたの所有物のままです。
 
 **Q: プロジェクトに貢献できますか？**
-A: はい！[貢献ガイド](../CONTRIBUTING.md)をご覧ください。
+A: 現在はプロトタイプ段階のプロジェクトです。現時点では貢献を受け付けていません。
 
 **Q: セキュリティ問題をどのように報告すればよいですか？**
 A: セキュリティの脆弱性は、メンテナーに非公開で報告してください。
@@ -205,5 +204,4 @@ A: セキュリティの脆弱性は、メンテナーに非公開で報告し�
 ## サポート
 
 - **問題**: [GitHub Issues](https://github.com/takaosgb3/falco-plugin-nginx/issues)
-- **貢献**: [貢献ガイド](../CONTRIBUTING.md)
 - **更新**: 新しいリリースについてこのリポジトリをウォッチ

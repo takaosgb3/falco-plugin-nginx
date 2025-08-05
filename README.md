@@ -187,9 +187,9 @@ make build
 
 Apache License 2.0
 
-## 🤝 Contributing
+## 📞 Support
 
-Contributions welcome! Please open issues or submit pull requests.
+This is currently a prototype project. For issues or questions, please use [GitHub Issues](https://github.com/takaosgb3/falco-plugin-nginx/issues).
 
 ## 🔗 Links
 
@@ -388,9 +388,9 @@ make build
 
 Apache License 2.0
 
-## 🤝 コントリビューション
+## 📞 サポート
 
-貢献を歓迎します！イシューを開くか、プルリクエストを送ってください。
+現在はプロトタイプ段階のプロジェクトです。問題や質問については、[GitHub Issues](https://github.com/takaosgb3/falco-plugin-nginx/issues)をご利用ください。
 
 ## 🔗 リンク
 
