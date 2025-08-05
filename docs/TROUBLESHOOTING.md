@@ -289,11 +289,11 @@ sudo chown www-data:adm /var/log/nginx/access.log
 2. **Download and install plugin:**
 ```bash
 # Download plugin
-wget https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/releases/libfalco-nginx-plugin-linux-amd64.so
+wget https://github.com/takaosgb3/falco-plugin-nginx/releases/download/v0.3.1/libfalco-nginx-plugin.so
 
 # Install
 sudo mkdir -p /usr/share/falco/plugins
-sudo cp libfalco-nginx-plugin-linux-amd64.so /usr/share/falco/plugins/libfalco-nginx-plugin.so
+sudo cp libfalco-nginx-plugin.so /usr/share/falco/plugins/libfalco-nginx-plugin.so
 sudo chmod 644 /usr/share/falco/plugins/libfalco-nginx-plugin.so
 ```
 
@@ -324,7 +324,7 @@ plugins:
 EOF
 
 # Download rules
-wget https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/releases/nginx_rules.yaml
+wget https://github.com/takaosgb3/falco-plugin-nginx/releases/download/v0.3.1/nginx_rules.yaml
 sudo cp nginx_rules.yaml /etc/falco/rules.d/
 ```
 
@@ -359,7 +359,7 @@ sudo journalctl -u falco-bpf.service --since "10 minutes ago"
 sudo /usr/bin/falco -o engine.kind=ebpf 2>&1 | head -50
 ```
 
-2. Report issue at: https://github.com/takaosgb3/falco-nginx-plugin-claude/issues
+2. Report issue at: https://github.com/takaosgb3/falco-plugin-nginx/issues
 
 ---
 
@@ -631,11 +631,11 @@ sudo chown www-data:adm /var/log/nginx/access.log
 2. **プラグインをダウンロードしてインストール:**
 ```bash
 # プラグインをダウンロード
-wget https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/releases/libfalco-nginx-plugin-linux-amd64.so
+wget https://github.com/takaosgb3/falco-plugin-nginx/releases/download/v0.3.1/libfalco-nginx-plugin.so
 
 # インストール
 sudo mkdir -p /usr/share/falco/plugins
-sudo cp libfalco-nginx-plugin-linux-amd64.so /usr/share/falco/plugins/libfalco-nginx-plugin.so
+sudo cp libfalco-nginx-plugin.so /usr/share/falco/plugins/libfalco-nginx-plugin.so
 sudo chmod 644 /usr/share/falco/plugins/libfalco-nginx-plugin.so
 ```
 
@@ -666,7 +666,7 @@ plugins:
 EOF
 
 # ルールをダウンロード
-wget https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/releases/nginx_rules.yaml
+wget https://github.com/takaosgb3/falco-plugin-nginx/releases/download/v0.3.1/nginx_rules.yaml
 sudo cp nginx_rules.yaml /etc/falco/rules.d/
 ```
 
@@ -701,4 +701,4 @@ sudo journalctl -u falco-bpf.service --since "10 minutes ago"
 sudo /usr/bin/falco -o engine.kind=ebpf 2>&1 | head -50
 ```
 
-2. 問題を報告: https://github.com/takaosgb3/falco-nginx-plugin-claude/issues
+2. 問題を報告: https://github.com/takaosgb3/falco-plugin-nginx/issues

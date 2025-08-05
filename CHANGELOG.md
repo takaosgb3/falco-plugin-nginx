@@ -1,4 +1,8 @@
-# Changelog
+# Changelog / 変更履歴
+
+[English](#english) | [日本語](#日本語)
+
+## English
 
 All notable changes to the Falco nginx plugin binaries will be documented in this file.
 
@@ -146,3 +150,154 @@ All notable changes to the Falco nginx plugin binaries will be documented in thi
 - Quick start binary installation guide
 - Troubleshooting guide
 - Bilingual support (English/Japanese)
+
+---
+
+## 日本語
+
+Falco nginxプラグインバイナリの重要な変更はすべてこのファイルに記録されます。
+
+## [2025-08-04] - SDKプラグインのログ読み取り修正（最新）
+
+### 修正
+- **重要な修正**: プラグインが起動時に既存のログエントリを読み取るようになりました
+- ファイルの末尾へのシークを削除し、既存ログ内の攻撃検出を可能にしました
+- バイナリSHA256: `2b97aaa085ce514a6075c49ba166ea7cf47d30533475eb51dd614acbb3a5c244`
+
+### 技術詳細
+- 以前のバージョンは起動後の新しいログエントリのみを監視していました
+- 現在は即座に脅威検出のためにすべての既存ログエントリを処理します
+- Ubuntu 22.04 EC2インスタンスでローカルランナーとしてビルド
+- Falco 0.41.3でテストおよび検証済み
+
+## [2025-08-04] - Falco Plugin SDKによる完全な書き直し
+
+### 変更
+- **大規模な書き直し**: 公式Falco Plugin SDK for Goを使用してプラグインを完全に書き直しました
+- 手動CGO実装をSDKベースのアプローチに置き換えました
+- より簡潔で保守しやすいコードベース
+- バイナリSHA256: `5eab89337302337022ab05e3d3c5c69b1f25fa2517ce34e4e3268fce03301e13`
+
+### 技術詳細
+- github.com/falcosecurity/plugin-sdk-go v0.8.1を使用
+- ソースとエクストラクターの両方の機能を実装
+- SDKがすべての低レベルプラグインAPI要件を処理
+- Falco 0.41.3（APIバージョン3.11.0）との完全な互換性を維持
+- 適切なSDK使用により以前のすべての問題が解決
+
+## [2025-08-04] - plugin_get_last_error修正
+
+### 修正
+- **重要な修正**: plugin_get_last_errorがnilプラグイン状態を正しく処理するようになりました
+- 初期化エラーを取得のためにグローバル変数に保存
+- Falcoの「plugin handle or get_last_error function not defined」エラーを修正
+- バイナリSHA256: `d6b8ead21a52a5c12ea1b8ae27e3afca15bee28059a0093e228d63dd711cad11`
+
+### 技術詳細
+- plugin_get_last_errorがnilで呼び出されたときに初期化エラーを返せるようになりました
+- 以前のすべての修正を維持（NULLポインタチェック、CGOポインタ安全性、Linux ELF形式）
+- plugin_init失敗後にFalcoが適切にエラーメッセージを取得できるように設計
+
+## [2025-08-04] - NULLポインタ修正
+
+### 修正
+- **重要な修正**: plugin_init rcパラメータにNULLポインタチェックを追加
+- FalcoがNULL rcでplugin_initを呼び出したときのセグメンテーション違反を防止
+- バイナリSHA256: `23e28085a4f1cb83e8b63e47b1cfbf95610b249f65f27fd6ab642c3bf5cc9ab8`
+
+### 技術詳細
+- plugin_initが参照解除前にrcパラメータがNULLかどうかをチェックするようになりました
+- Falcoの「plugin handle or get_last_error function not defined」エラーを修正
+- 以前のすべての修正を維持（CGOポインタ安全性、Linux ELF形式）
+
+## [2025-08-04] - CGO修正付きLinuxバイナリ
+
+### 修正
+- **重要な修正**: プラグイン初期化を妨げていたCGO「unpinned Go pointer」パニックを解決
+- 適切なELFバイナリ形式を生成するためLinux環境でビルド
+- プラグインがGoポインタをCコードに返す代わりにIDベースの状態管理を使用するようになりました
+- バイナリSHA256: `a98cd2d8dffc0634d03638c149ae9f58b93df289b5acff2ebfa6ab4f64b995c0`
+
+### 技術詳細
+- 直接ポインタ返却からIDベース状態追跡に変更
+- ランタイムパニックを防止: 「cgo result is unpinned Go pointer or points to unpinned Go pointer」
+- GitHub Actionsセルフホストランナーを使用してビルド
+- Ubuntu 22.04および他のLinuxシステムでプラグインが正常に初期化されるようになりました
+- 以前のmacOSビルドバイナリの「invalid ELF header」エラーを修正
+
+## [2025-08-04] - CGOポインタ安全性修正
+
+### 修正
+- **重要な修正**: プラグイン初期化を妨げていたCGO「unpinned Go pointer」パニックを解決
+- プラグインがGoポインタをCコードに返す代わりにIDベースの状態管理を使用するようになりました
+- バイナリSHA256: `289370c8b161826e036e46454023dbd263eec01aabc3e4cc3f7601113b2fa7ec`
+
+### 技術詳細
+- 直接ポインタ返却からIDベース状態追跡に変更
+- ランタイムパニックを防止: 「cgo result is unpinned Go pointer or points to unpinned Go pointer」
+- Ubuntu 22.04および他のLinuxシステムでプラグインが正常に初期化されるようになりました
+
+## [2025-08-04] - 初期化修正
+
+### 変更
+- プラグイン初期化が不足しているログファイルを適切に処理するようになりました
+- バイナリSHA256: `2eba662d43bf0fb14bd5dcc7a523c582c56ba06ee143d3ae2c773999ab2a75cb`
+- Falco 0.41.3互換性のためAPIバージョンは3.11.0のまま
+
+### 修正
+- **根本原因の修正**: nginxログファイルが存在しない場合でもプラグインが失敗しなくなりました
+- 検証中の厳密なディレクトリ存在チェックを削除
+- `/var/log/nginx/access.log`が不足していてもプラグインが起動するようになりました
+- より良いデバッグのためのエラーメッセージを改善
+
+### 追加
+- ログファイルが不足している場合の警告メッセージ（失敗の代わり）
+- デフォルトログパスが自動的に適用されます
+- 包括的な設定検証テスト
+
+## [2025-08-04] - APIバージョン3.11.0
+
+### 変更
+- プラグインAPIバージョンを3.6.0から3.11.0に更新
+- Falco 0.41.3との完全な互換性
+- バイナリSHA256: `f74bdc7f3228eb464b266bad702d3e3ed703c47abbaaee706eac3346ab2ca93c`
+
+### 修正
+- Falco 0.41.3でのプラグイン初期化エラーを最終的に解決
+- プラグインがFalco 0.41.3が期待する正確なAPIバージョンを使用するようになりました
+- 更新されたバイナリにはすべての最近の修正が含まれています
+
+## [2025-08-04] - APIバージョン3.6.0
+
+### 変更
+- プラグインAPIバージョンを3.3.0から3.6.0に更新
+- Falco 0.41.xとの互換性を改善
+- バイナリSHA256: `2eb55f496a2a4be86f7ab35ca34d5c979d28cbed1404e51056b5b8537fa7174a`
+
+### 修正
+- Falco 0.41.3でのプラグイン初期化エラーを解決
+- 「plugin handle or 'get_last_error' function not defined」エラーを修正
+
+## [2025-08-04] - APIバージョン3.3.0
+
+### 変更
+- プラグインAPIバージョンを3.0.0から3.3.0に更新
+- Falco 0.41.x互換性を改善する最初の試み
+- バイナリSHA256: `242d6b8d467abbb8dc8edc29f4a718d145537b78f1d4a15beb3a4359912bee0b`
+
+## [2025-08-03] - 初回リリース
+
+### 追加
+- Linux x86_64用のビルド済みバイナリ
+- nginxセキュリティ監視用のFalco検出ルール
+- SQLインジェクション検出のサポート
+- XSS攻撃検出のサポート
+- ディレクトリトラバーサル検出のサポート
+- コマンドインジェクション検出のサポート
+- セキュリティスキャナー検出のサポート
+- APIバージョン3.0.0
+
+### ドキュメント
+- クイックスタートバイナリインストールガイド
+- トラブルシューティングガイド
+- バイリンガルサポート（英語/日本語）

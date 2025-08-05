@@ -1,4 +1,8 @@
-# Contributing to Falco Nginx Plugin
+# Contributing to Falco Nginx Plugin / Falco Nginx プラグインへの貢献
+
+[English](#english) | [日本語](#日本語)
+
+## English
 
 Thank you for your interest in contributing to the Falco nginx plugin! This guide will help you get started.
 
