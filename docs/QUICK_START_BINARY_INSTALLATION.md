@@ -59,8 +59,8 @@ sudo apt update
 ### 2. nginx Installation and Configuration (1 minute)
 
 ```bash
-# Install nginx
-sudo apt install -y nginx
+# Install nginx and PHP
+sudo apt install -y nginx php-fpm
 
 # Basic nginx configuration
 sudo tee /etc/nginx/sites-available/test-site << 'EOF'
@@ -83,7 +83,8 @@ server {
 
     # PHP file processing (for attack testing)
     location ~ \.php$ {
-        # Logs are recorded even without PHP
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/var/run/php/php-fpm.sock;
         try_files $uri =404;
     }
 
@@ -139,6 +140,88 @@ sudo tee /var/www/test-site/admin/index.html << 'EOF'
         <input type="password" name="password" placeholder="Password"><br>
         <input type="submit" value="Login">
     </form>
+</body>
+</html>
+EOF
+
+# Create test PHP files for attack testing
+sudo tee /var/www/test-site/search.php << 'EOF'
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Page</title>
+</head>
+<body>
+    <h1>Search Page</h1>
+    <p>This page logs requests for Falco testing.</p>
+    <form method="GET">
+        <input type="text" name="q" placeholder="Search query" value="<?php echo htmlspecialchars($_GET['q'] ?? ''); ?>">
+        <input type="submit" value="Search">
+    </form>
+    <?php if (isset($_GET['q'])): ?>
+        <p>Search query: <?php echo htmlspecialchars($_GET['q']); ?></p>
+    <?php endif; ?>
+</body>
+</html>
+EOF
+
+sudo tee /var/www/test-site/api/users.php << 'EOF'
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User API</title>
+</head>
+<body>
+    <h1>User API</h1>
+    <p>This API endpoint logs requests for Falco testing.</p>
+    <?php
+    $params = array_merge($_GET, $_POST);
+    if (!empty($params)):
+    ?>
+        <h3>Request Parameters:</h3>
+        <ul>
+        <?php foreach ($params as $key => $value): ?>
+            <li><?php echo htmlspecialchars($key); ?>: <?php echo htmlspecialchars($value); ?></li>
+        <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
+</body>
+</html>
+EOF
+
+sudo mkdir -p /var/www/test-site/api
+
+# Create additional test files
+sudo tee /var/www/test-site/upload.php << 'EOF'
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>File Upload</title>
+</head>
+<body>
+    <h1>File Upload Test</h1>
+    <p>File path: <?php echo htmlspecialchars($_GET['file'] ?? 'No file specified'); ?></p>
+</body>
+</html>
+EOF
+
+sudo tee /var/www/test-site/admin/login.php << 'EOF'
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Result</title>
+</head>
+<body>
+    <h1>Login Attempt</h1>
+    <p>Username: <?php echo htmlspecialchars($_POST['username'] ?? 'N/A'); ?></p>
+    <p>This would be a login attempt in a real application.</p>
+    <a href="/admin/">Back to Admin</a>
 </body>
 </html>
 EOF
@@ -421,8 +504,8 @@ sudo apt update
 ### 2. nginxインストールと設定（1分）
 
 ```bash
-# nginxをインストール
-sudo apt install -y nginx
+# nginxとPHPをインストール
+sudo apt install -y nginx php-fpm
 
 # nginxの基本設定
 sudo tee /etc/nginx/sites-available/test-site << 'EOF'
@@ -445,7 +528,8 @@ server {
 
     # PHPファイルの処理（攻撃テスト用）
     location ~ \.php$ {
-        # PHPが無くてもログは記録される
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/var/run/php/php-fpm.sock;
         try_files $uri =404;
     }
 
@@ -501,6 +585,88 @@ sudo tee /var/www/test-site/admin/index.html << 'EOF'
         <input type="password" name="password" placeholder="パスワード"><br>
         <input type="submit" value="ログイン">
     </form>
+</body>
+</html>
+EOF
+
+# テスト用PHPファイルを作成（攻撃テスト用）
+sudo tee /var/www/test-site/search.php << 'EOF'
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>検索ページ</title>
+</head>
+<body>
+    <h1>検索ページ</h1>
+    <p>このページはFalcoテスト用にリクエストをログに記録します。</p>
+    <form method="GET">
+        <input type="text" name="q" placeholder="検索クエリ" value="<?php echo htmlspecialchars($_GET['q'] ?? ''); ?>">
+        <input type="submit" value="検索">
+    </form>
+    <?php if (isset($_GET['q'])): ?>
+        <p>検索クエリ: <?php echo htmlspecialchars($_GET['q']); ?></p>
+    <?php endif; ?>
+</body>
+</html>
+EOF
+
+sudo tee /var/www/test-site/api/users.php << 'EOF'
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ユーザーAPI</title>
+</head>
+<body>
+    <h1>ユーザーAPI</h1>
+    <p>このAPIエンドポイントはFalcoテスト用にリクエストをログに記録します。</p>
+    <?php
+    $params = array_merge($_GET, $_POST);
+    if (!empty($params)):
+    ?>
+        <h3>リクエストパラメータ:</h3>
+        <ul>
+        <?php foreach ($params as $key => $value): ?>
+            <li><?php echo htmlspecialchars($key); ?>: <?php echo htmlspecialchars($value); ?></li>
+        <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
+</body>
+</html>
+EOF
+
+sudo mkdir -p /var/www/test-site/api
+
+# 追加のテストファイルを作成
+sudo tee /var/www/test-site/upload.php << 'EOF'
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>ファイルアップロード</title>
+</head>
+<body>
+    <h1>ファイルアップロードテスト</h1>
+    <p>ファイルパス: <?php echo htmlspecialchars($_GET['file'] ?? 'ファイルが指定されていません'); ?></p>
+</body>
+</html>
+EOF
+
+sudo tee /var/www/test-site/admin/login.php << 'EOF'
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>ログイン結果</title>
+</head>
+<body>
+    <h1>ログイン試行</h1>
+    <p>ユーザー名: <?php echo htmlspecialchars($_POST['username'] ?? 'N/A'); ?></p>
+    <p>これは実際のアプリケーションではログイン試行になります。</p>
+    <a href="/admin/">管理者エリアに戻る</a>
 </body>
 </html>
 EOF
