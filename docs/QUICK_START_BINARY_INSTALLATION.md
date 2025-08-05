@@ -200,8 +200,6 @@ plugins:
     init_config:
       log_paths:
         - /var/log/nginx/access.log
-      buffer_size: 8192
-      watch_interval: 1000
 EOF
 
 # Create dedicated service for nginx plugin
@@ -552,8 +550,6 @@ plugins:
     init_config:
       log_paths:
         - /var/log/nginx/access.log
-      buffer_size: 8192
-      watch_interval: 1000
 EOF
 
 # nginxプラグイン専用サービスを作成
