@@ -104,8 +104,10 @@ sudo mkdir -p /var/www/test-site
 # Create simple test page
 sudo tee /var/www/test-site/index.html << 'EOF'
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Falco Nginx Plugin Test Site</title>
 </head>
 <body>
@@ -123,12 +125,22 @@ EOF
 # Create admin area
 sudo mkdir -p /var/www/test-site/admin
 sudo tee /var/www/test-site/admin/index.html << 'EOF'
-<h1>Admin Login</h1>
-<form method="POST" action="/admin/login.php">
-    <input type="text" name="username" placeholder="Username"><br>
-    <input type="password" name="password" placeholder="Password"><br>
-    <input type="submit" value="Login">
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+</head>
+<body>
+    <h1>Admin Login</h1>
+    <form method="POST" action="/admin/login.php">
+        <input type="text" name="username" placeholder="Username"><br>
+        <input type="password" name="password" placeholder="Password"><br>
+        <input type="submit" value="Login">
+    </form>
+</body>
+</html>
 EOF
 
 # Set permissions and restart nginx
@@ -454,8 +466,10 @@ sudo mkdir -p /var/www/test-site
 # シンプルなテストページを作成
 sudo tee /var/www/test-site/index.html << 'EOF'
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Falco Nginx Plugin Test Site</title>
 </head>
 <body>
@@ -473,12 +487,22 @@ EOF
 # 管理者エリアを作成
 sudo mkdir -p /var/www/test-site/admin
 sudo tee /var/www/test-site/admin/index.html << 'EOF'
-<h1>管理者ログイン</h1>
-<form method="POST" action="/admin/login.php">
-    <input type="text" name="username" placeholder="ユーザー名"><br>
-    <input type="password" name="password" placeholder="パスワード"><br>
-    <input type="submit" value="ログイン">
-</form>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理者ログイン</title>
+</head>
+<body>
+    <h1>管理者ログイン</h1>
+    <form method="POST" action="/admin/login.php">
+        <input type="text" name="username" placeholder="ユーザー名"><br>
+        <input type="password" name="password" placeholder="パスワード"><br>
+        <input type="submit" value="ログイン">
+    </form>
+</body>
+</html>
 EOF
 
 # 権限設定とnginx再起動
