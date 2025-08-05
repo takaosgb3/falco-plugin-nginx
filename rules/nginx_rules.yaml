@@ -1,5 +1,5 @@
 # Nginx Security Rules for Falco
-# Version: 0.3.0
+# Version: 0.3.1
 # Compatible with: Falco Plugin SDK for Go
 
 # SQL Injection Detection
@@ -12,11 +12,7 @@
     (nginx.path contains "; DROP" or nginx.query_string contains "; DROP") or
     (nginx.path contains "/*" or nginx.query_string contains "/*") or
     (nginx.path contains "*/" or nginx.query_string contains "*/")
-  output: >
-    SQL injection attempt detected
-    (remote_addr=%nginx.remote_addr% method=%nginx.method%
-     path=%nginx.path% query=%nginx.query_string% status=%nginx.status%
-     user_agent=%nginx.user_agent%)
+  output: "SQL injection attempt detected (remote_addr=%nginx.remote_addr% method=%nginx.method% path=%nginx.path% query=%nginx.query_string% status=%nginx.status% user_agent=%nginx.user_agent%)"
   priority: CRITICAL
   source: nginx
   tags: [attack, sql_injection, web]
@@ -31,11 +27,8 @@
     (nginx.path contains "onload=" or nginx.query_string contains "onload=") or
     (nginx.path contains "<iframe" or nginx.query_string contains "<iframe") or
     (nginx.path contains "<object" or nginx.query_string contains "<object")
-  output: >
-    XSS attack attempt detected
-    (remote_addr=%nginx.remote_addr% method=%nginx.method%
-     path=%nginx.path% query=%nginx.query_string% status=%nginx.status%)
-  priority: HIGH
+  output: "XSS attack attempt detected (remote_addr=%nginx.remote_addr% method=%nginx.method% path=%nginx.path% query=%nginx.query_string% status=%nginx.status%)"
+  priority: WARNING
   source: nginx
   tags: [attack, xss, web]
 
@@ -48,11 +41,8 @@
     (nginx.path contains "/etc/" or nginx.query_string contains "/etc/") or
     (nginx.path contains "/proc/" or nginx.query_string contains "/proc/") or
     (nginx.path contains "C:\\" or nginx.query_string contains "C:\\")
-  output: >
-    Path traversal attempt detected
-    (remote_addr=%nginx.remote_addr% method=%nginx.method%
-     path=%nginx.path% query=%nginx.query_string% status=%nginx.status%)
-  priority: HIGH
+  output: "Path traversal attempt detected (remote_addr=%nginx.remote_addr% method=%nginx.method% path=%nginx.path% query=%nginx.query_string% status=%nginx.status%)"
+  priority: WARNING
   source: nginx
   tags: [attack, path_traversal, web]
 
@@ -68,10 +58,7 @@
     (nginx.path contains "||" or nginx.query_string contains "||") or
     (nginx.path contains "`" or nginx.query_string contains "`") or
     (nginx.path contains "$(" or nginx.query_string contains "$(")
-  output: >
-    Command injection attempt detected
-    (remote_addr=%nginx.remote_addr% method=%nginx.method%
-     path=%nginx.path% query=%nginx.query_string% status=%nginx.status%)
+  output: "Command injection attempt detected (remote_addr=%nginx.remote_addr% method=%nginx.method% path=%nginx.path% query=%nginx.query_string% status=%nginx.status%)"
   priority: CRITICAL
   source: nginx
   tags: [attack, command_injection, web]
@@ -85,11 +72,8 @@
     nginx.user_agent contains "nmap" or
     nginx.user_agent contains "masscan" or
     nginx.user_agent contains "scanner"
-  output: >
-    Suspicious user agent detected
-    (remote_addr=%nginx.remote_addr% user_agent=%nginx.user_agent%
-     path=%nginx.path% query=%nginx.query_string%)
-  priority: MEDIUM
+  output: "Suspicious user agent detected (remote_addr=%nginx.remote_addr% user_agent=%nginx.user_agent% path=%nginx.path% query=%nginx.query_string%)"
+  priority: NOTICE
   source: nginx
   tags: [reconnaissance, scanner, web]
 
@@ -98,11 +82,8 @@
   desc: Detects HTTP 4xx client errors
   condition: >
     nginx.status >= 400 and nginx.status < 500
-  output: >
-    HTTP client error
-    (remote_addr=%nginx.remote_addr% status=%nginx.status%
-     path=%nginx.path% query=%nginx.query_string% method=%nginx.method%)
-  priority: LOW
+  output: "HTTP client error (remote_addr=%nginx.remote_addr% status=%nginx.status% path=%nginx.path% query=%nginx.query_string% method=%nginx.method%)"
+  priority: INFORMATIONAL
   source: nginx
   tags: [error, web]
 
@@ -111,11 +92,8 @@
   desc: Detects HTTP 5xx server errors
   condition: >
     nginx.status >= 500
-  output: >
-    HTTP server error detected
-    (remote_addr=%nginx.remote_addr% status=%nginx.status%
-     path=%nginx.path% query=%nginx.query_string% method=%nginx.method%)
-  priority: MEDIUM
+  output: "HTTP server error detected (remote_addr=%nginx.remote_addr% status=%nginx.status% path=%nginx.path% query=%nginx.query_string% method=%nginx.method%)"
+  priority: NOTICE
   source: nginx
   tags: [error, server, web]
 
@@ -125,11 +103,8 @@
   condition: >
     nginx.path contains "/login" and
     (nginx.status = 401 or nginx.status = 403)
-  output: >
-    Failed login attempt
-    (remote_addr=%nginx.remote_addr% path=%nginx.path%
-     status=%nginx.status% user_agent=%nginx.user_agent%)
-  priority: MEDIUM
+  output: "Failed login attempt (remote_addr=%nginx.remote_addr% path=%nginx.path% status=%nginx.status% user_agent=%nginx.user_agent%)"
+  priority: NOTICE
   source: nginx
   tags: [brute_force, authentication, web]
 
@@ -138,11 +113,8 @@
   desc: Detects unusually large response bodies
   condition: >
     nginx.bytes_sent > 10485760
-  output: >
-    Large response body detected
-    (remote_addr=%nginx.remote_addr% size=%nginx.bytes_sent%
-     path=%nginx.path% method=%nginx.method%)
-  priority: LOW
+  output: "Large response body detected (remote_addr=%nginx.remote_addr% size=%nginx.bytes_sent% path=%nginx.path% method=%nginx.method%)"
+  priority: INFORMATIONAL
   source: nginx
   tags: [anomaly, web]
 
@@ -155,10 +127,7 @@
     nginx.path contains "wp-config" or
     nginx.path contains ".htaccess" or
     nginx.path contains ".htpasswd"
-  output: >
-    Sensitive file access attempt
-    (remote_addr=%nginx.remote_addr% path=%nginx.path%
-     status=%nginx.status%)
-  priority: HIGH
+  output: "Sensitive file access attempt (remote_addr=%nginx.remote_addr% path=%nginx.path% status=%nginx.status%)"
+  priority: WARNING
   source: nginx
   tags: [attack, information_disclosure, web]
