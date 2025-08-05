@@ -1,195 +1,176 @@
-# Falco Plugin for Nginx
+# Falco Nginx Plugin
 
-[日本語版](#falco-nginx-プラグイン)
-
-> **📢 Latest Update (2025-08-04)**: SDK-based plugin with real-time threat detection!
-> - Complete rewrite using official Falco Plugin SDK for Go v0.8.1
-> - Processes both existing and new log entries
-> - Fixed nginx_rules.yaml syntax for SDK compatibility
-> - Tested and verified on Ubuntu 22.04 with Falco 0.41.3
-> - Binary SHA256: `2b97aaa085ce514a6075c49ba166ea7cf47d30533475eb51dd614acbb3a5c244`
-
-Real-time security monitoring plugin for nginx web servers powered by Falco.
-
-## 🚀 Quick Start
-
-This repository provides pre-built binaries and installation guides for the Falco nginx plugin.
-
-### Download
-
-Download the latest release files from the [releases](releases/) directory:
-
-- `libfalco-nginx-plugin-linux-amd64.so` - Plugin binary for Linux x86_64
-- `nginx_rules.yaml` - Falco detection rules
-- `libfalco-nginx-plugin-linux-amd64.so.sha256` - Checksum file
-
-**Latest SHA256**: `2b97aaa085ce514a6075c49ba166ea7cf47d30533475eb51dd614acbb3a5c244`
-
-### Installation
-
-Follow the [Quick Start Binary Installation Guide](docs/QUICK_START_BINARY_INSTALLATION.md) for detailed setup instructions.
+A Falco plugin for real-time security monitoring of nginx access logs. Detects SQL injection, XSS, path traversal, and other web-based attacks.
 
 ## ✨ Features
 
-- **Real-time Threat Detection**
-  - SQL injection attacks
-  - Cross-site scripting (XSS)
-  - Directory traversal attempts
-  - Command injection
-  - Brute force attacks
-  - Security scanner detection
-
-- **High Performance**
-  - < 1ms per event processing
-  - Minimal memory footprint
-  - Zero-downtime log rotation support
-
-- **Easy Integration**
-  - Works with existing nginx installations
-  - Compatible with Falco 0.36.0+
-  - Simple configuration
+- **Real-time threat detection** using Falco's powerful rules engine
+- **Multiple attack detection**: SQL injection, XSS, path traversal, command injection
+- **Scanner detection**: Identifies common security scanners and bots
+- **Performance monitoring**: Detects unusual request patterns
+- **No kernel module required**: Runs in plugin-only mode
 
 ## 📋 Requirements
 
-- Ubuntu 20.04+ or Debian 10+
-- Falco 0.36.0+
-- nginx 1.18.0+
+- **Falco**: 0.36.0 or higher
+- **OS**: Linux x86_64
+- **nginx**: Access logs in combined format
+
+## 🚀 Quick Start
+
+### 1. Download the Plugin
+
+```bash
+# Download the latest release
+wget https://github.com/takaosgb3/falco-plugin-nginx/releases/download/v0.3.0/libfalco-nginx-plugin.so
+
+# Verify checksum
+echo "997e60627f103946c1bac9b31aa6ec1803fbd25fbccbf045fe37afaa5ec644d6  libfalco-nginx-plugin.so" | sha256sum -c
+
+# Install to Falco plugins directory
+sudo mkdir -p /usr/share/falco/plugins
+sudo cp libfalco-nginx-plugin.so /usr/share/falco/plugins/
+sudo chmod 644 /usr/share/falco/plugins/libfalco-nginx-plugin.so
+```
+
+### 2. Configure Falco
+
+Edit `/etc/falco/falco.yaml`:
+
+```yaml
+# Add nginx plugin configuration
+plugins:
+  - name: nginx
+    library_path: /usr/share/falco/plugins/libfalco-nginx-plugin.so
+    init_config:
+      log_paths:
+        - /var/log/nginx/access.log
+      buffer_size: 8192
+      watch_interval: 1000
+
+# Enable the plugin
+load_plugins: [nginx]
+```
+
+### 3. Download Rules
+
+```bash
+# Download nginx security rules
+wget https://github.com/takaosgb3/falco-plugin-nginx/releases/download/v0.3.0/nginx_rules.yaml
+sudo cp nginx_rules.yaml /etc/falco/rules.d/
+```
+
+### 4. Run Falco
+
+```bash
+# Run in plugin-only mode (no kernel module required)
+sudo falco --disable-source syscall -r /etc/falco/rules.d/nginx_rules.yaml
+```
+
+## 🧪 Test the Detection
+
+```bash
+# Test SQL injection detection
+curl "http://localhost/search?q=' OR '1'='1"
+
+# Test XSS detection
+curl "http://localhost/page?content=<script>alert('XSS')</script>"
+
+# Test directory traversal
+curl "http://localhost/file?path=../../../../etc/passwd"
+```
 
 ## 📖 Documentation
 
-- [Quick Start Binary Installation](docs/QUICK_START_BINARY_INSTALLATION.md) - Get started in 7 minutes
-- [Troubleshooting Guide](docs/TROUBLESHOOTING.md) - Common issues and solutions
+### Plugin Configuration
 
-## 📄 License
+| Parameter | Description | Default |
+|-----------|-------------|---------|
+| `log_paths` | Array of nginx log file paths | `["/var/log/nginx/access.log"]` |
+| `buffer_size` | Event buffer size | `8192` |
+| `watch_interval` | File check interval (ms) | `1000` |
 
-This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
+### Available Fields
 
-### Binary Distribution
+The plugin extracts the following fields from nginx logs:
 
-The pre-compiled binaries include code from several open-source projects:
-- Falco Plugin SDK for Go (Apache 2.0)
-- Go standard library (BSD-style)
-- fsnotify (BSD-3-Clause)
+- `nginx.client_ip` - Client IP address
+- `nginx.method` - HTTP method
+- `nginx.request_uri` - Full request URI
+- `nginx.path` - Request path
+- `nginx.query_string` - Query parameters
+- `nginx.status` - HTTP status code
+- `nginx.body_bytes_sent` - Response size
+- `nginx.user_agent` - User agent string
+- `nginx.referer` - Referer header
 
-See [NOTICE](NOTICE) for full attribution.
+### Running as a Service
+
+Create `/etc/systemd/system/falco-nginx.service`:
+
+```ini
+[Unit]
+Description=Falco Nginx Security Monitoring
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/falco --disable-source syscall -r /etc/falco/rules.d/nginx_rules.yaml
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Enable and start:
+
+```bash
+sudo systemctl enable falco-nginx
+sudo systemctl start falco-nginx
+```
+
+## 🔍 Troubleshooting
+
+### Plugin not loading?
+
+```bash
+# Check if plugin is recognized
+sudo falco --list-plugins | grep nginx
+
+# Run with debug output
+sudo falco -A --disable-source syscall
+```
+
+### Rules not triggering?
+
+1. Verify `source: nginx` is set in rules
+2. Check log file path and permissions
+3. Ensure nginx uses combined log format
+
+### Common Issues
+
+- **"kernel module not found"**: Use `--disable-source syscall`
+- **"plugin not found"**: Check file path and permissions
+- **No alerts**: Verify nginx is writing to configured log path
+
+## 🏗️ Building from Source
+
+```bash
+git clone https://github.com/takaosgb3/falco-nginx-plugin-claude
+cd falco-nginx-plugin-claude
+make build
+```
+
+## 📜 License
+
+Apache License 2.0
+
+## 🤝 Contributing
+
+Contributions welcome! Please open issues or submit pull requests.
 
 ## 🔗 Links
 
-- [Falco Project](https://falco.org/)
-- [nginx](https://nginx.org/)
-
----
-
-# Falco nginx プラグイン
-
-[English](#falco-plugin-for-nginx)
-
-> **📢 最新更新 (2025-08-04)**: SDKベースのプラグインでリアルタイム脅威検出！
-> - 公式Falco Plugin SDK for Go v0.8.1を使用した完全な書き直し
-> - 既存ログと新規ログの両方を処理
-> - nginx_rules.yamlをSDK互換構文に修正
-> - Ubuntu 22.04とFalco 0.41.3でテスト・検証済み
-> - バイナリSHA256: `2b97aaa085ce514a6075c49ba166ea7cf47d30533475eb51dd614acbb3a5c244`
-
-Falcoを使用したnginx Webサーバー向けのリアルタイムセキュリティ監視プラグインです。
-
-## 🚀 クイックスタート
-
-このリポジトリでは、Falco nginxプラグインのビルド済みバイナリとインストールガイドを提供しています。
-
-### ダウンロード
-
-[releases](releases/)ディレクトリから最新のリリースファイルをダウンロードしてください：
-
-- `libfalco-nginx-plugin-linux-amd64.so` - Linux x86_64用プラグインバイナリ
-- `nginx_rules.yaml` - Falco検出ルール
-- `libfalco-nginx-plugin-linux-amd64.so.sha256` - チェックサムファイル
-
-**最新SHA256**: `2b97aaa085ce514a6075c49ba166ea7cf47d30533475eb51dd614acbb3a5c244`
-
-### インストール
-
-詳細なセットアップ手順については、[クイックスタートバイナリインストールガイド](docs/QUICK_START_BINARY_INSTALLATION.md)をご覧ください。
-
-## ✨ 機能
-
-- **リアルタイム脅威検出**
-  - SQLインジェクション攻撃
-  - クロスサイトスクリプティング（XSS）
-  - ディレクトリトラバーサル攻撃
-  - コマンドインジェクション
-  - ブルートフォース攻撃
-  - セキュリティスキャナー検出
-
-- **高性能**
-  - イベントあたり1ms未満の処理時間
-  - 最小限のメモリフットプリント
-  - ダウンタイムゼロのログローテーション対応
-
-- **簡単な統合**
-  - 既存のnginxインストールで動作
-  - Falco 0.36.0以降に対応
-  - シンプルな設定
-
-## 📋 要件
-
-- Ubuntu 20.04+ または Debian 10+
-- Falco 0.36.0+
-- nginx 1.18.0+
-
-## 📖 ドキュメント
-
-- [クイックスタートバイナリインストール](docs/QUICK_START_BINARY_INSTALLATION.md) - 7分で開始
-- [トラブルシューティングガイド](docs/TROUBLESHOOTING.md) - よくある問題と解決方法
-
-## 📄 ライセンス
-
-このプロジェクトはApache License 2.0でライセンスされています - 詳細は[LICENSE](LICENSE)ファイルをご覧ください。
-
-### バイナリ配布について
-
-プリコンパイルされたバイナリには、以下のオープンソースプロジェクトのコードが含まれています：
-- Falco Plugin SDK for Go (Apache 2.0)
-- Go標準ライブラリ (BSDスタイル)
-- fsnotify (BSD-3-Clause)
-
-完全な帰属情報については[NOTICE](NOTICE)をご覧ください。
-
-## 🔗 リンク
-
-- [Falcoプロジェクト](https://falco.org/)
-- [nginx](https://nginx.org/)
-
----
-
-## 🔧 Technical Details
-
-### Plugin Architecture
-- Built with Falco Plugin SDK for Go v0.8.1
-- Implements both source and extractor capabilities
-- Real-time file monitoring using fsnotify
-- Zero-copy event processing with GOB encoding
-
-### Supported Fields
-- `nginx.remote_addr` - Client IP address
-- `nginx.method` - HTTP method (GET, POST, etc.)
-- `nginx.path` - Request URI path
-- `nginx.query_string` - Query parameters
-- `nginx.status` - HTTP response status code
-- `nginx.bytes_sent` - Response size in bytes
-- `nginx.user_agent` - Client user agent
-- And 6 more fields for comprehensive monitoring
-
-### Binary Distribution Notice
-
-This repository provides pre-compiled binaries for ease of deployment. The binaries are:
-- Built on Ubuntu 22.04 LTS
-- Compiled with Go 1.22+
-- Statically linked for maximum compatibility
-- Tested across multiple Linux distributions
-
-For source code access or custom builds, please contact the maintainers.
-
----
-
-**Note**: This is a binary distribution repository. Source code is maintained in a separate private repository for security reasons.
+- [Falco Documentation](https://falco.org/docs/)
+- [Development Repository](https://github.com/takaosgb3/falco-nginx-plugin-claude)
+- [Report Issues](https://github.com/takaosgb3/falco-plugin-nginx/issues)
