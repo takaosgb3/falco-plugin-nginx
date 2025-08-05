@@ -98,15 +98,19 @@ curl "http://localhost/file?path=../../../../etc/passwd"
 
 The plugin extracts the following fields from nginx logs:
 
-- `nginx.client_ip` - Client IP address
-- `nginx.method` - HTTP method
-- `nginx.request_uri` - Full request URI
-- `nginx.path` - Request path
+- `nginx.remote_addr` - Client IP address
+- `nginx.remote_user` - Authenticated username
+- `nginx.time_local` - Local timestamp
+- `nginx.method` - HTTP method (GET, POST, etc.)
+- `nginx.path` - Request path (without query string)
 - `nginx.query_string` - Query parameters
+- `nginx.protocol` - HTTP protocol version
 - `nginx.status` - HTTP status code
-- `nginx.body_bytes_sent` - Response size
-- `nginx.user_agent` - User agent string
+- `nginx.bytes_sent` - Response size in bytes
 - `nginx.referer` - Referer header
+- `nginx.user_agent` - User agent string
+- `nginx.log_path` - Path to the log file
+- `nginx.raw` - Raw log line
 
 ### Running as a Service
 
@@ -281,15 +285,19 @@ curl "http://localhost/file?path=../../../../etc/passwd"
 
 プラグインはnginxログから以下のフィールドを抽出します:
 
-- `nginx.client_ip` - クライアントIPアドレス
-- `nginx.method` - HTTPメソッド
-- `nginx.request_uri` - 完全なリクエストURI
-- `nginx.path` - リクエストパス
+- `nginx.remote_addr` - クライアントIPアドレス
+- `nginx.remote_user` - 認証されたユーザー名
+- `nginx.time_local` - ローカルタイムスタンプ
+- `nginx.method` - HTTPメソッド（GET、POSTなど）
+- `nginx.path` - リクエストパス（クエリ文字列を除く）
 - `nginx.query_string` - クエリパラメータ
+- `nginx.protocol` - HTTPプロトコルバージョン
 - `nginx.status` - HTTPステータスコード
-- `nginx.body_bytes_sent` - レスポンスサイズ
-- `nginx.user_agent` - ユーザーエージェント文字列
+- `nginx.bytes_sent` - レスポンスサイズ（バイト）
 - `nginx.referer` - リファラーヘッダー
+- `nginx.user_agent` - ユーザーエージェント文字列
+- `nginx.log_path` - ログファイルのパス
+- `nginx.raw` - 生のログ行
 
 ### サービスとして実行
 
