@@ -20,6 +20,8 @@ A Falco plugin for real-time security monitoring of nginx access logs. Detects S
 
 ## 🚀 Quick Start
 
+📖 **[Quick Start Guide](docs/QUICK_START_BINARY_INSTALLATION.md)** - Get started in 5 minutes with pre-built binaries
+
 ### 1. Download the Plugin
 
 ```bash
@@ -200,6 +202,8 @@ nginxアクセスログのリアルタイムセキュリティ監視を行うFal
 - **nginx**: combinedフォーマットのアクセスログ
 
 ## 🚀 クイックスタート
+
+📖 **[クイックスタートガイド](docs/QUICK_START_BINARY_INSTALLATION.md)** - ビルド済みバイナリで5分で始める
 
 ### 1. プラグインのダウンロード
 
