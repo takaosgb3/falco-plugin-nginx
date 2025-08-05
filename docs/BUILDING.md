@@ -9,8 +9,18 @@ This guide explains how to build the Falco nginx plugin from source.
 - gcc (for CGO)
 - Linux x86_64 (for production builds)
 
+### macOS Development Note
+
+While development can be done on macOS, the final plugin binary must be built on Linux x86_64 for use with Falco. The plugin uses CGO and produces a shared library (.so file) that is platform-specific.
+
+For macOS developers:
+1. You can write and test code on macOS
+2. Use Docker or a Linux VM for final builds
+3. Or use GitHub Actions for automated Linux builds
+
 ## Quick Build
 
+### On Linux
 ```bash
 # Clone the repository
 git clone https://github.com/takaosgb3/falco-plugin-nginx.git
@@ -18,6 +28,16 @@ cd falco-plugin-nginx
 
 # Build the plugin
 make build
+```
+
+### On macOS (using Docker)
+```bash
+# Clone the repository
+git clone https://github.com/takaosgb3/falco-plugin-nginx.git
+cd falco-plugin-nginx
+
+# Build Linux binary using Docker
+make docker-build
 ```
 
 The plugin binary will be created at `build/plugin/libfalco-nginx-plugin.so`.
@@ -102,8 +122,18 @@ VERSION := 0.3.2  # Update this line
 - gcc（CGO用）
 - Linux x86_64（本番ビルド用）
 
+### macOS開発時の注意
+
+macOSで開発は可能ですが、Falcoで使用する最終的なプラグインバイナリはLinux x86_64でビルドする必要があります。プラグインはCGOを使用し、プラットフォーム固有の共有ライブラリ（.soファイル）を生成します。
+
+macOS開発者向け：
+1. macOSでコードの記述とテストが可能
+2. 最終ビルドにはDockerまたはLinux VMを使用
+3. またはGitHub Actionsで自動Linux ビルドを利用
+
 ## クイックビルド
 
+### Linuxの場合
 ```bash
 # リポジトリをクローン
 git clone https://github.com/takaosgb3/falco-plugin-nginx.git
@@ -111,6 +141,16 @@ cd falco-plugin-nginx
 
 # プラグインをビルド
 make build
+```
+
+### macOSの場合（Dockerを使用）
+```bash
+# リポジトリをクローン
+git clone https://github.com/takaosgb3/falco-plugin-nginx.git
+cd falco-plugin-nginx
+
+# DockerでLinuxバイナリをビルド
+make docker-build
 ```
 
 プラグインバイナリは `build/plugin/libfalco-nginx-plugin.so` に作成されます。

@@ -18,7 +18,7 @@ PLUGIN_DIR := $(BUILD_DIR)/plugin
 CGO_ENABLED := 1
 LDFLAGS := -ldflags "-s -w"
 
-.PHONY: all build clean test deps
+.PHONY: all build clean test deps docker-build
 
 all: build
 
@@ -50,5 +50,14 @@ install: build
 checksum: build
 	@echo "Generating checksum..."
 	@cd $(PLUGIN_DIR) && sha256sum $(PLUGIN_NAME) | tee $(PLUGIN_NAME).sha256
+
+docker-build:
+	@echo "Building plugin in Docker (for Linux target)..."
+	@docker build -f Dockerfile.build -t falco-nginx-plugin-builder .
+	@docker create --name plugin-extract falco-nginx-plugin-builder
+	@mkdir -p $(PLUGIN_DIR)
+	@docker cp plugin-extract:/output/$(PLUGIN_NAME) $(PLUGIN_DIR)/
+	@docker rm plugin-extract
+	@echo "Linux binary built: $(PLUGIN_DIR)/$(PLUGIN_NAME)"
 
 .DEFAULT_GOAL := build

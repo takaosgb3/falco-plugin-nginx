@@ -1,0 +1,33 @@
+# Build environment for Falco nginx plugin
+# This Dockerfile is for building the plugin on non-Linux systems (e.g., macOS)
+
+FROM golang:1.22-alpine AS builder
+
+# Install build dependencies
+RUN apk add --no-cache gcc musl-dev make
+
+# Set working directory
+WORKDIR /build
+
+# Copy go mod files
+COPY go.mod go.sum ./
+
+# Download dependencies
+RUN go mod download
+
+# Copy source code
+COPY . .
+
+# Build the plugin
+RUN make build
+
+# Final stage - just the binary
+FROM alpine:latest
+
+# Copy the built plugin
+COPY --from=builder /build/build/plugin/libfalco-nginx-plugin.so /output/
+
+# Set permissions
+RUN chmod 644 /output/libfalco-nginx-plugin.so
+
+# The plugin binary is available at /output/libfalco-nginx-plugin.so
