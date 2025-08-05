@@ -18,6 +18,9 @@ RUN go mod download
 # Copy source code
 COPY . .
 
+# Ensure plugin directory structure
+RUN mkdir -p plugin pkg/nginx rules
+
 # Build the plugin
 RUN make build
 

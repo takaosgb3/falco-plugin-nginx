@@ -30,6 +30,11 @@ cd falco-plugin-nginx
 make build
 ```
 
+The source code follows the standard Falco plugin structure:
+- `plugin/main.go` - Plugin entry point
+- `pkg/nginx/` - Plugin implementation (currently in main.go)
+- `rules/` - Falco rules for the plugin
+
 ### On macOS (using Docker)
 ```bash
 # Clone the repository

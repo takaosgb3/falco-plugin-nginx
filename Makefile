@@ -25,7 +25,7 @@ all: build
 build: deps
 	@echo "Building Falco nginx plugin v$(VERSION)..."
 	@mkdir -p $(PLUGIN_DIR)
-	CGO_ENABLED=$(CGO_ENABLED) $(GOBUILD) -buildmode=c-shared $(LDFLAGS) -o $(PLUGIN_DIR)/$(PLUGIN_NAME) cmd/nginx.go
+	CGO_ENABLED=$(CGO_ENABLED) $(GOBUILD) -buildmode=c-shared $(LDFLAGS) -o $(PLUGIN_DIR)/$(PLUGIN_NAME) plugin/main.go
 	@echo "Build complete: $(PLUGIN_DIR)/$(PLUGIN_NAME)"
 
 deps:

@@ -171,6 +171,18 @@ cd falco-plugin-nginx
 make build
 ```
 
+### Project Structure
+```
+├── plugin/              # Plugin entry point
+│   └── main.go
+├── pkg/nginx/           # Plugin implementation (future)
+├── rules/               # Falco rules
+│   └── nginx_rules.yaml
+├── docs/                # Documentation
+├── releases/            # Pre-built binaries
+└── Makefile            # Build configuration
+```
+
 ## 📜 License
 
 Apache License 2.0
@@ -358,6 +370,18 @@ sudo falco -A --disable-source syscall
 git clone https://github.com/takaosgb3/falco-plugin-nginx
 cd falco-plugin-nginx
 make build
+```
+
+### プロジェクト構造
+```
+├── plugin/              # プラグインエントリーポイント
+│   └── main.go
+├── pkg/nginx/           # プラグイン実装（将来）
+├── rules/               # Falcoルール
+│   └── nginx_rules.yaml
+├── docs/                # ドキュメント
+├── releases/            # ビルド済みバイナリ
+└── Makefile            # ビルド設定
 ```
 
 ## 📜 ライセンス
