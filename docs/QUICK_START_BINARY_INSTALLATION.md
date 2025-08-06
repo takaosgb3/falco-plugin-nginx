@@ -93,7 +93,29 @@ curl "http://localhost/api/users.php?path=../../../config/database.yml"
 
 ### 🆘 Troubleshooting
 
-See [Troubleshooting Guide](troubleshooting.md) for common issues and solutions.
+#### Common Issues
+
+1. **"Unknown source nginx" error**:
+   - The plugin is not loaded in Falco
+   - Check if `load_plugins: [nginx]` is set in `/etc/falco/falco.yaml`
+   - Fix: `sudo sed -i 's/load_plugins: \[\]/load_plugins: [nginx]/' /etc/falco/falco.yaml`
+
+2. **No alerts when testing attacks**:
+   - Ensure Falco is running in plugin mode: `sudo falco -c /etc/falco/falco.yaml --disable-source syscall`
+   - Check nginx access logs exist: `ls -la /var/log/nginx/access.log`
+   - Check if rules are installed: `ls -la /etc/falco/rules.d/nginx_rules.yaml`
+
+3. **Rules not installed**:
+   ```bash
+   # Download and install rules manually
+   sudo curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/rules/nginx_rules.yaml \
+     -o /etc/falco/rules.d/nginx_rules.yaml
+   ```
+
+4. **404 errors on test URLs**:
+   - Run the test content setup script as shown above
+
+See [Troubleshooting Guide](troubleshooting.md) for more detailed solutions.
 
 ---
 
@@ -188,4 +210,26 @@ curl "http://localhost/api/users.php?path=../../../config/database.yml"
 
 ### 🆘 トラブルシューティング
 
-よくある問題と解決方法については、[トラブルシューティングガイド](troubleshooting.md)を参照してください。
+#### よくある問題
+
+1. **「Unknown source nginx」エラー**:
+   - プラグインがFalcoに読み込まれていません
+   - `/etc/falco/falco.yaml`に`load_plugins: [nginx]`が設定されているか確認
+   - 修正: `sudo sed -i 's/load_plugins: \[\]/load_plugins: [nginx]/' /etc/falco/falco.yaml`
+
+2. **攻撃テスト時にアラートが出ない**:
+   - Falcoがプラグインモードで実行されているか確認: `sudo falco -c /etc/falco/falco.yaml --disable-source syscall`
+   - nginxアクセスログが存在するか確認: `ls -la /var/log/nginx/access.log`
+   - ルールがインストールされているか確認: `ls -la /etc/falco/rules.d/nginx_rules.yaml`
+
+3. **ルールがインストールされていない**:
+   ```bash
+   # 手動でルールをダウンロード・インストール
+   sudo curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/rules/nginx_rules.yaml \
+     -o /etc/falco/rules.d/nginx_rules.yaml
+   ```
+
+4. **テストURLで404エラー**:
+   - 上記のテストコンテンツセットアップスクリプトを実行
+
+詳細な解決方法については、[トラブルシューティングガイド](troubleshooting.md)を参照してください。
