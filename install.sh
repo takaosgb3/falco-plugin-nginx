@@ -36,6 +36,8 @@ EOF
 
 echo ""
 log "Starting Falco nginx plugin installation"
+log "Version: ${PLUGIN_VERSION}"
+log "Repository: ${PLUGIN_REPO}"
 echo ""
 
 # Check system requirements
@@ -43,8 +45,12 @@ if [ "$EUID" -ne 0 ]; then
     error "Please run as root (use sudo)"
 fi
 
+if [ ! -f /etc/os-release ]; then
+    error "Cannot detect OS. This installer supports Ubuntu/Debian only"
+fi
+
 if ! grep -E "(Ubuntu|Debian)" /etc/os-release > /dev/null 2>&1; then
-    error "This installer supports Ubuntu/Debian only"
+    warning "This installer is designed for Ubuntu/Debian. Attempting to continue..."
 fi
 
 ARCH=$(uname -m)
@@ -55,8 +61,12 @@ fi
 # Install nginx if needed
 if ! command -v nginx &> /dev/null; then
     log "Installing nginx..."
-    apt-get update -qq
-    apt-get install -y nginx > /dev/null 2>&1
+    if ! apt-get update -qq; then
+        error "Failed to update package list. Please check your internet connection."
+    fi
+    if ! apt-get install -y nginx; then
+        error "Failed to install nginx. Please check your system configuration."
+    fi
     success "nginx installed"
 else
     success "nginx is already installed"
@@ -89,8 +99,12 @@ success "nginx configured"
 # Install Falco if needed
 if ! command -v falco &> /dev/null; then
     log "Installing Falco..."
+    # Create keyring directory if it doesn't exist
+    mkdir -p /usr/share/keyrings
     curl -fsSL https://falco.org/repo/falcosecurity-packages.asc | \
         gpg --dearmor -o /usr/share/keyrings/falco-archive-keyring.gpg
+    # Create sources directory if it doesn't exist
+    mkdir -p /etc/apt/sources.list.d
     echo "deb [signed-by=/usr/share/keyrings/falco-archive-keyring.gpg] \
         https://download.falco.org/packages/deb stable main" | \
         tee /etc/apt/sources.list.d/falcosecurity.list > /dev/null
@@ -103,8 +117,9 @@ fi
 
 # Download plugin
 log "Downloading nginx plugin..."
-TMP_DIR=$(mktemp -d)
-cd "$TMP_DIR"
+TMP_DIR=$(mktemp -d) || error "Failed to create temporary directory"
+cd "$TMP_DIR" || error "Failed to change to temporary directory"
+log "Working in temporary directory: $TMP_DIR"
 
 if [ "$PLUGIN_VERSION" = "latest" ]; then
     DOWNLOAD_URL="https://github.com/${PLUGIN_REPO}/releases/latest/download"
@@ -113,14 +128,18 @@ else
 fi
 
 # Download plugin binary
-if ! wget -q "${DOWNLOAD_URL}/libfalco-nginx-plugin-linux-amd64.so" -O libfalco-nginx-plugin.so; then
-    error "Failed to download plugin binary"
+log "Downloading from: ${DOWNLOAD_URL}/libfalco-nginx-plugin-linux-amd64.so"
+if ! wget --no-check-certificate "${DOWNLOAD_URL}/libfalco-nginx-plugin-linux-amd64.so" -O libfalco-nginx-plugin.so 2>&1; then
+    error "Failed to download plugin binary from ${DOWNLOAD_URL}"
 fi
+success "Plugin binary downloaded"
 
 # Download rules
-if ! wget -q "${DOWNLOAD_URL}/nginx_rules.yaml" -O nginx_rules.yaml; then
-    error "Failed to download rules file"
+log "Downloading from: ${DOWNLOAD_URL}/nginx_rules.yaml"
+if ! wget --no-check-certificate "${DOWNLOAD_URL}/nginx_rules.yaml" -O nginx_rules.yaml 2>&1; then
+    error "Failed to download rules file from ${DOWNLOAD_URL}"
 fi
+success "Rules file downloaded"
 
 # Install plugin
 log "Installing plugin..."
@@ -158,6 +177,15 @@ rm -rf "$TMP_DIR"
 
 # Verify installation
 log "Verifying installation..."
+
+# Check if plugin is loaded
+if falco --list-plugins 2>/dev/null | grep -q nginx; then
+    success "nginx plugin is loaded"
+else
+    warning "nginx plugin may not be loaded. Check with: sudo falco --list-plugins"
+fi
+
+# Check if Falco service is running
 if systemctl is-active --quiet falco || service falco status > /dev/null 2>&1; then
     success "Falco is running"
 else
