@@ -1,159 +1,164 @@
-# Falco rules for nginx plugin
-# Detects security events in nginx logs
+# Nginx Security Rules for Falco
+# Version: 0.3.0
+# Compatible with: Falco Plugin SDK for Go
 
-# SQL Injection attempts
-- rule: Nginx SQL Injection Attempt
-  desc: Detects potential SQL injection attempts in nginx logs
+# SQL Injection Detection
+- rule: SQL Injection Attempt
+  desc: Detects potential SQL injection attacks in nginx logs
   condition: >
-    evt.type=nginx and 
-    (nginx.path contains " union " or
-     nginx.path contains "union select" or
-     nginx.path contains "' or " or
-     nginx.path contains "' and " or
-     nginx.path contains "insert into" or
-     nginx.path contains "delete from" or
-     nginx.path contains "drop table" or
-     nginx.path contains "--" or
-     nginx.path contains "/*" or
-     nginx.path contains "*/")
+    (nginx.path contains "' OR" or nginx.query_string contains "' OR") or
+    (nginx.path contains "' AND" or nginx.query_string contains "' AND") or
+    (nginx.path contains "UNION SELECT" or nginx.query_string contains "UNION SELECT") or
+    (nginx.path contains "; DROP" or nginx.query_string contains "; DROP") or
+    (nginx.path contains "/*" or nginx.query_string contains "/*") or
+    (nginx.path contains "*/" or nginx.query_string contains "*/")
   output: >
-    Potential SQL injection attempt detected 
-    (client=%nginx.remote_addr method=%nginx.method path=%nginx.path 
-    user_agent=%nginx.user_agent status=%nginx.status)
-  priority: WARNING
-  tags: [web, nginx, sql_injection]
+    SQL injection attempt detected
+    (remote_addr=%nginx.remote_addr% method=%nginx.method%
+     path=%nginx.path% query=%nginx.query_string% status=%nginx.status%
+     user_agent=%nginx.user_agent%)
+  priority: CRITICAL
+  source: nginx
+  tags: [attack, sql_injection, web]
 
-# XSS attempts
-- rule: Nginx XSS Attempt
-  desc: Detects potential XSS attempts in nginx logs
+# XSS Attack Detection
+- rule: XSS Attack Attempt
+  desc: Detects potential Cross-Site Scripting attacks
   condition: >
-    evt.type=nginx and
-    (nginx.path contains "<script" or
-     nginx.path contains "javascript:" or
-     nginx.path contains "onerror=" or
-     nginx.path contains "<iframe")
+    (nginx.path contains "<script" or nginx.query_string contains "<script") or
+    (nginx.path contains "javascript:" or nginx.query_string contains "javascript:") or
+    (nginx.path contains "onerror=" or nginx.query_string contains "onerror=") or
+    (nginx.path contains "onload=" or nginx.query_string contains "onload=") or
+    (nginx.path contains "<iframe" or nginx.query_string contains "<iframe") or
+    (nginx.path contains "<object" or nginx.query_string contains "<object")
   output: >
-    Potential XSS attempt detected
-    (client=%nginx.remote_addr method=%nginx.method path=%nginx.path
-    user_agent=%nginx.user_agent status=%nginx.status)
-  priority: WARNING
-  tags: [web, nginx, xss]
+    XSS attack attempt detected
+    (remote_addr=%nginx.remote_addr% method=%nginx.method%
+     path=%nginx.path% query=%nginx.query_string% status=%nginx.status%)
+  priority: HIGH
+  source: nginx
+  tags: [attack, xss, web]
 
-# Path traversal attempts
-- rule: Nginx Path Traversal
-  desc: Detects path traversal attempts in nginx logs
+# Path Traversal Detection
+- rule: Path Traversal Attempt
+  desc: Detects attempts to access files outside webroot
   condition: >
-    evt.type=nginx and
-    (nginx.path contains "../" or
-     nginx.path contains "..%2f" or
-     nginx.path contains "..%5c")
+    (nginx.path contains "../" or nginx.query_string contains "../") or
+    (nginx.path contains "..\\" or nginx.query_string contains "..\\") or
+    (nginx.path contains "/etc/" or nginx.query_string contains "/etc/") or
+    (nginx.path contains "/proc/" or nginx.query_string contains "/proc/") or
+    (nginx.path contains "C:\\" or nginx.query_string contains "C:\\")
   output: >
     Path traversal attempt detected
-    (client=%nginx.remote_addr method=%nginx.method path=%nginx.path
-    user_agent=%nginx.user_agent status=%nginx.status)
-  priority: WARNING
-  tags: [web, nginx, path_traversal]
+    (remote_addr=%nginx.remote_addr% method=%nginx.method%
+     path=%nginx.path% query=%nginx.query_string% status=%nginx.status%)
+  priority: HIGH
+  source: nginx
+  tags: [attack, path_traversal, web]
 
-# Suspicious HTTP methods
-- rule: Nginx Suspicious Method
-  desc: Detects suspicious HTTP methods
+# Command Injection Detection
+- rule: Command Injection Attempt
+  desc: Detects potential command injection attacks
   condition: >
-    evt.type=nginx and
-    nginx.method in (CONNECT, TRACE, TRACK, OPTIONS, PROPFIND)
+    (nginx.path contains ";ls" or nginx.query_string contains ";ls") or
+    (nginx.path contains ";cat" or nginx.query_string contains ";cat") or
+    (nginx.path contains "|ls" or nginx.query_string contains "|ls") or
+    (nginx.path contains "|cat" or nginx.query_string contains "|cat") or
+    (nginx.path contains "&&" or nginx.query_string contains "&&") or
+    (nginx.path contains "||" or nginx.query_string contains "||") or
+    (nginx.path contains "`" or nginx.query_string contains "`") or
+    (nginx.path contains "$(" or nginx.query_string contains "$(")
   output: >
-    Suspicious HTTP method detected
-    (client=%nginx.remote_addr method=%nginx.method path=%nginx.path
-    user_agent=%nginx.user_agent status=%nginx.status)
-  priority: NOTICE
-  tags: [web, nginx, suspicious_method]
+    Command injection attempt detected
+    (remote_addr=%nginx.remote_addr% method=%nginx.method%
+     path=%nginx.path% query=%nginx.query_string% status=%nginx.status%)
+  priority: CRITICAL
+  source: nginx
+  tags: [attack, command_injection, web]
 
-# High error rate from single IP
-- rule: Nginx High Error Rate
-  desc: Detects high error rate from a single IP
+# Suspicious User Agent
+- rule: Suspicious User Agent
+  desc: Detects known malicious user agents
   condition: >
-    evt.type=nginx and
-    nginx.status >= 400 and
-    nginx.status < 500
+    nginx.user_agent contains "sqlmap" or
+    nginx.user_agent contains "nikto" or
+    nginx.user_agent contains "nmap" or
+    nginx.user_agent contains "masscan" or
+    nginx.user_agent contains "scanner"
   output: >
-    Client error detected
-    (client=%nginx.remote_addr method=%nginx.method path=%nginx.path
-    status=%nginx.status user_agent=%nginx.user_agent)
-  priority: NOTICE
-  tags: [web, nginx, client_error]
+    Suspicious user agent detected
+    (remote_addr=%nginx.remote_addr% user_agent=%nginx.user_agent%
+     path=%nginx.path% query=%nginx.query_string%)
+  priority: MEDIUM
+  source: nginx
+  tags: [reconnaissance, scanner, web]
 
-# Potential scanner detection
-- rule: Nginx Scanner Detection
-  desc: Detects potential vulnerability scanners
+# High Error Rate (simplified for now)
+- rule: HTTP Client Error
+  desc: Detects HTTP 4xx client errors
   condition: >
-    evt.type=nginx and
-    (nginx.user_agent contains "sqlmap" or
-     nginx.user_agent contains "nikto" or
-     nginx.user_agent contains "nmap" or
-     nginx.user_agent contains "masscan" or
-     nginx.user_agent contains "acunetix")
+    nginx.status >= 400 and nginx.status < 500
   output: >
-    Potential vulnerability scanner detected
-    (client=%nginx.remote_addr scanner=%nginx.user_agent
-    path=%nginx.path status=%nginx.status)
-  priority: WARNING
-  tags: [web, nginx, scanner]
+    HTTP client error
+    (remote_addr=%nginx.remote_addr% status=%nginx.status%
+     path=%nginx.path% query=%nginx.query_string% method=%nginx.method%)
+  priority: LOW
+  source: nginx
+  tags: [error, web]
 
-# Large response size
-- rule: Nginx Large Response
-  desc: Detects unusually large responses
+# Server Error Detection
+- rule: HTTP Server Error
+  desc: Detects HTTP 5xx server errors
   condition: >
-    evt.type=nginx and
-    nginx.body_bytes > 10485760
+    nginx.status >= 500
   output: >
-    Large response detected
-    (client=%nginx.remote_addr method=%nginx.method path=%nginx.path
-    size=%nginx.body_bytes status=%nginx.status)
-  priority: NOTICE
-  tags: [web, nginx, large_response]
+    HTTP server error detected
+    (remote_addr=%nginx.remote_addr% status=%nginx.status%
+     path=%nginx.path% query=%nginx.query_string% method=%nginx.method%)
+  priority: MEDIUM
+  source: nginx
+  tags: [error, server, web]
 
-# Command injection attempts
-- rule: Nginx Command Injection
-  desc: Detects potential command injection attempts
+# Brute Force Detection (simplified)
+- rule: Multiple Failed Login Attempts
+  desc: Detects multiple failed authentication attempts
   condition: >
-    evt.type=nginx and
-    (nginx.path contains "; " or
-     nginx.path contains " | " or
-     nginx.path contains " && " or
-     nginx.path contains "$(" or
-     nginx.path contains "`" or
-     nginx.path contains "; ls" or
-     nginx.path contains "; cat" or
-     nginx.path contains "| ls" or
-     nginx.path contains "| cat")
+    nginx.path contains "/login" and
+    (nginx.status = 401 or nginx.status = 403)
   output: >
-    Potential command injection attempt
-    (client=%nginx.remote_addr method=%nginx.method path=%nginx.path
-    user_agent=%nginx.user_agent status=%nginx.status)
-  priority: WARNING
-  tags: [web, nginx, command_injection]
+    Failed login attempt
+    (remote_addr=%nginx.remote_addr% path=%nginx.path%
+     status=%nginx.status% user_agent=%nginx.user_agent%)
+  priority: MEDIUM
+  source: nginx
+  tags: [brute_force, authentication, web]
 
-# Access denied patterns
-- rule: Nginx Access Denied
-  desc: Monitors access denied responses
+# Large Response Detection (note: this is response size, not request body)
+- rule: Large Response Body
+  desc: Detects unusually large response bodies
   condition: >
-    evt.type=nginx and
-    nginx.status = 403
+    nginx.bytes_sent > 10485760
   output: >
-    Access denied
-    (client=%nginx.remote_addr method=%nginx.method path=%nginx.path
-    user_agent=%nginx.user_agent)
-  priority: NOTICE
-  tags: [web, nginx, access_denied]
+    Large response body detected
+    (remote_addr=%nginx.remote_addr% size=%nginx.bytes_sent%
+     path=%nginx.path% method=%nginx.method%)
+  priority: LOW
+  source: nginx
+  tags: [anomaly, web]
 
-# 404 scanning patterns
-- rule: Nginx 404 Scan
-  desc: Detects potential scanning via 404 errors
+# Suspicious File Access
+- rule: Sensitive File Access Attempt
+  desc: Detects attempts to access sensitive files
   condition: >
-    evt.type=nginx and
-    nginx.status = 404
+    nginx.path contains ".git" or
+    nginx.path contains ".env" or
+    nginx.path contains "wp-config" or
+    nginx.path contains ".htaccess" or
+    nginx.path contains ".htpasswd"
   output: >
-    Resource not found - potential scan
-    (client=%nginx.remote_addr method=%nginx.method path=%nginx.path
-    user_agent=%nginx.user_agent)
-  priority: INFO
-  tags: [web, nginx, not_found]
+    Sensitive file access attempt
+    (remote_addr=%nginx.remote_addr% path=%nginx.path%
+     status=%nginx.status%)
+  priority: HIGH
+  source: nginx
+  tags: [attack, information_disclosure, web]

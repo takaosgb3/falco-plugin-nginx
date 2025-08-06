@@ -1,1 +1,2 @@
 d478b9f4790e1425b2db68e2452bc36c16ff4fb5daaf5707c2790078d79abfba  libfalco-nginx-plugin-linux-amd64.so
+b54e38e54e527c8b90ee91b52979650ab1fcc586545191aff7c4de574c0d8f2b  nginx_rules.yaml
