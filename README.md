@@ -1,8 +1,13 @@
-# Falco nginx Plugin
+# Falco nginx Plugin / Falco nginxプラグイン
+
+[English](#english) | [日本語](#japanese)
+
+<a name="english"></a>
+## English
 
 A [Falco](https://falco.org) plugin that reads nginx access logs and detects security threats in real-time.
 
-## Features
+### Features
 
 - **Real-time nginx log monitoring**: Continuously monitors nginx access logs
 - **Security threat detection**: Detects SQL injection, XSS, directory traversal, command injection, and more
@@ -11,9 +16,9 @@ A [Falco](https://falco.org) plugin that reads nginx access logs and detects sec
 - **High performance**: Efficient log parsing with minimal overhead
 - **Easy deployment**: Simple binary installation with automated setup
 
-## Quick Start
+### Quick Start
 
-### One-liner Installation (Recommended)
+#### One-liner Installation (Recommended)
 
 The easiest way to get started:
 
@@ -28,7 +33,7 @@ This will automatically:
 - ✅ Download and install the nginx plugin
 - ✅ Configure everything for immediate use
 
-### Manual Installation
+#### Manual Installation
 
 1. **Download the latest release**:
 ```bash
@@ -49,8 +54,10 @@ sudo mkdir -p /etc/falco/rules.d
 sudo cp nginx_rules.yaml /etc/falco/rules.d/
 ```
 
-4. **Configure Falco** (`/etc/falco/falco.yaml`):
+4. **Configure Falco** - Add to `/etc/falco/falco.yaml`:
 ```yaml
+load_plugins: [nginx]
+
 plugins:
   - name: nginx
     library_path: /usr/share/falco/plugins/libfalco-nginx-plugin.so
@@ -59,147 +66,128 @@ plugins:
         - /var/log/nginx/access.log
 ```
 
-5. **Start Falco**:
-```bash
-sudo systemctl restart falco
-```
+### Testing
 
-## Testing Attack Detection
-
-Once installed, test the detection capabilities:
+After installation, test the plugin:
 
 ```bash
-# Monitor Falco logs
-sudo journalctl -u falco -f
+# Start Falco in plugin mode
+sudo falco -c /etc/falco/falco.yaml --disable-source syscall
 
-# In another terminal, simulate attacks:
-# SQL Injection
-curl "http://localhost/search.php?q=' OR '1'='1"
-
-# XSS Attack
-curl "http://localhost/search.php?q=<script>alert('XSS')</script>"
-
-# Directory Traversal
-curl "http://localhost/upload.php?file=../../etc/passwd"
-
-# Scanner Detection
-curl -H "User-Agent: sqlmap/1.5.2" http://localhost/
+# In another terminal, simulate attacks
+curl "http://localhost/search.php?q=%27%20OR%20%271%27%3D%271"
 ```
 
-## System Requirements
+### Documentation
 
-| Component | Recommended | Minimum |
-|-----------|------------|---------|
-| **OS** | Ubuntu 22.04 LTS | Ubuntu 20.04 |
-| **Falco** | 0.38.0+ | 0.36.0 |
-| **nginx** | 1.18.0+ | 1.14.0 |
-| **Architecture** | x86_64 | x86_64 |
+- [Quick Start Binary Installation](docs/QUICK_START_BINARY_INSTALLATION.md)
+- [Configuration Guide](docs/configuration.md)
+- [Troubleshooting](docs/troubleshooting.md)
+- [Performance Tuning](docs/performance.md)
+- [Rule Reference](docs/rules.md)
 
-## Performance Tuning
+### Requirements
 
-### Buffer Size Tuning
+- **Falco**: 0.36.0 or higher
+- **OS**: Linux x86_64
+- **nginx**: 1.14.0+ with combined log format
 
-For high-traffic environments, adjust the buffer size:
-
-```yaml
-plugins:
-  - name: nginx
-    init_config:
-      buffer_size: 16384  # Default: 8192
-```
-
-Impact of doubling buffer size (8KB → 16KB):
-- Memory increase: +8KB per monitored file (minimal)
-- CPU usage: 0.8% → 0.7% (slight improvement)
-- Event latency: 1.2ms → 1.4ms (acceptable)
-
-### Log Rotation
-
-Set up log rotation to prevent disk space issues:
-
-```bash
-wget https://raw.githubusercontent.com/takaosgb3/falco-nginx-plugin/main/scripts/setup-log-rotation.sh
-sudo ./setup-log-rotation.sh
-```
-
-## Detected Threats
-
-The plugin detects various security threats including:
-
-- **SQL Injection**: `' OR`, `UNION SELECT`, `DROP TABLE`
-- **XSS Attacks**: `<script>`, `javascript:`, `onerror=`
-- **Directory Traversal**: `../`, `..%2F`, `/etc/passwd`
-- **Command Injection**: `;`, `|`, backticks
-- **Security Scanners**: sqlmap, nikto, nmap
-- **Brute Force**: Multiple failed login attempts
-
-## Troubleshooting
-
-### Plugin not loading
-```bash
-# Check if plugin is loaded
-sudo falco --list-plugins | grep nginx
-
-# Check plugin permissions
-ls -la /usr/share/falco/plugins/libfalco-nginx-plugin.so
-```
-
-### No alerts generated
-```bash
-# Verify rules are loaded
-ls -la /etc/falco/rules.d/nginx_rules.yaml
-
-# Check Falco logs
-sudo journalctl -u falco -n 100
-
-# Run in debug mode
-sudo falco -c /etc/falco/falco.yaml --disable-source syscall -v
-```
-
-### Permission issues
-```bash
-# Ensure Falco can read nginx logs
-sudo usermod -a -G adm falco
-sudo chmod 644 /var/log/nginx/access.log
-sudo systemctl restart falco
-```
-
-## Advanced Configuration
-
-### Custom Log Paths
-```yaml
-plugins:
-  - name: nginx
-    init_config:
-      log_paths:
-        - /var/log/nginx/access.log
-        - /var/log/nginx/custom-site.log
-        - /srv/nginx/logs/access.log
-```
-
-### Performance Optimization
-```yaml
-plugins:
-  - name: nginx
-    init_config:
-      buffer_size: 16384      # Increase for high traffic
-      max_batch_size: 1000    # Events per batch
-      batch_timeout: 500      # Milliseconds
-```
-
-## Building from Source
-
-See [BUILD.md](BUILD.md) for instructions on building the plugin from source.
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## License
+### License
 
 This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
 
-## Acknowledgments
+---
 
-- [Falco](https://falco.org) - The runtime security tool
-- [Falco Plugin SDK](https://github.com/falcosecurity/plugin-sdk-go) - Plugin development framework
+<a name="japanese"></a>
+## 日本語
+
+nginxのアクセスログを読み取り、セキュリティ脅威をリアルタイムで検出する[Falco](https://falco.org)プラグイン。
+
+### 機能
+
+- **リアルタイムnginxログ監視**: nginxアクセスログを継続的に監視
+- **セキュリティ脅威検出**: SQLインジェクション、XSS、ディレクトリトラバーサル、コマンドインジェクション等を検出
+- **スキャナー検出**: 一般的なセキュリティスキャンツールを識別
+- **ブルートフォース検出**: 認証攻撃を監視
+- **高性能**: 最小限のオーバーヘッドで効率的なログ解析
+- **簡単な展開**: 自動セットアップによる簡単なバイナリインストール
+
+### クイックスタート
+
+#### ワンライナーインストール（推奨）
+
+最も簡単な開始方法：
+
+```bash
+curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-nginx-plugin/main/install.sh | sudo bash
+```
+
+これにより自動的に以下が実行されます：
+- ✅ システム要件の確認
+- ✅ nginx のインストールと設定（必要な場合）
+- ✅ Falco のインストール
+- ✅ nginx プラグインのダウンロードとインストール
+- ✅ すぐに使用できるようにすべてを設定
+
+#### 手動インストール
+
+1. **最新リリースをダウンロード**：
+```bash
+wget https://github.com/takaosgb3/falco-nginx-plugin/releases/latest/download/libfalco-nginx-plugin-linux-amd64.so
+wget https://github.com/takaosgb3/falco-nginx-plugin/releases/latest/download/nginx_rules.yaml
+```
+
+2. **プラグインをインストール**：
+```bash
+sudo mkdir -p /usr/share/falco/plugins
+sudo cp libfalco-nginx-plugin-linux-amd64.so /usr/share/falco/plugins/libfalco-nginx-plugin.so
+sudo chmod 644 /usr/share/falco/plugins/libfalco-nginx-plugin.so
+```
+
+3. **ルールをインストール**：
+```bash
+sudo mkdir -p /etc/falco/rules.d
+sudo cp nginx_rules.yaml /etc/falco/rules.d/
+```
+
+4. **Falcoを設定** - `/etc/falco/falco.yaml`に追加：
+```yaml
+load_plugins: [nginx]
+
+plugins:
+  - name: nginx
+    library_path: /usr/share/falco/plugins/libfalco-nginx-plugin.so
+    init_config:
+      log_paths:
+        - /var/log/nginx/access.log
+```
+
+### テスト
+
+インストール後、プラグインをテスト：
+
+```bash
+# プラグインモードでFalcoを起動
+sudo falco -c /etc/falco/falco.yaml --disable-source syscall
+
+# 別のターミナルで攻撃をシミュレート
+curl "http://localhost/search.php?q=%27%20OR%20%271%27%3D%271"
+```
+
+### ドキュメント
+
+- [クイックスタート バイナリインストール](docs/QUICK_START_BINARY_INSTALLATION.md)
+- [設定ガイド](docs/configuration.md)
+- [トラブルシューティング](docs/troubleshooting.md)
+- [パフォーマンスチューニング](docs/performance.md)
+- [ルールリファレンス](docs/rules.md)
+
+### 要件
+
+- **Falco**: 0.36.0以上
+- **OS**: Linux x86_64
+- **nginx**: 1.14.0以上（combined形式のログ）
+
+### ライセンス
+
+このプロジェクトはApache License 2.0でライセンスされています - 詳細は[LICENSE](LICENSE)ファイルを参照してください。

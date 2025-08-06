@@ -6,7 +6,32 @@
 
 All notable changes to the Falco nginx plugin binaries will be documented in this file.
 
-## [2025-08-04] - Fixed SDK Plugin for Log Reading (Latest)
+## [v0.4.2] - 2025-08-06 - Falco 0.41.x Compatibility Fix (Latest)
+
+### Fixed
+- Fixed compatibility with Falco 0.41.x by updating rule priority values
+- Fixed `load_plugins` array update in installation script
+- Changed priorities: HIGH→WARNING, MEDIUM→NOTICE, LOW→INFO
+
+### Note
+- No changes to plugin binary - only rules and installation script updated
+- Addresses "Unknown source nginx" and priority validation errors
+
+## [v0.4.1] - 2025-08-06 - Repository Structure Update
+
+### Changed
+- Reorganized repository structure to follow Falco plugin standards
+- Moved `nginx_rules.yaml` to `rules/` directory
+- No functional changes - structure improvement only
+
+## [v0.4.0] - 2025-08-05 - Field Extraction Fix
+
+### Fixed
+- Fixed field extraction for `http_method`, `http_request_line`, and `http_request_uri`
+- Resolved query string parsing issues
+- Based on SDK migration from 2025-08-04
+
+## [2025-08-04] - Fixed SDK Plugin for Log Reading
 
 ### Fixed
 - **Critical fix**: Plugin now reads existing log entries on startup
@@ -157,7 +182,32 @@ All notable changes to the Falco nginx plugin binaries will be documented in thi
 
 Falco nginxプラグインバイナリの重要な変更はすべてこのファイルに記録されます。
 
-## [2025-08-04] - SDKプラグインのログ読み取り修正（最新）
+## [v0.4.2] - 2025-08-06 - Falco 0.41.x 互換性修正（最新）
+
+### 修正
+- ルール優先度値を更新してFalco 0.41.xとの互換性を修正
+- インストールスクリプトの`load_plugins`配列更新を修正
+- 優先度変更: HIGH→WARNING、MEDIUM→NOTICE、LOW→INFO
+
+### 注記
+- プラグインバイナリに変更なし - ルールとインストールスクリプトのみ更新
+- "Unknown source nginx"および優先度検証エラーに対処
+
+## [v0.4.1] - 2025-08-06 - リポジトリ構造更新
+
+### 変更
+- Falcoプラグイン標準に従ってリポジトリ構造を再編成
+- `nginx_rules.yaml`を`rules/`ディレクトリに移動
+- 機能変更なし - 構造改善のみ
+
+## [v0.4.0] - 2025-08-05 - フィールド抽出修正
+
+### 修正
+- `http_method`、`http_request_line`、`http_request_uri`のフィールド抽出を修正
+- クエリ文字列解析の問題を解決
+- 2025-08-04のSDK移行に基づく
+
+## [2025-08-04] - SDKプラグインのログ読み取り修正
 
 ### 修正
 - **重要な修正**: プラグインが起動時に既存のログエントリを読み取るようになりました
