@@ -33,15 +33,37 @@ This script automatically:
 - ✅ Installs Falco
 - ✅ Downloads and installs the plugin and rules
 - ✅ Verifies operation and shows test commands
+- ✅ Optionally sets up test web content for attack simulation
 
 After installation, you can test attack detection:
 ```bash
 # Monitor Falco logs
 sudo journalctl -u falco -f
 
-# In another terminal, simulate attacks
-curl "http://localhost/search.php?q=' OR '1'='1"
+# If you see 404 errors, set up test content:
+sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/scripts/setup-test-content.sh)"
+
+# Then simulate attacks (URL-encoded):
+curl "http://localhost/search.php?q=%27%20OR%20%271%27%3D%271"
 ```
+
+### 🌐 Setting Up Test Web Content
+
+If you encounter 404 errors when testing attacks, you need to set up test web content:
+
+```bash
+# Option 1: During installation (when prompted)
+# The installer will ask: "Would you like to set up test web content for security testing? (y/N)"
+
+# Option 2: Manual setup after installation
+sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/scripts/setup-test-content.sh)"
+```
+
+This creates vulnerable test endpoints:
+- `/search.php` - SQL injection testing
+- `/api/users.php` - API attack testing  
+- `/upload.php` - Directory traversal testing
+- `/admin/` - Brute force detection testing
 
 ### 📊 Full Installation Guide
 
@@ -51,14 +73,16 @@ For detailed manual installation steps, see [Installation Guide](installation.md
 
 #### SQL Injection
 ```bash
-curl "http://localhost/search.php?q=' OR '1'='1"
-curl "http://localhost/api/users.php?id=1' UNION SELECT * FROM users--"
+# Use URL-encoded format to avoid shell interpretation issues
+curl "http://localhost/search.php?q=%27%20OR%20%271%27%3D%271"
+curl "http://localhost/api/users.php?id=1%27%20UNION%20SELECT%20%2A%20FROM%20users--"
 ```
 
 #### XSS Attack
 ```bash
-curl "http://localhost/search.php?q=<script>alert('XSS')</script>"
-curl "http://localhost/search.php?q=<img src=x onerror=alert(1)>"
+# URL-encoded to prevent shell issues
+curl "http://localhost/search.php?q=%3Cscript%3Ealert%28%27XSS%27%29%3C%2Fscript%3E"
+curl "http://localhost/search.php?q=%3Cimg%20src%3Dx%20onerror%3Dalert%281%29%3E"
 ```
 
 #### Directory Traversal
@@ -104,15 +128,37 @@ curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/in
 - ✅ Falcoのインストール
 - ✅ プラグインとルールファイルのダウンロード・配置
 - ✅ 動作確認とテストコマンドの表示
+- ✅ 攻撃シミュレーション用のテストWebコンテンツの設定（オプション）
 
 インストール後、攻撃検出テストを実行できます：
 ```bash
 # Falcoログを監視
 sudo journalctl -u falco -f
 
-# 別ターミナルで攻撃をシミュレート
-curl "http://localhost/search.php?q=' OR '1'='1"
+# 404エラーが出る場合は、テストコンテンツをセットアップ：
+sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/scripts/setup-test-content.sh)"
+
+# その後、攻撃をシミュレート（URLエンコード済み）：
+curl "http://localhost/search.php?q=%27%20OR%20%271%27%3D%271"
 ```
+
+### 🌐 テストWebコンテンツのセットアップ
+
+攻撃テスト時に404エラーが発生する場合は、テストWebコンテンツをセットアップする必要があります：
+
+```bash
+# オプション1: インストール中（プロンプトが表示されたとき）
+# インストーラーが尋ねます: "Would you like to set up test web content for security testing? (y/N)"
+
+# オプション2: インストール後の手動セットアップ
+sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/scripts/setup-test-content.sh)"
+```
+
+これにより以下の脆弱なテストエンドポイントが作成されます：
+- `/search.php` - SQLインジェクションテスト用
+- `/api/users.php` - API攻撃テスト用
+- `/upload.php` - ディレクトリトラバーサルテスト用
+- `/admin/` - ブルートフォース検出テスト用
 
 ### 📊 詳細なインストールガイド
 
@@ -122,14 +168,16 @@ curl "http://localhost/search.php?q=' OR '1'='1"
 
 #### SQLインジェクション
 ```bash
-curl "http://localhost/search.php?q=' OR '1'='1"
-curl "http://localhost/api/users.php?id=1' UNION SELECT * FROM users--"
+# シェルの解釈問題を避けるためURLエンコード形式を使用
+curl "http://localhost/search.php?q=%27%20OR%20%271%27%3D%271"
+curl "http://localhost/api/users.php?id=1%27%20UNION%20SELECT%20%2A%20FROM%20users--"
 ```
 
 #### XSS攻撃
 ```bash
-curl "http://localhost/search.php?q=<script>alert('XSS')</script>"
-curl "http://localhost/search.php?q=<img src=x onerror=alert(1)>"
+# シェルの問題を防ぐためURLエンコード済み
+curl "http://localhost/search.php?q=%3Cscript%3Ealert%28%27XSS%27%29%3C%2Fscript%3E"
+curl "http://localhost/search.php?q=%3Cimg%20src%3Dx%20onerror%3Dalert%281%29%3E"
 ```
 
 #### ディレクトリトラバーサル
