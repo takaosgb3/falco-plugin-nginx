@@ -35,7 +35,7 @@
     XSS attack attempt detected
     (remote_addr=%nginx.remote_addr% method=%nginx.method%
      path=%nginx.path% query=%nginx.query_string% status=%nginx.status%)
-  priority: HIGH
+  priority: WARNING
   source: nginx
   tags: [attack, xss, web]
 
@@ -52,7 +52,7 @@
     Path traversal attempt detected
     (remote_addr=%nginx.remote_addr% method=%nginx.method%
      path=%nginx.path% query=%nginx.query_string% status=%nginx.status%)
-  priority: HIGH
+  priority: WARNING
   source: nginx
   tags: [attack, path_traversal, web]
 
@@ -89,7 +89,7 @@
     Suspicious user agent detected
     (remote_addr=%nginx.remote_addr% user_agent=%nginx.user_agent%
      path=%nginx.path% query=%nginx.query_string%)
-  priority: MEDIUM
+  priority: NOTICE
   source: nginx
   tags: [reconnaissance, scanner, web]
 
@@ -102,7 +102,7 @@
     HTTP client error
     (remote_addr=%nginx.remote_addr% status=%nginx.status%
      path=%nginx.path% query=%nginx.query_string% method=%nginx.method%)
-  priority: LOW
+  priority: INFO
   source: nginx
   tags: [error, web]
 
@@ -115,7 +115,7 @@
     HTTP server error detected
     (remote_addr=%nginx.remote_addr% status=%nginx.status%
      path=%nginx.path% query=%nginx.query_string% method=%nginx.method%)
-  priority: MEDIUM
+  priority: NOTICE
   source: nginx
   tags: [error, server, web]
 
@@ -129,7 +129,7 @@
     Failed login attempt
     (remote_addr=%nginx.remote_addr% path=%nginx.path%
      status=%nginx.status% user_agent=%nginx.user_agent%)
-  priority: MEDIUM
+  priority: NOTICE
   source: nginx
   tags: [brute_force, authentication, web]
 
@@ -142,7 +142,7 @@
     Large response body detected
     (remote_addr=%nginx.remote_addr% size=%nginx.bytes_sent%
      path=%nginx.path% method=%nginx.method%)
-  priority: LOW
+  priority: INFO
   source: nginx
   tags: [anomaly, web]
 
@@ -159,6 +159,6 @@
     Sensitive file access attempt
     (remote_addr=%nginx.remote_addr% path=%nginx.path%
      status=%nginx.status%)
-  priority: HIGH
+  priority: WARNING
   source: nginx
   tags: [attack, information_disclosure, web]
