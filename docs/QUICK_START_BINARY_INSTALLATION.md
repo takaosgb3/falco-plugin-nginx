@@ -26,8 +26,8 @@ The easiest way is to use the automated installation script:
 # Install latest version automatically
 curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo bash
 
-# Alternative: Direct install v0.4.2 (if GitHub API is blocked)
-curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install-direct.sh | sudo bash
+# Or install a specific version
+PLUGIN_VERSION=v0.4.6 curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo bash
 ```
 
 This script automatically:
@@ -146,8 +146,8 @@ See [Troubleshooting Guide](troubleshooting.md) for more detailed solutions.
 # 最新版を自動インストール
 curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo bash
 
-# 代替方法: v0.4.2を直接インストール（GitHub APIがブロックされている場合）
-curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install-direct.sh | sudo bash
+# または特定のバージョンをインストール
+PLUGIN_VERSION=v0.4.6 curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo bash
 ```
 
 このスクリプトは以下を自動的に実行します：
