@@ -1,14 +1,14 @@
 #!/bin/bash
 #
-# Falco nginx Plugin Installer
-# One-liner installation script for easy deployment
+# Falco nginx Plugin Direct Installer (v0.4.2)
+# Installs without using GitHub API
 #
 
 set -euo pipefail
 
 # Configuration
+PLUGIN_VERSION="v0.4.2"
 PLUGIN_REPO="takaosgb3/falco-plugin-nginx"
-PLUGIN_VERSION="${PLUGIN_VERSION:-latest}"
 
 # Colors
 RED='\033[0;31m'
@@ -31,7 +31,7 @@ cat << 'EOF'
 |  _| (_| | | (_| (_) | | |_) | | |_| | (_| | | | | |
 |_|  \__,_|_|\___\___/  | .__/|_|\__,_|\__, |_|_| |_|
                         |_|            |___/         
-nginx security plugin installer
+nginx security plugin installer (Direct v0.4.2)
 EOF
 
 echo ""
@@ -46,7 +46,7 @@ if [ "$EUID" -ne 0 ]; then
 fi
 
 # Check required commands
-for cmd in curl wget jq; do
+for cmd in curl wget; do
     if ! command -v $cmd &> /dev/null; then
         log "Installing $cmd..."
         apt-get update -qq && apt-get install -y $cmd || error "Failed to install $cmd"
@@ -129,74 +129,16 @@ TMP_DIR=$(mktemp -d) || error "Failed to create temporary directory"
 cd "$TMP_DIR" || error "Failed to change to temporary directory"
 log "Working in temporary directory: $TMP_DIR"
 
-if [ "$PLUGIN_VERSION" = "latest" ]; then
-    # Get the actual latest version tag using GitHub API
-    log "Fetching latest release information..."
-    
-    # Debug: Show the API URL being used
-    API_URL="https://api.github.com/repos/${PLUGIN_REPO}/releases/latest"
-    log "API URL: $API_URL"
-    
-    # Try curl with timeout and show errors
-    LATEST_RESPONSE=$(curl -sSL --connect-timeout 10 --max-time 30 "$API_URL" 2>&1)
-    CURL_EXIT_CODE=$?
-    
-    if [ $CURL_EXIT_CODE -ne 0 ]; then
-        error "curl failed with exit code $CURL_EXIT_CODE. Response: $LATEST_RESPONSE"
-    fi
-    
-    if [ -z "$LATEST_RESPONSE" ]; then
-        error "Empty response from GitHub API"
-    fi
-    
-    # Debug: Show first 200 chars of response
-    log "API Response (first 200 chars): ${LATEST_RESPONSE:0:200}"
-    
-    # Try multiple parsing methods
-    LATEST_VERSION=$(echo "$LATEST_RESPONSE" | grep '"tag_name":' | sed -E 's/.*"tag_name":[[:space:]]*"([^"]+)".*/\1/' | head -1)
-    
-    if [ -z "$LATEST_VERSION" ]; then
-        # Try with jq if available
-        if command -v jq &> /dev/null; then
-            LATEST_VERSION=$(echo "$LATEST_RESPONSE" | jq -r '.tag_name' 2>/dev/null)
-        fi
-    fi
-    
-    if [ -z "$LATEST_VERSION" ]; then
-        # Try another sed pattern
-        LATEST_VERSION=$(echo "$LATEST_RESPONSE" | sed -n 's/.*"tag_name":[[:space:]]*"\([^"]*\)".*/\1/p' | head -1)
-    fi
-    
-    if [ -z "$LATEST_VERSION" ]; then
-        # Check if we got a rate limit or other error
-        if echo "$LATEST_RESPONSE" | grep -q "rate limit"; then
-            warning "GitHub API rate limit exceeded. Using fallback version v0.4.2"
-            LATEST_VERSION="v0.4.2"
-        elif echo "$LATEST_RESPONSE" | grep -q "Not Found"; then
-            error "Repository not found: ${PLUGIN_REPO}. Please check the repository name."
-        else
-            warning "Failed to parse version from GitHub API. Using fallback version v0.4.2"
-            LATEST_VERSION="v0.4.2"
-        fi
-    fi
-    
-    log "Latest version is: ${LATEST_VERSION}"
-    DOWNLOAD_URL="https://github.com/${PLUGIN_REPO}/releases/download/${LATEST_VERSION}"
-else
-    DOWNLOAD_URL="https://github.com/${PLUGIN_REPO}/releases/download/${PLUGIN_VERSION}"
-fi
+# Direct download URLs
+DOWNLOAD_URL="https://github.com/${PLUGIN_REPO}/releases/download/${PLUGIN_VERSION}"
 
 # Download plugin binary
 log "Downloading plugin binary..."
 PLUGIN_URL="${DOWNLOAD_URL}/libfalco-nginx-plugin-linux-amd64.so"
-log "Plugin URL: $PLUGIN_URL"
+log "URL: $PLUGIN_URL"
 
-if ! wget --progress=bar:force --no-check-certificate "$PLUGIN_URL" -O libfalco-nginx-plugin.so 2>&1; then
-    # If wget fails, try curl
-    log "wget failed, trying curl..."
-    if ! curl -L --progress-bar "$PLUGIN_URL" -o libfalco-nginx-plugin.so; then
-        error "Failed to download plugin binary from ${PLUGIN_URL}"
-    fi
+if ! curl -L --progress-bar "$PLUGIN_URL" -o libfalco-nginx-plugin.so; then
+    error "Failed to download plugin binary from ${PLUGIN_URL}"
 fi
 
 # Verify file was downloaded
@@ -209,14 +151,10 @@ success "Plugin binary downloaded"
 # Download rules
 log "Downloading rules file..."
 RULES_URL="${DOWNLOAD_URL}/nginx_rules.yaml"
-log "Rules URL: $RULES_URL"
+log "URL: $RULES_URL"
 
-if ! wget --progress=bar:force --no-check-certificate "$RULES_URL" -O nginx_rules.yaml 2>&1; then
-    # If wget fails, try curl
-    log "wget failed, trying curl..."
-    if ! curl -L --progress-bar "$RULES_URL" -o nginx_rules.yaml; then
-        error "Failed to download rules file from ${RULES_URL}"
-    fi
+if ! curl -L --progress-bar "$RULES_URL" -o nginx_rules.yaml; then
+    error "Failed to download rules file from ${RULES_URL}"
 fi
 
 # Verify file was downloaded
