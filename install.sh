@@ -7,7 +7,7 @@
 set -euo pipefail
 
 # Configuration
-PLUGIN_REPO="takaosgb3/falco-nginx-plugin"
+PLUGIN_REPO="takaosgb3/falco-plugin-nginx"
 PLUGIN_VERSION="${PLUGIN_VERSION:-latest}"
 
 # Colors
