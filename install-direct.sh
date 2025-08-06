@@ -179,14 +179,33 @@ log "Configuring Falco..."
 cp /etc/falco/falco.yaml /etc/falco/falco.yaml.backup
 
 # Update load_plugins to include nginx
-if grep -q "load_plugins: \[\]" /etc/falco/falco.yaml; then
-    sed -i 's/load_plugins: \[\]/load_plugins: [nginx]/' /etc/falco/falco.yaml
-    success "Updated load_plugins to include nginx"
+log "Updating load_plugins configuration..."
+if grep -q "^load_plugins:" /etc/falco/falco.yaml; then
+    # Check if it's empty array
+    if grep -q "^load_plugins: \[\]" /etc/falco/falco.yaml; then
+        sed -i 's/^load_plugins: \[\]/load_plugins: [nginx]/' /etc/falco/falco.yaml
+        success "Updated load_plugins to include nginx"
+    # Check if nginx is already in the array
+    elif ! grep -q "nginx" /etc/falco/falco.yaml; then
+        # Add nginx to existing array
+        sed -i '/^load_plugins:/ s/\]/,nginx\]/' /etc/falco/falco.yaml
+        success "Added nginx to existing load_plugins array"
+    else
+        success "nginx already in load_plugins"
+    fi
+else
+    # Add load_plugins line near the top of the file
+    sed -i '1s/^/load_plugins: [nginx]\n/' /etc/falco/falco.yaml
+    success "Added load_plugins configuration"
 fi
 
-if ! grep -q "name: nginx" /etc/falco/falco.yaml; then
+# Configure plugin section
+log "Configuring nginx plugin..."
+if ! grep -q "^plugins:" /etc/falco/falco.yaml; then
+    log "Adding plugins configuration section..."
     cat >> /etc/falco/falco.yaml << 'FALCO_CONFIG'
 
+# nginx plugin configuration
 plugins:
   - name: nginx
     library_path: /usr/share/falco/plugins/libfalco-nginx-plugin.so
@@ -194,6 +213,18 @@ plugins:
       log_paths:
         - /var/log/nginx/access.log
 FALCO_CONFIG
+    success "Added nginx plugin configuration"
+else
+    # Check if nginx plugin is configured
+    if ! grep -A5 "^plugins:" /etc/falco/falco.yaml | grep -q "name: nginx"; then
+        log "Adding nginx plugin to existing plugins section..."
+        # Find the plugins: line and add nginx config after it
+        awk '/^plugins:/ {print; print "  - name: nginx"; print "    library_path: /usr/share/falco/plugins/libfalco-nginx-plugin.so"; print "    init_config:"; print "      log_paths:"; print "        - /var/log/nginx/access.log"; next} 1' /etc/falco/falco.yaml > /tmp/falco.yaml.tmp
+        mv /tmp/falco.yaml.tmp /etc/falco/falco.yaml
+        success "Added nginx plugin to plugins section"
+    else
+        success "nginx plugin already configured"
+    fi
 fi
 
 # Restart Falco
