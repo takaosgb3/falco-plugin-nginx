@@ -34,6 +34,7 @@ cat > "$WEB_ROOT/index.html" << 'EOF'
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>Falco Nginx Plugin Test Site</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 40px; }
@@ -78,6 +79,7 @@ cat > "$WEB_ROOT/search.php" << 'EOF'
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>Search Page</title>
 </head>
 <body>
@@ -97,7 +99,7 @@ mkdir -p "$WEB_ROOT/api"
 cat > "$WEB_ROOT/api/users.php" << 'EOF'
 <?php
 // Dummy API endpoint for testing
-header('Content-Type: application/json');
+header('Content-Type: application/json; charset=UTF-8');
 echo json_encode([
     'status' => 'ok',
     'message' => 'This is a test API endpoint',
@@ -111,6 +113,7 @@ cat > "$WEB_ROOT/upload.php" << 'EOF'
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>File Upload</title>
 </head>
 <body>
@@ -130,6 +133,7 @@ cat > "$WEB_ROOT/admin/index.html" << 'EOF'
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>Admin Login</title>
 </head>
 <body>
@@ -152,6 +156,7 @@ http_response_code(401);
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>Login Failed</title>
 </head>
 <body>
@@ -188,7 +193,7 @@ server {
     # PHP files (even without PHP installed, nginx will log the requests)
     location ~ \.php$ {
         # Return a dummy response for PHP files
-        add_header Content-Type text/html;
+        add_header Content-Type "text/html; charset=UTF-8";
         return 200 "PHP endpoint accessed. Request logged for Falco detection.";
     }
 
