@@ -45,6 +45,14 @@ if [ "$EUID" -ne 0 ]; then
     error "Please run as root (use sudo)"
 fi
 
+# Check required commands
+for cmd in curl wget jq; do
+    if ! command -v $cmd &> /dev/null; then
+        log "Installing $cmd..."
+        apt-get update -qq && apt-get install -y $cmd || error "Failed to install $cmd"
+    fi
+done
+
 if [ ! -f /etc/os-release ]; then
     error "Cannot detect OS. This installer supports Ubuntu/Debian only"
 fi
@@ -124,10 +132,21 @@ log "Working in temporary directory: $TMP_DIR"
 if [ "$PLUGIN_VERSION" = "latest" ]; then
     # Get the actual latest version tag using GitHub API
     log "Fetching latest release information..."
-    LATEST_VERSION=$(curl -s "https://api.github.com/repos/${PLUGIN_REPO}/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
-    if [ -z "$LATEST_VERSION" ]; then
-        error "Failed to fetch latest version. Please check your internet connection or specify a version."
+    LATEST_RESPONSE=$(curl -sSL "https://api.github.com/repos/${PLUGIN_REPO}/releases/latest" 2>/dev/null)
+    if [ $? -ne 0 ] || [ -z "$LATEST_RESPONSE" ]; then
+        error "Failed to connect to GitHub API. Please check your internet connection."
     fi
+    
+    LATEST_VERSION=$(echo "$LATEST_RESPONSE" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+    if [ -z "$LATEST_VERSION" ]; then
+        # Try alternative parsing method
+        LATEST_VERSION=$(echo "$LATEST_RESPONSE" | sed -n 's/.*"tag_name":[[:space:]]*"\([^"]*\)".*/\1/p' | head -1)
+    fi
+    
+    if [ -z "$LATEST_VERSION" ]; then
+        error "Failed to parse latest version from GitHub API response. Please try again or specify a version."
+    fi
+    
     log "Latest version is: ${LATEST_VERSION}"
     DOWNLOAD_URL="https://github.com/${PLUGIN_REPO}/releases/download/${LATEST_VERSION}"
 else
@@ -135,16 +154,18 @@ else
 fi
 
 # Download plugin binary
-log "Downloading from: ${DOWNLOAD_URL}/libfalco-nginx-plugin-linux-amd64.so"
-if ! wget --no-check-certificate "${DOWNLOAD_URL}/libfalco-nginx-plugin-linux-amd64.so" -O libfalco-nginx-plugin.so 2>&1; then
-    error "Failed to download plugin binary from ${DOWNLOAD_URL}"
+log "Downloading plugin binary..."
+PLUGIN_URL="${DOWNLOAD_URL}/libfalco-nginx-plugin-linux-amd64.so"
+if ! wget -q --show-progress --no-check-certificate "$PLUGIN_URL" -O libfalco-nginx-plugin.so; then
+    error "Failed to download plugin binary from ${PLUGIN_URL}"
 fi
 success "Plugin binary downloaded"
 
 # Download rules
-log "Downloading from: ${DOWNLOAD_URL}/nginx_rules.yaml"
-if ! wget --no-check-certificate "${DOWNLOAD_URL}/nginx_rules.yaml" -O nginx_rules.yaml 2>&1; then
-    error "Failed to download rules file from ${DOWNLOAD_URL}"
+log "Downloading rules file..."
+RULES_URL="${DOWNLOAD_URL}/nginx_rules.yaml"
+if ! wget -q --show-progress --no-check-certificate "$RULES_URL" -O nginx_rules.yaml; then
+    error "Failed to download rules file from ${RULES_URL}"
 fi
 success "Rules file downloaded"
 
