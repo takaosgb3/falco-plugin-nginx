@@ -170,13 +170,13 @@ if [ "$PLUGIN_VERSION" = "latest" ]; then
     if [ -z "$LATEST_VERSION" ]; then
         # Check if we got a rate limit or other error
         if echo "$LATEST_RESPONSE" | grep -q "rate limit"; then
-            warning "GitHub API rate limit exceeded. Using fallback version v0.4.2"
-            LATEST_VERSION="v0.4.2"
+            warning "GitHub API rate limit exceeded. Using fallback version v0.4.1"
+            LATEST_VERSION="v0.4.1"
         elif echo "$LATEST_RESPONSE" | grep -q "Not Found"; then
             error "Repository not found: ${PLUGIN_REPO}. Please check the repository name."
         else
-            warning "Failed to parse version from GitHub API. Using fallback version v0.4.2"
-            LATEST_VERSION="v0.4.2"
+            warning "Failed to parse version from GitHub API. Using fallback version v0.4.1"
+            LATEST_VERSION="v0.4.1"
         fi
     fi
     

@@ -7,7 +7,7 @@
 set -euo pipefail
 
 # Configuration
-PLUGIN_VERSION="v0.4.2"
+PLUGIN_VERSION="v0.4.1"  # v0.4.2 has macOS binary by mistake, using v0.4.1
 PLUGIN_REPO="takaosgb3/falco-plugin-nginx"
 
 # Colors
