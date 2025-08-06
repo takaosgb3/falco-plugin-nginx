@@ -192,6 +192,19 @@ else
     warning "nginx plugin may not be loaded. Check with: sudo falco --list-plugins"
 fi
 
+# Check if rules are loaded
+if [ -f /etc/falco/rules.d/nginx_rules.yaml ]; then
+    success "nginx rules are installed at /etc/falco/rules.d/nginx_rules.yaml"
+    # Try to validate rules
+    if falco --validate /etc/falco/rules.d/nginx_rules.yaml 2>/dev/null; then
+        success "nginx rules validation passed"
+    else
+        warning "nginx rules validation failed. Check syntax with: sudo falco --validate /etc/falco/rules.d/nginx_rules.yaml"
+    fi
+else
+    error "nginx rules not found at /etc/falco/rules.d/nginx_rules.yaml"
+fi
+
 # Check if Falco service is running
 if systemctl is-active --quiet falco || service falco status > /dev/null 2>&1; then
     success "Falco is running"
@@ -201,12 +214,28 @@ fi
 
 echo ""
 success "========== Installation Complete =========="
+
+# Ask if user wants to set up test content
+echo ""
+read -p "Would you like to set up test web content for security testing? (y/N) " -n 1 -r
+echo ""
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    log "Setting up test web content..."
+    # Download and run the setup script
+    if curl -fsSL "https://raw.githubusercontent.com/${PLUGIN_REPO}/main/scripts/setup-test-content.sh" | bash; then
+        success "Test content setup complete"
+    else
+        warning "Failed to set up test content. You can run it manually later."
+    fi
+fi
+
 echo ""
 echo "Next steps:"
 echo "1. Monitor alerts: sudo journalctl -u falco -f"
 echo "2. Test detection:"
-echo "   curl \"http://localhost/test.php?id=' OR '1'='1\""
-echo "   curl \"http://localhost/test.php?q=<script>alert(1)</script>\""
+echo '   curl "http://localhost/search.php?q=%27%20OR%20%271%27%3D%271"'
+echo '   curl "http://localhost/search.php?q=%3Cscript%3Ealert(1)%3C/script%3E"'
+echo '   curl "http://localhost/upload.php?file=../../../../../../etc/passwd"'
 echo ""
 echo "For more information: https://github.com/${PLUGIN_REPO}"
 echo ""
