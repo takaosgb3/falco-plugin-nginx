@@ -162,6 +162,12 @@ success "Plugin installed"
 log "Configuring Falco..."
 cp /etc/falco/falco.yaml /etc/falco/falco.yaml.backup
 
+# Update load_plugins to include nginx
+if grep -q "load_plugins: \[\]" /etc/falco/falco.yaml; then
+    sed -i 's/load_plugins: \[\]/load_plugins: [nginx]/' /etc/falco/falco.yaml
+    success "Updated load_plugins to include nginx"
+fi
+
 if ! grep -q "name: nginx" /etc/falco/falco.yaml; then
     cat >> /etc/falco/falco.yaml << 'FALCO_CONFIG'
 
