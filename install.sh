@@ -122,7 +122,14 @@ cd "$TMP_DIR" || error "Failed to change to temporary directory"
 log "Working in temporary directory: $TMP_DIR"
 
 if [ "$PLUGIN_VERSION" = "latest" ]; then
-    DOWNLOAD_URL="https://github.com/${PLUGIN_REPO}/releases/latest/download"
+    # Get the actual latest version tag using GitHub API
+    log "Fetching latest release information..."
+    LATEST_VERSION=$(curl -s "https://api.github.com/repos/${PLUGIN_REPO}/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+    if [ -z "$LATEST_VERSION" ]; then
+        error "Failed to fetch latest version. Please check your internet connection or specify a version."
+    fi
+    log "Latest version is: ${LATEST_VERSION}"
+    DOWNLOAD_URL="https://github.com/${PLUGIN_REPO}/releases/download/${LATEST_VERSION}"
 else
     DOWNLOAD_URL="https://github.com/${PLUGIN_REPO}/releases/download/${PLUGIN_VERSION}"
 fi
