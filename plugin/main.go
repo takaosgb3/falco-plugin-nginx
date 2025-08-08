@@ -25,8 +25,6 @@ import (
 	"log"
 	"os"
 	"path/filepath"
-	"regexp"
-	"strconv"
 	"strings"
 	"time"
 
@@ -36,6 +34,7 @@ import (
 	"github.com/falcosecurity/plugin-sdk-go/pkg/sdk/plugins/extractor"
 	"github.com/falcosecurity/plugin-sdk-go/pkg/sdk/plugins/source"
 	"github.com/fsnotify/fsnotify"
+	"github.com/takaosgb3/falco-plugin-nginx/pkg/parser"
 )
 
 // NginxPluginConfig represents the plugin configuration
@@ -47,6 +46,7 @@ type NginxPluginConfig struct {
 type NginxPlugin struct {
 	plugins.BasePlugin
 	config NginxPluginConfig
+	parser *parser.Parser
 }
 
 // NginxInstance represents an instance of the plugin
@@ -56,7 +56,7 @@ type NginxInstance struct {
 	eventCh  chan *NginxEvent
 	files    map[string]*TailFile
 	watcher  *fsnotify.Watcher
-	regex    *regexp.Regexp
+	parser   *parser.Parser
 }
 
 // TailFile represents a file being tailed
@@ -136,6 +136,14 @@ func (n *NginxPlugin) Init(config string) error {
 		return fmt.Errorf("no log paths configured")
 	}
 
+	// Initialize parser with combined format
+	parserConfig := parser.Config{
+		LogFormat:              "combined",
+		SecurityPatterns:       true,
+		LargeResponseThreshold: 10 * 1024 * 1024, // 10MB
+	}
+	n.parser = parser.New(parserConfig)
+
 	return nil
 }
 
@@ -206,9 +214,7 @@ func (n *NginxPlugin) Open(params string) (source.Instance, error) {
 		logPaths: n.config.LogPaths,
 		eventCh:  make(chan *NginxEvent, 1000),
 		files:    make(map[string]*TailFile),
-		regex: regexp.MustCompile(
-			`^(\S+)\s+\S+\s+(\S+)\s+\[([^\]]+)\]\s+"(\S+)\s+([^"?\s]+)(?:\?([^"\s]+))?\s+([^"]+)"\s+(\d+)\s+(\d+)\s+"([^"]*)"\s+"([^"]*)"`,
-		),
+		parser:   n.parser,
 	}
 
 	// Set up file watcher
@@ -298,29 +304,28 @@ func (n *NginxInstance) tailFile(tf *TailFile) {
 
 // parseLine parses a nginx log line
 func (n *NginxInstance) parseLine(line, path string) *NginxEvent {
-	matches := n.regex.FindStringSubmatch(line)
-	if len(matches) < 12 {
+	// Use the parser package to parse the line
+	entry, err := n.parser.Parse(line)
+	if err != nil {
 		return nil
 	}
 
-	status, _ := strconv.ParseUint(matches[8], 10, 64)
-	bytesSent, _ := strconv.ParseUint(matches[9], 10, 64)
-
+	// Convert LogEntry to NginxEvent
 	return &NginxEvent{
-		RemoteAddr:  matches[1],
-		RemoteUser:  matches[2],
-		TimeLocal:   matches[3],
-		Method:      matches[4],
-		Path:        matches[5],
-		QueryString: matches[6],
-		Protocol:    matches[7],
-		Status:      status,
-		BytesSent:   bytesSent,
-		Referer:     matches[10],
-		UserAgent:   matches[11],
+		RemoteAddr:  entry.RemoteAddr,
+		RemoteUser:  entry.RemoteUser,
+		TimeLocal:   entry.TimeLocal.Format("02/Jan/2006:15:04:05 -0700"),
+		Method:      entry.Method,
+		Path:        entry.Path,
+		QueryString: entry.QueryString,
+		Protocol:    entry.HTTPVersion,
+		Status:      uint64(entry.Status),
+		BytesSent:   uint64(entry.BodyBytes),
+		Referer:     entry.Referer,
+		UserAgent:   entry.UserAgent,
 		LogPath:     path,
 		Raw:         line,
-		Timestamp:   time.Now(),
+		Timestamp:   entry.TimeLocal,
 	}
 }
 
