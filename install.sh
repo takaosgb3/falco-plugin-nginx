@@ -289,31 +289,25 @@ else
     fi
 fi
 
-# Create dedicated systemd service for nginx plugin mode
-log "Creating Falco nginx plugin service..."
-cat > /etc/systemd/system/falco-nginx.service << 'FALCO_SERVICE'
-[Unit]
-Description=Falco nginx Plugin Monitor
-After=network.target
+# Configure Falco service for plugin mode
+log "Configuring Falco service for nginx plugin mode..."
 
+# Create systemd override directory
+mkdir -p /etc/systemd/system/falco.service.d
+
+# Create override configuration to run Falco in plugin mode
+cat > /etc/systemd/system/falco.service.d/nginx-plugin.conf << 'FALCO_OVERRIDE'
 [Service]
-Type=simple
+# Override the default ExecStart to run in plugin mode
+ExecStart=
 ExecStart=/usr/bin/falco -c /etc/falco/falco.yaml --disable-source syscall
-Restart=on-failure
-RestartSec=5
+FALCO_OVERRIDE
 
-[Install]
-WantedBy=multi-user.target
-FALCO_SERVICE
-
-# Stop default Falco service and enable nginx plugin mode
+# Reload systemd and restart Falco with new configuration
 systemctl daemon-reload
-systemctl stop falco 2>/dev/null || true
-systemctl disable falco 2>/dev/null || true
-systemctl enable falco-nginx
-systemctl start falco-nginx
+systemctl restart falco
 sleep 3
-success "Falco nginx plugin service configured and started"
+success "Falco service configured for nginx plugin mode"
 
 # Cleanup
 cd /
@@ -342,11 +336,11 @@ else
     error "nginx rules not found at /etc/falco/rules.d/nginx_rules.yaml"
 fi
 
-# Check if Falco nginx service is running
-if systemctl is-active --quiet falco-nginx; then
-    success "Falco nginx plugin service is running"
+# Check if Falco service is running
+if systemctl is-active --quiet falco; then
+    success "Falco service is running in plugin mode"
 else
-    warning "Falco nginx service is not running. Check with: sudo systemctl status falco-nginx"
+    warning "Falco service is not running. Check with: sudo systemctl status falco"
 fi
 
 echo ""
@@ -370,13 +364,13 @@ fi
 
 echo ""
 echo "Next steps:"
-echo "1. Monitor alerts: sudo journalctl -u falco-nginx -f"
+echo "1. Monitor alerts: sudo journalctl -u falco -f"
 echo "2. Test detection:"
 echo '   curl "http://localhost/search.php?q=%27%20OR%20%271%27%3D%271"'
 echo '   curl "http://localhost/search.php?q=%3Cscript%3Ealert(1)%3C/script%3E"'
 echo '   curl "http://localhost/upload.php?file=../../../../../../etc/passwd"'
-echo "3. Check service status: sudo systemctl status falco-nginx"
-echo "4. View logs: sudo journalctl -u falco-nginx --since '10 minutes ago'"
+echo "3. Check service status: sudo systemctl status falco"
+echo "4. View logs: sudo journalctl -u falco --since '10 minutes ago'"
 echo ""
 echo "For more information: https://github.com/${PLUGIN_REPO}"
 echo ""

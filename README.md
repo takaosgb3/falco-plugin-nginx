@@ -72,7 +72,7 @@ After installation, test the plugin:
 
 ```bash
 # Monitor alerts (the service is already running)
-sudo journalctl -u falco-nginx -f
+sudo journalctl -u falco -f
 
 # In another terminal, simulate attacks
 curl "http://localhost/search.php?q=%27%20OR%20%271%27%3D%271"
@@ -168,7 +168,7 @@ plugins:
 
 ```bash
 # アラートを監視（サービスは既に起動しています）
-sudo journalctl -u falco-nginx -f
+sudo journalctl -u falco -f
 
 # 別のターミナルで攻撃をシミュレート
 curl "http://localhost/search.php?q=%27%20OR%20%271%27%3D%271"

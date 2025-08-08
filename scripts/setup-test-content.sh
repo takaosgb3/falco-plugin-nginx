@@ -226,4 +226,4 @@ echo '  curl "http://localhost/search.php?q=%3Cscript%3Ealert(1)%3C/script%3E"'
 echo '  curl "http://localhost/upload.php?file=../../../../../../etc/passwd"'
 echo '  curl "http://localhost/api/users.php?cmd=;cat /etc/passwd"'
 echo ""
-log "Monitor Falco alerts with: sudo journalctl -u falco-nginx -f"
+log "Monitor Falco alerts with: sudo journalctl -u falco -f"

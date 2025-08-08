@@ -11,13 +11,13 @@ This guide helps diagnose and resolve common issues with the Falco nginx plugin.
 
 ```bash
 # Check Falco status
-sudo systemctl status falco-nginx
+sudo systemctl status falco
 
 # Check if plugin is loaded
 sudo falco --list-plugins | grep nginx
 
 # View recent logs
-sudo journalctl -u falco-nginx -n 100
+sudo journalctl -u falco -n 100
 
 # Test in debug mode
 sudo falco -c /etc/falco/falco.yaml --disable-source syscall -v
@@ -75,7 +75,7 @@ grep access_log /etc/nginx/nginx.conf
 # Falco needs read access
 sudo chmod 644 /var/log/nginx/access.log
 sudo usermod -a -G adm falco
-sudo systemctl restart falco-nginx
+sudo systemctl restart falco
 ```
 
 3. **Verify rules are loaded:**
@@ -235,7 +235,7 @@ endscript
 ```bash
 sudo logrotate -f /etc/logrotate.d/nginx
 # Monitor Falco behavior
-sudo journalctl -u falco-nginx -f
+sudo journalctl -u falco -f
 ```
 
 ### Debug Commands
@@ -248,7 +248,7 @@ sudo falco -c /etc/falco/falco.yaml --disable-source syscall -v
 
 # Increase log verbosity
 sudo sed -i 's/log_level: info/log_level: debug/' /etc/falco/falco.yaml
-sudo systemctl restart falco-nginx
+sudo systemctl restart falco
 ```
 
 #### Test Individual Components
@@ -268,7 +268,7 @@ sudo falco -c /etc/falco/falco.yaml --dry-run
 
 ```bash
 # Check event processing
-sudo journalctl -u falco-nginx -f | grep -E "events/sec|throughput"
+sudo journalctl -u falco -f | grep -E "events/sec|throughput"
 
 # Monitor system resources
 top -p $(pgrep falco)
@@ -318,13 +318,13 @@ cat /etc/falco/falco.yaml | grep -A10 plugins:
 
 ```bash
 # Falcoのステータスを確認
-sudo systemctl status falco-nginx
+sudo systemctl status falco
 
 # プラグインがロードされているか確認
 sudo falco --list-plugins | grep nginx
 
 # 最近のログを表示
-sudo journalctl -u falco-nginx -n 100
+sudo journalctl -u falco -n 100
 
 # デバッグモードでテスト
 sudo falco -c /etc/falco/falco.yaml --disable-source syscall -v
@@ -382,7 +382,7 @@ grep access_log /etc/nginx/nginx.conf
 # Falcoには読み取りアクセスが必要
 sudo chmod 644 /var/log/nginx/access.log
 sudo usermod -a -G adm falco
-sudo systemctl restart falco-nginx
+sudo systemctl restart falco
 ```
 
 3. **ルールがロードされていることを確認:**
@@ -542,7 +542,7 @@ endscript
 ```bash
 sudo logrotate -f /etc/logrotate.d/nginx
 # Falcoの動作を監視
-sudo journalctl -u falco-nginx -f
+sudo journalctl -u falco -f
 ```
 
 ### デバッグコマンド
@@ -555,7 +555,7 @@ sudo falco -c /etc/falco/falco.yaml --disable-source syscall -v
 
 # ログの詳細度を上げる
 sudo sed -i 's/log_level: info/log_level: debug/' /etc/falco/falco.yaml
-sudo systemctl restart falco-nginx
+sudo systemctl restart falco
 ```
 
 #### 個別コンポーネントのテスト
@@ -575,7 +575,7 @@ sudo falco -c /etc/falco/falco.yaml --dry-run
 
 ```bash
 # イベント処理を確認
-sudo journalctl -u falco-nginx -f | grep -E "events/sec|throughput"
+sudo journalctl -u falco -f | grep -E "events/sec|throughput"
 
 # システムリソースを監視
 top -p $(pgrep falco)
