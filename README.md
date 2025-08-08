@@ -71,7 +71,14 @@ plugins:
 After installation, test the plugin:
 
 ```bash
-# Monitor alerts (the service is already running)
+# If kernel monitoring is active (dual mode):
+# Monitor nginx alerts
+sudo journalctl -u falco-nginx -f
+# Monitor kernel alerts
+sudo journalctl -u falco -f
+
+# If plugin-only mode:
+# Monitor all alerts
 sudo journalctl -u falco -f
 
 # In another terminal, simulate attacks
