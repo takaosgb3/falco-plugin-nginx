@@ -11,7 +11,26 @@
     (nginx.path contains "UNION SELECT" or nginx.query_string contains "UNION SELECT") or
     (nginx.path contains "; DROP" or nginx.query_string contains "; DROP") or
     (nginx.path contains "/*" or nginx.query_string contains "/*") or
-    (nginx.path contains "*/" or nginx.query_string contains "*/")
+    (nginx.path contains "*/" or nginx.query_string contains "*/") or
+    (nginx.path contains "%27" or nginx.query_string contains "%27") or
+    (nginx.path contains "%20OR%20" or nginx.query_string contains "%20OR%20") or
+    (nginx.path contains "%20AND%20" or nginx.query_string contains "%20AND%20") or
+    (nginx.path contains "UNION%20SELECT" or nginx.query_string contains "UNION%20SELECT") or
+    (nginx.path contains "%3B%20DROP" or nginx.query_string contains "%3B%20DROP") or
+    (nginx.path contains "%2F%2A" or nginx.query_string contains "%2F%2A") or
+    (nginx.path contains "%2A%2F" or nginx.query_string contains "%2A%2F") or
+    (nginx.path contains "' or '" or nginx.query_string contains "' or '") or
+    (nginx.path contains "1=1" or nginx.query_string contains "1=1") or
+    (nginx.path contains "1%3D1" or nginx.query_string contains "1%3D1") or
+    (nginx.path contains "--" or nginx.query_string contains "--") or
+    (nginx.path contains "%2D%2D" or nginx.query_string contains "%2D%2D") or
+    (nginx.path contains "xp_cmdshell" or nginx.query_string contains "xp_cmdshell") or
+    (nginx.path contains "exec(" or nginx.query_string contains "exec(") or
+    (nginx.path contains "execute(" or nginx.query_string contains "execute(") or
+    (nginx.path contains "sp_executesql" or nginx.query_string contains "sp_executesql") or
+    (nginx.path contains "waitfor%20delay" or nginx.query_string contains "waitfor%20delay") or
+    (nginx.path contains "benchmark(" or nginx.query_string contains "benchmark(") or
+    (nginx.path contains "sleep(" or nginx.query_string contains "sleep(")
   output: "SQL injection detected"
   priority: CRITICAL
   source: nginx
@@ -26,7 +45,22 @@
     (nginx.path contains "onerror=" or nginx.query_string contains "onerror=") or
     (nginx.path contains "onload=" or nginx.query_string contains "onload=") or
     (nginx.path contains "<iframe" or nginx.query_string contains "<iframe") or
-    (nginx.path contains "<object" or nginx.query_string contains "<object")
+    (nginx.path contains "<object" or nginx.query_string contains "<object") or
+    (nginx.path contains "%3Cscript" or nginx.query_string contains "%3Cscript") or
+    (nginx.path contains "%3C%2Fscript" or nginx.query_string contains "%3C%2Fscript") or
+    (nginx.path contains "javascript%3A" or nginx.query_string contains "javascript%3A") or
+    (nginx.path contains "onerror%3D" or nginx.query_string contains "onerror%3D") or
+    (nginx.path contains "onload%3D" or nginx.query_string contains "onload%3D") or
+    (nginx.path contains "%3Ciframe" or nginx.query_string contains "%3Ciframe") or
+    (nginx.path contains "%3Cobject" or nginx.query_string contains "%3Cobject") or
+    (nginx.path contains "alert(" or nginx.query_string contains "alert(") or
+    (nginx.path contains "alert%28" or nginx.query_string contains "alert%28") or
+    (nginx.path contains "onclick=" or nginx.query_string contains "onclick=") or
+    (nginx.path contains "onclick%3D" or nginx.query_string contains "onclick%3D") or
+    (nginx.path contains "<img" or nginx.query_string contains "<img") or
+    (nginx.path contains "%3Cimg" or nginx.query_string contains "%3Cimg") or
+    (nginx.path contains "document.cookie" or nginx.query_string contains "document.cookie") or
+    (nginx.path contains "document%2Ecookie" or nginx.query_string contains "document%2Ecookie")
   output: "XSS attack detected"
   priority: WARNING
   source: nginx
@@ -40,7 +74,15 @@
     (nginx.path contains "/etc/" or nginx.query_string contains "/etc/") or
     (nginx.path contains "/proc/" or nginx.query_string contains "/proc/") or
     (nginx.path contains "/sys/" or nginx.query_string contains "/sys/") or
-    (nginx.path contains "/var/log/" or nginx.query_string contains "/var/log/")
+    (nginx.path contains "/var/log/" or nginx.query_string contains "/var/log/") or
+    (nginx.path contains "%2E%2E/" or nginx.query_string contains "%2E%2E/") or
+    (nginx.path contains "%2E%2E%2F" or nginx.query_string contains "%2E%2E%2F") or
+    (nginx.path contains "..%2F" or nginx.query_string contains "..%2F") or
+    (nginx.path contains "%252E%252E/" or nginx.query_string contains "%252E%252E/") or
+    (nginx.path contains "/etc/passwd" or nginx.query_string contains "/etc/passwd") or
+    (nginx.path contains "%2Fetc%2Fpasswd" or nginx.query_string contains "%2Fetc%2Fpasswd") or
+    (nginx.path contains "/etc/shadow" or nginx.query_string contains "/etc/shadow") or
+    (nginx.path contains "%2Fetc%2Fshadow" or nginx.query_string contains "%2Fetc%2Fshadow")
   output: "Path traversal detected"
   priority: WARNING
   source: nginx
@@ -57,7 +99,23 @@
     (nginx.path contains "&&" or nginx.query_string contains "&&") or
     (nginx.path contains "||" or nginx.query_string contains "||") or
     (nginx.path contains "`" or nginx.query_string contains "`") or
-    (nginx.path contains "$(" or nginx.query_string contains "$(")
+    (nginx.path contains "$(" or nginx.query_string contains "$(") or
+    (nginx.path contains "%3Bls" or nginx.query_string contains "%3Bls") or
+    (nginx.path contains "%3Bcat" or nginx.query_string contains "%3Bcat") or
+    (nginx.path contains "%7Cls" or nginx.query_string contains "%7Cls") or
+    (nginx.path contains "%7Ccat" or nginx.query_string contains "%7Ccat") or
+    (nginx.path contains "%26%26" or nginx.query_string contains "%26%26") or
+    (nginx.path contains "%7C%7C" or nginx.query_string contains "%7C%7C") or
+    (nginx.path contains "%60" or nginx.query_string contains "%60") or
+    (nginx.path contains "%24%28" or nginx.query_string contains "%24%28") or
+    (nginx.path contains ";wget" or nginx.query_string contains ";wget") or
+    (nginx.path contains "%3Bwget" or nginx.query_string contains "%3Bwget") or
+    (nginx.path contains ";curl" or nginx.query_string contains ";curl") or
+    (nginx.path contains "%3Bcurl" or nginx.query_string contains "%3Bcurl") or
+    (nginx.path contains ";rm" or nginx.query_string contains ";rm") or
+    (nginx.path contains "%3Brm" or nginx.query_string contains "%3Brm") or
+    (nginx.path contains ";chmod" or nginx.query_string contains ";chmod") or
+    (nginx.path contains "%3Bchmod" or nginx.query_string contains "%3Bchmod")
   output: "Command injection detected"
   priority: CRITICAL
   source: nginx
