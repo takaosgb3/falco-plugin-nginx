@@ -289,9 +289,31 @@ else
     fi
 fi
 
-# Restart Falco
-systemctl restart falco || service falco restart
+# Create dedicated systemd service for nginx plugin mode
+log "Creating Falco nginx plugin service..."
+cat > /etc/systemd/system/falco-nginx.service << 'FALCO_SERVICE'
+[Unit]
+Description=Falco nginx Plugin Monitor
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/falco -c /etc/falco/falco.yaml --disable-source syscall
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+FALCO_SERVICE
+
+# Stop default Falco service and enable nginx plugin mode
+systemctl daemon-reload
+systemctl stop falco 2>/dev/null || true
+systemctl disable falco 2>/dev/null || true
+systemctl enable falco-nginx
+systemctl start falco-nginx
 sleep 3
+success "Falco nginx plugin service configured and started"
 
 # Cleanup
 cd /
@@ -320,11 +342,11 @@ else
     error "nginx rules not found at /etc/falco/rules.d/nginx_rules.yaml"
 fi
 
-# Check if Falco service is running
-if systemctl is-active --quiet falco || service falco status > /dev/null 2>&1; then
-    success "Falco is running"
+# Check if Falco nginx service is running
+if systemctl is-active --quiet falco-nginx; then
+    success "Falco nginx plugin service is running"
 else
-    warning "Falco service is not running. Try: sudo falco -c /etc/falco/falco.yaml --disable-source syscall"
+    warning "Falco nginx service is not running. Check with: sudo systemctl status falco-nginx"
 fi
 
 echo ""
@@ -348,11 +370,13 @@ fi
 
 echo ""
 echo "Next steps:"
-echo "1. Monitor alerts: sudo journalctl -u falco -f"
+echo "1. Monitor alerts: sudo journalctl -u falco-nginx -f"
 echo "2. Test detection:"
 echo '   curl "http://localhost/search.php?q=%27%20OR%20%271%27%3D%271"'
 echo '   curl "http://localhost/search.php?q=%3Cscript%3Ealert(1)%3C/script%3E"'
 echo '   curl "http://localhost/upload.php?file=../../../../../../etc/passwd"'
+echo "3. Check service status: sudo systemctl status falco-nginx"
+echo "4. View logs: sudo journalctl -u falco-nginx --since '10 minutes ago'"
 echo ""
 echo "For more information: https://github.com/${PLUGIN_REPO}"
 echo ""
