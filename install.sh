@@ -330,17 +330,19 @@ fi
 echo ""
 success "========== Installation Complete =========="
 
-# Ask if user wants to set up test content
-echo ""
-read -p "Would you like to set up test web content for security testing? (y/N) " -n 1 -r
-echo ""
-if [[ $REPLY =~ ^[Yy]$ ]]; then
-    log "Setting up test web content..."
-    # Download and run the setup script
-    if curl -fsSL "https://raw.githubusercontent.com/${PLUGIN_REPO}/main/scripts/setup-test-content.sh" | bash; then
-        success "Test content setup complete"
-    else
-        warning "Failed to set up test content. You can run it manually later."
+# Ask if user wants to set up test content (skip when piped)
+if [ -t 0 ]; then
+    echo ""
+    read -p "Would you like to set up test web content for security testing? (y/N) " -n 1 -r
+    echo ""
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        log "Setting up test web content..."
+        # Download and run the setup script
+        if curl -fsSL "https://raw.githubusercontent.com/${PLUGIN_REPO}/main/scripts/setup-test-content.sh" | bash; then
+            success "Test content setup complete"
+        else
+            warning "Failed to set up test content. You can run it manually later."
+        fi
     fi
 fi
 
