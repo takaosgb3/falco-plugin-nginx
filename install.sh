@@ -300,22 +300,142 @@ sleep 3
 if systemctl is-active --quiet falco; then
     success "Falco restarted with nginx plugin (both kernel and nginx monitoring active)"
 else
-    warning "Falco failed to start. Checking configuration..."
-    # Try to start without kernel module if it fails
-    log "Attempting to start in plugin-only mode..."
-    mkdir -p /etc/systemd/system/falco.service.d
-    cat > /etc/systemd/system/falco.service.d/plugin-only.conf << 'FALCO_OVERRIDE'
+    warning "Falco failed to start with kernel module. Checking eBPF support..."
+    
+    # First, check if we're on EC2 and if eBPF is available
+    log "Checking for eBPF support..."
+    
+    # Try modern eBPF first
+    if systemctl is-active --quiet falco-modern-bpf 2>/dev/null; then
+        log "Switching to modern eBPF mode..."
+        systemctl stop falco 2>/dev/null
+        systemctl start falco-modern-bpf
+        if systemctl is-active --quiet falco-modern-bpf; then
+            success "Falco started with modern eBPF + nginx plugin"
+            # Create override for regular falco service to use modern BPF
+            mkdir -p /etc/systemd/system/falco.service.d
+            cat > /etc/systemd/system/falco.service.d/modern-bpf.conf << 'FALCO_OVERRIDE'
 [Service]
-# Fallback: run in plugin-only mode if kernel module fails
+# Use modern eBPF driver
+ExecStart=
+ExecStart=/usr/bin/falco -c /etc/falco/falco.yaml --modern-bpf
+FALCO_OVERRIDE
+            systemctl daemon-reload
+            systemctl stop falco-modern-bpf
+            systemctl restart falco
+            if systemctl is-active --quiet falco; then
+                success "Falco configured with modern eBPF + nginx plugin"
+            fi
+        fi
+    # Try legacy eBPF
+    elif systemctl is-active --quiet falco-bpf 2>/dev/null; then
+        log "Switching to legacy eBPF mode..."
+        systemctl stop falco 2>/dev/null
+        systemctl start falco-bpf
+        if systemctl is-active --quiet falco-bpf; then
+            success "Falco started with legacy eBPF + nginx plugin"
+            # Create override for regular falco service to use BPF
+            mkdir -p /etc/systemd/system/falco.service.d
+            cat > /etc/systemd/system/falco.service.d/bpf.conf << 'FALCO_OVERRIDE'
+[Service]
+# Use eBPF driver
+ExecStart=
+ExecStart=/usr/bin/falco -c /etc/falco/falco.yaml --bpf
+FALCO_OVERRIDE
+            systemctl daemon-reload
+            systemctl stop falco-bpf
+            systemctl restart falco
+            if systemctl is-active --quiet falco; then
+                success "Falco configured with legacy eBPF + nginx plugin"
+            fi
+        fi
+    else
+        # Try to use eBPF directly
+        log "Attempting to enable eBPF directly..."
+        mkdir -p /etc/systemd/system/falco.service.d
+        
+        # Check kernel version for eBPF support
+        KERNEL_VERSION=$(uname -r | cut -d. -f1,2)
+        KERNEL_MAJOR=$(echo $KERNEL_VERSION | cut -d. -f1)
+        KERNEL_MINOR=$(echo $KERNEL_VERSION | cut -d. -f2)
+        
+        if [ "$KERNEL_MAJOR" -gt 5 ] || ([ "$KERNEL_MAJOR" -eq 5 ] && [ "$KERNEL_MINOR" -ge 8 ]); then
+            # Modern eBPF is supported on kernel 5.8+
+            log "Kernel $KERNEL_VERSION supports modern eBPF"
+            cat > /etc/systemd/system/falco.service.d/modern-bpf.conf << 'FALCO_OVERRIDE'
+[Service]
+# Use modern eBPF driver (kernel 5.8+)
+ExecStart=
+ExecStart=/usr/bin/falco -c /etc/falco/falco.yaml --modern-bpf
+FALCO_OVERRIDE
+            systemctl daemon-reload
+            systemctl restart falco
+            if systemctl is-active --quiet falco; then
+                success "Falco started with modern eBPF + nginx plugin"
+            else
+                # Fall back to plugin-only mode
+                log "Modern eBPF failed, falling back to plugin-only mode..."
+                cat > /etc/systemd/system/falco.service.d/plugin-only.conf << 'FALCO_OVERRIDE'
+[Service]
+# Fallback: run in plugin-only mode
 ExecStart=
 ExecStart=/usr/bin/falco -c /etc/falco/falco.yaml --disable-source syscall
 FALCO_OVERRIDE
-    systemctl daemon-reload
-    systemctl restart falco
-    if systemctl is-active --quiet falco; then
-        success "Falco started in plugin-only mode (kernel module not available)"
-    else
-        error "Failed to start Falco. Check logs: sudo journalctl -u falco -n 50"
+                systemctl daemon-reload
+                systemctl restart falco
+                if systemctl is-active --quiet falco; then
+                    success "Falco started in plugin-only mode (eBPF not available)"
+                else
+                    error "Failed to start Falco. Check logs: sudo journalctl -u falco -n 50"
+                fi
+            fi
+        elif [ "$KERNEL_MAJOR" -ge 4 ] && [ "$KERNEL_MINOR" -ge 14 ]; then
+            # Legacy eBPF is supported on kernel 4.14+
+            log "Kernel $KERNEL_VERSION supports legacy eBPF"
+            cat > /etc/systemd/system/falco.service.d/bpf.conf << 'FALCO_OVERRIDE'
+[Service]
+# Use legacy eBPF driver (kernel 4.14+)
+ExecStart=
+ExecStart=/usr/bin/falco -c /etc/falco/falco.yaml --bpf
+FALCO_OVERRIDE
+            systemctl daemon-reload
+            systemctl restart falco
+            if systemctl is-active --quiet falco; then
+                success "Falco started with legacy eBPF + nginx plugin"
+            else
+                # Fall back to plugin-only mode
+                log "Legacy eBPF failed, falling back to plugin-only mode..."
+                cat > /etc/systemd/system/falco.service.d/plugin-only.conf << 'FALCO_OVERRIDE'
+[Service]
+# Fallback: run in plugin-only mode
+ExecStart=
+ExecStart=/usr/bin/falco -c /etc/falco/falco.yaml --disable-source syscall
+FALCO_OVERRIDE
+                systemctl daemon-reload
+                systemctl restart falco
+                if systemctl is-active --quiet falco; then
+                    success "Falco started in plugin-only mode (eBPF not available)"
+                else
+                    error "Failed to start Falco. Check logs: sudo journalctl -u falco -n 50"
+                fi
+            fi
+        else
+            # Kernel too old for eBPF
+            log "Kernel $KERNEL_VERSION does not support eBPF, using plugin-only mode..."
+            cat > /etc/systemd/system/falco.service.d/plugin-only.conf << 'FALCO_OVERRIDE'
+[Service]
+# Fallback: run in plugin-only mode (kernel too old for eBPF)
+ExecStart=
+ExecStart=/usr/bin/falco -c /etc/falco/falco.yaml --disable-source syscall
+FALCO_OVERRIDE
+            systemctl daemon-reload
+            systemctl restart falco
+            if systemctl is-active --quiet falco; then
+                success "Falco started in plugin-only mode (kernel too old for eBPF)"
+            else
+                error "Failed to start Falco. Check logs: sudo journalctl -u falco -n 50"
+            fi
+        fi
     fi
 fi
 
@@ -349,11 +469,22 @@ fi
 # Check if Falco service is running
 if systemctl is-active --quiet falco; then
     success "Falco is running with nginx plugin"
-    # Check if kernel module is loaded
+    # Check what monitoring mode is active
     if lsmod | grep -q falco; then
-        log "Mode: Both kernel and nginx monitoring active"
+        log "Mode: Both kernel module and nginx monitoring active"
+    elif systemctl show falco -p ExecStart | grep -q "\-\-modern-bpf"; then
+        log "Mode: Both modern eBPF and nginx monitoring active"
+    elif systemctl show falco -p ExecStart | grep -q "\-\-bpf"; then
+        log "Mode: Both legacy eBPF and nginx monitoring active"
+    elif systemctl show falco -p ExecStart | grep -q "\-\-disable-source syscall"; then
+        log "Mode: nginx monitoring only (no kernel monitoring)"
     else
-        log "Mode: nginx monitoring only (kernel module not loaded)"
+        # Try to detect if eBPF is actually working
+        if falco --list 2>/dev/null | grep -q "BPF"; then
+            log "Mode: Both eBPF and nginx monitoring active"
+        else
+            log "Mode: nginx monitoring (kernel monitoring status unknown)"
+        fi
     fi
 else
     warning "Falco service is not running. Check with: sudo systemctl status falco"
