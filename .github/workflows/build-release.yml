@@ -10,7 +10,7 @@ on:
 
 jobs:
   build-and-release:
-    runs-on: [self-hosted, linux, x64, local]
+    runs-on: ubuntu-latest
     
     steps:
     - name: Checkout code
