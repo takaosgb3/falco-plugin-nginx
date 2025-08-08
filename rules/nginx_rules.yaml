@@ -155,16 +155,79 @@
   source: nginx
   tags: [error, server, web]
 
-# Brute Force Detection (simplified)
-- rule: Multiple Failed Login Attempts
-  desc: Detects multiple failed authentication attempts
+# Authentication Attack Detection
+- rule: Failed Authentication Attempt
+  desc: Detects failed authentication attempts on common login endpoints
   condition: >
-    nginx.path contains "/login" and
-    (nginx.status = 401 or nginx.status = 403)
-  output: "Failed login detected"
+    (nginx.path contains "/login" or 
+     nginx.path contains "/signin" or 
+     nginx.path contains "/auth" or
+     nginx.path contains "/admin" or
+     nginx.path contains "/wp-login" or
+     nginx.path contains "/wp-admin" or
+     nginx.path contains "/administrator" or
+     nginx.path contains "/user/login" or
+     nginx.path contains "/api/login" or
+     nginx.path contains "/api/auth" or
+     nginx.path contains "/api/v1/auth" or
+     nginx.path contains "/api/v1/login" or
+     nginx.path contains "/oauth/token" or
+     nginx.path contains "/token" or
+     nginx.path contains "/.env" or
+     nginx.path contains "/phpmyadmin" or
+     nginx.path contains "/phpMyAdmin" or
+     nginx.path contains "/pma" or
+     nginx.path contains "/cms" or
+     nginx.path contains "/dashboard") and
+    (nginx.status = 401 or nginx.status = 403 or nginx.status = 407)
+  output: "Authentication failure detected (path=%nginx.path, status=%nginx.status, client=%nginx.client_ip, user_agent=%nginx.user_agent)"
+  priority: WARNING
+  source: nginx
+  tags: [brute_force, authentication, web, security]
+
+- rule: Rapid Authentication Failures
+  desc: Multiple authentication failures from same IP (potential brute force)
+  condition: >
+    (nginx.path contains "/login" or 
+     nginx.path contains "/signin" or 
+     nginx.path contains "/auth" or
+     nginx.path contains "/admin" or
+     nginx.path contains "/api/login" or
+     nginx.path contains "/api/auth") and
+    nginx.status = 401
+  output: "Rapid authentication failures detected - possible brute force attack (path=%nginx.path, client=%nginx.client_ip)"
+  priority: CRITICAL
+  source: nginx
+  tags: [brute_force, authentication, attack, web]
+
+- rule: Password Reset Abuse
+  desc: Detects excessive password reset attempts
+  condition: >
+    (nginx.path contains "/password/reset" or
+     nginx.path contains "/forgot-password" or
+     nginx.path contains "/reset-password" or
+     nginx.path contains "/password/forgot" or
+     nginx.path contains "/account/recover" or
+     nginx.path contains "/api/password/reset" or
+     nginx.path contains "/api/forgot-password") and
+    nginx.method = "POST"
+  output: "Password reset attempt detected (path=%nginx.path, client=%nginx.client_ip)"
   priority: NOTICE
   source: nginx
-  tags: [brute_force, authentication, web]
+  tags: [authentication, password_reset, web]
+
+- rule: Basic Auth Brute Force
+  desc: Detects HTTP Basic Authentication brute force attempts
+  condition: >
+    nginx.status = 401 and
+    (nginx.path contains "/api" or
+     nginx.path contains "/admin" or
+     nginx.path contains "/secure" or
+     nginx.path contains "/private")
+  output: "HTTP Basic Auth failure detected (path=%nginx.path, client=%nginx.client_ip)"
+  priority: WARNING
+  source: nginx
+  tags: [brute_force, basic_auth, authentication, web]
 
 # Large Response Detection (note: this is response size, not request body)
 - rule: Large Response Body

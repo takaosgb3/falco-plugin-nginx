@@ -12,7 +12,11 @@ A [Falco](https://falco.org) plugin that reads nginx access logs and detects sec
 - **Real-time nginx log monitoring**: Continuously monitors nginx access logs
 - **Security threat detection**: Detects SQL injection, XSS, directory traversal, command injection, and more
 - **Scanner detection**: Identifies common security scanning tools
-- **Brute force detection**: Monitors for authentication attacks
+- **Brute force detection**: Monitors authentication failures and password attacks
+  - Failed login attempts on multiple endpoints (/login, /admin, /api/auth, etc.)
+  - HTTP Basic Authentication failures
+  - Password reset abuse detection
+  - WordPress and CMS login monitoring
 - **High performance**: Efficient log parsing with minimal overhead
 - **Easy deployment**: Simple binary installation with automated setup
 
