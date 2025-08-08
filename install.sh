@@ -289,54 +289,34 @@ else
     fi
 fi
 
-# Create additional Falco service for nginx plugin
-log "Creating additional Falco service for nginx plugin..."
+# Restart Falco to load the nginx plugin alongside kernel monitoring
+log "Restarting Falco with nginx plugin enabled..."
 
-# Check if user wants both services or plugin-only
+# Simply restart Falco - it will load both kernel monitoring AND the nginx plugin
+systemctl restart falco
+sleep 3
+
+# Check if Falco started successfully
 if systemctl is-active --quiet falco; then
-    log "Falco kernel monitoring is active. Creating additional nginx monitoring service..."
-    DUAL_MODE=true
+    success "Falco restarted with nginx plugin (both kernel and nginx monitoring active)"
 else
-    DUAL_MODE=false
-fi
-
-if [ "$DUAL_MODE" = true ]; then
-    # Create separate service for nginx plugin to run alongside kernel monitoring
-    cat > /etc/systemd/system/falco-nginx.service << 'FALCO_NGINX_SERVICE'
-[Unit]
-Description=Falco nginx Plugin Monitor (runs alongside kernel monitoring)
-After=network.target falco.service
-
-[Service]
-Type=simple
-ExecStart=/usr/bin/falco -c /etc/falco/falco.yaml --disable-source syscall
-Restart=on-failure
-RestartSec=5
-
-[Install]
-WantedBy=multi-user.target
-FALCO_NGINX_SERVICE
-    
-    systemctl daemon-reload
-    systemctl enable falco-nginx
-    systemctl start falco-nginx
-    sleep 3
-    success "Created falco-nginx service for nginx monitoring (kernel monitoring remains active)"
-else
-    # If Falco is not running, configure it for plugin-only mode
-    log "Configuring Falco for plugin-only mode..."
+    warning "Falco failed to start. Checking configuration..."
+    # Try to start without kernel module if it fails
+    log "Attempting to start in plugin-only mode..."
     mkdir -p /etc/systemd/system/falco.service.d
-    cat > /etc/systemd/system/falco.service.d/nginx-plugin.conf << 'FALCO_OVERRIDE'
+    cat > /etc/systemd/system/falco.service.d/plugin-only.conf << 'FALCO_OVERRIDE'
 [Service]
-# Override the default ExecStart to run in plugin mode
+# Fallback: run in plugin-only mode if kernel module fails
 ExecStart=
 ExecStart=/usr/bin/falco -c /etc/falco/falco.yaml --disable-source syscall
 FALCO_OVERRIDE
-    
     systemctl daemon-reload
     systemctl restart falco
-    sleep 3
-    success "Falco configured for nginx plugin mode only"
+    if systemctl is-active --quiet falco; then
+        success "Falco started in plugin-only mode (kernel module not available)"
+    else
+        error "Failed to start Falco. Check logs: sudo journalctl -u falco -n 50"
+    fi
 fi
 
 # Cleanup
@@ -366,16 +346,17 @@ else
     error "nginx rules not found at /etc/falco/rules.d/nginx_rules.yaml"
 fi
 
-# Check service status
-if systemctl is-active --quiet falco-nginx; then
-    success "Falco nginx plugin service is running"
-    log "Kernel monitoring: sudo journalctl -u falco -f"
-    log "nginx monitoring: sudo journalctl -u falco-nginx -f"
-elif systemctl is-active --quiet falco; then
-    success "Falco service is running (plugin-only mode)"
-    log "nginx monitoring: sudo journalctl -u falco -f"
+# Check if Falco service is running
+if systemctl is-active --quiet falco; then
+    success "Falco is running with nginx plugin"
+    # Check if kernel module is loaded
+    if lsmod | grep -q falco; then
+        log "Mode: Both kernel and nginx monitoring active"
+    else
+        log "Mode: nginx monitoring only (kernel module not loaded)"
+    fi
 else
-    warning "No Falco services are running. Check with: sudo systemctl status falco falco-nginx"
+    warning "Falco service is not running. Check with: sudo systemctl status falco"
 fi
 
 echo ""
@@ -399,23 +380,13 @@ fi
 
 echo ""
 echo "Next steps:"
-if systemctl is-active --quiet falco-nginx; then
-    echo "1. Monitor nginx alerts: sudo journalctl -u falco-nginx -f"
-    echo "   Monitor kernel alerts: sudo journalctl -u falco -f"
-else
-    echo "1. Monitor alerts: sudo journalctl -u falco -f"
-fi
+echo "1. Monitor all alerts (kernel + nginx): sudo journalctl -u falco -f"
 echo "2. Test nginx detection:"
 echo '   curl "http://localhost/search.php?q=%27%20OR%20%271%27%3D%271"'
 echo '   curl "http://localhost/search.php?q=%3Cscript%3Ealert(1)%3C/script%3E"'
 echo '   curl "http://localhost/upload.php?file=../../../../../../etc/passwd"'
-if systemctl is-active --quiet falco-nginx; then
-    echo "3. Check service status:"
-    echo "   nginx monitoring: sudo systemctl status falco-nginx"
-    echo "   kernel monitoring: sudo systemctl status falco"
-else
-    echo "3. Check service status: sudo systemctl status falco"
-fi
+echo "3. Check service status: sudo systemctl status falco"
+echo "4. View loaded plugins: sudo falco --list-plugins"
 echo ""
 echo "For more information: https://github.com/${PLUGIN_REPO}"
 echo ""

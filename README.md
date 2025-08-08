@@ -71,18 +71,15 @@ plugins:
 After installation, test the plugin:
 
 ```bash
-# If kernel monitoring is active (dual mode):
-# Monitor nginx alerts
-sudo journalctl -u falco-nginx -f
-# Monitor kernel alerts
+# Monitor all alerts (both kernel and nginx events in one stream)
 sudo journalctl -u falco -f
 
-# If plugin-only mode:
-# Monitor all alerts
-sudo journalctl -u falco -f
-
-# In another terminal, simulate attacks
+# In another terminal, simulate nginx attacks
 curl "http://localhost/search.php?q=%27%20OR%20%271%27%3D%271"
+
+# Check what sources are active
+sudo falco --list-plugins  # Shows nginx plugin
+lsmod | grep falco         # Shows kernel module (if loaded)
 ```
 
 ### Documentation
