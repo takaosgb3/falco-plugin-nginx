@@ -27,7 +27,7 @@ The easiest way is to use the automated installation script:
 curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo bash
 
 # Or install a specific version
-PLUGIN_VERSION=v0.4.9 curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo bash
+PLUGIN_VERSION=v0.4.11 curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo bash
 ```
 
 This script automatically:
@@ -147,7 +147,7 @@ See [Troubleshooting Guide](troubleshooting.md) for more detailed solutions.
 curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo bash
 
 # または特定のバージョンをインストール
-PLUGIN_VERSION=v0.4.9 curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo bash
+PLUGIN_VERSION=v0.4.11 curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo bash
 ```
 
 このスクリプトは以下を自動的に実行します：
