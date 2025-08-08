@@ -37,10 +37,10 @@
   desc: Detects attempts to access files outside webroot
   condition: >
     (nginx.path contains "../" or nginx.query_string contains "../") or
-    (nginx.path contains "..\\\\" or nginx.query_string contains "..\\\\") or
     (nginx.path contains "/etc/" or nginx.query_string contains "/etc/") or
     (nginx.path contains "/proc/" or nginx.query_string contains "/proc/") or
-    (nginx.path contains "C:\\\\" or nginx.query_string contains "C:\\\\")
+    (nginx.path contains "/sys/" or nginx.query_string contains "/sys/") or
+    (nginx.path contains "/var/log/" or nginx.query_string contains "/var/log/")
   output: "Path traversal detected"
   priority: WARNING
   source: nginx
