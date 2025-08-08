@@ -71,8 +71,8 @@ plugins:
 After installation, test the plugin:
 
 ```bash
-# Start Falco in plugin mode
-sudo falco -c /etc/falco/falco.yaml --disable-source syscall
+# Monitor alerts (the service is already running)
+sudo journalctl -u falco-nginx -f
 
 # In another terminal, simulate attacks
 curl "http://localhost/search.php?q=%27%20OR%20%271%27%3D%271"
@@ -167,8 +167,8 @@ plugins:
 インストール後、プラグインをテスト：
 
 ```bash
-# プラグインモードでFalcoを起動
-sudo falco -c /etc/falco/falco.yaml --disable-source syscall
+# アラートを監視（サービスは既に起動しています）
+sudo journalctl -u falco-nginx -f
 
 # 別のターミナルで攻撃をシミュレート
 curl "http://localhost/search.php?q=%27%20OR%20%271%27%3D%271"
