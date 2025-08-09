@@ -58,17 +58,17 @@
 # Static file delivery is noisy, so exclude it
 - macro: nginx_is_static
   condition: >
-    (nginx.path endswith_in (nginx_static_exts))
+    (nginx.path endswith (nginx_static_exts))
 
 # Common auth/admin/api paths
 - macro: nginx_is_login_path
-  condition: (nginx.path startswith_in (nginx_login_paths))
+  condition: (nginx.path startswith (nginx_login_paths))
 
 - macro: nginx_is_admin_path
-  condition: (nginx.path startswith_in (nginx_admin_paths))
+  condition: (nginx.path startswith (nginx_admin_paths))
 
 - macro: nginx_is_api_path
-  condition: (nginx.path startswith_in (nginx_api_paths))
+  condition: (nginx.path startswith (nginx_api_paths))
 
 # Method types
 - macro: nginx_is_readonly
