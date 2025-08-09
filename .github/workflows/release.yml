@@ -330,11 +330,11 @@ jobs:
                 echo "✅ Attack detection is working! Alerts found:"
                 echo "$FALCO_ALERTS" | head -10
                 
-                # Count specific alert types from JSON output
-                SQL_COUNT=$(echo "$FALCO_ALERTS" | grep -c '"rule":"SQL Injection Attempt"' || echo "0")
-                XSS_COUNT=$(echo "$FALCO_ALERTS" | grep -c '"rule":"XSS Attack Attempt"' || echo "0")
-                PATH_COUNT=$(echo "$FALCO_ALERTS" | grep -c '"rule":"Path Traversal Attempt"' || echo "0")
-                CMD_COUNT=$(echo "$FALCO_ALERTS" | grep -c '"rule":"Command Injection Attempt"' || echo "0")
+                # Count specific alert types (handle both plain text and JSON formats)
+                SQL_COUNT=$(echo "$FALCO_ALERTS" | grep -ci "SQL.*injection" || echo "0")
+                XSS_COUNT=$(echo "$FALCO_ALERTS" | grep -ci "XSS" || echo "0")
+                PATH_COUNT=$(echo "$FALCO_ALERTS" | grep -ci "Path.*traversal\|Directory.*traversal" || echo "0")
+                CMD_COUNT=$(echo "$FALCO_ALERTS" | grep -ci "Command.*injection" || echo "0")
                 
                 # Ensure counts are valid integers
                 SQL_COUNT=${SQL_COUNT:-0}

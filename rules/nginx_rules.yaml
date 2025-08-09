@@ -1,308 +1,239 @@
 # Nginx Security Rules for Falco
-# Version: 0.3.0
+# Version: 0.4.0
 # Compatible with: Falco Plugin SDK for Go
-
-# SQL Injection Detection
-- rule: SQL Injection Attempt
-  desc: Detects potential SQL injection attacks in nginx logs
-  condition: >
-    (nginx.path contains "' OR" or nginx.query_string contains "' OR") or
-    (nginx.path contains "' AND" or nginx.query_string contains "' AND") or
-    (nginx.path contains "UNION SELECT" or nginx.query_string contains "UNION SELECT") or
-    (nginx.path contains "; DROP" or nginx.query_string contains "; DROP") or
-    (nginx.path contains "/*" or nginx.query_string contains "/*") or
-    (nginx.path contains "*/" or nginx.query_string contains "*/") or
-    (nginx.path contains "%27" or nginx.query_string contains "%27") or
-    (nginx.path contains "%20OR%20" or nginx.query_string contains "%20OR%20") or
-    (nginx.path contains "%20AND%20" or nginx.query_string contains "%20AND%20") or
-    (nginx.path contains "UNION%20SELECT" or nginx.query_string contains "UNION%20SELECT") or
-    (nginx.path contains "%3B%20DROP" or nginx.query_string contains "%3B%20DROP") or
-    (nginx.path contains "%2F%2A" or nginx.query_string contains "%2F%2A") or
-    (nginx.path contains "%2A%2F" or nginx.query_string contains "%2A%2F") or
-    (nginx.path contains "' or '" or nginx.query_string contains "' or '") or
-    (nginx.path contains "1=1" or nginx.query_string contains "1=1") or
-    (nginx.path contains "1%3D1" or nginx.query_string contains "1%3D1") or
-    (nginx.path contains "--" or nginx.query_string contains "--") or
-    (nginx.path contains "%2D%2D" or nginx.query_string contains "%2D%2D") or
-    (nginx.path contains "xp_cmdshell" or nginx.query_string contains "xp_cmdshell") or
-    (nginx.path contains "exec(" or nginx.query_string contains "exec(") or
-    (nginx.path contains "execute(" or nginx.query_string contains "execute(") or
-    (nginx.path contains "sp_executesql" or nginx.query_string contains "sp_executesql") or
-    (nginx.path contains "waitfor%20delay" or nginx.query_string contains "waitfor%20delay") or
-    (nginx.path contains "benchmark(" or nginx.query_string contains "benchmark(") or
-    (nginx.path contains "sleep(" or nginx.query_string contains "sleep(")
-  output: "SQL injection detected"
-  priority: CRITICAL
-  source: nginx
-  tags: [attack, sql_injection, web]
-
-# XSS Attack Detection
-- rule: XSS Attack Attempt
-  desc: Detects potential Cross-Site Scripting attacks
-  condition: >
-    (nginx.path contains "<script" or nginx.query_string contains "<script") or
-    (nginx.path contains "javascript:" or nginx.query_string contains "javascript:") or
-    (nginx.path contains "onerror=" or nginx.query_string contains "onerror=") or
-    (nginx.path contains "onload=" or nginx.query_string contains "onload=") or
-    (nginx.path contains "<iframe" or nginx.query_string contains "<iframe") or
-    (nginx.path contains "<object" or nginx.query_string contains "<object") or
-    (nginx.path contains "%3Cscript" or nginx.query_string contains "%3Cscript") or
-    (nginx.path contains "%3C%2Fscript" or nginx.query_string contains "%3C%2Fscript") or
-    (nginx.path contains "javascript%3A" or nginx.query_string contains "javascript%3A") or
-    (nginx.path contains "onerror%3D" or nginx.query_string contains "onerror%3D") or
-    (nginx.path contains "onload%3D" or nginx.query_string contains "onload%3D") or
-    (nginx.path contains "%3Ciframe" or nginx.query_string contains "%3Ciframe") or
-    (nginx.path contains "%3Cobject" or nginx.query_string contains "%3Cobject") or
-    (nginx.path contains "alert(" or nginx.query_string contains "alert(") or
-    (nginx.path contains "alert%28" or nginx.query_string contains "alert%28") or
-    (nginx.path contains "onclick=" or nginx.query_string contains "onclick=") or
-    (nginx.path contains "onclick%3D" or nginx.query_string contains "onclick%3D") or
-    (nginx.path contains "<img" or nginx.query_string contains "<img") or
-    (nginx.path contains "%3Cimg" or nginx.query_string contains "%3Cimg") or
-    (nginx.path contains "document.cookie" or nginx.query_string contains "document.cookie") or
-    (nginx.path contains "document%2Ecookie" or nginx.query_string contains "document%2Ecookie")
-  output: "XSS attack detected"
-  priority: WARNING
-  source: nginx
-  tags: [attack, xss, web]
-
-# Path Traversal Detection
-- rule: Path Traversal Attempt
-  desc: Detects attempts to access files outside webroot
-  condition: >
-    (nginx.path contains "../" or nginx.query_string contains "../") or
-    (nginx.path contains "/etc/" or nginx.query_string contains "/etc/") or
-    (nginx.path contains "/proc/" or nginx.query_string contains "/proc/") or
-    (nginx.path contains "/sys/" or nginx.query_string contains "/sys/") or
-    (nginx.path contains "/var/log/" or nginx.query_string contains "/var/log/") or
-    (nginx.path contains "%2E%2E/" or nginx.query_string contains "%2E%2E/") or
-    (nginx.path contains "%2E%2E%2F" or nginx.query_string contains "%2E%2E%2F") or
-    (nginx.path contains "..%2F" or nginx.query_string contains "..%2F") or
-    (nginx.path contains "%252E%252E/" or nginx.query_string contains "%252E%252E/") or
-    (nginx.path contains "/etc/passwd" or nginx.query_string contains "/etc/passwd") or
-    (nginx.path contains "%2Fetc%2Fpasswd" or nginx.query_string contains "%2Fetc%2Fpasswd") or
-    (nginx.path contains "/etc/shadow" or nginx.query_string contains "/etc/shadow") or
-    (nginx.path contains "%2Fetc%2Fshadow" or nginx.query_string contains "%2Fetc%2Fshadow")
-  output: "Path traversal detected"
-  priority: WARNING
-  source: nginx
-  tags: [attack, path_traversal, web]
-
-# Command Injection Detection - Macros for better organization
-
-# Raw command injection characters (unencoded)
-- macro: nginx_cmdinj_raw_chars
-  condition: >
-    (nginx.query_string contains "|" or
-     nginx.query_string contains ";" or
-     nginx.query_string contains "&&" or
-     nginx.query_string contains "||" or
-     nginx.query_string contains "`" or
-     nginx.query_string contains "$(") or
-    (nginx.path contains "|" or
-     nginx.path contains ";" or
-     nginx.path contains "&&" or
-     nginx.path contains "||" or
-     nginx.path contains "`" or
-     nginx.path contains "$(")
-
-# URL-encoded command injection characters
-# %7C='|', %3B=';', %26%26='&&', %7C%7C='||', %60='`', %24%28='$('
-- macro: nginx_cmdinj_pctenc_chars
-  condition: >
-    (nginx.query_string contains "%7C" or nginx.query_string contains "%7c" or
-     nginx.query_string contains "%3B" or nginx.query_string contains "%3b" or
-     nginx.query_string contains "%26%26" or
-     nginx.query_string contains "%7C%7C" or nginx.query_string contains "%7c%7c" or
-     nginx.query_string contains "%60" or
-     nginx.query_string contains "%24%28") or
-    (nginx.path contains "%7C" or nginx.path contains "%7c" or
-     nginx.path contains "%3B" or nginx.path contains "%3b" or
-     nginx.path contains "%26%26" or
-     nginx.path contains "%7C%7C" or nginx.path contains "%7c%7c" or
-     nginx.path contains "%60" or
-     nginx.path contains "%24%28")
-
-# Common command injection payloads and patterns
-- macro: nginx_cmdinj_words
-  condition: >
-    (nginx.query_string contains "curl" or
-     nginx.query_string contains "wget" or
-     nginx.query_string contains "bash -c" or
-     nginx.query_string contains "sh -c" or
-     nginx.query_string contains "uname -a" or
-     nginx.query_string contains "cat /etc/passwd" or
-     nginx.query_string contains "cat%20/etc/passwd" or
-     nginx.query_string contains ";cat" or
-     nginx.query_string contains "=;cat") or
-    (nginx.path contains "curl" or
-     nginx.path contains "wget" or
-     nginx.path contains "bash -c" or
-     nginx.path contains "sh -c" or
-     nginx.path contains "uname -a" or
-     nginx.path contains "cat /etc/passwd" or
-     nginx.path contains "cat%20/etc/passwd" or
-     nginx.path contains ";cat")
-
-# Main Command Injection Detection Rule
-- rule: Command Injection Attempt
-  desc: Detects command injection attempts using raw or URL-encoded characters
-  condition: >
-    (nginx_cmdinj_raw_chars or nginx_cmdinj_pctenc_chars) or
-    (nginx_cmdinj_words and (nginx_cmdinj_raw_chars or nginx_cmdinj_pctenc_chars))
-  output: >
-    Command injection detected (client=%nginx.remote_addr, method=%nginx.method,
-    path=%nginx.path, query=%nginx.query_string, status=%nginx.status,
-    ua=%nginx.user_agent)
-  priority: CRITICAL
-  source: nginx
-  tags: [attack, command_injection, web]
-
-# Debug rules - DISABLED by default (uncomment for troubleshooting)
-# - rule: Debug Query String Content
-#   desc: Show query_string field value for any request with query parameters
-#   condition: nginx.path contains ".php"
-#   output: "DEBUG - Path: %nginx.path, QueryString: [%nginx.query_string], Raw: %nginx.raw"
-#   priority: INFORMATIONAL
-#   source: nginx
-#   tags: [test, debug]
 # 
-# - rule: Debug Semicolon in Raw
-#   desc: Test if semicolon appears in raw log
-#   condition: nginx.raw contains ";cat"
-#   output: "Semicolon in RAW log: %nginx.raw"
-#   priority: INFORMATIONAL
-#   source: nginx
-#   tags: [test, debug]
+# This ruleset uses lists and macros for better maintainability and reduced false positives
 
-# Suspicious User Agent
-- rule: Suspicious User Agent
-  desc: Detects known malicious user agents
+# =========================
+# Reusable lists
+# =========================
+- list: nginx_methods_readonly
+  items: [GET, HEAD, OPTIONS]
+
+- list: nginx_methods_with_body
+  items: [POST, PUT, PATCH]
+
+- list: nginx_login_paths
+  items: [/login, /signin, /auth, /wp-login.php, /session, /api/auth]
+
+- list: nginx_admin_paths
+  items: [/admin, /wp-admin, /manager, /phpmyadmin]
+
+- list: nginx_api_paths
+  items: [/api/, /v1/, /v2/, /rest/, /graphql]
+
+- list: nginx_static_exts
+  items: [.css, .js, .png, .jpg, .jpeg, .svg, .ico, .gif, .woff, .woff2, .map]
+
+- list: nginx_sqli_tokens_words
+  items:
+    [ "select", "union", "sleep(", "update", "insert", "drop", " or ",
+      "' or '1'='1", "benchmark(", "information_schema", "load_file(" ]
+
+- list: nginx_sqli_tokens_rawchars
+  items: ["'", "\"", ";", "--", "#", "%27", "%22", "%3B", "%2D%2D", "%23"]
+
+- list: nginx_cmdinj_tokens_words
+  items:
+    [ "sh -c", "bash -c", "cat /etc/passwd", "wget ", "curl ",
+      "nc ", "powershell", "cmd /c", "||", "|", "&", "$(", "`" ]
+
+- list: nginx_traversal_tokens
+  items: ["../", "..%2f", "%2e%2e%2f", "/etc/passwd", "/.ssh/", "/windows/system32"]
+
+- list: nginx_xss_tokens
+  items:
+    [ "<script", "%3cscript", "javascript:", "onerror=", "onload=", "document.cookie" ]
+
+- list: nginx_bad_user_agents
+  items: ["sqlmap", "nikto", "nmap", "curl", "wget", "libwww", "python-requests"]
+
+# =========================
+# Reusable macros
+# =========================
+# Toggle: Set to true to enable debug rules
+- macro: nginx_debug_enabled
+  condition: (false)
+
+# Static file delivery is noisy, so exclude it
+- macro: nginx_is_static
   condition: >
-    nginx.user_agent contains "sqlmap" or
-    nginx.user_agent contains "nikto" or
-    nginx.user_agent contains "nmap" or
-    nginx.user_agent contains "masscan" or
-    nginx.user_agent contains "scanner"
-  output: "Suspicious agent detected"
+    (nginx.path endswith_in (nginx_static_exts))
+
+# Common auth/admin/api paths
+- macro: nginx_is_login_path
+  condition: (nginx.path startswith_in (nginx_login_paths))
+
+- macro: nginx_is_admin_path
+  condition: (nginx.path startswith_in (nginx_admin_paths))
+
+- macro: nginx_is_api_path
+  condition: (nginx.path startswith_in (nginx_api_paths))
+
+# Method types
+- macro: nginx_is_readonly
+  condition: (nginx.method in (nginx_methods_readonly))
+
+- macro: nginx_has_body_method
+  condition: (nginx.method in (nginx_methods_with_body))
+
+# Attack indicators with both character types and words
+- macro: nginx_has_sqli_words
+  condition: (nginx.query_string pmatch (nginx_sqli_tokens_words))
+
+- macro: nginx_has_sqli_rawchars
+  condition: (nginx.raw pmatch (nginx_sqli_tokens_rawchars))
+
+- macro: nginx_has_cmdinj_words
+  condition: (nginx.raw pmatch (nginx_cmdinj_tokens_words))
+
+- macro: nginx_has_traversal
+  condition: (nginx.path pmatch (nginx_traversal_tokens) or
+              nginx.query_string pmatch (nginx_traversal_tokens))
+
+- macro: nginx_has_xss
+  condition: (nginx.path pmatch (nginx_xss_tokens) or
+              nginx.query_string pmatch (nginx_xss_tokens))
+
+# =========================
+# Rules
+# =========================
+
+# SQLi: Require both "words + symbols/encoding" to reduce false positives
+- rule: NGINX SQLi Attempt
+  desc: Likely SQL injection attempt detected in URL or query string
+  enabled: true
+  priority: CRITICAL
+  source: nginx
+  condition: >
+    (not nginx_is_static) and
+    (nginx_is_readonly or nginx_has_body_method) and
+    nginx_has_sqli_words and nginx_has_sqli_rawchars
+  output: >
+    [NGINX SQLi] ip=%nginx.remote_addr method=%nginx.method path=%nginx.path
+    qs=%nginx.query_string ua=%nginx.user_agent status=%nginx.status
+  tags: [web, attack, sqli]
+
+# Command injection: Dangerous words + admin/login/api/non-static
+- rule: NGINX Command Injection Attempt
+  desc: Possible command injection payload observed
+  enabled: true
+  priority: CRITICAL
+  source: nginx
+  condition: >
+    (not nginx_is_static) and
+    (nginx_is_admin_path or nginx_is_login_path or nginx_is_api_path or nginx_has_body_method) and
+    nginx_has_cmdinj_words
+  output: >
+    [NGINX CMDi] ip=%nginx.remote_addr method=%nginx.method path=%nginx.path
+    raw=%nginx.raw ua=%nginx.user_agent status=%nginx.status
+  tags: [web, attack, command_injection]
+
+# XSS: Match representative tokens (excluding static delivery)
+- rule: NGINX XSS Attempt
+  desc: XSS-related tokens found in request path or query string
+  enabled: true
+  priority: WARNING
+  source: nginx
+  condition: >
+    (not nginx_is_static) and nginx_has_xss
+  output: >
+    [NGINX XSS] ip=%nginx.remote_addr method=%nginx.method path=%nginx.path
+    qs=%nginx.query_string ua=%nginx.user_agent status=%nginx.status
+  tags: [web, attack, xss]
+
+# Path traversal
+- rule: NGINX Path Traversal Attempt
+  desc: Directory traversal tokens in request
+  enabled: true
+  priority: CRITICAL
+  source: nginx
+  condition: >
+    (not nginx_is_static) and nginx_has_traversal
+  output: >
+    [NGINX Traversal] ip=%nginx.remote_addr method=%nginx.method path=%nginx.path
+    qs=%nginx.query_string ua=%nginx.user_agent status=%nginx.status
+  tags: [web, attack, traversal]
+
+# Typical brute force early signs (401/403 on sensitive paths)
+- rule: NGINX Auth Failure on Login/Admin Path
+  desc: Authentication failures on login/admin endpoints
+  enabled: true
   priority: NOTICE
   source: nginx
-  tags: [reconnaissance, scanner, web]
-
-# High Error Rate (simplified for now)
-- rule: HTTP Client Error
-  desc: Detects HTTP 4xx client errors
   condition: >
-    nginx.status >= 400 and nginx.status < 500
-  output: "HTTP client error detected"
+    (nginx.status in (401, 403)) and
+    (nginx_is_login_path or nginx_is_admin_path)
+  output: >
+    [NGINX AuthFail] ip=%nginx.remote_addr method=%nginx.method path=%nginx.path
+    status=%nginx.status ua=%nginx.user_agent
+  tags: [web, auth, brute_force, signal]
+
+# Scanner / Tool user agents
+- rule: NGINX Suspicious User-Agent
+  desc: Known scanning or tool-like user-agents
+  enabled: true
   priority: INFORMATIONAL
   source: nginx
-  tags: [error, web]
+  condition: (nginx.user_agent pmatch (nginx_bad_user_agents))
+  output: >
+    [NGINX UA] ip=%nginx.remote_addr ua=%nginx.user_agent path=%nginx.path
+    status=%nginx.status
+  tags: [recon, user_agent]
 
-# Server Error Detection
-- rule: HTTP Server Error
+# (Optional) Debug rules are toggle-controlled
+- rule: NGINX Debug - Semicolon or PHP Path
+  desc: Very noisy; enable only for troubleshooting
+  enabled: false
+  priority: INFORMATIONAL
+  source: nginx
+  condition: nginx_debug_enabled and
+             (nginx.raw contains ";" or nginx.path contains ".php")
+  output: >
+    [NGINX Debug] ip=%nginx.remote_addr method=%nginx.method path=%nginx.path raw=%nginx.raw
+  tags: [debug]
+
+# HTTP Error monitoring
+- rule: NGINX HTTP Server Error
   desc: Detects HTTP 5xx server errors
+  enabled: true
+  priority: NOTICE
+  source: nginx
   condition: >
     nginx.status >= 500
-  output: "HTTP server error detected"
-  priority: NOTICE
-  source: nginx
+  output: >
+    [NGINX 5xx] ip=%nginx.remote_addr method=%nginx.method path=%nginx.path
+    status=%nginx.status ua=%nginx.user_agent
   tags: [error, server, web]
 
-# Authentication Attack Detection
-- rule: Failed Authentication Attempt
-  desc: Detects failed authentication attempts on common login endpoints
-  condition: >
-    (nginx.path contains "/login" or 
-     nginx.path contains "/signin" or 
-     nginx.path contains "/auth" or
-     nginx.path contains "/admin" or
-     nginx.path contains "/wp-login" or
-     nginx.path contains "/wp-admin" or
-     nginx.path contains "/administrator" or
-     nginx.path contains "/user/login" or
-     nginx.path contains "/api/login" or
-     nginx.path contains "/api/auth" or
-     nginx.path contains "/api/v1/auth" or
-     nginx.path contains "/api/v1/login" or
-     nginx.path contains "/oauth/token" or
-     nginx.path contains "/token" or
-     nginx.path contains "/.env" or
-     nginx.path contains "/phpmyadmin" or
-     nginx.path contains "/phpMyAdmin" or
-     nginx.path contains "/pma" or
-     nginx.path contains "/cms" or
-     nginx.path contains "/dashboard") and
-    (nginx.status = 401 or nginx.status = 403 or nginx.status = 407)
-  output: "Authentication failure detected (path=%nginx.path, status=%nginx.status, client=%nginx.remote_addr, user_agent=%nginx.user_agent)"
-  priority: WARNING
-  source: nginx
-  tags: [brute_force, authentication, web, security]
-
-- rule: Rapid Authentication Failures
-  desc: Multiple authentication failures from same IP (potential brute force)
-  condition: >
-    (nginx.path contains "/login" or 
-     nginx.path contains "/signin" or 
-     nginx.path contains "/auth" or
-     nginx.path contains "/admin" or
-     nginx.path contains "/api/login" or
-     nginx.path contains "/api/auth") and
-    nginx.status = 401
-  output: "Rapid authentication failures detected - possible brute force attack (path=%nginx.path, client=%nginx.remote_addr)"
-  priority: CRITICAL
-  source: nginx
-  tags: [brute_force, authentication, attack, web]
-
-- rule: Password Reset Abuse
-  desc: Detects excessive password reset attempts
-  condition: >
-    (nginx.path contains "/password/reset" or
-     nginx.path contains "/forgot-password" or
-     nginx.path contains "/reset-password" or
-     nginx.path contains "/password/forgot" or
-     nginx.path contains "/account/recover" or
-     nginx.path contains "/api/password/reset" or
-     nginx.path contains "/api/forgot-password") and
-    nginx.method = "POST"
-  output: "Password reset attempt detected (path=%nginx.path, client=%nginx.remote_addr)"
-  priority: NOTICE
-  source: nginx
-  tags: [authentication, password_reset, web]
-
-- rule: Basic Auth Brute Force
-  desc: Detects HTTP Basic Authentication brute force attempts
-  condition: >
-    nginx.status = 401 and
-    (nginx.path contains "/api" or
-     nginx.path contains "/admin" or
-     nginx.path contains "/secure" or
-     nginx.path contains "/private")
-  output: "HTTP Basic Auth failure detected (path=%nginx.path, client=%nginx.remote_addr)"
-  priority: WARNING
-  source: nginx
-  tags: [brute_force, basic_auth, authentication, web]
-
-# Large Response Detection (note: this is response size, not request body)
-- rule: Large Response Body
-  desc: Detects unusually large response bodies
-  condition: >
-    nginx.bytes_sent > 10485760
-  output: "Large response detected"
+# Large response detection
+- rule: NGINX Large Response Body
+  desc: Detects unusually large response bodies (>10MB)
+  enabled: true
   priority: INFORMATIONAL
   source: nginx
+  condition: >
+    nginx.bytes_sent > 10485760
+  output: >
+    [NGINX Large] ip=%nginx.remote_addr method=%nginx.method path=%nginx.path
+    bytes=%nginx.bytes_sent ua=%nginx.user_agent
   tags: [anomaly, web]
 
-# Suspicious File Access
-- rule: Sensitive File Access Attempt
+# Sensitive file access attempt
+- rule: NGINX Sensitive File Access Attempt
   desc: Detects attempts to access sensitive files
+  enabled: true
+  priority: WARNING
+  source: nginx
   condition: >
     nginx.path contains ".git" or
     nginx.path contains ".env" or
     nginx.path contains "wp-config" or
     nginx.path contains ".htaccess" or
-    nginx.path contains ".htpasswd"
-  output: "Sensitive file access detected"
-  priority: WARNING
-  source: nginx
+    nginx.path contains ".htpasswd" or
+    nginx.path contains ".ssh" or
+    nginx.path contains "id_rsa"
+  output: >
+    [NGINX Sensitive] ip=%nginx.remote_addr method=%nginx.method path=%nginx.path
+    status=%nginx.status ua=%nginx.user_agent
   tags: [attack, information_disclosure, web]
