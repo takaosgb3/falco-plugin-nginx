@@ -6,7 +6,46 @@
 
 All notable changes to the Falco nginx plugin binaries will be documented in this file.
 
-## [v1.2.1] - 2025-08-09 - Macro-based Command Injection Rules (Latest)
+## [v1.2.12] - 2025-08-09 - Documentation and Installation Improvements (Latest)
+
+### Added
+- Environment variables for non-interactive installation (`SETUP_TEST_CONTENT`, `SKIP_TEST_CONTENT`)
+- Test script generation (`test-attacks.sh`) with correct URL-encoded commands
+- Comprehensive Falco service detection (handles symlinks and multiple service types)
+- Support for all Falco service variants (falco, falco-modern-bpf, falco-bpf)
+
+### Fixed
+- Documentation links to TROUBLESHOOTING.md (case sensitivity)
+- Replaced deprecated `nginx.client_ip` with `nginx.remote_addr` in documentation
+- URL-encoded attack examples now display correctly in HTML
+- Environment variable passing with sudo (must be after sudo, not before)
+- Falco service detection for EC2 environments where falco.service is a symlink
+- Version numbers updated throughout documentation
+- Repository URLs changed from private to public repo
+
+### Changed
+- Test content setup script now shows URL-encoded patterns correctly
+- Install script provides accurate service-specific monitoring commands
+- Documentation simplified to use generic eBPF terminology instead of EC2-specific
+
+### Documentation
+- Added clear instructions for identifying active Falco service
+- Japanese translations updated for all new features
+- Installation options table added for environment variables
+
+## [v1.2.11] - 2025-08-09 - URL Encoding and Detection Fixes
+
+### Fixed
+- Added URL-encoded patterns (`%27`, `%3C`, etc.) to detection rules
+- Fixed alert counting logic in release workflow
+- Corrected Falco rule syntax (removed invalid operators)
+- Expanded macros to avoid list operator issues
+
+### Changed
+- Rules now properly detect URL-encoded SQL injection and XSS attacks
+- Command injection detection improved with encoded patterns
+
+## [v1.2.1] - 2025-08-09 - Macro-based Command Injection Rules
 
 ### Added
 - Macro-based command injection detection rules for better organization
@@ -216,7 +255,46 @@ All notable changes to the Falco nginx plugin binaries will be documented in thi
 
 Falco nginxプラグインバイナリの重要な変更はすべてこのファイルに記録されます。
 
-## [v0.4.2] - 2025-08-06 - Falco 0.41.x 互換性修正（最新）
+## [v1.2.12] - 2025-08-09 - ドキュメントとインストール改善（最新）
+
+### 追加
+- 非対話型インストール用環境変数（`SETUP_TEST_CONTENT`、`SKIP_TEST_CONTENT`）
+- 正しいURLエンコードコマンドを含むテストスクリプト生成（`test-attacks.sh`）
+- 包括的なFalcoサービス検出（シンボリックリンクと複数サービスタイプに対応）
+- すべてのFalcoサービスバリアントのサポート（falco、falco-modern-bpf、falco-bpf）
+
+### 修正
+- TROUBLESHOOTING.mdへのドキュメントリンク（大文字小文字の区別）
+- ドキュメント内の非推奨`nginx.client_ip`を`nginx.remote_addr`に置換
+- HTMLでURLエンコード攻撃例が正しく表示されるよう修正
+- sudoでの環境変数渡し（sudoの前ではなく後に配置）
+- EC2環境でfalco.serviceがシンボリックリンクの場合のFalcoサービス検出
+- ドキュメント全体のバージョン番号更新
+- リポジトリURLをプライベートからパブリックに変更
+
+### 変更
+- テストコンテンツセットアップスクリプトがURLエンコードパターンを正しく表示
+- インストールスクリプトが正確なサービス固有の監視コマンドを提供
+- EC2固有ではなく一般的なeBPF用語を使用するようドキュメントを簡素化
+
+### ドキュメント
+- アクティブなFalcoサービスを特定するための明確な指示を追加
+- すべての新機能の日本語翻訳を更新
+- 環境変数のインストールオプション表を追加
+
+## [v1.2.11] - 2025-08-09 - URLエンコーディングと検出修正
+
+### 修正
+- URLエンコードパターン（`%27`、`%3C`など）を検出ルールに追加
+- リリースワークフローのアラートカウントロジックを修正
+- Falcoルール構文を修正（無効なオペレータを削除）
+- リストオペレータの問題を回避するためマクロを展開
+
+### 変更
+- URLエンコードされたSQLインジェクションとXSS攻撃を正しく検出
+- エンコードパターンでコマンドインジェクション検出を改善
+
+## [v0.4.2] - 2025-08-06 - Falco 0.41.x 互換性修正
 
 ### 修正
 - ルール優先度値を更新してFalco 0.41.xとの互換性を修正
