@@ -123,7 +123,7 @@
      nginx.path contains "%60" or
      nginx.path contains "%24%28")
 
-# Common command injection payloads
+# Common command injection payloads and patterns
 - macro: nginx_cmdinj_words
   condition: >
     (nginx.query_string contains "curl" or
@@ -132,14 +132,17 @@
      nginx.query_string contains "sh -c" or
      nginx.query_string contains "uname -a" or
      nginx.query_string contains "cat /etc/passwd" or
-     nginx.query_string contains "cat%20/etc/passwd") or
+     nginx.query_string contains "cat%20/etc/passwd" or
+     nginx.query_string contains ";cat" or
+     nginx.query_string contains "=;cat") or
     (nginx.path contains "curl" or
      nginx.path contains "wget" or
      nginx.path contains "bash -c" or
      nginx.path contains "sh -c" or
      nginx.path contains "uname -a" or
      nginx.path contains "cat /etc/passwd" or
-     nginx.path contains "cat%20/etc/passwd")
+     nginx.path contains "cat%20/etc/passwd" or
+     nginx.path contains ";cat")
 
 # Main Command Injection Detection Rule
 - rule: Command Injection Attempt
@@ -154,6 +157,15 @@
   priority: CRITICAL
   source: nginx
   tags: [attack, command_injection, web]
+
+# Simple semicolon detection for debugging
+- rule: Simple Semicolon Test
+  desc: Test if semicolon in query string is detected
+  condition: nginx.query_string contains ";"
+  output: "Semicolon detected in query string: %nginx.query_string"
+  priority: WARNING
+  source: nginx
+  tags: [test, debug]
 
 # Suspicious User Agent
 - rule: Suspicious User Agent
