@@ -180,7 +180,7 @@
      nginx.path contains "/cms" or
      nginx.path contains "/dashboard") and
     (nginx.status = 401 or nginx.status = 403 or nginx.status = 407)
-  output: "Authentication failure detected (path=%nginx.path, status=%nginx.status, client=%nginx.client_ip, user_agent=%nginx.user_agent)"
+  output: "Authentication failure detected (path=%nginx.path, status=%nginx.status, client=%nginx.remote_addr, user_agent=%nginx.user_agent)"
   priority: WARNING
   source: nginx
   tags: [brute_force, authentication, web, security]
@@ -195,7 +195,7 @@
      nginx.path contains "/api/login" or
      nginx.path contains "/api/auth") and
     nginx.status = 401
-  output: "Rapid authentication failures detected - possible brute force attack (path=%nginx.path, client=%nginx.client_ip)"
+  output: "Rapid authentication failures detected - possible brute force attack (path=%nginx.path, client=%nginx.remote_addr)"
   priority: CRITICAL
   source: nginx
   tags: [brute_force, authentication, attack, web]
@@ -211,7 +211,7 @@
      nginx.path contains "/api/password/reset" or
      nginx.path contains "/api/forgot-password") and
     nginx.method = "POST"
-  output: "Password reset attempt detected (path=%nginx.path, client=%nginx.client_ip)"
+  output: "Password reset attempt detected (path=%nginx.path, client=%nginx.remote_addr)"
   priority: NOTICE
   source: nginx
   tags: [authentication, password_reset, web]
@@ -224,7 +224,7 @@
      nginx.path contains "/admin" or
      nginx.path contains "/secure" or
      nginx.path contains "/private")
-  output: "HTTP Basic Auth failure detected (path=%nginx.path, client=%nginx.client_ip)"
+  output: "HTTP Basic Auth failure detected (path=%nginx.path, client=%nginx.remote_addr)"
   priority: WARNING
   source: nginx
   tags: [brute_force, basic_auth, authentication, web]
