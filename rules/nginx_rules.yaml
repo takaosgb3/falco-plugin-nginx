@@ -51,9 +51,9 @@
 # =========================
 # Reusable macros
 # =========================
-# Toggle: Set to true to enable debug rules (change 1=0 to 1=1 to enable)
+# Toggle: Set to true to enable debug rules (change condition to nginx.path != "" to enable)
 - macro: nginx_debug_enabled
-  condition: (1=0)
+  condition: (nginx.path = "NEVER_MATCH_THIS_DEBUG_TOGGLE")
 
 # Static file delivery is noisy, so exclude it
 - macro: nginx_is_static
