@@ -97,10 +97,6 @@ jobs:
           plugins:
             - name: container
               library_path: /usr/share/falco/plugins/libcontainer.so
-              # GH-hosted usually has docker.sock or containerd
-              init_config:
-                docker_socket: /var/run/docker.sock
-                cri_socket: /run/containerd/containerd.sock
           
             - name: nginx
               library_path: /usr/share/falco/plugins/libfalco-nginx-plugin.so
