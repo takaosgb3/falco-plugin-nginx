@@ -75,18 +75,27 @@ plugins:
 After installation, test the plugin:
 
 ```bash
-# Monitor all alerts (both kernel and nginx events in one stream)
-sudo journalctl -u falco -f
-# or for EC2/eBPF systems:
-sudo journalctl -u falco-modern-bpf -f
+# Step 1: Find which Falco service is running (quick check)
+for svc in falco falco-modern-bpf falco-bpf; do 
+  echo -n "$svc: "
+  systemctl is-active $svc 2>/dev/null || echo "not found"
+done
+# Look for "active" - that's your service!
 
-# In another terminal, simulate nginx attacks
-curl "http://localhost/search.php?q=%27%20OR%20%271%27%3D%271"
+# Step 2: Monitor alerts using YOUR active service
+# If falco: active         → sudo journalctl -u falco -f
+# If falco-modern-bpf: active → sudo journalctl -u falco-modern-bpf -f  
+# If falco-bpf: active     → sudo journalctl -u falco-bpf -f
 
-# Check what sources are active
-sudo falco --list-plugins  # Shows nginx plugin
-lsmod | grep falco         # Shows kernel module (if loaded)
+# Step 3: In another terminal, simulate attacks
+curl "http://localhost/search.php?q=%27%20OR%20%271%27%3D%271"  # SQL injection
+curl "http://localhost/search.php?q=%3Cscript%3Ealert(1)%3C/script%3E"  # XSS
+
+# Verify plugin is loaded
+sudo falco --list-plugins | grep nginx
 ```
+
+**💡 Tip**: Not sure which service? Run `sudo systemctl status falco` - if it shows "not found" or "inactive", try `sudo systemctl status falco-modern-bpf` (common on EC2/cloud).
 
 ### Documentation
 

@@ -521,19 +521,50 @@ if [ -t 0 ]; then
 fi
 
 echo ""
-echo "Next steps:"
+echo "========================================"
+echo "📌 IMPORTANT: How to monitor Falco logs"
+echo "========================================"
+echo ""
 if [ -n "$FALCO_SERVICE" ]; then
-    echo "1. Monitor all alerts (kernel + nginx): sudo journalctl -u $FALCO_SERVICE -f"
+    echo "✅ Your Falco service is: $FALCO_SERVICE"
+    echo ""
+    echo "To monitor alerts, use this command:"
+    echo "   sudo journalctl -u $FALCO_SERVICE -f"
+    echo ""
+    echo "To check service status:"
+    echo "   sudo systemctl status $FALCO_SERVICE"
 else
-    echo "1. Monitor all alerts (kernel + nginx): sudo journalctl -u falco -f"
-    echo "   Note: If using EC2, you may need: sudo journalctl -u falco-modern-bpf -f"
+    echo "⚠️  Could not determine which Falco service is running."
+    echo ""
+    echo "Step 1: Find your active Falco service by running:"
+    echo "   sudo systemctl status falco"
+    echo ""
+    echo "Step 2: Look at the first line of output:"
+    echo "   - If it shows '● falco.service' and 'Active: active (running)' → Use: sudo journalctl -u falco -f"
+    echo "   - If it shows 'Unit falco.service could not be found' or 'inactive' → Try next command"
+    echo ""
+    echo "   sudo systemctl status falco-modern-bpf"
+    echo "   - If it shows '● falco-modern-bpf.service' and 'Active: active (running)' → Use: sudo journalctl -u falco-modern-bpf -f"
+    echo "   - If not found or inactive → Try next command"
+    echo ""
+    echo "   sudo systemctl status falco-bpf"
+    echo "   - If it shows '● falco-bpf.service' and 'Active: active (running)' → Use: sudo journalctl -u falco-bpf -f"
+    echo ""
+    echo "💡 Quick check - run this to see which is active:"
+    echo '   for svc in falco falco-modern-bpf falco-bpf; do echo -n "$svc: "; systemctl is-active $svc 2>/dev/null || echo "not found"; done'
 fi
-echo "2. Test nginx detection:"
-echo '   curl "http://localhost/search.php?q=%27%20OR%20%271%27%3D%271"'
-echo '   curl "http://localhost/search.php?q=%3Cscript%3Ealert(1)%3C/script%3E"'
-echo '   curl "http://localhost/upload.php?file=../../../../../../etc/passwd"'
-echo "3. Check service status: sudo systemctl status falco"
-echo "4. View loaded plugins: sudo falco --list-plugins"
+echo ""
+echo "========================================"
+echo "📋 Next steps:"
+echo "========================================"
+echo ""
+echo "1. Test nginx detection:"
+echo '   curl "http://localhost/search.php?q=%27%20OR%20%271%27%3D%271"'  # SQL injection
+echo '   curl "http://localhost/search.php?q=%3Cscript%3Ealert(1)%3C/script%3E"'  # XSS
+echo '   curl "http://localhost/upload.php?file=../../../../../../etc/passwd"'  # Path traversal
+echo ""
+echo "2. View loaded plugins: sudo falco --list-plugins"
+echo "3. Check nginx access log: tail -f /var/log/nginx/access.log"
 echo ""
 echo "For more information: https://github.com/${PLUGIN_REPO}"
 echo ""

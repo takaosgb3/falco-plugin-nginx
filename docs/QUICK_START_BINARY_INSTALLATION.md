@@ -104,19 +104,56 @@ curl "http://localhost/api/users.php?cmd=;cat%20/etc/passwd"  # Detected
 
 ### 📝 Monitoring Alerts
 
-Falco may use different service names depending on your installation method:
+Falco may use different service names depending on your installation method and system configuration. Here's how to find and monitor the correct service:
+
+#### Finding Your Active Falco Service
+
 ```bash
-# Check which Falco service is running
-systemctl status falco falco-modern-bpf falco-bpf 2>/dev/null | grep "Active: active"
-
-# Common service names:
-# - falco: Standard installation
-# - falco-modern-bpf: Modern eBPF probe (recommended)
-# - falco-bpf: Legacy eBPF probe
-
-# Then monitor the active service:
-sudo journalctl -u <service-name> -f
+# Quick way: Check all services at once
+for svc in falco falco-modern-bpf falco-bpf; do 
+  echo -n "$svc: "
+  systemctl is-active $svc 2>/dev/null || echo "not found"
+done
 ```
+
+The output will show:
+- `active` = This is your running service ✅
+- `inactive` = Service exists but not running ⚠️
+- `not found` = Service not installed ❌
+
+#### Detailed Method
+
+1. **Check standard Falco first**:
+```bash
+sudo systemctl status falco
+```
+Look at the output:
+- If you see `● falco.service` and `Active: active (running)` → **Use**: `sudo journalctl -u falco -f`
+- If you see `Unit falco.service could not be found` or `inactive` → Try next service
+
+2. **Check modern eBPF** (common on EC2/cloud):
+```bash
+sudo systemctl status falco-modern-bpf
+```
+- If you see `● falco-modern-bpf.service` and `Active: active (running)` → **Use**: `sudo journalctl -u falco-modern-bpf -f`
+- If not found or inactive → Try next service
+
+3. **Check legacy eBPF**:
+```bash
+sudo systemctl status falco-bpf
+```
+- If you see `● falco-bpf.service` and `Active: active (running)` → **Use**: `sudo journalctl -u falco-bpf -f`
+
+#### Common Scenarios
+
+| Installation Method | Typical Service | Monitor Command |
+|-------------------|-----------------|------------------|
+| `install.sh` on EC2 | falco-modern-bpf | `sudo journalctl -u falco-modern-bpf -f` |
+| `install.sh` on standard Linux | falco | `sudo journalctl -u falco -f` |
+| Manual installation | falco | `sudo journalctl -u falco -f` |
+| Container/Kubernetes | falco | `kubectl logs -f <falco-pod>` |
+
+**Note**: The `install.sh` script automatically detects and configures the appropriate service. It will tell you exactly which service to monitor at the end of installation.
 
 ### 🆘 Troubleshooting
 
