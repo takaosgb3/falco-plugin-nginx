@@ -53,8 +53,13 @@ jobs:
           sudo apt-get update
           sudo DEBIAN_FRONTEND=noninteractive apt-get install -y falco
           
-          # Install falcoctl for plugin management
-          sudo apt-get install -y falcoctl
+          # Install falcoctl from GitHub releases
+          FALCOCTL_VERSION="0.10.0"
+          curl -L -o /tmp/falcoctl.tar.gz "https://github.com/falcosecurity/falcoctl/releases/download/v${FALCOCTL_VERSION}/falcoctl_${FALCOCTL_VERSION}_linux_amd64.tar.gz"
+          tar -xzf /tmp/falcoctl.tar.gz -C /tmp
+          sudo mv /tmp/falcoctl /usr/local/bin/
+          sudo chmod +x /usr/local/bin/falcoctl
+          falcoctl version
 
       - name: Build plugin binary
         run: |
@@ -168,6 +173,16 @@ jobs:
           
           # Install container plugin if not already present
           echo "Installing container plugin..."
+          # Check if falcoctl is available (might be installed with falco)
+          if ! command -v falcoctl &> /dev/null; then
+            echo "Installing falcoctl..."
+            FALCOCTL_VERSION="0.10.0"
+            curl -L -o /tmp/falcoctl.tar.gz "https://github.com/falcosecurity/falcoctl/releases/download/v${FALCOCTL_VERSION}/falcoctl_${FALCOCTL_VERSION}_linux_amd64.tar.gz"
+            tar -xzf /tmp/falcoctl.tar.gz -C /tmp
+            sudo mv /tmp/falcoctl /usr/local/bin/
+            sudo chmod +x /usr/local/bin/falcoctl
+          fi
+          
           if [ ! -f /usr/share/falco/plugins/libcontainer.so ]; then
             sudo falcoctl artifact install plugin container --quiet || \
             sudo falcoctl artifact install plugin container:0.2.7 --quiet || \
