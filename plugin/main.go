@@ -35,7 +35,6 @@ import (
 	"github.com/falcosecurity/plugin-sdk-go/pkg/sdk/plugins/source"
 	"github.com/fsnotify/fsnotify"
 	"github.com/takaosgb3/falco-plugin-nginx/pkg/parser"
-	"io"
 )
 
 // NginxPluginConfig represents the plugin configuration
