@@ -158,8 +158,8 @@ jobs:
           VERSION="${{ github.event.inputs.version }}"
           export PLUGIN_VERSION="$VERSION"
           
-          # Run install script in non-interactive mode
-          curl -sSL https://raw.githubusercontent.com/${{ github.repository }}/main/install.sh | sudo bash
+          # Run install script in non-interactive mode with correct version
+          curl -sSL https://raw.githubusercontent.com/${{ github.repository }}/main/install.sh | sudo env "PLUGIN_VERSION=$VERSION" bash
           
           # Verify installation results
           echo "Verifying installation..."
@@ -319,11 +319,17 @@ jobs:
                 echo "✅ Attack detection is working! Alerts found:"
                 echo "$FALCO_ALERTS" | head -10
                 
-                # Count specific alert types
-                SQL_COUNT=$(echo "$FALCO_ALERTS" | grep -c "SQL injection" || echo "0")
-                XSS_COUNT=$(echo "$FALCO_ALERTS" | grep -c "XSS attack" || echo "0")
-                PATH_COUNT=$(echo "$FALCO_ALERTS" | grep -c "Path traversal" || echo "0")
-                CMD_COUNT=$(echo "$FALCO_ALERTS" | grep -c "Command injection" || echo "0")
+                # Count specific alert types (with defaults to avoid integer expression errors)
+                SQL_COUNT=$(echo "$FALCO_ALERTS" | grep -ci "SQL.*injection" || echo "0")
+                XSS_COUNT=$(echo "$FALCO_ALERTS" | grep -ci "XSS.*attack" || echo "0")
+                PATH_COUNT=$(echo "$FALCO_ALERTS" | grep -ci "Path.*traversal" || echo "0")
+                CMD_COUNT=$(echo "$FALCO_ALERTS" | grep -ci "Command.*injection" || echo "0")
+                
+                # Ensure counts are valid integers
+                SQL_COUNT=${SQL_COUNT:-0}
+                XSS_COUNT=${XSS_COUNT:-0}
+                PATH_COUNT=${PATH_COUNT:-0}
+                CMD_COUNT=${CMD_COUNT:-0}
                 
                 echo ""
                 echo "Detection Summary:"
