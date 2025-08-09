@@ -58,19 +58,41 @@ cat > "$WEB_ROOT/index.html" << 'EOF'
     </ul>
     
     <h2>Attack Examples</h2>
-    <p><strong>Important:</strong> Use URL-encoded format for proper detection!</p>
+    <p><strong>⚠️ Important:</strong> Use URL-encoded format for proper detection!</p>
     
-    <h3>SQL Injection:</h3>
-    <code>curl "http://localhost/search.php?q=%27%20OR%20%271%27%3D%271"</code>
+    <div style="background-color: #f8f8f8; padding: 15px; border-radius: 5px; margin: 10px 0;">
+        <h3>SQL Injection (URL-encoded):</h3>
+        <div style="background: white; padding: 10px; border: 1px solid #ddd; font-family: monospace; overflow-x: auto;">
+            curl "http://localhost/search.php?q=<span style="color: #d14;">%27%20OR%20%271%27%3D%271</span>"
+        </div>
+        <p><small>URL encoding: %27=' %20=space %3D==</small></p>
+    </div>
     
-    <h3>XSS Attack:</h3>
-    <code>curl "http://localhost/search.php?q=%3Cscript%3Ealert(1)%3C/script%3E"</code>
+    <div style="background-color: #f8f8f8; padding: 15px; border-radius: 5px; margin: 10px 0;">
+        <h3>XSS Attack (URL-encoded):</h3>
+        <div style="background: white; padding: 10px; border: 1px solid #ddd; font-family: monospace; overflow-x: auto;">
+            curl "http://localhost/search.php?q=<span style="color: #d14;">%3Cscript%3Ealert(1)%3C/script%3E</span>"
+        </div>
+        <p><small>URL encoding: %3C=&lt; %3E=&gt;</small></p>
+    </div>
     
-    <h3>Directory Traversal:</h3>
-    <code>curl "http://localhost/upload.php?file=../../../../../../etc/passwd"</code>
+    <div style="background-color: #f8f8f8; padding: 15px; border-radius: 5px; margin: 10px 0;">
+        <h3>Directory Traversal:</h3>
+        <div style="background: white; padding: 10px; border: 1px solid #ddd; font-family: monospace; overflow-x: auto;">
+            curl "http://localhost/upload.php?file=<span style="color: #d14;">../../../../../../etc/passwd</span>"
+        </div>
+    </div>
     
-    <h3>Command Injection:</h3>
-    <code>curl "http://localhost/api/users.php?cmd=;cat%20/etc/passwd"</code>
+    <div style="background-color: #f8f8f8; padding: 15px; border-radius: 5px; margin: 10px 0;">
+        <h3>Command Injection (URL-encoded):</h3>
+        <div style="background: white; padding: 10px; border: 1px solid #ddd; font-family: monospace; overflow-x: auto;">
+            curl "http://localhost/api/users.php?cmd=<span style="color: #d14;">;cat%20/etc/passwd</span>"
+        </div>
+        <p><small>URL encoding: %20=space</small></p>
+    </div>
+    
+    <h3>⚠️ Why URL Encoding?</h3>
+    <p>The Falco nginx plugin preserves URL-encoded strings in logs. Detection rules look for encoded patterns like <code>%27</code> (not <code>'</code>), <code>%3C</code> (not <code>&lt;</code>), etc.</p>
 </body>
 </html>
 EOF
@@ -172,6 +194,36 @@ http_response_code(401);
 </html>
 EOF
 
+# Create test commands script
+cat > "$WEB_ROOT/test-attacks.sh" << 'SCRIPT_EOF'
+#!/bin/bash
+# Test attack commands for Falco nginx plugin
+
+echo "Testing SQL Injection (URL-encoded):"
+echo 'curl "http://localhost/search.php?q=%27%20OR%20%271%27%3D%271"'
+curl "http://localhost/search.php?q=%27%20OR%20%271%27%3D%271"
+echo ""
+
+echo "Testing XSS Attack (URL-encoded):"
+echo 'curl "http://localhost/search.php?q=%3Cscript%3Ealert(1)%3C/script%3E"'
+curl "http://localhost/search.php?q=%3Cscript%3Ealert(1)%3C/script%3E"
+echo ""
+
+echo "Testing Directory Traversal:"
+echo 'curl "http://localhost/upload.php?file=../../../../../../etc/passwd"'
+curl "http://localhost/upload.php?file=../../../../../../etc/passwd"
+echo ""
+
+echo "Testing Command Injection (URL-encoded):"
+echo 'curl "http://localhost/api/users.php?cmd=;cat%20/etc/passwd"'
+curl "http://localhost/api/users.php?cmd=;cat%20/etc/passwd"
+echo ""
+
+echo "All tests completed. Check Falco logs for detections."
+SCRIPT_EOF
+
+chmod +x "$WEB_ROOT/test-attacks.sh"
+
 # Set permissions
 chown -R www-data:www-data "$WEB_ROOT"
 chmod -R 755 "$WEB_ROOT"
@@ -225,7 +277,15 @@ systemctl reload nginx || service nginx reload
 
 success "Test web content setup complete!"
 echo ""
-log "You can now test security detection with commands like:"
+log "Test content available at: http://localhost/"
+log "Test script created: /var/www/test-site/test-attacks.sh"
+echo ""
+log "You can now test security detection with:"
+echo ""
+echo "Option 1: Run all tests at once:"
+echo "  sudo bash /var/www/test-site/test-attacks.sh"
+echo ""
+echo "Option 2: Run individual tests:"
 echo ""
 echo "SQL Injection (URL-encoded for detection):"
 echo '  curl "http://localhost/search.php?q=%27%20OR%20%271%27%3D%271"'
