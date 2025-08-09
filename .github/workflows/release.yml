@@ -152,14 +152,17 @@ jobs:
           sudo rm -rf /usr/share/falco/plugins/libfalco-nginx-plugin.so 2>/dev/null || true
           sudo rm -f /etc/falco/rules.d/nginx_rules.yaml 2>/dev/null || true
           
-          # Test the install script (non-interactive mode)
-          echo "Running install.sh..."
-          # Use the version being released for testing
+          # Test with the locally built files instead of downloading
+          echo "Installing plugin from local build..."
           VERSION="${{ github.event.inputs.version }}"
-          export PLUGIN_VERSION="$VERSION"
           
-          # Run install script in non-interactive mode with correct version
-          curl -sSL https://raw.githubusercontent.com/${{ github.repository }}/main/install.sh | sudo env "PLUGIN_VERSION=$VERSION" bash
+          # Install the plugin binary and rules from the release directory
+          sudo cp release/libfalco-nginx-plugin-linux-amd64.so /usr/share/falco/plugins/libfalco-nginx-plugin.so
+          sudo chmod 755 /usr/share/falco/plugins/libfalco-nginx-plugin.so
+          sudo cp release/nginx_rules.yaml /etc/falco/rules.d/nginx_rules.yaml
+          
+          # Configure Falco to use the plugin (use the same config as validation)
+          sudo cp /etc/falco/falco-nginx-test.yaml /etc/falco/falco.yaml
           
           # Verify installation results
           echo "Verifying installation..."
