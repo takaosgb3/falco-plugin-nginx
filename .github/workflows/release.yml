@@ -15,7 +15,7 @@ permissions:
 jobs:
   create-release:
     name: Create Release
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     
     # Security: Prevent PWN requests from forks
     if: github.event_name == 'workflow_dispatch' && github.repository == 'takaosgb3/falco-plugin-nginx'
@@ -78,9 +78,9 @@ jobs:
           sudo mkdir -p /usr/share/falco/plugins
           sudo cp release/libfalco-nginx-plugin-linux-amd64.so /usr/share/falco/plugins/libfalco-nginx-plugin.so
           
-          # Create a minimal Falco config with nginx plugin
+          # Create a Falco config with nginx plugin AND syscall source
           sudo tee /etc/falco/falco-nginx-test.yaml > /dev/null << 'EOF'
-          # Minimal Falco configuration for testing nginx plugin
+          # Falco configuration for testing nginx plugin with syscall source
           
           # Load the nginx plugin
           load_plugins: [nginx]
@@ -97,31 +97,26 @@ jobs:
           json_output: true
           json_include_output_property: true
           log_level: info
-          libs_logger:
-            enabled: false
-            severity: debug
           
-          # Rules files
+          # Enable modern eBPF (works on GitHub Actions)
+          modern_ebpf:
+            enabled: true
+          
+          # Rules files - include both standard rules and nginx rules
           rules_file:
             - /etc/falco/falco_rules.yaml
             - /etc/falco/falco_rules.local.yaml
-            - /etc/falco/rules.d
+            - /etc/falco/rules.d/nginx_rules.yaml
           
           # Output configuration
           stdout_output:
             enabled: true
           
-          # File output
+          # Disable other outputs for testing
           file_output:
             enabled: false
-            keep_alive: false
-            filename: /var/log/falco/events.txt
-          
-          # Syslog output
           syslog_output:
             enabled: false
-          
-          # HTTP output
           http_output:
             enabled: false
           EOF
@@ -164,18 +159,27 @@ jobs:
           # Configure Falco to use the plugin (use the same config as validation)
           sudo cp /etc/falco/falco-nginx-test.yaml /etc/falco/falco.yaml
           
+          # Verify Falco can see both sources
+          echo "Checking available event sources..."
+          sudo falco --list | grep -i "Event Sources" || true
+          
           # Start Falco in the background for testing with output to file
           echo "Starting Falco for testing..."
-          FALCO_LOG="/tmp/falco_test.log"
-          # Disable syscall source and only load nginx rules to avoid container plugin requirement
-          sudo falco -c /etc/falco/falco.yaml --disable-source syscall -r /etc/falco/rules.d/nginx_rules.yaml > "$FALCO_LOG" 2>&1 &
-          FALCO_PID=$!
-          sleep 5  # Give Falco time to start
+          FALCO_LOG="/tmp/falco_test.jsonl"
+          FALCO_ERR="/tmp/falco_err.log"
+          # Run Falco with BOTH syscall and nginx sources enabled
+          # DO NOT use --disable-source syscall
+          sudo bash -c "falco -c /etc/falco/falco.yaml > $FALCO_LOG 2>$FALCO_ERR & echo \$! > /tmp/falco.pid"
+          FALCO_PID=$(cat /tmp/falco.pid)
+          sleep 8  # Give Falco more time to start and initialize plugins
           
           # Verify Falco is running
           if ! ps -p $FALCO_PID > /dev/null; then
             echo "❌ Failed to start Falco"
-            cat "$FALCO_LOG"
+            echo "=== Falco stdout ==="
+            cat "$FALCO_LOG" || true
+            echo "=== Falco stderr ==="
+            cat "$FALCO_ERR" || true
             exit 1
           fi
           echo "✅ Falco started with PID $FALCO_PID"
@@ -324,13 +328,14 @@ jobs:
                 FALCO_ALERTS=$(sudo grep -E "falco.*((SQL.*injection|XSS.*attack|Path.*traversal|Command.*injection|Directory.*traversal)|(Warning|Critical|Error|Notice))" /var/log/syslog 2>/dev/null | grep -v "Loading\|Loaded\|Enabled\|schema" | tail -10 || true)
               fi
               
-              # Get alerts from our running Falco instance
+              # Get alerts from our running Falco instance JSON output
               if [ -z "$FALCO_ALERTS" ] && [ -f "$FALCO_LOG" ]; then
                 echo "Checking Falco test log output..."
-                FALCO_ALERTS=$(grep -E "(SQL.*injection|XSS.*attack|Path.*traversal|Command.*injection|Semicolon.*detected|DEBUG.*Path)" "$FALCO_LOG" || true)
+                # Look for our specific rule names in JSON output
+                FALCO_ALERTS=$(grep -E '"rule":"(SQL Injection Attempt|XSS Attack Attempt|Path Traversal Attempt|Command Injection Attempt)"' "$FALCO_LOG" || true)
                 if [ -z "$FALCO_ALERTS" ]; then
-                  # Try broader search including debug output
-                  FALCO_ALERTS=$(grep -E "Warning|Critical|Error|Notice|DEBUG" "$FALCO_LOG" | grep -v "Loading\|Loaded\|Enabled\|schema" || true)
+                  # Try broader search for any nginx alerts
+                  FALCO_ALERTS=$(grep '"source":"nginx"' "$FALCO_LOG" || true)
                 fi
               fi
               
@@ -338,11 +343,11 @@ jobs:
                 echo "✅ Attack detection is working! Alerts found:"
                 echo "$FALCO_ALERTS" | head -10
                 
-                # Count specific alert types (with defaults to avoid integer expression errors)
-                SQL_COUNT=$(echo "$FALCO_ALERTS" | grep -ci "SQL.*injection" || echo "0")
-                XSS_COUNT=$(echo "$FALCO_ALERTS" | grep -ci "XSS.*attack" || echo "0")
-                PATH_COUNT=$(echo "$FALCO_ALERTS" | grep -ci "Path.*traversal" || echo "0")
-                CMD_COUNT=$(echo "$FALCO_ALERTS" | grep -ci "Command.*injection" || echo "0")
+                # Count specific alert types from JSON output
+                SQL_COUNT=$(echo "$FALCO_ALERTS" | grep -c '"rule":"SQL Injection Attempt"' || echo "0")
+                XSS_COUNT=$(echo "$FALCO_ALERTS" | grep -c '"rule":"XSS Attack Attempt"' || echo "0")
+                PATH_COUNT=$(echo "$FALCO_ALERTS" | grep -c '"rule":"Path Traversal Attempt"' || echo "0")
+                CMD_COUNT=$(echo "$FALCO_ALERTS" | grep -c '"rule":"Command Injection Attempt"' || echo "0")
                 
                 # Ensure counts are valid integers
                 SQL_COUNT=${SQL_COUNT:-0}
@@ -379,8 +384,16 @@ jobs:
                 echo "3. Checking if nginx plugin is actually processing events..."
                 sudo timeout 5 falco -c /etc/falco/falco.yaml -A 2>&1 | grep -i nginx | head -5 || echo "   No nginx events being processed"
                 echo ""
-                echo "4. Recent Falco logs (all):"
-                sudo journalctl -u falco --since "1 minute ago" | tail -20
+                echo "4. Full Falco log output:"
+                if [ -f "$FALCO_LOG" ]; then
+                  echo "First 50 lines of Falco log:"
+                  head -50 "$FALCO_LOG" || true
+                  echo ""
+                  echo "Last 50 lines of Falco log:"
+                  tail -50 "$FALCO_LOG" || true
+                else
+                  echo "Falco log file not found at $FALCO_LOG"
+                fi
                 echo ""
                 echo "⚠️ CRITICAL: Attack detection verification FAILED"
                 echo "The plugin is loaded but not generating security alerts for attacks."
