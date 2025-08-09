@@ -6,6 +6,8 @@
 
 # =========================
 # Reusable lists
+# Note: Some lists below are expanded inline in macros due to Falco syntax limitations
+# They are kept for documentation and future reference
 # =========================
 - list: nginx_methods_readonly
   items: [GET, HEAD, OPTIONS]

@@ -330,17 +330,19 @@ jobs:
                 echo "✅ Attack detection is working! Alerts found:"
                 echo "$FALCO_ALERTS" | head -10
                 
-                # Count specific alert types (handle both plain text and JSON formats)
-                SQL_COUNT=$(echo "$FALCO_ALERTS" | grep -ci "SQL.*injection" || echo "0")
-                XSS_COUNT=$(echo "$FALCO_ALERTS" | grep -ci "XSS" || echo "0")
-                PATH_COUNT=$(echo "$FALCO_ALERTS" | grep -ci "Path.*traversal\|Directory.*traversal" || echo "0")
-                CMD_COUNT=$(echo "$FALCO_ALERTS" | grep -ci "Command.*injection" || echo "0")
+                # Count specific alert types by matching the actual output format
+                # Use printf to avoid issues with newlines and ensure single-line output
+                SQL_COUNT=$(printf "%s" "$FALCO_ALERTS" | grep -c '\[NGINX SQLi\]' || echo "0")
+                XSS_COUNT=$(printf "%s" "$FALCO_ALERTS" | grep -c '\[NGINX XSS\]' || echo "0")
+                PATH_COUNT=$(printf "%s" "$FALCO_ALERTS" | grep -c '\[NGINX Traversal\]' || echo "0")
+                CMD_COUNT=$(printf "%s" "$FALCO_ALERTS" | grep -c '\[NGINX CMDi\]' || echo "0")
                 
-                # Ensure counts are valid integers
-                SQL_COUNT=${SQL_COUNT:-0}
-                XSS_COUNT=${XSS_COUNT:-0}
-                PATH_COUNT=${PATH_COUNT:-0}
-                CMD_COUNT=${CMD_COUNT:-0}
+                # Normalize to ensure we have valid integers (remove any non-digit characters)
+                normalize_int() { printf "%s" "$1" | tr -cd '0-9' | sed 's/^$/0/'; }
+                SQL_COUNT=$(normalize_int "${SQL_COUNT:-0}")
+                XSS_COUNT=$(normalize_int "${XSS_COUNT:-0}")
+                PATH_COUNT=$(normalize_int "${PATH_COUNT:-0}")
+                CMD_COUNT=$(normalize_int "${CMD_COUNT:-0}")
                 
                 echo ""
                 echo "Detection Summary:"
@@ -350,8 +352,9 @@ jobs:
                 echo "- Command Injection: $CMD_COUNT alerts"
                 
                 # Also check for syscall alerts (proving both sources work)
-                SYSCALL_COUNT=$(echo "$FALCO_ALERTS" | grep -c '"source":"syscall"' || echo "0")
-                NGINX_COUNT=$(echo "$FALCO_ALERTS" | grep -c '"source":"nginx"' || echo "0")
+                # For plain text format, count lines with nginx plugin alerts
+                SYSCALL_COUNT=$(printf "%s" "$FALCO_ALERTS" | grep -c '"source":"syscall"' || echo "0")
+                NGINX_COUNT=$(printf "%s" "$FALCO_ALERTS" | grep -c '\[NGINX' || echo "0")
                 
                 echo "- Syscall alerts: $SYSCALL_COUNT"
                 echo "- Nginx alerts: $NGINX_COUNT"
