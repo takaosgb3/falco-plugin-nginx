@@ -158,22 +158,22 @@
   source: nginx
   tags: [attack, command_injection, web]
 
-# Debug rules to identify the issue
-- rule: Debug Query String Content
-  desc: Show query_string field value for any request with query parameters
-  condition: nginx.path contains ".php"
-  output: "DEBUG - Path: %nginx.path, QueryString: [%nginx.query_string], Raw: %nginx.raw"
-  priority: WARNING
-  source: nginx
-  tags: [test, debug]
-
-- rule: Debug Semicolon in Raw
-  desc: Test if semicolon appears in raw log
-  condition: nginx.raw contains ";cat"
-  output: "Semicolon in RAW log: %nginx.raw"
-  priority: WARNING
-  source: nginx
-  tags: [test, debug]
+# Debug rules - DISABLED by default (uncomment for troubleshooting)
+# - rule: Debug Query String Content
+#   desc: Show query_string field value for any request with query parameters
+#   condition: nginx.path contains ".php"
+#   output: "DEBUG - Path: %nginx.path, QueryString: [%nginx.query_string], Raw: %nginx.raw"
+#   priority: INFORMATIONAL
+#   source: nginx
+#   tags: [test, debug]
+# 
+# - rule: Debug Semicolon in Raw
+#   desc: Test if semicolon appears in raw log
+#   condition: nginx.raw contains ";cat"
+#   output: "Semicolon in RAW log: %nginx.raw"
+#   priority: INFORMATIONAL
+#   source: nginx
+#   tags: [test, debug]
 
 # Suspicious User Agent
 - rule: Suspicious User Agent
