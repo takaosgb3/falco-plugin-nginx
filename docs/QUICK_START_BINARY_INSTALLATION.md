@@ -27,7 +27,7 @@ The easiest way is to use the automated installation script:
 curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo bash
 
 # Or install a specific version
-PLUGIN_VERSION=v1.1.2 curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo bash
+PLUGIN_VERSION=v1.2.10 curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo bash
 ```
 
 This script automatically:
@@ -45,16 +45,16 @@ sudo journalctl -u falco -f
 # or for EC2/eBPF systems:
 sudo journalctl -u falco-modern-bpf -f
 
-# If you see 404 errors, set up test content:
+# IMPORTANT: Set up test web content first (required for attack simulation):
 sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/scripts/setup-test-content.sh)"
 
-# Then simulate attacks (URL-encoded):
-curl "http://localhost/search.php?q=%27%20OR%20%271%27%3D%271"
+# Then simulate attacks (must use URL-encoded format for detection):
+curl "http://localhost/search.php?q=%27%20OR%20%271%27%3D%271"  # SQL Injection
 ```
 
-### 🌐 Setting Up Test Web Content
+### 🌐 Setting Up Test Web Content (Required)
 
-If you encounter 404 errors when testing attacks, you need to set up test web content:
+**Important**: You must set up test web content before testing attacks. Without this setup, all attack URLs will return 404 errors:
 
 ```bash
 # Option 1: During installation (when prompted)
@@ -78,22 +78,28 @@ For detailed manual installation steps, see [Installation Guide](installation.md
 
 #### SQL Injection
 ```bash
-# Use URL-encoded format to avoid shell interpretation issues
-curl "http://localhost/search.php?q=%27%20OR%20%271%27%3D%271"
-curl "http://localhost/api/users.php?id=1%27%20UNION%20SELECT%20%2A%20FROM%20users--"
+# MUST use URL-encoded format for proper detection
+curl "http://localhost/search.php?q=%27%20OR%20%271%27%3D%271"  # Detected
+# curl "http://localhost/search.php?q=' OR '1'='1"  # NOT detected (unencoded)
 ```
 
 #### XSS Attack
 ```bash
-# URL-encoded to prevent shell issues
-curl "http://localhost/search.php?q=%3Cscript%3Ealert%28%27XSS%27%29%3C%2Fscript%3E"
-curl "http://localhost/search.php?q=%3Cimg%20src%3Dx%20onerror%3Dalert%281%29%3E"
+# MUST use URL-encoded format for proper detection
+curl "http://localhost/search.php?q=%3Cscript%3Ealert(1)%3C/script%3E"  # Detected
+# curl "http://localhost/search.php?q=<script>alert(1)</script>"  # NOT detected (unencoded)
 ```
 
 #### Directory Traversal
 ```bash
-curl "http://localhost/upload.php?file=../../../../../../etc/passwd"
-curl "http://localhost/api/users.php?path=../../../config/database.yml"
+curl "http://localhost/upload.php?file=../../../../../../etc/passwd"  # Detected
+```
+
+#### Command Injection
+```bash
+# MUST use URL-encoded format for proper detection
+curl "http://localhost/api/users.php?cmd=;cat%20/etc/passwd"  # Detected
+# curl "http://localhost/api/users.php?cmd=;cat /etc/passwd"  # May not be detected (spaces not encoded)
 ```
 
 ### 📝 Monitoring Alerts
@@ -160,7 +166,7 @@ See [Troubleshooting Guide](troubleshooting.md) for more detailed solutions.
 curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo bash
 
 # または特定のバージョンをインストール
-PLUGIN_VERSION=v1.1.2 curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo bash
+PLUGIN_VERSION=v1.2.10 curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo bash
 ```
 
 このスクリプトは以下を自動的に実行します：
@@ -176,16 +182,16 @@ PLUGIN_VERSION=v1.1.2 curl -sSL https://raw.githubusercontent.com/takaosgb3/falc
 # Falcoログを監視
 sudo journalctl -u falco -f
 
-# 404エラーが出る場合は、テストコンテンツをセットアップ：
+# 重要: 最初にテストWebコンテンツをセットアップ（攻撃シミュレーションに必須）：
 sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/scripts/setup-test-content.sh)"
 
-# その後、攻撃をシミュレート（URLエンコード済み）：
-curl "http://localhost/search.php?q=%27%20OR%20%271%27%3D%271"
+# その後、攻撃をシミュレート（検出のためURLエンコード形式を使用）：
+curl "http://localhost/search.php?q=%27%20OR%20%271%27%3D%271"  # SQLインジェクション
 ```
 
-### 🌐 テストWebコンテンツのセットアップ
+### 🌐 テストWebコンテンツのセットアップ（必須）
 
-攻撃テスト時に404エラーが発生する場合は、テストWebコンテンツをセットアップする必要があります：
+**重要**: 攻撃テストを行う前に、必ずテストWebコンテンツをセットアップする必要があります。セットアップなしでは、すべての攻撃URLが404エラーになります：
 
 ```bash
 # オプション1: インストール中（プロンプトが表示されたとき）
@@ -209,22 +215,29 @@ sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/takaosgb3/falco-plu
 
 #### SQLインジェクション
 ```bash
-# シェルの解釈問題を避けるためURLエンコード形式を使用
-curl "http://localhost/search.php?q=%27%20OR%20%271%27%3D%271"
-curl "http://localhost/api/users.php?id=1%27%20UNION%20SELECT%20%2A%20FROM%20users--"
+# 正しく検出させるため、必ずURLエンコード形式を使用
+curl "http://localhost/search.php?q=%27%20OR%20%271%27%3D%271"  # 検出される
+# curl "http://localhost/search.php?q=' OR '1'='1"  # 検出されない（エンコードなし）
+# curl "http://localhost/api/users.php?id=1' UNION SELECT * FROM users--"  # 検出されない（エンコードなし）
 ```
 
 #### XSS攻撃
 ```bash
-# シェルの問題を防ぐためURLエンコード済み
-curl "http://localhost/search.php?q=%3Cscript%3Ealert%28%27XSS%27%29%3C%2Fscript%3E"
-curl "http://localhost/search.php?q=%3Cimg%20src%3Dx%20onerror%3Dalert%281%29%3E"
+# 正しく検出させるため、必ずURLエンコード形式を使用
+curl "http://localhost/search.php?q=%3Cscript%3Ealert(1)%3C/script%3E"  # 検出される
+# curl "http://localhost/search.php?q=<script>alert(1)</script>"  # 検出されない（エンコードなし）
 ```
 
 #### ディレクトリトラバーサル
 ```bash
-curl "http://localhost/upload.php?file=../../../../../../etc/passwd"
-curl "http://localhost/api/users.php?path=../../../config/database.yml"
+curl "http://localhost/upload.php?file=../../../../../../etc/passwd"  # 検出される
+```
+
+#### コマンドインジェクション
+```bash
+# 正しく検出させるため、必ずURLエンコード形式を使用
+curl "http://localhost/api/users.php?cmd=;cat%20/etc/passwd"  # 検出される
+# curl "http://localhost/api/users.php?cmd=;cat /etc/passwd"  # 検出されない場合あり（スペース未エンコード）
 ```
 
 ### 🆘 トラブルシューティング
