@@ -27,13 +27,16 @@ The easiest way is to use the automated installation script:
 curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo bash
 
 # Install with test content setup (non-interactive)
-SETUP_TEST_CONTENT=yes curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo bash
+curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo SETUP_TEST_CONTENT=yes bash
 
 # Install without test content (skip prompt)
-SKIP_TEST_CONTENT=yes curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo bash
+curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo SKIP_TEST_CONTENT=yes bash
 
 # Install a specific version
-PLUGIN_VERSION=v1.2.10 curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo bash
+curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo PLUGIN_VERSION=v1.2.10 bash
+
+# Combine multiple options
+curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo PLUGIN_VERSION=v1.2.10 SETUP_TEST_CONTENT=yes bash
 ```
 
 #### Installation Options
@@ -222,13 +225,16 @@ See [Troubleshooting Guide](troubleshooting.md) for more detailed solutions.
 curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo bash
 
 # テストコンテンツも自動セットアップ（非対話型）
-SETUP_TEST_CONTENT=yes curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo bash
+curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo SETUP_TEST_CONTENT=yes bash
 
 # テストコンテンツをスキップ（プロンプトなし）
-SKIP_TEST_CONTENT=yes curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo bash
+curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo SKIP_TEST_CONTENT=yes bash
 
 # 特定のバージョンをインストール
-PLUGIN_VERSION=v1.2.10 curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo bash
+curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo PLUGIN_VERSION=v1.2.10 bash
+
+# 複数のオプションを組み合わせ
+curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo PLUGIN_VERSION=v1.2.10 SETUP_TEST_CONTENT=yes bash
 ```
 
 #### インストールオプション

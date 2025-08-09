@@ -554,7 +554,7 @@ else
     echo "  sudo bash -c \"\$(curl -fsSL https://raw.githubusercontent.com/${PLUGIN_REPO}/main/scripts/setup-test-content.sh)\""
     echo ""
     echo "Or re-run installer with environment variable:"
-    echo "  SETUP_TEST_CONTENT=yes curl -sSL https://raw.githubusercontent.com/${PLUGIN_REPO}/main/install.sh | sudo bash"
+    echo "  curl -sSL https://raw.githubusercontent.com/${PLUGIN_REPO}/main/install.sh | sudo SETUP_TEST_CONTENT=yes bash"
 fi
 
 echo ""
