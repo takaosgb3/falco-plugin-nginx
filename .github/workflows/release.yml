@@ -130,6 +130,10 @@ jobs:
           sudo rm -rf /usr/share/falco/plugins/libfalco-nginx-plugin.so 2>/dev/null || true
           sudo rm -f /etc/falco/rules.d/nginx_rules.yaml 2>/dev/null || true
           
+          # Note: We skip the actual install.sh test here since we already test the components
+          # The install.sh script would require environment variables to run non-interactively:
+          # SKIP_TEST_CONTENT=yes ./install.sh
+          
           # Test with the locally built files instead of downloading
           echo "Installing plugin from local build..."
           VERSION="${{ github.event.inputs.version }}"

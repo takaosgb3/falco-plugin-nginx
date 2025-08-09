@@ -26,9 +26,23 @@ The easiest way is to use the automated installation script:
 # Install latest version automatically
 curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo bash
 
-# Or install a specific version
+# Install with test content setup (non-interactive)
+SETUP_TEST_CONTENT=yes curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo bash
+
+# Install without test content (skip prompt)
+SKIP_TEST_CONTENT=yes curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo bash
+
+# Install a specific version
 PLUGIN_VERSION=v1.2.10 curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo bash
 ```
+
+#### Installation Options
+
+| Environment Variable | Description | Values |
+|---------------------|-------------|--------|
+| `PLUGIN_VERSION` | Plugin version to install | `latest` (default), `v1.2.10`, etc. |
+| `SETUP_TEST_CONTENT` | Automatically set up test web content | `yes`, `true`, `1` |
+| `SKIP_TEST_CONTENT` | Skip test content setup prompt | `yes`, `true`, `1` |
 
 This script automatically:
 - ✅ Checks system requirements
@@ -207,9 +221,23 @@ See [Troubleshooting Guide](troubleshooting.md) for more detailed solutions.
 # 最新版を自動インストール
 curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo bash
 
-# または特定のバージョンをインストール
+# テストコンテンツも自動セットアップ（非対話型）
+SETUP_TEST_CONTENT=yes curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo bash
+
+# テストコンテンツをスキップ（プロンプトなし）
+SKIP_TEST_CONTENT=yes curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo bash
+
+# 特定のバージョンをインストール
 PLUGIN_VERSION=v1.2.10 curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo bash
 ```
+
+#### インストールオプション
+
+| 環境変数 | 説明 | 値 |
+|---------------------|-------------|--------|
+| `PLUGIN_VERSION` | インストールするプラグインバージョン | `latest` (デフォルト), `v1.2.10` など |
+| `SETUP_TEST_CONTENT` | テストWebコンテンツを自動セットアップ | `yes`, `true`, `1` |
+| `SKIP_TEST_CONTENT` | テストコンテンツのプロンプトをスキップ | `yes`, `true`, `1` |
 
 このスクリプトは以下を自動的に実行します：
 - ✅ システム要件の確認

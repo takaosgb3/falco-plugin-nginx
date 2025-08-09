@@ -9,6 +9,8 @@ set -euo pipefail
 # Configuration
 PLUGIN_REPO="takaosgb3/falco-plugin-nginx"
 PLUGIN_VERSION="${PLUGIN_VERSION:-latest}"
+SETUP_TEST_CONTENT="${SETUP_TEST_CONTENT:-}"
+SKIP_TEST_CONTENT="${SKIP_TEST_CONTENT:-}"
 
 # Colors
 RED='\033[0;31m'
@@ -38,6 +40,13 @@ echo ""
 log "Starting Falco nginx plugin installation"
 log "Version: ${PLUGIN_VERSION}"
 log "Repository: ${PLUGIN_REPO}"
+
+# Show configuration if environment variables are set
+if [ -n "$SETUP_TEST_CONTENT" ] || [ -n "$SKIP_TEST_CONTENT" ]; then
+    log "Configuration:"
+    [ -n "$SETUP_TEST_CONTENT" ] && log "  SETUP_TEST_CONTENT=${SETUP_TEST_CONTENT}"
+    [ -n "$SKIP_TEST_CONTENT" ] && log "  SKIP_TEST_CONTENT=${SKIP_TEST_CONTENT}"
+fi
 echo ""
 
 # Check system requirements
@@ -504,20 +513,48 @@ fi
 echo ""
 success "========== Installation Complete =========="
 
-# Ask if user wants to set up test content (skip when piped)
-if [ -t 0 ]; then
+# Setup test content based on environment variables or interactive prompt
+# Priority: SETUP_TEST_CONTENT=yes > SKIP_TEST_CONTENT=yes > interactive prompt
+if [ "$SETUP_TEST_CONTENT" = "yes" ] || [ "$SETUP_TEST_CONTENT" = "true" ] || [ "$SETUP_TEST_CONTENT" = "1" ]; then
+    # Explicitly requested via environment variable
+    log "Setting up test web content (requested via SETUP_TEST_CONTENT)..."
+    if curl -fsSL "https://raw.githubusercontent.com/${PLUGIN_REPO}/main/scripts/setup-test-content.sh" | bash; then
+        success "Test content setup complete"
+    else
+        warning "Failed to set up test content. You can run it manually later."
+    fi
+elif [ "$SKIP_TEST_CONTENT" = "yes" ] || [ "$SKIP_TEST_CONTENT" = "true" ] || [ "$SKIP_TEST_CONTENT" = "1" ]; then
+    # Explicitly skipped via environment variable
+    log "Skipping test content setup (SKIP_TEST_CONTENT is set)"
+    echo ""
+    echo "To set up test content later, run:"
+    echo "  sudo bash -c \"\$(curl -fsSL https://raw.githubusercontent.com/${PLUGIN_REPO}/main/scripts/setup-test-content.sh)\""
+elif [ -t 0 ]; then
+    # Interactive mode - ask user
     echo ""
     read -p "Would you like to set up test web content for security testing? (y/N) " -n 1 -r
     echo ""
     if [[ $REPLY =~ ^[Yy]$ ]]; then
         log "Setting up test web content..."
-        # Download and run the setup script
         if curl -fsSL "https://raw.githubusercontent.com/${PLUGIN_REPO}/main/scripts/setup-test-content.sh" | bash; then
             success "Test content setup complete"
         else
             warning "Failed to set up test content. You can run it manually later."
         fi
+    else
+        echo "Skipping test content setup."
+        echo "To set up test content later, run:"
+        echo "  sudo bash -c \"\$(curl -fsSL https://raw.githubusercontent.com/${PLUGIN_REPO}/main/scripts/setup-test-content.sh)\""
     fi
+else
+    # Non-interactive mode (piped) and no environment variables set
+    log "Non-interactive mode detected. Skipping test content setup."
+    echo ""
+    echo "To set up test content for attack simulation, run:"
+    echo "  sudo bash -c \"\$(curl -fsSL https://raw.githubusercontent.com/${PLUGIN_REPO}/main/scripts/setup-test-content.sh)\""
+    echo ""
+    echo "Or re-run installer with environment variable:"
+    echo "  SETUP_TEST_CONTENT=yes curl -sSL https://raw.githubusercontent.com/${PLUGIN_REPO}/main/install.sh | sudo bash"
 fi
 
 echo ""
