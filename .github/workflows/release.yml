@@ -223,8 +223,26 @@ jobs:
             # Test attack simulations with actual detection
             echo "Testing attack detection..."
             
-            # Get Falco logs before tests
-            BEFORE_COUNT=$(sudo journalctl -u falco -n 1000 2>/dev/null | grep -c "nginx" || echo "0")
+            # First, check nginx access log is being written
+            echo "Checking nginx access log..."
+            ls -la /var/log/nginx/access.log || echo "Access log not found"
+            
+            # Make a normal request to ensure logging works
+            curl -s "http://localhost/" > /dev/null || true
+            sleep 1
+            
+            # Check if log was written
+            if [ -f /var/log/nginx/access.log ]; then
+              LOG_SIZE_BEFORE=$(stat -c%s /var/log/nginx/access.log 2>/dev/null || echo "0")
+              echo "Access log size before attacks: $LOG_SIZE_BEFORE bytes"
+            else
+              echo "❌ nginx access log not found - detection will fail"
+              exit 1
+            fi
+            
+            # Check Falco is monitoring the plugin
+            echo "Checking Falco plugin status..."
+            sudo falco --list 2>/dev/null | grep -i nginx || echo "nginx plugin not in active sources"
             
             # SQL Injection test
             echo "Testing SQL injection detection..."
@@ -238,16 +256,55 @@ jobs:
             echo "Testing directory traversal detection..."
             curl -s "http://localhost/upload.php?file=../../../../../../etc/passwd" || true
             
-            # Wait for logs to be processed
-            sleep 3
+            # Command injection test
+            echo "Testing command injection detection..."
+            curl -s "http://localhost/api/users.php?cmd=;cat%20/etc/passwd" || true
             
-            # Check if new alerts were generated
-            AFTER_COUNT=$(sudo journalctl -u falco -n 1000 2>/dev/null | grep -c "nginx" || echo "0")
+            # Check if nginx logged the requests
+            sleep 2
+            LOG_SIZE_AFTER=$(stat -c%s /var/log/nginx/access.log 2>/dev/null || echo "0")
+            echo "Access log size after attacks: $LOG_SIZE_AFTER bytes"
             
-            if [ "$AFTER_COUNT" -gt "$BEFORE_COUNT" ]; then
-              echo "✅ Attack detection is working (new alerts: $((AFTER_COUNT - BEFORE_COUNT)))"
+            if [ "$LOG_SIZE_AFTER" -gt "$LOG_SIZE_BEFORE" ]; then
+              echo "✅ nginx is logging requests (log grew by $((LOG_SIZE_AFTER - LOG_SIZE_BEFORE)) bytes)"
+              
+              # Show last few log entries
+              echo "Recent nginx access log entries:"
+              tail -5 /var/log/nginx/access.log
+              
+              # Now check Falco detection
+              echo "Checking Falco alerts..."
+              
+              # Check different Falco services
+              FALCO_ALERTS=""
+              if systemctl is-active --quiet falco; then
+                FALCO_ALERTS=$(sudo journalctl -u falco --since "2 minutes ago" 2>/dev/null | grep -i "sql\|xss\|traversal\|injection" || true)
+              elif systemctl is-active --quiet falco-modern-bpf; then
+                FALCO_ALERTS=$(sudo journalctl -u falco-modern-bpf --since "2 minutes ago" 2>/dev/null | grep -i "sql\|xss\|traversal\|injection" || true)
+              fi
+              
+              # Also check Falco output directly
+              if [ -z "$FALCO_ALERTS" ]; then
+                echo "Checking Falco syslog for alerts..."
+                FALCO_ALERTS=$(sudo grep -i "falco.*nginx" /var/log/syslog 2>/dev/null | tail -10 || true)
+              fi
+              
+              if [ -n "$FALCO_ALERTS" ]; then
+                echo "✅ Attack detection is working! Alerts found:"
+                echo "$FALCO_ALERTS" | head -5
+              else
+                echo "❌ No Falco alerts detected - plugin may not be working correctly"
+                echo "Debugging information:"
+                echo "- Checking if Falco is reading the log file..."
+                sudo lsof /var/log/nginx/access.log 2>/dev/null || echo "No process has the log file open"
+                echo "- Checking Falco configuration..."
+                grep -A5 "nginx" /etc/falco/falco.yaml | head -10 || echo "nginx not found in config"
+                # Don't fail the test, but indicate the issue
+                echo "⚠️ WARNING: Attack detection could not be verified"
+              fi
             else
-              echo "⚠️ No new alerts detected (may be normal in CI environment)"
+              echo "❌ nginx is not logging requests - access log did not grow"
+              exit 1
             fi
           else
             echo "⚠️ Skipping attack detection tests (nginx not running)"
