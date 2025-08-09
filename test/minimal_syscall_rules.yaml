@@ -1,0 +1,37 @@
+# Minimal syscall rules for testing without container plugin dependency
+
+# Basic macros needed for syscall rules
+- macro: spawned_process
+  condition: evt.type in (execve, execveat) and evt.dir=<
+
+- macro: open_write
+  condition: >
+    (evt.type in (open,openat,openat2) and
+     evt.is_open_write=true and
+     fd.typechar='f' and
+     fd.num>=0)
+
+- macro: open_read
+  condition: >
+    (evt.type in (open,openat,openat2) and
+     evt.is_open_read=true and
+     fd.typechar='f' and
+     fd.num>=0)
+
+# Simple test rule for syscall source
+- rule: Test Sensitive File Read
+  desc: Detect reading of /etc/passwd
+  condition: >
+    open_read and 
+    fd.name=/etc/passwd
+  output: "Sensitive file read (file=%fd.name proc=%proc.name)"
+  priority: WARNING
+  source: syscall
+
+# Another simple syscall rule
+- rule: Test New Process Execution
+  desc: Detect new process execution
+  condition: spawned_process and proc.name in (cat, ls, curl)
+  output: "Process executed (proc=%proc.name)"
+  priority: NOTICE
+  source: syscall

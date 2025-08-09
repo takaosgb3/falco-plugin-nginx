@@ -52,6 +52,9 @@ jobs:
             sudo tee /etc/apt/sources.list.d/falcosecurity.list
           sudo apt-get update
           sudo DEBIAN_FRONTEND=noninteractive apt-get install -y falco
+          
+          # Install falcoctl for plugin management
+          sudo apt-get install -y falcoctl
 
       - name: Build plugin binary
         run: |
@@ -78,15 +81,22 @@ jobs:
           sudo mkdir -p /usr/share/falco/plugins
           sudo cp release/libfalco-nginx-plugin-linux-amd64.so /usr/share/falco/plugins/libfalco-nginx-plugin.so
           
-          # Create a Falco config with nginx plugin AND syscall source
+          # Create a Falco config with BOTH container and nginx plugins AND syscall source
           sudo tee /etc/falco/falco-nginx-test.yaml > /dev/null << 'EOF'
           # Falco configuration for testing nginx plugin with syscall source
           
-          # Load the nginx plugin
-          load_plugins: [nginx]
+          # Load both container and nginx plugins
+          load_plugins: [container, nginx]
           
           # Plugin configuration
           plugins:
+            - name: container
+              library_path: /usr/share/falco/plugins/libcontainer.so
+              # GH-hosted usually has docker.sock or containerd
+              init_config:
+                docker_socket: /var/run/docker.sock
+                cri_socket: /run/containerd/containerd.sock
+          
             - name: nginx
               library_path: /usr/share/falco/plugins/libfalco-nginx-plugin.so
               init_config:
@@ -102,7 +112,7 @@ jobs:
           modern_ebpf:
             enabled: true
           
-          # Rules files - include both standard rules and nginx rules
+          # Rules files - include all rules now that we have container plugin
           rules_file:
             - /etc/falco/falco_rules.yaml
             - /etc/falco/falco_rules.local.yaml
@@ -155,6 +165,15 @@ jobs:
           sudo cp release/libfalco-nginx-plugin-linux-amd64.so /usr/share/falco/plugins/libfalco-nginx-plugin.so
           sudo chmod 755 /usr/share/falco/plugins/libfalco-nginx-plugin.so
           sudo cp release/nginx_rules.yaml /etc/falco/rules.d/nginx_rules.yaml
+          
+          # Install container plugin if not already present
+          echo "Installing container plugin..."
+          if [ ! -f /usr/share/falco/plugins/libcontainer.so ]; then
+            sudo falcoctl artifact install plugin container --quiet || \
+            sudo falcoctl artifact install plugin container:0.2.7 --quiet || \
+            echo "Warning: Failed to install container plugin, some tests may fail"
+          fi
+          ls -la /usr/share/falco/plugins/ | grep container || echo "Container plugin not found"
           
           # Configure Falco to use the plugin (use the same config as validation)
           sudo cp /etc/falco/falco-nginx-test.yaml /etc/falco/falco.yaml
@@ -362,14 +381,28 @@ jobs:
                 echo "- Path Traversal: $PATH_COUNT alerts"
                 echo "- Command Injection: $CMD_COUNT alerts"
                 
+                # Also check for syscall alerts (proving both sources work)
+                SYSCALL_COUNT=$(echo "$FALCO_ALERTS" | grep -c '"source":"syscall"' || echo "0")
+                NGINX_COUNT=$(echo "$FALCO_ALERTS" | grep -c '"source":"nginx"' || echo "0")
+                
+                echo "- Syscall alerts: $SYSCALL_COUNT"
+                echo "- Nginx alerts: $NGINX_COUNT"
+                
                 # Check if all attack types were detected
                 if [ "$SQL_COUNT" -gt 0 ] && [ "$XSS_COUNT" -gt 0 ] && [ "$PATH_COUNT" -gt 0 ] && [ "$CMD_COUNT" -gt 0 ]; then
-                  echo "✅ All attack types detected successfully!"
+                  echo "✅ All nginx attack types detected successfully!"
                 else
                   echo "⚠️ WARNING: Not all attack types were detected"
                   if [ "$CMD_COUNT" -eq 0 ]; then
                     echo "   ❌ Command Injection was NOT detected"
                   fi
+                fi
+                
+                # Verify both sources are working
+                if [ "$SYSCALL_COUNT" -gt 0 ] && [ "$NGINX_COUNT" -gt 0 ]; then
+                  echo "✅ Both syscall and nginx sources are working!"
+                else
+                  echo "⚠️ WARNING: Not all sources generated alerts"
                 fi
               else
                 echo "❌ No actual attack alerts detected"
