@@ -106,28 +106,44 @@
     (nginx.path contains "$(" or nginx.query_string contains "$(") or
     (nginx.path contains "%3Bls" or nginx.query_string contains "%3Bls") or
     (nginx.path contains "%3Bcat" or nginx.query_string contains "%3Bcat") or
+    (nginx.path contains "%3bls" or nginx.query_string contains "%3bls") or
+    (nginx.path contains "%3bcat" or nginx.query_string contains "%3bcat") or
     (nginx.path contains "%7Cls" or nginx.query_string contains "%7Cls") or
     (nginx.path contains "%7Ccat" or nginx.query_string contains "%7Ccat") or
+    (nginx.path contains "%7cls" or nginx.query_string contains "%7cls") or
+    (nginx.path contains "%7ccat" or nginx.query_string contains "%7ccat") or
     (nginx.path contains "%26%26" or nginx.query_string contains "%26%26") or
     (nginx.path contains "%7C%7C" or nginx.query_string contains "%7C%7C") or
+    (nginx.path contains "%7c%7c" or nginx.query_string contains "%7c%7c") or
     (nginx.path contains "%60" or nginx.query_string contains "%60") or
     (nginx.path contains "%24%28" or nginx.query_string contains "%24%28") or
     (nginx.path contains ";wget" or nginx.query_string contains ";wget") or
     (nginx.path contains "; wget" or nginx.query_string contains "; wget") or
     (nginx.path contains "%3Bwget" or nginx.query_string contains "%3Bwget") or
+    (nginx.path contains "%3bwget" or nginx.query_string contains "%3bwget") or
     (nginx.path contains "%3B%20wget" or nginx.query_string contains "%3B%20wget") or
+    (nginx.path contains "%3b%20wget" or nginx.query_string contains "%3b%20wget") or
     (nginx.path contains ";curl" or nginx.query_string contains ";curl") or
     (nginx.path contains "; curl" or nginx.query_string contains "; curl") or
     (nginx.path contains "%3Bcurl" or nginx.query_string contains "%3Bcurl") or
+    (nginx.path contains "%3bcurl" or nginx.query_string contains "%3bcurl") or
     (nginx.path contains "%3B%20curl" or nginx.query_string contains "%3B%20curl") or
+    (nginx.path contains "%3b%20curl" or nginx.query_string contains "%3b%20curl") or
     (nginx.path contains ";rm" or nginx.query_string contains ";rm") or
     (nginx.path contains "; rm" or nginx.query_string contains "; rm") or
     (nginx.path contains "%3Brm" or nginx.query_string contains "%3Brm") or
+    (nginx.path contains "%3brm" or nginx.query_string contains "%3brm") or
     (nginx.path contains "%3B%20rm" or nginx.query_string contains "%3B%20rm") or
+    (nginx.path contains "%3b%20rm" or nginx.query_string contains "%3b%20rm") or
     (nginx.path contains ";chmod" or nginx.query_string contains ";chmod") or
     (nginx.path contains "; chmod" or nginx.query_string contains "; chmod") or
     (nginx.path contains "%3Bchmod" or nginx.query_string contains "%3Bchmod") or
-    (nginx.path contains "%3B%20chmod" or nginx.query_string contains "%3B%20chmod")
+    (nginx.path contains "%3bchmod" or nginx.query_string contains "%3bchmod") or
+    (nginx.path contains "%3B%20chmod" or nginx.query_string contains "%3B%20chmod") or
+    (nginx.path contains "%3b%20chmod" or nginx.query_string contains "%3b%20chmod") or
+    (nginx.path contains ";cat%20" or nginx.query_string contains ";cat%20") or
+    (nginx.path contains "%3Bcat%20" or nginx.query_string contains "%3Bcat%20") or
+    (nginx.path contains "%3bcat%20" or nginx.query_string contains "%3bcat%20")
   output: "Command injection detected"
   priority: CRITICAL
   source: nginx
