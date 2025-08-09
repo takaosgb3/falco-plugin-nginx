@@ -87,6 +87,7 @@ jobs:
           sudo cp release/libfalco-nginx-plugin-linux-amd64.so /usr/share/falco/plugins/libfalco-nginx-plugin.so
           
           # Create nginx plugin config in config.d (doesn't overwrite main falco.yaml)
+          # Note: Don't add rules_file/rules_files here as falco.yaml already reads /etc/falco/rules.d
           sudo mkdir -p /etc/falco/config.d
           sudo tee /etc/falco/config.d/nginx-plugin.yaml > /dev/null << 'EOF'
           # nginx plugin configuration (added to existing Falco config)
@@ -101,10 +102,6 @@ jobs:
               init_config:
                 log_paths:
                   - /var/log/nginx/access.log
-          
-          # Add nginx rules to existing rules
-          rules_file:
-            - /etc/falco/rules.d/nginx_rules.yaml
           EOF
           
           # Test that plugin loads correctly
@@ -143,6 +140,7 @@ jobs:
           sudo cp release/nginx_rules.yaml /etc/falco/rules.d/nginx_rules.yaml
           
           # Create nginx plugin config in config.d (doesn't overwrite main falco.yaml)
+          # Note: Don't add rules_file/rules_files here as falco.yaml already reads /etc/falco/rules.d
           sudo mkdir -p /etc/falco/config.d
           sudo tee /etc/falco/config.d/nginx-plugin.yaml > /dev/null << 'EOF'
           # nginx plugin configuration (added to existing Falco config)
@@ -157,10 +155,6 @@ jobs:
               init_config:
                 log_paths:
                   - /var/log/nginx/access.log
-          
-          # Add nginx rules to existing rules
-          rules_file:
-            - /etc/falco/rules.d/nginx_rules.yaml
           EOF
           
           # Verify Falco can see both sources
