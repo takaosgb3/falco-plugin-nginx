@@ -43,6 +43,16 @@ jobs:
           go-version: '1.22'
           cache: true
 
+      - name: Install Falco for validation
+        run: |
+          # Install Falco for rule validation
+          curl -fsSL https://falco.org/repo/falcosecurity-packages.asc | \
+            sudo gpg --dearmor -o /usr/share/keyrings/falco-archive-keyring.gpg
+          echo "deb [signed-by=/usr/share/keyrings/falco-archive-keyring.gpg] https://download.falco.org/packages/deb stable main" | \
+            sudo tee /etc/apt/sources.list.d/falcosecurity.list
+          sudo apt-get update
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y falco
+
       - name: Build plugin binary
         run: |
           cd plugin
@@ -53,7 +63,7 @@ jobs:
             -ldflags="-s -w" \
             .
           
-          # Verify binary
+          # Verify binary format
           file libfalco-nginx-plugin-linux-amd64.so | grep -q "ELF 64-bit LSB shared object" || exit 1
           
           # Move to release directory
@@ -61,6 +71,35 @@ jobs:
           mkdir -p release
           mv plugin/libfalco-nginx-plugin-linux-amd64.so release/
           cp rules/nginx_rules.yaml release/
+
+      - name: Validate rules with Falco
+        run: |
+          # Install plugin for validation
+          sudo mkdir -p /usr/share/falco/plugins
+          sudo cp release/libfalco-nginx-plugin-linux-amd64.so /usr/share/falco/plugins/libfalco-nginx-plugin.so
+          
+          # Configure Falco to load the plugin
+          sudo tee -a /etc/falco/falco.yaml > /dev/null << 'EOF'
+          
+          load_plugins: [nginx]
+          
+          plugins:
+            - name: nginx
+              library_path: /usr/share/falco/plugins/libfalco-nginx-plugin.so
+              init_config:
+                log_paths:
+                  - /var/log/nginx/access.log
+          EOF
+          
+          # Validate the rules
+          echo "Validating nginx rules..."
+          sudo falco --validate release/nginx_rules.yaml
+          
+          # Also test that plugin loads correctly
+          echo "Testing plugin loads..."
+          sudo falco --list-plugins | grep nginx || exit 1
+          
+          echo "✅ Rules validation passed"
 
       - name: Generate checksums
         run: |
