@@ -167,8 +167,8 @@ jobs:
           # Start Falco in the background for testing with output to file
           echo "Starting Falco for testing..."
           FALCO_LOG="/tmp/falco_test.log"
-          # Disable default rules to avoid container plugin requirement
-          sudo falco -c /etc/falco/falco.yaml --disable-source syscall -o "rules_file=/etc/falco/rules.d/nginx_rules.yaml" > "$FALCO_LOG" 2>&1 &
+          # Disable syscall source and only load nginx rules to avoid container plugin requirement
+          sudo falco -c /etc/falco/falco.yaml --disable-source syscall -r /etc/falco/rules.d/nginx_rules.yaml > "$FALCO_LOG" 2>&1 &
           FALCO_PID=$!
           sleep 5  # Give Falco time to start
           

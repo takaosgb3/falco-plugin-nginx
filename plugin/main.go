@@ -35,6 +35,7 @@ import (
 	"github.com/falcosecurity/plugin-sdk-go/pkg/sdk/plugins/source"
 	"github.com/fsnotify/fsnotify"
 	"github.com/takaosgb3/falco-plugin-nginx/pkg/parser"
+	"io"
 )
 
 // NginxPluginConfig represents the plugin configuration
@@ -210,6 +211,7 @@ func (n *NginxPlugin) Extract(req sdk.ExtractRequest, evt sdk.EventReader) error
 
 // Open opens a new instance of the plugin
 func (n *NginxPlugin) Open(params string) (source.Instance, error) {
+	log.Printf("nginx plugin: Opening instance with log paths: %v", n.config.LogPaths)
 	inst := &NginxInstance{
 		logPaths: n.config.LogPaths,
 		eventCh:  make(chan *NginxEvent, 1000),
@@ -252,6 +254,11 @@ func (n *NginxInstance) startTailing(path string) error {
 		return fmt.Errorf("failed to open file %s: %w", path, err)
 	}
 
+	// Get file info to log size
+	if stat, err := file.Stat(); err == nil {
+		log.Printf("nginx plugin: Opened file %s (size: %d bytes)", path, stat.Size())
+	}
+
 	// For initial development/testing, read from beginning
 	// In production, you might want to seek to end
 	// file.Seek(0, io.SeekEnd)
@@ -281,6 +288,24 @@ func (n *NginxInstance) tailFile(tf *TailFile) {
 	for {
 		line, err := tf.reader.ReadString('\n')
 		if err != nil {
+			// Check if we have a partial line
+			if len(line) > 0 {
+				// Process partial line (might be the last line without newline)
+				line = strings.TrimSpace(line)
+				if line != "" {
+					event := n.parseLine(line, tf.path)
+					if event != nil {
+						log.Printf("nginx plugin: Sending event for request (partial): %s %s", event.Method, event.Path)
+						select {
+						case n.eventCh <- event:
+						default:
+							// Channel full, drop event
+							log.Printf("nginx plugin: WARNING - Event channel full, dropping event")
+						}
+					}
+				}
+			}
+			// Sleep and retry for new data
 			time.Sleep(100 * time.Millisecond)
 			continue
 		}
@@ -293,10 +318,12 @@ func (n *NginxInstance) tailFile(tf *TailFile) {
 		// Parse the line
 		event := n.parseLine(line, tf.path)
 		if event != nil {
+			log.Printf("nginx plugin: Sending event for request: %s %s", event.Method, event.Path)
 			select {
 			case n.eventCh <- event:
 			default:
 				// Channel full, drop event
+				log.Printf("nginx plugin: WARNING - Event channel full, dropping event")
 			}
 		}
 	}
@@ -307,6 +334,8 @@ func (n *NginxInstance) parseLine(line, path string) *NginxEvent {
 	// Use the parser package to parse the line
 	entry, err := n.parser.Parse(line)
 	if err != nil {
+		// Log parsing errors for debugging
+		log.Printf("Failed to parse line: %v (line: %s)", err, line)
 		return nil
 	}
 
