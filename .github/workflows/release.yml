@@ -142,6 +142,72 @@ jobs:
             exit 1
           fi
 
+      - name: Test install.sh script
+        run: |
+          echo "🧪 Testing install.sh script..."
+          
+          # Clean up any previous Falco/nginx setup to test fresh install
+          sudo systemctl stop falco falco-modern-bpf falco-bpf 2>/dev/null || true
+          sudo systemctl stop nginx 2>/dev/null || true
+          sudo rm -rf /usr/share/falco/plugins/libfalco-nginx-plugin.so 2>/dev/null || true
+          sudo rm -f /etc/falco/rules.d/nginx_rules.yaml 2>/dev/null || true
+          
+          # Test the install script (non-interactive mode)
+          echo "Running install.sh..."
+          # Use the version being released for testing
+          VERSION="${{ github.event.inputs.version }}"
+          export PLUGIN_VERSION="$VERSION"
+          
+          # Run install script in non-interactive mode
+          curl -sSL https://raw.githubusercontent.com/${{ github.repository }}/main/install.sh | sudo bash
+          
+          # Verify installation results
+          echo "Verifying installation..."
+          
+          # Check if plugin is installed
+          if [ ! -f /usr/share/falco/plugins/libfalco-nginx-plugin.so ]; then
+            echo "❌ Plugin binary not installed"
+            exit 1
+          fi
+          echo "✅ Plugin binary installed"
+          
+          # Check if rules are installed
+          if [ ! -f /etc/falco/rules.d/nginx_rules.yaml ]; then
+            echo "❌ Rules file not installed"
+            exit 1
+          fi
+          echo "✅ Rules file installed"
+          
+          # Check if nginx is running
+          if ! systemctl is-active --quiet nginx; then
+            echo "⚠️ nginx is not running (may be expected on GitHub Actions)"
+          else
+            echo "✅ nginx is running"
+          fi
+          
+          # Check if Falco service is configured (any variant)
+          if systemctl is-active --quiet falco || \
+             systemctl is-active --quiet falco-modern-bpf || \
+             systemctl is-active --quiet falco-bpf; then
+            echo "✅ Falco service is running"
+          else
+            echo "⚠️ Falco service not running (may be expected on GitHub Actions)"
+          fi
+          
+          # Check if plugin is listed in Falco
+          if sudo falco --list-plugins 2>/dev/null | grep -q nginx; then
+            echo "✅ nginx plugin is registered with Falco"
+          else
+            echo "❌ nginx plugin not found in Falco"
+            exit 1
+          fi
+          
+          # Test attack simulation (should not error out)
+          echo "Testing attack simulation..."
+          curl -s "http://localhost/search.php?q=%27%20OR%20%271%27%3D%271" || true
+          
+          echo "✅ install.sh test completed successfully"
+
       - name: Generate checksums
         run: |
           cd release
