@@ -58,14 +58,19 @@ cat > "$WEB_ROOT/index.html" << 'EOF'
     </ul>
     
     <h2>Attack Examples</h2>
+    <p><strong>Important:</strong> Use URL-encoded format for proper detection!</p>
+    
     <h3>SQL Injection:</h3>
-    <code>curl "http://localhost/search.php?q=' OR '1'='1"</code>
+    <code>curl "http://localhost/search.php?q=%27%20OR%20%271%27%3D%271"</code>
     
     <h3>XSS Attack:</h3>
-    <code>curl "http://localhost/search.php?q=&lt;script&gt;alert('XSS')&lt;/script&gt;"</code>
+    <code>curl "http://localhost/search.php?q=%3Cscript%3Ealert(1)%3C/script%3E"</code>
     
     <h3>Directory Traversal:</h3>
     <code>curl "http://localhost/upload.php?file=../../../../../../etc/passwd"</code>
+    
+    <h3>Command Injection:</h3>
+    <code>curl "http://localhost/api/users.php?cmd=;cat%20/etc/passwd"</code>
 </body>
 </html>
 EOF
@@ -221,9 +226,22 @@ systemctl reload nginx || service nginx reload
 success "Test web content setup complete!"
 echo ""
 log "You can now test security detection with commands like:"
-echo '  curl "http://localhost/search.php?q=%27%20OR%20%271%27%3D%271"'
-echo '  curl "http://localhost/search.php?q=%3Cscript%3Ealert(1)%3C/script%3E"'
-echo '  curl "http://localhost/upload.php?file=../../../../../../etc/passwd"'
-echo '  curl "http://localhost/api/users.php?cmd=;cat /etc/passwd"'
 echo ""
-log "Monitor Falco alerts with: sudo journalctl -u falco -f"
+echo "SQL Injection (URL-encoded for detection):"
+echo '  curl "http://localhost/search.php?q=%27%20OR%20%271%27%3D%271"'
+echo ""
+echo "XSS Attack (URL-encoded for detection):"
+echo '  curl "http://localhost/search.php?q=%3Cscript%3Ealert(1)%3C/script%3E"'
+echo ""
+echo "Directory Traversal:"
+echo '  curl "http://localhost/upload.php?file=../../../../../../etc/passwd"'
+echo ""
+echo "Command Injection (URL-encoded for detection):"
+echo '  curl "http://localhost/api/users.php?cmd=;cat%20/etc/passwd"'
+echo ""
+warning "Important: Use URL-encoded format for proper detection!"
+echo ""
+log "Monitor Falco alerts with:"
+echo "  sudo journalctl -u falco -f           # Standard Falco"
+echo "  sudo journalctl -u falco-modern-bpf -f  # Modern eBPF (common on EC2)"
+echo "  sudo journalctl -u falco-bpf -f       # Legacy eBPF"
