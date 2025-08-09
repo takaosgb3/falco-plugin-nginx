@@ -337,12 +337,11 @@ jobs:
                 PATH_COUNT=$(printf "%s" "$FALCO_ALERTS" | grep -c '\[NGINX Traversal\]' || echo "0")
                 CMD_COUNT=$(printf "%s" "$FALCO_ALERTS" | grep -c '\[NGINX CMDi\]' || echo "0")
                 
-                # Normalize to ensure we have valid integers (remove any non-digit characters)
-                normalize_int() { printf "%s" "$1" | tr -cd '0-9' | sed 's/^$/0/'; }
-                SQL_COUNT=$(normalize_int "${SQL_COUNT:-0}")
-                XSS_COUNT=$(normalize_int "${XSS_COUNT:-0}")
-                PATH_COUNT=$(normalize_int "${PATH_COUNT:-0}")
-                CMD_COUNT=$(normalize_int "${CMD_COUNT:-0}")
+                # Ensure counts are valid integers (fallback to 0 if empty)
+                SQL_COUNT=${SQL_COUNT:-0}
+                XSS_COUNT=${XSS_COUNT:-0}
+                PATH_COUNT=${PATH_COUNT:-0}
+                CMD_COUNT=${CMD_COUNT:-0}
                 
                 echo ""
                 echo "Detection Summary:"

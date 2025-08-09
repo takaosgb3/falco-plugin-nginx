@@ -95,12 +95,13 @@
 # Attack indicators with both character types and words
 - macro: nginx_has_sqli_words
   condition: >
-    (nginx.query_string contains "select" or nginx.query_string contains "union" or 
-     nginx.query_string contains "sleep(" or nginx.query_string contains "update" or 
-     nginx.query_string contains "insert" or nginx.query_string contains "drop" or 
-     nginx.query_string contains " or " or nginx.query_string contains "' or '1'='1" or 
-     nginx.query_string contains "benchmark(" or nginx.query_string contains "information_schema" or 
-     nginx.query_string contains "load_file(")
+    (nginx.query_string icontains "select" or nginx.query_string icontains "union" or 
+     nginx.query_string icontains "sleep(" or nginx.query_string icontains "update" or 
+     nginx.query_string icontains "insert" or nginx.query_string icontains "drop" or 
+     nginx.query_string contains " or " or nginx.query_string contains "%20or%20" or
+     nginx.query_string contains "' or '1'='1" or nginx.query_string contains "%27%20OR%20%271%27%3D%271" or
+     nginx.query_string icontains "benchmark(" or nginx.query_string icontains "information_schema" or 
+     nginx.query_string icontains "load_file(")
 
 - macro: nginx_has_sqli_rawchars
   condition: >
@@ -111,10 +112,13 @@
 
 - macro: nginx_has_cmdinj_words
   condition: >
-    (nginx.raw contains "sh -c" or nginx.raw contains "bash -c" or nginx.raw contains "cat /etc/passwd" or 
+    (nginx.raw contains "sh -c" or nginx.raw contains "bash -c" or 
      nginx.raw contains "wget " or nginx.raw contains "curl " or nginx.raw contains "nc " or 
      nginx.raw contains "powershell" or nginx.raw contains "cmd /c" or nginx.raw contains "||" or 
-     nginx.raw contains "|" or nginx.raw contains "&" or nginx.raw contains "$(" or nginx.raw contains "`")
+     nginx.raw contains "|" or nginx.raw contains "&" or nginx.raw contains "$(" or nginx.raw contains "`" or
+     nginx.query_string contains ";cat" or nginx.query_string contains "%3Bcat" or 
+     nginx.query_string contains ";ls" or nginx.query_string contains "%3Bls" or
+     nginx.query_string contains ";id" or nginx.query_string contains "%3Bid")
 
 - macro: nginx_has_traversal
   condition: >
@@ -125,10 +129,13 @@
 
 - macro: nginx_has_xss
   condition: >
-    (nginx.path contains "<script" or nginx.path contains "%3cscript" or nginx.path contains "javascript:" or 
-     nginx.path contains "onerror=" or nginx.path contains "onload=" or nginx.path contains "document.cookie" or
-     nginx.query_string contains "<script" or nginx.query_string contains "%3cscript" or nginx.query_string contains "javascript:" or 
-     nginx.query_string contains "onerror=" or nginx.query_string contains "onload=" or nginx.query_string contains "document.cookie")
+    (nginx.path contains "<script" or nginx.path contains "%3Cscript" or nginx.path contains "%3cscript" or 
+     nginx.path contains "javascript:" or nginx.path contains "onerror=" or nginx.path contains "onload=" or 
+     nginx.path contains "document.cookie" or
+     nginx.query_string contains "<script" or nginx.query_string contains "%3Cscript" or 
+     nginx.query_string contains "%3cscript" or nginx.query_string contains "javascript:" or 
+     nginx.query_string contains "onerror=" or nginx.query_string contains "onload=" or 
+     nginx.query_string contains "document.cookie")
 
 # =========================
 # Rules
