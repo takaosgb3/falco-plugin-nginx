@@ -164,6 +164,12 @@ jobs:
           # Configure Falco to use the plugin (use the same config as validation)
           sudo cp /etc/falco/falco-nginx-test.yaml /etc/falco/falco.yaml
           
+          # Start Falco in the background for testing
+          echo "Starting Falco for testing..."
+          sudo falco -c /etc/falco/falco.yaml --disable-source syscall &
+          FALCO_PID=$!
+          sleep 5  # Give Falco time to start
+          
           # Verify installation results
           echo "Verifying installation..."
           
