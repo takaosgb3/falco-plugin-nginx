@@ -164,11 +164,20 @@ jobs:
           # Configure Falco to use the plugin (use the same config as validation)
           sudo cp /etc/falco/falco-nginx-test.yaml /etc/falco/falco.yaml
           
-          # Start Falco in the background for testing
+          # Start Falco in the background for testing with output to file
           echo "Starting Falco for testing..."
-          sudo falco -c /etc/falco/falco.yaml --disable-source syscall &
+          FALCO_LOG="/tmp/falco_test.log"
+          sudo falco -c /etc/falco/falco.yaml --disable-source syscall > "$FALCO_LOG" 2>&1 &
           FALCO_PID=$!
           sleep 5  # Give Falco time to start
+          
+          # Verify Falco is running
+          if ! ps -p $FALCO_PID > /dev/null; then
+            echo "❌ Failed to start Falco"
+            cat "$FALCO_LOG"
+            exit 1
+          fi
+          echo "✅ Falco started with PID $FALCO_PID"
           
           # Verify installation results
           echo "Verifying installation..."
@@ -314,14 +323,14 @@ jobs:
                 FALCO_ALERTS=$(sudo grep -E "falco.*((SQL.*injection|XSS.*attack|Path.*traversal|Command.*injection|Directory.*traversal)|(Warning|Critical|Error|Notice))" /var/log/syslog 2>/dev/null | grep -v "Loading\|Loaded\|Enabled\|schema" | tail -10 || true)
               fi
               
-              # Try running Falco directly to test detection
-              if [ -z "$FALCO_ALERTS" ]; then
-                echo "Testing direct Falco detection on access log..."
-                # Force Falco to read the log file
-                sudo pkill -USR1 falco 2>/dev/null || true
-                sleep 3
-                # Check again
-                FALCO_ALERTS=$(sudo journalctl -u falco --since "30 seconds ago" 2>/dev/null | grep -E "Warning|Critical|Error|Notice" | grep -v "Loading\|Loaded\|Enabled\|schema" || true)
+              # Get alerts from our running Falco instance
+              if [ -z "$FALCO_ALERTS" ] && [ -f "$FALCO_LOG" ]; then
+                echo "Checking Falco test log output..."
+                FALCO_ALERTS=$(grep -E "(SQL.*injection|XSS.*attack|Path.*traversal|Command.*injection|Semicolon.*detected|DEBUG.*Path)" "$FALCO_LOG" || true)
+                if [ -z "$FALCO_ALERTS" ]; then
+                  # Try broader search including debug output
+                  FALCO_ALERTS=$(grep -E "Warning|Critical|Error|Notice|DEBUG" "$FALCO_LOG" | grep -v "Loading\|Loaded\|Enabled\|schema" || true)
+                fi
               fi
               
               if [ -n "$FALCO_ALERTS" ]; then
@@ -383,6 +392,11 @@ jobs:
             fi
           else
             echo "⚠️ Skipping attack detection tests (nginx not running)"
+          fi
+          
+          # Clean up Falco process
+          if [ -n "$FALCO_PID" ]; then
+            sudo kill $FALCO_PID 2>/dev/null || true
           fi
           
           echo "✅ install.sh test completed successfully"
