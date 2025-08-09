@@ -13,8 +13,8 @@ This guide explains how to build the Falco nginx plugin from source.
 
 ```bash
 # Clone the repository
-git clone https://github.com/takaosgb3/falco-nginx-plugin-claude.git
-cd falco-nginx-plugin-claude
+git clone https://github.com/takaosgb3/falco-plugin-nginx.git
+cd falco-plugin-nginx
 
 # Build the SDK version (recommended)
 make build-sdk
@@ -80,7 +80,7 @@ make check
 To create a release build with version information:
 
 ```bash
-VERSION=v0.3.0 make build-release
+VERSION=v1.2.11 make build-release
 ```
 
 This creates:

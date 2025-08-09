@@ -101,7 +101,7 @@ sudo falco --list-plugins | grep nginx
 
 - [Quick Start Binary Installation](docs/QUICK_START_BINARY_INSTALLATION.md)
 - [Configuration Guide](docs/configuration.md)
-- [Troubleshooting](docs/troubleshooting.md)
+- [Troubleshooting](docs/TROUBLESHOOTING.md)
 - [Performance Tuning](docs/performance.md)
 - [Rule Reference](docs/rules.md)
 
@@ -199,7 +199,7 @@ curl "http://localhost/search.php?q=%27%20OR%20%271%27%3D%271"
 
 - [クイックスタート バイナリインストール](docs/QUICK_START_BINARY_INSTALLATION.md)
 - [設定ガイド](docs/configuration.md)
-- [トラブルシューティング](docs/troubleshooting.md)
+- [トラブルシューティング](docs/TROUBLESHOOTING.md)
 - [パフォーマンスチューニング](docs/performance.md)
 - [ルールリファレンス](docs/rules.md)
 

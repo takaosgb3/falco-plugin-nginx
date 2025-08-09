@@ -110,7 +110,7 @@ curl "http://localhost/test.php?id=' OR '1'='1"
 
 - [Configuration Guide](configuration.md)
 - [Performance Tuning](performance.md)
-- [Troubleshooting Guide](troubleshooting.md)
+- [Troubleshooting Guide](TROUBLESHOOTING.md)
 
 ---
 
@@ -222,4 +222,4 @@ curl "http://localhost/test.php?id=' OR '1'='1"
 
 - [設定ガイド](configuration.md)
 - [パフォーマンスチューニング](performance.md)
-- [トラブルシューティングガイド](troubleshooting.md)
+- [トラブルシューティングガイド](TROUBLESHOOTING.md)

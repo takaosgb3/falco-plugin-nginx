@@ -273,7 +273,7 @@ output: "Attack (ip=%nginx.remote_addr% uri=%nginx.request_uri% ua=%nginx.http_u
 
 - [Configuration Guide](configuration.md)
 - [Performance Tuning](performance.md)
-- [Troubleshooting Guide](troubleshooting.md)
+- [Troubleshooting Guide](TROUBLESHOOTING.md)
 
 ---
 
@@ -548,4 +548,4 @@ output: "攻撃 (ip=%nginx.remote_addr% uri=%nginx.request_uri% ua=%nginx.http_u
 
 - [設定ガイド](configuration.md)
 - [パフォーマンスチューニング](performance.md)
-- [トラブルシューティングガイド](troubleshooting.md)
+- [トラブルシューティングガイド](TROUBLESHOOTING.md)

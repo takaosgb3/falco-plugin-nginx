@@ -215,7 +215,7 @@ resources:
 ### Next Steps
 
 - [Configuration Guide](configuration.md)
-- [Troubleshooting Guide](troubleshooting.md)
+- [Troubleshooting Guide](TROUBLESHOOTING.md)
 - [Rule Writing Guide](rules.md)
 
 ---
@@ -433,5 +433,5 @@ resources:
 ### 次のステップ
 
 - [設定ガイド](configuration.md)
-- [トラブルシューティングガイド](troubleshooting.md)
+- [トラブルシューティングガイド](TROUBLESHOOTING.md)
 - [ルール作成ガイド](rules.md)

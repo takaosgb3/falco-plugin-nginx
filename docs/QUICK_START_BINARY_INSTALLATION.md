@@ -196,7 +196,7 @@ sudo systemctl status falco-bpf
 4. **404 errors on test URLs**:
    - Run the test content setup script as shown above
 
-See [Troubleshooting Guide](troubleshooting.md) for more detailed solutions.
+See [Troubleshooting Guide](TROUBLESHOOTING.md) for more detailed solutions.
 
 ---
 
@@ -395,4 +395,4 @@ sudo systemctl status falco-bpf
 4. **テストURLで404エラー**:
    - 上記のテストコンテンツセットアップスクリプトを実行
 
-詳細な解決方法については、[トラブルシューティングガイド](troubleshooting.md)を参照してください。
+詳細な解決方法については、[トラブルシューティングガイド](TROUBLESHOOTING.md)を参照してください。

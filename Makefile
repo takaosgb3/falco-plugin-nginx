@@ -1,5 +1,5 @@
 # Falco Nginx Plugin Makefile
-VERSION := 0.3.1
+VERSION := 1.2.11
 PLUGIN_NAME := libfalco-nginx-plugin.so
 
 # Go parameters

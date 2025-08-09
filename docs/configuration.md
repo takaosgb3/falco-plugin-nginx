@@ -154,7 +154,7 @@ Add custom rules in `/etc/falco/rules.d/custom-nginx.yaml`:
 - rule: Custom Attack Pattern
   desc: Detect custom attack pattern
   condition: nginx.request_uri contains "custom-pattern"
-  output: "Custom attack detected (ip=%nginx.client_ip%)"
+  output: "Custom attack detected (ip=%nginx.remote_addr%)"
   priority: WARNING
   tags: [custom]
   source: nginx
@@ -211,7 +211,7 @@ init_config:
 ### Next Steps
 
 - [Performance Tuning Guide](performance.md)
-- [Troubleshooting Guide](troubleshooting.md)
+- [Troubleshooting Guide](TROUBLESHOOTING.md)
 - [Rule Writing Guide](rules.md)
 
 ---
@@ -368,7 +368,7 @@ sudo ./setup-log-rotation.sh
 - rule: Custom Attack Pattern
   desc: カスタム攻撃パターンを検出
   condition: nginx.request_uri contains "custom-pattern"
-  output: "カスタム攻撃を検出 (ip=%nginx.client_ip%)"
+  output: "カスタム攻撃を検出 (ip=%nginx.remote_addr%)"
   priority: WARNING
   tags: [custom]
   source: nginx
@@ -425,5 +425,5 @@ init_config:
 ### 次のステップ
 
 - [パフォーマンスチューニングガイド](performance.md)
-- [トラブルシューティングガイド](troubleshooting.md)
+- [トラブルシューティングガイド](TROUBLESHOOTING.md)
 - [ルール作成ガイド](rules.md)
