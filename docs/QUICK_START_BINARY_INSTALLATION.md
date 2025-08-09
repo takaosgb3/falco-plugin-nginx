@@ -221,8 +221,10 @@ PLUGIN_VERSION=v1.2.10 curl -sSL https://raw.githubusercontent.com/takaosgb3/fal
 
 インストール後、攻撃検出テストを実行できます：
 ```bash
-# Falcoログを監視
+# Falcoログを監視（サービス名はインストール方法により異なります）
 sudo journalctl -u falco -f
+# またはmodern eBPFインストールの場合：
+sudo journalctl -u falco-modern-bpf -f
 
 # 重要: 最初にテストWebコンテンツをセットアップ（攻撃シミュレーションに必須）：
 sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/scripts/setup-test-content.sh)"
@@ -281,6 +283,59 @@ curl "http://localhost/upload.php?file=../../../../../../etc/passwd"  # 検出�
 curl "http://localhost/api/users.php?cmd=;cat%20/etc/passwd"  # 検出される
 # curl "http://localhost/api/users.php?cmd=;cat /etc/passwd"  # 検出されない場合あり（スペース未エンコード）
 ```
+
+### 📝 アラートの監視
+
+Falcoはインストール方法とシステム構成により異なるサービス名を使用する場合があります。正しいサービスを見つけて監視する方法：
+
+#### アクティブなFalcoサービスの確認
+
+```bash
+# クイック確認：全サービスを一度にチェック
+for svc in falco falco-modern-bpf falco-bpf; do 
+  echo -n "$svc: "
+  systemctl is-active $svc 2>/dev/null || echo "not found"
+done
+```
+
+出力の見方：
+- `active` = これが実行中のサービスです ✅
+- `inactive` = サービスは存在しますが実行されていません ⚠️
+- `not found` = サービスがインストールされていません ❌
+
+#### 詳細な確認方法
+
+1. **標準のFalcoを確認**：
+```bash
+sudo systemctl status falco
+```
+出力を確認：
+- `● falco.service` と `Active: active (running)` が表示される → **使用コマンド**: `sudo journalctl -u falco -f`
+- `Unit falco.service could not be found` または `inactive` → 次のサービスを確認
+
+2. **modern eBPFを確認**（EC2/クラウドで一般的）：
+```bash
+sudo systemctl status falco-modern-bpf
+```
+- `● falco-modern-bpf.service` と `Active: active (running)` が表示される → **使用コマンド**: `sudo journalctl -u falco-modern-bpf -f`
+- 見つからないまたは inactive → 次のサービスを確認
+
+3. **legacy eBPFを確認**：
+```bash
+sudo systemctl status falco-bpf
+```
+- `● falco-bpf.service` と `Active: active (running)` が表示される → **使用コマンド**: `sudo journalctl -u falco-bpf -f`
+
+#### よくあるシナリオ
+
+| インストール方法 | 一般的なサービス | 監視コマンド |
+|-------------------|-----------------|------------------|
+| EC2で`install.sh` | falco-modern-bpf | `sudo journalctl -u falco-modern-bpf -f` |
+| 標準Linuxで`install.sh` | falco | `sudo journalctl -u falco -f` |
+| 手動インストール | falco | `sudo journalctl -u falco -f` |
+| コンテナ/Kubernetes | falco | `kubectl logs -f <falco-pod>` |
+
+**注意**: `install.sh`スクリプトは自動的にシステムの能力を検出し、適切なサービスを設定します。インストール完了時に、どのサービスを監視すべきか正確に表示されます。
 
 ### 🆘 トラブルシューティング
 
