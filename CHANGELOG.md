@@ -6,10 +6,17 @@
 
 All notable changes to the Falco nginx plugin binaries will be documented in this file.
 
-## [Unreleased] - Known Issues
+## [v1.2.1] - 2025-08-09 - Macro-based Command Injection Rules (Latest)
+
+### Added
+- Macro-based command injection detection rules for better organization
+- `nginx_cmdinj_raw_chars` macro for raw command characters
+- `nginx_cmdinj_pctenc_chars` macro for URL-encoded characters
+- `nginx_cmdinj_words` macro for common command patterns
+- Debug rule for semicolon detection
 
 ### Known Issues
-- **Command Injection Detection**: Currently not working properly. The nginx query_string field contains `cmd=;cat%20/etc/passwd` but rules with patterns like `cmd=;cat%20` are not matching. Investigation ongoing.
+- **Command Injection Detection**: Still not working despite comprehensive macro-based rules. Even simple semicolon detection is failing. This suggests the `nginx.query_string` field may not be properly extracted by the plugin. Further investigation required.
 
 ## [v1.1.3] - 2025-08-09 - Documentation and Service Detection Improvements
 
