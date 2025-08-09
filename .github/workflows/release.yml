@@ -256,9 +256,11 @@ jobs:
             echo "Testing directory traversal detection..."
             curl -s "http://localhost/upload.php?file=../../../../../../etc/passwd" || true
             
-            # Command injection test
+            # Command injection test (with space)
             echo "Testing command injection detection..."
+            # Try both URL-encoded and non-encoded versions
             curl -s "http://localhost/api/users.php?cmd=;cat%20/etc/passwd" || true
+            curl -s "http://localhost/api/users.php?cmd=;cat /etc/passwd" || true
             
             # Check if nginx logged the requests
             sleep 2
@@ -316,6 +318,29 @@ jobs:
               if [ -n "$FALCO_ALERTS" ]; then
                 echo "✅ Attack detection is working! Alerts found:"
                 echo "$FALCO_ALERTS" | head -10
+                
+                # Count specific alert types
+                SQL_COUNT=$(echo "$FALCO_ALERTS" | grep -c "SQL injection" || echo "0")
+                XSS_COUNT=$(echo "$FALCO_ALERTS" | grep -c "XSS attack" || echo "0")
+                PATH_COUNT=$(echo "$FALCO_ALERTS" | grep -c "Path traversal" || echo "0")
+                CMD_COUNT=$(echo "$FALCO_ALERTS" | grep -c "Command injection" || echo "0")
+                
+                echo ""
+                echo "Detection Summary:"
+                echo "- SQL Injection: $SQL_COUNT alerts"
+                echo "- XSS Attack: $XSS_COUNT alerts"
+                echo "- Path Traversal: $PATH_COUNT alerts"
+                echo "- Command Injection: $CMD_COUNT alerts"
+                
+                # Check if all attack types were detected
+                if [ "$SQL_COUNT" -gt 0 ] && [ "$XSS_COUNT" -gt 0 ] && [ "$PATH_COUNT" -gt 0 ] && [ "$CMD_COUNT" -gt 0 ]; then
+                  echo "✅ All attack types detected successfully!"
+                else
+                  echo "⚠️ WARNING: Not all attack types were detected"
+                  if [ "$CMD_COUNT" -eq 0 ]; then
+                    echo "   ❌ Command Injection was NOT detected"
+                  fi
+                fi
               else
                 echo "❌ No actual attack alerts detected"
                 echo ""
