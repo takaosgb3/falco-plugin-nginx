@@ -78,26 +78,50 @@ jobs:
           sudo mkdir -p /usr/share/falco/plugins
           sudo cp release/libfalco-nginx-plugin-linux-amd64.so /usr/share/falco/plugins/libfalco-nginx-plugin.so
           
-          # Configure Falco to load the plugin
-          sudo tee -a /etc/falco/falco.yaml > /dev/null << 'EOF'
+          # Update load_plugins array to include nginx
+          if grep -q "^load_plugins:" /etc/falco/falco.yaml; then
+            # Check if it's empty array
+            if grep -q "^load_plugins: \[\]" /etc/falco/falco.yaml; then
+              sudo sed -i 's/^load_plugins: \[\]/load_plugins: [nginx]/' /etc/falco/falco.yaml
+            elif ! grep -q "nginx" /etc/falco/falco.yaml; then
+              # Add nginx to existing array
+              sudo sed -i '/^load_plugins:/ s/\]/,nginx\]/' /etc/falco/falco.yaml
+            fi
+          else
+            # Add load_plugins line at the beginning of the file
+            sudo sed -i '1s/^/load_plugins: [nginx]\n/' /etc/falco/falco.yaml
+          fi
           
-          load_plugins: [nginx]
+          # Configure plugin section
+          if ! grep -q "^plugins:" /etc/falco/falco.yaml; then
+            # Add plugins configuration section
+            echo "" | sudo tee -a /etc/falco/falco.yaml > /dev/null
+            echo "# nginx plugin configuration" | sudo tee -a /etc/falco/falco.yaml > /dev/null
+            echo "plugins:" | sudo tee -a /etc/falco/falco.yaml > /dev/null
+            echo "  - name: nginx" | sudo tee -a /etc/falco/falco.yaml > /dev/null
+            echo "    library_path: /usr/share/falco/plugins/libfalco-nginx-plugin.so" | sudo tee -a /etc/falco/falco.yaml > /dev/null
+            echo "    init_config:" | sudo tee -a /etc/falco/falco.yaml > /dev/null
+            echo "      log_paths:" | sudo tee -a /etc/falco/falco.yaml > /dev/null
+            echo "        - /var/log/nginx/access.log" | sudo tee -a /etc/falco/falco.yaml > /dev/null
+          else
+            # Check if nginx plugin is configured
+            if ! grep -A5 "^plugins:" /etc/falco/falco.yaml | grep -q "name: nginx"; then
+              # Add nginx plugin to existing plugins section
+              echo "  - name: nginx" | sudo tee -a /etc/falco/falco.yaml > /dev/null
+              echo "    library_path: /usr/share/falco/plugins/libfalco-nginx-plugin.so" | sudo tee -a /etc/falco/falco.yaml > /dev/null
+              echo "    init_config:" | sudo tee -a /etc/falco/falco.yaml > /dev/null
+              echo "      log_paths:" | sudo tee -a /etc/falco/falco.yaml > /dev/null
+              echo "        - /var/log/nginx/access.log" | sudo tee -a /etc/falco/falco.yaml > /dev/null
+            fi
+          fi
           
-          plugins:
-            - name: nginx
-              library_path: /usr/share/falco/plugins/libfalco-nginx-plugin.so
-              init_config:
-                log_paths:
-                  - /var/log/nginx/access.log
-          EOF
+          # Test that plugin loads correctly
+          echo "Testing plugin loads..."
+          sudo falco --list-plugins | grep nginx || (echo "❌ Plugin not loaded"; exit 1)
           
           # Validate the rules
           echo "Validating nginx rules..."
           sudo falco --validate release/nginx_rules.yaml
-          
-          # Also test that plugin loads correctly
-          echo "Testing plugin loads..."
-          sudo falco --list-plugins | grep nginx || exit 1
           
           echo "✅ Rules validation passed"
 
