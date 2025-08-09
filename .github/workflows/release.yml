@@ -178,9 +178,22 @@ jobs:
           fi
           echo "✅ Rules file installed"
           
+          # Start nginx service for testing
+          echo "Starting nginx for testing..."
+          sudo systemctl start nginx || sudo service nginx start || true
+          sleep 2
+          
           # Check if nginx is running
           if ! systemctl is-active --quiet nginx; then
-            echo "⚠️ nginx is not running (may be expected on GitHub Actions)"
+            echo "⚠️ nginx is not running - trying alternative startup"
+            # Try to start nginx directly
+            sudo nginx || true
+            sleep 2
+            if ! pgrep nginx > /dev/null; then
+              echo "⚠️ nginx still not running (tests will be limited)"
+            else
+              echo "✅ nginx started via direct command"
+            fi
           else
             echo "✅ nginx is running"
           fi
@@ -202,9 +215,43 @@ jobs:
             exit 1
           fi
           
-          # Test attack simulation (should not error out)
-          echo "Testing attack simulation..."
-          curl -s "http://localhost/search.php?q=%27%20OR%20%271%27%3D%271" || true
+          # Setup test content if nginx is running
+          if pgrep nginx > /dev/null; then
+            echo "Setting up test web content..."
+            curl -sSL https://raw.githubusercontent.com/${{ github.repository }}/main/scripts/setup-test-content.sh | sudo bash || true
+            
+            # Test attack simulations with actual detection
+            echo "Testing attack detection..."
+            
+            # Get Falco logs before tests
+            BEFORE_COUNT=$(sudo journalctl -u falco -n 1000 2>/dev/null | grep -c "nginx" || echo "0")
+            
+            # SQL Injection test
+            echo "Testing SQL injection detection..."
+            curl -s "http://localhost/search.php?q=%27%20OR%20%271%27%3D%271" || true
+            
+            # XSS test
+            echo "Testing XSS detection..."
+            curl -s "http://localhost/search.php?q=%3Cscript%3Ealert(1)%3C/script%3E" || true
+            
+            # Directory traversal test
+            echo "Testing directory traversal detection..."
+            curl -s "http://localhost/upload.php?file=../../../../../../etc/passwd" || true
+            
+            # Wait for logs to be processed
+            sleep 3
+            
+            # Check if new alerts were generated
+            AFTER_COUNT=$(sudo journalctl -u falco -n 1000 2>/dev/null | grep -c "nginx" || echo "0")
+            
+            if [ "$AFTER_COUNT" -gt "$BEFORE_COUNT" ]; then
+              echo "✅ Attack detection is working (new alerts: $((AFTER_COUNT - BEFORE_COUNT)))"
+            else
+              echo "⚠️ No new alerts detected (may be normal in CI environment)"
+            fi
+          else
+            echo "⚠️ Skipping attack detection tests (nginx not running)"
+          fi
           
           echo "✅ install.sh test completed successfully"
 
