@@ -86,11 +86,12 @@ jobs:
           sudo mkdir -p /usr/share/falco/plugins
           sudo cp release/libfalco-nginx-plugin-linux-amd64.so /usr/share/falco/plugins/libfalco-nginx-plugin.so
           
-          # Create a Falco config for nginx plugin testing (no syscall/container needed with --nodriver)
-          sudo tee /etc/falco/falco-nginx-test.yaml > /dev/null << 'EOF'
-          # Falco configuration for testing nginx plugin
+          # Create nginx plugin config in config.d (doesn't overwrite main falco.yaml)
+          sudo mkdir -p /etc/falco/config.d
+          sudo tee /etc/falco/config.d/nginx-plugin.yaml > /dev/null << 'EOF'
+          # nginx plugin configuration (added to existing Falco config)
           
-          # Load nginx plugin only (container not needed with --nodriver)
+          # Load nginx plugin
           load_plugins: [nginx]
           
           # Plugin configuration
@@ -101,35 +102,18 @@ jobs:
                 log_paths:
                   - /var/log/nginx/access.log
           
-          # Basic Falco settings
-          json_output: true
-          json_include_output_property: true
-          log_level: info
-          
-          # Rules files - only nginx rules (standard rules need kernel/eBPF)
+          # Add nginx rules to existing rules
           rules_file:
             - /etc/falco/rules.d/nginx_rules.yaml
-          
-          # Output configuration
-          stdout_output:
-            enabled: true
-          
-          # Disable other outputs for testing
-          file_output:
-            enabled: false
-          syslog_output:
-            enabled: false
-          http_output:
-            enabled: false
           EOF
           
           # Test that plugin loads correctly
           echo "Testing plugin loads..."
-          sudo falco -c /etc/falco/falco-nginx-test.yaml --list-plugins | grep nginx || (echo "❌ Plugin not loaded"; exit 1)
+          sudo falco --list-plugins | grep nginx || (echo "❌ Plugin not loaded"; exit 1)
           
           # Validate the rules with the plugin loaded
           echo "Validating nginx rules..."
-          sudo falco -c /etc/falco/falco-nginx-test.yaml --validate release/nginx_rules.yaml
+          sudo falco --validate release/nginx_rules.yaml
           
           # Check validation result
           if [ $? -eq 0 ]; then
@@ -158,52 +142,48 @@ jobs:
           sudo chmod 755 /usr/share/falco/plugins/libfalco-nginx-plugin.so
           sudo cp release/nginx_rules.yaml /etc/falco/rules.d/nginx_rules.yaml
           
-          # Install container plugin if not already present
-          echo "Installing container plugin..."
-          # Check if falcoctl is available (might be installed with falco)
-          if ! command -v falcoctl &> /dev/null; then
-            echo "Installing falcoctl..."
-            FALCOCTL_VERSION="0.10.0"
-            curl -L -o /tmp/falcoctl.tar.gz "https://github.com/falcosecurity/falcoctl/releases/download/v${FALCOCTL_VERSION}/falcoctl_${FALCOCTL_VERSION}_linux_amd64.tar.gz"
-            tar -xzf /tmp/falcoctl.tar.gz -C /tmp
-            sudo mv /tmp/falcoctl /usr/local/bin/
-            sudo chmod +x /usr/local/bin/falcoctl
-          fi
+          # Create nginx plugin config in config.d (doesn't overwrite main falco.yaml)
+          sudo mkdir -p /etc/falco/config.d
+          sudo tee /etc/falco/config.d/nginx-plugin.yaml > /dev/null << 'EOF'
+          # nginx plugin configuration (added to existing Falco config)
           
-          if [ ! -f /usr/share/falco/plugins/libcontainer.so ]; then
-            sudo falcoctl artifact install plugin container --quiet || \
-            sudo falcoctl artifact install plugin container:0.2.7 --quiet || \
-            echo "Warning: Failed to install container plugin, some tests may fail"
-          fi
-          ls -la /usr/share/falco/plugins/ | grep container || echo "Container plugin not found"
+          # Load nginx plugin
+          load_plugins: [nginx]
           
-          # Configure Falco to use the plugin (use the same config as validation)
-          sudo cp /etc/falco/falco-nginx-test.yaml /etc/falco/falco.yaml
+          # Plugin configuration
+          plugins:
+            - name: nginx
+              library_path: /usr/share/falco/plugins/libfalco-nginx-plugin.so
+              init_config:
+                log_paths:
+                  - /var/log/nginx/access.log
+          
+          # Add nginx rules to existing rules
+          rules_file:
+            - /etc/falco/rules.d/nginx_rules.yaml
+          EOF
           
           # Verify Falco can see both sources
           echo "Checking available event sources..."
           sudo falco --list | grep -i "Event Sources" || true
           
-          # Start Falco in the background for testing with output to file
-          echo "Starting Falco for testing..."
-          FALCO_LOG="/tmp/falco_test.jsonl"
-          FALCO_ERR="/tmp/falco_err.log"
-          # Run Falco with nginx plugin only (disable syscall source to avoid kernel module requirement)
-          # Use --disable-source syscall for GitHub Actions
-          sudo bash -c "falco -c /etc/falco/falco.yaml --disable-source syscall > $FALCO_LOG 2>$FALCO_ERR & echo \$! > /tmp/falco.pid"
-          FALCO_PID=$(cat /tmp/falco.pid)
-          sleep 8  # Give Falco more time to start and initialize plugins
+          # Start Falco with modern-bpf service (both syscall and nginx sources)
+          echo "Starting Falco with modern-bpf service..."
+          # The falco package already configured falco-modern-bpf.service during installation
+          sudo systemctl restart falco-modern-bpf
+          sleep 8  # Give Falco time to start and initialize plugins
           
-          # Verify Falco is running
-          if ! ps -p $FALCO_PID > /dev/null; then
-            echo "❌ Failed to start Falco"
-            echo "=== Falco stdout ==="
-            cat "$FALCO_LOG" || true
-            echo "=== Falco stderr ==="
-            cat "$FALCO_ERR" || true
+          # Check service status
+          if ! sudo systemctl is-active --quiet falco-modern-bpf; then
+            echo "❌ Failed to start falco-modern-bpf service"
+            sudo systemctl status falco-modern-bpf --no-pager
             exit 1
           fi
-          echo "✅ Falco started with PID $FALCO_PID"
+          echo "✅ Falco modern-bpf service is running"
+          
+          # Verify both event sources are active
+          echo "Checking active event sources..."
+          sudo falco --list | grep -i "Event Sources" | head -1 || true
           
           # Verify installation results
           echo "Verifying installation..."
@@ -325,22 +305,14 @@ jobs:
               # Now check Falco detection
               echo "Checking Falco alerts..."
               
-              # Check different Falco services for actual alerts
+              # Check falco-modern-bpf service for actual alerts
               FALCO_ALERTS=""
-              if systemctl is-active --quiet falco; then
-                echo "Checking falco service logs..."
-                # Look for actual alert patterns
-                FALCO_ALERTS=$(sudo journalctl -u falco --since "1 minute ago" 2>/dev/null | grep -E "(SQL.*injection|XSS.*attack|Path.*traversal|Command.*injection|Directory.*traversal)" || true)
-                if [ -z "$FALCO_ALERTS" ]; then
-                  # Try broader search
-                  FALCO_ALERTS=$(sudo journalctl -u falco --since "1 minute ago" 2>/dev/null | grep -E "Warning|Critical|Error|Notice" | grep -v "Loading\|Loaded\|Enabled\|schema" || true)
-                fi
-              elif systemctl is-active --quiet falco-modern-bpf; then
-                echo "Checking falco-modern-bpf service logs..."
-                FALCO_ALERTS=$(sudo journalctl -u falco-modern-bpf --since "1 minute ago" 2>/dev/null | grep -E "(SQL.*injection|XSS.*attack|Path.*traversal|Command.*injection|Directory.*traversal)" || true)
-                if [ -z "$FALCO_ALERTS" ]; then
-                  FALCO_ALERTS=$(sudo journalctl -u falco-modern-bpf --since "1 minute ago" 2>/dev/null | grep -E "Warning|Critical|Error|Notice" | grep -v "Loading\|Loaded\|Enabled\|schema" || true)
-                fi
+              echo "Checking falco-modern-bpf service logs..."
+              # Look for actual alert patterns
+              FALCO_ALERTS=$(sudo journalctl -u falco-modern-bpf --since "2 minutes ago" 2>/dev/null | grep -E "(SQL.*injection|XSS.*attack|Path.*traversal|Command.*injection|Directory.*traversal)" || true)
+              if [ -z "$FALCO_ALERTS" ]; then
+                # Try broader search
+                FALCO_ALERTS=$(sudo journalctl -u falco-modern-bpf --since "2 minutes ago" 2>/dev/null | grep -E "Warning|Critical|Error|Notice" | grep -v "Loading\|Loaded\|Enabled\|schema" || true)
               fi
               
               # Check syslog for Falco alerts
@@ -349,14 +321,14 @@ jobs:
                 FALCO_ALERTS=$(sudo grep -E "falco.*((SQL.*injection|XSS.*attack|Path.*traversal|Command.*injection|Directory.*traversal)|(Warning|Critical|Error|Notice))" /var/log/syslog 2>/dev/null | grep -v "Loading\|Loaded\|Enabled\|schema" | tail -10 || true)
               fi
               
-              # Get alerts from our running Falco instance JSON output
-              if [ -z "$FALCO_ALERTS" ] && [ -f "$FALCO_LOG" ]; then
-                echo "Checking Falco test log output..."
+              # Get alerts from journalctl for JSON output
+              if [ -z "$FALCO_ALERTS" ]; then
+                echo "Checking Falco service logs for JSON output..."
                 # Look for our specific rule names in JSON output
-                FALCO_ALERTS=$(grep -E '"rule":"(SQL Injection Attempt|XSS Attack Attempt|Path Traversal Attempt|Command Injection Attempt)"' "$FALCO_LOG" || true)
+                FALCO_ALERTS=$(sudo journalctl -u falco-modern-bpf --since "2 minutes ago" 2>/dev/null | grep -E '"rule":"(SQL Injection Attempt|XSS Attack Attempt|Path Traversal Attempt|Command Injection Attempt)"' || true)
                 if [ -z "$FALCO_ALERTS" ]; then
                   # Try broader search for any nginx alerts
-                  FALCO_ALERTS=$(grep '"source":"nginx"' "$FALCO_LOG" || true)
+                  FALCO_ALERTS=$(sudo journalctl -u falco-modern-bpf --since "2 minutes ago" 2>/dev/null | grep '"source":"nginx"' || true)
                 fi
               fi
               
@@ -400,16 +372,16 @@ jobs:
                   fi
                 fi
                 
-                # Verify nginx source is working (syscall disabled with --disable-source syscall)
-                if [ "$NGINX_COUNT" -gt 0 ]; then
+                # Verify both sources are working
+                if [ "$NGINX_COUNT" -gt 0 ] && [ "$SYSCALL_COUNT" -gt 0 ]; then
+                  echo "✅ Both syscall and nginx sources are working!"
+                elif [ "$NGINX_COUNT" -gt 0 ]; then
                   echo "✅ Nginx source is working!"
-                  if [ "$SYSCALL_COUNT" -gt 0 ]; then
-                    echo "✅ Syscall source is also working!"
-                  else
-                    echo "ℹ️ INFO: Syscall source not active (expected with --disable-source syscall)"
-                  fi
+                  echo "⚠️ WARNING: Syscall source not generating alerts"
+                elif [ "$SYSCALL_COUNT" -gt 0 ]; then
+                  echo "⚠️ WARNING: Only syscall source is working, nginx not detected"
                 else
-                  echo "❌ CRITICAL: Nginx source is not generating alerts"
+                  echo "❌ CRITICAL: Neither source is generating alerts"
                 fi
               else
                 echo "❌ No actual attack alerts detected"
@@ -422,18 +394,10 @@ jobs:
                 grep -A10 "nginx" /etc/falco/falco.yaml || echo "   nginx not found in config"
                 echo ""
                 echo "3. Checking if nginx plugin is actually processing events..."
-                sudo timeout 5 falco -c /etc/falco/falco.yaml -A 2>&1 | grep -i nginx | head -5 || echo "   No nginx events being processed"
+                sudo timeout 5 falco -A 2>&1 | grep -i nginx | head -5 || echo "   No nginx events being processed"
                 echo ""
-                echo "4. Full Falco log output:"
-                if [ -f "$FALCO_LOG" ]; then
-                  echo "First 50 lines of Falco log:"
-                  head -50 "$FALCO_LOG" || true
-                  echo ""
-                  echo "Last 50 lines of Falco log:"
-                  tail -50 "$FALCO_LOG" || true
-                else
-                  echo "Falco log file not found at $FALCO_LOG"
-                fi
+                echo "4. Recent Falco service logs:"
+                sudo journalctl -u falco-modern-bpf --since "2 minutes ago" | tail -50
                 echo ""
                 echo "⚠️ CRITICAL: Attack detection verification FAILED"
                 echo "The plugin is loaded but not generating security alerts for attacks."
@@ -448,10 +412,8 @@ jobs:
             echo "⚠️ Skipping attack detection tests (nginx not running)"
           fi
           
-          # Clean up Falco process
-          if [ -n "$FALCO_PID" ]; then
-            sudo kill $FALCO_PID 2>/dev/null || true
-          fi
+          # Stop Falco service (cleanup)
+          sudo systemctl stop falco-modern-bpf || true
           
           echo "✅ install.sh test completed successfully"
 
