@@ -6,7 +6,29 @@
 
 All notable changes to the Falco nginx plugin binaries will be documented in this file.
 
-## [v0.4.2] - 2025-08-06 - Falco 0.41.x Compatibility Fix (Latest)
+## [v1.1.3] - 2025-08-09 - Documentation and Service Detection Improvements (Latest)
+
+### Fixed
+- Improved documentation for EC2/eBPF systems  
+- Updated service detection in installer script
+- Added support for falco-modern-bpf service monitoring
+
+### Changed
+- Install script now auto-detects active Falco service name
+- Documentation updated with EC2-specific monitoring commands
+
+## [v1.1.2] - 2025-08-09 - Critical Rule Fix
+
+### Fixed
+- **CRITICAL**: Corrected field name from `nginx.client_ip` to `nginx.remote_addr` in all rules
+- Fixed rule validation errors preventing alerts from triggering
+- Authentication detection rules now work correctly
+
+### Added
+- Enhanced workflow validation with plugin pre-installation
+- Improved rule validation in CI/CD pipeline
+
+## [v0.4.2] - 2025-08-06 - Falco 0.41.x Compatibility Fix
 
 ### Fixed
 - Fixed compatibility with Falco 0.41.x by updating rule priority values

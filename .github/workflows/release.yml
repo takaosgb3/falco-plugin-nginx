@@ -1,0 +1,105 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release (e.g., v1.1.3)'
+        required: true
+        type: string
+
+# Minimal permissions - only what's needed
+permissions:
+  contents: write  # For creating releases
+
+jobs:
+  create-release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    
+    # Security: Prevent PWN requests from forks
+    if: github.event_name == 'workflow_dispatch' && github.repository == 'takaosgb3/falco-plugin-nginx'
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          # Security: Shallow clone, only what we need
+          fetch-depth: 1
+          # Security: Don't persist credentials
+          persist-credentials: false
+
+      - name: Validate version format
+        run: |
+          VERSION="${{ github.event.inputs.version }}"
+          if ! echo "$VERSION" | grep -qE '^v[0-9]+\.[0-9]+\.[0-9]+$'; then
+            echo "Error: Version must be in format vX.Y.Z"
+            exit 1
+          fi
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+          cache: true
+
+      - name: Build plugin binary
+        run: |
+          cd plugin
+          # Build for Linux AMD64 only
+          CGO_ENABLED=1 GOOS=linux GOARCH=amd64 \
+            go build -buildmode=c-shared \
+            -o libfalco-nginx-plugin-linux-amd64.so \
+            -ldflags="-s -w" \
+            .
+          
+          # Verify binary
+          file libfalco-nginx-plugin-linux-amd64.so | grep -q "ELF 64-bit LSB shared object" || exit 1
+          
+          # Move to release directory
+          cd ..
+          mkdir -p release
+          mv plugin/libfalco-nginx-plugin-linux-amd64.so release/
+          cp rules/nginx_rules.yaml release/
+
+      - name: Generate checksums
+        run: |
+          cd release
+          sha256sum libfalco-nginx-plugin-linux-amd64.so > libfalco-nginx-plugin-linux-amd64.so.sha256
+          sha256sum nginx_rules.yaml > nginx_rules.yaml.sha256
+
+      - name: Create Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          VERSION="${{ github.event.inputs.version }}"
+          
+          # Create release notes
+          cat > release-notes.md << EOF
+          ## Release $VERSION
+          
+          ### 📦 Assets
+          - \`libfalco-nginx-plugin-linux-amd64.so\`: Plugin binary for Linux x86_64
+          - \`nginx_rules.yaml\`: Falco rules for nginx security monitoring
+          
+          ### 🔧 Installation
+          \`\`\`bash
+          # One-liner installation
+          curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo bash
+          
+          # Manual download
+          wget https://github.com/takaosgb3/falco-plugin-nginx/releases/download/$VERSION/libfalco-nginx-plugin-linux-amd64.so
+          wget https://github.com/takaosgb3/falco-plugin-nginx/releases/download/$VERSION/nginx_rules.yaml
+          \`\`\`
+          
+          ### 📝 Changelog
+          See [CHANGELOG.md](https://github.com/takaosgb3/falco-plugin-nginx/blob/main/CHANGELOG.md) for details.
+          EOF
+          
+          # Create release with assets
+          gh release create "$VERSION" \
+            --title "$VERSION" \
+            --notes-file release-notes.md \
+            release/libfalco-nginx-plugin-linux-amd64.so \
+            release/nginx_rules.yaml \
+            release/*.sha256
