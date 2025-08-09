@@ -128,6 +128,12 @@ if ! command -v falco &> /dev/null; then
     apt-get update -qq
     DEBIAN_FRONTEND=noninteractive apt-get install -y falco > /dev/null 2>&1
     success "Falco installed"
+    
+    # After installation, check which service was actually configured
+    # The falco package may have set up falco-modern-bpf on EC2 instances
+    if systemctl list-unit-files | grep -q "^falco-modern-bpf.service.*enabled"; then
+        log "Note: Falco package configured modern eBPF service (common on EC2)"
+    fi
 else
     success "Falco is already installed"
 fi
@@ -298,18 +304,67 @@ else
     fi
 fi
 
-# Restart Falco to load the nginx plugin alongside kernel monitoring
-log "Restarting Falco with nginx plugin enabled..."
+# Detect which Falco service is available/running
+log "Detecting Falco service..."
+FALCO_SERVICE=""
 
-# Simply restart Falco - it will load both kernel monitoring AND the nginx plugin
-systemctl restart falco
-sleep 3
+# Check if falco.service is actually a symlink to another service (common on EC2)
+if [ -L /etc/systemd/system/falco.service ]; then
+    # falco.service is a symlink, find what it points to
+    REAL_SERVICE=$(readlink /etc/systemd/system/falco.service | xargs basename | sed 's/\.service$//')
+    if [ -n "$REAL_SERVICE" ]; then
+        FALCO_SERVICE="$REAL_SERVICE"
+        log "Found Falco service: $FALCO_SERVICE (falco.service is symlinked to $REAL_SERVICE.service)"
+    fi
+fi
 
-# Check if Falco started successfully
-if systemctl is-active --quiet falco; then
-    success "Falco restarted with nginx plugin (both kernel and nginx monitoring active)"
-else
-    warning "Falco failed to start with kernel module. Checking eBPF support..."
+# If not a symlink or symlink detection failed, check which service is available
+if [ -z "$FALCO_SERVICE" ]; then
+    if systemctl list-unit-files | grep -q "^falco-modern-bpf.service.*enabled"; then
+        # Modern eBPF service is enabled (common on EC2)
+        FALCO_SERVICE="falco-modern-bpf"
+        log "Found Falco modern eBPF service (enabled)"
+    elif systemctl list-unit-files | grep -q "^falco.service.*enabled"; then
+        # Standard falco service is enabled
+        FALCO_SERVICE="falco"
+        log "Found standard Falco service (enabled)"
+    elif systemctl list-unit-files | grep -q "^falco-bpf.service.*enabled"; then
+        # Legacy eBPF service is enabled
+        FALCO_SERVICE="falco-bpf"
+        log "Found Falco legacy eBPF service (enabled)"
+    else
+        # No enabled service found, check if any exist
+        if systemctl list-unit-files | grep -q "^falco.service"; then
+            FALCO_SERVICE="falco"
+            log "Found standard Falco service (not enabled)"
+        elif systemctl list-unit-files | grep -q "^falco-modern-bpf.service"; then
+            FALCO_SERVICE="falco-modern-bpf"
+            log "Found Falco modern eBPF service (not enabled)"
+        elif systemctl list-unit-files | grep -q "^falco-bpf.service"; then
+            FALCO_SERVICE="falco-bpf"
+            log "Found Falco legacy eBPF service (not enabled)"
+        fi
+    fi
+fi
+
+# Restart the appropriate Falco service
+if [ -n "$FALCO_SERVICE" ]; then
+    log "Restarting $FALCO_SERVICE with nginx plugin enabled..."
+    systemctl restart "$FALCO_SERVICE"
+    sleep 3
+    
+    # Check if it started successfully
+    if systemctl is-active --quiet "$FALCO_SERVICE"; then
+        success "$FALCO_SERVICE restarted with nginx plugin"
+    else
+        warning "$FALCO_SERVICE failed to start. Checking alternative services..."
+        FALCO_SERVICE=""
+    fi
+fi
+
+# If no service was found or restart failed, try alternatives
+if [ -z "$FALCO_SERVICE" ]; then
+    warning "Falco service not found or failed to start. Checking eBPF support..."
     
     # First, check if we're on EC2 and if eBPF is available
     log "Checking for eBPF support..."
@@ -475,28 +530,36 @@ else
     error "nginx rules not found at /etc/falco/rules.d/nginx_rules.yaml"
 fi
 
-# Check if Falco service is running (check all possible service names)
-FALCO_SERVICE=""
-if systemctl is-active --quiet falco; then
-    FALCO_SERVICE="falco"
-    success "Falco is running with nginx plugin"
-elif systemctl is-active --quiet falco-modern-bpf; then
-    FALCO_SERVICE="falco-modern-bpf"
-    success "Falco is running with nginx plugin (modern eBPF)"
-elif systemctl is-active --quiet falco-bpf; then
-    FALCO_SERVICE="falco-bpf"
-    success "Falco is running with nginx plugin (legacy eBPF)"
+# Verify which Falco service is actually running
+# (FALCO_SERVICE should already be set from the restart section above)
+if [ -z "$FALCO_SERVICE" ]; then
+    # If not set, detect it now
+    if systemctl is-active --quiet falco; then
+        FALCO_SERVICE="falco"
+        success "Falco is running with nginx plugin"
+    elif systemctl is-active --quiet falco-modern-bpf; then
+        FALCO_SERVICE="falco-modern-bpf"
+        success "Falco is running with nginx plugin (modern eBPF)"
+    elif systemctl is-active --quiet falco-bpf; then
+        FALCO_SERVICE="falco-bpf"
+        success "Falco is running with nginx plugin (legacy eBPF)"
+    fi
+else
+    # Service was already detected and restarted
+    if systemctl is-active --quiet "$FALCO_SERVICE"; then
+        success "$FALCO_SERVICE is running with nginx plugin"
+    fi
 fi
 
 if [ -n "$FALCO_SERVICE" ]; then
     # Check what monitoring mode is active
     if lsmod | grep -q falco; then
         log "Mode: Both kernel module and nginx monitoring active"
-    elif systemctl show falco -p ExecStart | grep -q "\-\-modern-bpf"; then
+    elif systemctl show "$FALCO_SERVICE" -p ExecStart | grep -q "\-\-modern-bpf\|modern_ebpf"; then
         log "Mode: Both modern eBPF and nginx monitoring active"
-    elif systemctl show falco -p ExecStart | grep -q "\-\-bpf"; then
+    elif systemctl show "$FALCO_SERVICE" -p ExecStart | grep -q "\-\-bpf"; then
         log "Mode: Both legacy eBPF and nginx monitoring active"
-    elif systemctl show falco -p ExecStart | grep -q "\-\-disable-source syscall"; then
+    elif systemctl show "$FALCO_SERVICE" -p ExecStart | grep -q "\-\-disable-source syscall"; then
         log "Mode: nginx monitoring only (no kernel monitoring)"
     else
         # Try to detect if eBPF is actually working
