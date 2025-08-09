@@ -143,7 +143,9 @@
     (nginx.path contains "%3b%20chmod" or nginx.query_string contains "%3b%20chmod") or
     (nginx.path contains ";cat%20" or nginx.query_string contains ";cat%20") or
     (nginx.path contains "%3Bcat%20" or nginx.query_string contains "%3Bcat%20") or
-    (nginx.path contains "%3bcat%20" or nginx.query_string contains "%3bcat%20")
+    (nginx.path contains "%3bcat%20" or nginx.query_string contains "%3bcat%20") or
+    (nginx.query_string contains "=;cat" or nginx.query_string contains "=%3Bcat" or nginx.query_string contains "=%3bcat") or
+    (nginx.query_string contains "=;cat%20" or nginx.query_string contains "=%3Bcat%20" or nginx.query_string contains "=%3bcat%20")
   output: "Command injection detected"
   priority: CRITICAL
   source: nginx
