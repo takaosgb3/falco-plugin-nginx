@@ -88,67 +88,69 @@
   source: nginx
   tags: [attack, path_traversal, web]
 
-# Command Injection Detection
-- rule: Command Injection Attempt
-  desc: Detects potential command injection attacks
+# Command Injection Detection - Macros for better organization
+
+# Raw command injection characters (unencoded)
+- macro: nginx_cmdinj_raw_chars
   condition: >
-    (nginx.path contains ";ls" or nginx.query_string contains ";ls") or
-    (nginx.path contains ";cat" or nginx.query_string contains ";cat") or
-    (nginx.path contains "; ls" or nginx.query_string contains "; ls") or
-    (nginx.path contains "; cat" or nginx.query_string contains "; cat") or
-    (nginx.path contains "|ls" or nginx.query_string contains "|ls") or
-    (nginx.path contains "|cat" or nginx.query_string contains "|cat") or
-    (nginx.path contains "| ls" or nginx.query_string contains "| ls") or
-    (nginx.path contains "| cat" or nginx.query_string contains "| cat") or
-    (nginx.path contains "&&" or nginx.query_string contains "&&") or
-    (nginx.path contains "||" or nginx.query_string contains "||") or
-    (nginx.path contains "`" or nginx.query_string contains "`") or
-    (nginx.path contains "$(" or nginx.query_string contains "$(") or
-    (nginx.path contains "%3Bls" or nginx.query_string contains "%3Bls") or
-    (nginx.path contains "%3Bcat" or nginx.query_string contains "%3Bcat") or
-    (nginx.path contains "%3bls" or nginx.query_string contains "%3bls") or
-    (nginx.path contains "%3bcat" or nginx.query_string contains "%3bcat") or
-    (nginx.path contains "%7Cls" or nginx.query_string contains "%7Cls") or
-    (nginx.path contains "%7Ccat" or nginx.query_string contains "%7Ccat") or
-    (nginx.path contains "%7cls" or nginx.query_string contains "%7cls") or
-    (nginx.path contains "%7ccat" or nginx.query_string contains "%7ccat") or
-    (nginx.path contains "%26%26" or nginx.query_string contains "%26%26") or
-    (nginx.path contains "%7C%7C" or nginx.query_string contains "%7C%7C") or
-    (nginx.path contains "%7c%7c" or nginx.query_string contains "%7c%7c") or
-    (nginx.path contains "%60" or nginx.query_string contains "%60") or
-    (nginx.path contains "%24%28" or nginx.query_string contains "%24%28") or
-    (nginx.path contains ";wget" or nginx.query_string contains ";wget") or
-    (nginx.path contains "; wget" or nginx.query_string contains "; wget") or
-    (nginx.path contains "%3Bwget" or nginx.query_string contains "%3Bwget") or
-    (nginx.path contains "%3bwget" or nginx.query_string contains "%3bwget") or
-    (nginx.path contains "%3B%20wget" or nginx.query_string contains "%3B%20wget") or
-    (nginx.path contains "%3b%20wget" or nginx.query_string contains "%3b%20wget") or
-    (nginx.path contains ";curl" or nginx.query_string contains ";curl") or
-    (nginx.path contains "; curl" or nginx.query_string contains "; curl") or
-    (nginx.path contains "%3Bcurl" or nginx.query_string contains "%3Bcurl") or
-    (nginx.path contains "%3bcurl" or nginx.query_string contains "%3bcurl") or
-    (nginx.path contains "%3B%20curl" or nginx.query_string contains "%3B%20curl") or
-    (nginx.path contains "%3b%20curl" or nginx.query_string contains "%3b%20curl") or
-    (nginx.path contains ";rm" or nginx.query_string contains ";rm") or
-    (nginx.path contains "; rm" or nginx.query_string contains "; rm") or
-    (nginx.path contains "%3Brm" or nginx.query_string contains "%3Brm") or
-    (nginx.path contains "%3brm" or nginx.query_string contains "%3brm") or
-    (nginx.path contains "%3B%20rm" or nginx.query_string contains "%3B%20rm") or
-    (nginx.path contains "%3b%20rm" or nginx.query_string contains "%3b%20rm") or
-    (nginx.path contains ";chmod" or nginx.query_string contains ";chmod") or
-    (nginx.path contains "; chmod" or nginx.query_string contains "; chmod") or
-    (nginx.path contains "%3Bchmod" or nginx.query_string contains "%3Bchmod") or
-    (nginx.path contains "%3bchmod" or nginx.query_string contains "%3bchmod") or
-    (nginx.path contains "%3B%20chmod" or nginx.query_string contains "%3B%20chmod") or
-    (nginx.path contains "%3b%20chmod" or nginx.query_string contains "%3b%20chmod") or
-    (nginx.path contains ";cat%20" or nginx.query_string contains ";cat%20") or
-    (nginx.path contains "%3Bcat%20" or nginx.query_string contains "%3Bcat%20") or
-    (nginx.path contains "%3bcat%20" or nginx.query_string contains "%3bcat%20") or
-    (nginx.query_string contains "=;cat" or nginx.query_string contains "=%3Bcat" or nginx.query_string contains "=%3bcat") or
-    (nginx.query_string contains "=;cat%20" or nginx.query_string contains "=%3Bcat%20" or nginx.query_string contains "=%3bcat%20") or
-    (nginx.query_string contains "cmd=;cat" or nginx.query_string contains "cmd=%3Bcat" or nginx.query_string contains "cmd=%3bcat") or
-    (nginx.query_string contains "cmd=;cat%20" or nginx.query_string contains ";cat%20/etc")
-  output: "Command injection detected"
+    (nginx.query_string contains "|" or
+     nginx.query_string contains ";" or
+     nginx.query_string contains "&&" or
+     nginx.query_string contains "||" or
+     nginx.query_string contains "`" or
+     nginx.query_string contains "$(") or
+    (nginx.path contains "|" or
+     nginx.path contains ";" or
+     nginx.path contains "&&" or
+     nginx.path contains "||" or
+     nginx.path contains "`" or
+     nginx.path contains "$(")
+
+# URL-encoded command injection characters
+# %7C='|', %3B=';', %26%26='&&', %7C%7C='||', %60='`', %24%28='$('
+- macro: nginx_cmdinj_pctenc_chars
+  condition: >
+    (nginx.query_string contains "%7C" or nginx.query_string contains "%7c" or
+     nginx.query_string contains "%3B" or nginx.query_string contains "%3b" or
+     nginx.query_string contains "%26%26" or
+     nginx.query_string contains "%7C%7C" or nginx.query_string contains "%7c%7c" or
+     nginx.query_string contains "%60" or
+     nginx.query_string contains "%24%28") or
+    (nginx.path contains "%7C" or nginx.path contains "%7c" or
+     nginx.path contains "%3B" or nginx.path contains "%3b" or
+     nginx.path contains "%26%26" or
+     nginx.path contains "%7C%7C" or nginx.path contains "%7c%7c" or
+     nginx.path contains "%60" or
+     nginx.path contains "%24%28")
+
+# Common command injection payloads
+- macro: nginx_cmdinj_words
+  condition: >
+    (nginx.query_string contains "curl" or
+     nginx.query_string contains "wget" or
+     nginx.query_string contains "bash -c" or
+     nginx.query_string contains "sh -c" or
+     nginx.query_string contains "uname -a" or
+     nginx.query_string contains "cat /etc/passwd" or
+     nginx.query_string contains "cat%20/etc/passwd") or
+    (nginx.path contains "curl" or
+     nginx.path contains "wget" or
+     nginx.path contains "bash -c" or
+     nginx.path contains "sh -c" or
+     nginx.path contains "uname -a" or
+     nginx.path contains "cat /etc/passwd" or
+     nginx.path contains "cat%20/etc/passwd")
+
+# Main Command Injection Detection Rule
+- rule: Command Injection Attempt
+  desc: Detects command injection attempts using raw or URL-encoded characters
+  condition: >
+    (nginx_cmdinj_raw_chars or nginx_cmdinj_pctenc_chars) or
+    (nginx_cmdinj_words and (nginx_cmdinj_raw_chars or nginx_cmdinj_pctenc_chars))
+  output: >
+    Command injection detected (client=%nginx.remote_addr, method=%nginx.method,
+    path=%nginx.path, query=%nginx.query_string, status=%nginx.status,
+    ua=%nginx.user_agent)
   priority: CRITICAL
   source: nginx
   tags: [attack, command_injection, web]
