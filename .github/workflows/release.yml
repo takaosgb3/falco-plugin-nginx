@@ -188,9 +188,9 @@ jobs:
           echo "Starting Falco for testing..."
           FALCO_LOG="/tmp/falco_test.jsonl"
           FALCO_ERR="/tmp/falco_err.log"
-          # Run Falco with BOTH syscall and nginx sources enabled
-          # Use --nodriver for GitHub Actions (no kernel module/eBPF needed for plugin-only events)
-          sudo bash -c "falco -c /etc/falco/falco.yaml --nodriver > $FALCO_LOG 2>$FALCO_ERR & echo \$! > /tmp/falco.pid"
+          # Run Falco with nginx plugin only (disable syscall source to avoid kernel module requirement)
+          # Use --disable-source syscall for GitHub Actions
+          sudo bash -c "falco -c /etc/falco/falco.yaml --disable-source syscall > $FALCO_LOG 2>$FALCO_ERR & echo \$! > /tmp/falco.pid"
           FALCO_PID=$(cat /tmp/falco.pid)
           sleep 8  # Give Falco more time to start and initialize plugins
           
@@ -400,13 +400,13 @@ jobs:
                   fi
                 fi
                 
-                # Verify nginx source is working (syscall may not work with --nodriver)
+                # Verify nginx source is working (syscall disabled with --disable-source syscall)
                 if [ "$NGINX_COUNT" -gt 0 ]; then
                   echo "✅ Nginx source is working!"
                   if [ "$SYSCALL_COUNT" -gt 0 ]; then
                     echo "✅ Syscall source is also working!"
                   else
-                    echo "ℹ️ INFO: Syscall source not active (expected with --nodriver)"
+                    echo "ℹ️ INFO: Syscall source not active (expected with --disable-source syscall)"
                   fi
                 else
                   echo "❌ CRITICAL: Nginx source is not generating alerts"
