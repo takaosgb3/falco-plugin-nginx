@@ -466,9 +466,20 @@ else
     error "nginx rules not found at /etc/falco/rules.d/nginx_rules.yaml"
 fi
 
-# Check if Falco service is running
+# Check if Falco service is running (check all possible service names)
+FALCO_SERVICE=""
 if systemctl is-active --quiet falco; then
+    FALCO_SERVICE="falco"
     success "Falco is running with nginx plugin"
+elif systemctl is-active --quiet falco-modern-bpf; then
+    FALCO_SERVICE="falco-modern-bpf"
+    success "Falco is running with nginx plugin (modern eBPF)"
+elif systemctl is-active --quiet falco-bpf; then
+    FALCO_SERVICE="falco-bpf"
+    success "Falco is running with nginx plugin (legacy eBPF)"
+fi
+
+if [ -n "$FALCO_SERVICE" ]; then
     # Check what monitoring mode is active
     if lsmod | grep -q falco; then
         log "Mode: Both kernel module and nginx monitoring active"
@@ -487,7 +498,7 @@ if systemctl is-active --quiet falco; then
         fi
     fi
 else
-    warning "Falco service is not running. Check with: sudo systemctl status falco"
+    warning "Falco service is not running. Check with: sudo systemctl status falco falco-modern-bpf falco-bpf"
 fi
 
 echo ""
@@ -511,7 +522,12 @@ fi
 
 echo ""
 echo "Next steps:"
-echo "1. Monitor all alerts (kernel + nginx): sudo journalctl -u falco -f"
+if [ -n "$FALCO_SERVICE" ]; then
+    echo "1. Monitor all alerts (kernel + nginx): sudo journalctl -u $FALCO_SERVICE -f"
+else
+    echo "1. Monitor all alerts (kernel + nginx): sudo journalctl -u falco -f"
+    echo "   Note: If using EC2, you may need: sudo journalctl -u falco-modern-bpf -f"
+fi
 echo "2. Test nginx detection:"
 echo '   curl "http://localhost/search.php?q=%27%20OR%20%271%27%3D%271"'
 echo '   curl "http://localhost/search.php?q=%3Cscript%3Ealert(1)%3C/script%3E"'

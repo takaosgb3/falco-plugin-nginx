@@ -77,6 +77,8 @@ After installation, test the plugin:
 ```bash
 # Monitor all alerts (both kernel and nginx events in one stream)
 sudo journalctl -u falco -f
+# or for EC2/eBPF systems:
+sudo journalctl -u falco-modern-bpf -f
 
 # In another terminal, simulate nginx attacks
 curl "http://localhost/search.php?q=%27%20OR%20%271%27%3D%271"
@@ -177,6 +179,8 @@ plugins:
 ```bash
 # アラートを監視（サービスは既に起動しています）
 sudo journalctl -u falco -f
+# またはEC2/eBPFシステムの場合:
+sudo journalctl -u falco-modern-bpf -f
 
 # 別のターミナルで攻撃をシミュレート
 curl "http://localhost/search.php?q=%27%20OR%20%271%27%3D%271"

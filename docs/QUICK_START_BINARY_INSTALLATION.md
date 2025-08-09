@@ -40,8 +40,10 @@ This script automatically:
 
 After installation, you can test attack detection:
 ```bash
-# Monitor Falco logs
+# Monitor Falco logs (service name may vary on EC2)
 sudo journalctl -u falco -f
+# or for EC2/eBPF systems:
+sudo journalctl -u falco-modern-bpf -f
 
 # If you see 404 errors, set up test content:
 sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/scripts/setup-test-content.sh)"
@@ -92,6 +94,17 @@ curl "http://localhost/search.php?q=%3Cimg%20src%3Dx%20onerror%3Dalert%281%29%3E
 ```bash
 curl "http://localhost/upload.php?file=../../../../../../etc/passwd"
 curl "http://localhost/api/users.php?path=../../../config/database.yml"
+```
+
+### 📝 Monitoring Alerts
+
+Falco may use different service names depending on your system:
+```bash
+# Check which Falco service is running
+systemctl status falco falco-modern-bpf falco-bpf 2>/dev/null | grep "Active: active"
+
+# Then monitor the active service:
+sudo journalctl -u <service-name> -f
 ```
 
 ### 🆘 Troubleshooting
