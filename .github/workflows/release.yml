@@ -272,35 +272,70 @@ jobs:
               echo "Recent nginx access log entries:"
               tail -5 /var/log/nginx/access.log
               
+              # Give Falco time to process the logs
+              echo "Waiting for Falco to process logs..."
+              sleep 5
+              
               # Now check Falco detection
               echo "Checking Falco alerts..."
               
-              # Check different Falco services
+              # Check different Falco services for actual alerts
               FALCO_ALERTS=""
               if systemctl is-active --quiet falco; then
-                FALCO_ALERTS=$(sudo journalctl -u falco --since "2 minutes ago" 2>/dev/null | grep -i "sql\|xss\|traversal\|injection" || true)
+                echo "Checking falco service logs..."
+                # Look for actual alert patterns
+                FALCO_ALERTS=$(sudo journalctl -u falco --since "1 minute ago" 2>/dev/null | grep -E "(SQL.*injection|XSS.*attack|Path.*traversal|Command.*injection|Directory.*traversal)" || true)
+                if [ -z "$FALCO_ALERTS" ]; then
+                  # Try broader search
+                  FALCO_ALERTS=$(sudo journalctl -u falco --since "1 minute ago" 2>/dev/null | grep -E "Warning|Critical|Error|Notice" | grep -v "Loading\|Loaded\|Enabled\|schema" || true)
+                fi
               elif systemctl is-active --quiet falco-modern-bpf; then
-                FALCO_ALERTS=$(sudo journalctl -u falco-modern-bpf --since "2 minutes ago" 2>/dev/null | grep -i "sql\|xss\|traversal\|injection" || true)
+                echo "Checking falco-modern-bpf service logs..."
+                FALCO_ALERTS=$(sudo journalctl -u falco-modern-bpf --since "1 minute ago" 2>/dev/null | grep -E "(SQL.*injection|XSS.*attack|Path.*traversal|Command.*injection|Directory.*traversal)" || true)
+                if [ -z "$FALCO_ALERTS" ]; then
+                  FALCO_ALERTS=$(sudo journalctl -u falco-modern-bpf --since "1 minute ago" 2>/dev/null | grep -E "Warning|Critical|Error|Notice" | grep -v "Loading\|Loaded\|Enabled\|schema" || true)
+                fi
               fi
               
-              # Also check Falco output directly
+              # Check syslog for Falco alerts
               if [ -z "$FALCO_ALERTS" ]; then
-                echo "Checking Falco syslog for alerts..."
-                FALCO_ALERTS=$(sudo grep -i "falco.*nginx" /var/log/syslog 2>/dev/null | tail -10 || true)
+                echo "Checking syslog for Falco alerts..."
+                FALCO_ALERTS=$(sudo grep -E "falco.*((SQL.*injection|XSS.*attack|Path.*traversal|Command.*injection|Directory.*traversal)|(Warning|Critical|Error|Notice))" /var/log/syslog 2>/dev/null | grep -v "Loading\|Loaded\|Enabled\|schema" | tail -10 || true)
+              fi
+              
+              # Try running Falco directly to test detection
+              if [ -z "$FALCO_ALERTS" ]; then
+                echo "Testing direct Falco detection on access log..."
+                # Force Falco to read the log file
+                sudo pkill -USR1 falco 2>/dev/null || true
+                sleep 3
+                # Check again
+                FALCO_ALERTS=$(sudo journalctl -u falco --since "30 seconds ago" 2>/dev/null | grep -E "Warning|Critical|Error|Notice" | grep -v "Loading\|Loaded\|Enabled\|schema" || true)
               fi
               
               if [ -n "$FALCO_ALERTS" ]; then
                 echo "✅ Attack detection is working! Alerts found:"
-                echo "$FALCO_ALERTS" | head -5
+                echo "$FALCO_ALERTS" | head -10
               else
-                echo "❌ No Falco alerts detected - plugin may not be working correctly"
+                echo "❌ No actual attack alerts detected"
+                echo ""
                 echo "Debugging information:"
-                echo "- Checking if Falco is reading the log file..."
-                sudo lsof /var/log/nginx/access.log 2>/dev/null || echo "No process has the log file open"
-                echo "- Checking Falco configuration..."
-                grep -A5 "nginx" /etc/falco/falco.yaml | head -10 || echo "nginx not found in config"
-                # Don't fail the test, but indicate the issue
-                echo "⚠️ WARNING: Attack detection could not be verified"
+                echo "1. Checking if Falco is reading the log file..."
+                sudo lsof /var/log/nginx/access.log 2>/dev/null || echo "   No process has the log file open"
+                echo ""
+                echo "2. Checking Falco plugin configuration..."
+                grep -A10 "nginx" /etc/falco/falco.yaml || echo "   nginx not found in config"
+                echo ""
+                echo "3. Checking if nginx plugin is actually processing events..."
+                sudo timeout 5 falco -c /etc/falco/falco.yaml -A 2>&1 | grep -i nginx | head -5 || echo "   No nginx events being processed"
+                echo ""
+                echo "4. Recent Falco logs (all):"
+                sudo journalctl -u falco --since "1 minute ago" | tail -20
+                echo ""
+                echo "⚠️ CRITICAL: Attack detection verification FAILED"
+                echo "The plugin is loaded but not generating security alerts for attacks."
+                # This is a critical failure - the plugin's main purpose is to detect attacks
+                exit 1
               fi
             else
               echo "❌ nginx is not logging requests - access log did not grow"
