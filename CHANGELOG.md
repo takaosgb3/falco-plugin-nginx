@@ -6,7 +6,12 @@
 
 All notable changes to the Falco nginx plugin binaries will be documented in this file.
 
-## [v1.1.3] - 2025-08-09 - Documentation and Service Detection Improvements (Latest)
+## [Unreleased] - Known Issues
+
+### Known Issues
+- **Command Injection Detection**: Currently not working properly. The nginx query_string field contains `cmd=;cat%20/etc/passwd` but rules with patterns like `cmd=;cat%20` are not matching. Investigation ongoing.
+
+## [v1.1.3] - 2025-08-09 - Documentation and Service Detection Improvements
 
 ### Fixed
 - Improved documentation for EC2/eBPF systems  
