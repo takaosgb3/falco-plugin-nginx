@@ -40,9 +40,9 @@ This script automatically:
 
 After installation, you can test attack detection:
 ```bash
-# Monitor Falco logs (service name may vary on EC2)
+# Monitor Falco logs (service name varies by installation method)
 sudo journalctl -u falco -f
-# or for EC2/eBPF systems:
+# or for modern eBPF installations:
 sudo journalctl -u falco-modern-bpf -f
 
 # IMPORTANT: Set up test web content first (required for attack simulation):
@@ -104,10 +104,15 @@ curl "http://localhost/api/users.php?cmd=;cat%20/etc/passwd"  # Detected
 
 ### 📝 Monitoring Alerts
 
-Falco may use different service names depending on your system:
+Falco may use different service names depending on your installation method:
 ```bash
 # Check which Falco service is running
 systemctl status falco falco-modern-bpf falco-bpf 2>/dev/null | grep "Active: active"
+
+# Common service names:
+# - falco: Standard installation
+# - falco-modern-bpf: Modern eBPF probe (recommended)
+# - falco-bpf: Legacy eBPF probe
 
 # Then monitor the active service:
 sudo journalctl -u <service-name> -f
