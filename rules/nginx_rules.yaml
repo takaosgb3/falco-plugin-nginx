@@ -51,9 +51,9 @@
 # =========================
 # Reusable macros
 # =========================
-# Toggle: Set to true to enable debug rules
+# Toggle: Set to true to enable debug rules (change 1=0 to 1=1 to enable)
 - macro: nginx_debug_enabled
-  condition: (false)
+  condition: (1=0)
 
 # Static file delivery is noisy, so exclude it
 - macro: nginx_is_static
