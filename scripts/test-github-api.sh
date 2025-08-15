@@ -36,7 +36,7 @@ if [ -n "$LATEST_VERSION" ]; then
     echo "Latest version: $LATEST_VERSION"
     echo "Binary URL: https://github.com/${PLUGIN_REPO}/releases/download/${LATEST_VERSION}/libfalco-nginx-plugin-linux-amd64.so"
     echo "Rules URL: https://github.com/${PLUGIN_REPO}/releases/download/${LATEST_VERSION}/nginx_rules.yaml"
-    
+
     # Test download
     echo ""
     echo "Test 5: Test binary download"
@@ -45,7 +45,7 @@ if [ -n "$LATEST_VERSION" ]; then
     else
         echo "✗ Binary download failed"
     fi
-    
+
     if curl -sL --head "https://github.com/${PLUGIN_REPO}/releases/download/${LATEST_VERSION}/nginx_rules.yaml" | grep -q "200 OK"; then
         echo "✓ Rules file is accessible"
     else

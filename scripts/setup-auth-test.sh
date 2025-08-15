@@ -136,7 +136,7 @@ cat > "$WEB_ROOT/wp-login.php" << 'EOF'
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user = $_POST['log'] ?? '';
     $pass = $_POST['pwd'] ?? '';
-    
+
     if ($user === 'admin' && $pass === 'wordpress') {
         http_response_code(302);
         header('Location: /wp-admin/');

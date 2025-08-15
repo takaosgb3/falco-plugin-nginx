@@ -22,7 +22,7 @@
 - rule: Test Sensitive File Read
   desc: Detect reading of /etc/passwd
   condition: >
-    open_read and 
+    open_read and
     fd.name=/etc/passwd
   output: "Sensitive file read (file=%fd.name proc=%proc.name)"
   priority: WARNING

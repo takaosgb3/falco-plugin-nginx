@@ -19,7 +19,7 @@ error() { echo -e "${RED}❌ $1${NC}"; exit 1; }
 warning() { echo -e "${YELLOW}⚠️  $1${NC}"; }
 
 # Check if running as root
-if [ "$EUID" -ne 0 ]; then 
+if [ "$EUID" -ne 0 ]; then
     error "Please run as root (use sudo)"
 fi
 
@@ -45,10 +45,10 @@ cat > "$WEB_ROOT/index.html" << 'EOF'
 <body>
     <h1>🛡️ Falco Nginx Plugin Test Site</h1>
     <div class="warning">
-        <strong>⚠️ WARNING:</strong> This site is designed for security testing only. 
+        <strong>⚠️ WARNING:</strong> This site is designed for security testing only.
         It contains vulnerable endpoints for testing Falco nginx plugin detection capabilities.
     </div>
-    
+
     <h2>Available Test Endpoints</h2>
     <ul>
         <li><a href="/search.php">Search Page</a> - Test SQL injection detection</li>
@@ -56,10 +56,10 @@ cat > "$WEB_ROOT/index.html" << 'EOF'
         <li><a href="/upload.php">File Upload</a> - Test directory traversal</li>
         <li><a href="/admin/">Admin Area</a> - Test brute force detection</li>
     </ul>
-    
+
     <h2>Attack Examples</h2>
     <p><strong>⚠️ Important:</strong> Use URL-encoded format for proper detection!</p>
-    
+
     <div style="background-color: #f8f8f8; padding: 15px; border-radius: 5px; margin: 10px 0;">
         <h3>SQL Injection (URL-encoded):</h3>
         <div style="background: white; padding: 10px; border: 1px solid #ddd; font-family: monospace; overflow-x: auto;">
@@ -67,7 +67,7 @@ cat > "$WEB_ROOT/index.html" << 'EOF'
         </div>
         <p><small>URL encoding: %27=' %20=space %3D==</small></p>
     </div>
-    
+
     <div style="background-color: #f8f8f8; padding: 15px; border-radius: 5px; margin: 10px 0;">
         <h3>XSS Attack (URL-encoded):</h3>
         <div style="background: white; padding: 10px; border: 1px solid #ddd; font-family: monospace; overflow-x: auto;">
@@ -75,14 +75,14 @@ cat > "$WEB_ROOT/index.html" << 'EOF'
         </div>
         <p><small>URL encoding: %3C=&lt; %3E=&gt;</small></p>
     </div>
-    
+
     <div style="background-color: #f8f8f8; padding: 15px; border-radius: 5px; margin: 10px 0;">
         <h3>Directory Traversal:</h3>
         <div style="background: white; padding: 10px; border: 1px solid #ddd; font-family: monospace; overflow-x: auto;">
             curl "http://localhost/upload.php?file=<span style="color: #d14;">../../../../../../etc/passwd</span>"
         </div>
     </div>
-    
+
     <div style="background-color: #f8f8f8; padding: 15px; border-radius: 5px; margin: 10px 0;">
         <h3>Command Injection (URL-encoded):</h3>
         <div style="background: white; padding: 10px; border: 1px solid #ddd; font-family: monospace; overflow-x: auto;">
@@ -90,7 +90,7 @@ cat > "$WEB_ROOT/index.html" << 'EOF'
         </div>
         <p><small>URL encoding: %20=space</small></p>
     </div>
-    
+
     <h3>⚠️ Why URL Encoding?</h3>
     <p>The Falco nginx plugin preserves URL-encoded strings in logs. Detection rules look for encoded patterns like <code>%27</code> (not <code>'</code>), <code>%3C</code> (not <code>&lt;</code>), etc.</p>
 </body>
@@ -112,7 +112,7 @@ cat > "$WEB_ROOT/search.php" << 'EOF'
 <body>
     <h1>Product Search</h1>
     <form method="GET">
-        <input type="text" name="q" placeholder="Search products..." 
+        <input type="text" name="q" placeholder="Search products..."
                value="<?php echo htmlspecialchars($_GET['q'] ?? ''); ?>">
         <input type="submit" value="Search">
     </form>

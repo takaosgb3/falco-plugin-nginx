@@ -1,9 +1,9 @@
 # Understanding Falco Nginx Plugin Security Rules: A Complete Guide for Web Security Professionals
 
 > **🛡️ Real-time Web Security Made Simple | リアルタイムWebセキュリティを簡単に**
-> 
+>
 > Published: August 11, 2025 | By: Falco Nginx Plugin Team
-> 
+>
 > Reading Time: 15 minutes | 読了時間: 15分
 
 ## 🌐 Language Selection | 言語選択
@@ -41,7 +41,7 @@ The Falco Nginx Plugin employs a comprehensive security detection framework buil
 **Severity**: CRITICAL/WARNING
 **Rules**:
 - SQL Injection Attempts
-- Cross-Site Scripting (XSS) Attacks  
+- Cross-Site Scripting (XSS) Attacks
 - Path Traversal/Directory Traversal
 - Command Injection Attacks
 - Sensitive File Access Attempts
@@ -77,7 +77,7 @@ The Falco Nginx Plugin employs a comprehensive security detection framework buil
 ```yaml
 Detection Patterns:
 - ' OR (Authentication bypass)
-- ' AND (Condition manipulation)  
+- ' AND (Condition manipulation)
 - UNION SELECT (Data extraction)
 - ; DROP (Data destruction)
 - /* and */ (Comment injection)
@@ -89,8 +89,8 @@ Detection Patterns:
 GET /login?username=admin' OR '1'='1&password=anything
 
 # Alert Generated:
-SQL injection attempt detected 
-(remote_addr=203.0.113.45 method=GET path=/login 
+SQL injection attempt detected
+(remote_addr=203.0.113.45 method=GET path=/login
 query=username=admin' OR '1'='1&password=anything status=200)
 ```
 
@@ -126,7 +126,7 @@ Linux/Unix Patterns:
 - /etc/ (System configuration access)
 - /proc/ (Process information access)
 
-Windows Patterns:  
+Windows Patterns:
 - ..\ (Windows path traversal)
 - C:\ (Absolute path access)
 ```
@@ -164,7 +164,7 @@ The plugin doesn't just detect attacks—it provides operational intelligence th
 
 **Attack Tool Detection**: The plugin maintains an updated database of known attack tools:
 - **sqlmap**: Automated SQL injection testing
-- **nikto**: Web vulnerability scanner  
+- **nikto**: Web vulnerability scanner
 - **nmap**: Network reconnaissance tool
 - **masscan**: High-speed port scanner
 
@@ -247,7 +247,7 @@ condition: >
 ### Case Study 1: E-Commerce Platform Protection
 **Challenge**: Large e-commerce site experiencing 500+ attack attempts daily
 **Solution**: Falco Nginx Plugin deployment with custom rules
-**Results**: 
+**Results**:
 - 99.7% reduction in successful attacks
 - 15-second average response time to threats
 - 50% reduction in security incident investigation time
@@ -386,7 +386,7 @@ Falco Nginx Plugin は4つのコアカテゴリーを中心とした包括的な
 ```yaml
 検出パターン:
 - ' OR (認証バイパス)
-- ' AND (条件操作)  
+- ' AND (条件操作)
 - UNION SELECT (データ抽出)
 - ; DROP (データ破壊)
 - /* と */ (コメント挿入)
@@ -398,8 +398,8 @@ Falco Nginx Plugin は4つのコアカテゴリーを中心とした包括的な
 GET /login?username=admin' OR '1'='1&password=anything
 
 # 生成されるアラート:
-SQL injection attempt detected 
-(remote_addr=203.0.113.45 method=GET path=/login 
+SQL injection attempt detected
+(remote_addr=203.0.113.45 method=GET path=/login
 query=username=admin' OR '1'='1&password=anything status=200)
 ```
 
@@ -435,7 +435,7 @@ Linux/Unix パターン:
 - /etc/ (システム設定アクセス)
 - /proc/ (プロセス情報アクセス)
 
-Windows パターン:  
+Windows パターン:
 - ..\ (Windows パストラバーサル)
 - C:\ (絶対パスアクセス)
 ```
@@ -473,7 +473,7 @@ Windows パターン:
 
 **攻撃ツール検出**: プラグインは既知の攻撃ツールの最新データベースを維持します：
 - **sqlmap**: 自動SQLインジェクションテスト
-- **nikto**: Web脆弱性スキャナー  
+- **nikto**: Web脆弱性スキャナー
 - **nmap**: ネットワーク偵察ツール
 - **masscan**: 高速ポートスキャナー
 
@@ -556,7 +556,7 @@ condition: >
 ### ケーススタディ1: Eコマースプラットフォーム保護
 **課題**: 日々500+の攻撃試行を経験する大規模Eコマースサイト
 **ソリューション**: カスタムルールによるFalco Nginx Plugin展開
-**結果**: 
+**結果**:
 - 攻撃成功率99.7%削減
 - 脅威への平均応答時間15秒
 - セキュリティインシデント調査時間50%削減

@@ -26,6 +26,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"sync/atomic"
 	"time"
 
 	"github.com/alecthomas/jsonschema"
@@ -39,7 +40,9 @@ import (
 
 // NginxPluginConfig represents the plugin configuration
 type NginxPluginConfig struct {
-	LogPaths []string `json:"log_paths" jsonschema:"title=Log Paths,description=List of nginx log file paths to monitor,default=[/var/log/nginx/access.log]"`
+	LogPath         string   `json:"log_path,omitempty" jsonschema:"title=Log Path,description=Single nginx log file path to monitor (deprecated - use log_paths),default=/var/log/nginx/access.log"`
+	LogPaths        []string `json:"log_paths,omitempty" jsonschema:"title=Log Paths,description=List of nginx log file paths to monitor,default=[/var/log/nginx/access.log]"`
+	EventBufferSize int      `json:"event_buffer_size,omitempty" jsonschema:"title=Event Buffer Size,description=Size of the event channel buffer (default 1000),default=1000"`
 }
 
 // NginxPlugin implements the Falco plugin for nginx monitoring
@@ -52,11 +55,12 @@ type NginxPlugin struct {
 // NginxInstance represents an instance of the plugin
 type NginxInstance struct {
 	source.BaseInstance
-	logPaths []string
-	eventCh  chan *NginxEvent
-	files    map[string]*TailFile
-	watcher  *fsnotify.Watcher
-	parser   *parser.Parser
+	logPaths      []string
+	eventCh       chan *NginxEvent
+	files         map[string]*TailFile
+	watcher       *fsnotify.Watcher
+	parser        *parser.Parser
+	droppedEvents uint64  // Track dropped events for monitoring
 }
 
 // TailFile represents a file being tailed
@@ -129,6 +133,11 @@ func (n *NginxPlugin) Init(config string) error {
 		if err := json.Unmarshal([]byte(config), &n.config); err != nil {
 			return fmt.Errorf("failed to parse config: %w", err)
 		}
+	}
+
+	// Handle backward compatibility: if log_path is set but log_paths is empty
+	if n.config.LogPath != "" && len(n.config.LogPaths) == 0 {
+		n.config.LogPaths = []string{n.config.LogPath}
 	}
 
 	// Validate
@@ -211,11 +220,19 @@ func (n *NginxPlugin) Extract(req sdk.ExtractRequest, evt sdk.EventReader) error
 // Open opens a new instance of the plugin
 func (n *NginxPlugin) Open(params string) (source.Instance, error) {
 	log.Printf("nginx plugin: Opening instance with log paths: %v", n.config.LogPaths)
+	
+	// Make buffer size configurable with a reasonable default
+	bufferSize := 1000
+	if n.config.EventBufferSize > 0 && n.config.EventBufferSize <= 100000 {
+		bufferSize = n.config.EventBufferSize
+	}
+	
 	inst := &NginxInstance{
-		logPaths: n.config.LogPaths,
-		eventCh:  make(chan *NginxEvent, 1000),
-		files:    make(map[string]*TailFile),
-		parser:   n.parser,
+		logPaths:     n.config.LogPaths,
+		eventCh:      make(chan *NginxEvent, bufferSize),
+		files:        make(map[string]*TailFile),
+		parser:       n.parser,
+		droppedEvents: 0,
 	}
 
 	// Set up file watcher
@@ -298,8 +315,11 @@ func (n *NginxInstance) tailFile(tf *TailFile) {
 						select {
 						case n.eventCh <- event:
 						default:
-							// Channel full, drop event
-							log.Printf("nginx plugin: WARNING - Event channel full, dropping event")
+							// Channel full, drop event and track
+							atomic.AddUint64(&n.droppedEvents, 1)
+							if atomic.LoadUint64(&n.droppedEvents) % 100 == 0 {
+								log.Printf("nginx plugin: CRITICAL - %d events dropped, consider increasing buffer", atomic.LoadUint64(&n.droppedEvents))
+							}
 						}
 					}
 				}
@@ -321,8 +341,11 @@ func (n *NginxInstance) tailFile(tf *TailFile) {
 			select {
 			case n.eventCh <- event:
 			default:
-				// Channel full, drop event
-				log.Printf("nginx plugin: WARNING - Event channel full, dropping event")
+				// Channel full, drop event and track
+				atomic.AddUint64(&n.droppedEvents, 1)
+				if atomic.LoadUint64(&n.droppedEvents) % 100 == 0 {
+					log.Printf("nginx plugin: CRITICAL - %d events dropped, consider increasing buffer", atomic.LoadUint64(&n.droppedEvents))
+				}
 			}
 		}
 	}

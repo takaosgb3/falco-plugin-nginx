@@ -10,12 +10,12 @@ This guide provides the fastest way to set up the Falco nginx plugin using pre-b
 ### 📋 What This Guide Covers
 
 - ✅ nginx web server setup
-- ✅ Deploy web content for attack testing  
+- ✅ Deploy web content for attack testing
 - ✅ Install Falco and nginx plugin
 - ✅ Test security attack detection (SQL injection, XSS, directory traversal, etc.)
 - ✅ Verify real-time alerts
 
-**Time Required**: About 7 minutes  
+**Time Required**: About 7 minutes
 **Prerequisites**: Ubuntu 20.04+ or Debian 10+
 
 ### 🚀 One-liner Installation (Recommended)
@@ -83,7 +83,7 @@ sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/takaosgb3/falco-plu
 
 This creates vulnerable test endpoints:
 - `/search.php` - SQL injection testing
-- `/api/users.php` - API attack testing  
+- `/api/users.php` - API attack testing
 - `/upload.php` - Directory traversal testing
 - `/admin/` - Brute force detection testing
 
@@ -127,7 +127,7 @@ Falco may use different service names depending on your installation method and 
 
 ```bash
 # Quick way: Check all services at once
-for svc in falco falco-modern-bpf falco-bpf; do 
+for svc in falco falco-modern-bpf falco-bpf; do
   echo -n "$svc: "
   systemctl is-active $svc 2>/dev/null || echo "not found"
 done
@@ -213,7 +213,7 @@ See [Troubleshooting Guide](TROUBLESHOOTING.md) for more detailed solutions.
 - ✅ セキュリティ攻撃の検出テスト（SQL注入、XSS、ディレクトリトラバーサル等）
 - ✅ リアルタイムアラートの確認
 
-**所要時間**: 約7分  
+**所要時間**: 約7分
 **前提条件**: Ubuntu 20.04+ または Debian 10+
 
 ### 🚀 ワンライナーインストール（推奨）
@@ -326,7 +326,7 @@ Falcoはインストール方法とシステム構成により異なるサービ
 
 ```bash
 # クイック確認：全サービスを一度にチェック
-for svc in falco falco-modern-bpf falco-bpf; do 
+for svc in falco falco-modern-bpf falco-bpf; do
   echo -n "$svc: "
   systemctl is-active $svc 2>/dev/null || echo "not found"
 done

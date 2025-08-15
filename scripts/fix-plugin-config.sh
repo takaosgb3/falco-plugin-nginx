@@ -21,7 +21,7 @@ warning() { echo -e "${YELLOW}⚠️  $1${NC}"; }
 log "Fixing Falco nginx plugin configuration..."
 
 # Check if running as root
-if [ "$EUID" -ne 0 ]; then 
+if [ "$EUID" -ne 0 ]; then
     error "Please run as root (use sudo)"
 fi
 
@@ -107,7 +107,7 @@ if falco --list-plugins 2>/dev/null | grep -q nginx; then
     success "nginx plugin loads successfully!"
 else
     warning "Plugin still not loading. Checking for issues..."
-    
+
     # Try running Falco with verbose output
     echo ""
     echo "Attempting to run Falco with verbose output:"

@@ -60,7 +60,7 @@ All notable changes to the Falco nginx plugin binaries will be documented in thi
 ## [v1.1.3] - 2025-08-09 - Documentation and Service Detection Improvements
 
 ### Fixed
-- Improved documentation for EC2/eBPF systems  
+- Improved documentation for EC2/eBPF systems
 - Updated service detection in installer script
 - Added support for falco-modern-bpf service monitoring
 

@@ -1,7 +1,7 @@
 # Nginx Security Rules for Falco
 # Version: 0.4.0
 # Compatible with: Falco Plugin SDK for Go
-# 
+#
 # This ruleset uses lists and macros for better maintainability and reduced false positives
 
 # =========================
@@ -60,29 +60,29 @@
 # Static file delivery is noisy, so exclude it
 - macro: nginx_is_static
   condition: >
-    (nginx.path endswith ".css" or nginx.path endswith ".js" or 
-     nginx.path endswith ".png" or nginx.path endswith ".jpg" or 
-     nginx.path endswith ".jpeg" or nginx.path endswith ".svg" or 
-     nginx.path endswith ".ico" or nginx.path endswith ".gif" or 
-     nginx.path endswith ".woff" or nginx.path endswith ".woff2" or 
+    (nginx.path endswith ".css" or nginx.path endswith ".js" or
+     nginx.path endswith ".png" or nginx.path endswith ".jpg" or
+     nginx.path endswith ".jpeg" or nginx.path endswith ".svg" or
+     nginx.path endswith ".ico" or nginx.path endswith ".gif" or
+     nginx.path endswith ".woff" or nginx.path endswith ".woff2" or
      nginx.path endswith ".map")
 
 # Common auth/admin/api paths
 - macro: nginx_is_login_path
   condition: >
-    (nginx.path startswith "/login" or nginx.path startswith "/signin" or 
-     nginx.path startswith "/auth" or nginx.path startswith "/wp-login.php" or 
+    (nginx.path startswith "/login" or nginx.path startswith "/signin" or
+     nginx.path startswith "/auth" or nginx.path startswith "/wp-login.php" or
      nginx.path startswith "/session" or nginx.path startswith "/api/auth")
 
 - macro: nginx_is_admin_path
   condition: >
-    (nginx.path startswith "/admin" or nginx.path startswith "/wp-admin" or 
+    (nginx.path startswith "/admin" or nginx.path startswith "/wp-admin" or
      nginx.path startswith "/manager" or nginx.path startswith "/phpmyadmin")
 
 - macro: nginx_is_api_path
   condition: >
-    (nginx.path startswith "/api/" or nginx.path startswith "/v1/" or 
-     nginx.path startswith "/v2/" or nginx.path startswith "/rest/" or 
+    (nginx.path startswith "/api/" or nginx.path startswith "/v1/" or
+     nginx.path startswith "/v2/" or nginx.path startswith "/rest/" or
      nginx.path startswith "/graphql")
 
 # Method types
@@ -95,46 +95,46 @@
 # Attack indicators with both character types and words
 - macro: nginx_has_sqli_words
   condition: >
-    (nginx.query_string icontains "select" or nginx.query_string icontains "union" or 
-     nginx.query_string icontains "sleep(" or nginx.query_string icontains "update" or 
-     nginx.query_string icontains "insert" or nginx.query_string icontains "drop" or 
+    (nginx.query_string icontains "select" or nginx.query_string icontains "union" or
+     nginx.query_string icontains "sleep(" or nginx.query_string icontains "update" or
+     nginx.query_string icontains "insert" or nginx.query_string icontains "drop" or
      nginx.query_string contains " or " or nginx.query_string contains "%20or%20" or
      nginx.query_string contains "' or '1'='1" or nginx.query_string contains "%27%20OR%20%271%27%3D%271" or
-     nginx.query_string icontains "benchmark(" or nginx.query_string icontains "information_schema" or 
+     nginx.query_string icontains "benchmark(" or nginx.query_string icontains "information_schema" or
      nginx.query_string icontains "load_file(")
 
 - macro: nginx_has_sqli_rawchars
   condition: >
-    (nginx.raw contains "'" or nginx.raw contains "\"" or nginx.raw contains ";" or 
-     nginx.raw contains "--" or nginx.raw contains "#" or nginx.raw contains "%27" or 
-     nginx.raw contains "%22" or nginx.raw contains "%3B" or nginx.raw contains "%2D%2D" or 
+    (nginx.raw contains "'" or nginx.raw contains "\"" or nginx.raw contains ";" or
+     nginx.raw contains "--" or nginx.raw contains "#" or nginx.raw contains "%27" or
+     nginx.raw contains "%22" or nginx.raw contains "%3B" or nginx.raw contains "%2D%2D" or
      nginx.raw contains "%23")
 
 - macro: nginx_has_cmdinj_words
   condition: >
-    (nginx.raw contains "sh -c" or nginx.raw contains "bash -c" or 
-     nginx.raw contains "wget " or nginx.raw contains "curl " or nginx.raw contains "nc " or 
-     nginx.raw contains "powershell" or nginx.raw contains "cmd /c" or nginx.raw contains "||" or 
+    (nginx.raw contains "sh -c" or nginx.raw contains "bash -c" or
+     nginx.raw contains "wget " or nginx.raw contains "curl " or nginx.raw contains "nc " or
+     nginx.raw contains "powershell" or nginx.raw contains "cmd /c" or nginx.raw contains "||" or
      nginx.raw contains "|" or nginx.raw contains "&" or nginx.raw contains "$(" or nginx.raw contains "`" or
-     nginx.query_string contains ";cat" or nginx.query_string contains "%3Bcat" or 
+     nginx.query_string contains ";cat" or nginx.query_string contains "%3Bcat" or
      nginx.query_string contains ";ls" or nginx.query_string contains "%3Bls" or
      nginx.query_string contains ";id" or nginx.query_string contains "%3Bid")
 
 - macro: nginx_has_traversal
   condition: >
-    (nginx.path contains "../" or nginx.path contains "..%2f" or nginx.path contains "%2e%2e%2f" or 
+    (nginx.path contains "../" or nginx.path contains "..%2f" or nginx.path contains "%2e%2e%2f" or
      nginx.path contains "/etc/passwd" or nginx.path contains "/.ssh/" or nginx.path contains "/windows/system32" or
-     nginx.query_string contains "../" or nginx.query_string contains "..%2f" or nginx.query_string contains "%2e%2e%2f" or 
+     nginx.query_string contains "../" or nginx.query_string contains "..%2f" or nginx.query_string contains "%2e%2e%2f" or
      nginx.query_string contains "/etc/passwd" or nginx.query_string contains "/.ssh/" or nginx.query_string contains "/windows/system32")
 
 - macro: nginx_has_xss
   condition: >
-    (nginx.path contains "<script" or nginx.path contains "%3Cscript" or nginx.path contains "%3cscript" or 
-     nginx.path contains "javascript:" or nginx.path contains "onerror=" or nginx.path contains "onload=" or 
+    (nginx.path contains "<script" or nginx.path contains "%3Cscript" or nginx.path contains "%3cscript" or
+     nginx.path contains "javascript:" or nginx.path contains "onerror=" or nginx.path contains "onload=" or
      nginx.path contains "document.cookie" or
-     nginx.query_string contains "<script" or nginx.query_string contains "%3Cscript" or 
-     nginx.query_string contains "%3cscript" or nginx.query_string contains "javascript:" or 
-     nginx.query_string contains "onerror=" or nginx.query_string contains "onload=" or 
+     nginx.query_string contains "<script" or nginx.query_string contains "%3Cscript" or
+     nginx.query_string contains "%3cscript" or nginx.query_string contains "javascript:" or
+     nginx.query_string contains "onerror=" or nginx.query_string contains "onload=" or
      nginx.query_string contains "document.cookie")
 
 # =========================
@@ -218,9 +218,9 @@
   priority: INFORMATIONAL
   source: nginx
   condition: >
-    (nginx.user_agent contains "sqlmap" or nginx.user_agent contains "nikto" or 
-     nginx.user_agent contains "nmap" or nginx.user_agent contains "curl" or 
-     nginx.user_agent contains "wget" or nginx.user_agent contains "libwww" or 
+    (nginx.user_agent contains "sqlmap" or nginx.user_agent contains "nikto" or
+     nginx.user_agent contains "nmap" or nginx.user_agent contains "curl" or
+     nginx.user_agent contains "wget" or nginx.user_agent contains "libwww" or
      nginx.user_agent contains "python-requests")
   output: >
     [NGINX UA] ip=%nginx.remote_addr ua=%nginx.user_agent path=%nginx.path

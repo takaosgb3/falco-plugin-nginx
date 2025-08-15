@@ -247,7 +247,7 @@ output: "Attack (ip=%nginx.remote_addr% uri=%nginx.request_uri% ua=%nginx.http_u
   desc: Access from unexpected locations
   condition: >
     nginx.path startswith "/internal/" and
-    not (nginx.remote_addr startswith "10." or 
+    not (nginx.remote_addr startswith "10." or
          nginx.remote_addr startswith "192.168.")
   output: "External access to internal resource (ip=%nginx.remote_addr% path=%nginx.path%)"
   priority: WARNING
@@ -522,7 +522,7 @@ output: "攻撃 (ip=%nginx.remote_addr% uri=%nginx.request_uri% ua=%nginx.http_u
   desc: 予期しない場所からのアクセス
   condition: >
     nginx.path startswith "/internal/" and
-    not (nginx.remote_addr startswith "10." or 
+    not (nginx.remote_addr startswith "10." or
          nginx.remote_addr startswith "192.168.")
   output: "内部リソースへの外部アクセス (ip=%nginx.remote_addr% path=%nginx.path%)"
   priority: WARNING

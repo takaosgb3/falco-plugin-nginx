@@ -224,23 +224,13 @@ func (p *Parser) parseCombined(line string) (*LogEntry, error) {
 	status, err := strconv.Atoi(matches[5])
 	if err != nil {
 		// Handle special cases like "-" or non-numeric values
-		if matches[5] == "-" {
-			status = 0
-		} else {
-			// Log malformed status, but don't fail parsing
-			status = 0 // Use 0 to indicate parsing error
-		}
+		status = 0 // Use 0 for dash or malformed status
 	}
 
 	bodyBytes, err := strconv.Atoi(matches[6])
 	if err != nil {
 		// Handle special cases like "-" or non-numeric values
-		if matches[6] == "-" {
-			bodyBytes = 0
-		} else {
-			// Log malformed body bytes, but don't fail parsing
-			bodyBytes = 0 // Use 0 to indicate parsing error
-		}
+		bodyBytes = 0 // Use 0 for dash or malformed body bytes
 	} else if bodyBytes < 0 {
 		// Negative body bytes don't make sense, set to 0
 		bodyBytes = 0
@@ -319,23 +309,13 @@ func (p *Parser) parseCommon(line string) (*LogEntry, error) {
 	status, err := strconv.Atoi(matches[5])
 	if err != nil {
 		// Handle special cases like "-" or non-numeric values
-		if matches[5] == "-" {
-			status = 0
-		} else {
-			// Log malformed status, but don't fail parsing
-			status = 0 // Use 0 to indicate parsing error
-		}
+		status = 0 // Use 0 for dash or malformed status
 	}
 
 	bodyBytes, err := strconv.Atoi(matches[6])
 	if err != nil {
 		// Handle special cases like "-" or non-numeric values
-		if matches[6] == "-" {
-			bodyBytes = 0
-		} else {
-			// Log malformed body bytes, but don't fail parsing
-			bodyBytes = 0 // Use 0 to indicate parsing error
-		}
+		bodyBytes = 0 // Use 0 for dash or malformed body bytes
 	} else if bodyBytes < 0 {
 		// Negative body bytes don't make sense, set to 0
 		bodyBytes = 0
@@ -444,7 +424,11 @@ func (p *Parser) detectSecurityPatterns(entry *LogEntry) {
 			if entry.Extra["security_alerts"] == nil {
 				entry.Extra["security_alerts"] = []string{}
 			}
-			alerts := entry.Extra["security_alerts"].([]string)
+			alerts, ok := entry.Extra["security_alerts"].([]string)
+			if !ok {
+				alerts = []string{}
+				entry.Extra["security_alerts"] = alerts
+			}
 			// Avoid duplicate alerts
 			alreadyExists := false
 			for _, alert := range alerts {
@@ -478,7 +462,11 @@ func (p *Parser) detectSecurityPatterns(entry *LogEntry) {
 		if entry.Extra["security_alerts"] == nil {
 			entry.Extra["security_alerts"] = []string{}
 		}
-		alerts := entry.Extra["security_alerts"].([]string)
+		alerts, ok := entry.Extra["security_alerts"].([]string)
+		if !ok {
+			alerts = []string{}
+			entry.Extra["security_alerts"] = alerts
+		}
 		// Avoid duplicate alerts
 		alreadyExists := false
 		for _, alert := range alerts {
@@ -501,7 +489,11 @@ func (p *Parser) detectSecurityPatterns(entry *LogEntry) {
 					if entry.Extra["security_alerts"] == nil {
 						entry.Extra["security_alerts"] = []string{}
 					}
-					alerts := entry.Extra["security_alerts"].([]string)
+					alerts, ok := entry.Extra["security_alerts"].([]string)
+					if !ok {
+						alerts = []string{}
+						entry.Extra["security_alerts"] = alerts
+					}
 					// Avoid duplicate alerts
 					alreadyExists := false
 					for _, alert := range alerts {

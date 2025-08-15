@@ -76,7 +76,7 @@ After installation, test the plugin:
 
 ```bash
 # Step 1: Find which Falco service is running (quick check)
-for svc in falco falco-modern-bpf falco-bpf; do 
+for svc in falco falco-modern-bpf falco-bpf; do
   echo -n "$svc: "
   systemctl is-active $svc 2>/dev/null || echo "not found"
 done
@@ -84,7 +84,7 @@ done
 
 # Step 2: Monitor alerts using YOUR active service
 # If falco: active         → sudo journalctl -u falco -f
-# If falco-modern-bpf: active → sudo journalctl -u falco-modern-bpf -f  
+# If falco-modern-bpf: active → sudo journalctl -u falco-modern-bpf -f
 # If falco-bpf: active     → sudo journalctl -u falco-bpf -f
 
 # Step 3: In another terminal, simulate attacks

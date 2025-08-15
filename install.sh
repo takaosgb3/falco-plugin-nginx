@@ -27,12 +27,12 @@ warning() { echo -e "${YELLOW}⚠️  $1${NC}"; }
 
 # ASCII Art
 cat << 'EOF'
- _____     _                   _             _      
-|  ___|_ _| | ___ ___    _ __ | | _   _  __ _(_)_ __  
-| |_ / _` | |/ __/ _ \  | '_ \| | | | |/ _` | | '_ \ 
+ _____     _                   _             _
+|  ___|_ _| | ___ ___    _ __ | | _   _  __ _(_)_ __
+| |_ / _` | |/ __/ _ \  | '_ \| | | | |/ _` | | '_ \
 |  _| (_| | | (_| (_) | | |_) | | |_| | (_| | | | | |
 |_|  \__,_|_|\___\___/  | .__/|_|\__,_|\__, |_|_| |_|
-                        |_|            |___/         
+                        |_|            |___/
 nginx security plugin installer
 EOF
 
@@ -50,7 +50,7 @@ fi
 echo ""
 
 # Check system requirements
-if [ "$EUID" -ne 0 ]; then 
+if [ "$EUID" -ne 0 ]; then
     error "Please run as root (use sudo)"
 fi
 
@@ -100,10 +100,10 @@ server {
     root /var/www/html;
     index index.html index.htm index.nginx-debian.html;
     server_name _;
-    
+
     access_log /var/log/nginx/access.log combined;
     error_log /var/log/nginx/error.log;
-    
+
     location / {
         try_files $uri $uri/ =404;
     }
@@ -128,7 +128,7 @@ if ! command -v falco &> /dev/null; then
     apt-get update -qq
     DEBIAN_FRONTEND=noninteractive apt-get install -y falco > /dev/null 2>&1
     success "Falco installed"
-    
+
     # After installation, check which service was actually configured
     # The falco package may have set up falco-modern-bpf on EC2 instances
     if systemctl list-unit-files | grep -q "^falco-modern-bpf.service.*enabled"; then
@@ -147,41 +147,41 @@ log "Working in temporary directory: $TMP_DIR"
 if [ "$PLUGIN_VERSION" = "latest" ]; then
     # Get the actual latest version tag using GitHub API
     log "Fetching latest release information..."
-    
+
     # Debug: Show the API URL being used
     API_URL="https://api.github.com/repos/${PLUGIN_REPO}/releases/latest"
     log "API URL: $API_URL"
-    
+
     # Try curl with timeout and show errors
     LATEST_RESPONSE=$(curl -sSL --connect-timeout 10 --max-time 30 "$API_URL" 2>&1)
     CURL_EXIT_CODE=$?
-    
+
     if [ $CURL_EXIT_CODE -ne 0 ]; then
         error "curl failed with exit code $CURL_EXIT_CODE. Response: $LATEST_RESPONSE"
     fi
-    
+
     if [ -z "$LATEST_RESPONSE" ]; then
         error "Empty response from GitHub API"
     fi
-    
+
     # Debug: Show first 200 chars of response
     log "API Response (first 200 chars): ${LATEST_RESPONSE:0:200}"
-    
+
     # Try multiple parsing methods
     LATEST_VERSION=$(echo "$LATEST_RESPONSE" | grep '"tag_name":' | sed -E 's/.*"tag_name":[[:space:]]*"([^"]+)".*/\1/' | head -1)
-    
+
     if [ -z "$LATEST_VERSION" ]; then
         # Try with jq if available
         if command -v jq &> /dev/null; then
             LATEST_VERSION=$(echo "$LATEST_RESPONSE" | jq -r '.tag_name' 2>/dev/null)
         fi
     fi
-    
+
     if [ -z "$LATEST_VERSION" ]; then
         # Try another sed pattern
         LATEST_VERSION=$(echo "$LATEST_RESPONSE" | sed -n 's/.*"tag_name":[[:space:]]*"\([^"]*\)".*/\1/p' | head -1)
     fi
-    
+
     if [ -z "$LATEST_VERSION" ]; then
         # Check if we got a rate limit or other error
         if echo "$LATEST_RESPONSE" | grep -q "rate limit"; then
@@ -194,7 +194,7 @@ if [ "$PLUGIN_VERSION" = "latest" ]; then
             LATEST_VERSION="v1.2.11"
         fi
     fi
-    
+
     log "Latest version is: ${LATEST_VERSION}"
     DOWNLOAD_URL="https://github.com/${PLUGIN_REPO}/releases/download/${LATEST_VERSION}"
 else
@@ -352,7 +352,7 @@ if [ -n "$FALCO_SERVICE" ]; then
     log "Restarting $FALCO_SERVICE with nginx plugin enabled..."
     systemctl restart "$FALCO_SERVICE"
     sleep 3
-    
+
     # Check if it started successfully
     if systemctl is-active --quiet "$FALCO_SERVICE"; then
         success "$FALCO_SERVICE restarted with nginx plugin"
@@ -365,10 +365,10 @@ fi
 # If no service was found or restart failed, try alternatives
 if [ -z "$FALCO_SERVICE" ]; then
     warning "Falco service not found or failed to start. Checking eBPF support..."
-    
+
     # First, check if we're on EC2 and if eBPF is available
     log "Checking for eBPF support..."
-    
+
     # Try modern eBPF first
     if systemctl is-active --quiet falco-modern-bpf 2>/dev/null; then
         log "Switching to modern eBPF mode..."
@@ -417,12 +417,12 @@ FALCO_OVERRIDE
         # Try to use eBPF directly
         log "Attempting to enable eBPF directly..."
         mkdir -p /etc/systemd/system/falco.service.d
-        
+
         # Check kernel version for eBPF support
         KERNEL_VERSION=$(uname -r | cut -d. -f1,2)
         KERNEL_MAJOR=$(echo $KERNEL_VERSION | cut -d. -f1)
         KERNEL_MINOR=$(echo $KERNEL_VERSION | cut -d. -f2)
-        
+
         if [ "$KERNEL_MAJOR" -gt 5 ] || ([ "$KERNEL_MAJOR" -eq 5 ] && [ "$KERNEL_MINOR" -ge 8 ]); then
             # Modern eBPF is supported on kernel 5.8+
             log "Kernel $KERNEL_VERSION supports modern eBPF"

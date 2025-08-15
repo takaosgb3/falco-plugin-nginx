@@ -1170,5 +1170,5 @@ condition: >
 ---
 
 > 📝 **Note | 注記**: このドキュメントは Falco Nginx Plugin のセキュリティルールを包括的に解説しています。実際の運用環境では、組織のセキュリティポリシーと要件に応じてルールをカスタマイズしてください。
-> 
+>
 > This document provides comprehensive documentation of Falco Nginx Plugin security rules. In production environments, please customize rules according to your organization's security policies and requirements.
