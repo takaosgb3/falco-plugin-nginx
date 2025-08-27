@@ -131,11 +131,24 @@
   condition: >
     (nginx.path contains "<script" or nginx.path contains "%3Cscript" or nginx.path contains "%3cscript" or
      nginx.path contains "javascript:" or nginx.path contains "onerror=" or nginx.path contains "onload=" or
-     nginx.path contains "document.cookie" or
+     nginx.path contains "document.cookie" or nginx.path contains "<img" or nginx.path contains "%3Cimg" or
+     nginx.path contains "%3cimg" or nginx.path contains "<svg" or nginx.path contains "%3Csvg" or
+     nginx.path contains "%3csvg" or nginx.path contains "onclick=" or nginx.path contains "onclick%3D" or
+     nginx.path contains "data:text/html" or nginx.path contains "data%3Atext%2Fhtml" or
+     nginx.path contains "eval(" or nginx.path contains "eval%28" or nginx.path contains "fromCharCode" or
      nginx.query_string contains "<script" or nginx.query_string contains "%3Cscript" or
      nginx.query_string contains "%3cscript" or nginx.query_string contains "javascript:" or
-     nginx.query_string contains "onerror=" or nginx.query_string contains "onload=" or
-     nginx.query_string contains "document.cookie")
+     nginx.query_string contains "onerror=" or nginx.query_string contains "onerror%3D" or
+     nginx.query_string icontains "onerror" or
+     nginx.query_string contains "onload=" or nginx.query_string contains "onload%3D" or
+     nginx.query_string icontains "onload" or
+     nginx.query_string contains "document.cookie" or nginx.query_string contains "<img" or
+     nginx.query_string contains "%3Cimg" or nginx.query_string contains "%3cimg" or
+     nginx.query_string contains "<svg" or nginx.query_string contains "%3Csvg" or
+     nginx.query_string contains "%3csvg" or nginx.query_string contains "onclick=" or
+     nginx.query_string contains "onclick%3D" or nginx.query_string contains "data:text/html" or
+     nginx.query_string contains "data%3Atext%2Fhtml" or nginx.query_string contains "eval(" or
+     nginx.query_string contains "eval%28" or nginx.query_string contains "fromCharCode")
 
 # =========================
 # Rules

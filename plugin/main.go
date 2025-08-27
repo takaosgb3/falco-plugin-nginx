@@ -60,7 +60,7 @@ type NginxInstance struct {
 	files         map[string]*TailFile
 	watcher       *fsnotify.Watcher
 	parser        *parser.Parser
-	droppedEvents uint64  // Track dropped events for monitoring
+	droppedEvents uint64 // Track dropped events for monitoring
 }
 
 // TailFile represents a file being tailed
@@ -220,18 +220,18 @@ func (n *NginxPlugin) Extract(req sdk.ExtractRequest, evt sdk.EventReader) error
 // Open opens a new instance of the plugin
 func (n *NginxPlugin) Open(params string) (source.Instance, error) {
 	log.Printf("nginx plugin: Opening instance with log paths: %v", n.config.LogPaths)
-	
+
 	// Make buffer size configurable with a reasonable default
 	bufferSize := 1000
 	if n.config.EventBufferSize > 0 && n.config.EventBufferSize <= 100000 {
 		bufferSize = n.config.EventBufferSize
 	}
-	
+
 	inst := &NginxInstance{
-		logPaths:     n.config.LogPaths,
-		eventCh:      make(chan *NginxEvent, bufferSize),
-		files:        make(map[string]*TailFile),
-		parser:       n.parser,
+		logPaths:      n.config.LogPaths,
+		eventCh:       make(chan *NginxEvent, bufferSize),
+		files:         make(map[string]*TailFile),
+		parser:        n.parser,
 		droppedEvents: 0,
 	}
 
@@ -317,7 +317,7 @@ func (n *NginxInstance) tailFile(tf *TailFile) {
 						default:
 							// Channel full, drop event and track
 							atomic.AddUint64(&n.droppedEvents, 1)
-							if atomic.LoadUint64(&n.droppedEvents) % 100 == 0 {
+							if atomic.LoadUint64(&n.droppedEvents)%100 == 0 {
 								log.Printf("nginx plugin: CRITICAL - %d events dropped, consider increasing buffer", atomic.LoadUint64(&n.droppedEvents))
 							}
 						}
@@ -343,7 +343,7 @@ func (n *NginxInstance) tailFile(tf *TailFile) {
 			default:
 				// Channel full, drop event and track
 				atomic.AddUint64(&n.droppedEvents, 1)
-				if atomic.LoadUint64(&n.droppedEvents) % 100 == 0 {
+				if atomic.LoadUint64(&n.droppedEvents)%100 == 0 {
 					log.Printf("nginx plugin: CRITICAL - %d events dropped, consider increasing buffer", atomic.LoadUint64(&n.droppedEvents))
 				}
 			}
