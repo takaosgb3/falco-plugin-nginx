@@ -9,10 +9,14 @@ This guide provides detailed instructions for installing the Falco nginx plugin.
 
 ### Quick Installation
 
-The easiest way to install the plugin:
+The easiest way to install the plugin (v1.3.0):
 
 ```bash
+# Install latest version (v1.3.0)
 curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo bash
+
+# Or specify a specific version
+PLUGIN_VERSION=v1.3.0 curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo bash
 ```
 
 ### Manual Installation

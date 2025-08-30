@@ -33,17 +33,17 @@ curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/in
 curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo SKIP_TEST_CONTENT=yes bash
 
 # Install a specific version
-curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo PLUGIN_VERSION=v1.2.10 bash
+curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo PLUGIN_VERSION=v1.3.0 bash
 
 # Combine multiple options
-curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo PLUGIN_VERSION=v1.2.10 SETUP_TEST_CONTENT=yes bash
+curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo PLUGIN_VERSION=v1.3.0 SETUP_TEST_CONTENT=yes bash
 ```
 
 #### Installation Options
 
 | Environment Variable | Description | Values |
 |---------------------|-------------|--------|
-| `PLUGIN_VERSION` | Plugin version to install | `latest` (default), `v1.2.10`, etc. |
+| `PLUGIN_VERSION` | Plugin version to install | `latest` (default), `v1.3.0`, `v1.2.12`, etc. |
 | `SETUP_TEST_CONTENT` | Automatically set up test web content | `yes`, `true`, `1` |
 | `SKIP_TEST_CONTENT` | Skip test content setup prompt | `yes`, `true`, `1` |
 
