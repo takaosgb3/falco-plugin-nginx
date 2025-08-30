@@ -6,7 +6,7 @@
 
 All notable changes to the Falco nginx plugin binaries will be documented in this file.
 
-## [v1.3.0] - 2025-08-30 - Enhanced XSS Detection and E2E Testing (Latest)
+## [v1.3.0] - 2025-08-30 - Enhanced XSS Detection and Testing (Latest)
 
 ### Added
 - **Enhanced XSS Detection**: Comprehensive detection for all 7 XSS test patterns
@@ -17,12 +17,10 @@ All notable changes to the Falco nginx plugin binaries will be documented in thi
   - HTML entity encoded attacks
   - Mixed case evasion patterns
   - URL-encoded XSS payloads
-- **E2E Test Improvements**: New HTML report generation with detailed visibility
-  - Interactive test result dashboard
-  - Safe XSS payload display using DOM manipulation
-  - Bilingual support (English/Japanese)
-  - Detection analysis with YAML output
-  - GitHub Actions integration for CI/CD
+- **Improved Testing Infrastructure**: Enhanced test coverage and validation
+  - Comprehensive unit tests for parser package
+  - CI/CD pipeline improvements with GitHub Actions
+  - Automated build and release workflows
 - **Performance Optimizations**: Improved log parsing and event processing
   - Optimized regex patterns for better performance
   - Reduced memory allocation in hot paths
@@ -30,9 +28,10 @@ All notable changes to the Falco nginx plugin binaries will be documented in thi
 
 ### Fixed
 - XSS detection rules now properly cover all attack vectors
-- E2E test report display issues with XSS payloads
+- Parser validation for invalid log formats
 - Memory management improvements in parser package
 - Import path consistency in public repository
+- Go version compatibility (using Go 1.22)
 
 ### Changed
 - Updated rule priorities for better alert categorization
@@ -294,7 +293,7 @@ All notable changes to the Falco nginx plugin binaries will be documented in thi
 
 Falco nginxプラグインバイナリの重要な変更はすべてこのファイルに記録されます。
 
-## [v1.3.0] - 2025-08-30 - XSS検出強化とE2Eテスト改善（最新）
+## [v1.3.0] - 2025-08-30 - XSS検出強化とテスト改善（最新）
 
 ### 追加
 - **XSS検出の強化**: 7つのXSSテストパターンすべてに対する包括的な検出
@@ -305,12 +304,10 @@ Falco nginxプラグインバイナリの重要な変更はすべてこのファ
   - HTMLエンティティエンコード攻撃
   - 大文字小文字混在の回避パターン
   - URLエンコードされたXSSペイロード
-- **E2Eテストの改善**: 詳細な可視性を持つ新しいHTMLレポート生成
-  - インタラクティブなテスト結果ダッシュボード
-  - DOM操作を使用した安全なXSSペイロード表示
-  - バイリンガルサポート（英語/日本語）
-  - YAML出力による検出分析
-  - CI/CD用GitHub Actions統合
+- **テストインフラの改善**: テストカバレッジと検証の強化
+  - パーサーパッケージの包括的なユニットテスト
+  - GitHub ActionsによるCI/CDパイプラインの改善
+  - 自動化されたビルドとリリースワークフロー
 - **パフォーマンス最適化**: ログ解析とイベント処理の改善
   - パフォーマンス向上のための正規表現パターンの最適化
   - ホットパスでのメモリ割り当ての削減
@@ -318,9 +315,10 @@ Falco nginxプラグインバイナリの重要な変更はすべてこのファ
 
 ### 修正
 - XSS検出ルールがすべての攻撃ベクトルを適切にカバー
-- XSSペイロードのE2Eテストレポート表示問題
+- 無効なログフォーマットに対するパーサー検証
 - パーサーパッケージのメモリ管理改善
 - 公開リポジトリのインポートパス一貫性
+- Goバージョン互換性（Go 1.22を使用）
 
 ### 変更
 - より良いアラート分類のためのルール優先度更新
