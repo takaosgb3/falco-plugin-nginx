@@ -158,6 +158,18 @@ func New(cfg Config) *Parser {
 // Deprecated: Use New with a Config struct instead.
 // This function is kept for backward compatibility.
 func NewParser(format string, customFormat string) (*Parser, error) {
+	// Validate format
+	switch format {
+	case "combined", "common":
+		// Valid formats
+	case "custom":
+		if customFormat == "" {
+			return nil, fmt.Errorf("custom format requires a format string")
+		}
+	default:
+		return nil, fmt.Errorf("invalid log format: %s", format)
+	}
+	
 	cfg := Config{
 		LogFormat:              format,
 		CustomFormat:           customFormat,
