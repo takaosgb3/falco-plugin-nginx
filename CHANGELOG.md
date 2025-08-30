@@ -29,7 +29,6 @@ All notable changes to the Falco nginx plugin binaries will be documented in thi
 - XSS detection rules now properly cover all attack vectors
 - Parser validation for invalid log formats
 - Memory management improvements in parser package
-- Import path consistency in public repository
 - Go version compatibility (using Go 1.22)
 
 ### Changed
@@ -315,7 +314,6 @@ Falco nginxプラグインバイナリの重要な変更はすべてこのファ
 - XSS検出ルールがすべての攻撃ベクトルを適切にカバー
 - 無効なログフォーマットに対するパーサー検証
 - パーサーパッケージのメモリ管理改善
-- 公開リポジトリのインポートパス一貫性
 - Goバージョン互換性（Go 1.22を使用）
 
 ### 変更
