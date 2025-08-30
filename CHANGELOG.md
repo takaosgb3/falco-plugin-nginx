@@ -19,8 +19,7 @@ All notable changes to the Falco nginx plugin binaries will be documented in thi
   - URL-encoded XSS payloads
 - **Improved Testing Infrastructure**: Enhanced test coverage and validation
   - Comprehensive unit tests for parser package
-  - CI/CD pipeline improvements with GitHub Actions
-  - Automated build and release workflows
+  - Enhanced test validation and coverage
 - **Performance Optimizations**: Improved log parsing and event processing
   - Optimized regex patterns for better performance
   - Reduced memory allocation in hot paths
@@ -306,8 +305,7 @@ Falco nginxプラグインバイナリの重要な変更はすべてこのファ
   - URLエンコードされたXSSペイロード
 - **テストインフラの改善**: テストカバレッジと検証の強化
   - パーサーパッケージの包括的なユニットテスト
-  - GitHub ActionsによるCI/CDパイプラインの改善
-  - 自動化されたビルドとリリースワークフロー
+  - テスト検証とカバレッジの強化
 - **パフォーマンス最適化**: ログ解析とイベント処理の改善
   - パフォーマンス向上のための正規表現パターンの最適化
   - ホットパスでのメモリ割り当ての削減
