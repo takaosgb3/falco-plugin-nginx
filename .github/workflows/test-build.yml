@@ -52,11 +52,22 @@ jobs:
 
       - name: Check Falco rules
         run: |
-          # Install yamllint
+          # Install yamllint with custom config
           sudo apt-get update && sudo apt-get install -y yamllint
           
+          # Create custom yamllint config that allows long lines
+          cat > .yamllint <<EOF
+          extends: relaxed
+          rules:
+            line-length:
+              max: 150
+              level: warning
+            new-line-at-end-of-file: enable
+            trailing-spaces: enable
+          EOF
+          
           # Validate YAML syntax
-          yamllint -d relaxed rules/nginx_rules.yaml
+          yamllint -c .yamllint rules/nginx_rules.yaml
           
           # Check for common issues
           echo "Checking for parentheses with commas in output..."
