@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-func TestParser_ParseLine(t *testing.T) {
+func TestParser_Parse(t *testing.T) {
 	p, err := NewParser("combined", "")
 	if err != nil {
 		t.Fatalf("Failed to create parser: %v", err)
@@ -114,9 +114,9 @@ func TestParser_ParseLine(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			entry, err := p.ParseLine(tt.line)
+			entry, err := p.Parse(tt.line)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("ParseLine() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("Parse() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if tt.checks != nil && entry != nil {
@@ -151,9 +151,9 @@ func TestParser_EdgeCases(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			entry, err := p.ParseLine(tt.line)
+			entry, err := p.Parse(tt.line)
 			if err != nil && tt.name != "Very long URI" {
-				t.Errorf("ParseLine() unexpected error = %v", err)
+				t.Errorf("Parse() unexpected error = %v", err)
 				return
 			}
 			if entry != nil {
