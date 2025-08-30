@@ -5,7 +5,10 @@ import (
 )
 
 func TestParser_ParseLine(t *testing.T) {
-	p := NewParser()
+	p, err := NewParser("combined", "")
+	if err != nil {
+		t.Fatalf("Failed to create parser: %v", err)
+	}
 
 	tests := []struct {
 		name    string
@@ -124,7 +127,10 @@ func TestParser_ParseLine(t *testing.T) {
 }
 
 func TestParser_EdgeCases(t *testing.T) {
-	p := NewParser()
+	p, err := NewParser("combined", "")
+	if err != nil {
+		t.Fatalf("Failed to create parser: %v", err)
+	}
 
 	tests := []struct {
 		name string
@@ -162,6 +168,46 @@ func TestParser_EdgeCases(t *testing.T) {
 						t.Errorf("UserAgent should contain %s, got %s", tt.want, entry.UserAgent)
 					}
 				}
+			}
+		})
+	}
+}
+
+func TestParser_DifferentFormats(t *testing.T) {
+	tests := []struct {
+		name         string
+		format       string
+		customFormat string
+		wantErr      bool
+	}{
+		{
+			name:    "Combined format",
+			format:  "combined",
+			wantErr: false,
+		},
+		{
+			name:    "Common format",
+			format:  "common",
+			wantErr: false,
+		},
+		{
+			name:    "Invalid format with empty custom",
+			format:  "invalid",
+			wantErr: true,
+		},
+		{
+			name:         "Custom format",
+			format:       "custom",
+			customFormat: "$remote_addr - $remote_user [$time_local] \"$request\" $status",
+			wantErr:      false,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			_, err := NewParser(tt.format, tt.customFormat)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("NewParser() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
 	}
