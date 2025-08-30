@@ -1,0 +1,80 @@
+name: Test Build
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Test and Build
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+          cache: true
+
+      - name: Install dependencies
+        run: go mod download
+
+      - name: Run tests
+        run: go test -v ./...
+
+      - name: Run linter
+        run: |
+          go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+          golangci-lint run --timeout 5m
+
+      - name: Build plugin
+        run: |
+          CGO_ENABLED=1 GOOS=linux GOARCH=amd64 go build \
+            -buildmode=c-shared \
+            -o libfalco-nginx-plugin.so \
+            plugin/main.go
+
+      - name: Verify binary
+        run: |
+          file libfalco-nginx-plugin.so
+          echo "Binary size: $(du -h libfalco-nginx-plugin.so | cut -f1)"
+
+      - name: Check Falco rules
+        run: |
+          # Install yamllint
+          sudo apt-get update && sudo apt-get install -y yamllint
+          
+          # Validate YAML syntax
+          yamllint -d relaxed rules/nginx_rules.yaml
+          
+          # Check for common issues
+          echo "Checking for parentheses with commas in output..."
+          if grep -E 'output:.*\([^)]*,[^)]*\)' rules/nginx_rules.yaml; then
+            echo "ERROR: Found parentheses with commas in output fields"
+            exit 1
+          fi
+          
+          echo "Checking for source: nginx in all rules..."
+          if ! grep -q "source: nginx" rules/nginx_rules.yaml; then
+            echo "ERROR: Missing 'source: nginx' in rules"
+            exit 1
+          fi
+
+      - name: Upload artifacts
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: plugin-binary
+          path: libfalco-nginx-plugin.so
+          retention-days: 7
