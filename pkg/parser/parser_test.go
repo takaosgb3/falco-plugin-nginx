@@ -139,7 +139,7 @@ func TestParser_EdgeCases(t *testing.T) {
 	}{
 		{
 			name: "Very long URI",
-			line: `127.0.0.1 - - [30/Aug/2025:10:00:00 +0000] "GET /` + string(make([]byte, 1000, 1000)) + ` HTTP/1.1" 414 0 "-" "Test"`,
+			line: `127.0.0.1 - - [30/Aug/2025:10:00:00 +0000] "GET /` + string(make([]byte, 1000)) + ` HTTP/1.1" 414 0 "-" "Test"`,
 			want: "414", // Request-URI Too Large
 		},
 		{
