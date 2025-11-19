@@ -53,6 +53,7 @@ type LogEntry struct {
 	Raw            string
 	Extra          map[string]interface{}
 	SecurityThreat SecurityThreatType
+	Headers        map[string]string // HTTP request headers (e.g., X-Test-ID, X-Category)
 }
 
 // SecurityThreatType represents types of security threats
@@ -112,6 +113,12 @@ var (
 		`^(?P<remote_addr>\S+) - (?P<remote_user>\S+) \[(?P<time_local>[^\]]+)\] "(?P<request>[^"]*)" (?P<status>\S+) (?P<body_bytes>\S+) "(?P<referer>[^"]*)" "(?P<user_agent>[^"]*)" (?P<request_time>[\d\.\-]+) (?P<upstream_addr>\S+) (?P<upstream_time>[\d\.\-]+)`,
 	)
 
+	// E2E custom log format with HTTP headers for test correlation
+	// $remote_addr - $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent" x_test_id=$http_x_test_id x_category=$http_x_category x_pattern_id=$http_x_pattern_id
+	e2eCustomPattern = regexp.MustCompile(
+		`^(?P<remote_addr>\S+) - (?P<remote_user>\S+) \[(?P<time_local>[^\]]+)\] "(?P<request>[^"]*)" (?P<status>\S+) (?P<body_bytes>\S+) "(?P<referer>[^"]*)" "(?P<user_agent>[^"]*)" x_test_id=(?P<x_test_id>\S+) x_category=(?P<x_category>\S+) x_pattern_id=(?P<x_pattern_id>\S+)`,
+	)
+
 	// Request parsing pattern - handles spaces in URL for malformed/attack requests
 	requestPattern = regexp.MustCompile(`^(\S+)\s+(.+?)\s+(HTTP/[\d\.]+)$`)
 
@@ -158,18 +165,6 @@ func New(cfg Config) *Parser {
 // Deprecated: Use New with a Config struct instead.
 // This function is kept for backward compatibility.
 func NewParser(format string, customFormat string) (*Parser, error) {
-	// Validate format
-	switch format {
-	case "combined", "common":
-		// Valid formats
-	case "custom":
-		if customFormat == "" {
-			return nil, fmt.Errorf("custom format requires a format string")
-		}
-	default:
-		return nil, fmt.Errorf("invalid log format: %s", format)
-	}
-	
 	cfg := Config{
 		LogFormat:              format,
 		CustomFormat:           customFormat,
@@ -183,14 +178,23 @@ func NewParser(format string, customFormat string) (*Parser, error) {
 // It extracts all standard nginx log fields and performs security
 // analysis if enabled. Returns a LogEntry with parsed fields and
 // security flags, or an error if parsing fails.
+//
+// The parser tries formats in this order:
+// 1. E2E custom format (with HTTP headers for test correlation)
+// 2. Configured format (combined/common/custom)
 func (p *Parser) Parse(line string) (*LogEntry, error) {
 	if line == "" {
 		return nil, fmt.Errorf("empty log line")
 	}
 
-	entry, err := p.parseFunc(line)
+	// Try E2E custom format first (highest priority for E2E test correlation)
+	entry, err := p.parseE2ECustom(line)
 	if err != nil {
-		return nil, err
+		// Fall back to configured format
+		entry, err = p.parseFunc(line)
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	// Store raw line
@@ -259,6 +263,7 @@ func (p *Parser) parseCombined(line string) (*LogEntry, error) {
 		Referer:    matches[7],
 		UserAgent:  matches[8],
 		Extra:      make(map[string]interface{}),
+		Headers:    make(map[string]string), // Initialize Headers map for consistency
 	}
 
 	// Parse additional fields based on format type
@@ -342,11 +347,91 @@ func (p *Parser) parseCommon(line string) (*LogEntry, error) {
 		Status:     status,
 		BodyBytes:  bodyBytes,
 		Extra:      make(map[string]interface{}),
+		Headers:    make(map[string]string), // Initialize Headers map for consistency
 	}
 
 	// Handle "-" values
 	if entry.RemoteUser == "-" {
 		entry.RemoteUser = ""
+	}
+
+	return entry, nil
+}
+
+// parseE2ECustom parses the E2E custom log format with HTTP headers.
+// This format is used in E2E testing to include X-Test-ID, X-Category, and X-Pattern-ID
+// headers for test correlation and detection tracking.
+//
+// Format: $remote_addr - $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent" x_test_id=$http_x_test_id x_category=$http_x_category x_pattern_id=$http_x_pattern_id
+//
+// Example log line:
+// 192.168.1.100 - - [12/Nov/2025:10:30:45 +0900] "GET /api/users?id=1' OR '1'='1 HTTP/1.1" 200 1234 "-" "Mozilla/5.0" x_test_id=SQLI_BASIC_001-20251112-103045-abc123 x_category=sqli x_pattern_id=SQLI_BASIC_001
+func (p *Parser) parseE2ECustom(line string) (*LogEntry, error) {
+	matches := e2eCustomPattern.FindStringSubmatch(line)
+	if matches == nil {
+		return nil, fmt.Errorf("line does not match e2e custom format")
+	}
+
+	// Parse timestamp
+	timeStr := matches[3]
+	timestamp, err := time.Parse(p.timeLayout, timeStr)
+	if err != nil {
+		return nil, fmt.Errorf("failed to parse timestamp: %w", err)
+	}
+
+	// Parse numeric fields with error handling
+	status, err := strconv.Atoi(matches[5])
+	if err != nil {
+		// Handle special cases like "-" or non-numeric values
+		status = 0 // Use 0 for dash or malformed status
+	}
+
+	bodyBytes, err := strconv.Atoi(matches[6])
+	if err != nil {
+		// Handle special cases like "-" or non-numeric values
+		bodyBytes = 0 // Use 0 for dash or malformed body bytes
+	} else if bodyBytes < 0 {
+		// Negative body bytes don't make sense, set to 0
+		bodyBytes = 0
+	}
+
+	entry := &LogEntry{
+		RemoteAddr: matches[1],
+		RemoteUser: matches[2],
+		TimeLocal:  timestamp,
+		Timestamp:  timestamp, // Set both for compatibility
+		Request:    matches[4],
+		Status:     status,
+		BodyBytes:  bodyBytes,
+		Referer:    matches[7],
+		UserAgent:  matches[8],
+		Extra:      make(map[string]interface{}),
+		Headers:    make(map[string]string), // Initialize Headers map
+	}
+
+	// Extract HTTP headers from log (nginx $http_* variables)
+	// Match indices: 9=x_test_id, 10=x_category, 11=x_pattern_id
+	if len(matches) > 9 && matches[9] != "-" {
+		// Convert header name to lowercase for consistent lookup
+		// nginx $http_x_test_id becomes "x-test-id" in Headers map
+		entry.Headers["x-test-id"] = matches[9]
+	}
+	if len(matches) > 10 && matches[10] != "-" {
+		entry.Headers["x-category"] = matches[10]
+	}
+	if len(matches) > 11 && matches[11] != "-" {
+		entry.Headers["x-pattern-id"] = matches[11]
+	}
+
+	// Handle "-" values for standard fields
+	if entry.RemoteUser == "-" {
+		entry.RemoteUser = ""
+	}
+	if entry.Referer == "-" {
+		entry.Referer = ""
+	}
+	if entry.UserAgent == "-" {
+		entry.UserAgent = ""
 	}
 
 	return entry, nil
