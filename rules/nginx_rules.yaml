@@ -86,12 +86,20 @@
 
 # URL-encoded time keywords - contains maintained (hex patterns)
 - macro: contains_encoded_time_keywords
-  condition: (nginx.request_uri contains "%53%4C%45%45%50" or nginx.request_uri contains "%73%6C%65%65%70" or nginx.request_uri contains "%57%41%49%54%46%4F%52")
+  condition: >
+    (nginx.request_uri contains "%53%4C%45%45%50" or
+     nginx.request_uri contains "%73%6C%65%65%70" or
+     nginx.request_uri contains "%57%41%49%54%46%4F%52")
 
 # Pattern #A299 fix: Base64-encoded time-based SQL injection patterns
 # Base64 patterns - contains maintained (case-sensitive encoding)
 - macro: contains_base64_time_keywords
-  condition: (nginx.request_uri contains "cGdfc2xlZXAo" or nginx.request_uri contains "U0xFRVAo" or nginx.request_uri contains "c2xlZXAo" or nginx.request_uri contains "V0FJVEZPUg" or nginx.request_uri contains "QkVOQ0hNQVJL")
+  condition: >
+    (nginx.request_uri contains "cGdfc2xlZXAo" or
+     nginx.request_uri contains "U0xFRVAo" or
+     nginx.request_uri contains "c2xlZXAo" or
+     nginx.request_uri contains "V0FJVEZPUg" or
+     nginx.request_uri contains "QkVOQ0hNQVJL")
 
 # Pattern #A300: Optimized - CASE/WHEN/SELECT merged to icontains
 - macro: contains_time_conditional_patterns
@@ -109,7 +117,11 @@
 # Pattern #A304: REMOVED single "%28" (just opening paren) - causes false positives
 # Opening parenthesis is covered by function patterns like SLEEP%28, BENCHMARK%28
 - macro: sqli_time_based_pattern
-  condition: (contains_sleep_keywords or contains_waitfor_keywords or contains_dbms_pipe_keywords or contains_time_delay_patterns or contains_encoded_time_keywords or contains_base64_time_keywords or contains_time_conditional_patterns)
+  condition: >
+    (contains_sleep_keywords or contains_waitfor_keywords or
+     contains_dbms_pipe_keywords or contains_time_delay_patterns or
+     contains_encoded_time_keywords or contains_base64_time_keywords or
+     contains_time_conditional_patterns)
 
 # ====================================
 # MACROS - Boolean-based SQL Injection (Level 1)
@@ -117,7 +129,19 @@
 
 # Boolean comparisons - contains maintained (contains = and numeric patterns)
 - macro: contains_boolean_comparisons
-  condition: (nginx.request_uri contains "AND%201%3D1" or nginx.request_uri contains "AND 1=1" or nginx.request_uri contains "AND%201%3D2" or nginx.request_uri contains "AND 1=2" or nginx.request_uri contains "AND%20'a'%3D'a'" or nginx.request_uri contains "AND 'a'='a'" or nginx.request_uri contains "AND%20'a'%3D'b'" or nginx.request_uri contains "AND 'a'='b'" or nginx.request_uri contains "AND+1=1" or nginx.request_uri contains "AND+1=2" or nginx.request_uri contains "AND/**/1=1" or nginx.request_uri contains "AND/**/1=2")
+  condition: >
+    (nginx.request_uri contains "AND%201%3D1" or
+     nginx.request_uri contains "AND 1=1" or
+     nginx.request_uri contains "AND%201%3D2" or
+     nginx.request_uri contains "AND 1=2" or
+     nginx.request_uri contains "AND%20'a'%3D'a'" or
+     nginx.request_uri contains "AND 'a'='a'" or
+     nginx.request_uri contains "AND%20'a'%3D'b'" or
+     nginx.request_uri contains "AND 'a'='b'" or
+     nginx.request_uri contains "AND+1=1" or
+     nginx.request_uri contains "AND+1=2" or
+     nginx.request_uri contains "AND/**/1=1" or
+     nginx.request_uri contains "AND/**/1=2")
 
 # Pattern #A300: Optimized - SUBSTRING/ASCII/CHAR etc. merged to icontains
 # URL-encoded patterns (%28) remain as contains
@@ -140,7 +164,11 @@
 
 # CASE WHEN patterns - contains maintained (URL-encoded and special chars)
 - macro: contains_case_when_patterns
-  condition: (nginx.request_uri contains "CASE%20WHEN" or nginx.request_uri contains "CASE WHEN" or nginx.request_uri contains "CASE+WHEN" or nginx.request_uri contains "CASE/**/WHEN")
+  condition: >
+    (nginx.request_uri contains "CASE%20WHEN" or
+     nginx.request_uri contains "CASE WHEN" or
+     nginx.request_uri contains "CASE+WHEN" or
+     nginx.request_uri contains "CASE/**/WHEN")
 
 # Pattern #A300: Optimized - EXISTS merged to icontains
 # URL-encoded patterns remain as contains
@@ -195,30 +223,88 @@
 
 # URL-encoded boolean operators - contains maintained (hex patterns)
 - macro: contains_encoded_boolean_operators
-  condition: (nginx.request_uri contains "%41%4E%44" or nginx.request_uri contains "%61%6E%64" or nginx.request_uri contains "%4F%52")
+  condition: >
+    (nginx.request_uri contains "%41%4E%44" or
+     nginx.request_uri contains "%61%6E%64" or
+     nginx.request_uri contains "%4F%52")
 
 # Pattern #A213 & #A299 fix - Classic SQLi patterns
 # contains maintained (contains quotes, equals, URL-encoded patterns)
 - macro: contains_classic_sqli_patterns
-  condition: (nginx.request_uri contains "' or '1'='1" or nginx.request_uri contains "' OR '1'='1" or nginx.request_uri contains "%27%20or%20%271%27%3D%271" or nginx.request_uri contains "%27%20OR%20%271%27%3D%271" or nginx.request_uri contains "' and '1'='1" or nginx.request_uri contains "' AND '1'='1" or nginx.request_uri contains "%27%20and%20%271%27%3D%271" or nginx.request_uri contains "%27%20AND%20%271%27%3D%271" or nginx.request_uri contains "' or 'a'='a" or nginx.request_uri contains "' OR 'a'='a" or nginx.request_uri contains "%27%20or%20%27a%27%3D%27a" or nginx.request_uri contains "%27%20OR%20%27a%27%3D%27a" or nginx.request_uri contains "' and 'a'='a" or nginx.request_uri contains "' AND 'a'='a" or nginx.request_uri contains "%27%20and%20%27a%27%3D%27a" or nginx.request_uri contains "%27%20AND%20%27a%27%3D%27a")
+  condition: >
+    (nginx.request_uri contains "' or '1'='1" or
+     nginx.request_uri contains "' OR '1'='1" or
+     nginx.request_uri contains "%27%20or%20%271%27%3D%271" or
+     nginx.request_uri contains "%27%20OR%20%271%27%3D%271" or
+     nginx.request_uri contains "' and '1'='1" or
+     nginx.request_uri contains "' AND '1'='1" or
+     nginx.request_uri contains "%27%20and%20%271%27%3D%271" or
+     nginx.request_uri contains "%27%20AND%20%271%27%3D%271" or
+     nginx.request_uri contains "' or 'a'='a" or
+     nginx.request_uri contains "' OR 'a'='a" or
+     nginx.request_uri contains "%27%20or%20%27a%27%3D%27a" or
+     nginx.request_uri contains "%27%20OR%20%27a%27%3D%27a" or
+     nginx.request_uri contains "' and 'a'='a" or
+     nginx.request_uri contains "' AND 'a'='a" or
+     nginx.request_uri contains "%27%20and%20%27a%27%3D%27a" or
+     nginx.request_uri contains "%27%20AND%20%27a%27%3D%27a")
 
 # Numeric prefix patterns - contains maintained (contains quotes, equals)
 - macro: contains_numeric_prefix_sqli_patterns
-  condition: (nginx.request_uri contains "1' or '1'='1" or nginx.request_uri contains "1' OR '1'='1" or nginx.request_uri contains "1%27%20or%20%271%27%3D%271" or nginx.request_uri contains "1%27%20OR%20%271%27%3D%271" or nginx.request_uri contains "0' or '0'='0" or nginx.request_uri contains "0' OR '0'='0" or nginx.request_uri contains "0%27%20or%20%270%27%3D%270" or nginx.request_uri contains "0%27%20OR%20%270%27%3D%270" or nginx.request_uri contains "2' or '2'='2" or nginx.request_uri contains "2' OR '2'='2" or nginx.request_uri contains "2%27%20or%20%272%27%3D%272" or nginx.request_uri contains "2%27%20OR%20%272%27%3D%272")
+  condition: >
+    (nginx.request_uri contains "1' or '1'='1" or
+     nginx.request_uri contains "1' OR '1'='1" or
+     nginx.request_uri contains "1%27%20or%20%271%27%3D%271" or
+     nginx.request_uri contains "1%27%20OR%20%271%27%3D%271" or
+     nginx.request_uri contains "0' or '0'='0" or
+     nginx.request_uri contains "0' OR '0'='0" or
+     nginx.request_uri contains "0%27%20or%20%270%27%3D%270" or
+     nginx.request_uri contains "0%27%20OR%20%270%27%3D%270" or
+     nginx.request_uri contains "2' or '2'='2" or
+     nginx.request_uri contains "2' OR '2'='2" or
+     nginx.request_uri contains "2%27%20or%20%272%27%3D%272" or
+     nginx.request_uri contains "2%27%20OR%20%272%27%3D%272")
 
 # Pattern #A298 fix: Common parameter names
 # contains maintained (short patterns, = sign)
 - macro: has_common_parameter
-  condition: (nginx.request_uri contains "id=" or nginx.request_uri contains "user=" or nginx.request_uri contains "name=" or nginx.request_uri contains "page=" or nginx.request_uri contains "q=" or nginx.request_uri contains "query=" or nginx.request_uri contains "search=")
+  condition: >
+    (nginx.request_uri contains "id=" or
+     nginx.request_uri contains "user=" or
+     nginx.request_uri contains "name=" or
+     nginx.request_uri contains "page=" or
+     nginx.request_uri contains "q=" or
+     nginx.request_uri contains "query=" or
+     nginx.request_uri contains "search=")
 
 # Logical operators - contains maintained (short patterns, space handling)
 - macro: has_logical_operator
-  condition: (nginx.request_uri contains " AND " or nginx.request_uri contains " and " or nginx.request_uri contains "%20AND%20" or nginx.request_uri contains "%20and%20" or nginx.request_uri contains " OR " or nginx.request_uri contains " or " or nginx.request_uri contains "%20OR%20" or nginx.request_uri contains "%20or%20")
+  condition: >
+    (nginx.request_uri contains " AND " or
+     nginx.request_uri contains " and " or
+     nginx.request_uri contains "%20AND%20" or
+     nginx.request_uri contains "%20and%20" or
+     nginx.request_uri contains " OR " or
+     nginx.request_uri contains " or " or
+     nginx.request_uri contains "%20OR%20" or
+     nginx.request_uri contains "%20or%20")
 
 # Pattern #A299 fix: Boolean equality patterns
 # contains maintained (contains = sign, numeric patterns)
 - macro: has_boolean_equality
-  condition: (nginx.request_uri contains "1=1" or nginx.request_uri contains "1=2" or nginx.request_uri contains "0=0" or nginx.request_uri contains "2=2" or nginx.request_uri contains "1%3D1" or nginx.request_uri contains "1%3D2" or nginx.request_uri contains "0%3D0" or nginx.request_uri contains "2%3D2" or nginx.request_uri contains "a=a" or nginx.request_uri contains "a%3Da" or nginx.request_uri contains "'a'='a'" or nginx.request_uri contains "%27a%27%3D%27a%27")
+  condition: >
+    (nginx.request_uri contains "1=1" or
+     nginx.request_uri contains "1=2" or
+     nginx.request_uri contains "0=0" or
+     nginx.request_uri contains "2=2" or
+     nginx.request_uri contains "1%3D1" or
+     nginx.request_uri contains "1%3D2" or
+     nginx.request_uri contains "0%3D0" or
+     nginx.request_uri contains "2%3D2" or
+     nginx.request_uri contains "a=a" or
+     nginx.request_uri contains "a%3Da" or
+     nginx.request_uri contains "'a'='a'" or
+     nginx.request_uri contains "%27a%27%3D%27a%27")
 
 # ====================================
 # MACROS - Boolean-based SQL Injection (Level 2: Combined)
@@ -227,10 +313,18 @@
 # Pattern #A304: REMOVED single "%28" (just opening paren) - causes false positives
 # Opening parenthesis is covered by function patterns
 - macro: sqli_boolean_general_pattern
-  condition: (contains_boolean_comparisons or contains_boolean_functions or contains_case_when_patterns or contains_exists_patterns or contains_if_patterns or contains_info_schema_patterns or contains_boolean_metadata or contains_encoded_boolean_operators or (nginx.request_uri icontains "limit" and nginx.request_uri contains ",1"))
+  condition: >
+    (contains_boolean_comparisons or contains_boolean_functions or
+     contains_case_when_patterns or contains_exists_patterns or
+     contains_if_patterns or contains_info_schema_patterns or
+     contains_boolean_metadata or contains_encoded_boolean_operators or
+     (nginx.request_uri icontains "limit" and nginx.request_uri contains ",1"))
 
 - macro: sqli_boolean_injection_pattern
-  condition: (has_common_parameter and has_logical_operator and (has_boolean_equality or contains_classic_sqli_patterns or contains_numeric_prefix_sqli_patterns))
+  condition: >
+    (has_common_parameter and has_logical_operator and
+     (has_boolean_equality or contains_classic_sqli_patterns or
+      contains_numeric_prefix_sqli_patterns))
 
 - macro: sqli_boolean_pattern
   condition: (sqli_boolean_general_pattern or sqli_boolean_injection_pattern)
@@ -348,7 +442,9 @@
 
 # URL-encoded error functions - contains maintained (hex patterns)
 - macro: contains_encoded_error_functions
-  condition: (nginx.request_uri contains "%65%78%74%72%61%63%74%76%61%6C%75%65" or nginx.request_uri contains "%75%70%64%61%74%65%78%6D%6C")
+  condition: >
+    (nginx.request_uri contains "%65%78%74%72%61%63%74%76%61%6C%75%65" or
+     nginx.request_uri contains "%75%70%64%61%74%65%78%6D%6C")
 
 # information_schema with concat - icontains for alphabetic patterns
 - macro: contains_info_schema_concat
@@ -364,7 +460,12 @@
 # ====================================
 
 - macro: sqli_error_based_pattern
-  condition: (contains_extractvalue_updatexml or contains_floor_rand_patterns or contains_concat_hex_patterns or contains_cast_convert_patterns or contains_version_metadata or contains_oracle_specific or contains_system_tables or contains_division_error_patterns or contains_encoded_error_functions or contains_info_schema_concat)
+  condition: >
+    (contains_extractvalue_updatexml or contains_floor_rand_patterns or
+     contains_concat_hex_patterns or contains_cast_convert_patterns or
+     contains_version_metadata or contains_oracle_specific or
+     contains_system_tables or contains_division_error_patterns or
+     contains_encoded_error_functions or contains_info_schema_concat)
 
 # ====================================
 # MACROS - Advanced SQL Injection (Level 1)
@@ -372,20 +473,38 @@
 
 # Pattern #A300: Optimized - system objects merged to icontains
 - macro: contains_system_objects
-  condition: (nginx.request_uri icontains "information_schema" or nginx.request_uri icontains "sysobjects" or nginx.request_uri icontains "syscolumns" or nginx.request_uri icontains "sys.tables" or nginx.request_uri icontains "sys.columns")
+  condition: >
+    (nginx.request_uri icontains "information_schema" or
+     nginx.request_uri icontains "sysobjects" or
+     nginx.request_uri icontains "syscolumns" or
+     nginx.request_uri icontains "sys.tables" or
+     nginx.request_uri icontains "sys.columns")
 
 # Pattern #A300: Optimized - UNION/GROUP/HAVING/ORDER merged to icontains
 # URL-encoded patterns remain as contains
 - macro: contains_union_group_patterns
-  condition: (nginx.request_uri contains "UNION%20SELECT" or nginx.request_uri icontains "union select" or nginx.request_uri contains "GROUP%20BY" or nginx.request_uri icontains "group by" or nginx.request_uri icontains "having" or nginx.request_uri contains "ORDER%20BY")
+  condition: >
+    (nginx.request_uri contains "UNION%20SELECT" or
+     nginx.request_uri icontains "union select" or
+     nginx.request_uri contains "GROUP%20BY" or
+     nginx.request_uri icontains "group by" or
+     nginx.request_uri icontains "having" or
+     nginx.request_uri contains "ORDER%20BY")
 
 # Hex and char patterns - contains maintained (0x prefix, special chars)
 - macro: contains_hex_char_patterns
-  condition: (nginx.request_uri contains "0x" or nginx.request_uri contains "\\x" or (nginx.request_uri icontains "concat" and nginx.request_uri contains "0x") or (nginx.request_uri icontains "char" and nginx.request_uri contains ","))
+  condition: >
+    (nginx.request_uri contains "0x" or
+     nginx.request_uri contains "\\x" or
+     (nginx.request_uri icontains "concat" and nginx.request_uri contains "0x") or
+     (nginx.request_uri icontains "char" and nginx.request_uri contains ","))
 
 # File operations - icontains for alphabetic parts
 - macro: contains_file_operations
-  condition: (nginx.request_uri icontains "load_file" or nginx.request_uri contains "into%20outfile" or nginx.request_uri contains "into%20dumpfile")
+  condition: >
+    (nginx.request_uri icontains "load_file" or
+     nginx.request_uri contains "into%20outfile" or
+     nginx.request_uri contains "into%20dumpfile")
 
 # ====================================
 # MACROS - Advanced SQL Injection (Level 2: Combined)
@@ -400,17 +519,33 @@
 
 # Double-encoded patterns - contains maintained (URL-encoded hex)
 - macro: contains_double_encoded_patterns
-  condition: (nginx.request_uri contains "%2527" or nginx.request_uri contains "%252F" or nginx.request_uri contains "%u0027" or nginx.request_uri contains "%u002f")
+  condition: >
+    (nginx.request_uri contains "%2527" or
+     nginx.request_uri contains "%252F" or
+     nginx.request_uri contains "%u0027" or
+     nginx.request_uri contains "%u002f")
 
 # Pattern #A300: Removed - Mixed case keywords are now redundant
 # icontains "select" and icontains "union" already cover all case variations
 # Keeping minimal patterns that might be evasion indicators
 - macro: contains_mixed_case_keywords
-  condition: (nginx.request_uri contains "SeLeCt" or nginx.request_uri contains "sElEcT" or nginx.request_uri contains "UnIoN" or nginx.request_uri contains "uNiOn")
+  condition: >
+    (nginx.request_uri contains "SeLeCt" or
+     nginx.request_uri contains "sElEcT" or
+     nginx.request_uri contains "UnIoN" or
+     nginx.request_uri contains "uNiOn")
 
 # Comment and special chars - contains maintained (URL-encoded special chars)
 - macro: contains_comment_special_chars
-  condition: (nginx.request_uri contains "/*" or nginx.request_uri contains "*/" or nginx.request_uri contains "--+" or nginx.request_uri contains "%23" or nginx.request_uri contains "%60" or nginx.request_uri contains "%00" or nginx.request_uri contains "%0a" or nginx.request_uri contains "%0d")
+  condition: >
+    (nginx.request_uri contains "/*" or
+     nginx.request_uri contains "*/" or
+     nginx.request_uri contains "--+" or
+     nginx.request_uri contains "%23" or
+     nginx.request_uri contains "%60" or
+     nginx.request_uri contains "%00" or
+     nginx.request_uri contains "%0a" or
+     nginx.request_uri contains "%0d")
 
 # ====================================
 # MACROS - Encoded SQL Injection (Level 2: Combined)
@@ -425,7 +560,7 @@
 - rule: Time-based Blind SQL Injection
   desc: Detects time-based blind SQL injection attempts using SLEEP, WAITFOR DELAY, pg_sleep, BENCHMARK, and other time-based functions
   condition: sqli_time_based_pattern
-  output: "[NGINX SQLi] Time-based Blind SQL Injection test_id=%nginx.test_id category=%nginx.category pattern_id=%nginx.pattern_id (query=%nginx.query_string) (uri=%nginx.request_uri) (remote_addr=%nginx.remote_addr method=%nginx.method status=%nginx.status)"
+  output: "[NGINX SQLi] Time-based Blind SQL Injection test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: CRITICAL
   tags: [security, sql_injection, advanced_sqli, time_based, phase3]
   source: nginx
@@ -435,9 +570,9 @@
 # Pattern #A214 fix - Reduced from 152 `or` to hierarchical macros
 # ====================================
 - rule: Boolean-based Blind SQL Injection
-  desc: Detects boolean-based blind SQL injection using conditional statements and boolean logic. Pattern #A213 fix - includes numeric-prefix patterns (e.g., id=1' OR '1'='1'). Pattern #A214 fix - refactored to use macro-only hierarchical structure.
+  desc: Detects boolean-based blind SQL injection using conditional statements and boolean logic
   condition: sqli_boolean_pattern
-  output: "[NGINX SQLi] Boolean-based Blind SQL Injection test_id=%nginx.test_id category=%nginx.category pattern_id=%nginx.pattern_id (query=%nginx.query_string) (uri=%nginx.request_uri) (remote_addr=%nginx.remote_addr method=%nginx.method status=%nginx.status)"
+  output: "[NGINX SQLi] Boolean-based Blind SQL Injection test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: CRITICAL
   tags: [security, sql_injection, advanced_sqli, boolean_based, phase3]
   source: nginx
@@ -448,7 +583,7 @@
 - rule: Error-based SQL Injection
   desc: Detects error-based SQL injection attempts to extract data through database errors
   condition: sqli_error_based_pattern
-  output: "[NGINX SQLi] Error-based SQL Injection test_id=%nginx.test_id category=%nginx.category pattern_id=%nginx.pattern_id (query=%nginx.query_string) (uri=%nginx.request_uri) (remote_addr=%nginx.remote_addr method=%nginx.method status=%nginx.status)"
+  output: "[NGINX SQLi] Error-based SQL Injection test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: CRITICAL
   tags: [security, sql_injection, advanced_sqli, error_based, phase3]
   source: nginx
@@ -459,7 +594,7 @@
 - rule: Advanced SQL Injection Attempt
   desc: Comprehensive detection of advanced SQL injection techniques
   condition: sqli_advanced_pattern
-  output: "[NGINX SQLi] Advanced SQL Injection Attempt test_id=%nginx.test_id category=%nginx.category pattern_id=%nginx.pattern_id (query=%nginx.query_string) (uri=%nginx.request_uri) (remote_addr=%nginx.remote_addr method=%nginx.method status=%nginx.status)"
+  output: "[NGINX SQLi] Advanced SQL Injection Attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: WARNING
   tags: [security, sql_injection, advanced_sqli, enumeration, phase3]
   source: nginx
@@ -470,7 +605,7 @@
 - rule: Encoded SQL Injection Pattern
   desc: Detects SQL injection attempts using various encoding techniques
   condition: sqli_encoded_pattern
-  output: "[NGINX SQLi] Encoded SQL Injection Pattern test_id=%nginx.test_id category=%nginx.category pattern_id=%nginx.pattern_id (query=%nginx.query_string) (uri=%nginx.request_uri) (remote_addr=%nginx.remote_addr method=%nginx.method status=%nginx.status)"
+  output: "[NGINX SQLi] Encoded SQL Injection Pattern test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: WARNING
   tags: [security, sql_injection, advanced_sqli, encoding_evasion, phase3]
   source: nginx
@@ -529,7 +664,7 @@
       (nginx.request_uri icontains "<object" and nginx.request_uri icontains "data=") or
       (nginx.request_uri contains "%3Cobject" and nginx.request_uri contains "data%3D")
     )
-  output: "[NGINX XSS] DOM-based XSS Attack detected (uri=%nginx.request_uri) (src=%nginx.remote_addr method=%nginx.method status=%nginx.status) test_id=%nginx.test_id category=%nginx.category pattern_id=%nginx.pattern_id"
+  output: "[NGINX XSS] DOM-based XSS Attack test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: CRITICAL
   tags: [security, xss, dom_based, advanced_xss, phase3]
   source: nginx
@@ -569,7 +704,7 @@
         nginx.request_uri icontains "autofocus"
       )
     )
-  output: "[NGINX XSS] Stored XSS Attack detected (uri=%nginx.request_uri) (src=%nginx.remote_addr method=%nginx.method status=%nginx.status) test_id=%nginx.test_id category=%nginx.category pattern_id=%nginx.pattern_id"
+  output: "[NGINX XSS] Stored XSS Attack test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: CRITICAL
   tags: [security, xss, stored_xss, advanced_xss, phase3]
   source: nginx
@@ -640,7 +775,7 @@
       nginx.request_uri icontains "</style><script>" or
       nginx.request_uri icontains "</textarea><script>"
     )
-  output: "[NGINX XSS] Polyglot XSS Attack detected (uri=%nginx.request_uri) (src=%nginx.remote_addr method=%nginx.method status=%nginx.status) test_id=%nginx.test_id category=%nginx.category pattern_id=%nginx.pattern_id"
+  output: "[NGINX XSS] Polyglot XSS Attack test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: CRITICAL
   tags: [security, xss, polyglot, advanced_xss, phase3]
   source: nginx
@@ -696,7 +831,7 @@
       nginx.request_uri contains "&lt;script" or
       nginx.request_uri contains "&gt;"
     )
-  output: "[NGINX XSS] Advanced XSS Attack Attempt detected (uri=%nginx.request_uri) (src=%nginx.remote_addr method=%nginx.method status=%nginx.status) test_id=%nginx.test_id category=%nginx.category pattern_id=%nginx.pattern_id"
+  output: "[NGINX XSS] Advanced XSS Attack Attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: WARNING
   tags: [security, xss, advanced_xss, event_handlers, phase3]
   source: nginx
@@ -734,7 +869,7 @@
       nginx.request_uri icontains "vbscript:" or
       nginx.request_uri icontains "livescript:"
     )
-  output: "[NGINX XSS] XSS Filter Bypass Attempt detected (uri=%nginx.request_uri) (src=%nginx.remote_addr method=%nginx.method status=%nginx.status) test_id=%nginx.test_id category=%nginx.category pattern_id=%nginx.pattern_id"
+  output: "[NGINX XSS] XSS Filter Bypass Attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: WARNING
   tags: [security, xss, filter_bypass, advanced_xss, phase3]
   source: nginx
@@ -782,7 +917,7 @@
       nginx.request_uri contains "../root" or
       nginx.request_uri contains "../home"
     )
-  output: "[NGINX Traversal] Basic path traversal attack detected (uri=%nginx.request_uri) (src=%nginx.remote_addr method=%nginx.method status=%nginx.status) test_id=%nginx.test_id category=%nginx.category pattern_id=%nginx.pattern_id"
+  output: "[NGINX Traversal] Basic path traversal attack detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: CRITICAL
   tags: [security, path_traversal, advanced_traversal, basic, phase3]
   source: nginx
@@ -810,7 +945,7 @@
       nginx.request_uri contains "..%00/" or
       nginx.request_uri contains "%2e%2e%00/"
     )
-  output: "[NGINX Traversal] Encoded path traversal attack detected (uri=%nginx.request_uri) (src=%nginx.remote_addr method=%nginx.method status=%nginx.status) test_id=%nginx.test_id category=%nginx.category pattern_id=%nginx.pattern_id"
+  output: "[NGINX Traversal] Encoded path traversal attack detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: CRITICAL
   tags: [security, path_traversal, advanced_traversal, encoded, phase3]
   source: nginx
@@ -839,7 +974,7 @@
       nginx.request_uri contains "%5c%5c.%5c" or
       nginx.request_uri contains "%5c%5c%2e%5c"
     )
-  output: "[NGINX Traversal] Windows path traversal attack detected (uri=%nginx.request_uri) (src=%nginx.remote_addr method=%nginx.method status=%nginx.status) test_id=%nginx.test_id category=%nginx.category pattern_id=%nginx.pattern_id"
+  output: "[NGINX Traversal] Windows path traversal attack detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: CRITICAL
   tags: [security, path_traversal, advanced_traversal, windows, phase3]
   source: nginx
@@ -897,7 +1032,7 @@
         - CMD_BASIC_008
         - CMD_BASIC_009
         - CMD_BASIC_010
-  output: "[NGINX Traversal] File inclusion attack detected (uri=%nginx.request_uri) (src=%nginx.remote_addr method=%nginx.method status=%nginx.status) test_id=%nginx.test_id category=%nginx.category pattern_id=%nginx.pattern_id"
+  output: "[NGINX Traversal] File inclusion attack detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: CRITICAL
   tags: [security, path_traversal, file_inclusion, advanced_traversal, phase3]
   source: nginx
@@ -918,7 +1053,7 @@
       nginx.request_uri contains "::$DATA" or
       nginx.request_uri contains "::$INDEX_ALLOCATION"
     )
-  output: "[NGINX Traversal] Advanced path traversal attempt detected (uri=%nginx.request_uri) (src=%nginx.remote_addr method=%nginx.method status=%nginx.status) test_id=%nginx.test_id category=%nginx.category pattern_id=%nginx.pattern_id"
+  output: "[NGINX Traversal] Advanced path traversal attempt detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: WARNING
   tags: [security, path_traversal, advanced_traversal, phase3]
   source: nginx
@@ -984,7 +1119,7 @@
       nginx.request_uri contains "%3B%20ifconfig" or
       nginx.request_uri contains "%3B%20cat"
     )
-  output: "[NGINX CMDi] Command injection via semicolon detected (uri=%nginx.request_uri) (src=%nginx.remote_addr method=%nginx.method status=%nginx.status) test_id=%nginx.test_id category=%nginx.category pattern_id=%nginx.pattern_id"
+  output: "[NGINX CMDi] Command injection via semicolon test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: CRITICAL
   tags: [security, command_injection, advanced_cmdi, semicolon, phase3]
   source: nginx
@@ -1021,7 +1156,7 @@
       nginx.request_uri contains "%7C%7C%20id" or
       nginx.request_uri contains "%7C%7C%20cat"
     )
-  output: "[NGINX CMDi] Command injection via pipe detected (uri=%nginx.request_uri) (src=%nginx.remote_addr method=%nginx.method status=%nginx.status) test_id=%nginx.test_id category=%nginx.category pattern_id=%nginx.pattern_id"
+  output: "[NGINX CMDi] Command injection via pipe test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: CRITICAL
   tags: [security, command_injection, advanced_cmdi, pipe, phase3]
   source: nginx
@@ -1055,7 +1190,7 @@
       nginx.request_uri contains "${IFS}" or
       nginx.request_uri contains "%24%7BIFS%7D"
     )
-  output: "[NGINX CMDi] Command substitution attack detected (uri=%nginx.request_uri) (src=%nginx.remote_addr method=%nginx.method status=%nginx.status) test_id=%nginx.test_id category=%nginx.category pattern_id=%nginx.pattern_id"
+  output: "[NGINX CMDi] Command substitution attack test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: CRITICAL
   tags: [security, command_injection, advanced_cmdi, substitution, phase3]
   source: nginx
@@ -1094,7 +1229,7 @@
       nginx.request_uri contains "%0a" or
       nginx.request_uri contains "%0d"
     )
-  output: "[NGINX CMDi] Advanced command injection attempt detected (uri=%nginx.request_uri) (src=%nginx.remote_addr method=%nginx.method status=%nginx.status) test_id=%nginx.test_id category=%nginx.category pattern_id=%nginx.pattern_id"
+  output: "[NGINX CMDi] Advanced command injection attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: WARNING
   tags: [security, command_injection, advanced_cmdi, phase3]
   source: nginx
@@ -1149,7 +1284,7 @@
       nginx.request_uri contains "${${upper:jndi}" or
       nginx.request_uri contains "${${::-j}ndi"
     )
-  output: "[NGINX Emerging Threat] Log4Shell attack detected (uri=%nginx.request_uri) (src=%nginx.remote_addr method=%nginx.method status=%nginx.status) test_id=%nginx.test_id category=%nginx.category pattern_id=%nginx.pattern_id"
+  output: "[NGINX Emerging Threat] Log4Shell attack test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: CRITICAL
   tags: [security, emerging_threats, log4shell, cve_2021_44228, phase3]
   source: nginx
@@ -1180,7 +1315,7 @@
       nginx.request_uri icontains "class.classLoader" or
       nginx.request_uri icontains "class.protectionDomain"
     )
-  output: "[NGINX Emerging Threat] Spring4Shell attack detected (uri=%nginx.request_uri) (src=%nginx.remote_addr method=%nginx.method status=%nginx.status) test_id=%nginx.test_id category=%nginx.category pattern_id=%nginx.pattern_id"
+  output: "[NGINX Emerging Threat] Spring4Shell attack test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: CRITICAL
   tags: [security, emerging_threats, spring4shell, cve_2022_22965, phase3]
   source: nginx
@@ -1211,7 +1346,7 @@
       nginx.request_uri contains "action:${" or
       nginx.request_uri contains "method:${}"
     )
-  output: "[NGINX Emerging Threat] Apache Struts exploitation detected (uri=%nginx.request_uri) (src=%nginx.remote_addr method=%nginx.method status=%nginx.status) test_id=%nginx.test_id category=%nginx.category pattern_id=%nginx.pattern_id"
+  output: "[NGINX Emerging Threat] Apache Struts exploitation test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: CRITICAL
   tags: [security, emerging_threats, struts, phase3]
   source: nginx
@@ -1243,7 +1378,7 @@
       nginx.request_uri icontains "yaml.load" or
       nginx.request_uri contains "!!python"
     )
-  output: "[NGINX Emerging Threat] Deserialization attack detected (uri=%nginx.request_uri) (src=%nginx.remote_addr method=%nginx.method status=%nginx.status) test_id=%nginx.test_id category=%nginx.category pattern_id=%nginx.pattern_id"
+  output: "[NGINX Emerging Threat] Deserialization attack test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: CRITICAL
   tags: [security, emerging_threats, deserialization, phase3]
   source: nginx
@@ -1269,7 +1404,7 @@
       nginx.request_uri contains "%00" or
       nginx.request_uri contains "null byte"
     )
-  output: "[NGINX Emerging Threat] Advanced emerging threat attempt detected (uri=%nginx.request_uri) (src=%nginx.remote_addr method=%nginx.method status=%nginx.status) test_id=%nginx.test_id category=%nginx.category pattern_id=%nginx.pattern_id"
+  output: "[NGINX Emerging Threat] Advanced emerging threat attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: WARNING
   tags: [security, emerging_threats, phase3]
   source: nginx
@@ -1308,7 +1443,7 @@
       nginx.request_uri icontains "this.password" or
       nginx.request_uri icontains "this.username"
     )
-  output: "[NGINX Emerging Threat] MongoDB NoSQL injection detected (uri=%nginx.request_uri) (src=%nginx.remote_addr method=%nginx.method status=%nginx.status) test_id=%nginx.test_id category=%nginx.category pattern_id=%nginx.pattern_id"
+  output: "[NGINX Emerging Threat] MongoDB NoSQL injection test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: CRITICAL
   tags: [security, emerging_threats, mongodb, nosql, phase3]
   source: nginx

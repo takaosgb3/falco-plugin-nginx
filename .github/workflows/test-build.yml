@@ -62,11 +62,12 @@ jobs:
           sudo apt-get update && sudo apt-get install -y yamllint
           
           # Create custom yamllint config that allows long lines
+          # Note: Falco rule output fields require long lines (200+ chars)
           cat > .yamllint <<EOF
           extends: relaxed
           rules:
             line-length:
-              max: 150
+              max: 250
               level: warning
             new-line-at-end-of-file: enable
             trailing-spaces: enable
