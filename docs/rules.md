@@ -1,5 +1,7 @@
 # Rule Writing Guide / ルール作成ガイド
 
+> Version: 1.4.2 | Last Updated: 2025-12-06
+
 [English](#english) | [日本語](#japanese)
 
 <a name="english"></a>
@@ -16,7 +18,7 @@ Every nginx plugin rule must have these components:
   desc: Description of what the rule detects
   condition: Detection logic using nginx fields
   output: Alert message with field interpolation
-  priority: CRITICAL|WARNING|NOTICE|INFORMATIONAL|DEBUG
+  priority: EMERGENCY|ALERT|CRITICAL|ERROR|WARNING|NOTICE|INFO|DEBUG
   tags: [tag1, tag2]
   source: nginx  # Required for plugin rules
 ```
@@ -36,23 +38,24 @@ The nginx plugin provides these fields for use in conditions and output:
 | `nginx.request_uri` | string | Full URI (path + query string) |
 | `nginx.protocol` | string | HTTP protocol version |
 | `nginx.status` | number | HTTP response status code |
-| `nginx.body_bytes_sent` | number | Response body size in bytes |
-| `nginx.bytes_sent` | number | Total response size |
-| `nginx.http_referer` | string | Referer header |
-| `nginx.http_user_agent` | string | User-Agent header |
-| `nginx.request_length` | number | Request size |
-| `nginx.request_time` | number | Request processing time |
-| `nginx.upstream_response_time` | number | Upstream response time |
+| `nginx.bytes_sent` | number | Total response size in bytes |
+| `nginx.referer` | string | HTTP Referer header |
+| `nginx.user_agent` | string | HTTP User-Agent header |
 | `nginx.log_path` | string | Log file path |
+| `nginx.raw` | string | Raw log line (useful for debugging) |
+| `nginx.headers[key]` | string | HTTP header value by key (e.g., `nginx.headers[X-Forwarded-For]`) |
 
 ### Condition Operators
 
 #### String Operators
-- `contains` - Substring match
+- `contains` - Substring match (case-sensitive)
+- `icontains` - Case-insensitive substring match (**recommended for security patterns**)
 - `startswith` - Prefix match
 - `endswith` - Suffix match
 - `=` - Exact match
 - `!=` - Not equal
+
+> **Note**: For security detection rules, use `icontains` instead of `contains` to catch attack patterns regardless of case. For example, `nginx.request_uri icontains "' OR"` will match `' or`, `' OR`, and `' Or`.
 
 #### Numeric Operators
 - `=`, `!=` - Equality
@@ -69,24 +72,27 @@ The nginx plugin provides these fields for use in conditions and output:
 
 ```yaml
 - rule: SQL Injection Attempt
-  desc: Detects common SQL injection patterns
+  desc: Detects common SQL injection patterns (case-insensitive)
   condition: >
-    nginx.request_uri contains "' OR" or
-    nginx.request_uri contains "UNION SELECT" or
-    nginx.request_uri contains "'; DROP"
-  output: "SQL injection detected (ip=%nginx.remote_addr% uri=%nginx.request_uri% method=%nginx.method%)"
+    nginx.request_uri icontains "' OR" or
+    nginx.request_uri icontains "UNION SELECT" or
+    nginx.request_uri icontains "'; DROP" or
+    nginx.request_uri icontains "%27%20OR"
+  output: "SQL injection detected (ip=%nginx.remote_addr uri=%nginx.request_uri method=%nginx.method)"
   priority: CRITICAL
   tags: [attack, sql_injection]
   source: nginx
 ```
+
+> **Best Practice**: Use `icontains` for security detection to catch variations like `' or`, `' OR`, and `' Or`. Also include URL-encoded patterns like `%27` (single quote) and `%3c` (less-than sign).
 
 #### Response-based Detection
 
 ```yaml
 - rule: Large Data Transfer
   desc: Detects unusually large responses
-  condition: nginx.body_bytes_sent > 104857600  # 100MB
-  output: "Large data transfer (ip=%nginx.remote_addr% uri=%nginx.request_uri% size=%nginx.body_bytes_sent%)"
+  condition: nginx.bytes_sent > 104857600  # 100MB
+  output: "Large data transfer (ip=%nginx.remote_addr uri=%nginx.request_uri size=%nginx.bytes_sent)"
   priority: WARNING
   tags: [anomaly, data_exfiltration]
   source: nginx
@@ -110,14 +116,30 @@ The nginx plugin provides these fields for use in conditions and output:
 - rule: Automated Scanner
   desc: Detects common security scanners
   condition: >
-    nginx.http_user_agent contains "sqlmap" or
-    nginx.http_user_agent contains "nikto" or
-    nginx.http_user_agent contains "nmap"
-  output: "Scanner detected (ip=%nginx.remote_addr% scanner=%nginx.http_user_agent%)"
+    nginx.user_agent icontains "sqlmap" or
+    nginx.user_agent icontains "nikto" or
+    nginx.user_agent icontains "nmap"
+  output: "Scanner detected (ip=%nginx.remote_addr scanner=%nginx.user_agent)"
   priority: WARNING
   tags: [scanner, reconnaissance]
   source: nginx
 ```
+
+#### Using HTTP Headers
+
+```yaml
+- rule: Suspicious X-Forwarded-For Header
+  desc: Detects suspicious patterns in X-Forwarded-For header
+  condition: >
+    nginx.headers[X-Forwarded-For] icontains "'" or
+    nginx.headers[X-Forwarded-For] icontains "<script"
+  output: "Suspicious X-Forwarded-For header (ip=%nginx.remote_addr header=%nginx.headers[X-Forwarded-For])"
+  priority: WARNING
+  tags: [attack, header_injection]
+  source: nginx
+```
+
+> **Note**: Use `nginx.headers[key]` to access any HTTP request header. Common headers include `X-Forwarded-For`, `Authorization`, `X-Real-IP`, etc.
 
 #### Complex Conditions
 
@@ -157,10 +179,17 @@ condition: >
 ```
 
 #### 3. Use Appropriate Priorities
-- **CRITICAL**: Active attacks (SQL injection, RCE)
+
+Falco supports the following priority levels (from highest to lowest):
+
+- **EMERGENCY**: System is unusable
+- **ALERT**: Action must be taken immediately
+- **CRITICAL**: Active attacks requiring immediate response (SQL injection, RCE)
+- **ERROR**: Error conditions (server errors, failures)
 - **WARNING**: Suspicious activity (scanners, failed auth)
 - **NOTICE**: Anomalies (large transfers, unusual paths)
-- **INFORMATIONAL**: Monitoring (specific user agents)
+- **INFO**: Monitoring and informational events
+- **DEBUG**: Debug-level messages for development
 
 #### 4. Add Meaningful Tags
 Tags help with filtering and reporting:
@@ -255,13 +284,79 @@ output: "Attack (ip=%nginx.remote_addr% uri=%nginx.request_uri% ua=%nginx.http_u
   source: nginx
 ```
 
+### Common Mistakes to Avoid
+
+#### 1. Missing `source: nginx`
+
+```yaml
+# ❌ Wrong - Missing source
+- rule: My Rule
+  condition: nginx.path = "/admin"
+  output: "Admin access"
+  priority: WARNING
+
+# ✅ Correct - source: nginx is required
+- rule: My Rule
+  condition: nginx.path = "/admin"
+  output: "Admin access"
+  priority: WARNING
+  source: nginx
+```
+
+#### 2. Using `contains` Instead of `icontains`
+
+```yaml
+# ❌ Will miss "' or" and "' OR"
+condition: nginx.request_uri contains "' OR"
+
+# ✅ Catches all case variations
+condition: nginx.request_uri icontains "' OR"
+```
+
+#### 3. Forgetting URL-Encoded Patterns
+
+```yaml
+# ❌ Only catches unencoded patterns
+condition: nginx.request_uri icontains "'"
+
+# ✅ Also catches URL-encoded single quotes
+condition: >
+  nginx.request_uri icontains "'" or
+  nginx.request_uri icontains "%27"
+```
+
+#### 4. Using `evt.type=pluginevent`
+
+```yaml
+# ❌ Wrong - evt.type is not used for plugin rules
+condition: evt.type=pluginevent and nginx.path = "/admin"
+
+# ✅ Correct - Just use nginx fields with source: nginx
+condition: nginx.path = "/admin"
+```
+
+#### 5. Wrong Field Names
+
+```yaml
+# ❌ These field names are WRONG
+nginx.http_referer      # Wrong
+nginx.http_user_agent   # Wrong
+nginx.body_bytes_sent   # Does not exist
+
+# ✅ Correct field names
+nginx.referer           # Correct
+nginx.user_agent        # Correct
+nginx.bytes_sent        # Correct
+```
+
 ### Troubleshooting Rules
 
 #### Rule Not Firing
 1. Check `source: nginx` is present
-2. Verify field names are correct
-3. Test with simpler conditions
-4. Check Falco logs for errors
+2. Verify field names are correct (see Available Fields table)
+3. Use `icontains` instead of `contains` for case-insensitive matching
+4. Test with simpler conditions
+5. Check Falco logs for errors
 
 #### Performance Issues
 1. Simplify complex conditions
@@ -291,7 +386,7 @@ output: "Attack (ip=%nginx.remote_addr% uri=%nginx.request_uri% ua=%nginx.http_u
   desc: ルールが検出する内容の説明
   condition: nginxフィールドを使用した検出ロジック
   output: フィールド補間を含むアラートメッセージ
-  priority: CRITICAL|WARNING|NOTICE|INFORMATIONAL|DEBUG
+  priority: EMERGENCY|ALERT|CRITICAL|ERROR|WARNING|NOTICE|INFO|DEBUG
   tags: [tag1, tag2]
   source: nginx  # プラグインルールには必須
 ```
@@ -311,23 +406,24 @@ nginxプラグインは条件と出力で使用できる以下のフィールド
 | `nginx.request_uri` | string | 完全なURI（パス＋クエリ文字列） |
 | `nginx.protocol` | string | HTTPプロトコルバージョン |
 | `nginx.status` | number | HTTPレスポンスステータスコード |
-| `nginx.body_bytes_sent` | number | レスポンスボディサイズ（バイト） |
-| `nginx.bytes_sent` | number | 総レスポンスサイズ |
-| `nginx.http_referer` | string | Refererヘッダー |
-| `nginx.http_user_agent` | string | User-Agentヘッダー |
-| `nginx.request_length` | number | リクエストサイズ |
-| `nginx.request_time` | number | リクエスト処理時間 |
-| `nginx.upstream_response_time` | number | アップストリームレスポンス時間 |
+| `nginx.bytes_sent` | number | 総レスポンスサイズ（バイト） |
+| `nginx.referer` | string | HTTP Refererヘッダー |
+| `nginx.user_agent` | string | HTTP User-Agentヘッダー |
 | `nginx.log_path` | string | ログファイルパス |
+| `nginx.raw` | string | 生のログ行（デバッグに有用） |
+| `nginx.headers[key]` | string | キー指定のHTTPヘッダー値（例：`nginx.headers[X-Forwarded-For]`） |
 
 ### 条件演算子
 
 #### 文字列演算子
-- `contains` - 部分文字列マッチ
+- `contains` - 部分文字列マッチ（大文字小文字を区別）
+- `icontains` - 大文字小文字を区別しない部分文字列マッチ（**セキュリティパターンに推奨**）
 - `startswith` - 前方一致
 - `endswith` - 後方一致
 - `=` - 完全一致
 - `!=` - 不一致
+
+> **注意**: セキュリティ検出ルールでは、大文字小文字の違いを検出するために`contains`ではなく`icontains`を使用してください。例えば、`nginx.request_uri icontains "' OR"`は`' or`、`' OR`、`' Or`すべてにマッチします。
 
 #### 数値演算子
 - `=`, `!=` - 等価性
@@ -344,24 +440,27 @@ nginxプラグインは条件と出力で使用できる以下のフィールド
 
 ```yaml
 - rule: SQL Injection Attempt
-  desc: 一般的なSQLインジェクションパターンを検出
+  desc: 一般的なSQLインジェクションパターンを検出（大文字小文字区別なし）
   condition: >
-    nginx.request_uri contains "' OR" or
-    nginx.request_uri contains "UNION SELECT" or
-    nginx.request_uri contains "'; DROP"
-  output: "SQLインジェクションを検出 (ip=%nginx.remote_addr% uri=%nginx.request_uri% method=%nginx.method%)"
+    nginx.request_uri icontains "' OR" or
+    nginx.request_uri icontains "UNION SELECT" or
+    nginx.request_uri icontains "'; DROP" or
+    nginx.request_uri icontains "%27%20OR"
+  output: "SQLインジェクションを検出 (ip=%nginx.remote_addr uri=%nginx.request_uri method=%nginx.method)"
   priority: CRITICAL
   tags: [attack, sql_injection]
   source: nginx
 ```
+
+> **ベストプラクティス**: `icontains`を使用してセキュリティ検出を行うことで、`' or`、`' OR`、`' Or`などのバリエーションを検出できます。また、`%27`（シングルクォート）や`%3c`（小なり記号）などのURLエンコードパターンも含めてください。
 
 #### レスポンスベースの検出
 
 ```yaml
 - rule: Large Data Transfer
   desc: 異常に大きなレスポンスを検出
-  condition: nginx.body_bytes_sent > 104857600  # 100MB
-  output: "大量データ転送 (ip=%nginx.remote_addr% uri=%nginx.request_uri% size=%nginx.body_bytes_sent%)"
+  condition: nginx.bytes_sent > 104857600  # 100MB
+  output: "大量データ転送 (ip=%nginx.remote_addr uri=%nginx.request_uri size=%nginx.bytes_sent)"
   priority: WARNING
   tags: [anomaly, data_exfiltration]
   source: nginx
@@ -385,14 +484,30 @@ nginxプラグインは条件と出力で使用できる以下のフィールド
 - rule: Automated Scanner
   desc: 一般的なセキュリティスキャナーを検出
   condition: >
-    nginx.http_user_agent contains "sqlmap" or
-    nginx.http_user_agent contains "nikto" or
-    nginx.http_user_agent contains "nmap"
-  output: "スキャナーを検出 (ip=%nginx.remote_addr% scanner=%nginx.http_user_agent%)"
+    nginx.user_agent icontains "sqlmap" or
+    nginx.user_agent icontains "nikto" or
+    nginx.user_agent icontains "nmap"
+  output: "スキャナーを検出 (ip=%nginx.remote_addr scanner=%nginx.user_agent)"
   priority: WARNING
   tags: [scanner, reconnaissance]
   source: nginx
 ```
+
+#### HTTPヘッダーの使用
+
+```yaml
+- rule: Suspicious X-Forwarded-For Header
+  desc: X-Forwarded-Forヘッダー内の疑わしいパターンを検出
+  condition: >
+    nginx.headers[X-Forwarded-For] icontains "'" or
+    nginx.headers[X-Forwarded-For] icontains "<script"
+  output: "疑わしいX-Forwarded-Forヘッダー (ip=%nginx.remote_addr header=%nginx.headers[X-Forwarded-For])"
+  priority: WARNING
+  tags: [attack, header_injection]
+  source: nginx
+```
+
+> **注意**: `nginx.headers[key]`を使用して任意のHTTPリクエストヘッダーにアクセスできます。一般的なヘッダーには`X-Forwarded-For`、`Authorization`、`X-Real-IP`などがあります。
 
 #### 複雑な条件
 
@@ -432,10 +547,17 @@ condition: >
 ```
 
 #### 3. 適切な優先度を使用
-- **CRITICAL**: アクティブな攻撃（SQLインジェクション、RCE）
+
+Falcoは以下の優先度レベルをサポートしています（高い順）：
+
+- **EMERGENCY**: システムが使用不能
+- **ALERT**: 即座の対応が必要
+- **CRITICAL**: 即時対応が必要なアクティブな攻撃（SQLインジェクション、RCE）
+- **ERROR**: エラー状態（サーバーエラー、障害）
 - **WARNING**: 疑わしい活動（スキャナー、認証失敗）
 - **NOTICE**: 異常（大量転送、異常なパス）
-- **INFORMATIONAL**: 監視（特定のユーザーエージェント）
+- **INFO**: 監視および情報イベント
+- **DEBUG**: 開発用デバッグレベルメッセージ
 
 #### 4. 意味のあるタグを追加
 タグはフィルタリングとレポートに役立ちます：
@@ -497,10 +619,10 @@ condition: nginx.path regex ".*\\.php$"
 必要なフィールドのみを出力に含める：
 ```yaml
 # 良い - 関連フィールドのみ
-output: "攻撃を検出 (ip=%nginx.remote_addr% uri=%nginx.request_uri%)"
+output: "攻撃を検出 (ip=%nginx.remote_addr uri=%nginx.request_uri)"
 
 # 冗長 - パフォーマンスに影響する可能性
-output: "攻撃 (ip=%nginx.remote_addr% uri=%nginx.request_uri% ua=%nginx.http_user_agent% ref=%nginx.http_referer% status=%nginx.status%)"
+output: "攻撃 (ip=%nginx.remote_addr uri=%nginx.request_uri ua=%nginx.user_agent ref=%nginx.referer status=%nginx.status)"
 ```
 
 ### 高度な例
@@ -530,13 +652,79 @@ output: "攻撃 (ip=%nginx.remote_addr% uri=%nginx.request_uri% ua=%nginx.http_u
   source: nginx
 ```
 
+### よくある間違いを避ける
+
+#### 1. `source: nginx`の欠落
+
+```yaml
+# ❌ 間違い - sourceがない
+- rule: My Rule
+  condition: nginx.path = "/admin"
+  output: "管理者アクセス"
+  priority: WARNING
+
+# ✅ 正しい - source: nginxは必須
+- rule: My Rule
+  condition: nginx.path = "/admin"
+  output: "管理者アクセス"
+  priority: WARNING
+  source: nginx
+```
+
+#### 2. `icontains`ではなく`contains`を使用
+
+```yaml
+# ❌ "' or"や"' OR"を見逃す
+condition: nginx.request_uri contains "' OR"
+
+# ✅ すべての大文字小文字の組み合わせを検出
+condition: nginx.request_uri icontains "' OR"
+```
+
+#### 3. URLエンコードパターンの考慮漏れ
+
+```yaml
+# ❌ エンコードされていないパターンのみ検出
+condition: nginx.request_uri icontains "'"
+
+# ✅ URLエンコードされたシングルクォートも検出
+condition: >
+  nginx.request_uri icontains "'" or
+  nginx.request_uri icontains "%27"
+```
+
+#### 4. `evt.type=pluginevent`の使用
+
+```yaml
+# ❌ 間違い - evt.typeはプラグインルールでは使用しない
+condition: evt.type=pluginevent and nginx.path = "/admin"
+
+# ✅ 正しい - source: nginxでnginxフィールドを使用するだけ
+condition: nginx.path = "/admin"
+```
+
+#### 5. 間違ったフィールド名
+
+```yaml
+# ❌ これらのフィールド名は間違い
+nginx.http_referer      # 間違い
+nginx.http_user_agent   # 間違い
+nginx.body_bytes_sent   # 存在しない
+
+# ✅ 正しいフィールド名
+nginx.referer           # 正しい
+nginx.user_agent        # 正しい
+nginx.bytes_sent        # 正しい
+```
+
 ### ルールのトラブルシューティング
 
 #### ルールが発火しない
 1. `source: nginx`が存在することを確認
-2. フィールド名が正しいことを確認
-3. より単純な条件でテスト
-4. Falcoログでエラーを確認
+2. フィールド名が正しいことを確認（利用可能なフィールドの表を参照）
+3. 大文字小文字を区別しないマッチングには`contains`ではなく`icontains`を使用
+4. より単純な条件でテスト
+5. Falcoログでエラーを確認
 
 #### パフォーマンスの問題
 1. 複雑な条件を簡素化
