@@ -259,14 +259,28 @@ output: "Attack (ip=%nginx.remote_addr% uri=%nginx.request_uri% ua=%nginx.http_u
 
 ### Advanced Examples
 
-#### Rate Limiting Detection
+#### Using Macros for Reusable Patterns
 ```yaml
-- rule: Potential DDoS Attack
-  desc: High request rate from single IP
-  condition: nginx.request_time < 0.01  # Very fast requests
-  output: "High request rate (ip=%nginx.remote_addr% time=%nginx.request_time%ms)"
-  priority: WARNING
-  tags: [ddos, rate_limit]
+# Define reusable macros
+- macro: sql_injection_patterns
+  condition: >
+    nginx.request_uri icontains "' OR" or
+    nginx.request_uri icontains "UNION SELECT" or
+    nginx.request_uri icontains "%27%20OR"
+
+- macro: xss_patterns
+  condition: >
+    nginx.request_uri icontains "<script" or
+    nginx.request_uri icontains "javascript:" or
+    nginx.request_uri icontains "%3Cscript"
+
+# Use macros in rules
+- rule: Web Attack Detected
+  desc: Detects SQL injection or XSS attacks
+  condition: sql_injection_patterns or xss_patterns
+  output: "Web attack detected (ip=%nginx.remote_addr uri=%nginx.request_uri)"
+  priority: CRITICAL
+  tags: [attack, web]
   source: nginx
 ```
 
@@ -627,14 +641,28 @@ output: "攻撃 (ip=%nginx.remote_addr uri=%nginx.request_uri ua=%nginx.user_age
 
 ### 高度な例
 
-#### レート制限検出
+#### 再利用可能なパターンのためのマクロ使用
 ```yaml
-- rule: Potential DDoS Attack
-  desc: 単一IPからの高リクエストレート
-  condition: nginx.request_time < 0.01  # 非常に高速なリクエスト
-  output: "高リクエストレート (ip=%nginx.remote_addr% time=%nginx.request_time%ms)"
-  priority: WARNING
-  tags: [ddos, rate_limit]
+# 再利用可能なマクロを定義
+- macro: sql_injection_patterns
+  condition: >
+    nginx.request_uri icontains "' OR" or
+    nginx.request_uri icontains "UNION SELECT" or
+    nginx.request_uri icontains "%27%20OR"
+
+- macro: xss_patterns
+  condition: >
+    nginx.request_uri icontains "<script" or
+    nginx.request_uri icontains "javascript:" or
+    nginx.request_uri icontains "%3Cscript"
+
+# ルールでマクロを使用
+- rule: Web Attack Detected
+  desc: SQLインジェクションまたはXSS攻撃を検出
+  condition: sql_injection_patterns or xss_patterns
+  output: "Web攻撃を検出 (ip=%nginx.remote_addr uri=%nginx.request_uri)"
+  priority: CRITICAL
+  tags: [attack, web]
   source: nginx
 ```
 
