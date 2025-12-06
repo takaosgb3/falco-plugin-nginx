@@ -1,7 +1,7 @@
 # =============================================================================
 # nginx_rules.yaml - Falco Rules for NGINX Plugin
 # =============================================================================
-# Version: 1.4.0
+# Version: 1.4.2
 # Generated: 2025-12-06
 # Source: E2E tested rules (65/65 patterns, 100% detection rate)
 #
