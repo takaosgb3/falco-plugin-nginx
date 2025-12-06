@@ -6,11 +6,11 @@
 
 All notable changes to the Falco nginx plugin binaries will be documented in this file.
 
-## [v1.4.1] - 2025-12-06 - Plugin Version Display Fix (Latest)
+## [v1.4.2] - 2025-12-06 - Plugin Version Display Fix (Latest)
 
 ### Fixed
-- **Plugin Version Display**: Fixed hardcoded version string from 0.3.0 to 1.4.0
-  - `falco --list-plugins` now correctly shows version 1.4.0
+- **Plugin Version Display**: Fixed hardcoded version string from 0.3.0 to 1.4.2
+  - `falco --list-plugins` now correctly shows version 1.4.2
   - No functional changes from v1.4.0
 
 ### Technical Details
@@ -330,11 +330,11 @@ All notable changes to the Falco nginx plugin binaries will be documented in thi
 
 Falco nginxプラグインバイナリの重要な変更はすべてこのファイルに記録されます。
 
-## [v1.4.1] - 2025-12-06 - プラグインバージョン表示修正（最新）
+## [v1.4.2] - 2025-12-06 - プラグインバージョン表示修正（最新）
 
 ### 修正
-- **プラグインバージョン表示**: ハードコードされたバージョン文字列を0.3.0から1.4.0に修正
-  - `falco --list-plugins`でバージョン1.4.0が正しく表示されるようになりました
+- **プラグインバージョン表示**: ハードコードされたバージョン文字列を0.3.0から1.4.2に修正
+  - `falco --list-plugins`でバージョン1.4.2が正しく表示されるようになりました
   - v1.4.0からの機能変更はありません
 
 ### 技術詳細
