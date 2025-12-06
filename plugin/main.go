@@ -119,7 +119,7 @@ func (n *NginxPlugin) Info() *plugins.Info {
 		Name:        "nginx",
 		Description: "Real-time nginx access log monitoring for security threats",
 		Contact:     "github.com/takaosgb3/falco-nginx-plugin",
-		Version:     "0.3.0",
+		Version:     "1.4.0",
 		EventSource: "nginx",
 	}
 }
