@@ -38,6 +38,19 @@ import (
 	"github.com/takaosgb3/falco-plugin-nginx/pkg/parser"
 )
 
+// debugEnabled controls whether DEBUG logs are output
+// Controlled by FALCO_NGINX_DEBUG environment variable
+// Pattern #A263 Fix: Disable DEBUG logs by default in production
+var debugEnabled = false
+
+// debugLog outputs DEBUG logs only when debugEnabled is true
+// This helper function prevents performance degradation from excessive logging
+func debugLog(format string, args ...interface{}) {
+	if debugEnabled {
+		log.Printf(format, args...)
+	}
+}
+
 // NginxPluginConfig represents the plugin configuration
 type NginxPluginConfig struct {
 	LogPath         string   `json:"log_path,omitempty" jsonschema:"title=Log Path,description=Single nginx log file path to monitor (deprecated - use log_paths),default=/var/log/nginx/access.log"`
@@ -124,6 +137,13 @@ func (n *NginxPlugin) InitSchema() *sdk.SchemaInfo {
 
 // Init initializes the plugin
 func (n *NginxPlugin) Init(config string) error {
+	// Pattern #A263 Fix: Initialize debug mode from environment variable
+	// FALCO_NGINX_DEBUG=true enables DEBUG logs for troubleshooting
+	if os.Getenv("FALCO_NGINX_DEBUG") == "true" {
+		debugEnabled = true
+		log.Println("nginx plugin: DEBUG mode enabled via FALCO_NGINX_DEBUG environment variable")
+	}
+
 	// Set defaults
 	n.config = NginxPluginConfig{
 		LogPaths: []string{"/var/log/nginx/access.log"},
@@ -209,13 +229,13 @@ func (n *NginxPlugin) Extract(req sdk.ExtractRequest, evt sdk.EventReader) error
 		req.SetValue(event.TimeLocal)
 	case "nginx.method":
 		// Debug: Log method extraction to verify Extract is being called
-		log.Printf("[DEBUG METHOD] nginx.method extraction: method=%q", event.Method)
+		debugLog("[DEBUG METHOD] nginx.method extraction: method=%q", event.Method)
 		req.SetValue(event.Method)
 	case "nginx.path":
 		req.SetValue(event.Path)
 	case "nginx.query_string":
 		// Pattern #A201 debug: Log query_string content for URL encoding verification
-		log.Printf("[DEBUG A201] nginx.query_string extraction: queryString=%q contains_quote=%v contains_percent27=%v contains_or=%v",
+		debugLog("[DEBUG A201] nginx.query_string extraction: queryString=%q contains_quote=%v contains_percent27=%v contains_or=%v",
 			event.QueryString,
 			strings.Contains(event.QueryString, "'"),
 			strings.Contains(event.QueryString, "%27"),
@@ -228,7 +248,7 @@ func (n *NginxPlugin) Extract(req sdk.ExtractRequest, evt sdk.EventReader) error
 			requestURI += "?" + event.QueryString
 		}
 		// Pattern #A191 debug: Log request_uri construction for diagnosis
-		log.Printf("[DEBUG A191] nginx.request_uri extraction: path=%q queryString=%q result=%q",
+		debugLog("[DEBUG A191] nginx.request_uri extraction: path=%q queryString=%q result=%q",
 			event.Path, event.QueryString, requestURI)
 		req.SetValue(requestURI)
 	case "nginx.protocol":
@@ -245,7 +265,7 @@ func (n *NginxPlugin) Extract(req sdk.ExtractRequest, evt sdk.EventReader) error
 		req.SetValue(event.LogPath)
 	case "nginx.raw":
 		// Pattern #A201 debug: Log nginx.raw content for URL encoding verification
-		log.Printf("[DEBUG A201] nginx.raw extraction: raw=%q queryString=%q contains_quote=%v contains_percent27=%v",
+		debugLog("[DEBUG A201] nginx.raw extraction: raw=%q queryString=%q contains_quote=%v contains_percent27=%v",
 			event.Raw, event.QueryString,
 			strings.Contains(event.Raw, "'"),
 			strings.Contains(event.Raw, "%27"))
@@ -262,13 +282,13 @@ func (n *NginxPlugin) Extract(req sdk.ExtractRequest, evt sdk.EventReader) error
 		headerName := strings.ToLower(req.ArgKey())
 
 		// Debug: Log headers extraction attempt and Headers map content
-		log.Printf("[DEBUG HEADERS] nginx.headers extraction: headerName=%q Headers=%+v HeadersIsNil=%v",
+		debugLog("[DEBUG HEADERS] nginx.headers extraction: headerName=%q Headers=%+v HeadersIsNil=%v",
 			headerName, event.Headers, event.Headers == nil)
 
 		// Check if Headers map exists and contains the requested header
 		if event.Headers != nil {
 			if value, ok := event.Headers[headerName]; ok {
-				log.Printf("[DEBUG HEADERS] Found header: %s=%q", headerName, value)
+				debugLog("[DEBUG HEADERS] Found header: %s=%q", headerName, value)
 				req.SetValue(value)
 				return nil
 			}
@@ -276,13 +296,13 @@ func (n *NginxPlugin) Extract(req sdk.ExtractRequest, evt sdk.EventReader) error
 
 		// Header not found: return empty string (not an error)
 		// This allows Falco rules to work even when headers are missing
-		log.Printf("[DEBUG HEADERS] Header %q not found in Headers map (returning empty string)", headerName)
+		debugLog("[DEBUG HEADERS] Header %q not found in Headers map (returning empty string)", headerName)
 		req.SetValue("")
 	case "nginx.test_id":
 		// E2E Test correlation field: Extract test_id from X-Test-ID header (Issue #649, Pattern #A260)
 		// Workaround for Falco 0.42.1 output formatter limitation (nginx.headers[key] not supported in output)
 		if value, ok := event.Headers["x-test-id"]; ok {
-			log.Printf("[DEBUG TEST_ID] nginx.test_id extraction: value=%q", value)
+			debugLog("[DEBUG TEST_ID] nginx.test_id extraction: value=%q", value)
 			req.SetValue(value)
 		} else {
 			req.SetValue("") // Empty string if header not present
@@ -290,7 +310,7 @@ func (n *NginxPlugin) Extract(req sdk.ExtractRequest, evt sdk.EventReader) error
 	case "nginx.category":
 		// E2E Test correlation field: Extract category from X-Category header (Issue #649, Pattern #A260)
 		if value, ok := event.Headers["x-category"]; ok {
-			log.Printf("[DEBUG CATEGORY] nginx.category extraction: value=%q", value)
+			debugLog("[DEBUG CATEGORY] nginx.category extraction: value=%q", value)
 			req.SetValue(value)
 		} else {
 			req.SetValue("")
@@ -298,7 +318,7 @@ func (n *NginxPlugin) Extract(req sdk.ExtractRequest, evt sdk.EventReader) error
 	case "nginx.pattern_id":
 		// E2E Test correlation field: Extract pattern_id from X-Pattern-ID header (Issue #649, Pattern #A260)
 		if value, ok := event.Headers["x-pattern-id"]; ok {
-			log.Printf("[DEBUG PATTERN_ID] nginx.pattern_id extraction: value=%q", value)
+			debugLog("[DEBUG PATTERN_ID] nginx.pattern_id extraction: value=%q", value)
 			req.SetValue(value)
 		} else {
 			req.SetValue("")
@@ -569,7 +589,7 @@ func (n *NginxInstance) NextBatch(pState sdk.PluginState, evts sdk.EventWriters)
 			if event.QueryString != "" {
 				queryPart = "?" + event.QueryString
 			}
-			log.Printf("[DEBUG GOB] Successfully encoded event: %s %s%s",
+			debugLog("[DEBUG GOB] Successfully encoded event: %s %s%s",
 				event.Method, event.Path, queryPart)
 
 			// Set timestamp

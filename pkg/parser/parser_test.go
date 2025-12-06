@@ -214,7 +214,7 @@ func TestParser_DifferentFormats(t *testing.T) {
 }
 
 func contains(s, substr string) bool {
-	return len(s) >= len(substr) && s[:len(substr)] == substr || 
+	return len(s) >= len(substr) && s[:len(substr)] == substr ||
 		len(s) >= len(substr) && s[len(s)-len(substr):] == substr ||
 		len(substr) > 0 && len(s) > len(substr) && findSubstring(s, substr)
 }
