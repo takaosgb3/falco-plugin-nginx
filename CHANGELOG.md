@@ -6,7 +6,42 @@
 
 All notable changes to the Falco nginx plugin binaries will be documented in this file.
 
-## [v1.4.2] - 2025-12-06 - Plugin Version Display Fix (Latest)
+## [v1.4.4] - 2025-12-06 - Optimized Binary Size (Latest)
+
+### Changed
+- **Binary Size Optimization**: Added `-trimpath` flag to build process
+  - Binary size reduced from ~3MB to ~1.2MB (~60% smaller)
+  - Improved reproducibility by removing local file paths from binary
+  - Combined with `-ldflags="-s -w"` for symbol stripping
+
+### Fixed
+- **Build Process**: Corrected flag order in release workflow
+  - Ensures optimization flags are properly applied
+
+### Technical Details
+- Built with Falco Plugin SDK v0.8.1
+- Tested with Falco 0.42.1
+- Binary SHA256: See release assets
+
+## [v1.4.3] - 2025-12-06 - Rule Format Improvements
+
+### Changed
+- **Rule File Improvements**: Fixed yamllint line-length warnings
+  - Split long macro conditions using YAML multi-line syntax (`>`)
+  - Shortened output fields for better readability
+  - All rules now pass yamllint with max 250 character lines
+
+### Fixed
+- **Output Field Format**: Simplified output to include only essential information
+  - Removed redundant fields (query, status, category)
+  - Consistent format: `[PREFIX] Description key=value client=IP method=METHOD`
+
+### Technical Details
+- Built with Falco Plugin SDK v0.8.1
+- Tested with Falco 0.42.1
+- Note: Binary size not optimized in this release (3.1MB)
+
+## [v1.4.2] - 2025-12-06 - Plugin Version Display Fix
 
 ### Fixed
 - **Plugin Version Display**: Fixed hardcoded version string from 0.3.0 to 1.4.2
@@ -330,7 +365,42 @@ All notable changes to the Falco nginx plugin binaries will be documented in thi
 
 Falco nginxプラグインバイナリの重要な変更はすべてこのファイルに記録されます。
 
-## [v1.4.2] - 2025-12-06 - プラグインバージョン表示修正（最新）
+## [v1.4.4] - 2025-12-06 - バイナリサイズ最適化（最新）
+
+### 変更
+- **バイナリサイズ最適化**: ビルドプロセスに`-trimpath`フラグを追加
+  - バイナリサイズを約3MBから約1.2MBに削減（約60%削減）
+  - バイナリからローカルファイルパスを削除し再現性を向上
+  - `-ldflags="-s -w"`と組み合わせてシンボル削除
+
+### 修正
+- **ビルドプロセス**: リリースワークフローのフラグ順序を修正
+  - 最適化フラグが正しく適用されることを保証
+
+### 技術詳細
+- Falco Plugin SDK v0.8.1でビルド
+- Falco 0.42.1でテスト済み
+- バイナリSHA256: リリースアセットを参照
+
+## [v1.4.3] - 2025-12-06 - ルールフォーマット改善
+
+### 変更
+- **ルールファイル改善**: yamllintの行長警告を修正
+  - YAMLの複数行構文（`>`）を使用して長いマクロ条件を分割
+  - 可読性向上のためoutputフィールドを短縮
+  - すべてのルールが250文字以内のyamllintに合格
+
+### 修正
+- **Outputフィールドフォーマット**: 必須情報のみを含むよう簡素化
+  - 冗長なフィールドを削除（query、status、category）
+  - 一貫したフォーマット: `[PREFIX] 説明 key=value client=IP method=METHOD`
+
+### 技術詳細
+- Falco Plugin SDK v0.8.1でビルド
+- Falco 0.42.1でテスト済み
+- 注意: このリリースではバイナリサイズ最適化なし（3.1MB）
+
+## [v1.4.2] - 2025-12-06 - プラグインバージョン表示修正
 
 ### 修正
 - **プラグインバージョン表示**: ハードコードされたバージョン文字列を0.3.0から1.4.2に修正

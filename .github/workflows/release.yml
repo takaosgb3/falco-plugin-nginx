@@ -64,11 +64,13 @@ jobs:
       - name: Build plugin binary
         run: |
           cd plugin
-          # Build for Linux AMD64 only
+          # Build for Linux AMD64 only with optimization flags
+          # -trimpath: Remove file system paths from binary (reproducibility)
+          # -ldflags="-s -w": Strip symbol table and debug info (~40% smaller)
           CGO_ENABLED=1 GOOS=linux GOARCH=amd64 \
-            go build -buildmode=c-shared \
-            -o libfalco-nginx-plugin-linux-amd64.so \
+            go build -buildmode=c-shared -trimpath \
             -ldflags="-s -w" \
+            -o libfalco-nginx-plugin-linux-amd64.so \
             .
 
           # Verify binary format
