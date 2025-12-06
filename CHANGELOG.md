@@ -6,7 +6,46 @@
 
 All notable changes to the Falco nginx plugin binaries will be documented in this file.
 
-## [v1.3.0] - 2025-08-30 - Enhanced XSS Detection and Testing (Latest)
+## [v1.4.1] - 2025-12-06 - Plugin Version Display Fix (Latest)
+
+### Fixed
+- **Plugin Version Display**: Fixed hardcoded version string from 0.3.0 to 1.4.0
+  - `falco --list-plugins` now correctly shows version 1.4.0
+  - No functional changes from v1.4.0
+
+### Technical Details
+- Built with Falco Plugin SDK v0.8.1
+- Tested with Falco 0.42.1
+- Binary SHA256: See release assets
+
+## [v1.4.0] - 2025-12-06 - E2E 100% Detection Rate Release
+
+### Added
+- **E2E Tested Rules**: All 65 attack patterns validated with 100% detection rate
+  - SQL Injection: 19/19 patterns (100%)
+  - XSS: 11/11 patterns (100%)
+  - Path Traversal: 20/20 patterns (100%)
+  - Command Injection: 10/10 patterns (100%)
+  - Emerging Threats: 5/5 patterns (100%)
+- **Unified Rules File**: Single `nginx_rules.yaml` merged from 5 E2E-tested rule files
+  - advanced_sqli_enhanced.yaml
+  - advanced_xss_enhanced.yaml
+  - advanced_traversal_enhanced.yaml
+  - advanced_cmdi_enhanced.yaml
+  - advanced_emerging_enhanced.yaml
+- **Automated Rule Merging**: `merge-rules.sh` script for reproducible rule generation
+
+### Changed
+- Rules file now auto-generated with version header and source tracking
+- Enhanced rule organization with category-based sections
+
+### Technical Details
+- Built with Falco Plugin SDK v0.8.1
+- Tested with Falco 0.42.1
+- E2E tested on Kubernetes environment (Run #130)
+- Full compatibility with nginx combined log format
+
+## [v1.3.0] - 2025-08-30 - Enhanced XSS Detection and Testing
 
 ### Added
 - **Enhanced XSS Detection**: Comprehensive detection for all 7 XSS test patterns
@@ -291,7 +330,46 @@ All notable changes to the Falco nginx plugin binaries will be documented in thi
 
 Falco nginxプラグインバイナリの重要な変更はすべてこのファイルに記録されます。
 
-## [v1.3.0] - 2025-08-30 - XSS検出強化とテスト改善（最新）
+## [v1.4.1] - 2025-12-06 - プラグインバージョン表示修正（最新）
+
+### 修正
+- **プラグインバージョン表示**: ハードコードされたバージョン文字列を0.3.0から1.4.0に修正
+  - `falco --list-plugins`でバージョン1.4.0が正しく表示されるようになりました
+  - v1.4.0からの機能変更はありません
+
+### 技術詳細
+- Falco Plugin SDK v0.8.1でビルド
+- Falco 0.42.1でテスト済み
+- バイナリSHA256: リリースアセットを参照
+
+## [v1.4.0] - 2025-12-06 - E2E 100%検出率リリース
+
+### 追加
+- **E2Eテスト済みルール**: 65の攻撃パターンすべてが100%検出率で検証済み
+  - SQLインジェクション: 19/19パターン (100%)
+  - XSS: 11/11パターン (100%)
+  - パストラバーサル: 20/20パターン (100%)
+  - コマンドインジェクション: 10/10パターン (100%)
+  - 新興脅威: 5/5パターン (100%)
+- **統一ルールファイル**: 5つのE2Eテスト済みルールファイルから統合された単一の`nginx_rules.yaml`
+  - advanced_sqli_enhanced.yaml
+  - advanced_xss_enhanced.yaml
+  - advanced_traversal_enhanced.yaml
+  - advanced_cmdi_enhanced.yaml
+  - advanced_emerging_enhanced.yaml
+- **自動ルールマージ**: 再現可能なルール生成のための`merge-rules.sh`スクリプト
+
+### 変更
+- ルールファイルにバージョンヘッダーとソース追跡が自動生成
+- カテゴリベースのセクションによるルール編成の強化
+
+### 技術詳細
+- Falco Plugin SDK v0.8.1でビルド
+- Falco 0.42.1でテスト済み
+- Kubernetes環境でE2Eテスト済み (Run #130)
+- nginx combinedログフォーマットとの完全な互換性
+
+## [v1.3.0] - 2025-08-30 - XSS検出強化とテスト改善
 
 ### 追加
 - **XSS検出の強化**: 7つのXSSテストパターンすべてに対する包括的な検出
