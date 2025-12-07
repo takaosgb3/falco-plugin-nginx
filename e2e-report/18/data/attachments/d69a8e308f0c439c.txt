@@ -1,0 +1,2 @@
+12:11:07.000000000: Critical [NGINX Traversal] Basic path traversal attack detected test_id=PATH_DOT_002-1765109467372-lxstjw pattern_id=PATH_DOT_002 uri=/?q=../../etc/shadow client=127.0.0.1
+12:11:07.000000000: Critical [NGINX Traversal] Basic path traversal attack detected test_id=PATH_DOT_002-1765109467372-lxstjw pattern_id=PATH_DOT_002 uri=/?q=../../etc/shadow client=127.0.0.1

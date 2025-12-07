@@ -1,0 +1,2 @@
+12:11:13.000000000: Warning [NGINX CMDi] Advanced command injection attempt test_id=CMD_BASIC_010-1765109473877-sc44xi pattern_id=CMD_BASIC_010 uri=/?q=%26%26%20df%20-h client=127.0.0.1
+12:11:13.000000000: Warning [NGINX CMDi] Advanced command injection attempt test_id=CMD_BASIC_010-1765109473877-sc44xi pattern_id=CMD_BASIC_010 uri=/?q=%26%26%20df%20-h client=127.0.0.1

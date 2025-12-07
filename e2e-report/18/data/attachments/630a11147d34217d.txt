@@ -1,0 +1,2 @@
+12:11:08.000000000: Critical [NGINX Traversal] Basic path traversal attack detected test_id=PATH_DOT_005-1765109468876-kjh6a pattern_id=PATH_DOT_005 uri=/?q=../../../../../etc/ssh/sshd_config client=127.0.0.1
+12:11:08.000000000: Critical [NGINX Traversal] Basic path traversal attack detected test_id=PATH_DOT_005-1765109468876-kjh6a pattern_id=PATH_DOT_005 uri=/?q=../../../../../etc/ssh/sshd_config client=127.0.0.1

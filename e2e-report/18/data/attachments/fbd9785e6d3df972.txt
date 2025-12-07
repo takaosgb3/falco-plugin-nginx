@@ -1,0 +1,2 @@
+12:10:55.000000000: Critical [NGINX SQLi] Time-based Blind SQL Injection test_id=SQLI_TIME_003-1765109455367-7wrgra pattern_id=SQLI_TIME_003 uri=/?q=WAITFOR%20DELAY%20%270%3A0%3A5%27 client=127.0.0.1 method=GET
+12:10:55.000000000: Critical [NGINX SQLi] Time-based Blind SQL Injection test_id=SQLI_TIME_003-1765109455367-7wrgra pattern_id=SQLI_TIME_003 uri=/?q=WAITFOR%20DELAY%20%270%3A0%3A5%27 client=127.0.0.1 method=GET
