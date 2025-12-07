@@ -1,0 +1,12 @@
+{
+  "pattern_id": "PATH_ABS_004",
+  "test_id": "PATH_ABS_004-1765100675564-5nnk8",
+  "category": "path",
+  "detected": true,
+  "latency_ms": 4000,
+  "evidence": "09:44:35.000000000: Critical [NGINX Traversal] File inclusion attack detected test_id=PATH_ABS_004-1765100675564-5nnk8 pattern_id=PATH_ABS_004 uri=/?q=/var/log/auth.log client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] File inclusion attack detected test_id=PATH_ABS_004-1765100675564-5nnk8 pattern_id=PATH_ABS_004 uri=/?q=/var/log/auth.log client=127.0.0.1",
+  "sent_at": 1765100679000,
+  "detected_at": 1765100675000,
+  "status": "passed"
+}

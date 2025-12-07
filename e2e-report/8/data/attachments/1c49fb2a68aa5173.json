@@ -1,0 +1,12 @@
+{
+  "pattern_id": "XSS_REFL_008",
+  "test_id": "XSS_REFL_008-1765100665051-zpbkni",
+  "category": "xss",
+  "detected": true,
+  "latency_ms": 14000,
+  "evidence": "09:44:25.000000000: Critical [NGINX XSS] Polyglot XSS Attack test_id=XSS_REFL_008-1765100665051-zpbkni pattern_id=XSS_REFL_008 uri=/?q=%3Ctextarea%20onfocus%3Dalert%28%27XSS%27%29%20autofocus%3E client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX XSS] Polyglot XSS Attack test_id=XSS_REFL_008-1765100665051-zpbkni pattern_id=XSS_REFL_008 uri=/?q=%3Ctextarea%20onfocus%3Dalert%28%27XSS%27%29%20autofocus%3E client=127.0.0.1 method=GET",
+  "sent_at": 1765100679000,
+  "detected_at": 1765100665000,
+  "status": "passed"
+}

@@ -1,0 +1,12 @@
+{
+  "pattern_id": "PATH_DOT_009",
+  "test_id": "PATH_DOT_009-1765100673059-wzbswo",
+  "category": "path",
+  "detected": true,
+  "latency_ms": 6000,
+  "evidence": "09:44:33.000000000: Critical [NGINX Traversal] Basic path traversal attack detected test_id=PATH_DOT_009-1765100673059-wzbswo pattern_id=PATH_DOT_009 uri=/?q=../../home/user/.ssh/id_rsa client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] Basic path traversal attack detected test_id=PATH_DOT_009-1765100673059-wzbswo pattern_id=PATH_DOT_009 uri=/?q=../../home/user/.ssh/id_rsa client=127.0.0.1",
+  "sent_at": 1765100679000,
+  "detected_at": 1765100673000,
+  "status": "passed"
+}

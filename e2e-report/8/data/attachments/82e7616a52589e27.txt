@@ -1,0 +1,2 @@
+09:44:31.000000000: Critical [NGINX CMDi] Command injection via semicolon test_id=CMD_BASIC_SEMICOLON_001-1765100671545-mfd94f pattern_id=CMD_BASIC_SEMICOLON_001 uri=/?q=%3B%20ls%20-la client=127.0.0.1
+09:44:31.000000000: Critical [NGINX CMDi] Command injection via semicolon test_id=CMD_BASIC_SEMICOLON_001-1765100671545-mfd94f pattern_id=CMD_BASIC_SEMICOLON_001 uri=/?q=%3B%20ls%20-la client=127.0.0.1

@@ -1,0 +1,2 @@
+09:44:34.000000000: Critical [NGINX Traversal] File inclusion attack detected test_id=PATH_ABS_001-1765100674061-ejq2ra pattern_id=PATH_ABS_001 uri=/?q=/etc/passwd client=127.0.0.1
+09:44:34.000000000: Critical [NGINX Traversal] File inclusion attack detected test_id=PATH_ABS_001-1765100674061-ejq2ra pattern_id=PATH_ABS_001 uri=/?q=/etc/passwd client=127.0.0.1

@@ -1,0 +1,2 @@
+09:44:25.000000000: Critical [NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_BOOL_004-1765100665564-re1cmg pattern_id=SQLI_BOOL_004 uri=/?q=%27%20OR%20%27a%27%3D%27a client=127.0.0.1 method=GET
+09:44:25.000000000: Critical [NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_BOOL_004-1765100665564-re1cmg pattern_id=SQLI_BOOL_004 uri=/?q=%27%20OR%20%27a%27%3D%27a client=127.0.0.1 method=GET

@@ -1,0 +1,12 @@
+{
+  "pattern_id": "PATH_ABS_005",
+  "test_id": "PATH_ABS_005-1765100676065-okhags",
+  "category": "path",
+  "detected": true,
+  "latency_ms": 3000,
+  "evidence": "09:44:36.000000000: Critical [NGINX Traversal] File inclusion attack detected test_id=PATH_ABS_005-1765100676065-okhags pattern_id=PATH_ABS_005 uri=/?q=/proc/self/environ client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] File inclusion attack detected test_id=PATH_ABS_005-1765100676065-okhags pattern_id=PATH_ABS_005 uri=/?q=/proc/self/environ client=127.0.0.1",
+  "sent_at": 1765100679000,
+  "detected_at": 1765100676000,
+  "status": "passed"
+}
