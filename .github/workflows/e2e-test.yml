@@ -208,8 +208,6 @@ jobs:
           # stdout output for debugging
           stdout_output:
             enabled: true
-            rate: 0
-            max_burst: 0
           EOF
 
           echo "Falco plugin configured successfully"
