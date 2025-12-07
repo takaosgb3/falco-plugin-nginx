@@ -97,6 +97,28 @@ sudo falco --list-plugins | grep nginx
 
 **💡 Tip**: Not sure which service? Run `sudo systemctl status falco` - if it shows "not found" or "inactive", try `sudo systemctl status falco-modern-bpf` (common on EC2/cloud).
 
+### E2E Security Tests
+
+This repository includes comprehensive E2E tests for security detection validation.
+
+**Running E2E Tests**:
+```bash
+# Trigger via GitHub Actions
+gh workflow run e2e-test.yml
+```
+
+**Test Coverage** (65 attack patterns):
+
+| Category | Patterns | Description |
+|----------|----------|-------------|
+| SQL Injection | 19 | Time-based, Boolean-based blind SQLi |
+| XSS | 11 | DOM-based, Reflected XSS attacks |
+| Path Traversal | 20 | Directory traversal, absolute path access |
+| Command Injection | 10 | Shell command injection patterns |
+| Other | 5 | NoSQL/MongoDB injection |
+
+**Latest Results**: See [Actions](../../actions/workflows/e2e-test.yml) for test runs and [Allure Report](https://takaosgb3.github.io/falco-plugin-nginx/) for detailed results.
+
 ### Documentation
 
 - [Quick Start Binary Installation](docs/QUICK_START_BINARY_INSTALLATION.md)
@@ -104,6 +126,7 @@ sudo falco --list-plugins | grep nginx
 - [Troubleshooting](docs/TROUBLESHOOTING.md)
 - [Performance Tuning](docs/performance.md)
 - [Rule Reference](docs/rules.md)
+- [E2E Test Guide](e2e/README.md)
 
 ### Requirements
 
@@ -195,6 +218,28 @@ sudo journalctl -u falco-modern-bpf -f
 curl "http://localhost/search.php?q=%27%20OR%20%271%27%3D%271"
 ```
 
+### E2Eセキュリティテスト
+
+このリポジトリには、セキュリティ検出を検証するための包括的なE2Eテストが含まれています。
+
+**E2Eテストの実行**:
+```bash
+# GitHub Actions経由でトリガー
+gh workflow run e2e-test.yml
+```
+
+**テストカバレッジ**（65攻撃パターン）:
+
+| カテゴリ | パターン数 | 説明 |
+|----------|------------|------|
+| SQLインジェクション | 19 | 時間ベース、ブラインドSQLi |
+| XSS | 11 | DOMベース、反射型XSS攻撃 |
+| パストラバーサル | 20 | ディレクトリトラバーサル、絶対パスアクセス |
+| コマンドインジェクション | 10 | シェルコマンドインジェクションパターン |
+| その他 | 5 | NoSQL/MongoDBインジェクション |
+
+**最新結果**: テスト実行は[Actions](../../actions/workflows/e2e-test.yml)、詳細結果は[Allure Report](https://takaosgb3.github.io/falco-plugin-nginx/)を参照。
+
 ### ドキュメント
 
 - [クイックスタート バイナリインストール](docs/QUICK_START_BINARY_INSTALLATION.md)
@@ -202,6 +247,7 @@ curl "http://localhost/search.php?q=%27%20OR%20%271%27%3D%271"
 - [トラブルシューティング](docs/TROUBLESHOOTING.md)
 - [パフォーマンスチューニング](docs/performance.md)
 - [ルールリファレンス](docs/rules.md)
+- [E2Eテストガイド](e2e/README.md)
 
 ### 要件
 

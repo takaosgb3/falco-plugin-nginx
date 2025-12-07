@@ -2,11 +2,28 @@
 
 This directory contains the end-to-end test suite for the Falco nginx plugin.
 
+[English](#overview) | [日本語](#概要)
+
 ## Overview
 
 The E2E test suite validates that the Falco nginx plugin correctly detects
 security threats in nginx access logs. It uses k6 for load testing with
 attack patterns, and Allure for test reporting.
+
+### Architecture
+
+```
+┌─────────────┐     ┌─────────────┐     ┌─────────────┐
+│   k6 Load   │────▶│   nginx     │────▶│  access.log │
+│   Tester    │     │   Server    │     │             │
+└─────────────┘     └─────────────┘     └──────┬──────┘
+                                               │
+                                               ▼
+┌─────────────┐     ┌─────────────┐     ┌─────────────┐
+│   Allure    │◀────│   Batch     │◀────│   Falco     │
+│   Report    │     │   Analyzer  │     │  (plugin)   │
+└─────────────┘     └─────────────┘     └─────────────┘
+```
 
 ## Directory Structure
 
@@ -36,32 +53,50 @@ e2e/
 
 ## Test Categories
 
-| Category | Count | Description |
-|----------|-------|-------------|
-| SQLi | 19 | SQL Injection attacks |
-| XSS | 11 | Cross-Site Scripting attacks |
-| Path | 20 | Path Traversal attacks |
-| CmdInj | 10 | Command Injection attacks |
-| Other | 5 | Other threats (MongoDB, etc.) |
-| **Total** | **65** | |
+| Category | Count | Description | Expected Rule |
+|----------|-------|-------------|---------------|
+| SQLi | 19 | SQL Injection attacks | Time-based/Boolean-based Blind SQL Injection |
+| XSS | 11 | Cross-Site Scripting attacks | DOM-based XSS Attack |
+| Path | 20 | Path Traversal attacks | Advanced Path Traversal Attack |
+| CmdInj | 10 | Command Injection attacks | Command Injection Attack |
+| Other | 5 | Other threats (MongoDB, etc.) | Emerging Threat: NoSQL/MongoDB Injection |
+| **Total** | **65** | | |
 
-## Running Tests Locally
+## Running Tests
 
-### Prerequisites
+### Via GitHub Actions (Recommended)
+
+```bash
+# Trigger E2E test workflow
+gh workflow run e2e-test.yml
+
+# Check workflow status
+gh run list --workflow=e2e-test.yml
+
+# View results
+gh run view <RUN_ID>
+```
+
+### Running Tests Locally
+
+#### Prerequisites
 
 - k6 (https://k6.io/)
 - Python 3.8+
 - Falco with nginx plugin installed
 - nginx server running
 
-### Quick Start
+#### Quick Start
 
 ```bash
 # Install Python dependencies
 pip install -r allure/requirements.txt
 
 # Run k6 tests
-k6 run k6/main.js
+k6 run k6/main.js --env TARGET_IP=localhost --env TARGET_PORT=80
+
+# Wait for Falco to process events
+sleep 60
 
 # Analyze results
 python scripts/batch_analyzer.py \
@@ -80,11 +115,38 @@ pytest allure/test_e2e_wrapper.py \
 allure serve allure-results
 ```
 
-## GitHub Actions
+## Test ID Correlation
+
+Each attack pattern generates a unique test_id for tracking:
+
+```
+Format: {PATTERN_ID}-{TIMESTAMP_MS}-{RANDOM_SUFFIX}
+Example: SQLI_TIME_001-1732267890123-abc123
+```
+
+This ID appears in:
+1. nginx access.log (query string)
+2. Falco alert output
+3. test-results.json
+
+The batch_analyzer.py correlates these IDs to match patterns with detections.
+
+## GitHub Actions Workflow
 
 E2E tests run automatically via GitHub Actions workflow:
-- Trigger: Push to main branch or manual dispatch
-- Reports: Published to GitHub Pages
+- **Trigger**: Manual dispatch (`workflow_dispatch`)
+- **Reports**: Published to GitHub Pages
+- **Artifacts**: Test results and Allure report retained for 30 days
+
+### Workflow Steps
+
+1. Environment setup (Falco, nginx, k6, Python)
+2. Service startup (nginx, Falco with plugin)
+3. k6 test execution (65 patterns)
+4. Wait for Falco processing (60s)
+5. Result analysis (batch_analyzer.py)
+6. Allure report generation
+7. GitHub Pages deployment
 
 ## Environment Variables
 
@@ -94,6 +156,131 @@ E2E tests run automatically via GitHub Actions workflow:
 | `TARGET_PORT` | 80 | Target server port |
 | `BATCH_WAIT_TIME` | 60 | Falco processing wait time (seconds) |
 | `MIN_DETECTION_RATE` | 0.95 | Minimum detection rate threshold |
+
+## Allure Report Features
+
+The generated Allure report includes:
+
+- **Test Summary**: Detection rate and statistics
+- **Category Breakdown**: Results by attack category
+- **Pattern Details**: Individual pattern results with:
+  - Expected vs Actual rule match status
+  - Detection latency
+  - Falco log evidence
+- **Attachments**: nginx access.log and falco.log excerpts
+
+## Viewing Results
+
+### GitHub Pages
+
+Latest Allure Report: https://takaosgb3.github.io/falco-plugin-nginx/
+
+Each workflow run creates a new report at:
+`https://takaosgb3.github.io/falco-plugin-nginx/{RUN_NUMBER}/`
+
+### Local Viewing
+
+```bash
+# Download artifacts from GitHub Actions
+gh run download <RUN_ID> -n allure-report-<RUN_ID>
+
+# Serve locally
+allure open allure-report-<RUN_ID>
+```
+
+---
+
+## 概要
+
+このE2Eテストスイートは、Falco nginxプラグインがnginxアクセスログ内のセキュリティ脅威を正しく検出することを検証します。攻撃パターンの負荷テストにはk6を、テストレポートにはAllureを使用します。
+
+### アーキテクチャ
+
+```
+┌─────────────┐     ┌─────────────┐     ┌─────────────┐
+│   k6 負荷   │────▶│   nginx     │────▶│  access.log │
+│   テスター  │     │   サーバー  │     │             │
+└─────────────┘     └─────────────┘     └──────┬──────┘
+                                               │
+                                               ▼
+┌─────────────┐     ┌─────────────┐     ┌─────────────┐
+│   Allure    │◀────│   バッチ    │◀────│   Falco     │
+│   レポート  │     │   分析器    │     │  (プラグイン)│
+└─────────────┘     └─────────────┘     └─────────────┘
+```
+
+## テストカテゴリ
+
+| カテゴリ | 数 | 説明 | 期待ルール |
+|----------|-------|-------------|---------------|
+| SQLi | 19 | SQLインジェクション攻撃 | Time-based/Boolean-based Blind SQL Injection |
+| XSS | 11 | クロスサイトスクリプティング攻撃 | DOM-based XSS Attack |
+| Path | 20 | パストラバーサル攻撃 | Advanced Path Traversal Attack |
+| CmdInj | 10 | コマンドインジェクション攻撃 | Command Injection Attack |
+| Other | 5 | その他の脅威（MongoDB等） | Emerging Threat: NoSQL/MongoDB Injection |
+| **合計** | **65** | | |
+
+## テストの実行
+
+### GitHub Actions経由（推奨）
+
+```bash
+# E2Eテストワークフローをトリガー
+gh workflow run e2e-test.yml
+
+# ワークフローの状態を確認
+gh run list --workflow=e2e-test.yml
+
+# 結果を表示
+gh run view <RUN_ID>
+```
+
+### ローカルでの実行
+
+#### 前提条件
+
+- k6 (https://k6.io/)
+- Python 3.8+
+- Falco（nginxプラグインインストール済み）
+- nginxサーバー起動済み
+
+#### クイックスタート
+
+```bash
+# Python依存関係をインストール
+pip install -r allure/requirements.txt
+
+# k6テストを実行
+k6 run k6/main.js --env TARGET_IP=localhost --env TARGET_PORT=80
+
+# Falcoがイベントを処理するのを待機
+sleep 60
+
+# 結果を分析
+python scripts/batch_analyzer.py \
+  --patterns patterns/ \
+  --falco-log /var/log/falco/falco.log \
+  --test-ids results/test_ids.json \
+  --output results/test-results.json
+
+# Allureレポートを生成
+pytest allure/test_e2e_wrapper.py \
+  --test-results=results/test-results.json \
+  --logs-dir=results/ \
+  --alluredir=allure-results
+
+# レポートを開く
+allure serve allure-results
+```
+
+## 結果の確認
+
+### GitHub Pages
+
+最新のAllure Report: https://takaosgb3.github.io/falco-plugin-nginx/
+
+各ワークフロー実行で新しいレポートが作成されます:
+`https://takaosgb3.github.io/falco-plugin-nginx/{RUN_NUMBER}/`
 
 ## License
 
