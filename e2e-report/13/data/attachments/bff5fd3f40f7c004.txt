@@ -1,0 +1,2 @@
+11:45:10.000000000: Critical [NGINX XSS] DOM-based XSS Attack test_id=XSS_REFL_005-1765107910827-xbt6j pattern_id=XSS_REFL_005 uri=/?q=%3Cbody%20onload%3Dalert%28%27XSS%27%29%3E client=127.0.0.1 method=GET
+11:45:10.000000000: Critical [NGINX XSS] DOM-based XSS Attack test_id=XSS_REFL_005-1765107910827-xbt6j pattern_id=XSS_REFL_005 uri=/?q=%3Cbody%20onload%3Dalert%28%27XSS%27%29%3E client=127.0.0.1 method=GET

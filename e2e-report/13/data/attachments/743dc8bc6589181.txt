@@ -1,0 +1,2 @@
+11:45:20.000000000: Critical [NGINX Traversal] Basic path traversal attack detected test_id=PATH_DOT_009-1765107920339-90fx0r pattern_id=PATH_DOT_009 uri=/?q=../../home/user/.ssh/id_rsa client=127.0.0.1
+11:45:20.000000000: Critical [NGINX Traversal] Basic path traversal attack detected test_id=PATH_DOT_009-1765107920339-90fx0r pattern_id=PATH_DOT_009 uri=/?q=../../home/user/.ssh/id_rsa client=127.0.0.1
