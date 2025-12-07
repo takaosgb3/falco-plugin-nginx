@@ -254,7 +254,8 @@ export function handleSummary(data) {
 
     return {
         'stdout': JSON.stringify(customSummaryForStdout, null, 2),
-        '../results/summary.json': JSON.stringify(completeSummary, null, 2),
-        '../results/test_ids.json': JSON.stringify(testIdRecords, null, 2)
+        // Note: k6 is run from e2e/ directory, so paths are relative to e2e/
+        'results/summary.json': JSON.stringify(completeSummary, null, 2),
+        'results/test_ids.json': JSON.stringify(testIdRecords, null, 2)
     };
 }
