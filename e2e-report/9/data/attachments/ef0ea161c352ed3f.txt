@@ -1,0 +1,1 @@
+127.0.0.1 - - [07/Dec/2025:10:06:13 +0000] "GET /?q=%27%20AND%20%271%27%3D%271 HTTP/1.1" 200 51 "-" "Grafana k6/1.4.2" x_test_id=SQLI_BOOL_003-1765101973022-gzdf2p x_category=SQLI x_pattern_id=SQLI_BOOL_003

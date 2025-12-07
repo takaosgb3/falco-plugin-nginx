@@ -1,0 +1,2 @@
+10:06:12.000000000: Critical [NGINX XSS] Polyglot XSS Attack test_id=XSS_REFL_006-1765101972007-89d5ph pattern_id=XSS_REFL_006 uri=/?q=%3Cinput%20onfocus%3Dalert%28%27XSS%27%29%20autofocus%3E client=127.0.0.1 method=GET
+10:06:12.000000000: Critical [NGINX XSS] Polyglot XSS Attack test_id=XSS_REFL_006-1765101972007-89d5ph pattern_id=XSS_REFL_006 uri=/?q=%3Cinput%20onfocus%3Dalert%28%27XSS%27%29%20autofocus%3E client=127.0.0.1 method=GET

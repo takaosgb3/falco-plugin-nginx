@@ -1,0 +1,2 @@
+10:06:20.000000000: Critical [NGINX CMDi] Command injection via pipe test_id=CMD_BASIC_003-1765101980504-28y75 pattern_id=CMD_BASIC_003 uri=/?q=%7C%7C%20id client=127.0.0.1
+10:06:20.000000000: Critical [NGINX CMDi] Command injection via pipe test_id=CMD_BASIC_003-1765101980504-28y75 pattern_id=CMD_BASIC_003 uri=/?q=%7C%7C%20id client=127.0.0.1

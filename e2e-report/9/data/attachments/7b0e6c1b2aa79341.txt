@@ -1,0 +1,2 @@
+10:06:14.000000000: Critical [NGINX XSS] DOM-based XSS Attack test_id=XSS_REFL_011-1765101974513-uxijp pattern_id=XSS_REFL_011 uri=/?q=%3Caudio%20src%3Dx%20onerror%3Dalert%28%27XSS%27%29%3E client=127.0.0.1 method=GET
+10:06:14.000000000: Critical [NGINX XSS] DOM-based XSS Attack test_id=XSS_REFL_011-1765101974513-uxijp pattern_id=XSS_REFL_011 uri=/?q=%3Caudio%20src%3Dx%20onerror%3Dalert%28%27XSS%27%29%3E client=127.0.0.1 method=GET
