@@ -15,7 +15,9 @@
       "encoded": "%7B%22%24where%22%3A%20%22this.username%20%3D%3D%20%27admin%27%22%7D",
       "port": 8005,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "Emerging Threat: NoSQL/MongoDB Injection",
+      "rule_id": "EMRG_NOSQL_001"
     },
     {
       "id": "EMRG_MONGO_002",
@@ -26,7 +28,9 @@
       "encoded": "%7B%22%24ne%22%3A%20null%7D",
       "port": 8005,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "Emerging Threat: NoSQL/MongoDB Injection",
+      "rule_id": "EMRG_NOSQL_001"
     },
     {
       "id": "EMRG_MONGO_003",
@@ -37,7 +41,9 @@
       "encoded": "%7B%22%24gt%22%3A%20%22%22%7D",
       "port": 8005,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "Emerging Threat: NoSQL/MongoDB Injection",
+      "rule_id": "EMRG_NOSQL_001"
     },
     {
       "id": "EMRG_MONGO_004",
@@ -48,7 +54,9 @@
       "encoded": "%7B%22%24regex%22%3A%20%22.%2A%22%7D",
       "port": 8005,
       "expected_detection": true,
-      "severity": "medium"
+      "severity": "medium",
+      "expected_rule": "Emerging Threat: NoSQL/MongoDB Injection",
+      "rule_id": "EMRG_NOSQL_001"
     },
     {
       "id": "EMRG_MONGO_005",
@@ -59,7 +67,9 @@
       "encoded": "%27%3B%20return%20db.users.find%28%29%3B%20//",
       "port": 8005,
       "expected_detection": true,
-      "severity": "critical"
+      "severity": "critical",
+      "expected_rule": "Emerging Threat: NoSQL/MongoDB Injection",
+      "rule_id": "EMRG_NOSQL_001"
     }
   ]
 }

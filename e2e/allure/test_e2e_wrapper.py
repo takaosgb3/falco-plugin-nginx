@@ -207,6 +207,19 @@ def test_e2e_with_logs(request, test_result: Dict):
     # Load pattern information
     pattern_info = load_pattern_info(pattern_id)
 
+    # Get expected rule information
+    expected_rule = pattern_info.get('expected_rule', 'N/A') if pattern_info else 'N/A'
+    actual_rule = test_result.get('rule_name', 'N/A')
+    rule_id = pattern_info.get('rule_id', 'N/A') if pattern_info else 'N/A'
+
+    # Check if expected rule matches actual rule
+    rule_match_status = ""
+    if expected_rule != 'N/A' and actual_rule and actual_rule != 'N/A':
+        if expected_rule in actual_rule or actual_rule in expected_rule:
+            rule_match_status = "MATCH"
+        else:
+            rule_match_status = "MISMATCH"
+
     # Build description
     if pattern_info:
         description = f"""
@@ -225,6 +238,15 @@ def test_e2e_with_logs(request, test_result: Dict):
 - **Payload**: `{pattern_info.get('payload', 'N/A')}`
 - **Encoded**: `{pattern_info.get('encoded', 'N/A')}`
 - **Expected Detection**: {'Yes' if pattern_info.get('expected_detection') else 'No'}
+
+## Rule Mapping
+
+| Item | Value |
+|------|-------|
+| **Rule ID** | `{rule_id}` |
+| **Expected Rule** | {expected_rule} |
+| **Actual Rule** | {actual_rule if actual_rule else 'N/A'} |
+| **Match Status** | {'`' + rule_match_status + '`' if rule_match_status else 'N/A'} |
 
 ## Test Execution Results
 
