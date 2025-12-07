@@ -1,0 +1,11 @@
+# E2E Test Dependencies for Allure Report
+# Issue #3: E2E test workflow for falco-plugin-nginx (Public Repository)
+
+# Core Testing Framework
+pytest>=7.0.0
+
+# Allure Report Integration
+allure-pytest==2.15.0
+
+# Test Coverage
+pytest-cov>=4.0.0
