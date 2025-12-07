@@ -53,8 +53,8 @@ env:
   # Falco configuration
   FALCO_LOG_PATH: /var/log/falco/falco.log
   NGINX_LOG_PATH: /var/log/nginx/access.log
-  # Batch processing
-  BATCH_WAIT_TIME: '60'
+  # Batch processing (Issue #8: reduced from 60s to 5s)
+  BATCH_WAIT_TIME: '5'
   # Detection threshold
   MIN_DETECTION_RATE: '0.95'
 
