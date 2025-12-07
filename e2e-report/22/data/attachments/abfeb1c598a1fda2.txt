@@ -1,0 +1,2 @@
+12:46:09.000000000: Critical [NGINX Traversal] File inclusion attack detected test_id=PATH_ABS_004-1765111569131-7550ya pattern_id=PATH_ABS_004 uri=/?q=/var/log/auth.log client=127.0.0.1
+12:46:09.000000000: Critical [NGINX Traversal] File inclusion attack detected test_id=PATH_ABS_004-1765111569131-7550ya pattern_id=PATH_ABS_004 uri=/?q=/var/log/auth.log client=127.0.0.1
