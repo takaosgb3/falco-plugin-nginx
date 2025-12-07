@@ -212,10 +212,12 @@ def test_e2e_with_logs(request, test_result: Dict):
     actual_rule = test_result.get('rule_name', 'N/A')
     rule_id = pattern_info.get('rule_id', 'N/A') if pattern_info else 'N/A'
 
-    # Check if expected rule matches actual rule
+    # Check if expected rule matches actual rule (case-insensitive)
     rule_match_status = ""
     if expected_rule != 'N/A' and actual_rule and actual_rule != 'N/A':
-        if expected_rule in actual_rule or actual_rule in expected_rule:
+        expected_lower = expected_rule.lower()
+        actual_lower = actual_rule.lower()
+        if expected_lower in actual_lower or actual_lower in expected_lower:
             rule_match_status = "MATCH"
         else:
             rule_match_status = "MISMATCH"
