@@ -1,0 +1,2 @@
+11:52:22.000000000: Warning [NGINX XSS] XSS Filter Bypass Attempt test_id=XSS_REFL_001-1765108342214-khb2ss pattern_id=XSS_REFL_001 uri=/?q=%3Cscript%3Ealert%28%27XSS%27%29%3C/script%3E client=127.0.0.1 method=GET
+11:52:22.000000000: Warning [NGINX XSS] XSS Filter Bypass Attempt test_id=XSS_REFL_001-1765108342214-khb2ss pattern_id=XSS_REFL_001 uri=/?q=%3Cscript%3Ealert%28%27XSS%27%29%3C/script%3E client=127.0.0.1 method=GET

@@ -1,0 +1,14 @@
+{
+  "pattern_id": "PATH_ABS_001",
+  "test_id": "PATH_ABS_001-1765108354735-b2cp3o",
+  "category": "path",
+  "detected": true,
+  "latency_ms": 5000,
+  "evidence": "11:52:34.000000000: Critical [NGINX Traversal] File inclusion attack detected test_id=PATH_ABS_001-1765108354735-b2cp3o pattern_id=PATH_ABS_001 uri=/?q=/etc/passwd client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] File inclusion attack detected test_id=PATH_ABS_001-1765108354735-b2cp3o pattern_id=PATH_ABS_001 uri=/?q=/etc/passwd client=127.0.0.1",
+  "expected_rule": "Advanced Path Traversal Attack",
+  "rule_id": "ADV_PATH_001",
+  "sent_at": 1765108359000,
+  "detected_at": 1765108354000,
+  "status": "passed"
+}
