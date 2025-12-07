@@ -158,7 +158,9 @@ jobs:
           sudo chmod 644 /var/log/falco/falco.log
 
           # Download plugin binary from latest release
-          PLUGIN_URL=$(curl -s https://api.github.com/repos/takaosgb3/falco-plugin-nginx/releases/latest | \
+          # Note: Use GITHUB_TOKEN to avoid API rate limiting (60 req/hour unauthenticated vs 5000 req/hour authenticated)
+          PLUGIN_URL=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            https://api.github.com/repos/takaosgb3/falco-plugin-nginx/releases/latest | \
             jq -r '.assets[] | select(.name | contains("linux-amd64.so")) | .browser_download_url')
 
           if [ -z "$PLUGIN_URL" ] || [ "$PLUGIN_URL" == "null" ]; then
@@ -222,13 +224,26 @@ jobs:
             --disable-source syscall \
             2>&1 | tee /tmp/falco-startup.log &
 
-          # Wait for Falco to initialize
+          # Wait for Falco to initialize with timeout (more robust than fixed sleep)
           echo "Waiting for Falco to initialize..."
-          sleep 10
+          FALCO_STARTED=false
+          for i in $(seq 1 30); do
+            if grep -q "Starting" /tmp/falco-startup.log 2>/dev/null || \
+               grep -q "nginx" /tmp/falco-startup.log 2>/dev/null; then
+              echo "Falco started successfully after ${i} seconds"
+              FALCO_STARTED=true
+              break
+            fi
+            sleep 1
+          done
 
           # Verify Falco is running
+          if ! $FALCO_STARTED; then
+            echo "::warning::Falco startup marker not found in logs, checking process..."
+          fi
+
           if pgrep -x falco > /dev/null; then
-            echo "Falco is running"
+            echo "Falco process is running"
           else
             echo "::error::Falco failed to start"
             cat /tmp/falco-startup.log
@@ -238,6 +253,8 @@ jobs:
           # Check for plugin load
           if grep -q "nginx" /tmp/falco-startup.log; then
             echo "nginx plugin loaded successfully"
+          else
+            echo "::warning::nginx plugin load message not found in startup log"
           fi
 
       # ========================================
@@ -394,7 +411,7 @@ jobs:
             echo "|--------|-------|" >> $GITHUB_STEP_SUMMARY
             echo "| Total Patterns | $TOTAL |" >> $GITHUB_STEP_SUMMARY
             echo "| Detected | $DETECTED |" >> $GITHUB_STEP_SUMMARY
-            echo "| Detection Rate | $(echo "$RATE * 100" | bc -l | xargs printf "%.1f%%") |" >> $GITHUB_STEP_SUMMARY
+            echo "| Detection Rate | $(echo "$RATE" | awk '{printf "%.1f%%", $1 * 100}') |" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
 
             if [ -f e2e/results/analysis-summary.json ]; then
