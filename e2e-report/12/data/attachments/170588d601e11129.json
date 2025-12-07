@@ -1,0 +1,14 @@
+{
+  "pattern_id": "PATH_DOT_006",
+  "test_id": "PATH_DOT_006-1765107724269-vk9uoi",
+  "category": "path",
+  "detected": true,
+  "latency_ms": 7000,
+  "evidence": "11:42:04.000000000: Critical [NGINX Traversal] Basic path traversal attack detected test_id=PATH_DOT_006-1765107724269-vk9uoi pattern_id=PATH_DOT_006 uri=/?q=../../var/log/apache2/access.log client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] Basic path traversal attack detected test_id=PATH_DOT_006-1765107724269-vk9uoi pattern_id=PATH_DOT_006 uri=/?q=../../var/log/apache2/access.log client=127.0.0.1",
+  "expected_rule": "Advanced Path Traversal Attack",
+  "rule_id": "ADV_PATH_001",
+  "sent_at": 1765107731000,
+  "detected_at": 1765107724000,
+  "status": "passed"
+}

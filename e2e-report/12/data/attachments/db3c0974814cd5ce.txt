@@ -1,0 +1,2 @@
+11:42:05.000000000: Warning [NGINX CMDi] Advanced command injection attempt test_id=CMD_BASIC_004-1765107725760-zkpgkg pattern_id=CMD_BASIC_004 uri=/?q=%26%20ps%20aux client=127.0.0.1
+11:42:05.000000000: Warning [NGINX CMDi] Advanced command injection attempt test_id=CMD_BASIC_004-1765107725760-zkpgkg pattern_id=CMD_BASIC_004 uri=/?q=%26%20ps%20aux client=127.0.0.1

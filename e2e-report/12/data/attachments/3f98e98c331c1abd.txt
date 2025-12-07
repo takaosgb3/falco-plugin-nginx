@@ -1,0 +1,2 @@
+11:42:07.000000000: Critical [NGINX Traversal] File inclusion attack detected test_id=PATH_ABS_003-1765107727778-g1gsz pattern_id=PATH_ABS_003 uri=/?q=/root/.ssh/authorized_keys client=127.0.0.1
+11:42:07.000000000: Critical [NGINX Traversal] File inclusion attack detected test_id=PATH_ABS_003-1765107727778-g1gsz pattern_id=PATH_ABS_003 uri=/?q=/root/.ssh/authorized_keys client=127.0.0.1
