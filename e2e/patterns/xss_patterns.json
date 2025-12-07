@@ -15,7 +15,9 @@
       "encoded": "%3Cscript%3Ealert%28%27XSS%27%29%3C/script%3E",
       "port": 8002,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "DOM-based XSS Attack",
+      "rule_id": "ADV_XSS_001"
     },
     {
       "id": "XSS_REFL_002",
@@ -26,7 +28,9 @@
       "encoded": "%3Cimg%20src%3Dx%20onerror%3Dalert%28%27XSS%27%29%3E",
       "port": 8002,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "DOM-based XSS Attack",
+      "rule_id": "ADV_XSS_001"
     },
     {
       "id": "XSS_REFL_003",
@@ -37,7 +41,9 @@
       "encoded": "%3Csvg%20onload%3Dalert%28%27XSS%27%29%3E",
       "port": 8002,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "DOM-based XSS Attack",
+      "rule_id": "ADV_XSS_001"
     },
     {
       "id": "XSS_REFL_004",
@@ -48,7 +54,9 @@
       "encoded": "%3Ciframe%20src%3Djavascript%3Aalert%28%27XSS%27%29%3E",
       "port": 8002,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "DOM-based XSS Attack",
+      "rule_id": "ADV_XSS_001"
     },
     {
       "id": "XSS_REFL_005",
@@ -59,7 +67,9 @@
       "encoded": "%3Cbody%20onload%3Dalert%28%27XSS%27%29%3E",
       "port": 8002,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "Stored XSS Attack",
+      "rule_id": "ADV_XSS_002"
     },
     {
       "id": "XSS_REFL_006",
@@ -70,7 +80,9 @@
       "encoded": "%3Cinput%20onfocus%3Dalert%28%27XSS%27%29%20autofocus%3E",
       "port": 8002,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "Stored XSS Attack",
+      "rule_id": "ADV_XSS_002"
     },
     {
       "id": "XSS_REFL_007",
@@ -81,7 +93,9 @@
       "encoded": "%3Cselect%20onfocus%3Dalert%28%27XSS%27%29%20autofocus%3E",
       "port": 8002,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "Stored XSS Attack",
+      "rule_id": "ADV_XSS_002"
     },
     {
       "id": "XSS_REFL_008",
@@ -92,7 +106,9 @@
       "encoded": "%3Ctextarea%20onfocus%3Dalert%28%27XSS%27%29%20autofocus%3E",
       "port": 8002,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "Stored XSS Attack",
+      "rule_id": "ADV_XSS_002"
     },
     {
       "id": "XSS_REFL_009",
@@ -103,7 +119,9 @@
       "encoded": "%3Ckeygen%20onfocus%3Dalert%28%27XSS%27%29%20autofocus%3E",
       "port": 8002,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "Stored XSS Attack",
+      "rule_id": "ADV_XSS_002"
     },
     {
       "id": "XSS_REFL_010",
@@ -114,7 +132,9 @@
       "encoded": "%3Cvideo%3E%3Csource%20onerror%3Dalert%28%27XSS%27%29%3E",
       "port": 8002,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "DOM-based XSS Attack",
+      "rule_id": "ADV_XSS_001"
     },
     {
       "id": "XSS_REFL_011",
@@ -125,7 +145,9 @@
       "encoded": "%3Caudio%20src%3Dx%20onerror%3Dalert%28%27XSS%27%29%3E",
       "port": 8002,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "DOM-based XSS Attack",
+      "rule_id": "ADV_XSS_001"
     }
   ]
 }

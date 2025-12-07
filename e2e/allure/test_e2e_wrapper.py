@@ -208,6 +208,18 @@ def test_e2e_with_logs(request, test_result: Dict):
     pattern_info = load_pattern_info(pattern_id)
 
     # Build description
+    expected_rule = pattern_info.get('expected_rule', 'N/A') if pattern_info else 'N/A'
+    actual_rule = test_result.get('rule_name', 'N/A')
+    rule_id = pattern_info.get('rule_id', 'N/A') if pattern_info else 'N/A'
+
+    # Check if expected rule matches actual rule
+    rule_match_status = ""
+    if expected_rule != 'N/A' and actual_rule != 'N/A':
+        if expected_rule in actual_rule or actual_rule in expected_rule:
+            rule_match_status = "MATCH"
+        else:
+            rule_match_status = "MISMATCH"
+
     if pattern_info:
         description = f"""
 ## Attack Pattern Information
@@ -219,6 +231,15 @@ def test_e2e_with_logs(request, test_result: Dict):
 | **Category** | {pattern_info.get('category', 'N/A').upper()} |
 | **Subcategory** | {pattern_info.get('subcategory', 'N/A')} |
 | **Severity** | `{pattern_info.get('severity', 'medium').upper()}` |
+
+## Rule Mapping
+
+| Item | Value |
+|------|-------|
+| **Rule ID** | `{rule_id}` |
+| **Expected Rule** | {expected_rule} |
+| **Actual Rule** | {actual_rule} |
+| **Match Status** | {'`' + rule_match_status + '`' if rule_match_status else 'N/A'} |
 
 ## Attack Details
 
@@ -234,8 +255,6 @@ def test_e2e_with_logs(request, test_result: Dict):
 - **Timestamp**: {format_timestamp(test_result.get('detected_at'))}
 
 ## Detection Evidence
-
-{'**Rule Name**: ' + test_result.get('rule_name', 'N/A') if test_result.get('rule_name') else ''}
 
 **Falco Log Entry**:
 ```

@@ -15,7 +15,9 @@
       "encoded": "SLEEP%285%29",
       "port": 8001,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "Time-based Blind SQL Injection",
+      "rule_id": "ADV_SQLI_001"
     },
     {
       "id": "SQLI_TIME_002",
@@ -26,7 +28,9 @@
       "encoded": "BENCHMARK%281000000%2CMD5%28%27test%27%29%29",
       "port": 8001,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "Time-based Blind SQL Injection",
+      "rule_id": "ADV_SQLI_001"
     },
     {
       "id": "SQLI_TIME_003",
@@ -37,7 +41,9 @@
       "encoded": "WAITFOR%20DELAY%20%270%3A0%3A5%27",
       "port": 8001,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "Time-based Blind SQL Injection",
+      "rule_id": "ADV_SQLI_001"
     },
     {
       "id": "SQLI_TIME_004",
@@ -48,7 +54,9 @@
       "encoded": "pg_sleep%285%29",
       "port": 8001,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "Time-based Blind SQL Injection",
+      "rule_id": "ADV_SQLI_001"
     },
     {
       "id": "SQLI_TIME_005",
@@ -59,7 +67,9 @@
       "encoded": "SLEEP%2810%29",
       "port": 8001,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "Time-based Blind SQL Injection",
+      "rule_id": "ADV_SQLI_001"
     },
     {
       "id": "SQLI_TIME_006",
@@ -70,7 +80,9 @@
       "encoded": "SLEEP%25285%2529",
       "port": 8001,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "Time-based Blind SQL Injection",
+      "rule_id": "ADV_SQLI_001"
     },
     {
       "id": "SQLI_TIME_007",
@@ -81,7 +93,9 @@
       "encoded": "U0xFRVAoNSk%253D",
       "port": 8001,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "Time-based Blind SQL Injection",
+      "rule_id": "ADV_SQLI_001"
     },
     {
       "id": "SQLI_TIME_008",
@@ -92,7 +106,9 @@
       "encoded": "WAITFOR%2520DELAY%2520%25270%253A0%253A5%2527",
       "port": 8001,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "Time-based Blind SQL Injection",
+      "rule_id": "ADV_SQLI_001"
     },
     {
       "id": "SQLI_TIME_009",
@@ -103,7 +119,9 @@
       "encoded": "cGdfc2xlZXAoNSk%253D",
       "port": 8001,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "Time-based Blind SQL Injection",
+      "rule_id": "ADV_SQLI_001"
     },
     {
       "id": "SQLI_TIME_010",
@@ -114,7 +132,9 @@
       "encoded": "SLEEP%252810%2529",
       "port": 8001,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "Time-based Blind SQL Injection",
+      "rule_id": "ADV_SQLI_001"
     },
     {
       "id": "SQLI_TIME_011",
@@ -125,7 +145,9 @@
       "encoded": "sleep%285%29",
       "port": 8001,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "Time-based Blind SQL Injection",
+      "rule_id": "ADV_SQLI_001"
     },
     {
       "id": "SQLI_TIME_012",
@@ -136,7 +158,9 @@
       "encoded": "SLeep%285%29",
       "port": 8001,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "Time-based Blind SQL Injection",
+      "rule_id": "ADV_SQLI_001"
     },
     {
       "id": "SQLI_TIME_013",
@@ -147,7 +171,9 @@
       "encoded": "SLEEP/%2Acomment%2A/%285%29",
       "port": 8001,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "Time-based Blind SQL Injection",
+      "rule_id": "ADV_SQLI_001"
     },
     {
       "id": "SQLI_TIME_014",
@@ -158,7 +184,9 @@
       "encoded": "SLEEP%28/%2A5%2A/5%29",
       "port": 8001,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "Time-based Blind SQL Injection",
+      "rule_id": "ADV_SQLI_001"
     },
     {
       "id": "SQLI_TIME_015",
@@ -169,7 +197,9 @@
       "encoded": "/%2A%2A/SLEEP/%2A%2A/%285%29",
       "port": 8001,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "Time-based Blind SQL Injection",
+      "rule_id": "ADV_SQLI_001"
     },
     {
       "id": "SQLI_BOOL_001",
@@ -180,7 +210,9 @@
       "encoded": "%27%20OR%20%271%27%3D%271",
       "port": 8001,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "Boolean-based Blind SQL Injection",
+      "rule_id": "ADV_SQLI_002"
     },
     {
       "id": "SQLI_BOOL_002",
@@ -191,7 +223,9 @@
       "encoded": "%27%20OR%201%3D1%20--",
       "port": 8001,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "Boolean-based Blind SQL Injection",
+      "rule_id": "ADV_SQLI_002"
     },
     {
       "id": "SQLI_BOOL_003",
@@ -202,7 +236,9 @@
       "encoded": "%27%20AND%20%271%27%3D%271",
       "port": 8001,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "Boolean-based Blind SQL Injection",
+      "rule_id": "ADV_SQLI_002"
     },
     {
       "id": "SQLI_BOOL_004",
@@ -213,7 +249,9 @@
       "encoded": "%27%20OR%20%27a%27%3D%27a",
       "port": 8001,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "Boolean-based Blind SQL Injection",
+      "rule_id": "ADV_SQLI_002"
     }
   ]
 }

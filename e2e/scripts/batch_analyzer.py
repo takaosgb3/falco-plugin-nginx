@@ -270,6 +270,10 @@ class BatchAnalyzer:
             if not category and pattern_data:
                 category = pattern_data.get('category', '')
 
+            # Get expected rule from pattern definition
+            expected_rule = pattern_data.get('expected_rule', '')
+            rule_id = pattern_data.get('rule_id', '')
+
             detection = detections.get(test_id, {})
             detected = detection.get('detected', False)
             detected_at = detection.get('detected_at')
@@ -298,7 +302,9 @@ class BatchAnalyzer:
                 "detected_at": detected_at,
                 "latency_ms": latency_ms,
                 "evidence": evidence,
-                "rule_name": rule_name
+                "rule_name": rule_name,
+                "expected_rule": expected_rule,
+                "rule_id": rule_id
             }
 
             results.append(result)
@@ -332,6 +338,8 @@ class BatchAnalyzer:
                 "latency_ms": result["latency_ms"],
                 "evidence": result["evidence"],
                 "rule_name": result.get("rule_name", ""),
+                "expected_rule": result.get("expected_rule", ""),
+                "rule_id": result.get("rule_id", ""),
                 "sent_at": result["sent_at"],
                 "detected_at": result["detected_at"],
                 "status": "passed" if result["detected"] else "failed"
