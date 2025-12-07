@@ -448,6 +448,38 @@ jobs:
           # Ensure allure-results exists (may have history from previous step)
           mkdir -p allure-results/history
 
+          # Create environment.properties for Allure Environment widget
+          cat > allure-results/environment.properties << EOF
+          Platform=ubuntu-24.04
+          Falco.Version=$(falco --version 2>/dev/null | head -1 | awk '{print $NF}' || echo "unknown")
+          Plugin=falco-plugin-nginx
+          nginx.Version=$(nginx -v 2>&1 | awk -F/ '{print $NF}' || echo "unknown")
+          k6.Version=$(k6 version 2>/dev/null | head -1 | awk '{print $NF}' || echo "unknown")
+          Python.Version=$(python --version 2>&1 | awk '{print $2}')
+          Test.Patterns=65
+          Target.Host=${{ env.TARGET_IP }}:${{ env.TARGET_PORT }}
+          EOF
+
+          echo "Created environment.properties:"
+          cat allure-results/environment.properties
+
+          # Create executor.json for Allure Executors widget
+          cat > allure-results/executor.json << EOF
+          {
+            "name": "GitHub Actions",
+            "type": "github",
+            "url": "https://github.com/${{ github.repository }}",
+            "buildOrder": ${{ github.run_number }},
+            "buildName": "E2E Tests #${{ github.run_number }}",
+            "buildUrl": "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}",
+            "reportUrl": "https://takaosgb3.github.io/falco-plugin-nginx/e2e-report/${{ github.run_number }}/",
+            "reportName": "Allure Report"
+          }
+          EOF
+
+          echo "Created executor.json:"
+          cat allure-results/executor.json
+
           # Run pytest to generate Allure results
           pytest allure/test_e2e_wrapper.py \
             --test-results=results/test-results.json \
