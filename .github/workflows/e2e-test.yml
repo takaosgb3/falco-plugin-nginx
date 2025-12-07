@@ -264,12 +264,21 @@ jobs:
           # Create results directory
           mkdir -p e2e/results
 
-          # Run k6 tests
+          # Run k6 tests and capture output for test_id extraction
+          # Note: k6's handleSummary cannot access VU-level data (testIdRecords array)
+          # So we extract test_ids from console log output instead
           cd e2e
           k6 run \
             -e TARGET_IP=${{ env.TARGET_IP }} \
             -e TARGET_PORT=${{ env.TARGET_PORT }} \
-            k6/main.js
+            k6/main.js 2>&1 | tee results/k6-output.log
+
+          # Extract test_ids from k6 console output (Pattern #A319 fix)
+          # Format: [SENT] PATTERN_ID: test_id=TEST_ID
+          echo "Extracting test_ids from k6 output..."
+          grep '\[SENT\]' results/k6-output.log | \
+            sed 's/.*\[SENT\] \([^:]*\): test_id=\([^ ]*\).*/{"pattern_id":"\1","test_id":"\2","sent_at":'$(date +%s)'000}/' | \
+            jq -s '.' > results/test_ids.json
 
           # Show results summary
           echo "=== Test IDs Summary ==="
