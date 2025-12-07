@@ -1,0 +1,2 @@
+12:02:56.000000000: Critical [NGINX Traversal] File inclusion attack detected test_id=PATH_ABS_002-1765108976849-ht6j1d pattern_id=PATH_ABS_002 uri=/?q=/etc/shadow client=127.0.0.1
+12:02:56.000000000: Critical [NGINX Traversal] File inclusion attack detected test_id=PATH_ABS_002-1765108976849-ht6j1d pattern_id=PATH_ABS_002 uri=/?q=/etc/shadow client=127.0.0.1

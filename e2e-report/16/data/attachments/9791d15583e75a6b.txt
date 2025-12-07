@@ -1,0 +1,1 @@
+127.0.0.1 - - [07/Dec/2025:12:02:43 +0000] "GET /?q=%3Cscript%3Ealert%28%27XSS%27%29%3C/script%3E HTTP/1.1" 200 51 "-" "Grafana k6/1.4.2" x_test_id=XSS_REFL_001-1765108963828-54s8qq x_category=XSS x_pattern_id=XSS_REFL_001

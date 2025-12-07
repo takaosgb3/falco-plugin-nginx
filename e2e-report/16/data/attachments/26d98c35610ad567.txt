@@ -1,0 +1,2 @@
+12:02:59.000000000: Critical [NGINX Emerging Threat] MongoDB NoSQL injection test_id=EMRG_MONGO_003-1765108979830-qu1vae pattern_id=EMRG_MONGO_003 uri=/?q=%7B%22%24gt%22%3A%20%22%22%7D client=127.0.0.1
+12:02:59.000000000: Critical [NGINX Emerging Threat] MongoDB NoSQL injection test_id=EMRG_MONGO_003-1765108979830-qu1vae pattern_id=EMRG_MONGO_003 uri=/?q=%7B%22%24gt%22%3A%20%22%22%7D client=127.0.0.1

@@ -1,0 +1,2 @@
+12:02:43.000000000: Critical [NGINX SQLi] Time-based Blind SQL Injection test_id=SQLI_TIME_010-1765108963340-6gvlmp pattern_id=SQLI_TIME_010 uri=/?q=SLEEP%252810%2529 client=127.0.0.1 method=GET
+12:02:43.000000000: Critical [NGINX SQLi] Time-based Blind SQL Injection test_id=SQLI_TIME_010-1765108963340-6gvlmp pattern_id=SQLI_TIME_010 uri=/?q=SLEEP%252810%2529 client=127.0.0.1 method=GET
