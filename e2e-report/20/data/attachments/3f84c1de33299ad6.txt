@@ -1,0 +1,2 @@
+12:35:28.000000000: Critical [NGINX Traversal] Basic path traversal attack detected test_id=PATH_DOT_007-1765110928040-5ac96 pattern_id=PATH_DOT_007 uri=/?q=../../../proc/version client=127.0.0.1
+12:35:28.000000000: Critical [NGINX Traversal] Basic path traversal attack detected test_id=PATH_DOT_007-1765110928040-5ac96 pattern_id=PATH_DOT_007 uri=/?q=../../../proc/version client=127.0.0.1
