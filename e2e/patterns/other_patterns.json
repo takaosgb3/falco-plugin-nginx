@@ -16,7 +16,7 @@
       "port": 8005,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Emerging Threat: NoSQL/MongoDB Injection",
+      "expected_rule": "MongoDB NoSQL Injection Detection",
       "rule_id": "EMRG_NOSQL_001"
     },
     {
@@ -29,7 +29,7 @@
       "port": 8005,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Emerging Threat: NoSQL/MongoDB Injection",
+      "expected_rule": "MongoDB NoSQL Injection Detection",
       "rule_id": "EMRG_NOSQL_001"
     },
     {
@@ -42,7 +42,7 @@
       "port": 8005,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Emerging Threat: NoSQL/MongoDB Injection",
+      "expected_rule": "MongoDB NoSQL Injection Detection",
       "rule_id": "EMRG_NOSQL_001"
     },
     {
@@ -55,7 +55,7 @@
       "port": 8005,
       "expected_detection": true,
       "severity": "medium",
-      "expected_rule": "Emerging Threat: NoSQL/MongoDB Injection",
+      "expected_rule": "MongoDB NoSQL Injection Detection",
       "rule_id": "EMRG_NOSQL_001"
     },
     {
@@ -68,7 +68,7 @@
       "port": 8005,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "Emerging Threat: NoSQL/MongoDB Injection",
+      "expected_rule": "MongoDB NoSQL Injection Detection",
       "rule_id": "EMRG_NOSQL_001"
     }
   ]
