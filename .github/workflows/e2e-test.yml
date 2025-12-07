@@ -101,25 +101,60 @@ jobs:
         run: |
           sudo apt-get install -y nginx
 
-          # Configure nginx for E2E testing
-          sudo tee /etc/nginx/sites-available/default > /dev/null << 'EOF'
-          server {
-              listen 80 default_server;
-              listen [::]:80 default_server;
+          # Configure nginx with custom log format for E2E testing
+          # Include X-Test-ID, X-Category, X-Pattern-ID headers in access log
+          sudo tee /etc/nginx/nginx.conf > /dev/null << 'EOF'
+          user www-data;
+          worker_processes auto;
+          pid /run/nginx.pid;
+          include /etc/nginx/modules-enabled/*.conf;
 
-              root /var/www/html;
-              index index.html;
+          events {
+              worker_connections 768;
+          }
 
-              server_name _;
+          http {
+              sendfile on;
+              tcp_nopush on;
+              types_hash_max_size 2048;
+              include /etc/nginx/mime.types;
+              default_type application/octet-stream;
 
-              location / {
-                  try_files $uri $uri/ =404;
+              # Custom log format with test headers for E2E testing
+              # Pattern #A320: Include X-Test-ID, X-Category, X-Pattern-ID in access log
+              log_format e2e '$remote_addr - $remote_user [$time_local] "$request" '
+                             '$status $body_bytes_sent "$http_referer" '
+                             '"$http_user_agent" '
+                             'x_test_id=$http_x_test_id '
+                             'x_category=$http_x_category '
+                             'x_pattern_id=$http_x_pattern_id';
+
+              access_log /var/log/nginx/access.log e2e;
+              error_log /var/log/nginx/error.log;
+
+              gzip on;
+
+              server {
+                  listen 80 default_server;
+                  listen [::]:80 default_server;
+
+                  root /var/www/html;
+                  index index.html;
+
+                  server_name _;
+
+                  location / {
+                      try_files $uri $uri/ =404;
+                  }
               }
           }
           EOF
 
           # Create simple index page
           echo "<html><body><h1>E2E Test Server</h1></body></html>" | sudo tee /var/www/html/index.html
+
+          # Verify nginx config
+          sudo nginx -t
 
           # Start nginx
           sudo systemctl restart nginx
@@ -274,11 +309,12 @@ jobs:
             k6/main.js 2>&1 | tee results/k6-output.log
 
           # Extract test_ids from k6 console output (Pattern #A319 fix)
-          # Format: [SENT] PATTERN_ID: test_id=TEST_ID
+          # Format: time="..." level=info msg="[SENT] PATTERN_ID: test_id=TEST_ID" source=console
           echo "Extracting test_ids from k6 output..."
+          CURRENT_TIMESTAMP=$(date +%s)000
           grep '\[SENT\]' results/k6-output.log | \
-            sed 's/.*\[SENT\] \([^:]*\): test_id=\([^ ]*\).*/{"pattern_id":"\1","test_id":"\2","sent_at":'$(date +%s)'000}/' | \
-            jq -s '.' > results/test_ids.json
+            sed 's/.*\[SENT\] \([^:]*\): test_id=\([^"]*\)".*/{"pattern_id":"\1","test_id":"\2","sent_at":'"$CURRENT_TIMESTAMP"'}/' | \
+            jq -s '.' > results/test_ids.json || echo "[]" > results/test_ids.json
 
           # Show results summary
           echo "=== Test IDs Summary ==="
