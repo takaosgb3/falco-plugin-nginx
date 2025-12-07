@@ -1,0 +1,2 @@
+13:08:51.000000000: Critical [NGINX Traversal] Basic path traversal attack detected test_id=PATH_DOT_006-1765112931219-ou6wm pattern_id=PATH_DOT_006 uri=/?q=../../var/log/apache2/access.log client=127.0.0.1
+13:08:51.000000000: Critical [NGINX Traversal] Basic path traversal attack detected test_id=PATH_DOT_006-1765112931219-ou6wm pattern_id=PATH_DOT_006 uri=/?q=../../var/log/apache2/access.log client=127.0.0.1

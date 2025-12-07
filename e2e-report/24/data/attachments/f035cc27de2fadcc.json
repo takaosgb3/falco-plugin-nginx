@@ -1,0 +1,14 @@
+{
+  "pattern_id": "PATH_BASIC_001",
+  "test_id": "PATH_BASIC_001-1765112926207-8vn6yd",
+  "category": "path",
+  "detected": true,
+  "latency_ms": 12000,
+  "evidence": "13:08:46.000000000: Critical [NGINX Traversal] Basic path traversal attack detected test_id=PATH_BASIC_001-1765112926207-8vn6yd pattern_id=PATH_BASIC_001 uri=/?q=../ client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] Basic path traversal attack detected test_id=PATH_BASIC_001-1765112926207-8vn6yd pattern_id=PATH_BASIC_001 uri=/?q=../ client=127.0.0.1",
+  "expected_rule": "",
+  "rule_id": "",
+  "sent_at": 1765112938000,
+  "detected_at": 1765112926000,
+  "status": "passed"
+}
