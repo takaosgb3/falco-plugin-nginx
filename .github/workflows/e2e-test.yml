@@ -575,6 +575,39 @@ jobs:
           keep_files: false
 
       # ========================================
+      # 14b. Create root index.html (Issue #10)
+      # ========================================
+      - name: Create root redirect
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        run: |
+          echo "Creating root redirect to latest E2E report"
+
+          mkdir -p root-redirect
+          cat > root-redirect/index.html << EOF
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <meta http-equiv="refresh" content="0; url=e2e-report/${{ github.run_number }}/" />
+            <title>Falco nginx Plugin - E2E Test Reports</title>
+          </head>
+          <body>
+            <h1>Falco nginx Plugin - E2E Test Reports</h1>
+            <p>Redirecting to <a href="e2e-report/${{ github.run_number }}/">latest report (Run #${{ github.run_number }})</a>...</p>
+            <p><a href="e2e-report/latest/">Latest Report</a></p>
+          </body>
+          </html>
+          EOF
+
+      - name: Deploy root redirect
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./root-redirect
+          destination_dir: .
+          keep_files: true
+
+      # ========================================
       # 15. Job Summary
       # ========================================
       - name: Generate Job Summary
