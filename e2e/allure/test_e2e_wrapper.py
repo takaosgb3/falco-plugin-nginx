@@ -20,9 +20,172 @@ Usage:
 import json
 import pytest
 import allure
+import html
+import re
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Dict, List, Literal, Optional
 from datetime import datetime, timezone
+
+# ============================================
+# Keyword Highlighting Functions (Issue #17)
+# ============================================
+
+def highlight_keywords_in_text(
+    text: str,
+    keywords: List[str],
+    format: Literal["text", "html"] = "text"
+) -> str:
+    """
+    Highlight keywords in text with visual markers
+
+    Issue #17: Fluorescent yellow highlighting for keyword visibility
+    Based on: PRIVATE repo Issue #706 implementation
+
+    Args:
+        text: Target text
+        keywords: List of keywords to highlight
+        format: "text" (>>> <<< markers) or "html" (<mark> tag, fluorescent yellow)
+
+    Returns:
+        Highlighted text
+    """
+    if not keywords or not text:
+        return text
+
+    result = text
+
+    # HTML format: escape HTML first, then apply highlighting
+    if format == "html":
+        result = html.escape(result)
+
+        def replace_func_html(match):
+            return f'<mark style="background-color: #FFFF00; padding: 1px 3px;">{match.group(0)}</mark>'
+
+        for keyword in keywords:
+            # Escape keyword for HTML as well
+            escaped_keyword = html.escape(keyword)
+            pattern = re.compile(re.escape(escaped_keyword), re.IGNORECASE)
+            result = pattern.sub(replace_func_html, result)
+    else:
+        # Text format: >>> keyword <<< markers
+        def replace_func_text(match):
+            return f">>> {match.group(0)} <<<"
+
+        for keyword in keywords:
+            pattern = re.compile(re.escape(keyword), re.IGNORECASE)
+            result = pattern.sub(replace_func_text, result)
+
+    return result
+
+
+def wrap_highlighted_text_as_html(
+    highlighted_text: str,
+    title: str = "",
+    use_pre: bool = True
+) -> str:
+    """
+    Wrap highlighted text as a complete HTML document
+
+    Issue #17: HTML document for Allure attachment
+    Based on: PRIVATE repo Issue #706, #708 implementation
+
+    Args:
+        highlighted_text: Output from highlight_keywords_in_text(format="html")
+        title: HTML document title (optional)
+        use_pre: Use <pre> tag (True) or <div> (False)
+
+    Returns:
+        Complete HTML document
+    """
+    title_html = f"<h3>{html.escape(title)}</h3>" if title else ""
+
+    if use_pre:
+        content_html = f"<pre>{highlighted_text}</pre>"
+    else:
+        content_html = f"<div class='content'>{highlighted_text}</div>"
+
+    return f"""<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        html, body {{
+            margin: 0;
+            padding: 0;
+            height: auto;
+            min-height: 600px;
+            overflow: auto;
+        }}
+        body {{
+            font-family: monospace;
+            padding: 15px;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            line-height: 1.5;
+        }}
+        pre {{
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            margin: 0;
+            overflow: visible;
+        }}
+        .content {{
+            overflow: visible;
+        }}
+        mark {{
+            background-color: #FFFF00;
+            color: #000;
+            padding: 1px 3px;
+            border-radius: 2px;
+        }}
+        h3 {{
+            color: #4CAF50;
+            margin: 0 0 15px 0;
+        }}
+    </style>
+</head>
+<body>
+{title_html}
+{content_html}
+</body>
+</html>"""
+
+
+def extract_keywords_for_highlight(test_result: Dict, pattern_info: Optional[Dict] = None) -> List[str]:
+    """
+    Extract keywords for highlighting from test result and pattern info
+
+    Args:
+        test_result: Test result dictionary
+        pattern_info: Pattern information dictionary (optional)
+
+    Returns:
+        List of keywords (payload, encoded)
+    """
+    keywords = []
+
+    # From pattern_info (priority)
+    if pattern_info:
+        payload = pattern_info.get('payload', '')
+        if payload:
+            keywords.append(payload)
+
+        encoded = pattern_info.get('encoded', '')
+        if encoded and encoded != payload:
+            keywords.append(encoded)
+
+    # Fallback: from test_result if pattern_info doesn't have them
+    if not keywords:
+        payload = test_result.get('payload', '')
+        if payload:
+            keywords.append(payload)
+
+        encoded = test_result.get('encoded', '')
+        if encoded and encoded != payload:
+            keywords.append(encoded)
+
+    return keywords
+
 
 # ============================================
 # Helper Functions for Metrics Display
@@ -300,8 +463,11 @@ Pattern details could not be loaded.
         )
 
     # ========================================
-    # Step 2: Log Files
+    # Step 2: Log Files (with Highlighting - Issue #17)
     # ========================================
+    # Extract keywords for highlighting
+    highlight_keywords = extract_keywords_for_highlight(test_result, pattern_info)
+
     if logs_dir:
         with allure.step("Log Files"):
             # Falco log
@@ -314,11 +480,23 @@ Pattern details could not be loaded.
                     if pattern_id in line
                 ]
                 if filtered_lines:
-                    allure.attach(
-                        "\n".join(filtered_lines),
-                        name="falco.log (filtered)",
-                        attachment_type=allure.attachment_type.TEXT
-                    )
+                    log_content = "\n".join(filtered_lines)
+
+                    # Issue #17: Apply fluorescent yellow highlighting
+                    if highlight_keywords:
+                        highlighted_log = highlight_keywords_in_text(log_content, highlight_keywords, format="html")
+                        html_content = wrap_highlighted_text_as_html(highlighted_log, "falco.log (Detected)")
+                        allure.attach(
+                            html_content,
+                            name="falco.log (highlighted)",
+                            attachment_type=allure.attachment_type.HTML
+                        )
+                    else:
+                        allure.attach(
+                            log_content,
+                            name="falco.log (filtered)",
+                            attachment_type=allure.attachment_type.TEXT
+                        )
 
             # nginx access log
             nginx_log = logs_dir / "nginx-access.log"
@@ -330,14 +508,43 @@ Pattern details could not be loaded.
                     if pattern_id in line
                 ]
                 if filtered_lines:
-                    allure.attach(
-                        "\n".join(filtered_lines),
-                        name="nginx access.log (filtered)",
-                        attachment_type=allure.attachment_type.TEXT
-                    )
+                    log_content = "\n".join(filtered_lines)
+
+                    # Issue #17: Apply fluorescent yellow highlighting
+                    if highlight_keywords:
+                        highlighted_log = highlight_keywords_in_text(log_content, highlight_keywords, format="html")
+                        html_content = wrap_highlighted_text_as_html(highlighted_log, "nginx access.log")
+                        allure.attach(
+                            html_content,
+                            name="nginx access.log (highlighted)",
+                            attachment_type=allure.attachment_type.HTML
+                        )
+                    else:
+                        allure.attach(
+                            log_content,
+                            name="nginx access.log (filtered)",
+                            attachment_type=allure.attachment_type.TEXT
+                        )
 
     # ========================================
-    # Step 3: Verification Result
+    # Step 3: Detection Evidence (with Highlighting - Issue #17)
+    # ========================================
+    evidence = test_result.get('evidence', 'No evidence recorded')
+    if evidence and evidence != 'No evidence recorded' and highlight_keywords:
+        with allure.step("Detection Evidence (Highlighted)"):
+            highlighted_evidence = highlight_keywords_in_text(evidence, highlight_keywords, format="html")
+            evidence_html = wrap_highlighted_text_as_html(
+                highlighted_evidence,
+                "Detection Evidence (Falco Log Entry)"
+            )
+            allure.attach(
+                evidence_html,
+                name="Detection Evidence (HTML)",
+                attachment_type=allure.attachment_type.HTML
+            )
+
+    # ========================================
+    # Step 4: Verification Result
     # ========================================
     with allure.step("Verification Result"):
         if status == 'passed':
