@@ -373,7 +373,68 @@ jobs:
           fi
 
       # ========================================
-      # 10. Generate Allure Report (DD-004, DD-010)
+      # 10. Download Allure History (DD-013)
+      # ========================================
+      - name: Download previous Allure history
+        id: download_history
+        run: |
+          echo "=========================================="
+          echo "Downloading Previous Allure History (DD-013)"
+          echo "=========================================="
+
+          # Fetch gh-pages branch
+          git fetch origin gh-pages:gh-pages 2>/dev/null || {
+            echo "gh-pages branch not found, starting fresh"
+            echo "history_available=false" >> $GITHUB_OUTPUT
+            exit 0
+          }
+
+          # Find latest run number from redirect
+          LATEST_RUN=$(git show gh-pages:e2e-report/latest/index.html 2>/dev/null | \
+            grep -oP 'url=\.\./\K[0-9]+' || echo "")
+
+          if [ -z "$LATEST_RUN" ]; then
+            echo "No previous run found in latest redirect"
+            echo "history_available=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          echo "Found previous run: $LATEST_RUN"
+
+          # Create history directory
+          mkdir -p e2e/allure-results/history
+
+          # Download history files
+          HISTORY_FOUND=false
+
+          if git show "gh-pages:e2e-report/$LATEST_RUN/history/history.json" \
+            > e2e/allure-results/history/history.json 2>/dev/null; then
+            echo "Downloaded history.json"
+            HISTORY_FOUND=true
+          fi
+
+          if git show "gh-pages:e2e-report/$LATEST_RUN/history/history-trend.json" \
+            > e2e/allure-results/history/history-trend.json 2>/dev/null; then
+            echo "Downloaded history-trend.json"
+          fi
+
+          # Additional history files (categories, retry, duration trends)
+          for file in categories.json categories-trend.json duration-trend.json retry-trend.json; do
+            git show "gh-pages:e2e-report/$LATEST_RUN/history/$file" \
+              > e2e/allure-results/history/$file 2>/dev/null || true
+          done
+
+          if [ "$HISTORY_FOUND" = true ]; then
+            echo "History files downloaded successfully"
+            echo "history_available=true" >> $GITHUB_OUTPUT
+            ls -la e2e/allure-results/history/
+          else
+            echo "No history files found in previous run"
+            echo "history_available=false" >> $GITHUB_OUTPUT
+          fi
+
+      # ========================================
+      # 11. Generate Allure Report (DD-004, DD-010)
       # ========================================
       - name: Install Allure CLI
         run: |
@@ -383,7 +444,9 @@ jobs:
       - name: Generate Allure results
         run: |
           cd e2e
-          mkdir -p allure-results
+
+          # Ensure allure-results exists (may have history from previous step)
+          mkdir -p allure-results/history
 
           # Run pytest to generate Allure results
           pytest allure/test_e2e_wrapper.py \
@@ -396,6 +459,11 @@ jobs:
           echo "Allure results generated"
           ls -la allure-results/
 
+          # Show history status
+          if [ -f allure-results/history/history.json ]; then
+            echo "History included from previous run"
+          fi
+
       - name: Generate Allure Report
         run: |
           cd e2e
@@ -404,8 +472,14 @@ jobs:
           echo "Allure report generated"
           ls -la allure-report/
 
+          # Verify history was included in report
+          if [ -d allure-report/history ]; then
+            echo "Report includes history data"
+            ls -la allure-report/history/
+          fi
+
       # ========================================
-      # 11. Upload artifacts (FR-005-3)
+      # 12. Upload artifacts (FR-005-3)
       # ========================================
       - name: Upload test results
         uses: actions/upload-artifact@v4
@@ -426,7 +500,7 @@ jobs:
           retention-days: 30
 
       # ========================================
-      # 12. Deploy to GitHub Pages (DD-008) - Optional
+      # 13. Deploy to GitHub Pages (DD-008)
       # ========================================
       - name: Deploy to GitHub Pages
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
@@ -438,7 +512,38 @@ jobs:
           keep_files: true
 
       # ========================================
-      # 13. Job Summary
+      # 14. Update Latest Redirect (DD-013)
+      # ========================================
+      - name: Create latest redirect
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        run: |
+          echo "Creating latest redirect to run ${{ github.run_number }}"
+
+          mkdir -p latest-redirect
+          cat > latest-redirect/index.html << EOF
+          <!DOCTYPE html>
+          <html>
+          <head>
+            <meta http-equiv="refresh" content="0; url=../${{ github.run_number }}/" />
+            <title>Redirecting to latest E2E report...</title>
+          </head>
+          <body>
+            <p>Redirecting to <a href="../${{ github.run_number }}/">latest report (Run #${{ github.run_number }})</a>...</p>
+          </body>
+          </html>
+          EOF
+
+      - name: Deploy latest redirect
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./latest-redirect
+          destination_dir: e2e-report/latest
+          keep_files: false
+
+      # ========================================
+      # 15. Job Summary
       # ========================================
       - name: Generate Job Summary
         if: always()
@@ -474,10 +579,15 @@ jobs:
 
           if [ "${{ github.ref }}" == "refs/heads/main" ] && [ "${{ github.event_name }}" != "pull_request" ]; then
             echo "- [Allure Report](https://takaosgb3.github.io/falco-plugin-nginx/e2e-report/${{ github.run_number }}/)" >> $GITHUB_STEP_SUMMARY
+            echo "- [Latest Report](https://takaosgb3.github.io/falco-plugin-nginx/e2e-report/latest/)" >> $GITHUB_STEP_SUMMARY
+            if [ "${{ steps.download_history.outputs.history_available }}" == "true" ]; then
+              echo "" >> $GITHUB_STEP_SUMMARY
+              echo "*This report includes trend graphs from previous runs*" >> $GITHUB_STEP_SUMMARY
+            fi
           fi
 
       # ========================================
-      # 14. Cleanup
+      # 16. Cleanup
       # ========================================
       - name: Stop Falco
         if: always()
