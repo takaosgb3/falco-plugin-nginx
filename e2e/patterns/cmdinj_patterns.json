@@ -16,7 +16,7 @@
       "port": 8004,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "Command Injection Attack",
+      "expected_rule": "Command Injection via Semicolon",
       "rule_id": "ADV_CMDI_001"
     },
     {
@@ -29,8 +29,8 @@
       "port": 8004,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "Command Injection Attack",
-      "rule_id": "ADV_CMDI_001"
+      "expected_rule": "Advanced Command Injection Attempt",
+      "rule_id": "ADV_CMDI_004"
     },
     {
       "id": "CMD_BASIC_003",
@@ -42,8 +42,8 @@
       "port": 8004,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "Command Injection Attack",
-      "rule_id": "ADV_CMDI_001"
+      "expected_rule": "Command Injection via Pipe",
+      "rule_id": "ADV_CMDI_002"
     },
     {
       "id": "CMD_BASIC_004",
@@ -55,8 +55,8 @@
       "port": 8004,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "Command Injection Attack",
-      "rule_id": "ADV_CMDI_001"
+      "expected_rule": "Advanced Command Injection Attempt",
+      "rule_id": "ADV_CMDI_004"
     },
     {
       "id": "CMD_BASIC_005",
@@ -68,7 +68,7 @@
       "port": 8004,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "Command Injection Attack",
+      "expected_rule": "Command Injection via Semicolon",
       "rule_id": "ADV_CMDI_001"
     },
     {
@@ -81,7 +81,7 @@
       "port": 8004,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Command Injection Attack",
+      "expected_rule": "Command Injection via Semicolon",
       "rule_id": "ADV_CMDI_001"
     },
     {
@@ -94,8 +94,8 @@
       "port": 8004,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Command Injection Attack",
-      "rule_id": "ADV_CMDI_001"
+      "expected_rule": "Advanced Command Injection Attempt",
+      "rule_id": "ADV_CMDI_004"
     },
     {
       "id": "CMD_BASIC_008",
@@ -107,8 +107,8 @@
       "port": 8004,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Command Injection Attack",
-      "rule_id": "ADV_CMDI_001"
+      "expected_rule": "Command Injection via Pipe",
+      "rule_id": "ADV_CMDI_002"
     },
     {
       "id": "CMD_BASIC_009",
@@ -120,7 +120,7 @@
       "port": 8004,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Command Injection Attack",
+      "expected_rule": "Command Injection via Semicolon",
       "rule_id": "ADV_CMDI_001"
     },
     {
@@ -133,8 +133,8 @@
       "port": 8004,
       "expected_detection": true,
       "severity": "medium",
-      "expected_rule": "Command Injection Attack",
-      "rule_id": "ADV_CMDI_001"
+      "expected_rule": "Advanced Command Injection Attempt",
+      "rule_id": "ADV_CMDI_004"
     }
   ]
 }

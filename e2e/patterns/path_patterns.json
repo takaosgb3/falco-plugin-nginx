@@ -16,8 +16,8 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Advanced Path Traversal Attack",
-      "rule_id": "ADV_PATH_001"
+      "expected_rule": "Basic Path Traversal Attack",
+      "rule_id": "ADV_TRAV_001"
     },
     {
       "id": "PATH_BASIC_002",
@@ -29,8 +29,8 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Advanced Path Traversal Attack",
-      "rule_id": "ADV_PATH_001"
+      "expected_rule": "Basic Path Traversal Attack",
+      "rule_id": "ADV_TRAV_001"
     },
     {
       "id": "PATH_BASIC_003",
@@ -42,8 +42,8 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Advanced Path Traversal Attack",
-      "rule_id": "ADV_PATH_001"
+      "expected_rule": "Basic Path Traversal Attack",
+      "rule_id": "ADV_TRAV_001"
     },
     {
       "id": "PATH_BASIC_004",
@@ -55,8 +55,8 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Advanced Path Traversal Attack",
-      "rule_id": "ADV_PATH_001"
+      "expected_rule": "Basic Path Traversal Attack",
+      "rule_id": "ADV_TRAV_001"
     },
     {
       "id": "PATH_BASIC_005",
@@ -68,8 +68,8 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Advanced Path Traversal Attack",
-      "rule_id": "ADV_PATH_001"
+      "expected_rule": "Basic Path Traversal Attack",
+      "rule_id": "ADV_TRAV_001"
     },
     {
       "id": "PATH_DOT_001",
@@ -81,8 +81,8 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "Advanced Path Traversal Attack",
-      "rule_id": "ADV_PATH_001"
+      "expected_rule": "Basic Path Traversal Attack",
+      "rule_id": "ADV_TRAV_001"
     },
     {
       "id": "PATH_DOT_002",
@@ -94,8 +94,8 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "Advanced Path Traversal Attack",
-      "rule_id": "ADV_PATH_001"
+      "expected_rule": "Basic Path Traversal Attack",
+      "rule_id": "ADV_TRAV_001"
     },
     {
       "id": "PATH_DOT_003",
@@ -107,8 +107,8 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Advanced Path Traversal Attack",
-      "rule_id": "ADV_PATH_001"
+      "expected_rule": "Basic Path Traversal Attack",
+      "rule_id": "ADV_TRAV_001"
     },
     {
       "id": "PATH_DOT_004",
@@ -120,8 +120,8 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Advanced Path Traversal Attack",
-      "rule_id": "ADV_PATH_001"
+      "expected_rule": "Basic Path Traversal Attack",
+      "rule_id": "ADV_TRAV_001"
     },
     {
       "id": "PATH_DOT_005",
@@ -133,8 +133,8 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Advanced Path Traversal Attack",
-      "rule_id": "ADV_PATH_001"
+      "expected_rule": "Basic Path Traversal Attack",
+      "rule_id": "ADV_TRAV_001"
     },
     {
       "id": "PATH_DOT_006",
@@ -146,8 +146,8 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "medium",
-      "expected_rule": "Advanced Path Traversal Attack",
-      "rule_id": "ADV_PATH_001"
+      "expected_rule": "Basic Path Traversal Attack",
+      "rule_id": "ADV_TRAV_001"
     },
     {
       "id": "PATH_DOT_007",
@@ -159,8 +159,8 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "medium",
-      "expected_rule": "Advanced Path Traversal Attack",
-      "rule_id": "ADV_PATH_001"
+      "expected_rule": "Basic Path Traversal Attack",
+      "rule_id": "ADV_TRAV_001"
     },
     {
       "id": "PATH_DOT_008",
@@ -172,8 +172,8 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "Advanced Path Traversal Attack",
-      "rule_id": "ADV_PATH_001"
+      "expected_rule": "Basic Path Traversal Attack",
+      "rule_id": "ADV_TRAV_001"
     },
     {
       "id": "PATH_DOT_009",
@@ -185,8 +185,8 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "Advanced Path Traversal Attack",
-      "rule_id": "ADV_PATH_001"
+      "expected_rule": "Basic Path Traversal Attack",
+      "rule_id": "ADV_TRAV_001"
     },
     {
       "id": "PATH_DOT_010",
@@ -198,8 +198,8 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Advanced Path Traversal Attack",
-      "rule_id": "ADV_PATH_001"
+      "expected_rule": "Basic Path Traversal Attack",
+      "rule_id": "ADV_TRAV_001"
     },
     {
       "id": "PATH_ABS_001",
@@ -211,8 +211,8 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "Advanced Path Traversal Attack",
-      "rule_id": "ADV_PATH_001"
+      "expected_rule": "File Inclusion Attack",
+      "rule_id": "ADV_TRAV_004"
     },
     {
       "id": "PATH_ABS_002",
@@ -224,8 +224,8 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "Advanced Path Traversal Attack",
-      "rule_id": "ADV_PATH_001"
+      "expected_rule": "File Inclusion Attack",
+      "rule_id": "ADV_TRAV_004"
     },
     {
       "id": "PATH_ABS_003",
@@ -237,8 +237,8 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "Advanced Path Traversal Attack",
-      "rule_id": "ADV_PATH_001"
+      "expected_rule": "File Inclusion Attack",
+      "rule_id": "ADV_TRAV_004"
     },
     {
       "id": "PATH_ABS_004",
@@ -250,8 +250,8 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Advanced Path Traversal Attack",
-      "rule_id": "ADV_PATH_001"
+      "expected_rule": "File Inclusion Attack",
+      "rule_id": "ADV_TRAV_004"
     },
     {
       "id": "PATH_ABS_005",
@@ -263,8 +263,8 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Advanced Path Traversal Attack",
-      "rule_id": "ADV_PATH_001"
+      "expected_rule": "File Inclusion Attack",
+      "rule_id": "ADV_TRAV_004"
     }
   ]
 }

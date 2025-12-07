@@ -211,7 +211,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Boolean-based SQL Injection",
+      "expected_rule": "Boolean-based Blind SQL Injection",
       "rule_id": "ADV_SQLI_002"
     },
     {
@@ -224,7 +224,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Boolean-based SQL Injection",
+      "expected_rule": "Boolean-based Blind SQL Injection",
       "rule_id": "ADV_SQLI_002"
     },
     {
@@ -237,7 +237,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Boolean-based SQL Injection",
+      "expected_rule": "Boolean-based Blind SQL Injection",
       "rule_id": "ADV_SQLI_002"
     },
     {
@@ -250,7 +250,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Boolean-based SQL Injection",
+      "expected_rule": "Boolean-based Blind SQL Injection",
       "rule_id": "ADV_SQLI_002"
     }
   ]
