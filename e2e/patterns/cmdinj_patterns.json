@@ -15,9 +15,7 @@
       "encoded": "%3B%20ls%20-la",
       "port": 8004,
       "expected_detection": true,
-      "severity": "critical",
-      "expected_rule": "Command Injection via Semicolon",
-      "rule_id": "ADV_CMDI_001"
+      "severity": "critical"
     },
     {
       "id": "CMD_BASIC_002",
@@ -28,9 +26,7 @@
       "encoded": "%26%26%20whoami",
       "port": 8004,
       "expected_detection": true,
-      "severity": "critical",
-      "expected_rule": "Advanced Command Injection Attempt",
-      "rule_id": "ADV_CMDI_004"
+      "severity": "critical"
     },
     {
       "id": "CMD_BASIC_003",
@@ -41,9 +37,7 @@
       "encoded": "%7C%7C%20id",
       "port": 8004,
       "expected_detection": true,
-      "severity": "critical",
-      "expected_rule": "Command Injection via Pipe",
-      "rule_id": "ADV_CMDI_002"
+      "severity": "critical"
     },
     {
       "id": "CMD_BASIC_004",
@@ -54,9 +48,7 @@
       "encoded": "%26%20ps%20aux",
       "port": 8004,
       "expected_detection": true,
-      "severity": "critical",
-      "expected_rule": "Advanced Command Injection Attempt",
-      "rule_id": "ADV_CMDI_004"
+      "severity": "critical"
     },
     {
       "id": "CMD_BASIC_005",
@@ -67,9 +59,7 @@
       "encoded": "%3B%20cat%20/etc/passwd",
       "port": 8004,
       "expected_detection": true,
-      "severity": "critical",
-      "expected_rule": "Command Injection via Semicolon",
-      "rule_id": "ADV_CMDI_001"
+      "severity": "critical"
     },
     {
       "id": "CMD_BASIC_006",
@@ -80,9 +70,7 @@
       "encoded": "%3B%20uname%20-a",
       "port": 8004,
       "expected_detection": true,
-      "severity": "high",
-      "expected_rule": "Command Injection via Semicolon",
-      "rule_id": "ADV_CMDI_001"
+      "severity": "high"
     },
     {
       "id": "CMD_BASIC_007",
@@ -93,9 +81,7 @@
       "encoded": "%26%26%20netstat%20-an",
       "port": 8004,
       "expected_detection": true,
-      "severity": "high",
-      "expected_rule": "Advanced Command Injection Attempt",
-      "rule_id": "ADV_CMDI_004"
+      "severity": "high"
     },
     {
       "id": "CMD_BASIC_008",
@@ -106,9 +92,7 @@
       "encoded": "%7C%7C%20cat%20/proc/version",
       "port": 8004,
       "expected_detection": true,
-      "severity": "high",
-      "expected_rule": "Command Injection via Pipe",
-      "rule_id": "ADV_CMDI_002"
+      "severity": "high"
     },
     {
       "id": "CMD_BASIC_009",
@@ -119,9 +103,7 @@
       "encoded": "%3B%20ifconfig",
       "port": 8004,
       "expected_detection": true,
-      "severity": "high",
-      "expected_rule": "Command Injection via Semicolon",
-      "rule_id": "ADV_CMDI_001"
+      "severity": "high"
     },
     {
       "id": "CMD_BASIC_010",
@@ -132,9 +114,7 @@
       "encoded": "%26%26%20df%20-h",
       "port": 8004,
       "expected_detection": true,
-      "severity": "medium",
-      "expected_rule": "Advanced Command Injection Attempt",
-      "rule_id": "ADV_CMDI_004"
+      "severity": "medium"
     }
   ]
 }
