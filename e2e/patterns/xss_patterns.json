@@ -1,0 +1,131 @@
+{
+  "metadata": {
+    "category": "xss",
+    "total_patterns": 11,
+    "port": 8002,
+    "description": "k6 test patterns for xss"
+  },
+  "patterns": [
+    {
+      "id": "XSS_REFL_001",
+      "name": "Basic script tag XSS",
+      "category": "xss",
+      "subcategory": "reflected_xss",
+      "payload": "<script>alert('XSS')</script>",
+      "encoded": "%3Cscript%3Ealert%28%27XSS%27%29%3C/script%3E",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "XSS_REFL_002",
+      "name": "Image onerror XSS",
+      "category": "xss",
+      "subcategory": "reflected_xss",
+      "payload": "<img src=x onerror=alert('XSS')>",
+      "encoded": "%3Cimg%20src%3Dx%20onerror%3Dalert%28%27XSS%27%29%3E",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "XSS_REFL_003",
+      "name": "SVG onload XSS",
+      "category": "xss",
+      "subcategory": "reflected_xss",
+      "payload": "<svg onload=alert('XSS')>",
+      "encoded": "%3Csvg%20onload%3Dalert%28%27XSS%27%29%3E",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "XSS_REFL_004",
+      "name": "Iframe javascript scheme XSS",
+      "category": "xss",
+      "subcategory": "reflected_xss",
+      "payload": "<iframe src=javascript:alert('XSS')>",
+      "encoded": "%3Ciframe%20src%3Djavascript%3Aalert%28%27XSS%27%29%3E",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "XSS_REFL_005",
+      "name": "Body onload XSS",
+      "category": "xss",
+      "subcategory": "reflected_xss",
+      "payload": "<body onload=alert('XSS')>",
+      "encoded": "%3Cbody%20onload%3Dalert%28%27XSS%27%29%3E",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "XSS_REFL_006",
+      "name": "Input onfocus XSS with autofocus",
+      "category": "xss",
+      "subcategory": "reflected_xss",
+      "payload": "<input onfocus=alert('XSS') autofocus>",
+      "encoded": "%3Cinput%20onfocus%3Dalert%28%27XSS%27%29%20autofocus%3E",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "XSS_REFL_007",
+      "name": "Select onfocus XSS",
+      "category": "xss",
+      "subcategory": "reflected_xss",
+      "payload": "<select onfocus=alert('XSS') autofocus>",
+      "encoded": "%3Cselect%20onfocus%3Dalert%28%27XSS%27%29%20autofocus%3E",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "XSS_REFL_008",
+      "name": "Textarea onfocus XSS",
+      "category": "xss",
+      "subcategory": "reflected_xss",
+      "payload": "<textarea onfocus=alert('XSS') autofocus>",
+      "encoded": "%3Ctextarea%20onfocus%3Dalert%28%27XSS%27%29%20autofocus%3E",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "XSS_REFL_009",
+      "name": "Keygen onfocus XSS",
+      "category": "xss",
+      "subcategory": "reflected_xss",
+      "payload": "<keygen onfocus=alert('XSS') autofocus>",
+      "encoded": "%3Ckeygen%20onfocus%3Dalert%28%27XSS%27%29%20autofocus%3E",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "XSS_REFL_010",
+      "name": "Video source onerror XSS",
+      "category": "xss",
+      "subcategory": "reflected_xss",
+      "payload": "<video><source onerror=alert('XSS')>",
+      "encoded": "%3Cvideo%3E%3Csource%20onerror%3Dalert%28%27XSS%27%29%3E",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "XSS_REFL_011",
+      "name": "Audio onerror XSS",
+      "category": "xss",
+      "subcategory": "reflected_xss",
+      "payload": "<audio src=x onerror=alert('XSS')>",
+      "encoded": "%3Caudio%20src%3Dx%20onerror%3Dalert%28%27XSS%27%29%3E",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high"
+    }
+  ]
+}

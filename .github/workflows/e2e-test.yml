@@ -1,0 +1,431 @@
+# E2E Test Workflow for falco-plugin-nginx
+# Issue #3: E2E test workflow implementation
+#
+# This workflow runs E2E tests to validate the Falco nginx plugin
+# can detect security threats in nginx access logs.
+#
+# Design Decisions (from ISSUE_774_REQUIREMENTS.md):
+# - DD-001: Single VM test environment (ubuntu-24.04)
+# - DD-002: k6 + Python (batch_analyzer.py)
+# - DD-003: Falco file output (/var/log/falco/falco.log)
+# - DD-004: Allure Report + GitHub Artifacts
+# - DD-005: 500ms pattern send interval
+# - DD-006: Single port (80) for all categories
+# - DD-012: Plugin-only mode (--disable-source syscall)
+
+name: E2E Tests
+
+on:
+  workflow_dispatch:
+    inputs:
+      debug_enabled:
+        description: 'Enable debug logging'
+        required: false
+        default: 'false'
+        type: boolean
+  push:
+    branches:
+      - main
+    paths:
+      - 'plugin/**'
+      - 'rules/**'
+      - 'e2e/**'
+      - '.github/workflows/e2e-test.yml'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'plugin/**'
+      - 'rules/**'
+      - 'e2e/**'
+      - '.github/workflows/e2e-test.yml'
+
+# Required for GitHub Pages deployment
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+env:
+  # Target configuration
+  TARGET_IP: localhost
+  TARGET_PORT: '80'
+  # Falco configuration
+  FALCO_LOG_PATH: /var/log/falco/falco.log
+  NGINX_LOG_PATH: /var/log/nginx/access.log
+  # Batch processing
+  BATCH_WAIT_TIME: '60'
+  # Detection threshold
+  MIN_DETECTION_RATE: '0.95'
+
+jobs:
+  e2e-test:
+    name: E2E Security Tests
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+
+    steps:
+      # ========================================
+      # 1. Setup
+      # ========================================
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python dependencies
+        run: |
+          pip install -r e2e/allure/requirements.txt
+
+      # ========================================
+      # 2. Install k6 (DD-007)
+      # ========================================
+      - name: Install k6
+        run: |
+          sudo gpg -k
+          sudo gpg --no-default-keyring --keyring /usr/share/keyrings/k6-archive-keyring.gpg \
+            --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys C5AD17C747E3415A3642D57D77C6C491D6AC1D69
+          echo "deb [signed-by=/usr/share/keyrings/k6-archive-keyring.gpg] https://dl.k6.io/deb stable main" \
+            | sudo tee /etc/apt/sources.list.d/k6.list
+          sudo apt-get update
+          sudo apt-get install -y k6
+          k6 version
+
+      # ========================================
+      # 3. Install nginx (DD-006)
+      # ========================================
+      - name: Install and configure nginx
+        run: |
+          sudo apt-get install -y nginx
+
+          # Configure nginx for E2E testing
+          sudo tee /etc/nginx/sites-available/default > /dev/null << 'EOF'
+          server {
+              listen 80 default_server;
+              listen [::]:80 default_server;
+
+              root /var/www/html;
+              index index.html;
+
+              server_name _;
+
+              location / {
+                  try_files $uri $uri/ =404;
+              }
+          }
+          EOF
+
+          # Create simple index page
+          echo "<html><body><h1>E2E Test Server</h1></body></html>" | sudo tee /var/www/html/index.html
+
+          # Start nginx
+          sudo systemctl restart nginx
+          sudo systemctl status nginx
+
+          # Verify nginx is running
+          curl -s http://localhost/ | head -5
+
+      # ========================================
+      # 4. Install Falco (DD-009)
+      # ========================================
+      - name: Install Falco
+        run: |
+          # Add Falco repository
+          curl -fsSL https://falco.org/repo/falcosecurity-packages.asc | \
+            sudo gpg --dearmor -o /usr/share/keyrings/falco-archive-keyring.gpg
+          echo "deb [signed-by=/usr/share/keyrings/falco-archive-keyring.gpg] https://download.falco.org/packages/deb stable main" | \
+            sudo tee /etc/apt/sources.list.d/falcosecurity.list
+          sudo apt-get update
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y falco
+
+          # Verify installation
+          falco --version
+
+      # ========================================
+      # 5. Configure Falco plugin (DD-012)
+      # ========================================
+      - name: Download and configure Falco plugin
+        run: |
+          # Create directories
+          sudo mkdir -p /usr/share/falco/plugins
+          sudo mkdir -p /etc/falco/rules.d
+          sudo mkdir -p /etc/falco/config.d
+          sudo mkdir -p /var/log/falco
+          sudo touch /var/log/falco/falco.log
+          sudo chmod 644 /var/log/falco/falco.log
+
+          # Download plugin binary from latest release
+          PLUGIN_URL=$(curl -s https://api.github.com/repos/takaosgb3/falco-plugin-nginx/releases/latest | \
+            jq -r '.assets[] | select(.name | contains("linux-amd64.so")) | .browser_download_url')
+
+          if [ -z "$PLUGIN_URL" ] || [ "$PLUGIN_URL" == "null" ]; then
+            echo "::error::Failed to find plugin binary in latest release"
+            exit 1
+          fi
+
+          echo "Downloading plugin from: $PLUGIN_URL"
+          sudo curl -L -o /usr/share/falco/plugins/libfalco-nginx-plugin.so "$PLUGIN_URL"
+          sudo chmod 755 /usr/share/falco/plugins/libfalco-nginx-plugin.so
+
+          # Verify plugin
+          file /usr/share/falco/plugins/libfalco-nginx-plugin.so
+
+          # Copy rules file
+          sudo cp rules/nginx_rules.yaml /etc/falco/rules.d/
+
+          # Create plugin configuration
+          sudo tee /etc/falco/config.d/nginx-plugin.yaml > /dev/null << 'EOF'
+          # nginx plugin configuration for E2E testing
+
+          # Load nginx plugin only
+          load_plugins:
+            - nginx
+
+          # Plugin settings
+          plugins:
+            - name: nginx
+              library_path: /usr/share/falco/plugins/libfalco-nginx-plugin.so
+              init_config:
+                log_paths:
+                  - /var/log/nginx/access.log
+
+          # Rules files (individual paths, not directory - Issue #643)
+          rules_files:
+            - /etc/falco/rules.d/nginx_rules.yaml
+
+          # File output for batch_analyzer.py (DD-003)
+          file_output:
+            enabled: true
+            filename: /var/log/falco/falco.log
+            keep_alive: false
+
+          # stdout output for debugging
+          stdout_output:
+            enabled: true
+            rate: 0
+            max_burst: 0
+          EOF
+
+          echo "Falco plugin configured successfully"
+
+      # ========================================
+      # 6. Start Falco (DD-012: plugin-only mode)
+      # ========================================
+      - name: Start Falco in plugin-only mode
+        run: |
+          # Start Falco in background with plugin-only mode
+          sudo /usr/bin/falco \
+            -c /etc/falco/falco.yaml \
+            --disable-source syscall \
+            2>&1 | tee /tmp/falco-startup.log &
+
+          # Wait for Falco to initialize
+          echo "Waiting for Falco to initialize..."
+          sleep 10
+
+          # Verify Falco is running
+          if pgrep -x falco > /dev/null; then
+            echo "Falco is running"
+          else
+            echo "::error::Falco failed to start"
+            cat /tmp/falco-startup.log
+            exit 1
+          fi
+
+          # Check for plugin load
+          if grep -q "nginx" /tmp/falco-startup.log; then
+            echo "nginx plugin loaded successfully"
+          fi
+
+      # ========================================
+      # 7. Run k6 E2E tests (DD-002, DD-005)
+      # ========================================
+      - name: Run k6 E2E tests
+        run: |
+          # Create results directory
+          mkdir -p e2e/results
+
+          # Run k6 tests
+          cd e2e
+          k6 run \
+            -e TARGET_IP=${{ env.TARGET_IP }} \
+            -e TARGET_PORT=${{ env.TARGET_PORT }} \
+            k6/main.js
+
+          # Show results summary
+          echo "=== Test IDs Summary ==="
+          if [ -f results/test_ids.json ]; then
+            jq '. | length' results/test_ids.json
+            echo "test IDs generated"
+          fi
+
+          if [ -f results/summary.json ]; then
+            echo "=== k6 Summary ==="
+            jq '.test_results' results/summary.json
+          fi
+
+      # ========================================
+      # 8. Wait for Falco processing (NFR-001-3)
+      # ========================================
+      - name: Wait for Falco processing
+        run: |
+          echo "Waiting ${BATCH_WAIT_TIME} seconds for Falco to process all events..."
+          sleep ${{ env.BATCH_WAIT_TIME }}
+
+          # Show Falco log stats
+          if [ -f "${{ env.FALCO_LOG_PATH }}" ]; then
+            echo "=== Falco Log Stats ==="
+            echo "Total lines: $(wc -l < ${{ env.FALCO_LOG_PATH }})"
+            echo "Detections with test_id: $(grep -c 'test_id=' ${{ env.FALCO_LOG_PATH }} || echo 0)"
+          else
+            echo "Warning: Falco log file not found"
+          fi
+
+      # ========================================
+      # 9. Run batch analyzer (FR-004)
+      # ========================================
+      - name: Analyze test results
+        run: |
+          cd e2e
+
+          # Copy logs for analysis
+          sudo cp ${{ env.FALCO_LOG_PATH }} results/falco.log || true
+          sudo cp ${{ env.NGINX_LOG_PATH }} results/nginx-access.log || true
+          sudo chmod 644 results/*.log || true
+
+          # Run batch analyzer
+          python scripts/batch_analyzer.py \
+            --patterns patterns/ \
+            --falco-log results/falco.log \
+            --test-ids results/test_ids.json \
+            --output results/test-results.json \
+            --summary-output results/analysis-summary.json \
+            ${{ inputs.debug_enabled == 'true' && '--verbose' || '' }}
+
+          # Show analysis summary
+          if [ -f results/analysis-summary.json ]; then
+            echo "=== Analysis Summary ==="
+            cat results/analysis-summary.json | jq '.'
+          fi
+
+      # ========================================
+      # 10. Generate Allure Report (DD-004, DD-010)
+      # ========================================
+      - name: Install Allure CLI
+        run: |
+          sudo apt-get install -y default-jre
+          npm install -g allure-commandline
+
+      - name: Generate Allure results
+        run: |
+          cd e2e
+          mkdir -p allure-results
+
+          # Run pytest to generate Allure results
+          pytest allure/test_e2e_wrapper.py \
+            --test-results=results/test-results.json \
+            --logs-dir=results/ \
+            --alluredir=allure-results \
+            --tb=short \
+            -v || true
+
+          echo "Allure results generated"
+          ls -la allure-results/
+
+      - name: Generate Allure Report
+        run: |
+          cd e2e
+          allure generate allure-results -o allure-report --clean
+
+          echo "Allure report generated"
+          ls -la allure-report/
+
+      # ========================================
+      # 11. Upload artifacts (FR-005-3)
+      # ========================================
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: e2e-test-results
+          path: |
+            e2e/results/
+            e2e/allure-results/
+          retention-days: 30
+
+      - name: Upload Allure Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: allure-report
+          path: e2e/allure-report/
+          retention-days: 30
+
+      # ========================================
+      # 12. Deploy to GitHub Pages (DD-008) - Optional
+      # ========================================
+      - name: Deploy to GitHub Pages
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./e2e/allure-report
+          destination_dir: e2e-report/${{ github.run_number }}
+          keep_files: true
+
+      # ========================================
+      # 13. Job Summary
+      # ========================================
+      - name: Generate Job Summary
+        if: always()
+        run: |
+          echo "## E2E Test Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          if [ -f e2e/results/analysis-summary.json ]; then
+            TOTAL=$(jq -r '.total_patterns' e2e/results/analysis-summary.json)
+            DETECTED=$(jq -r '.detected' e2e/results/analysis-summary.json)
+            RATE=$(jq -r '.detection_rate' e2e/results/analysis-summary.json)
+
+            echo "| Metric | Value |" >> $GITHUB_STEP_SUMMARY
+            echo "|--------|-------|" >> $GITHUB_STEP_SUMMARY
+            echo "| Total Patterns | $TOTAL |" >> $GITHUB_STEP_SUMMARY
+            echo "| Detected | $DETECTED |" >> $GITHUB_STEP_SUMMARY
+            echo "| Detection Rate | $(echo "$RATE * 100" | bc -l | xargs printf "%.1f%%") |" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+
+            if [ -f e2e/results/analysis-summary.json ]; then
+              echo "### Latency" >> $GITHUB_STEP_SUMMARY
+              echo "- Avg: $(jq -r '.latency.avg_ms' e2e/results/analysis-summary.json)ms" >> $GITHUB_STEP_SUMMARY
+              echo "- Min: $(jq -r '.latency.min_ms' e2e/results/analysis-summary.json)ms" >> $GITHUB_STEP_SUMMARY
+              echo "- Max: $(jq -r '.latency.max_ms' e2e/results/analysis-summary.json)ms" >> $GITHUB_STEP_SUMMARY
+            fi
+          else
+            echo "Analysis summary not available" >> $GITHUB_STEP_SUMMARY
+          fi
+
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Artifacts" >> $GITHUB_STEP_SUMMARY
+          echo "- [Test Results](../actions/runs/${{ github.run_id }})" >> $GITHUB_STEP_SUMMARY
+
+          if [ "${{ github.ref }}" == "refs/heads/main" ] && [ "${{ github.event_name }}" != "pull_request" ]; then
+            echo "- [Allure Report](https://takaosgb3.github.io/falco-plugin-nginx/e2e-report/${{ github.run_number }}/)" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      # ========================================
+      # 14. Cleanup
+      # ========================================
+      - name: Stop Falco
+        if: always()
+        run: |
+          sudo pkill falco || true
+          echo "Falco stopped"
+
+      - name: Stop nginx
+        if: always()
+        run: |
+          sudo systemctl stop nginx || true
+          echo "nginx stopped"

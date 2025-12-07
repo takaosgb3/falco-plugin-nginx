@@ -1,0 +1,120 @@
+{
+  "metadata": {
+    "category": "cmdinj",
+    "total_patterns": 10,
+    "port": 8004,
+    "description": "k6 test patterns for cmdinj"
+  },
+  "patterns": [
+    {
+      "id": "CMD_BASIC_SEMICOLON_001",
+      "name": "Semicolon command separator with ls",
+      "category": "cmdinj",
+      "subcategory": "basic_command_injection",
+      "payload": "; ls -la",
+      "encoded": "%3B%20ls%20-la",
+      "port": 8004,
+      "expected_detection": true,
+      "severity": "critical"
+    },
+    {
+      "id": "CMD_BASIC_002",
+      "name": "AND operator with whoami",
+      "category": "cmdinj",
+      "subcategory": "basic_command_injection",
+      "payload": "&& whoami",
+      "encoded": "%26%26%20whoami",
+      "port": 8004,
+      "expected_detection": true,
+      "severity": "critical"
+    },
+    {
+      "id": "CMD_BASIC_003",
+      "name": "OR operator with id command",
+      "category": "cmdinj",
+      "subcategory": "basic_command_injection",
+      "payload": "|| id",
+      "encoded": "%7C%7C%20id",
+      "port": 8004,
+      "expected_detection": true,
+      "severity": "critical"
+    },
+    {
+      "id": "CMD_BASIC_004",
+      "name": "Background execution with ps",
+      "category": "cmdinj",
+      "subcategory": "basic_command_injection",
+      "payload": "& ps aux",
+      "encoded": "%26%20ps%20aux",
+      "port": 8004,
+      "expected_detection": true,
+      "severity": "critical"
+    },
+    {
+      "id": "CMD_BASIC_005",
+      "name": "Password file access attempt",
+      "category": "cmdinj",
+      "subcategory": "basic_command_injection",
+      "payload": "; cat /etc/passwd",
+      "encoded": "%3B%20cat%20/etc/passwd",
+      "port": 8004,
+      "expected_detection": true,
+      "severity": "critical"
+    },
+    {
+      "id": "CMD_BASIC_006",
+      "name": "System information gathering",
+      "category": "cmdinj",
+      "subcategory": "basic_command_injection",
+      "payload": "; uname -a",
+      "encoded": "%3B%20uname%20-a",
+      "port": 8004,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "CMD_BASIC_007",
+      "name": "Network information gathering",
+      "category": "cmdinj",
+      "subcategory": "basic_command_injection",
+      "payload": "&& netstat -an",
+      "encoded": "%26%26%20netstat%20-an",
+      "port": 8004,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "CMD_BASIC_008",
+      "name": "Kernel version information",
+      "category": "cmdinj",
+      "subcategory": "basic_command_injection",
+      "payload": "|| cat /proc/version",
+      "encoded": "%7C%7C%20cat%20/proc/version",
+      "port": 8004,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "CMD_BASIC_009",
+      "name": "Network interface configuration",
+      "category": "cmdinj",
+      "subcategory": "basic_command_injection",
+      "payload": "; ifconfig",
+      "encoded": "%3B%20ifconfig",
+      "port": 8004,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "CMD_BASIC_010",
+      "name": "Disk space information",
+      "category": "cmdinj",
+      "subcategory": "basic_command_injection",
+      "payload": "&& df -h",
+      "encoded": "%26%26%20df%20-h",
+      "port": 8004,
+      "expected_detection": true,
+      "severity": "medium"
+    }
+  ]
+}

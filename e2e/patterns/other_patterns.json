@@ -1,0 +1,65 @@
+{
+  "metadata": {
+    "category": "other",
+    "total_patterns": 5,
+    "port": 8005,
+    "description": "k6 test patterns for other"
+  },
+  "patterns": [
+    {
+      "id": "EMRG_MONGO_001",
+      "name": "MongoDB $where JavaScript injection",
+      "category": "other",
+      "subcategory": "mongodb_injection",
+      "payload": "{\"$where\": \"this.username == 'admin'\"}",
+      "encoded": "%7B%22%24where%22%3A%20%22this.username%20%3D%3D%20%27admin%27%22%7D",
+      "port": 8005,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "EMRG_MONGO_002",
+      "name": "MongoDB not-equal operator bypass",
+      "category": "other",
+      "subcategory": "mongodb_injection",
+      "payload": "{\"$ne\": null}",
+      "encoded": "%7B%22%24ne%22%3A%20null%7D",
+      "port": 8005,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "EMRG_MONGO_003",
+      "name": "MongoDB greater-than bypass",
+      "category": "other",
+      "subcategory": "mongodb_injection",
+      "payload": "{\"$gt\": \"\"}",
+      "encoded": "%7B%22%24gt%22%3A%20%22%22%7D",
+      "port": 8005,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "EMRG_MONGO_004",
+      "name": "MongoDB regex wildcard injection",
+      "category": "other",
+      "subcategory": "mongodb_injection",
+      "payload": "{\"$regex\": \".*\"}",
+      "encoded": "%7B%22%24regex%22%3A%20%22.%2A%22%7D",
+      "port": 8005,
+      "expected_detection": true,
+      "severity": "medium"
+    },
+    {
+      "id": "EMRG_MONGO_005",
+      "name": "MongoDB JavaScript code injection",
+      "category": "other",
+      "subcategory": "mongodb_injection",
+      "payload": "'; return db.users.find(); //",
+      "encoded": "%27%3B%20return%20db.users.find%28%29%3B%20//",
+      "port": 8005,
+      "expected_detection": true,
+      "severity": "critical"
+    }
+  ]
+}

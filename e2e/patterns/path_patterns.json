@@ -1,0 +1,230 @@
+{
+  "metadata": {
+    "category": "path",
+    "total_patterns": 20,
+    "port": 8003,
+    "description": "k6 test patterns for path"
+  },
+  "patterns": [
+    {
+      "id": "PATH_BASIC_001",
+      "name": "Basic parent directory traversal",
+      "category": "path",
+      "subcategory": "basic_traversal",
+      "payload": "../",
+      "encoded": "../",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "PATH_BASIC_002",
+      "name": "Double parent directory traversal",
+      "category": "path",
+      "subcategory": "basic_traversal",
+      "payload": "../../",
+      "encoded": "../../",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "PATH_BASIC_003",
+      "name": "Triple parent directory traversal",
+      "category": "path",
+      "subcategory": "basic_traversal",
+      "payload": "../../../",
+      "encoded": "../../../",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "PATH_BASIC_004",
+      "name": "Quadruple parent directory traversal",
+      "category": "path",
+      "subcategory": "basic_traversal",
+      "payload": "../../../../",
+      "encoded": "../../../../",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "PATH_BASIC_005",
+      "name": "Deep parent directory traversal",
+      "category": "path",
+      "subcategory": "basic_traversal",
+      "payload": "../../../../../",
+      "encoded": "../../../../../",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "PATH_DOT_001",
+      "name": "Password file access via dot-dot-slash",
+      "category": "path",
+      "subcategory": "dot_dot_slash",
+      "payload": "../etc/passwd",
+      "encoded": "../etc/passwd",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "critical"
+    },
+    {
+      "id": "PATH_DOT_002",
+      "name": "Shadow file access via path traversal",
+      "category": "path",
+      "subcategory": "dot_dot_slash",
+      "payload": "../../etc/shadow",
+      "encoded": "../../etc/shadow",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "critical"
+    },
+    {
+      "id": "PATH_DOT_003",
+      "name": "Hosts file access via path traversal",
+      "category": "path",
+      "subcategory": "dot_dot_slash",
+      "payload": "../../../etc/hosts",
+      "encoded": "../../../etc/hosts",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "PATH_DOT_004",
+      "name": "Apache config access via traversal",
+      "category": "path",
+      "subcategory": "dot_dot_slash",
+      "payload": "../../../../etc/apache2/apache2.conf",
+      "encoded": "../../../../etc/apache2/apache2.conf",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "PATH_DOT_005",
+      "name": "SSH config access via traversal",
+      "category": "path",
+      "subcategory": "dot_dot_slash",
+      "payload": "../../../../../etc/ssh/sshd_config",
+      "encoded": "../../../../../etc/ssh/sshd_config",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "PATH_DOT_006",
+      "name": "Apache log file access",
+      "category": "path",
+      "subcategory": "dot_dot_slash",
+      "payload": "../../var/log/apache2/access.log",
+      "encoded": "../../var/log/apache2/access.log",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "medium"
+    },
+    {
+      "id": "PATH_DOT_007",
+      "name": "Kernel version access via traversal",
+      "category": "path",
+      "subcategory": "dot_dot_slash",
+      "payload": "../../../proc/version",
+      "encoded": "../../../proc/version",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "medium"
+    },
+    {
+      "id": "PATH_DOT_008",
+      "name": "Root bash history access",
+      "category": "path",
+      "subcategory": "dot_dot_slash",
+      "payload": "../../../../root/.bash_history",
+      "encoded": "../../../../root/.bash_history",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "critical"
+    },
+    {
+      "id": "PATH_DOT_009",
+      "name": "SSH private key access",
+      "category": "path",
+      "subcategory": "dot_dot_slash",
+      "payload": "../../home/user/.ssh/id_rsa",
+      "encoded": "../../home/user/.ssh/id_rsa",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "critical"
+    },
+    {
+      "id": "PATH_DOT_010",
+      "name": "MySQL config access via traversal",
+      "category": "path",
+      "subcategory": "dot_dot_slash",
+      "payload": "../../../etc/mysql/my.cnf",
+      "encoded": "../../../etc/mysql/my.cnf",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "PATH_ABS_001",
+      "name": "Direct absolute path to passwd file",
+      "category": "path",
+      "subcategory": "absolute_paths",
+      "payload": "/etc/passwd",
+      "encoded": "/etc/passwd",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "critical"
+    },
+    {
+      "id": "PATH_ABS_002",
+      "name": "Direct absolute path to shadow file",
+      "category": "path",
+      "subcategory": "absolute_paths",
+      "payload": "/etc/shadow",
+      "encoded": "/etc/shadow",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "critical"
+    },
+    {
+      "id": "PATH_ABS_003",
+      "name": "Root SSH authorized keys access",
+      "category": "path",
+      "subcategory": "absolute_paths",
+      "payload": "/root/.ssh/authorized_keys",
+      "encoded": "/root/.ssh/authorized_keys",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "critical"
+    },
+    {
+      "id": "PATH_ABS_004",
+      "name": "Authentication log access",
+      "category": "path",
+      "subcategory": "absolute_paths",
+      "payload": "/var/log/auth.log",
+      "encoded": "/var/log/auth.log",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "PATH_ABS_005",
+      "name": "Process environment variables access",
+      "category": "path",
+      "subcategory": "absolute_paths",
+      "payload": "/proc/self/environ",
+      "encoded": "/proc/self/environ",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "high"
+    }
+  ]
+}
