@@ -159,9 +159,10 @@ jobs:
 
           # Download plugin binary from latest release
           # Note: Use GITHUB_TOKEN to avoid API rate limiting (60 req/hour unauthenticated vs 5000 req/hour authenticated)
+          # Use endswith(".so") to exclude .sha256 checksum files
           PLUGIN_URL=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
             https://api.github.com/repos/takaosgb3/falco-plugin-nginx/releases/latest | \
-            jq -r '.assets[] | select(.name | contains("linux-amd64.so")) | .browser_download_url')
+            jq -r '.assets[] | select(.name | endswith("linux-amd64.so")) | .browser_download_url')
 
           if [ -z "$PLUGIN_URL" ] || [ "$PLUGIN_URL" == "null" ]; then
             echo "::error::Failed to find plugin binary in latest release"
