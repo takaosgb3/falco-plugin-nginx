@@ -30,12 +30,17 @@ The E2E Security Test Report provides comprehensive visibility into the security
 
 ## Report URL
 
-The latest E2E test report is available at:
+The E2E test reports are available at the following URLs:
 
-**https://takaosgb3.github.io/falco-plugin-nginx/e2e-report/{run_number}/**
+| URL | Description |
+|-----|-------------|
+| **https://takaosgb3.github.io/falco-plugin-nginx/e2e-report/latest/** | Latest report (always points to the most recent run) |
+| **https://takaosgb3.github.io/falco-plugin-nginx/e2e-report/{run_number}/** | Specific run (e.g., run #26) |
 
-For example:
-- Run #26: https://takaosgb3.github.io/falco-plugin-nginx/e2e-report/26/
+### Examples
+
+- **Latest**: https://takaosgb3.github.io/falco-plugin-nginx/e2e-report/latest/
+- **Run #26**: https://takaosgb3.github.io/falco-plugin-nginx/e2e-report/26/
 
 ---
 

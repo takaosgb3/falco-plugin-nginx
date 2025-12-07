@@ -28,12 +28,17 @@ E2Eセキュリティテストレポートは、Falco nginxプラグインのセ
 
 ## レポートURL
 
-最新のE2Eテストレポートは以下のURLで確認できます：
+E2Eテストレポートは以下のURLで確認できます：
 
-**https://takaosgb3.github.io/falco-plugin-nginx/e2e-report/{run_number}/**
+| URL | 説明 |
+|-----|------|
+| **https://takaosgb3.github.io/falco-plugin-nginx/e2e-report/latest/** | 最新レポート（常に最新の実行結果を表示） |
+| **https://takaosgb3.github.io/falco-plugin-nginx/e2e-report/{run_number}/** | 特定の実行（例：run #26） |
 
-例：
-- Run #26: https://takaosgb3.github.io/falco-plugin-nginx/e2e-report/26/
+### 例
+
+- **最新**: https://takaosgb3.github.io/falco-plugin-nginx/e2e-report/latest/
+- **Run #26**: https://takaosgb3.github.io/falco-plugin-nginx/e2e-report/26/
 
 ---
 
