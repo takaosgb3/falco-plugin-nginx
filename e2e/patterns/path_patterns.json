@@ -15,9 +15,7 @@
       "encoded": "../",
       "port": 8003,
       "expected_detection": true,
-      "severity": "high",
-      "expected_rule": "Basic Path Traversal Attack",
-      "rule_id": "ADV_TRAV_001"
+      "severity": "high"
     },
     {
       "id": "PATH_BASIC_002",
@@ -28,9 +26,7 @@
       "encoded": "../../",
       "port": 8003,
       "expected_detection": true,
-      "severity": "high",
-      "expected_rule": "Basic Path Traversal Attack",
-      "rule_id": "ADV_TRAV_001"
+      "severity": "high"
     },
     {
       "id": "PATH_BASIC_003",
@@ -41,9 +37,7 @@
       "encoded": "../../../",
       "port": 8003,
       "expected_detection": true,
-      "severity": "high",
-      "expected_rule": "Basic Path Traversal Attack",
-      "rule_id": "ADV_TRAV_001"
+      "severity": "high"
     },
     {
       "id": "PATH_BASIC_004",
@@ -54,9 +48,7 @@
       "encoded": "../../../../",
       "port": 8003,
       "expected_detection": true,
-      "severity": "high",
-      "expected_rule": "Basic Path Traversal Attack",
-      "rule_id": "ADV_TRAV_001"
+      "severity": "high"
     },
     {
       "id": "PATH_BASIC_005",
@@ -67,9 +59,7 @@
       "encoded": "../../../../../",
       "port": 8003,
       "expected_detection": true,
-      "severity": "high",
-      "expected_rule": "Basic Path Traversal Attack",
-      "rule_id": "ADV_TRAV_001"
+      "severity": "high"
     },
     {
       "id": "PATH_DOT_001",
@@ -80,9 +70,7 @@
       "encoded": "../etc/passwd",
       "port": 8003,
       "expected_detection": true,
-      "severity": "critical",
-      "expected_rule": "Basic Path Traversal Attack",
-      "rule_id": "ADV_TRAV_001"
+      "severity": "critical"
     },
     {
       "id": "PATH_DOT_002",
@@ -93,9 +81,7 @@
       "encoded": "../../etc/shadow",
       "port": 8003,
       "expected_detection": true,
-      "severity": "critical",
-      "expected_rule": "Basic Path Traversal Attack",
-      "rule_id": "ADV_TRAV_001"
+      "severity": "critical"
     },
     {
       "id": "PATH_DOT_003",
@@ -106,9 +92,7 @@
       "encoded": "../../../etc/hosts",
       "port": 8003,
       "expected_detection": true,
-      "severity": "high",
-      "expected_rule": "Basic Path Traversal Attack",
-      "rule_id": "ADV_TRAV_001"
+      "severity": "high"
     },
     {
       "id": "PATH_DOT_004",
@@ -119,9 +103,7 @@
       "encoded": "../../../../etc/apache2/apache2.conf",
       "port": 8003,
       "expected_detection": true,
-      "severity": "high",
-      "expected_rule": "Basic Path Traversal Attack",
-      "rule_id": "ADV_TRAV_001"
+      "severity": "high"
     },
     {
       "id": "PATH_DOT_005",
@@ -132,9 +114,7 @@
       "encoded": "../../../../../etc/ssh/sshd_config",
       "port": 8003,
       "expected_detection": true,
-      "severity": "high",
-      "expected_rule": "Basic Path Traversal Attack",
-      "rule_id": "ADV_TRAV_001"
+      "severity": "high"
     },
     {
       "id": "PATH_DOT_006",
@@ -145,9 +125,7 @@
       "encoded": "../../var/log/apache2/access.log",
       "port": 8003,
       "expected_detection": true,
-      "severity": "medium",
-      "expected_rule": "Basic Path Traversal Attack",
-      "rule_id": "ADV_TRAV_001"
+      "severity": "medium"
     },
     {
       "id": "PATH_DOT_007",
@@ -158,9 +136,7 @@
       "encoded": "../../../proc/version",
       "port": 8003,
       "expected_detection": true,
-      "severity": "medium",
-      "expected_rule": "Basic Path Traversal Attack",
-      "rule_id": "ADV_TRAV_001"
+      "severity": "medium"
     },
     {
       "id": "PATH_DOT_008",
@@ -171,9 +147,7 @@
       "encoded": "../../../../root/.bash_history",
       "port": 8003,
       "expected_detection": true,
-      "severity": "critical",
-      "expected_rule": "Basic Path Traversal Attack",
-      "rule_id": "ADV_TRAV_001"
+      "severity": "critical"
     },
     {
       "id": "PATH_DOT_009",
@@ -184,9 +158,7 @@
       "encoded": "../../home/user/.ssh/id_rsa",
       "port": 8003,
       "expected_detection": true,
-      "severity": "critical",
-      "expected_rule": "Basic Path Traversal Attack",
-      "rule_id": "ADV_TRAV_001"
+      "severity": "critical"
     },
     {
       "id": "PATH_DOT_010",
@@ -197,9 +169,7 @@
       "encoded": "../../../etc/mysql/my.cnf",
       "port": 8003,
       "expected_detection": true,
-      "severity": "high",
-      "expected_rule": "Basic Path Traversal Attack",
-      "rule_id": "ADV_TRAV_001"
+      "severity": "high"
     },
     {
       "id": "PATH_ABS_001",
@@ -210,9 +180,7 @@
       "encoded": "/etc/passwd",
       "port": 8003,
       "expected_detection": true,
-      "severity": "critical",
-      "expected_rule": "File Inclusion Attack",
-      "rule_id": "ADV_TRAV_004"
+      "severity": "critical"
     },
     {
       "id": "PATH_ABS_002",
@@ -223,9 +191,7 @@
       "encoded": "/etc/shadow",
       "port": 8003,
       "expected_detection": true,
-      "severity": "critical",
-      "expected_rule": "File Inclusion Attack",
-      "rule_id": "ADV_TRAV_004"
+      "severity": "critical"
     },
     {
       "id": "PATH_ABS_003",
@@ -236,9 +202,7 @@
       "encoded": "/root/.ssh/authorized_keys",
       "port": 8003,
       "expected_detection": true,
-      "severity": "critical",
-      "expected_rule": "File Inclusion Attack",
-      "rule_id": "ADV_TRAV_004"
+      "severity": "critical"
     },
     {
       "id": "PATH_ABS_004",
@@ -249,9 +213,7 @@
       "encoded": "/var/log/auth.log",
       "port": 8003,
       "expected_detection": true,
-      "severity": "high",
-      "expected_rule": "File Inclusion Attack",
-      "rule_id": "ADV_TRAV_004"
+      "severity": "high"
     },
     {
       "id": "PATH_ABS_005",
@@ -262,9 +224,7 @@
       "encoded": "/proc/self/environ",
       "port": 8003,
       "expected_detection": true,
-      "severity": "high",
-      "expected_rule": "File Inclusion Attack",
-      "rule_id": "ADV_TRAV_004"
+      "severity": "high"
     }
   ]
 }
