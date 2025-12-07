@@ -1,0 +1,2 @@
+10:21:00.000000000: Critical [NGINX Traversal] File inclusion attack detected test_id=PATH_ABS_005-1765102860665-cldfia pattern_id=PATH_ABS_005 uri=/?q=/proc/self/environ client=127.0.0.1
+10:21:00.000000000: Critical [NGINX Traversal] File inclusion attack detected test_id=PATH_ABS_005-1765102860665-cldfia pattern_id=PATH_ABS_005 uri=/?q=/proc/self/environ client=127.0.0.1

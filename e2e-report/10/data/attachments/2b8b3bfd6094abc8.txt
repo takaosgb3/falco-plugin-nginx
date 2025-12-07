@@ -1,0 +1,2 @@
+10:20:55.000000000: Critical [NGINX Traversal] Basic path traversal attack detected test_id=PATH_DOT_004-1765102855155-dkool pattern_id=PATH_DOT_004 uri=/?q=../../../../etc/apache2/apache2.conf client=127.0.0.1
+10:20:55.000000000: Critical [NGINX Traversal] Basic path traversal attack detected test_id=PATH_DOT_004-1765102855155-dkool pattern_id=PATH_DOT_004 uri=/?q=../../../../etc/apache2/apache2.conf client=127.0.0.1

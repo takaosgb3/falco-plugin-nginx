@@ -1,0 +1,1 @@
+127.0.0.1 - - [07/Dec/2025:10:20:56 +0000] "GET /?q=../../../proc/version HTTP/1.1" 200 51 "-" "Grafana k6/1.4.2" x_test_id=PATH_DOT_007-1765102856657-ofdvt8 x_category=PATH x_pattern_id=PATH_DOT_007

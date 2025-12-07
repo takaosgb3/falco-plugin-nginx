@@ -1,0 +1,14 @@
+{
+  "pattern_id": "XSS_REFL_006",
+  "test_id": "XSS_REFL_006-1765102848654-bfodkd",
+  "category": "xss",
+  "detected": true,
+  "latency_ms": 15000,
+  "evidence": "10:20:48.000000000: Critical [NGINX XSS] Polyglot XSS Attack test_id=XSS_REFL_006-1765102848654-bfodkd pattern_id=XSS_REFL_006 uri=/?q=%3Cinput%20onfocus%3Dalert%28%27XSS%27%29%20autofocus%3E client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX XSS] Polyglot XSS Attack test_id=XSS_REFL_006-1765102848654-bfodkd pattern_id=XSS_REFL_006 uri=/?q=%3Cinput%20onfocus%3Dalert%28%27XSS%27%29%20autofocus%3E client=127.0.0.1 method=GET",
+  "expected_rule": "DOM-based XSS Attack",
+  "rule_id": "ADV_XSS_001",
+  "sent_at": 1765102863000,
+  "detected_at": 1765102848000,
+  "status": "passed"
+}
