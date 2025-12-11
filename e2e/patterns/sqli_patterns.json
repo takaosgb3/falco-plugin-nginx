@@ -1,7 +1,7 @@
 {
   "metadata": {
     "category": "sqli",
-    "total_patterns": 19,
+    "total_patterns": 29,
     "port": 8001,
     "description": "k6 test patterns for sqli"
   },
@@ -211,6 +211,116 @@
       "subcategory": "boolean_based_blind",
       "payload": "' OR 'a'='a",
       "encoded": "%27%20OR%20%27a%27%3D%27a",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "SQLI_TIME_016",
+      "name": "MySQL BENCHMARK with large iterations",
+      "category": "sqli",
+      "subcategory": "time_based_blind",
+      "payload": "BENCHMARK(10000000,MD5('a'))",
+      "encoded": "BENCHMARK(10000000%2CMD5('a'))",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "SQLI_TIME_017",
+      "name": "PostgreSQL pg_sleep with decimal",
+      "category": "sqli",
+      "subcategory": "time_based_blind",
+      "payload": "pg_sleep(5.5)",
+      "encoded": "pg_sleep(5.5)",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "SQLI_TIME_018",
+      "name": "SQL Server WAITFOR TIME",
+      "category": "sqli",
+      "subcategory": "time_based_blind",
+      "payload": "WAITFOR TIME '00:00:05'",
+      "encoded": "WAITFOR%20TIME%20'00%3A00%3A05'",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "SQLI_BOOL_005",
+      "name": "Double quote boolean injection",
+      "category": "sqli",
+      "subcategory": "boolean_based_blind",
+      "payload": "\" OR \"1\"=\"1",
+      "encoded": "%22%20OR%20%221%22%3D%221",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "SQLI_BOOL_006",
+      "name": "Numeric comparison injection",
+      "category": "sqli",
+      "subcategory": "boolean_based_blind",
+      "payload": "1 AND 1>0",
+      "encoded": "1%20AND%201%3E0",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "SQLI_BOOL_007",
+      "name": "SUBSTRING-based boolean injection",
+      "category": "sqli",
+      "subcategory": "boolean_based_blind",
+      "payload": "' AND SUBSTRING(username,1,1)='a",
+      "encoded": "'%20AND%20SUBSTRING(username%2C1%2C1)%3D'a",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "SQLI_UNION_001",
+      "name": "Basic UNION SELECT with NULL",
+      "category": "sqli",
+      "subcategory": "union_based",
+      "payload": "UNION SELECT NULL",
+      "encoded": "UNION%20SELECT%20NULL",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "SQLI_UNION_002",
+      "name": "UNION ALL SELECT with multiple NULLs",
+      "category": "sqli",
+      "subcategory": "union_based",
+      "payload": "UNION ALL SELECT NULL,NULL",
+      "encoded": "UNION%20ALL%20SELECT%20NULL%2CNULL",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "SQLI_ERR_001",
+      "name": "MySQL EXTRACTVALUE error-based",
+      "category": "sqli",
+      "subcategory": "error_based",
+      "payload": "EXTRACTVALUE(1,CONCAT(0x7e,version()))",
+      "encoded": "EXTRACTVALUE(1%2CCONCAT(0x7e%2Cversion()))",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "SQLI_ERR_002",
+      "name": "MySQL UPDATEXML error-based",
+      "category": "sqli",
+      "subcategory": "error_based",
+      "payload": "UPDATEXML(1,CONCAT(0x7e,version()),1)",
+      "encoded": "UPDATEXML(1%2CCONCAT(0x7e%2Cversion())%2C1)",
       "port": 8001,
       "expected_detection": true,
       "severity": "high"

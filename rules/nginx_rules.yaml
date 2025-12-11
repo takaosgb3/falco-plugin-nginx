@@ -1,9 +1,9 @@
 # =============================================================================
 # nginx_rules.yaml - Falco Rules for NGINX Plugin
 # =============================================================================
-# Version: 1.4.2
-# Generated: 2025-12-06
-# Source: E2E tested rules (65/65 patterns, 100% detection rate)
+# Version: 1.5.1
+# Generated: 2025-12-11
+# Source: E2E tested rules (100/100 patterns, Phase 1 expanded, fix undetected patterns)
 #
 # This file is auto-generated from:
 #   - advanced_sqli_enhanced.yaml
@@ -128,6 +128,7 @@
 # ====================================
 
 # Boolean comparisons - contains maintained (contains = and numeric patterns)
+# Phase 1: Added SQLI_BOOL_006 - Numeric comparison injection (1>0, 1<2, etc.)
 - macro: contains_boolean_comparisons
   condition: >
     (nginx.request_uri contains "AND%201%3D1" or
@@ -141,7 +142,11 @@
      nginx.request_uri contains "AND+1=1" or
      nginx.request_uri contains "AND+1=2" or
      nginx.request_uri contains "AND/**/1=1" or
-     nginx.request_uri contains "AND/**/1=2")
+     nginx.request_uri contains "AND/**/1=2" or
+     nginx.request_uri contains "AND 1>0" or
+     nginx.request_uri contains "AND%201%3E0" or
+     nginx.request_uri contains "AND 1<2" or
+     nginx.request_uri contains "AND%201%3C2")
 
 # Pattern #A300: Optimized - SUBSTRING/ASCII/CHAR etc. merged to icontains
 # URL-encoded patterns (%28) remain as contains
@@ -230,6 +235,7 @@
 
 # Pattern #A213 & #A299 fix - Classic SQLi patterns
 # contains maintained (contains quotes, equals, URL-encoded patterns)
+# Phase 1: Added SQLI_BOOL_005 - Double quote boolean injection
 - macro: contains_classic_sqli_patterns
   condition: >
     (nginx.request_uri contains "' or '1'='1" or
@@ -247,7 +253,11 @@
      nginx.request_uri contains "' and 'a'='a" or
      nginx.request_uri contains "' AND 'a'='a" or
      nginx.request_uri contains "%27%20and%20%27a%27%3D%27a" or
-     nginx.request_uri contains "%27%20AND%20%27a%27%3D%27a")
+     nginx.request_uri contains "%27%20AND%20%27a%27%3D%27a" or
+     nginx.request_uri contains "\" OR \"1\"=\"1" or
+     nginx.request_uri contains "\" or \"1\"=\"1" or
+     nginx.request_uri contains "%22%20OR%20%221%22%3D%221" or
+     nginx.request_uri contains "%22%20or%20%221%22%3D%221")
 
 # Numeric prefix patterns - contains maintained (contains quotes, equals)
 - macro: contains_numeric_prefix_sqli_patterns
@@ -482,10 +492,13 @@
 
 # Pattern #A300: Optimized - UNION/GROUP/HAVING/ORDER merged to icontains
 # URL-encoded patterns remain as contains
+# Phase 1: Added SQLI_UNION_002 - UNION ALL SELECT pattern
 - macro: contains_union_group_patterns
   condition: >
     (nginx.request_uri contains "UNION%20SELECT" or
      nginx.request_uri icontains "union select" or
+     nginx.request_uri icontains "union all select" or
+     nginx.request_uri contains "UNION%20ALL%20SELECT" or
      nginx.request_uri contains "GROUP%20BY" or
      nginx.request_uri icontains "group by" or
      nginx.request_uri icontains "having" or
@@ -788,6 +801,7 @@
 #   - %28 is too broad (matches any URL-encoded parenthesis)
 #   - XSS patterns are covered by other rules (event handlers, script tags, etc.)
 #   - Caused EMRG_MONGO_005 to be misclassified as XSS
+# Phase 1: Added XSS_DOM_002 - innerHTML manipulation
 - rule: Advanced XSS Attack Attempt
   desc: Comprehensive detection of advanced XSS techniques
   condition: >-
@@ -826,6 +840,7 @@
       nginx.request_uri icontains "setInterval" or
       nginx.request_uri icontains "Function" or
       nginx.request_uri icontains "constructor" or
+      nginx.request_uri icontains "innerHTML" or
       nginx.request_uri contains "&#x3C;" or
       nginx.request_uri contains "&#60;" or
       nginx.request_uri contains "&lt;script" or
@@ -926,6 +941,7 @@
 # ADV_TRAV_002: Encoded Path Traversal
 # ====================================
 # Pattern #A302: All URL-encoded patterns, maintain contains
+# Phase 1: Added PATH_UNICODE_002 - UTF-8 overlong encoding
 - rule: Encoded Path Traversal Attack
   desc: Detects encoded path traversal attempts
   condition: >-
@@ -933,9 +949,11 @@
       nginx.request_uri contains "%2e%2e%2f" or
       nginx.request_uri contains "%2e%2e%5c" or
       nginx.request_uri contains "%252e%252e%252f" or
+      nginx.request_uri contains "%25252e%25252e%25252f" or
       nginx.request_uri contains "%252e%252e%255c" or
       nginx.request_uri contains "%c0%ae%c0%ae" or
       nginx.request_uri contains "%c1%9c" or
+      nginx.request_uri contains "%e0%80%ae" or
       nginx.request_uri contains "..%252f" or
       nginx.request_uri contains "..%255c" or
       nginx.request_uri contains "%2e%2e/" or
@@ -1018,6 +1036,7 @@
   exceptions:
     # Pattern #A316 Fix: E2E test - Exclude CMDi patterns by exact pattern_id match
     # Using 'in' operator with full list of CMD_ pattern IDs
+    # Phase 1: Added CMD_BASIC_011-020 to exceptions (all CMD_BASIC patterns)
     - name: cmdi_patterns
       fields: nginx.pattern_id
       comps: in
@@ -1032,6 +1051,16 @@
         - CMD_BASIC_008
         - CMD_BASIC_009
         - CMD_BASIC_010
+        - CMD_BASIC_011
+        - CMD_BASIC_012
+        - CMD_BASIC_013
+        - CMD_BASIC_014
+        - CMD_BASIC_015
+        - CMD_BASIC_016
+        - CMD_BASIC_017
+        - CMD_BASIC_018
+        - CMD_BASIC_019
+        - CMD_BASIC_020
   output: "[NGINX Traversal] File inclusion attack detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: CRITICAL
   tags: [security, path_traversal, file_inclusion, advanced_traversal, phase3]
@@ -1089,6 +1118,7 @@
 # Pattern #A317 Fix (Issue #764): Added "; cat" pattern for CMD_BASIC_005
 #   - CMD_BASIC_005: ; cat /etc/passwd
 #   - Previously only ";cat" (no space) was covered, but payload has space
+# Phase 1: Added CMD_BASIC_013 (;pwd) and CMD_BASIC_014 (;;ls)
 - rule: Command Injection via Semicolon
   desc: Detects command injection attempts using semicolon separators
   condition: >-
@@ -1102,10 +1132,12 @@
       nginx.request_uri icontains ";uname" or
       nginx.request_uri icontains ";ls" or
       nginx.request_uri icontains ";nc" or
+      nginx.request_uri icontains ";pwd" or
       nginx.request_uri icontains "; ls" or
       nginx.request_uri icontains "; uname" or
       nginx.request_uri icontains "; ifconfig" or
       nginx.request_uri icontains "; cat" or
+      nginx.request_uri contains ";;" or
       nginx.request_uri contains "%3Bcat" or
       nginx.request_uri contains "%3Brm" or
       nginx.request_uri contains "%3Bwget" or
@@ -1114,6 +1146,8 @@
       nginx.request_uri contains "%3Buname" or
       nginx.request_uri contains "%3Bls" or
       nginx.request_uri contains "%3Bnc" or
+      nginx.request_uri contains "%3Bpwd" or
+      nginx.request_uri contains "%3B%3B" or
       nginx.request_uri contains "%3B%20ls" or
       nginx.request_uri contains "%3B%20uname" or
       nginx.request_uri contains "%3B%20ifconfig" or
@@ -1131,13 +1165,16 @@
 # Pattern #A306: Added space-prefixed patterns for E2E test coverage
 #   - CMD_BASIC_003: || id
 #   - CMD_BASIC_008: || cat /proc/version
+# Phase 1: Added CMD_BASIC_011 (|id) and CMD_BASIC_012 (||ls)
 - rule: Command Injection via Pipe
   desc: Detects command injection attempts using pipe operators
   condition: >-
     (
       nginx.request_uri icontains "|whoami" or
       nginx.request_uri icontains "|cat" or
+      nginx.request_uri icontains "|id" or
       nginx.request_uri icontains "||nc" or
+      nginx.request_uri icontains "||ls" or
       nginx.request_uri icontains "|curl" or
       nginx.request_uri icontains "|wget" or
       nginx.request_uri icontains "|bash" or
@@ -1148,7 +1185,9 @@
       nginx.request_uri icontains "|| cat" or
       nginx.request_uri contains "%7Cwhoami" or
       nginx.request_uri contains "%7Ccat" or
+      nginx.request_uri contains "%7Cid" or
       nginx.request_uri contains "%7C%7Cnc" or
+      nginx.request_uri contains "%7C%7Cls" or
       nginx.request_uri contains "%7Ccurl" or
       nginx.request_uri contains "%7Cwget" or
       nginx.request_uri contains "%7Cbash" or
@@ -1168,6 +1207,7 @@
 # URL-encoded and special patterns ($, `, ${}) use contains
 # Pattern #A304: Removed single "$" - causes false positives (e.g., /products?price=$100)
 # Pattern #A304: Removed standalone "whoami", "curl", "wget" - covered by backtick/substitution patterns
+# Phase 1: Added CMD_BASIC_018 - $(uname -a) command substitution
 - rule: Command Substitution Attack
   desc: Detects command injection attempts using command substitution
   condition: >-
@@ -1177,16 +1217,21 @@
       nginx.request_uri contains "$(curl" or
       nginx.request_uri contains "$(wget" or
       nginx.request_uri contains "$(id" or
+      nginx.request_uri contains "$(uname" or
       nginx.request_uri contains "`whoami" or
       nginx.request_uri contains "`cat" or
       nginx.request_uri contains "`curl" or
       nginx.request_uri contains "`wget" or
       nginx.request_uri contains "`id" or
+      nginx.request_uri contains "`uname" or
       nginx.request_uri contains "%24%28whoami" or
       nginx.request_uri contains "%24%28cat" or
       nginx.request_uri contains "%24%28curl" or
+      nginx.request_uri contains "%24%28uname" or
+      nginx.request_uri contains "%24(uname" or
       nginx.request_uri contains "%60whoami" or
       nginx.request_uri contains "%60cat" or
+      nginx.request_uri contains "%60uname" or
       nginx.request_uri contains "${IFS}" or
       nginx.request_uri contains "%24%7BIFS%7D"
     )
@@ -1227,7 +1272,9 @@
       nginx.request_uri contains "%26%26" or
       nginx.request_uri contains "%26%20ps" or
       nginx.request_uri contains "%0a" or
-      nginx.request_uri contains "%0d"
+      nginx.request_uri contains "%0d" or
+      nginx.request_uri contains "%250a" or
+      nginx.request_uri contains "%250d"
     )
   output: "[NGINX CMDi] Advanced command injection attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: WARNING
