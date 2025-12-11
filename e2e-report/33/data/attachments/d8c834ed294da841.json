@@ -1,0 +1,14 @@
+{
+  "pattern_id": "XSS_ENC_001",
+  "test_id": "XSS_ENC_001-1765464720695-x1dacq",
+  "category": "xss",
+  "detected": true,
+  "latency_ms": 13000,
+  "evidence": "14:52:00.000000000: Warning [NGINX SQLi] Encoded SQL Injection Pattern test_id=XSS_ENC_001-1765464720695-x1dacq pattern_id=XSS_ENC_001 uri=/?q=%26%2360%3Bscript%26%2362%3Balert(1)%26%2360%3B%2Fscript%26%2362%3B client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Encoded SQL Injection Pattern test_id=XSS_ENC_001-1765464720695-x1dacq pattern_id=XSS_ENC_001 uri=/?q=%26%2360%3Bscript%26%2362%3Balert(1)%26%2360%3B%2Fscript%26%2362%3B client=127.0.0.1 method=GET",
+  "expected_rule": "",
+  "rule_id": "",
+  "sent_at": 1765464733000,
+  "detected_at": 1765464720000,
+  "status": "passed"
+}

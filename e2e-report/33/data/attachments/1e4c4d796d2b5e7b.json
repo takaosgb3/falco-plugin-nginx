@@ -1,0 +1,14 @@
+{
+  "pattern_id": "PATH_ABS_002",
+  "test_id": "PATH_ABS_002-1765464726192-jik65f",
+  "category": "path",
+  "detected": true,
+  "latency_ms": 7000,
+  "evidence": "14:52:06.000000000: Critical [NGINX Traversal] File inclusion attack detected test_id=PATH_ABS_002-1765464726192-jik65f pattern_id=PATH_ABS_002 uri=/?q=/etc/shadow client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] File inclusion attack detected test_id=PATH_ABS_002-1765464726192-jik65f pattern_id=PATH_ABS_002 uri=/?q=/etc/shadow client=127.0.0.1",
+  "expected_rule": "",
+  "rule_id": "",
+  "sent_at": 1765464733000,
+  "detected_at": 1765464726000,
+  "status": "passed"
+}

@@ -1,0 +1,14 @@
+{
+  "pattern_id": "PATH_NULL_001",
+  "test_id": "PATH_NULL_001-1765464729201-foxwmg",
+  "category": "path",
+  "detected": true,
+  "latency_ms": 4000,
+  "evidence": "14:52:09.000000000: Critical [NGINX Traversal] Basic path traversal attack detected test_id=PATH_NULL_001-1765464729201-foxwmg pattern_id=PATH_NULL_001 uri=/?q=../etc/passwd%2500.jpg client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] Basic path traversal attack detected test_id=PATH_NULL_001-1765464729201-foxwmg pattern_id=PATH_NULL_001 uri=/?q=../etc/passwd%2500.jpg client=127.0.0.1",
+  "expected_rule": "",
+  "rule_id": "",
+  "sent_at": 1765464733000,
+  "detected_at": 1765464729000,
+  "status": "passed"
+}
