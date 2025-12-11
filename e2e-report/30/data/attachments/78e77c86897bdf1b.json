@@ -1,0 +1,14 @@
+{
+  "pattern_id": "PATH_NULL_001",
+  "test_id": "PATH_NULL_001-1765463838570-ig2xvu",
+  "category": "path",
+  "detected": true,
+  "latency_ms": 4000,
+  "evidence": "14:37:18.000000000: Critical [NGINX Traversal] Basic path traversal attack detected test_id=PATH_NULL_001-1765463838570-ig2xvu pattern_id=PATH_NULL_001 uri=/?q=../etc/passwd%2500.jpg client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] Basic path traversal attack detected test_id=PATH_NULL_001-1765463838570-ig2xvu pattern_id=PATH_NULL_001 uri=/?q=../etc/passwd%2500.jpg client=127.0.0.1",
+  "expected_rule": "",
+  "rule_id": "",
+  "sent_at": 1765463842000,
+  "detected_at": 1765463838000,
+  "status": "passed"
+}
