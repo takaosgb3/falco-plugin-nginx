@@ -1,9 +1,9 @@
 # =============================================================================
 # nginx_rules.yaml - Falco Rules for NGINX Plugin
 # =============================================================================
-# Version: 1.5.0
+# Version: 1.5.1
 # Generated: 2025-12-11
-# Source: E2E tested rules (95/95 patterns, Phase 1 expanded)
+# Source: E2E tested rules (100/100 patterns, Phase 1 expanded, fix undetected patterns)
 #
 # This file is auto-generated from:
 #   - advanced_sqli_enhanced.yaml
@@ -949,6 +949,7 @@
       nginx.request_uri contains "%2e%2e%2f" or
       nginx.request_uri contains "%2e%2e%5c" or
       nginx.request_uri contains "%252e%252e%252f" or
+      nginx.request_uri contains "%25252e%25252e%25252f" or
       nginx.request_uri contains "%252e%252e%255c" or
       nginx.request_uri contains "%c0%ae%c0%ae" or
       nginx.request_uri contains "%c1%9c" or
@@ -1227,6 +1228,7 @@
       nginx.request_uri contains "%24%28cat" or
       nginx.request_uri contains "%24%28curl" or
       nginx.request_uri contains "%24%28uname" or
+      nginx.request_uri contains "%24(uname" or
       nginx.request_uri contains "%60whoami" or
       nginx.request_uri contains "%60cat" or
       nginx.request_uri contains "%60uname" or
@@ -1270,7 +1272,9 @@
       nginx.request_uri contains "%26%26" or
       nginx.request_uri contains "%26%20ps" or
       nginx.request_uri contains "%0a" or
-      nginx.request_uri contains "%0d"
+      nginx.request_uri contains "%0d" or
+      nginx.request_uri contains "%250a" or
+      nginx.request_uri contains "%250d"
     )
   output: "[NGINX CMDi] Advanced command injection attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: WARNING
