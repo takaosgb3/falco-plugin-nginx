@@ -320,6 +320,55 @@ def load_pattern_info(pattern_id: str) -> Optional[Dict]:
 # Test Data Loading
 # ============================================
 
+def extract_sort_key(pattern_id: str) -> tuple:
+    """
+    Extract sort key from pattern ID for natural sorting.
+
+    Examples:
+        "SQLI_TIME_001" -> ("SQLI", "TIME", 1)
+        "XSS_REFL_012" -> ("XSS", "REFL", 12)
+        "CMD_BASIC_SEMICOLON_001" -> ("CMD", "BASIC_SEMICOLON", 1)
+
+    Args:
+        pattern_id: Pattern ID string
+
+    Returns:
+        Tuple for sorting (category, subcategory, number)
+    """
+    # Define category order for consistent sorting
+    category_order = {
+        'SQLI': 1,
+        'XSS': 2,
+        'PATH': 3,
+        'CMD': 4,
+        'MONGO': 5,
+        'OTHER': 6
+    }
+
+    parts = pattern_id.split('_')
+
+    # Extract category (first part)
+    category = parts[0] if parts else ''
+    cat_order = category_order.get(category, 99)
+
+    # Extract numeric suffix
+    num = 0
+    if parts:
+        last_part = parts[-1]
+        if last_part.isdigit():
+            num = int(last_part)
+
+    # Subcategory is everything between category and number
+    if len(parts) > 2:
+        subcategory = '_'.join(parts[1:-1])
+    elif len(parts) == 2:
+        subcategory = ''
+    else:
+        subcategory = ''
+
+    return (cat_order, subcategory, num)
+
+
 def load_test_results(config) -> List[Dict]:
     """
     Load E2E test results from JSON file
@@ -328,7 +377,7 @@ def load_test_results(config) -> List[Dict]:
         config: pytest config object
 
     Returns:
-        List of test results
+        List of test results (sorted by pattern ID for consistent ordering)
     """
     test_results_path = Path(config.test_results)
 
@@ -337,6 +386,10 @@ def load_test_results(config) -> List[Dict]:
 
     with open(test_results_path, 'r', encoding='utf-8') as f:
         results = json.load(f)
+
+    # Sort results by pattern ID for consistent ordering in Allure report
+    # Order: SQLI -> XSS -> PATH -> CMD -> MONGO/OTHER, then by number
+    results.sort(key=lambda r: extract_sort_key(r.get('pattern_id', '')))
 
     return results
 
