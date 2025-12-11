@@ -400,11 +400,17 @@ def load_test_results(config) -> List[Dict]:
 
 def pytest_generate_tests(metafunc):
     """
-    Dynamically generate test cases for each E2E test result
+    Dynamically generate test cases for each E2E test result.
+
+    Test IDs are prefixed with zero-padded numbers (001_, 002_, etc.)
+    to ensure correct ordering in Allure Suites view, which sorts
+    alphabetically by default.
     """
     if 'test_result' in metafunc.fixturenames:
         results = load_test_results(metafunc.config)
-        metafunc.parametrize('test_result', results, ids=[r['pattern_id'] for r in results])
+        # Add numeric prefix for Allure UI sorting (e.g., "001_SQLI_BOOL_001")
+        ids = [f"{i+1:03d}_{r['pattern_id']}" for i, r in enumerate(results)]
+        metafunc.parametrize('test_result', results, ids=ids)
 
 
 @pytest.mark.allure
