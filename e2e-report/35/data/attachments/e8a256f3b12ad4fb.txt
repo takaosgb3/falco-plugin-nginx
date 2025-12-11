@@ -1,0 +1,5 @@
+Pattern ID: CMD_BASIC_019
+        Status: passed
+        Latency: ~1000ms
+        Detection: 1 / 1
+        Rule: [NGINX CMDi] Advanced command injection attempt test_id=CMD_BASIC_019-1765465157908-9u4wiz7 pattern_id=CMD_BASIC_019 uri=/?q=%250als client=127.0.0.1
