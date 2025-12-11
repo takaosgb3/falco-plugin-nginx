@@ -1,7 +1,7 @@
 {
   "metadata": {
     "category": "path",
-    "total_patterns": 20,
+    "total_patterns": 25,
     "port": 8003,
     "description": "k6 test patterns for path"
   },
@@ -222,6 +222,61 @@
       "subcategory": "absolute_paths",
       "payload": "/proc/self/environ",
       "encoded": "/proc/self/environ",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "PATH_ENC_001",
+      "name": "URL encoded dot-dot-slash",
+      "category": "path",
+      "subcategory": "encoded_traversal",
+      "payload": "%2e%2e%2fetc/passwd",
+      "encoded": "%252e%252e%252fetc%2Fpasswd",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "PATH_ENC_002",
+      "name": "Double URL encoded traversal",
+      "category": "path",
+      "subcategory": "encoded_traversal",
+      "payload": "%252e%252e%252f",
+      "encoded": "%25252e%25252e%25252f",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "PATH_NULL_001",
+      "name": "Null byte injection in path",
+      "category": "path",
+      "subcategory": "null_byte",
+      "payload": "../etc/passwd%00.jpg",
+      "encoded": "../etc/passwd%2500.jpg",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "critical"
+    },
+    {
+      "id": "PATH_UNICODE_001",
+      "name": "Unicode slash encoding",
+      "category": "path",
+      "subcategory": "unicode_encoding",
+      "payload": "..%c0%afetc/passwd",
+      "encoded": "..%25c0%25afetc%2Fpasswd",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "PATH_UNICODE_002",
+      "name": "UTF-8 overlong encoding",
+      "category": "path",
+      "subcategory": "unicode_encoding",
+      "payload": "..%c0%ae%c0%ae/etc/passwd",
+      "encoded": "..%25c0%25ae%25c0%25ae%2Fetc%2Fpasswd",
       "port": 8003,
       "expected_detection": true,
       "severity": "high"

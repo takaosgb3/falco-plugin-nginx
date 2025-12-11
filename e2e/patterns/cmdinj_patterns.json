@@ -1,7 +1,7 @@
 {
   "metadata": {
     "category": "cmdinj",
-    "total_patterns": 10,
+    "total_patterns": 20,
     "port": 8004,
     "description": "k6 test patterns for cmdinj"
   },
@@ -115,6 +115,116 @@
       "port": 8004,
       "expected_detection": true,
       "severity": "medium"
+    },
+    {
+      "id": "CMD_BASIC_011",
+      "name": "Basic pipe with id command",
+      "category": "cmdinj",
+      "subcategory": "basic_command_injection",
+      "payload": "|id",
+      "encoded": "%7Cid",
+      "port": 8004,
+      "expected_detection": true,
+      "severity": "critical"
+    },
+    {
+      "id": "CMD_BASIC_012",
+      "name": "Double pipe OR operator",
+      "category": "cmdinj",
+      "subcategory": "basic_command_injection",
+      "payload": "||ls",
+      "encoded": "%7C%7Cls",
+      "port": 8004,
+      "expected_detection": true,
+      "severity": "critical"
+    },
+    {
+      "id": "CMD_BASIC_013",
+      "name": "Semicolon with pwd command",
+      "category": "cmdinj",
+      "subcategory": "basic_command_injection",
+      "payload": ";pwd",
+      "encoded": "%3Bpwd",
+      "port": 8004,
+      "expected_detection": true,
+      "severity": "critical"
+    },
+    {
+      "id": "CMD_BASIC_014",
+      "name": "Multiple semicolons injection",
+      "category": "cmdinj",
+      "subcategory": "basic_command_injection",
+      "payload": ";;ls",
+      "encoded": "%3B%3Bls",
+      "port": 8004,
+      "expected_detection": true,
+      "severity": "critical"
+    },
+    {
+      "id": "CMD_BASIC_015",
+      "name": "AND operator with whoami",
+      "category": "cmdinj",
+      "subcategory": "basic_command_injection",
+      "payload": "&& whoami",
+      "encoded": "%26%26%20whoami",
+      "port": 8004,
+      "expected_detection": true,
+      "severity": "critical"
+    },
+    {
+      "id": "CMD_BASIC_016",
+      "name": "OR operator with id",
+      "category": "cmdinj",
+      "subcategory": "basic_command_injection",
+      "payload": "|| id",
+      "encoded": "%7C%7C%20id",
+      "port": 8004,
+      "expected_detection": true,
+      "severity": "critical"
+    },
+    {
+      "id": "CMD_BASIC_017",
+      "name": "Backtick command substitution",
+      "category": "cmdinj",
+      "subcategory": "basic_command_injection",
+      "payload": "`id`",
+      "encoded": "%60id%60",
+      "port": 8004,
+      "expected_detection": true,
+      "severity": "critical"
+    },
+    {
+      "id": "CMD_BASIC_018",
+      "name": "Dollar-paren command substitution",
+      "category": "cmdinj",
+      "subcategory": "basic_command_injection",
+      "payload": "$(uname -a)",
+      "encoded": "%24(uname%20-a)",
+      "port": 8004,
+      "expected_detection": true,
+      "severity": "critical"
+    },
+    {
+      "id": "CMD_BASIC_019",
+      "name": "URL encoded newline injection",
+      "category": "cmdinj",
+      "subcategory": "basic_command_injection",
+      "payload": "%0als",
+      "encoded": "%250als",
+      "port": 8004,
+      "expected_detection": true,
+      "severity": "critical"
+    },
+    {
+      "id": "CMD_BASIC_020",
+      "name": "CRLF injection with cat",
+      "category": "cmdinj",
+      "subcategory": "basic_command_injection",
+      "payload": "%0d%0acat /etc/passwd",
+      "encoded": "%250d%250acat%20%2Fetc%2Fpasswd",
+      "port": 8004,
+      "expected_detection": true,
+      "severity": "critical"
     }
   ]
 }

