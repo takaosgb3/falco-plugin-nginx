@@ -236,6 +236,7 @@
 # Pattern #A213 & #A299 fix - Classic SQLi patterns
 # contains maintained (contains quotes, equals, URL-encoded patterns)
 # Phase 1: Added SQLI_BOOL_005 - Double quote boolean injection
+# Phase 5: Added SQLI_2ND_002 - Second-order boolean injection variants
 - macro: contains_classic_sqli_patterns
   condition: >
     (nginx.request_uri contains "' or '1'='1" or
@@ -257,7 +258,15 @@
      nginx.request_uri contains "\" OR \"1\"=\"1" or
      nginx.request_uri contains "\" or \"1\"=\"1" or
      nginx.request_uri contains "%22%20OR%20%221%22%3D%221" or
-     nginx.request_uri contains "%22%20or%20%221%22%3D%221")
+     nginx.request_uri contains "%22%20or%20%221%22%3D%221" or
+     nginx.request_uri contains "OR '1'='1'" or
+     nginx.request_uri contains "or '1'='1'" or
+     nginx.request_uri contains "%20OR%20%271%27%3D%271%27" or
+     nginx.request_uri contains "%20or%20%271%27%3D%271%27" or
+     nginx.request_uri contains "' OR '1'='1' --" or
+     nginx.request_uri contains "' or '1'='1' --" or
+     nginx.request_uri contains "'%20OR%20'1'%3D'1'%20--" or
+     nginx.request_uri contains "'%20or%20'1'%3D'1'%20--")
 
 # Numeric prefix patterns - contains maintained (contains quotes, equals)
 - macro: contains_numeric_prefix_sqli_patterns
@@ -469,13 +478,23 @@
 # MACROS - Error-based SQL Injection (Level 2: Combined)
 # ====================================
 
+# Phase 5 (Issue #780): Subquery patterns for error-based SQLi
+# Test patterns: SQLI_ERROR_005
+- macro: contains_subquery_patterns
+  condition: >
+    (nginx.request_uri contains "(SELECT" or
+     nginx.request_uri contains "(select" or
+     nginx.request_uri contains "%28SELECT" or
+     nginx.request_uri contains "%28select")
+
 - macro: sqli_error_based_pattern
   condition: >
     (contains_extractvalue_updatexml or contains_floor_rand_patterns or
      contains_concat_hex_patterns or contains_cast_convert_patterns or
      contains_version_metadata or contains_oracle_specific or
      contains_system_tables or contains_division_error_patterns or
-     contains_encoded_error_functions or contains_info_schema_concat)
+     contains_encoded_error_functions or contains_info_schema_concat or
+     contains_subquery_patterns)
 
 # ====================================
 # MACROS - Advanced SQL Injection (Level 1)
@@ -966,7 +985,9 @@
       nginx.request_uri contains "%2e%2e%2f" or
       nginx.request_uri contains "%2e%2e%5c" or
       nginx.request_uri contains "%252e%252e%252f" or
+      nginx.request_uri contains "%252E%252E%252F" or
       nginx.request_uri contains "%25252e%25252e%25252f" or
+      nginx.request_uri contains "%25252E%25252E%25252F" or
       nginx.request_uri contains "%252e%252e%255c" or
       nginx.request_uri contains "%c0%ae%c0%ae" or
       nginx.request_uri contains "%c1%9c" or
@@ -1054,7 +1075,11 @@
       nginx.request_uri icontains "php://input" or
       nginx.request_uri contains "php%3A%2F%2Finput" or
       nginx.request_uri icontains "data://text" or
-      nginx.request_uri contains "data%3A%2F%2Ftext"
+      nginx.request_uri contains "data%3A%2F%2Ftext" or
+      nginx.request_uri icontains "/etc/apache2/sites-available" or
+      nginx.request_uri contains "%2Fetc%2Fapache2%2Fsites-available" or
+      nginx.request_uri icontains "/etc/crontab" or
+      nginx.request_uri contains "%2Fetc%2Fcrontab"
     )
   exceptions:
     # Pattern #A316 Fix: E2E test - Exclude CMDi patterns by exact pattern_id match
@@ -1297,15 +1322,22 @@
       nginx.request_uri icontains "nc -e" or
       nginx.request_uri icontains "bash -i" or
       nginx.request_uri icontains "& ps" or
+      nginx.request_uri icontains "& dir" or
       nginx.request_uri contains "%2Fbin%2Fsh" or
       nginx.request_uri contains "%2Fbin%2Fbash" or
       nginx.request_uri contains "&&" or
       nginx.request_uri contains "%26%26" or
       nginx.request_uri contains "%26%20ps" or
+      nginx.request_uri contains "%26%20dir" or
       nginx.request_uri contains "%0a" or
       nginx.request_uri contains "%0d" or
       nginx.request_uri contains "%250a" or
-      nginx.request_uri contains "%250d"
+      nginx.request_uri contains "%250d" or
+      nginx.request_uri contains "%253B" or
+      nginx.request_uri contains "%253Bwhoami" or
+      nginx.request_uri contains "%253Bcat" or
+      nginx.request_uri contains "%253Bls" or
+      nginx.request_uri contains "%253Bid"
     )
   output: "[NGINX CMDi] Advanced command injection attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: WARNING
@@ -1454,7 +1486,15 @@
       nginx.request_uri icontains "pickle.loads" or
       nginx.request_uri contains "__reduce__" or
       nginx.request_uri icontains "yaml.load" or
-      nginx.request_uri contains "!!python"
+      nginx.request_uri contains "!!python" or
+      nginx.request_uri contains "O:8:" or
+      nginx.request_uri contains "O%3A8%3A" or
+      nginx.request_uri contains "O:4:" or
+      nginx.request_uri contains "O%3A4%3A" or
+      nginx.request_uri contains "O:1:" or
+      nginx.request_uri contains "O%3A1%3A" or
+      nginx.request_uri contains "s:4:\"" or
+      nginx.request_uri contains "s%3A4%3A%22"
     )
   output: "[NGINX Emerging Threat] Deserialization attack test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: CRITICAL
@@ -1524,6 +1564,51 @@
   output: "[NGINX Emerging Threat] MongoDB NoSQL injection test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: CRITICAL
   tags: [security, emerging_threats, mongodb, nosql, phase3]
+  source: nginx
+
+# ====================================
+# ADV_EMRG_006: Template Injection (Phase 5, Issue #780)
+# ====================================
+# Test patterns: OTHER_JINJA_001
+- rule: Template Injection Detection
+  desc: Detects server-side template injection attempts (SSTI)
+  condition: >-
+    (
+      nginx.request_uri contains "{{" or
+      nginx.request_uri contains "%7B%7B" or
+      nginx.request_uri contains "}}" or
+      nginx.request_uri contains "%7D%7D" or
+      nginx.request_uri contains "${" or
+      nginx.request_uri contains "%24%7B" or
+      nginx.request_uri contains "#{" or
+      nginx.request_uri contains "%23%7B" or
+      nginx.request_uri contains "<%" or
+      nginx.request_uri contains "%3C%25"
+    )
+  output: "[NGINX Emerging Threat] Template injection test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
+  priority: CRITICAL
+  tags: [security, emerging_threats, ssti, template_injection, phase5]
+  source: nginx
+
+# ====================================
+# ADV_EMRG_007: Redis Command Injection (Phase 5, Issue #780)
+# ====================================
+# Test patterns: OTHER_REDIS_001
+- rule: Redis Command Injection Detection
+  desc: Detects Redis command injection attempts
+  condition: >-
+    (
+      nginx.request_uri icontains "FLUSHALL" or
+      nginx.request_uri icontains "FLUSHDB" or
+      nginx.request_uri icontains "CONFIG SET" or
+      nginx.request_uri icontains "CONFIG%20SET" or
+      nginx.request_uri icontains "SLAVEOF" or
+      nginx.request_uri icontains "DEBUG SEGFAULT" or
+      nginx.request_uri icontains "DEBUG%20SEGFAULT"
+    )
+  output: "[NGINX Emerging Threat] Redis command injection test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
+  priority: CRITICAL
+  tags: [security, emerging_threats, redis, injection, phase5]
   source: nginx
 
 # =========================================================================
