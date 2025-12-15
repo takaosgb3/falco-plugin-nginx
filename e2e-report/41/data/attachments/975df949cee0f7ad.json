@@ -1,0 +1,14 @@
+{
+  "pattern_id": "CMD_PIPE_001",
+  "test_id": "CMD_PIPE_001-1765805581908-qqfnmi",
+  "category": "cmdinj",
+  "detected": true,
+  "latency_ms": 11000,
+  "evidence": "13:33:01.000000000: Critical [NGINX Traversal] File inclusion attack detected test_id=CMD_PIPE_001-1765805581908-qqfnmi pattern_id=CMD_PIPE_001 uri=/?q=cat%20%2Fetc%2Fpasswd%20%7C%20grep%20root client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] File inclusion attack detected test_id=CMD_PIPE_001-1765805581908-qqfnmi pattern_id=CMD_PIPE_001 uri=/?q=cat%20%2Fetc%2Fpasswd%20%7C%20grep%20root client=127.0.0.1",
+  "expected_rule": "",
+  "rule_id": "",
+  "sent_at": 1765805592000,
+  "detected_at": 1765805581000,
+  "status": "passed"
+}

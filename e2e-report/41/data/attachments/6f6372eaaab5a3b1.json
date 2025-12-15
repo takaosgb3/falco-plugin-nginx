@@ -1,0 +1,14 @@
+{
+  "pattern_id": "CMD_WIN_001",
+  "test_id": "CMD_WIN_001-1765805581407-4y19wf",
+  "category": "cmdinj",
+  "detected": true,
+  "latency_ms": 11000,
+  "evidence": "13:33:01.000000000: Warning [NGINX CMDi] Advanced command injection attempt test_id=CMD_WIN_001-1765805581407-4y19wf pattern_id=CMD_WIN_001 uri=/?q=%26%20dir client=127.0.0.1",
+  "rule_name": "[NGINX CMDi] Advanced command injection attempt test_id=CMD_WIN_001-1765805581407-4y19wf pattern_id=CMD_WIN_001 uri=/?q=%26%20dir client=127.0.0.1",
+  "expected_rule": "",
+  "rule_id": "",
+  "sent_at": 1765805592000,
+  "detected_at": 1765805581000,
+  "status": "passed"
+}

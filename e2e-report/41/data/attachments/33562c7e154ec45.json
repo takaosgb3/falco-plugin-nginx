@@ -1,0 +1,14 @@
+{
+  "pattern_id": "CMD_BASIC_017",
+  "test_id": "CMD_BASIC_017-1765805578400-tsi9rf",
+  "category": "cmdinj",
+  "detected": true,
+  "latency_ms": 14000,
+  "evidence": "13:32:58.000000000: Warning [NGINX SQLi] Encoded SQL Injection Pattern test_id=CMD_BASIC_017-1765805578400-tsi9rf pattern_id=CMD_BASIC_017 uri=/?q=%60id%60 client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Encoded SQL Injection Pattern test_id=CMD_BASIC_017-1765805578400-tsi9rf pattern_id=CMD_BASIC_017 uri=/?q=%60id%60 client=127.0.0.1 method=GET",
+  "expected_rule": "",
+  "rule_id": "",
+  "sent_at": 1765805592000,
+  "detected_at": 1765805578000,
+  "status": "passed"
+}

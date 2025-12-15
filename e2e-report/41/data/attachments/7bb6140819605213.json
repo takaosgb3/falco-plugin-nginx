@@ -1,0 +1,14 @@
+{
+  "pattern_id": "LDAP_BLIND_005",
+  "test_id": "LDAP_BLIND_005-1765805584893-hasj0q",
+  "category": "ldap",
+  "detected": true,
+  "latency_ms": 8000,
+  "evidence": "13:33:04.000000000: Warning [NGINX XSS] XSS Filter Bypass Attempt test_id=LDAP_BLIND_005-1765805584893-hasj0q pattern_id=LDAP_BLIND_005 uri=/?q=*)(description%3D*secret*) client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX XSS] XSS Filter Bypass Attempt test_id=LDAP_BLIND_005-1765805584893-hasj0q pattern_id=LDAP_BLIND_005 uri=/?q=*)(description%3D*secret*) client=127.0.0.1 method=GET",
+  "expected_rule": "",
+  "rule_id": "",
+  "sent_at": 1765805592000,
+  "detected_at": 1765805584000,
+  "status": "passed"
+}
