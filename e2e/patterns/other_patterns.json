@@ -1,7 +1,7 @@
 {
   "metadata": {
     "category": "other",
-    "total_patterns": 5,
+    "total_patterns": 10,
     "port": 8005,
     "description": "k6 test patterns for other"
   },
@@ -57,6 +57,61 @@
       "subcategory": "mongodb_injection",
       "payload": "'; return db.users.find(); //",
       "encoded": "%27%3B%20return%20db.users.find%28%29%3B%20//",
+      "port": 8005,
+      "expected_detection": true,
+      "severity": "critical"
+    },
+    {
+      "id": "OTHER_API_001",
+      "name": "API path traversal attack",
+      "category": "other",
+      "subcategory": "api_abuse",
+      "payload": "/api/v1/users/../../../etc/passwd",
+      "encoded": "%2Fapi%2Fv1%2Fusers%2F..%2F..%2F..%2Fetc%2Fpasswd",
+      "port": 8005,
+      "expected_detection": true,
+      "severity": "critical"
+    },
+    {
+      "id": "OTHER_REDIS_001",
+      "name": "Redis database flush command",
+      "category": "other",
+      "subcategory": "redis_injection",
+      "payload": "FLUSHALL",
+      "encoded": "FLUSHALL",
+      "port": 8005,
+      "expected_detection": true,
+      "severity": "critical"
+    },
+    {
+      "id": "OTHER_JINJA_001",
+      "name": "Jinja2 basic template injection test",
+      "category": "other",
+      "subcategory": "template_injection",
+      "payload": "{{7*7}}",
+      "encoded": "%7B%7B7*7%7D%7D",
+      "port": 8005,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "OTHER_PHP_001",
+      "name": "PHP object deserialization",
+      "category": "other",
+      "subcategory": "deserialization",
+      "payload": "O:8:\"stdClass\":1:{s:4:\"test\";s:4:\"data\";}",
+      "encoded": "O%3A8%3A%22stdClass%22%3A1%3A%7Bs%3A4%3A%22test%22%3Bs%3A4%3A%22data%22%3B%7D",
+      "port": 8005,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "OTHER_JAVA_001",
+      "name": "Java HashMap deserialization payload",
+      "category": "other",
+      "subcategory": "deserialization",
+      "payload": "rO0ABXNyABFqYXZhLnV0aWwuSGFzaE1hcA==",
+      "encoded": "rO0ABXNyABFqYXZhLnV0aWwuSGFzaE1hcA%3D%3D",
       "port": 8005,
       "expected_detection": true,
       "severity": "critical"

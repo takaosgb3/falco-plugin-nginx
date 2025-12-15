@@ -1,0 +1,65 @@
+{
+  "metadata": {
+    "category": "graphql",
+    "total_patterns": 5,
+    "port": 8008,
+    "description": "k6 test patterns for GraphQL injection"
+  },
+  "patterns": [
+    {
+      "id": "GQL_INTRO_001",
+      "name": "GraphQL introspection schema enumeration",
+      "category": "graphql",
+      "subcategory": "introspection",
+      "payload": "query{__schema{types{name}}}",
+      "encoded": "query%7B__schema%7Btypes%7Bname%7D%7D%7D",
+      "port": 8008,
+      "expected_detection": true,
+      "severity": "medium"
+    },
+    {
+      "id": "GQL_INTRO_002",
+      "name": "GraphQL type field enumeration",
+      "category": "graphql",
+      "subcategory": "introspection",
+      "payload": "query{__type(name:\"User\"){fields{name}}}",
+      "encoded": "query%7B__type(name%3A%22User%22)%7Bfields%7Bname%7D%7D%7D",
+      "port": 8008,
+      "expected_detection": true,
+      "severity": "medium"
+    },
+    {
+      "id": "GQL_INTRO_003",
+      "name": "GraphQL mutation schema access",
+      "category": "graphql",
+      "subcategory": "introspection",
+      "payload": "mutation{__schema{queryType{name}}}",
+      "encoded": "mutation%7B__schema%7BqueryType%7Bname%7D%7D%7D",
+      "port": 8008,
+      "expected_detection": true,
+      "severity": "medium"
+    },
+    {
+      "id": "GQL_DATA_001",
+      "name": "GraphQL mass data extraction",
+      "category": "graphql",
+      "subcategory": "data_extraction",
+      "payload": "{users(first:999999){id,email,password}}",
+      "encoded": "%7Busers(first%3A999999)%7Bid%2Cemail%2Cpassword%7D%7D",
+      "port": 8008,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "GQL_SQLI_001",
+      "name": "GraphQL SQL injection in argument",
+      "category": "graphql",
+      "subcategory": "sqli_injection",
+      "payload": "query{user(id:\"1' UNION SELECT * FROM admin_users--\"){name}}",
+      "encoded": "query%7Buser(id%3A%221'%20UNION%20SELECT%20*%20FROM%20admin_users--%22)%7Bname%7D%7D",
+      "port": 8008,
+      "expected_detection": true,
+      "severity": "critical"
+    }
+  ]
+}

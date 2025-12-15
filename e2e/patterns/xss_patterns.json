@@ -1,7 +1,7 @@
 {
   "metadata": {
     "category": "xss",
-    "total_patterns": 21,
+    "total_patterns": 26,
     "port": 8002,
     "description": "k6 test patterns for xss"
   },
@@ -233,6 +233,61 @@
       "subcategory": "dom_based_xss",
       "payload": "eval('alert(document.domain)')",
       "encoded": "eval('alert(document.domain)')",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "XSS_BYPASS_001",
+      "name": "Nested script tag bypass",
+      "category": "xss",
+      "subcategory": "filter_bypass",
+      "payload": "<scr<script>ipt>alert('XSS')</script>",
+      "encoded": "%3Cscr%3Cscript%3Eipt%3Ealert('XSS')%3C%2Fscript%3E",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "XSS_MUT_001",
+      "name": "Noscript mutation XSS",
+      "category": "xss",
+      "subcategory": "mutation_xss",
+      "payload": "<noscript><p title=\"</noscript><img src=x onerror=alert('XSS')>\">",
+      "encoded": "%3Cnoscript%3E%3Cp%20title%3D%22%3C%2Fnoscript%3E%3Cimg%20src%3Dx%20onerror%3Dalert('XSS')%3E%22%3E",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "XSS_POLY_001",
+      "name": "Universal XSS polyglot",
+      "category": "xss",
+      "subcategory": "polyglot_xss",
+      "payload": "javascript:/*--></title></style></textarea></script></xmp><svg/onload='+/\"/+/onmouseover=1/+/[*/[]/+alert('XSS');//'>",
+      "encoded": "javascript%3A%2F*--%3E%3C%2Ftitle%3E%3C%2Fstyle%3E%3C%2Ftextarea%3E%3C%2Fscript%3E%3C%2Fxmp%3E%3Csvg%2Fonload%3D'%2B%2F%22%2F%2B%2Fonmouseover%3D1%2F%2B%2F%5B*%2F%5B%5D%2F%2Balert('XSS')%3B%2F%2F'%3E",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "critical"
+    },
+    {
+      "id": "XSS_STORED_001",
+      "name": "Basic stored XSS script",
+      "category": "xss",
+      "subcategory": "stored_xss",
+      "payload": "<script>alert('Stored XSS')</script>",
+      "encoded": "%3Cscript%3Ealert('Stored%20XSS')%3C%2Fscript%3E",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "critical"
+    },
+    {
+      "id": "XSS_DOM_004",
+      "name": "innerHTML DOM XSS",
+      "category": "xss",
+      "subcategory": "dom_xss",
+      "payload": "innerHTML='<img src=x onerror=alert(\"DOM\")>'",
+      "encoded": "innerHTML%3D'%3Cimg%20src%3Dx%20onerror%3Dalert(%22DOM%22)%3E'",
       "port": 8002,
       "expected_detection": true,
       "severity": "high"

@@ -1,7 +1,7 @@
 {
   "metadata": {
     "category": "path",
-    "total_patterns": 25,
+    "total_patterns": 30,
     "port": 8003,
     "description": "k6 test patterns for path"
   },
@@ -277,6 +277,61 @@
       "subcategory": "unicode_encoding",
       "payload": "..%c0%ae%c0%ae/etc/passwd",
       "encoded": "..%25c0%25ae%25c0%25ae%2Fetc%2Fpasswd",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "PATH_ADV_001",
+      "name": "Quadruple dot traversal variation",
+      "category": "path",
+      "subcategory": "advanced_techniques",
+      "payload": "....//",
+      "encoded": "....%2F%2F",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "PATH_DBL_001",
+      "name": "Double URL encoded dot-dot-slash",
+      "category": "path",
+      "subcategory": "double_encoded",
+      "payload": "%252E%252E%252F",
+      "encoded": "%25252E%25252E%25252F",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "PATH_ABS_006",
+      "name": "Apache site configuration access",
+      "category": "path",
+      "subcategory": "absolute_paths",
+      "payload": "/etc/apache2/sites-available/000-default.conf",
+      "encoded": "%2Fetc%2Fapache2%2Fsites-available%2F000-default.conf",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "medium"
+    },
+    {
+      "id": "PATH_ABS_007",
+      "name": "Apache htaccess file access",
+      "category": "path",
+      "subcategory": "absolute_paths",
+      "payload": "/var/www/html/.htaccess",
+      "encoded": "%2Fvar%2Fwww%2Fhtml%2F.htaccess",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "medium"
+    },
+    {
+      "id": "PATH_ABS_008",
+      "name": "System crontab access",
+      "category": "path",
+      "subcategory": "absolute_paths",
+      "payload": "/etc/crontab",
+      "encoded": "%2Fetc%2Fcrontab",
       "port": 8003,
       "expected_detection": true,
       "severity": "high"

