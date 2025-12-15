@@ -38,6 +38,10 @@ const xssAttacks = new Counter('xss_attacks');
 const pathAttacks = new Counter('path_attacks');
 const cmdinjAttacks = new Counter('cmdinj_attacks');
 const otherAttacks = new Counter('other_attacks');
+// Phase 2: New category metrics (Issue #780)
+const ldapAttacks = new Counter('ldap_attacks');
+const xxeAttacks = new Counter('xxe_attacks');
+const graphqlAttacks = new Counter('graphql_attacks');
 
 // ========================================
 // Load attack patterns (SharedArray for efficiency)
@@ -64,6 +68,22 @@ const cmdinjPatterns = new SharedArray('cmdinj', function() {
 
 const otherPatterns = new SharedArray('other', function() {
     const data = JSON.parse(open('../patterns/other_patterns.json'));
+    return data.patterns;
+});
+
+// Phase 2: New category patterns (Issue #780)
+const ldapPatterns = new SharedArray('ldap', function() {
+    const data = JSON.parse(open('../patterns/ldap_patterns.json'));
+    return data.patterns;
+});
+
+const xxePatterns = new SharedArray('xxe', function() {
+    const data = JSON.parse(open('../patterns/xxe_patterns.json'));
+    return data.patterns;
+});
+
+const graphqlPatterns = new SharedArray('graphql', function() {
+    const data = JSON.parse(open('../patterns/graphql_patterns.json'));
     return data.patterns;
 });
 
@@ -111,12 +131,37 @@ export const options = {
             exec: 'testOther',
             startTime: '20s',
             tags: { category: 'other' }
+        },
+        // Phase 2: New category scenarios (Issue #780)
+        ldap_test: {
+            executor: 'per-vu-iterations',
+            vus: 1,
+            iterations: ldapPatterns.length,
+            exec: 'testLDAP',
+            startTime: '25s',
+            tags: { category: 'ldap' }
+        },
+        xxe_test: {
+            executor: 'per-vu-iterations',
+            vus: 1,
+            iterations: xxePatterns.length,
+            exec: 'testXXE',
+            startTime: '30s',
+            tags: { category: 'xxe' }
+        },
+        graphql_test: {
+            executor: 'per-vu-iterations',
+            vus: 1,
+            iterations: graphqlPatterns.length,
+            exec: 'testGraphQL',
+            startTime: '35s',
+            tags: { category: 'graphql' }
         }
     },
     thresholds: {
         'http_req_duration': ['p(95)<5000'],  // 95% of requests under 5s
         'http_req_failed': ['rate<0.05'],      // Less than 5% failure rate
-        'attacks_sent': ['count==100']          // All 100 patterns sent (Phase 1 expanded)
+        'attacks_sent': ['count==150']          // All 150 patterns sent (Phase 2 expanded)
     },
     summaryTimeUnit: 'ms',
     summaryTrendStats: ['avg', 'med', 'p(90)', 'p(95)', 'p(99)', 'max', 'count']
@@ -205,6 +250,28 @@ export function testOther() {
     });
 }
 
+// Phase 2: New category test functions (Issue #780)
+export function testLDAP() {
+    group('LDAP Injection Tests', function() {
+        const pattern = ldapPatterns[scenario.iterationInTest];
+        executeAttack(pattern, ldapAttacks);
+    });
+}
+
+export function testXXE() {
+    group('XXE Attack Tests', function() {
+        const pattern = xxePatterns[scenario.iterationInTest];
+        executeAttack(pattern, xxeAttacks);
+    });
+}
+
+export function testGraphQL() {
+    group('GraphQL Injection Tests', function() {
+        const pattern = graphqlPatterns[scenario.iterationInTest];
+        executeAttack(pattern, graphqlAttacks);
+    });
+}
+
 // ========================================
 // Setup/Teardown
 // ========================================
@@ -212,12 +279,15 @@ export function setup() {
     console.log('========================================');
     console.log('k6 E2E Test Starting (Public Repo Mode)');
     console.log(`Target: ${TARGET_IP}:${TARGET_PORT}`);
-    console.log('Total Patterns: 100 (Phase 1 expanded)');
-    console.log('  - SQLi: 29');
-    console.log('  - XSS: 21');
-    console.log('  - Path: 25');
-    console.log('  - CmdInj: 20');
-    console.log('  - Other: 5');
+    console.log('Total Patterns: 150 (Phase 2 expanded)');
+    console.log('  - SQLi: 39');
+    console.log('  - XSS: 26');
+    console.log('  - Path: 30');
+    console.log('  - CmdInj: 25');
+    console.log('  - Other: 10');
+    console.log('  - LDAP: 10 (NEW)');
+    console.log('  - XXE: 5 (NEW)');
+    console.log('  - GraphQL: 5 (NEW)');
     console.log('========================================');
 }
 
@@ -242,7 +312,11 @@ export function handleSummary(data) {
                 xss: data.metrics.xss_attacks ? data.metrics.xss_attacks.values.count : 0,
                 path: data.metrics.path_attacks ? data.metrics.path_attacks.values.count : 0,
                 cmdinj: data.metrics.cmdinj_attacks ? data.metrics.cmdinj_attacks.values.count : 0,
-                other: data.metrics.other_attacks ? data.metrics.other_attacks.values.count : 0
+                other: data.metrics.other_attacks ? data.metrics.other_attacks.values.count : 0,
+                // Phase 2: New categories (Issue #780)
+                ldap: data.metrics.ldap_attacks ? data.metrics.ldap_attacks.values.count : 0,
+                xxe: data.metrics.xxe_attacks ? data.metrics.xxe_attacks.values.count : 0,
+                graphql: data.metrics.graphql_attacks ? data.metrics.graphql_attacks.values.count : 0
             }
         }
     };
