@@ -1,0 +1,14 @@
+{
+  "pattern_id": "PATH_DOT_005",
+  "test_id": "PATH_DOT_005-1765806066955-q45a0v",
+  "category": "path",
+  "detected": true,
+  "latency_ms": 24000,
+  "evidence": "13:41:06.000000000: Critical [NGINX Traversal] Basic path traversal attack detected test_id=PATH_DOT_005-1765806066955-q45a0v pattern_id=PATH_DOT_005 uri=/?q=../../../../../etc/ssh/sshd_config client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] Basic path traversal attack detected test_id=PATH_DOT_005-1765806066955-q45a0v pattern_id=PATH_DOT_005 uri=/?q=../../../../../etc/ssh/sshd_config client=127.0.0.1",
+  "expected_rule": "",
+  "rule_id": "",
+  "sent_at": 1765806090000,
+  "detected_at": 1765806066000,
+  "status": "passed"
+}

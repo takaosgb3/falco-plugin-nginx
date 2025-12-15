@@ -1,0 +1,14 @@
+{
+  "pattern_id": "OTHER_API_001",
+  "test_id": "OTHER_API_001-1765806074950-osyj6i",
+  "category": "other",
+  "detected": true,
+  "latency_ms": 16000,
+  "evidence": "13:41:14.000000000: Critical [NGINX Traversal] Basic path traversal attack detected test_id=OTHER_API_001-1765806074950-osyj6i pattern_id=OTHER_API_001 uri=/?q=%2Fapi%2Fv1%2Fusers%2F..%2F..%2F..%2Fetc%2Fpasswd client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] Basic path traversal attack detected test_id=OTHER_API_001-1765806074950-osyj6i pattern_id=OTHER_API_001 uri=/?q=%2Fapi%2Fv1%2Fusers%2F..%2F..%2F..%2Fetc%2Fpasswd client=127.0.0.1",
+  "expected_rule": "",
+  "rule_id": "",
+  "sent_at": 1765806090000,
+  "detected_at": 1765806074000,
+  "status": "passed"
+}

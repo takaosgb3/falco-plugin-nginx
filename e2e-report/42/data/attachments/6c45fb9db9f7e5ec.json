@@ -1,0 +1,14 @@
+{
+  "pattern_id": "XSS_REFL_007",
+  "test_id": "XSS_REFL_007-1765806060448-2niot",
+  "category": "xss",
+  "detected": true,
+  "latency_ms": 30000,
+  "evidence": "13:41:00.000000000: Critical [NGINX XSS] Polyglot XSS Attack test_id=XSS_REFL_007-1765806060448-2niot pattern_id=XSS_REFL_007 uri=/?q=%3Cselect%20onfocus%3Dalert%28%27XSS%27%29%20autofocus%3E client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX XSS] Polyglot XSS Attack test_id=XSS_REFL_007-1765806060448-2niot pattern_id=XSS_REFL_007 uri=/?q=%3Cselect%20onfocus%3Dalert%28%27XSS%27%29%20autofocus%3E client=127.0.0.1 method=GET",
+  "expected_rule": "",
+  "rule_id": "",
+  "sent_at": 1765806090000,
+  "detected_at": 1765806060000,
+  "status": "passed"
+}

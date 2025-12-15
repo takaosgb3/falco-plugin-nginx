@@ -1,0 +1,14 @@
+{
+  "pattern_id": "CMD_BACK_001",
+  "test_id": "CMD_BACK_001-1765806077466-ykf6ko",
+  "category": "cmdinj",
+  "detected": true,
+  "latency_ms": 13000,
+  "evidence": "13:41:17.000000000: Warning [NGINX SQLi] Encoded SQL Injection Pattern test_id=CMD_BACK_001-1765806077466-ykf6ko pattern_id=CMD_BACK_001 uri=/?q=%60rm%20-rf%20%2Ftmp%2F*%60 client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Encoded SQL Injection Pattern test_id=CMD_BACK_001-1765806077466-ykf6ko pattern_id=CMD_BACK_001 uri=/?q=%60rm%20-rf%20%2Ftmp%2F*%60 client=127.0.0.1 method=GET",
+  "expected_rule": "",
+  "rule_id": "",
+  "sent_at": 1765806090000,
+  "detected_at": 1765806077000,
+  "status": "passed"
+}
