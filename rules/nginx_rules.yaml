@@ -519,12 +519,26 @@
      nginx.request_uri contains "into%20outfile" or
      nginx.request_uri contains "into%20dumpfile")
 
+# Phase 4 (Issue #780): Stacked queries patterns
+# Test patterns: SQLI_STACK_001-003, SQLI_OUT_001-002
+- macro: contains_stacked_queries
+  condition: >
+    (nginx.request_uri icontains "drop table" or
+     nginx.request_uri icontains "drop%20table" or
+     nginx.request_uri icontains "insert into" or
+     nginx.request_uri icontains "insert%20into" or
+     nginx.request_uri icontains "delete from" or
+     nginx.request_uri icontains "delete%20from" or
+     nginx.request_uri icontains "truncate table" or
+     nginx.request_uri icontains "truncate%20table")
+
 # ====================================
 # MACROS - Advanced SQL Injection (Level 2: Combined)
 # ====================================
 
+# Phase 4 (Issue #780): Added contains_stacked_queries
 - macro: sqli_advanced_pattern
-  condition: (contains_system_objects or contains_union_group_patterns or contains_hex_char_patterns or contains_file_operations)
+  condition: (contains_system_objects or contains_union_group_patterns or contains_hex_char_patterns or contains_file_operations or contains_stacked_queries)
 
 # ====================================
 # MACROS - Encoded SQL Injection (Level 1)
@@ -549,10 +563,13 @@
      nginx.request_uri contains "uNiOn")
 
 # Comment and special chars - contains maintained (URL-encoded special chars)
+# Phase 4 (Issue #780): Added /*!...*/ MySQL version comment bypass (SQLI_BYPASS_002)
 - macro: contains_comment_special_chars
   condition: >
     (nginx.request_uri contains "/*" or
      nginx.request_uri contains "*/" or
+     nginx.request_uri contains "/*!" or
+     nginx.request_uri contains "%2F%2A%21" or
      nginx.request_uri contains "--+" or
      nginx.request_uri contains "%23" or
      nginx.request_uri contains "%60" or
@@ -1031,7 +1048,13 @@
       nginx.request_uri icontains "php.ini" or
       nginx.request_uri icontains "httpd.conf" or
       nginx.request_uri icontains ".htaccess" or
-      nginx.request_uri icontains "web.config"
+      nginx.request_uri icontains "web.config" or
+      nginx.request_uri icontains "php://filter" or
+      nginx.request_uri contains "php%3A%2F%2Ffilter" or
+      nginx.request_uri icontains "php://input" or
+      nginx.request_uri contains "php%3A%2F%2Finput" or
+      nginx.request_uri icontains "data://text" or
+      nginx.request_uri contains "data%3A%2F%2Ftext"
     )
   exceptions:
     # Pattern #A316 Fix: E2E test - Exclude CMDi patterns by exact pattern_id match
@@ -1233,11 +1256,19 @@
       nginx.request_uri contains "%60cat" or
       nginx.request_uri contains "%60uname" or
       nginx.request_uri contains "${IFS}" or
-      nginx.request_uri contains "%24%7BIFS%7D"
+      nginx.request_uri contains "%24%7BIFS%7D" or
+      nginx.request_uri contains "${PATH}" or
+      nginx.request_uri contains "%24%7BPATH%7D" or
+      nginx.request_uri contains "${HOME}" or
+      nginx.request_uri contains "%24%7BHOME%7D" or
+      nginx.request_uri contains "${USER}" or
+      nginx.request_uri contains "%24%7BUSER%7D" or
+      nginx.request_uri contains "${SHELL}" or
+      nginx.request_uri contains "%24%7BSHELL%7D"
     )
   output: "[NGINX CMDi] Command substitution attack test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: CRITICAL
-  tags: [security, command_injection, advanced_cmdi, substitution, phase3]
+  tags: [security, command_injection, advanced_cmdi, substitution, phase3, phase4]
   source: nginx
 
 # ====================================
@@ -1493,4 +1524,212 @@
   output: "[NGINX Emerging Threat] MongoDB NoSQL injection test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: CRITICAL
   tags: [security, emerging_threats, mongodb, nosql, phase3]
+  source: nginx
+
+# =========================================================================
+# LDAP INJECTION DETECTION RULES (Issue #780 Phase 4)
+# =========================================================================
+# Pattern #A306: LDAP Injection Detection
+# Detects LDAP filter injection patterns including:
+# - Authentication bypass: *)( patterns
+# - Blind injection: password enumeration, user enumeration
+# - Attribute injection: cn, uid, objectClass, memberOf
+# Test patterns: LDAP_BASIC_001-005, LDAP_BLIND_001-005
+
+# ====================================
+# LDAP_INJ_001: LDAP Authentication Bypass
+# ====================================
+- rule: LDAP Authentication Bypass Attempt
+  desc: Detects LDAP authentication bypass injection attempts
+  condition: >-
+    (
+      nginx.request_uri contains "*)(" or
+      nginx.request_uri contains "%2A%29%28" or
+      nginx.request_uri contains ")(uid=" or
+      nginx.request_uri contains "%29%28uid%3D" or
+      nginx.request_uri contains ")(|(uid=" or
+      nginx.request_uri contains "%29%28%7C%28uid%3D" or
+      nginx.request_uri contains "|(password=" or
+      nginx.request_uri contains "%7C%28password%3D" or
+      nginx.request_uri contains ")(&(password=" or
+      nginx.request_uri contains "%29%28%26%28password%3D"
+    )
+  output: "[NGINX LDAP Injection] Authentication bypass attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
+  priority: CRITICAL
+  tags: [security, ldap_injection, authentication_bypass, phase4]
+  source: nginx
+
+# ====================================
+# LDAP_INJ_002: LDAP Attribute Injection
+# ====================================
+- rule: LDAP Attribute Injection Attempt
+  desc: Detects LDAP attribute injection for enumeration
+  condition: >-
+    (
+      nginx.request_uri contains ")(cn=" or
+      nginx.request_uri contains "%29%28cn%3D" or
+      nginx.request_uri contains ")(objectClass=" or
+      nginx.request_uri contains "%29%28objectClass%3D" or
+      nginx.request_uri contains ")(memberOf=" or
+      nginx.request_uri contains "%29%28memberOf%3D" or
+      nginx.request_uri contains ")(mail=" or
+      nginx.request_uri contains "%29%28mail%3D" or
+      nginx.request_uri contains ")(description=" or
+      nginx.request_uri contains "%29%28description%3D"
+    )
+  output: "[NGINX LDAP Injection] Attribute injection attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
+  priority: WARNING
+  tags: [security, ldap_injection, enumeration, phase4]
+  source: nginx
+
+# ====================================
+# LDAP_INJ_003: LDAP Blind Injection
+# ====================================
+- rule: LDAP Blind Injection Attempt
+  desc: Detects LDAP blind injection attempts for enumeration
+  condition: >-
+    (
+      nginx.request_uri contains ")(uid=admin)(password=" or
+      nginx.request_uri contains "%29%28uid%3Dadmin%29%28password%3D" or
+      nginx.request_uri contains ")(|(uid=admin)(uid=administrator))" or
+      nginx.request_uri contains "%29%28%7C%28uid%3Dadmin%29%28uid%3Dadministrator%29%29" or
+      nginx.request_uri contains "cn=Administrators" or
+      nginx.request_uri contains "cn%3DAdministrators"
+    )
+  output: "[NGINX LDAP Injection] Blind injection attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
+  priority: WARNING
+  tags: [security, ldap_injection, blind_injection, phase4]
+  source: nginx
+
+# =========================================================================
+# XXE (XML EXTERNAL ENTITY) ATTACK DETECTION RULES (Issue #780 Phase 4)
+# =========================================================================
+# Pattern #A307: XXE Attack Detection
+# Detects XXE injection patterns including:
+# - DOCTYPE declarations with ENTITY
+# - External entity references (file://, http://, php://, expect://)
+# - Parameter entities
+# Test patterns: XXE_ENTITY_001-005
+
+# ====================================
+# XXE_ATK_001: XXE DOCTYPE Entity Injection
+# ====================================
+- rule: XXE DOCTYPE Entity Injection Attempt
+  desc: Detects XXE attacks via DOCTYPE with ENTITY declarations
+  condition: >-
+    (
+      nginx.request_uri icontains "<!DOCTYPE" or
+      nginx.request_uri contains "%3C!DOCTYPE" or
+      nginx.request_uri contains "%3c!DOCTYPE" or
+      nginx.request_uri icontains "<!ENTITY" or
+      nginx.request_uri contains "%3C!ENTITY" or
+      nginx.request_uri contains "%3c!ENTITY"
+    )
+  output: "[NGINX XXE Attack] DOCTYPE/ENTITY injection test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
+  priority: CRITICAL
+  tags: [security, xxe_attack, entity_injection, phase4]
+  source: nginx
+
+# ====================================
+# XXE_ATK_002: XXE External Resource Access
+# ====================================
+- rule: XXE External Resource Access Attempt
+  desc: Detects XXE attacks attempting to access external resources
+  condition: >-
+    (
+      (nginx.request_uri icontains "SYSTEM" and nginx.request_uri icontains "file://") or
+      (nginx.request_uri icontains "SYSTEM" and nginx.request_uri contains "file%3A%2F%2F") or
+      nginx.request_uri icontains "expect://" or
+      nginx.request_uri contains "expect%3A%2F%2F" or
+      nginx.request_uri icontains "php://filter" or
+      nginx.request_uri contains "php%3A%2F%2Ffilter" or
+      nginx.request_uri icontains "php://input" or
+      nginx.request_uri contains "php%3A%2F%2Finput"
+    )
+  output: "[NGINX XXE Attack] External resource access attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
+  priority: CRITICAL
+  tags: [security, xxe_attack, external_resource, phase4]
+  source: nginx
+
+# ====================================
+# XXE_ATK_003: XXE Data URI Scheme
+# ====================================
+- rule: XXE Data URI Scheme Injection
+  desc: Detects XXE attacks using data URI scheme
+  condition: >-
+    (
+      (nginx.request_uri icontains "SYSTEM" and nginx.request_uri contains "data:text/") or
+      (nginx.request_uri icontains "SYSTEM" and nginx.request_uri contains "data%3Atext%2F") or
+      (nginx.request_uri icontains "ENTITY" and nginx.request_uri contains "base64")
+    )
+  output: "[NGINX XXE Attack] Data URI scheme injection test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
+  priority: WARNING
+  tags: [security, xxe_attack, data_uri, phase4]
+  source: nginx
+
+# =========================================================================
+# GRAPHQL INJECTION DETECTION RULES (Issue #780 Phase 4)
+# =========================================================================
+# Pattern #A308: GraphQL Injection Detection
+# Detects GraphQL-specific attack patterns including:
+# - Introspection queries (__schema, __type)
+# - Mass data extraction attempts
+# - SQL injection via GraphQL arguments
+# Test patterns: GQL_INTRO_001-003, GQL_DATA_001, GQL_SQLI_001
+
+# ====================================
+# GQL_ATK_001: GraphQL Introspection Attack
+# ====================================
+- rule: GraphQL Introspection Attack Attempt
+  desc: Detects GraphQL introspection queries for schema enumeration
+  condition: >-
+    (
+      nginx.request_uri contains "__schema" or
+      nginx.request_uri contains "__type" or
+      nginx.request_uri contains "%5F%5Fschema" or
+      nginx.request_uri contains "%5F%5Ftype" or
+      nginx.request_uri contains "__typename" or
+      nginx.request_uri contains "%5F%5Ftypename"
+    )
+  output: "[NGINX GraphQL Attack] Introspection query detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
+  priority: WARNING
+  tags: [security, graphql_injection, introspection, phase4]
+  source: nginx
+
+# ====================================
+# GQL_ATK_002: GraphQL Mass Data Extraction
+# ====================================
+- rule: GraphQL Mass Data Extraction Attempt
+  desc: Detects GraphQL queries attempting mass data extraction
+  condition: >-
+    (
+      (nginx.request_uri icontains "first:" and nginx.request_uri contains "999") or
+      (nginx.request_uri icontains "first%3A" and nginx.request_uri contains "999") or
+      (nginx.request_uri icontains "limit:" and nginx.request_uri contains "999") or
+      (nginx.request_uri icontains "limit%3A" and nginx.request_uri contains "999") or
+      (nginx.request_uri contains "{users" and nginx.request_uri icontains "password") or
+      (nginx.request_uri contains "%7Busers" and nginx.request_uri icontains "password")
+    )
+  output: "[NGINX GraphQL Attack] Mass data extraction attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
+  priority: WARNING
+  tags: [security, graphql_injection, data_extraction, phase4]
+  source: nginx
+
+# ====================================
+# GQL_ATK_003: GraphQL SQL Injection
+# ====================================
+- rule: GraphQL SQL Injection Attempt
+  desc: Detects SQL injection attempts within GraphQL queries
+  condition: >-
+    (
+      (nginx.request_uri icontains "query{" and nginx.request_uri icontains "union select") or
+      (nginx.request_uri icontains "query%7B" and nginx.request_uri icontains "union select") or
+      (nginx.request_uri icontains "mutation{" and nginx.request_uri icontains "union select") or
+      (nginx.request_uri icontains "mutation%7B" and nginx.request_uri icontains "union select") or
+      (nginx.request_uri contains "query{" and nginx.request_uri contains "'--") or
+      (nginx.request_uri contains "query%7B" and nginx.request_uri contains "'--")
+    )
+  output: "[NGINX GraphQL Attack] SQL injection in GraphQL test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
+  priority: CRITICAL
+  tags: [security, graphql_injection, sqli, phase4]
   source: nginx

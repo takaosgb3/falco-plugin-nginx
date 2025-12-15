@@ -1,7 +1,7 @@
 {
   "metadata": {
     "category": "cmdinj",
-    "total_patterns": 20,
+    "total_patterns": 25,
     "port": 8004,
     "description": "k6 test patterns for cmdinj"
   },
@@ -222,6 +222,61 @@
       "subcategory": "basic_command_injection",
       "payload": "%0d%0acat /etc/passwd",
       "encoded": "%250d%250acat%20%2Fetc%2Fpasswd",
+      "port": 8004,
+      "expected_detection": true,
+      "severity": "critical"
+    },
+    {
+      "id": "CMD_BACK_001",
+      "name": "File deletion via backticks",
+      "category": "cmdinj",
+      "subcategory": "backtick_execution",
+      "payload": "`rm -rf /tmp/*`",
+      "encoded": "%60rm%20-rf%20%2Ftmp%2F*%60",
+      "port": 8004,
+      "expected_detection": true,
+      "severity": "critical"
+    },
+    {
+      "id": "CMD_BASH_001",
+      "name": "Direct bash command execution",
+      "category": "cmdinj",
+      "subcategory": "bash_injection",
+      "payload": "; /bin/bash -c 'whoami'",
+      "encoded": "%3B%20%2Fbin%2Fbash%20-c%20'whoami'",
+      "port": 8004,
+      "expected_detection": true,
+      "severity": "critical"
+    },
+    {
+      "id": "CMD_WIN_001",
+      "name": "Windows directory listing",
+      "category": "cmdinj",
+      "subcategory": "windows_cmd",
+      "payload": "& dir",
+      "encoded": "%26%20dir",
+      "port": 8004,
+      "expected_detection": true,
+      "severity": "critical"
+    },
+    {
+      "id": "CMD_PIPE_001",
+      "name": "Password file piped to grep",
+      "category": "cmdinj",
+      "subcategory": "pipe_chaining",
+      "payload": "cat /etc/passwd | grep root",
+      "encoded": "cat%20%2Fetc%2Fpasswd%20%7C%20grep%20root",
+      "port": 8004,
+      "expected_detection": true,
+      "severity": "critical"
+    },
+    {
+      "id": "CMD_ENC_001",
+      "name": "URL encoded whoami command",
+      "category": "cmdinj",
+      "subcategory": "encoded_commands",
+      "payload": "%3Bwhoami",
+      "encoded": "%253Bwhoami",
       "port": 8004,
       "expected_detection": true,
       "severity": "critical"
