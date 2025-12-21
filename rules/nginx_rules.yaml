@@ -1287,6 +1287,9 @@
 #   - CMD_BASIC_003: || id
 #   - CMD_BASIC_008: || cat /proc/version
 # Phase 1: Added CMD_BASIC_011 (|id) and CMD_BASIC_012 (||ls)
+# Pattern #A324: Added |grep and %7Cgrep/%7C%20grep for CMD_PIPE_001
+#   - CMD_PIPE_001: cat /etc/passwd | grep root
+#   - Fixed PR #33 exception without corresponding detection pattern
 - rule: Command Injection via Pipe
   desc: Detects command injection attempts using pipe operators
   condition: >-
@@ -1302,6 +1305,7 @@
       nginx.request_uri icontains "|sh" or
       nginx.request_uri icontains "|python" or
       nginx.request_uri icontains "|perl" or
+      nginx.request_uri icontains "|grep" or
       nginx.request_uri icontains "|| id" or
       nginx.request_uri icontains "|| cat" or
       nginx.request_uri contains "%7Cwhoami" or
@@ -1314,7 +1318,9 @@
       nginx.request_uri contains "%7Cbash" or
       nginx.request_uri contains "%7Csh" or
       nginx.request_uri contains "%7C%7C%20id" or
-      nginx.request_uri contains "%7C%7C%20cat"
+      nginx.request_uri contains "%7C%7C%20cat" or
+      nginx.request_uri contains "%7Cgrep" or
+      nginx.request_uri contains "%7C%20grep"
     )
   output: "[NGINX CMDi] Command injection via pipe test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: CRITICAL
@@ -1329,6 +1335,10 @@
 # Pattern #A304: Removed single "$" - causes false positives (e.g., /products?price=$100)
 # Pattern #A304: Removed standalone "whoami", "curl", "wget" - covered by backtick/substitution patterns
 # Phase 1: Added CMD_BASIC_018 - $(uname -a) command substitution
+# Pattern #A324: Added `rm, %60rm, %60id for CMD_BACK_001, CMD_BASIC_017
+#   - CMD_BACK_001: `rm -rf /tmp/*`
+#   - CMD_BASIC_017: `id`
+#   - Fixed PR #33 exception without corresponding detection pattern
 - rule: Command Substitution Attack
   desc: Detects command injection attempts using command substitution
   condition: >-
@@ -1345,6 +1355,7 @@
       nginx.request_uri contains "`wget" or
       nginx.request_uri contains "`id" or
       nginx.request_uri contains "`uname" or
+      nginx.request_uri contains "`rm" or
       nginx.request_uri contains "%24%28whoami" or
       nginx.request_uri contains "%24%28cat" or
       nginx.request_uri contains "%24%28curl" or
@@ -1353,6 +1364,8 @@
       nginx.request_uri contains "%60whoami" or
       nginx.request_uri contains "%60cat" or
       nginx.request_uri contains "%60uname" or
+      nginx.request_uri contains "%60rm" or
+      nginx.request_uri contains "%60id" or
       nginx.request_uri contains "${IFS}" or
       nginx.request_uri contains "%24%7BIFS%7D" or
       nginx.request_uri contains "${PATH}" or
