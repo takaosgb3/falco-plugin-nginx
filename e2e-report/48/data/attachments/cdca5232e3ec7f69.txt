@@ -1,0 +1,5 @@
+Pattern ID: PATH_ABS_007
+        Status: passed
+        Latency: ~14000ms
+        Detection: 1 / 1
+        Rule: [NGINX Traversal] File inclusion attack detected test_id=PATH_ABS_007-1766313705635-fb2a1t pattern_id=PATH_ABS_007 uri=/?q=%2Fvar%2Fwww%2Fhtml%2F.htaccess client=127.0.0.1

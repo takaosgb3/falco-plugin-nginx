@@ -1,0 +1,14 @@
+{
+  "pattern_id": "CMD_BASIC_020",
+  "test_id": "CMD_BASIC_020-1766313706126-sinbag",
+  "category": "cmdinj",
+  "detected": true,
+  "latency_ms": 13000,
+  "evidence": "10:41:46.000000000: Warning [NGINX CMDi] Advanced command injection attempt test_id=CMD_BASIC_020-1766313706126-sinbag pattern_id=CMD_BASIC_020 uri=/?q=%250d%250acat%20%2Fetc%2Fpasswd client=127.0.0.1",
+  "rule_name": "[NGINX CMDi] Advanced command injection attempt test_id=CMD_BASIC_020-1766313706126-sinbag pattern_id=CMD_BASIC_020 uri=/?q=%250d%250acat%20%2Fetc%2Fpasswd client=127.0.0.1",
+  "expected_rule": "",
+  "rule_id": "",
+  "sent_at": 1766313719000,
+  "detected_at": 1766313706000,
+  "status": "passed"
+}

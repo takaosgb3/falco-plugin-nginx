@@ -1,0 +1,5 @@
+Pattern ID: XSS_DOM_003
+        Status: passed
+        Latency: ~23000ms
+        Detection: 1 / 1
+        Rule: [NGINX XSS] Advanced XSS Attack Attempt test_id=XSS_DOM_003-1766313696628-ypzki pattern_id=XSS_DOM_003 uri=/?q=eval('alert(document.domain)') client=127.0.0.1 method=GET
