@@ -1026,9 +1026,9 @@
       nginx.request_uri contains "../root" or
       nginx.request_uri contains "../home"
     )
-  # Issue #782 Fix: Added exception for OTHER_API_001 pattern - should be caught by API enumeration rules
   exceptions:
-    - name: other_api_patterns
+    # Issue #782 Fix: E2E test pattern in 'other/api_abuse' category - excluded to prevent duplicate detection counting
+    - name: api_abuse_patterns
       fields: nginx.pattern_id
       comps: in
       values:
