@@ -1026,16 +1026,17 @@
       nginx.request_uri contains "../root" or
       nginx.request_uri contains "../home"
     )
-  output: "[NGINX Traversal] Basic path traversal attack detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
-  priority: CRITICAL
-  tags: [security, path_traversal, advanced_traversal, basic, phase3]
-  source: nginx
+  # Issue #782 Fix: Added exception for OTHER_API_001 pattern - should be caught by API enumeration rules
   exceptions:
     - name: other_api_patterns
       fields: nginx.pattern_id
       comps: in
       values:
         - OTHER_API_001
+  output: "[NGINX Traversal] Basic path traversal attack detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
+  priority: CRITICAL
+  tags: [security, path_traversal, advanced_traversal, basic, phase3]
+  source: nginx
 
 # ====================================
 # ADV_TRAV_002: Encoded Path Traversal
