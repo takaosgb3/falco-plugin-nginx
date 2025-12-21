@@ -1,0 +1,5 @@
+Pattern ID: PATH_DOT_006
+        Status: passed
+        Latency: ~23000ms
+        Detection: 1 / 1
+        Rule: [NGINX Traversal] Basic path traversal attack detected test_id=PATH_DOT_006-1766315855510-cgz2l pattern_id=PATH_DOT_006 uri=/?q=../../var/log/apache2/access.log client=127.0.0.1

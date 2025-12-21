@@ -1,0 +1,14 @@
+{
+  "pattern_id": "OTHER_JAVA_001",
+  "test_id": "OTHER_JAVA_001-1766315865009-2aof44",
+  "category": "other",
+  "detected": true,
+  "latency_ms": 13000,
+  "evidence": "11:17:45.000000000: Critical [NGINX Emerging Threat] Deserialization attack test_id=OTHER_JAVA_001-1766315865009-2aof44 pattern_id=OTHER_JAVA_001 uri=/?q=rO0ABXNyABFqYXZhLnV0aWwuSGFzaE1hcA%3D%3D client=127.0.0.1",
+  "rule_name": "[NGINX Emerging Threat] Deserialization attack test_id=OTHER_JAVA_001-1766315865009-2aof44 pattern_id=OTHER_JAVA_001 uri=/?q=rO0ABXNyABFqYXZhLnV0aWwuSGFzaE1hcA%3D%3D client=127.0.0.1",
+  "expected_rule": "",
+  "rule_id": "",
+  "sent_at": 1766315878000,
+  "detected_at": 1766315865000,
+  "status": "passed"
+}

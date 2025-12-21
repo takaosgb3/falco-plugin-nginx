@@ -1,0 +1,14 @@
+{
+  "pattern_id": "PATH_DOT_003",
+  "test_id": "PATH_DOT_003-1766315854006-zmfivf",
+  "category": "path",
+  "detected": true,
+  "latency_ms": 24000,
+  "evidence": "11:17:34.000000000: Critical [NGINX Traversal] Basic path traversal attack detected test_id=PATH_DOT_003-1766315854006-zmfivf pattern_id=PATH_DOT_003 uri=/?q=../../../etc/hosts client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] Basic path traversal attack detected test_id=PATH_DOT_003-1766315854006-zmfivf pattern_id=PATH_DOT_003 uri=/?q=../../../etc/hosts client=127.0.0.1",
+  "expected_rule": "",
+  "rule_id": "",
+  "sent_at": 1766315878000,
+  "detected_at": 1766315854000,
+  "status": "passed"
+}
