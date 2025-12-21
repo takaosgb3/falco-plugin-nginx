@@ -1,0 +1,14 @@
+{
+  "pattern_id": "SQLI_STACK_001",
+  "test_id": "SQLI_STACK_001-1766305810222-dpqdu",
+  "category": "sqli",
+  "detected": true,
+  "latency_ms": 23000,
+  "evidence": "08:30:10.000000000: Warning [NGINX SQLi] Advanced SQL Injection Attempt test_id=SQLI_STACK_001-1766305810222-dpqdu pattern_id=SQLI_STACK_001 uri=/?q='%3B%20DROP%20TABLE%20users%3B%20-- client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Advanced SQL Injection Attempt test_id=SQLI_STACK_001-1766305810222-dpqdu pattern_id=SQLI_STACK_001 uri=/?q='%3B%20DROP%20TABLE%20users%3B%20-- client=127.0.0.1 method=GET",
+  "expected_rule": "",
+  "rule_id": "",
+  "sent_at": 1766305833000,
+  "detected_at": 1766305810000,
+  "status": "passed"
+}

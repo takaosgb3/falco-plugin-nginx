@@ -1,0 +1,14 @@
+{
+  "pattern_id": "LDAP_BASIC_003",
+  "test_id": "LDAP_BASIC_003-1766305821689-ewhiwf",
+  "category": "ldap",
+  "detected": true,
+  "latency_ms": 12000,
+  "evidence": "08:30:21.000000000: Critical [NGINX SQLi] Boolean-based Blind SQL Injection test_id=LDAP_BASIC_003-1766305821689-ewhiwf pattern_id=LDAP_BASIC_003 uri=/?q=admin)(%26(password%3D*) client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Boolean-based Blind SQL Injection test_id=LDAP_BASIC_003-1766305821689-ewhiwf pattern_id=LDAP_BASIC_003 uri=/?q=admin)(%26(password%3D*) client=127.0.0.1 method=GET",
+  "expected_rule": "",
+  "rule_id": "",
+  "sent_at": 1766305833000,
+  "detected_at": 1766305821000,
+  "status": "passed"
+}

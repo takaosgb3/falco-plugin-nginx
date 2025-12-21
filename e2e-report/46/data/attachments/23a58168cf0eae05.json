@@ -1,0 +1,14 @@
+{
+  "pattern_id": "XSS_DOM_003",
+  "test_id": "XSS_DOM_003-1766305810711-c4jjk3",
+  "category": "xss",
+  "detected": true,
+  "latency_ms": 23000,
+  "evidence": "08:30:10.000000000: Warning [NGINX XSS] Advanced XSS Attack Attempt test_id=XSS_DOM_003-1766305810711-c4jjk3 pattern_id=XSS_DOM_003 uri=/?q=eval('alert(document.domain)') client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX XSS] Advanced XSS Attack Attempt test_id=XSS_DOM_003-1766305810711-c4jjk3 pattern_id=XSS_DOM_003 uri=/?q=eval('alert(document.domain)') client=127.0.0.1 method=GET",
+  "expected_rule": "",
+  "rule_id": "",
+  "sent_at": 1766305833000,
+  "detected_at": 1766305810000,
+  "status": "passed"
+}

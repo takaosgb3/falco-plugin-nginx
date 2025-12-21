@@ -1,0 +1,14 @@
+{
+  "pattern_id": "CMD_BASIC_010",
+  "test_id": "CMD_BASIC_010-1766305815197-vyoc2",
+  "category": "cmdinj",
+  "detected": true,
+  "latency_ms": 18000,
+  "evidence": "08:30:15.000000000: Warning [NGINX CMDi] Advanced command injection attempt test_id=CMD_BASIC_010-1766305815197-vyoc2 pattern_id=CMD_BASIC_010 uri=/?q=%26%26%20df%20-h client=127.0.0.1",
+  "rule_name": "[NGINX CMDi] Advanced command injection attempt test_id=CMD_BASIC_010-1766305815197-vyoc2 pattern_id=CMD_BASIC_010 uri=/?q=%26%26%20df%20-h client=127.0.0.1",
+  "expected_rule": "",
+  "rule_id": "",
+  "sent_at": 1766305833000,
+  "detected_at": 1766305815000,
+  "status": "passed"
+}

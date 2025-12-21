@@ -1,0 +1,14 @@
+{
+  "pattern_id": "OTHER_REDIS_001",
+  "test_id": "OTHER_REDIS_001-1766305818696-coogsv",
+  "category": "other",
+  "detected": true,
+  "latency_ms": 15000,
+  "evidence": "08:30:18.000000000: Critical [NGINX Emerging Threat] Redis command injection test_id=OTHER_REDIS_001-1766305818696-coogsv pattern_id=OTHER_REDIS_001 uri=/?q=FLUSHALL client=127.0.0.1",
+  "rule_name": "[NGINX Emerging Threat] Redis command injection test_id=OTHER_REDIS_001-1766305818696-coogsv pattern_id=OTHER_REDIS_001 uri=/?q=FLUSHALL client=127.0.0.1",
+  "expected_rule": "",
+  "rule_id": "",
+  "sent_at": 1766305833000,
+  "detected_at": 1766305818000,
+  "status": "passed"
+}

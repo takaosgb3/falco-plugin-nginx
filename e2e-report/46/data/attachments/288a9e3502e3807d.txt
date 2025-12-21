@@ -1,0 +1,5 @@
+Pattern ID: CMD_BASIC_017
+        Status: failed
+        Latency: N/A
+        Detection: 0 / 1
+        Rule:

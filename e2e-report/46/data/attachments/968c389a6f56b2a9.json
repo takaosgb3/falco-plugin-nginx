@@ -1,0 +1,14 @@
+{
+  "pattern_id": "CMD_PIPE_001",
+  "test_id": "CMD_PIPE_001-1766305822213-7bxpoe",
+  "category": "cmdinj",
+  "detected": false,
+  "latency_ms": null,
+  "evidence": "",
+  "rule_name": "",
+  "expected_rule": "",
+  "rule_id": "",
+  "sent_at": 1766305833000,
+  "detected_at": null,
+  "status": "failed"
+}
