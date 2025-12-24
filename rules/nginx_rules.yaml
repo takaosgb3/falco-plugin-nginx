@@ -636,12 +636,13 @@
       values:
         - GQL_DATA_001
     # Issue #36 Fix (Pattern #A325): LDAP patterns moved from Advanced SQLi
-    # Note: LDAP_BASIC_003 excluded - LDAP rules don't match its partial URL encoding
+    # Issue #38 Fix: LDAP_BASIC_003 now included - partial URL encoding support added to LDAP rules
     - name: ldap_boolean_like
       fields: nginx.pattern_id
       comps: in
       values:
         - LDAP_BASIC_002
+        - LDAP_BASIC_003
         - LDAP_BLIND_001
   output: "[NGINX SQLi] Boolean-based Blind SQL Injection test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: CRITICAL
@@ -1735,6 +1736,7 @@
 
 # ====================================
 # LDAP_INJ_001: LDAP Authentication Bypass
+# Issue #38 Fix: Added partial URL encoding pattern for LDAP_BASIC_003
 # ====================================
 - rule: LDAP Authentication Bypass Attempt
   desc: Detects LDAP authentication bypass injection attempts
@@ -1749,7 +1751,8 @@
       nginx.request_uri contains "|(password=" or
       nginx.request_uri contains "%7C%28password%3D" or
       nginx.request_uri contains ")(&(password=" or
-      nginx.request_uri contains "%29%28%26%28password%3D"
+      nginx.request_uri contains "%29%28%26%28password%3D" or
+      nginx.request_uri contains ")(%26(password%3D"
     )
   output: "[NGINX LDAP Injection] Authentication bypass attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: CRITICAL
