@@ -1,0 +1,14 @@
+{
+  "pattern_id": "PATH_ABS_007",
+  "test_id": "PATH_ABS_007-1766557004030-q7eynb",
+  "category": "path",
+  "detected": true,
+  "latency_ms": 13000,
+  "evidence": "06:16:44.000000000: Critical [NGINX Traversal] File inclusion attack detected test_id=PATH_ABS_007-1766557004030-q7eynb pattern_id=PATH_ABS_007 uri=/?q=%2Fvar%2Fwww%2Fhtml%2F.htaccess client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] File inclusion attack detected test_id=PATH_ABS_007-1766557004030-q7eynb pattern_id=PATH_ABS_007 uri=/?q=%2Fvar%2Fwww%2Fhtml%2F.htaccess client=127.0.0.1",
+  "expected_rule": "",
+  "rule_id": "",
+  "sent_at": 1766557017000,
+  "detected_at": 1766557004000,
+  "status": "passed"
+}

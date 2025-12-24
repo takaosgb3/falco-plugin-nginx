@@ -1,0 +1,14 @@
+{
+  "pattern_id": "PATH_DOT_010",
+  "test_id": "PATH_DOT_010-1766556997016-puiyv",
+  "category": "path",
+  "detected": true,
+  "latency_ms": 20000,
+  "evidence": "06:16:37.000000000: Critical [NGINX Traversal] Basic path traversal attack detected test_id=PATH_DOT_010-1766556997016-puiyv pattern_id=PATH_DOT_010 uri=/?q=../../../etc/mysql/my.cnf client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] Basic path traversal attack detected test_id=PATH_DOT_010-1766556997016-puiyv pattern_id=PATH_DOT_010 uri=/?q=../../../etc/mysql/my.cnf client=127.0.0.1",
+  "expected_rule": "",
+  "rule_id": "",
+  "sent_at": 1766557017000,
+  "detected_at": 1766556997000,
+  "status": "passed"
+}

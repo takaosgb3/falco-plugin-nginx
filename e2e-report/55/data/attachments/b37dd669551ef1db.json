@@ -1,0 +1,14 @@
+{
+  "pattern_id": "GQL_DATA_001",
+  "test_id": "GQL_DATA_001-1766557016502-ot6tn",
+  "category": "graphql",
+  "detected": true,
+  "latency_ms": 1000,
+  "evidence": "06:16:56.000000000: Critical [NGINX Emerging Threat] Template injection test_id=GQL_DATA_001-1766557016502-ot6tn pattern_id=GQL_DATA_001 uri=/?q=%7Busers(first%3A999999)%7Bid%2Cemail%2Cpassword%7D%7D client=127.0.0.1",
+  "rule_name": "[NGINX Emerging Threat] Template injection test_id=GQL_DATA_001-1766557016502-ot6tn pattern_id=GQL_DATA_001 uri=/?q=%7Busers(first%3A999999)%7Bid%2Cemail%2Cpassword%7D%7D client=127.0.0.1",
+  "expected_rule": "",
+  "rule_id": "",
+  "sent_at": 1766557017000,
+  "detected_at": 1766557016000,
+  "status": "passed"
+}
