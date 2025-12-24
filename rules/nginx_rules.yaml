@@ -629,6 +629,20 @@
       comps: in
       values:
         - LDAP_BLIND_005
+    # Issue #36 Fix (Pattern #A325): GraphQL data extraction moved from Advanced SQLi
+    - name: graphql_data_extraction
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - GQL_DATA_001
+    # Issue #36 Fix (Pattern #A325): LDAP patterns moved from Advanced SQLi
+    # Note: LDAP_BASIC_003 excluded - LDAP rules don't match its partial URL encoding
+    - name: ldap_boolean_like
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - LDAP_BASIC_002
+        - LDAP_BLIND_001
   output: "[NGINX SQLi] Boolean-based Blind SQL Injection test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: CRITICAL
   tags: [security, sql_injection, advanced_sqli, boolean_based, phase3]
@@ -640,6 +654,14 @@
 - rule: Error-based SQL Injection
   desc: Detects error-based SQL injection attempts to extract data through database errors
   condition: sqli_error_based_pattern
+  exceptions:
+    # Issue #36 Fix (Pattern #A325): GraphQL introspection patterns moved from Advanced SQLi
+    - name: graphql_introspection
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - GQL_INTRO_001
+        - GQL_INTRO_003
   output: "[NGINX SQLi] Error-based SQL Injection test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: CRITICAL
   tags: [security, sql_injection, advanced_sqli, error_based, phase3]
@@ -648,36 +670,30 @@
 # ====================================
 # ADV_SQLI_004: Combined Advanced SQLi Detection
 # ====================================
-# Issue #782 Fix: Added exceptions for GraphQL/XXE/LDAP patterns
+# Issue #782 Fix: Added exceptions for GraphQL/XXE patterns
+# Issue #36 Fix (Pattern #A325): Removed 7 patterns moved to correct rules
+#   - GQL_INTRO_001, GQL_INTRO_003 → Error-based SQLi
+#   - GQL_DATA_001 → Boolean-based Blind SQLi
+#   - LDAP_BASIC_002, LDAP_BASIC_003, LDAP_BLIND_001 → Boolean-based Blind SQLi
+#   - XXE_ENTITY_001 → File Inclusion Attack
+#   Remaining: GQL_SQLI_001, XXE_ENTITY_003, XXE_ENTITY_005
 - rule: Advanced SQL Injection Attempt
   desc: Comprehensive detection of advanced SQL injection techniques
   condition: sqli_advanced_pattern
   exceptions:
-    # GraphQL patterns - should be caught by GraphQL-specific rules
-    - name: graphql_patterns
+    # GraphQL SQLi patterns (keeping only GQL_SQLI_001 - true SQLi pattern)
+    - name: graphql_sqli_pattern
       fields: nginx.pattern_id
       comps: in
       values:
-        - GQL_INTRO_001
-        - GQL_INTRO_003
-        - GQL_DATA_001
         - GQL_SQLI_001
-    # XXE patterns - should be caught by XXE-specific rules
-    - name: xxe_patterns
+    # XXE patterns that legitimately contain SQL-like syntax
+    - name: xxe_sql_like_patterns
       fields: nginx.pattern_id
       comps: in
       values:
-        - XXE_ENTITY_001
         - XXE_ENTITY_003
         - XXE_ENTITY_005
-    # LDAP patterns - should be caught by LDAP-specific rules
-    - name: ldap_patterns
-      fields: nginx.pattern_id
-      comps: in
-      values:
-        - LDAP_BASIC_002
-        - LDAP_BASIC_003
-        - LDAP_BLIND_001
   output: "[NGINX SQLi] Advanced SQL Injection Attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: WARNING
   tags: [security, sql_injection, advanced_sqli, enumeration, phase3]
@@ -1177,10 +1193,12 @@
         - CMD_BASIC_020
         - CMD_PIPE_001
     # Issue #782 Fix: XXE patterns with file:// - should be caught by XXE rules
+    # Issue #36 Fix (Pattern #A325): Added XXE_ENTITY_001 moved from Advanced SQLi
     - name: xxe_file_patterns
       fields: nginx.pattern_id
       comps: in
       values:
+        - XXE_ENTITY_001
         - XXE_ENTITY_004
   output: "[NGINX Traversal] File inclusion attack detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: CRITICAL
