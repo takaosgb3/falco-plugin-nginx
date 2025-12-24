@@ -636,12 +636,12 @@
       values:
         - GQL_DATA_001
     # Issue #36 Fix (Pattern #A325): LDAP patterns moved from Advanced SQLi
+    # Note: LDAP_BASIC_003 excluded - LDAP rules don't match its partial URL encoding
     - name: ldap_boolean_like
       fields: nginx.pattern_id
       comps: in
       values:
         - LDAP_BASIC_002
-        - LDAP_BASIC_003
         - LDAP_BLIND_001
   output: "[NGINX SQLi] Boolean-based Blind SQL Injection test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: CRITICAL
