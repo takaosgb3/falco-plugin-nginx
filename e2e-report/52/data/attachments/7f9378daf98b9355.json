@@ -1,0 +1,14 @@
+{
+  "pattern_id": "CMD_PIPE_001",
+  "test_id": "CMD_PIPE_001-1766554696794-r2d3y",
+  "category": "cmdinj",
+  "detected": true,
+  "latency_ms": 12000,
+  "evidence": "05:38:16.000000000: Critical [NGINX CMDi] Command injection via pipe test_id=CMD_PIPE_001-1766554696794-r2d3y pattern_id=CMD_PIPE_001 uri=/?q=cat%20%2Fetc%2Fpasswd%20%7C%20grep%20root client=127.0.0.1",
+  "rule_name": "[NGINX CMDi] Command injection via pipe test_id=CMD_PIPE_001-1766554696794-r2d3y pattern_id=CMD_PIPE_001 uri=/?q=cat%20%2Fetc%2Fpasswd%20%7C%20grep%20root client=127.0.0.1",
+  "expected_rule": "",
+  "rule_id": "",
+  "sent_at": 1766554708000,
+  "detected_at": 1766554696000,
+  "status": "passed"
+}

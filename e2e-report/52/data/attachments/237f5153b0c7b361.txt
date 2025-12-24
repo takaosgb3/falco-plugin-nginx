@@ -1,0 +1,5 @@
+Pattern ID: SQLI_BOOL_004
+        Status: passed
+        Latency: ~29000ms
+        Detection: 1 / 1
+        Rule: [NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_BOOL_004-1766554679283-dfe3gj pattern_id=SQLI_BOOL_004 uri=/?q=%27%20OR%20%27a%27%3D%27a client=127.0.0.1 method=GET

@@ -1,0 +1,14 @@
+{
+  "pattern_id": "GQL_SQLI_001",
+  "test_id": "GQL_SQLI_001-1766554707268-8sxgl",
+  "category": "graphql",
+  "detected": true,
+  "latency_ms": 1000,
+  "evidence": "05:38:27.000000000: Critical [NGINX SQLi] Boolean-based Blind SQL Injection test_id=GQL_SQLI_001-1766554707268-8sxgl pattern_id=GQL_SQLI_001 uri=/?q=query%7Buser(id%3A%221'%20UNION%20SELECT%20*%20FROM%20admin_users--%22)%7Bname%7D%7D client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Boolean-based Blind SQL Injection test_id=GQL_SQLI_001-1766554707268-8sxgl pattern_id=GQL_SQLI_001 uri=/?q=query%7Buser(id%3A%221'%20UNION%20SELECT%20*%20FROM%20admin_users--%22)%7Bname%7D%7D client=127.0.0.1 method=GET",
+  "expected_rule": "",
+  "rule_id": "",
+  "sent_at": 1766554708000,
+  "detected_at": 1766554707000,
+  "status": "passed"
+}

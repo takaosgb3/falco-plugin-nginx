@@ -1,0 +1,14 @@
+{
+  "pattern_id": "SQLI_ERROR_005",
+  "test_id": "SQLI_ERROR_005-1766554686800-1z3fv7",
+  "category": "sqli",
+  "detected": true,
+  "latency_ms": 22000,
+  "evidence": "05:38:06.000000000: Critical [NGINX SQLi] Error-based SQL Injection test_id=SQLI_ERROR_005-1766554686800-1z3fv7 pattern_id=SQLI_ERROR_005 uri=/?q='%20AND%20(SELECT%20*%20FROM%20users%20WHERE%20id%3D1)%20-- client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Error-based SQL Injection test_id=SQLI_ERROR_005-1766554686800-1z3fv7 pattern_id=SQLI_ERROR_005 uri=/?q='%20AND%20(SELECT%20*%20FROM%20users%20WHERE%20id%3D1)%20-- client=127.0.0.1 method=GET",
+  "expected_rule": "",
+  "rule_id": "",
+  "sent_at": 1766554708000,
+  "detected_at": 1766554686000,
+  "status": "passed"
+}

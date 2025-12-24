@@ -1,0 +1,14 @@
+{
+  "pattern_id": "SQLI_ERR_002",
+  "test_id": "SQLI_ERR_002-1766554684295-5kwy4c",
+  "category": "sqli",
+  "detected": true,
+  "latency_ms": 24000,
+  "evidence": "05:38:04.000000000: Critical [NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_ERR_002-1766554684295-5kwy4c pattern_id=SQLI_ERR_002 uri=/?q=UPDATEXML(1%2CCONCAT(0x7e%2Cversion())%2C1) client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_ERR_002-1766554684295-5kwy4c pattern_id=SQLI_ERR_002 uri=/?q=UPDATEXML(1%2CCONCAT(0x7e%2Cversion())%2C1) client=127.0.0.1 method=GET",
+  "expected_rule": "",
+  "rule_id": "",
+  "sent_at": 1766554708000,
+  "detected_at": 1766554684000,
+  "status": "passed"
+}
