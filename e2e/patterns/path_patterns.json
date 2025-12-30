@@ -1,7 +1,7 @@
 {
   "metadata": {
     "category": "path",
-    "total_patterns": 30,
+    "total_patterns": 40,
     "port": 8003,
     "description": "k6 test patterns for path"
   },
@@ -335,6 +335,126 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "high"
+    },
+    {
+      "id": "PATH_WIN_001",
+      "name": "Windows backslash traversal",
+      "category": "path",
+      "subcategory": "windows_traversal",
+      "payload": "..\\",
+      "encoded": "..%5C",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "Windows Path Traversal Attack"
+    },
+    {
+      "id": "PATH_WIN_002",
+      "name": "Windows double backslash traversal",
+      "category": "path",
+      "subcategory": "windows_traversal",
+      "payload": "..\\..\\",
+      "encoded": "..%5C..%5C",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "Windows Path Traversal Attack"
+    },
+    {
+      "id": "PATH_WIN_003",
+      "name": "Windows SAM file access",
+      "category": "path",
+      "subcategory": "windows_traversal",
+      "payload": "..\\..\\..\\Windows\\System32\\config\\SAM",
+      "encoded": "..%5C..%5C..%5CWindows%5CSystem32%5Cconfig%5CSAM",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "Windows Path Traversal Attack"
+    },
+    {
+      "id": "PATH_WIN_004",
+      "name": "Windows hosts file access",
+      "category": "path",
+      "subcategory": "windows_traversal",
+      "payload": "..\\..\\Windows\\System32\\drivers\\etc\\hosts",
+      "encoded": "..%5C..%5CWindows%5CSystem32%5Cdrivers%5Cetc%5Chosts",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "Windows Path Traversal Attack"
+    },
+    {
+      "id": "PATH_WIN_005",
+      "name": "Windows boot.ini access",
+      "category": "path",
+      "subcategory": "windows_traversal",
+      "payload": "..\\..\\..\\..\\boot.ini",
+      "encoded": "..%5C..%5C..%5C..%5Cboot.ini",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "Windows Path Traversal Attack"
+    },
+    {
+      "id": "PATH_ADV_002",
+      "name": "Semicolon traversal variant",
+      "category": "path",
+      "subcategory": "advanced_techniques",
+      "payload": "..;/",
+      "encoded": "..%3B%2F",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "Advanced Path Traversal Attempt"
+    },
+    {
+      "id": "PATH_ADV_003",
+      "name": "Mixed slash/backslash traversal",
+      "category": "path",
+      "subcategory": "advanced_techniques",
+      "payload": "..\\../",
+      "encoded": "..%5C..%2F",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "Advanced Path Traversal Attempt"
+    },
+    {
+      "id": "PATH_ADV_004",
+      "name": "Complex mixed traversal pattern",
+      "category": "path",
+      "subcategory": "advanced_techniques",
+      "payload": ".//..//.//..//etc/passwd",
+      "encoded": ".%2F%2F..%2F%2F.%2F%2F..%2F%2Fetc%2Fpasswd",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "Advanced Path Traversal Attempt"
+    },
+    {
+      "id": "PATH_ADV_005",
+      "name": "Null byte injection traversal",
+      "category": "path",
+      "subcategory": "advanced_techniques",
+      "payload": "..%00/",
+      "encoded": "..%2500%2F",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "Advanced Path Traversal Attempt"
+    },
+    {
+      "id": "PATH_ADV_006",
+      "name": "Hex encoded slash traversal",
+      "category": "path",
+      "subcategory": "advanced_techniques",
+      "payload": "..\\x2f",
+      "encoded": "..%5Cx2f",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "Advanced Path Traversal Attempt"
     }
   ]
 }

