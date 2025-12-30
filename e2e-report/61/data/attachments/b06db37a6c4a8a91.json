@@ -1,0 +1,15 @@
+{
+  "pattern_id": "XSS_BYPASS_006",
+  "test_id": "XSS_BYPASS_006-1767071275148-35gumo",
+  "category": "xss",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 26000,
+  "evidence": "05:07:55.000000000: Warning [NGINX SQLi] Encoded SQL Injection Pattern test_id=XSS_BYPASS_006-1767071275148-35gumo pattern_id=XSS_BYPASS_006 uri=/?q=%3Cimg%20src%3D%22x%22%20onerror%3Dalert%60XSS%60%3E client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Encoded SQL Injection Pattern test_id=XSS_BYPASS_006-1767071275148-35gumo pattern_id=XSS_BYPASS_006 uri=/?q=%3Cimg%20src%3D%22x%22%20onerror%3Dalert%60XSS%60%3E client=127.0.0.1 method=GET",
+  "expected_rule": "XSS Filter Bypass Attempt",
+  "rule_id": "",
+  "sent_at": 1767071301000,
+  "detected_at": 1767071275000,
+  "status": "passed"
+}

@@ -1,0 +1,15 @@
+{
+  "pattern_id": "OTHER_REDIS_001",
+  "test_id": "OTHER_REDIS_001-1767071273115-asdrmi",
+  "category": "other",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 28000,
+  "evidence": "05:07:53.000000000: Critical [NGINX Emerging Threat] Redis command injection test_id=OTHER_REDIS_001-1767071273115-asdrmi pattern_id=OTHER_REDIS_001 uri=/?q=FLUSHALL client=127.0.0.1",
+  "rule_name": "[NGINX Emerging Threat] Redis command injection test_id=OTHER_REDIS_001-1767071273115-asdrmi pattern_id=OTHER_REDIS_001 uri=/?q=FLUSHALL client=127.0.0.1",
+  "expected_rule": "",
+  "rule_id": "",
+  "sent_at": 1767071301000,
+  "detected_at": 1767071273000,
+  "status": "passed"
+}

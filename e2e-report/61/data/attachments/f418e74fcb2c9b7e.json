@@ -1,0 +1,15 @@
+{
+  "pattern_id": "SSTI_VEL_001",
+  "test_id": "SSTI_VEL_001-1767071296111-udm9q6",
+  "category": "ssti",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 5000,
+  "evidence": "05:08:16.000000000: Warning [NGINX SQLi] Encoded SQL Injection Pattern test_id=SSTI_VEL_001-1767071296111-udm9q6 pattern_id=SSTI_VEL_001 uri=/?q=%23set%28%24runtime%20%3D%20%24runtime.getRuntime%28%29%29%24runtime.exec%28%27whoami%27%29 client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Encoded SQL Injection Pattern test_id=SSTI_VEL_001-1767071296111-udm9q6 pattern_id=SSTI_VEL_001 uri=/?q=%23set%28%24runtime%20%3D%20%24runtime.getRuntime%28%29%29%24runtime.exec%28%27whoami%27%29 client=127.0.0.1 method=GET",
+  "expected_rule": "Template Injection Detection",
+  "rule_id": "",
+  "sent_at": 1767071301000,
+  "detected_at": 1767071296000,
+  "status": "passed"
+}

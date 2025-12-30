@@ -1,0 +1,15 @@
+{
+  "pattern_id": "SSTI_FREEMKR_001",
+  "test_id": "SSTI_FREEMKR_001-1767071297113-g3d2y",
+  "category": "ssti",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 4000,
+  "evidence": "05:08:17.000000000: Warning [NGINX SQLi] Encoded SQL Injection Pattern test_id=SSTI_FREEMKR_001-1767071297113-g3d2y pattern_id=SSTI_FREEMKR_001 uri=/?q=%3C%23assign%20ex%3D%22freemarker.template.utility.Execute%22%3Fnew%28%29%3E%20%24%7Bex%28%22whoami%22%29%7D client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Encoded SQL Injection Pattern test_id=SSTI_FREEMKR_001-1767071297113-g3d2y pattern_id=SSTI_FREEMKR_001 uri=/?q=%3C%23assign%20ex%3D%22freemarker.template.utility.Execute%22%3Fnew%28%29%3E%20%24%7Bex%28%22whoami%22%29%7D client=127.0.0.1 method=GET",
+  "expected_rule": "Template Injection Detection",
+  "rule_id": "",
+  "sent_at": 1767071301000,
+  "detected_at": 1767071297000,
+  "status": "passed"
+}

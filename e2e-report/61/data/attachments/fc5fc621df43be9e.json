@@ -1,0 +1,15 @@
+{
+  "pattern_id": "CMD_BASIC_014",
+  "test_id": "CMD_BASIC_014-1767071271623-phvmsj",
+  "category": "cmdinj",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 30000,
+  "evidence": "05:07:51.000000000: Critical [NGINX CMDi] Command injection via semicolon test_id=CMD_BASIC_014-1767071271623-phvmsj pattern_id=CMD_BASIC_014 uri=/?q=%3B%3Bls client=127.0.0.1",
+  "rule_name": "[NGINX CMDi] Command injection via semicolon test_id=CMD_BASIC_014-1767071271623-phvmsj pattern_id=CMD_BASIC_014 uri=/?q=%3B%3Bls client=127.0.0.1",
+  "expected_rule": "",
+  "rule_id": "",
+  "sent_at": 1767071301000,
+  "detected_at": 1767071271000,
+  "status": "passed"
+}

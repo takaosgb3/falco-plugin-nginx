@@ -1,0 +1,5 @@
+Pattern ID: GQL_SQLI_001
+        Status: passed
+        Latency: ~14000ms
+        Detection: 1 / 1
+        Rule: [NGINX SQLi] Boolean-based Blind SQL Injection test_id=GQL_SQLI_001-1767071287113-oedma pattern_id=GQL_SQLI_001 uri=/?q=query%7Buser(id%3A%221'%20UNION%20SELECT%20*%20FROM%20admin_users--%22)%7Bname%7D%7D client=127.0.0.1 method=GET

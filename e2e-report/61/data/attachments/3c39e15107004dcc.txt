@@ -1,0 +1,5 @@
+Pattern ID: LDAP_BASIC_005
+        Status: passed
+        Latency: ~24000ms
+        Detection: 1 / 1
+        Rule: [NGINX LDAP Injection] Authentication bypass attempt test_id=LDAP_BASIC_005-1767071277111-4ky65 pattern_id=LDAP_BASIC_005 uri=/?q=*)(%26(objectClass%3D*) client=127.0.0.1

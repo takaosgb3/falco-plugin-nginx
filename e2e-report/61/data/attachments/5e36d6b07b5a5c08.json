@@ -1,0 +1,15 @@
+{
+  "pattern_id": "CMD_SUB_003",
+  "test_id": "CMD_SUB_003-1767071281143-7yxwcg",
+  "category": "cmdinj",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 20000,
+  "evidence": "05:08:01.000000000: Critical [NGINX Traversal] File inclusion attack detected test_id=CMD_SUB_003-1767071281143-7yxwcg pattern_id=CMD_SUB_003 uri=/?q=%24%28cat%20%2Fetc%2Fpasswd%29 client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] File inclusion attack detected test_id=CMD_SUB_003-1767071281143-7yxwcg pattern_id=CMD_SUB_003 uri=/?q=%24%28cat%20%2Fetc%2Fpasswd%29 client=127.0.0.1",
+  "expected_rule": "Command Substitution Attack",
+  "rule_id": "",
+  "sent_at": 1767071301000,
+  "detected_at": 1767071281000,
+  "status": "passed"
+}
