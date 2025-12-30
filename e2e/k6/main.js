@@ -42,6 +42,10 @@ const otherAttacks = new Counter('other_attacks');
 const ldapAttacks = new Counter('ldap_attacks');
 const xxeAttacks = new Counter('xxe_attacks');
 const graphqlAttacks = new Counter('graphql_attacks');
+// Phase 3: New category metrics (Issue #783)
+const xpathAttacks = new Counter('xpath_attacks');
+const sstiAttacks = new Counter('ssti_attacks');
+const nosqlExtendedAttacks = new Counter('nosql_extended_attacks');
 
 // ========================================
 // Load attack patterns (SharedArray for efficiency)
@@ -84,6 +88,22 @@ const xxePatterns = new SharedArray('xxe', function() {
 
 const graphqlPatterns = new SharedArray('graphql', function() {
     const data = JSON.parse(open('../patterns/graphql_patterns.json'));
+    return data.patterns;
+});
+
+// Phase 3: New category patterns (Issue #783)
+const xpathPatterns = new SharedArray('xpath', function() {
+    const data = JSON.parse(open('../patterns/xpath_patterns.json'));
+    return data.patterns;
+});
+
+const sstiPatterns = new SharedArray('ssti', function() {
+    const data = JSON.parse(open('../patterns/ssti_patterns.json'));
+    return data.patterns;
+});
+
+const nosqlExtendedPatterns = new SharedArray('nosql_extended', function() {
+    const data = JSON.parse(open('../patterns/nosql_extended_patterns.json'));
     return data.patterns;
 });
 
@@ -156,12 +176,37 @@ export const options = {
             exec: 'testGraphQL',
             startTime: '35s',
             tags: { category: 'graphql' }
+        },
+        // Phase 3: New category scenarios (Issue #783)
+        xpath_test: {
+            executor: 'per-vu-iterations',
+            vus: 1,
+            iterations: xpathPatterns.length,
+            exec: 'testXPath',
+            startTime: '40s',
+            tags: { category: 'xpath' }
+        },
+        ssti_test: {
+            executor: 'per-vu-iterations',
+            vus: 1,
+            iterations: sstiPatterns.length,
+            exec: 'testSSTI',
+            startTime: '45s',
+            tags: { category: 'ssti' }
+        },
+        nosql_extended_test: {
+            executor: 'per-vu-iterations',
+            vus: 1,
+            iterations: nosqlExtendedPatterns.length,
+            exec: 'testNoSQLExtended',
+            startTime: '50s',
+            tags: { category: 'nosql_extended' }
         }
     },
     thresholds: {
         'http_req_duration': ['p(95)<5000'],  // 95% of requests under 5s
         'http_req_failed': ['rate<0.05'],      // Less than 5% failure rate
-        'attacks_sent': ['count==150']          // All 150 patterns sent (Phase 2 expanded)
+        'attacks_sent': ['count==225']          // All 225 patterns sent (Phase 3 expanded)
     },
     summaryTimeUnit: 'ms',
     summaryTrendStats: ['avg', 'med', 'p(90)', 'p(95)', 'p(99)', 'max', 'count']
@@ -272,6 +317,28 @@ export function testGraphQL() {
     });
 }
 
+// Phase 3: New category test functions (Issue #783)
+export function testXPath() {
+    group('XPath Injection Tests', function() {
+        const pattern = xpathPatterns[scenario.iterationInTest];
+        executeAttack(pattern, xpathAttacks);
+    });
+}
+
+export function testSSTI() {
+    group('SSTI Attack Tests', function() {
+        const pattern = sstiPatterns[scenario.iterationInTest];
+        executeAttack(pattern, sstiAttacks);
+    });
+}
+
+export function testNoSQLExtended() {
+    group('NoSQL Extended Tests', function() {
+        const pattern = nosqlExtendedPatterns[scenario.iterationInTest];
+        executeAttack(pattern, nosqlExtendedAttacks);
+    });
+}
+
 // ========================================
 // Setup/Teardown
 // ========================================
@@ -279,15 +346,18 @@ export function setup() {
     console.log('========================================');
     console.log('k6 E2E Test Starting (Public Repo Mode)');
     console.log(`Target: ${TARGET_IP}:${TARGET_PORT}`);
-    console.log('Total Patterns: 150 (Phase 2 expanded)');
-    console.log('  - SQLi: 39');
-    console.log('  - XSS: 26');
-    console.log('  - Path: 30');
-    console.log('  - CmdInj: 25');
+    console.log('Total Patterns: 225 (Phase 3 expanded)');
+    console.log('  - SQLi: 59');
+    console.log('  - XSS: 41');
+    console.log('  - Path: 40');
+    console.log('  - CmdInj: 40');
     console.log('  - Other: 10');
-    console.log('  - LDAP: 10 (NEW)');
-    console.log('  - XXE: 5 (NEW)');
-    console.log('  - GraphQL: 5 (NEW)');
+    console.log('  - LDAP: 10');
+    console.log('  - XXE: 8');
+    console.log('  - GraphQL: 5');
+    console.log('  - XPath: 5 (NEW)');
+    console.log('  - SSTI: 5 (NEW)');
+    console.log('  - NoSQL Extended: 2 (NEW)');
     console.log('========================================');
 }
 
@@ -316,7 +386,11 @@ export function handleSummary(data) {
                 // Phase 2: New categories (Issue #780)
                 ldap: data.metrics.ldap_attacks ? data.metrics.ldap_attacks.values.count : 0,
                 xxe: data.metrics.xxe_attacks ? data.metrics.xxe_attacks.values.count : 0,
-                graphql: data.metrics.graphql_attacks ? data.metrics.graphql_attacks.values.count : 0
+                graphql: data.metrics.graphql_attacks ? data.metrics.graphql_attacks.values.count : 0,
+                // Phase 3: New categories (Issue #783)
+                xpath: data.metrics.xpath_attacks ? data.metrics.xpath_attacks.values.count : 0,
+                ssti: data.metrics.ssti_attacks ? data.metrics.ssti_attacks.values.count : 0,
+                nosql_extended: data.metrics.nosql_extended_attacks ? data.metrics.nosql_extended_attacks.values.count : 0
             }
         }
     };
