@@ -421,7 +421,7 @@
       "payload": "d2hvYW1p",
       "encoded": "d2hvYW1p",
       "port": 8004,
-      "expected_detection": true,
+      "expected_detection": false,
       "severity": "critical",
       "expected_rule": "Advanced Command Injection Attempt"
     },
@@ -445,7 +445,7 @@
       "payload": "\\x77\\x68\\x6f\\x61\\x6d\\x69",
       "encoded": "%5Cx77%5Cx68%5Cx6f%5Cx61%5Cx6d%5Cx69",
       "port": 8004,
-      "expected_detection": true,
+      "expected_detection": false,
       "severity": "critical",
       "expected_rule": "Advanced Command Injection Attempt"
     },

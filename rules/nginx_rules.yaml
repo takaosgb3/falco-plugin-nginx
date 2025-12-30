@@ -1396,6 +1396,8 @@
       nginx.request_uri contains "%24%28curl" or
       nginx.request_uri contains "%24%28uname" or
       nginx.request_uri contains "%24(uname" or
+      nginx.request_uri contains "$(ls" or
+      nginx.request_uri contains "%24%28ls" or
       nginx.request_uri contains "%60whoami" or
       nginx.request_uri contains "%60cat" or
       nginx.request_uri contains "%60uname" or
@@ -1458,7 +1460,10 @@
       nginx.request_uri contains "%253Bwhoami" or
       nginx.request_uri contains "%253Bcat" or
       nginx.request_uri contains "%253Bls" or
-      nginx.request_uri contains "%253Bid"
+      nginx.request_uri contains "%253Bid" or
+      nginx.request_uri contains "%2526%2526" or
+      nginx.request_uri contains "%2524%2528" or
+      nginx.request_uri contains "%2560"
     )
   output: "[NGINX CMDi] Advanced command injection attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: WARNING
@@ -1847,7 +1852,9 @@
       nginx.request_uri contains "%3c!DOCTYPE" or
       nginx.request_uri icontains "<!ENTITY" or
       nginx.request_uri contains "%3C!ENTITY" or
-      nginx.request_uri contains "%3c!ENTITY"
+      nginx.request_uri contains "%3c!ENTITY" or
+      nginx.request_uri contains "%3C%21ENTITY" or
+      nginx.request_uri contains "%3c%21ENTITY"
     )
   output: "[NGINX XXE Attack] DOCTYPE/ENTITY injection test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: CRITICAL
