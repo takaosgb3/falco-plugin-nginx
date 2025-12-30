@@ -1,0 +1,70 @@
+{
+  "metadata": {
+    "category": "xpath",
+    "total_patterns": 5,
+    "port": 8009,
+    "description": "k6 test patterns for XPath injection attacks"
+  },
+  "patterns": [
+    {
+      "id": "XPATH_BOOL_001",
+      "name": "XPath boolean injection",
+      "category": "xpath",
+      "subcategory": "boolean_based",
+      "payload": "' or '1'='1",
+      "encoded": "%27%20or%20%271%27%3D%271",
+      "port": 8009,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "XPath Injection Attempt"
+    },
+    {
+      "id": "XPATH_PAREN_001",
+      "name": "XPath parenthesis bypass injection",
+      "category": "xpath",
+      "subcategory": "authentication_bypass",
+      "payload": "') or ('1'='1",
+      "encoded": "%27%29%20or%20%28%271%27%3D%271",
+      "port": 8009,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "XPath Injection Attempt"
+    },
+    {
+      "id": "XPATH_FUNC_001",
+      "name": "XPath count function injection",
+      "category": "xpath",
+      "subcategory": "function_abuse",
+      "payload": "' and count(//user)>0 and '1'='1",
+      "encoded": "%27%20and%20count%28%2F%2Fuser%29%3E0%20and%20%271%27%3D%271",
+      "port": 8009,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "XPath Injection Attempt"
+    },
+    {
+      "id": "XPATH_BLIND_001",
+      "name": "XPath substring blind injection",
+      "category": "xpath",
+      "subcategory": "blind",
+      "payload": "' or substring(//user[1]/password,1,1)='a' or '1'='2",
+      "encoded": "%27%20or%20substring%28%2F%2Fuser%5B1%5D%2Fpassword%2C1%2C1%29%3D%27a%27%20or%20%271%27%3D%272",
+      "port": 8009,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "XPath Injection Attempt"
+    },
+    {
+      "id": "XPATH_ENUM_001",
+      "name": "XPath string-length enumeration",
+      "category": "xpath",
+      "subcategory": "enumeration",
+      "payload": "' or string-length(//user[1]/password)>5 or '1'='2",
+      "encoded": "%27%20or%20string-length%28%2F%2Fuser%5B1%5D%2Fpassword%29%3E5%20or%20%271%27%3D%272",
+      "port": 8009,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "XPath Injection Attempt"
+    }
+  ]
+}

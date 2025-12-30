@@ -1,0 +1,70 @@
+{
+  "metadata": {
+    "category": "ssti",
+    "total_patterns": 5,
+    "port": 8010,
+    "description": "k6 test patterns for Server-Side Template Injection attacks"
+  },
+  "patterns": [
+    {
+      "id": "SSTI_JINJA_001",
+      "name": "Jinja2 basic template injection test",
+      "category": "ssti",
+      "subcategory": "jinja2",
+      "payload": "{{7*7}}",
+      "encoded": "%7B%7B7%2A7%7D%7D",
+      "port": 8010,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "Template Injection Detection"
+    },
+    {
+      "id": "SSTI_JINJA_002",
+      "name": "Jinja2 config disclosure injection",
+      "category": "ssti",
+      "subcategory": "jinja2",
+      "payload": "{{config.items()}}",
+      "encoded": "%7B%7Bconfig.items%28%29%7D%7D",
+      "port": 8010,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "Template Injection Detection"
+    },
+    {
+      "id": "SSTI_VEL_001",
+      "name": "Velocity template runtime execution",
+      "category": "ssti",
+      "subcategory": "velocity",
+      "payload": "#set($runtime = $runtime.getRuntime())$runtime.exec('whoami')",
+      "encoded": "%23set%28%24runtime%20%3D%20%24runtime.getRuntime%28%29%29%24runtime.exec%28%27whoami%27%29",
+      "port": 8010,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "Template Injection Detection"
+    },
+    {
+      "id": "SSTI_VEL_002",
+      "name": "Velocity class inspection RCE",
+      "category": "ssti",
+      "subcategory": "velocity",
+      "payload": "$class.inspect(\"java.lang.Runtime\").type.getRuntime().exec(\"id\")",
+      "encoded": "%24class.inspect%28%22java.lang.Runtime%22%29.type.getRuntime%28%29.exec%28%22id%22%29",
+      "port": 8010,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "Template Injection Detection"
+    },
+    {
+      "id": "SSTI_FREEMKR_001",
+      "name": "FreeMarker template command execution",
+      "category": "ssti",
+      "subcategory": "freemarker",
+      "payload": "<#assign ex=\"freemarker.template.utility.Execute\"?new()> ${ex(\"whoami\")}",
+      "encoded": "%3C%23assign%20ex%3D%22freemarker.template.utility.Execute%22%3Fnew%28%29%3E%20%24%7Bex%28%22whoami%22%29%7D",
+      "port": 8010,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "Template Injection Detection"
+    }
+  ]
+}

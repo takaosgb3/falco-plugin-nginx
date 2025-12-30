@@ -293,11 +293,16 @@ class BatchAnalyzer:
                         latency_ms += MILLISECONDS_PER_DAY
                         logger.debug(f"Adjusted midnight crossing latency for {test_id}: {original_latency}ms -> {latency_ms}ms")
 
+            # Get expected_detection from pattern definition (default True for backward compatibility)
+            # Pattern #A326: Properly handle expected_detection field
+            expected_detection = pattern_data.get('expected_detection', True)
+
             result = {
                 "pattern_id": pattern_id,
                 "test_id": test_id,
                 "category": category,
                 "detected": detected,
+                "expected_detection": expected_detection,
                 "sent_at": sent_at,
                 "detected_at": detected_at,
                 "latency_ms": latency_ms,
@@ -330,11 +335,27 @@ class BatchAnalyzer:
         test_results = []
 
         for result in pattern_results:
+            # Pattern #A326: Properly determine status based on expected_detection
+            # | expected_detection | detected | status |
+            # |--------------------|----------|--------|
+            # | true               | true     | passed | (detected as expected)
+            # | true               | false    | failed | (should detect but didn't)
+            # | false              | true     | failed | (false positive - shouldn't detect but did)
+            # | false              | false    | passed | (correctly not detected)
+            expected_detection = result.get("expected_detection", True)
+            detected = result["detected"]
+
+            if expected_detection:
+                status = "passed" if detected else "failed"
+            else:
+                status = "passed" if not detected else "failed"
+
             test_result = {
                 "pattern_id": result["pattern_id"],
                 "test_id": result["test_id"],
                 "category": result["category"],
                 "detected": result["detected"],
+                "expected_detection": expected_detection,
                 "latency_ms": result["latency_ms"],
                 "evidence": result["evidence"],
                 "rule_name": result.get("rule_name", ""),
@@ -342,7 +363,7 @@ class BatchAnalyzer:
                 "rule_id": result.get("rule_id", ""),
                 "sent_at": result["sent_at"],
                 "detected_at": result["detected_at"],
-                "status": "passed" if result["detected"] else "failed"
+                "status": status
             }
             test_results.append(test_result)
 

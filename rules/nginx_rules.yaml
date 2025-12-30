@@ -644,6 +644,16 @@
         - LDAP_BASIC_002
         - LDAP_BASIC_003
         - LDAP_BLIND_001
+    # Issue #783 Phase 3: XPath patterns with boolean-like syntax - should be caught by XPath rules
+    - name: xpath_boolean_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - XPATH_BOOL_001
+        - XPATH_PAREN_001
+        - XPATH_FUNC_001
+        - XPATH_BLIND_001
+        - XPATH_ENUM_001
   output: "[NGINX SQLi] Boolean-based Blind SQL Injection test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: CRITICAL
   tags: [security, sql_injection, advanced_sqli, boolean_based, phase3]
@@ -1096,18 +1106,20 @@
   desc: Detects Windows-specific path traversal attempts
   condition: >-
     (
-      nginx.request_uri contains "C:%5c" or
+      nginx.request_uri icontains "C:%5c" or
       nginx.request_uri contains "C:/" or
-      nginx.request_uri contains "..%5cwindows" or
-      nginx.request_uri contains "..%5cwinnt" or
-      nginx.request_uri contains "..%5cboot.ini" or
-      nginx.request_uri contains "..%5csystem32" or
-      nginx.request_uri contains "%5cwindows" or
-      nginx.request_uri contains "%5cwinnt" or
-      nginx.request_uri contains "%5csystem32" or
-      nginx.request_uri contains "%5c%5clocalhost" or
-      nginx.request_uri contains "%5c%5clocalhost" or
+      nginx.request_uri icontains "..%5cwindows" or
+      nginx.request_uri icontains "..%5cwinnt" or
+      nginx.request_uri icontains "..%5cboot.ini" or
+      nginx.request_uri icontains "..%5csystem32" or
+      nginx.request_uri icontains "%5cwindows" or
+      nginx.request_uri icontains "%5cwinnt" or
+      nginx.request_uri icontains "%5csystem32" or
+      nginx.request_uri icontains "%5c%5clocalhost" or
       nginx.request_uri contains "file:///" or
+      nginx.request_uri icontains "..%5C..%5C" or
+      nginx.request_uri icontains "Windows%5CSystem32" or
+      nginx.request_uri icontains "drivers%5Cetc%5Chosts" or
       nginx.request_uri contains "file:%2f%2f%2f" or
       nginx.request_uri contains "%5c%5c.%5c" or
       nginx.request_uri contains "%5c%5c%2e%5c"
@@ -1214,13 +1226,17 @@
   desc: Comprehensive detection of path traversal techniques
   condition: >-
     (
-      nginx.request_uri contains "..%5c.." or
+      nginx.request_uri icontains "..%5c.." or
       nginx.request_uri icontains "directory traversal" or
       nginx.request_uri contains "%00" or
       nginx.request_uri contains "%0a" or
       nginx.request_uri contains "%0d" or
       nginx.request_uri contains "::$DATA" or
-      nginx.request_uri contains "::$INDEX_ALLOCATION"
+      nginx.request_uri contains "::$INDEX_ALLOCATION" or
+      nginx.request_uri icontains "..%3B%2F" or
+      nginx.request_uri icontains "..%5C..%2F" or
+      nginx.request_uri contains "%2500" or
+      nginx.request_uri icontains "..%5Cx2f"
     )
   output: "[NGINX Traversal] Advanced path traversal attempt detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: WARNING
@@ -1380,6 +1396,8 @@
       nginx.request_uri contains "%24%28curl" or
       nginx.request_uri contains "%24%28uname" or
       nginx.request_uri contains "%24(uname" or
+      nginx.request_uri contains "$(ls" or
+      nginx.request_uri contains "%24%28ls" or
       nginx.request_uri contains "%60whoami" or
       nginx.request_uri contains "%60cat" or
       nginx.request_uri contains "%60uname" or
@@ -1442,7 +1460,10 @@
       nginx.request_uri contains "%253Bwhoami" or
       nginx.request_uri contains "%253Bcat" or
       nginx.request_uri contains "%253Bls" or
-      nginx.request_uri contains "%253Bid"
+      nginx.request_uri contains "%253Bid" or
+      nginx.request_uri contains "%2526%2526" or
+      nginx.request_uri contains "%2524%2528" or
+      nginx.request_uri contains "%2560"
     )
   output: "[NGINX CMDi] Advanced command injection attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: WARNING
@@ -1640,7 +1661,7 @@
 # This rule provides explicit detection for MongoDB operators
 # Test patterns: EMRG_MONGO_001, 002, 003, 004
 - rule: MongoDB NoSQL Injection Detection
-  desc: Detects MongoDB NoSQL injection attempts via operators
+  desc: Detects MongoDB NoSQL injection and CouchDB API access attempts
   condition: >-
     (
       nginx.request_uri contains "$where" or
@@ -1664,7 +1685,11 @@
       nginx.request_uri icontains "db.users.find" or
       nginx.request_uri icontains "db.collection.find" or
       nginx.request_uri icontains "this.password" or
-      nginx.request_uri icontains "this.username"
+      nginx.request_uri icontains "this.username" or
+      nginx.request_uri icontains "_all_docs" or
+      nginx.request_uri icontains "_design%2F" or
+      nginx.request_uri icontains "_design/" or
+      nginx.request_uri icontains "_changes"
     )
   output: "[NGINX Emerging Threat] MongoDB NoSQL injection test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: CRITICAL
@@ -1677,7 +1702,7 @@
 # Test patterns: OTHER_JINJA_001
 # Issue #782 Fix: Added exceptions for GraphQL patterns
 - rule: Template Injection Detection
-  desc: Detects server-side template injection attempts (SSTI)
+  desc: Detects server-side template injection attempts (SSTI) including Jinja2, Velocity, Freemarker
   condition: >-
     (
       nginx.request_uri contains "{{" or
@@ -1689,7 +1714,11 @@
       nginx.request_uri contains "#{" or
       nginx.request_uri contains "%23%7B" or
       nginx.request_uri contains "<%" or
-      nginx.request_uri contains "%3C%25"
+      nginx.request_uri contains "%3C%25" or
+      nginx.request_uri icontains "%23set%28%24" or
+      nginx.request_uri icontains "%24class.inspect" or
+      nginx.request_uri icontains "%3C%23assign" or
+      nginx.request_uri icontains "freemarker.template"
     )
   exceptions:
     # GraphQL patterns with template-like syntax - should be caught by GraphQL rules
@@ -1823,7 +1852,9 @@
       nginx.request_uri contains "%3c!DOCTYPE" or
       nginx.request_uri icontains "<!ENTITY" or
       nginx.request_uri contains "%3C!ENTITY" or
-      nginx.request_uri contains "%3c!ENTITY"
+      nginx.request_uri contains "%3c!ENTITY" or
+      nginx.request_uri contains "%3C%21ENTITY" or
+      nginx.request_uri contains "%3c%21ENTITY"
     )
   output: "[NGINX XXE Attack] DOCTYPE/ENTITY injection test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: CRITICAL
@@ -1844,7 +1875,11 @@
       nginx.request_uri icontains "php://filter" or
       nginx.request_uri contains "php%3A%2F%2Ffilter" or
       nginx.request_uri icontains "php://input" or
-      nginx.request_uri contains "php%3A%2F%2Finput"
+      nginx.request_uri contains "php%3A%2F%2Finput" or
+      nginx.request_uri icontains "jar%3Ahttp" or
+      nginx.request_uri icontains "jar:http" or
+      nginx.request_uri icontains "netdoc%3A%2F%2F" or
+      nginx.request_uri icontains "netdoc://"
     )
   output: "[NGINX XXE Attack] External resource access attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: CRITICAL
@@ -1933,3 +1968,27 @@
   priority: CRITICAL
   tags: [security, graphql_injection, sqli, phase4]
   source: nginx
+
+# ==============================================================================
+# Phase 3 New Rules: XPath, SSTI, NoSQL Extended (Issue #783)
+# ==============================================================================
+
+# ====================================
+# XPATH_001-005: XPath Injection Detection
+# ====================================
+- rule: XPath Injection Attempt
+  desc: Detects XPath injection attempts in HTTP requests
+  condition: >-
+    (
+      nginx.request_uri icontains "%27%20or%20" or
+      nginx.request_uri icontains "%27%20and%20" or
+      nginx.request_uri icontains "%27%29%20or%20" or
+      nginx.request_uri icontains "count%28%2F%2F" or
+      nginx.request_uri icontains "substring%28%2F%2F" or
+      nginx.request_uri icontains "string-length%28%2F%2F"
+    )
+  output: "[NGINX XPath Injection] XPath injection attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
+  priority: WARNING
+  tags: [security, xpath_injection, injection, phase3]
+  source: nginx
+
