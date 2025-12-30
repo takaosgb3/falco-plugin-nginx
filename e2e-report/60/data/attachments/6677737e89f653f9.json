@@ -1,0 +1,15 @@
+{
+  "pattern_id": "CMD_SUB_002",
+  "test_id": "CMD_SUB_002-1767070422909-cnzwji",
+  "category": "cmdinj",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 21000,
+  "evidence": "04:53:42.000000000: Warning [NGINX SQLi] Encoded SQL Injection Pattern test_id=CMD_SUB_002-1767070422909-cnzwji pattern_id=CMD_SUB_002 uri=/?q=%60id%60 client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Encoded SQL Injection Pattern test_id=CMD_SUB_002-1767070422909-cnzwji pattern_id=CMD_SUB_002 uri=/?q=%60id%60 client=127.0.0.1 method=GET",
+  "expected_rule": "Command Substitution Attack",
+  "rule_id": "",
+  "sent_at": 1767070443000,
+  "detected_at": 1767070422000,
+  "status": "passed"
+}

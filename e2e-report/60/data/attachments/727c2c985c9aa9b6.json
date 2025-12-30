@@ -1,0 +1,15 @@
+{
+  "pattern_id": "SQLI_UNION_006",
+  "test_id": "SQLI_UNION_006-1767070415925-qi9iw9",
+  "category": "sqli",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 28000,
+  "evidence": "04:53:35.000000000: Critical [NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_UNION_006-1767070415925-qi9iw9 pattern_id=SQLI_UNION_006 uri=/?q=%27%20UNION%20SELECT%20username%2Cpassword%2CNULL%20FROM%20users%20-- client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_UNION_006-1767070415925-qi9iw9 pattern_id=SQLI_UNION_006 uri=/?q=%27%20UNION%20SELECT%20username%2Cpassword%2CNULL%20FROM%20users%20-- client=127.0.0.1 method=GET",
+  "expected_rule": "Advanced SQL Injection Attempt",
+  "rule_id": "",
+  "sent_at": 1767070443000,
+  "detected_at": 1767070415000,
+  "status": "passed"
+}

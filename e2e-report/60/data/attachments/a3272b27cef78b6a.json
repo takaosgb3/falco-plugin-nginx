@@ -1,0 +1,15 @@
+{
+  "pattern_id": "OTHER_API_001",
+  "test_id": "OTHER_API_001-1767070414883-nsrf1g",
+  "category": "other",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 29000,
+  "evidence": "04:53:34.000000000: Critical [NGINX Traversal] File inclusion attack detected test_id=OTHER_API_001-1767070414883-nsrf1g pattern_id=OTHER_API_001 uri=/?q=%2Fapi%2Fv1%2Fusers%2F..%2F..%2F..%2Fetc%2Fpasswd client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] File inclusion attack detected test_id=OTHER_API_001-1767070414883-nsrf1g pattern_id=OTHER_API_001 uri=/?q=%2Fapi%2Fv1%2Fusers%2F..%2F..%2F..%2Fetc%2Fpasswd client=127.0.0.1",
+  "expected_rule": "",
+  "rule_id": "",
+  "sent_at": 1767070443000,
+  "detected_at": 1767070414000,
+  "status": "passed"
+}

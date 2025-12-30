@@ -1,0 +1,15 @@
+{
+  "pattern_id": "CMD_BASIC_013",
+  "test_id": "CMD_BASIC_013-1767070413389-tcki86",
+  "category": "cmdinj",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 30000,
+  "evidence": "04:53:33.000000000: Critical [NGINX CMDi] Command injection via semicolon test_id=CMD_BASIC_013-1767070413389-tcki86 pattern_id=CMD_BASIC_013 uri=/?q=%3Bpwd client=127.0.0.1",
+  "rule_name": "[NGINX CMDi] Command injection via semicolon test_id=CMD_BASIC_013-1767070413389-tcki86 pattern_id=CMD_BASIC_013 uri=/?q=%3Bpwd client=127.0.0.1",
+  "expected_rule": "",
+  "rule_id": "",
+  "sent_at": 1767070443000,
+  "detected_at": 1767070413000,
+  "status": "passed"
+}

@@ -1,0 +1,15 @@
+{
+  "pattern_id": "XSS_DOM_008",
+  "test_id": "XSS_DOM_008-1767070413910-futuloh",
+  "category": "xss",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 30000,
+  "evidence": "04:53:33.000000000: Critical [NGINX XSS] DOM-based XSS Attack test_id=XSS_DOM_008-1767070413910-futuloh pattern_id=XSS_DOM_008 uri=/?q=document.location.href%3D%27javascript%3Aalert%28%22DOM%22%29%27 client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX XSS] DOM-based XSS Attack test_id=XSS_DOM_008-1767070413910-futuloh pattern_id=XSS_DOM_008 uri=/?q=document.location.href%3D%27javascript%3Aalert%28%22DOM%22%29%27 client=127.0.0.1 method=GET",
+  "expected_rule": "DOM-based XSS Attack",
+  "rule_id": "",
+  "sent_at": 1767070443000,
+  "detected_at": 1767070413000,
+  "status": "passed"
+}

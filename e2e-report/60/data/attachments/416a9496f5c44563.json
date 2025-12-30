@@ -1,0 +1,15 @@
+{
+  "pattern_id": "XSS_ENC_002",
+  "test_id": "XSS_ENC_002-1767070405395-3ttmee",
+  "category": "xss",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 38000,
+  "evidence": "04:53:25.000000000: Warning [NGINX XSS] XSS Filter Bypass Attempt test_id=XSS_ENC_002-1767070405395-3ttmee pattern_id=XSS_ENC_002 uri=/?q=%5Cu003cscript%5Cu003ealert(1)%5Cu003c%2Fscript%5Cu003e client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX XSS] XSS Filter Bypass Attempt test_id=XSS_ENC_002-1767070405395-3ttmee pattern_id=XSS_ENC_002 uri=/?q=%5Cu003cscript%5Cu003ealert(1)%5Cu003c%2Fscript%5Cu003e client=127.0.0.1 method=GET",
+  "expected_rule": "",
+  "rule_id": "",
+  "sent_at": 1767070443000,
+  "detected_at": 1767070405000,
+  "status": "passed"
+}

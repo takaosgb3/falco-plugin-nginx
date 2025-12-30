@@ -1,0 +1,15 @@
+{
+  "pattern_id": "PATH_WIN_002",
+  "test_id": "PATH_WIN_002-1767070417908-6cyp3s",
+  "category": "path",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 26000,
+  "evidence": "04:53:37.000000000: Critical [NGINX Traversal] Basic path traversal attack detected test_id=PATH_WIN_002-1767070417908-6cyp3s pattern_id=PATH_WIN_002 uri=/?q=..%5C..%5C client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] Basic path traversal attack detected test_id=PATH_WIN_002-1767070417908-6cyp3s pattern_id=PATH_WIN_002 uri=/?q=..%5C..%5C client=127.0.0.1",
+  "expected_rule": "Windows Path Traversal Attack",
+  "rule_id": "",
+  "sent_at": 1767070443000,
+  "detected_at": 1767070417000,
+  "status": "passed"
+}
