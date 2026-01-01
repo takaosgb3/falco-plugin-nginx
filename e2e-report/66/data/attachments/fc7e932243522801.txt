@@ -1,0 +1,5 @@
+Pattern ID: CMD_PIPE_001
+        Status: passed
+        Latency: ~24000ms
+        Detection: 1 / 1
+        Rule: [NGINX CMDi] Command injection via pipe test_id=CMD_PIPE_001-1767272393257-sr20o6 pattern_id=CMD_PIPE_001 uri=/?q=cat%20%2Fetc%2Fpasswd%20%7C%20grep%20root client=127.0.0.1

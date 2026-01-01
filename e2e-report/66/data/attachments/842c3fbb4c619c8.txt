@@ -1,0 +1,5 @@
+Pattern ID: PATH_UNICODE_001
+        Status: passed
+        Latency: ~29000ms
+        Detection: 1 / 1
+        Rule: [NGINX Traversal] Basic path traversal attack detected test_id=PATH_UNICODE_001-1767272388258-1gmcr pattern_id=PATH_UNICODE_001 uri=/?q=..%25c0%25afetc%2Fpasswd client=127.0.0.1

@@ -1,0 +1,15 @@
+{
+  "pattern_id": "CMD_BLIND_005",
+  "test_id": "CMD_BLIND_005-1767272396264-pietv7",
+  "category": "cmdinj",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 21000,
+  "evidence": "12:59:56.000000000: Warning [NGINX CMDi] Advanced command injection attempt test_id=CMD_BLIND_005-1767272396264-pietv7 pattern_id=CMD_BLIND_005 uri=/?q=%26%26%20timeout%2015%20bash client=127.0.0.1",
+  "rule_name": "[NGINX CMDi] Advanced command injection attempt test_id=CMD_BLIND_005-1767272396264-pietv7 pattern_id=CMD_BLIND_005 uri=/?q=%26%26%20timeout%2015%20bash client=127.0.0.1",
+  "expected_rule": "Advanced Command Injection Attempt",
+  "rule_id": "",
+  "sent_at": 1767272417000,
+  "detected_at": 1767272396000,
+  "status": "passed"
+}

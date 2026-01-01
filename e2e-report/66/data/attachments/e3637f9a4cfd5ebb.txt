@@ -1,0 +1,5 @@
+Pattern ID: PATH_DOT_008
+        Status: passed
+        Latency: ~35000ms
+        Detection: 1 / 1
+        Rule: [NGINX Traversal] Basic path traversal attack detected test_id=PATH_DOT_008-1767272382747-j68zti pattern_id=PATH_DOT_008 uri=/?q=../../../../root/.bash_history client=127.0.0.1

@@ -1,0 +1,15 @@
+{
+  "pattern_id": "PATH_BASIC_002",
+  "test_id": "PATH_BASIC_002-1767272377233-kpgtb",
+  "category": "path",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 40000,
+  "evidence": "12:59:37.000000000: Critical [NGINX Traversal] Basic path traversal attack detected test_id=PATH_BASIC_002-1767272377233-kpgtb pattern_id=PATH_BASIC_002 uri=/?q=../../ client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] Basic path traversal attack detected test_id=PATH_BASIC_002-1767272377233-kpgtb pattern_id=PATH_BASIC_002 uri=/?q=../../ client=127.0.0.1",
+  "expected_rule": "",
+  "rule_id": "",
+  "sent_at": 1767272417000,
+  "detected_at": 1767272377000,
+  "status": "passed"
+}

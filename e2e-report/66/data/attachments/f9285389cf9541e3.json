@@ -1,0 +1,15 @@
+{
+  "pattern_id": "PATH_ADV_004",
+  "test_id": "PATH_ADV_004-1767272395273-f2djha",
+  "category": "path",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 22000,
+  "evidence": "12:59:55.000000000: Critical [NGINX Traversal] File inclusion attack detected test_id=PATH_ADV_004-1767272395273-f2djha pattern_id=PATH_ADV_004 uri=/?q=.%2F%2F..%2F%2F.%2F%2F..%2F%2Fetc%2Fpasswd client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] File inclusion attack detected test_id=PATH_ADV_004-1767272395273-f2djha pattern_id=PATH_ADV_004 uri=/?q=.%2F%2F..%2F%2F.%2F%2F..%2F%2Fetc%2Fpasswd client=127.0.0.1",
+  "expected_rule": "Advanced Path Traversal Attempt",
+  "rule_id": "",
+  "sent_at": 1767272417000,
+  "detected_at": 1767272395000,
+  "status": "passed"
+}

