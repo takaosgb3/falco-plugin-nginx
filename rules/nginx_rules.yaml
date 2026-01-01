@@ -522,7 +522,8 @@
      nginx.request_uri icontains "group by" or
      nginx.request_uri icontains "having" or
      nginx.request_uri contains "ORDER%20BY" or
-     nginx.request_uri icontains "+UNION+SELECT+")
+     nginx.request_uri icontains "+UNION+SELECT+" or
+     nginx.request_uri contains "%2BUNION%2BSELECT%2B")
 
 # Hex and char patterns - contains maintained (0x prefix, special chars)
 - macro: contains_hex_char_patterns
