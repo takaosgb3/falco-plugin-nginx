@@ -609,6 +609,19 @@
 - rule: Time-based Blind SQL Injection
   desc: Detects time-based blind SQL injection attempts using SLEEP, WAITFOR DELAY, pg_sleep, BENCHMARK, and other time-based functions
   condition: sqli_time_based_pattern
+  exceptions:
+    # Issue #43 Fix: CMDi patterns with sleep command - should be caught by CMDi rules
+    - name: cmdi_sleep_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - CMD_BLIND_001
+    # Issue #43 Fix: Advanced SQLi patterns - should be caught by Advanced SQLi rule
+    - name: sqli_advanced_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - SQLI_BLIND_005
   output: "[NGINX SQLi] Time-based Blind SQL Injection test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: CRITICAL
   tags: [security, sql_injection, advanced_sqli, time_based, phase3]
@@ -654,6 +667,39 @@
         - XPATH_FUNC_001
         - XPATH_BLIND_001
         - XPATH_ENUM_001
+    # Issue #43 Fix: Error-based SQLi patterns - should be caught by Error-based SQLi rule
+    - name: sqli_error_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - SQLI_ERROR_006
+        - SQLI_ERROR_007
+        - SQLI_ERROR_008
+        - SQLI_ERROR_009
+        - SQLI_ERROR_010
+    # Issue #43 Fix: Union/Advanced SQLi patterns
+    - name: sqli_union_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - SQLI_UNION_003
+        - SQLI_UNION_004
+        - SQLI_UNION_005
+        - SQLI_UNION_006
+    # Issue #43 Fix: Bypass patterns - should be caught by Encoded/Advanced SQLi
+    - name: sqli_bypass_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - SQLI_BYPASS_003
+        - SQLI_BYPASS_004
+        - SQLI_BYPASS_005
+    # Issue #43 Fix: Stack patterns - should be caught by Advanced SQLi
+    - name: sqli_stack_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - SQLI_STACK_004
   output: "[NGINX SQLi] Boolean-based Blind SQL Injection test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: CRITICAL
   tags: [security, sql_injection, advanced_sqli, boolean_based, phase3]
@@ -705,6 +751,13 @@
       values:
         - XXE_ENTITY_003
         - XXE_ENTITY_005
+    # Issue #43 Fix: XXE external resource patterns - should be caught by XXE External Resource rule
+    - name: xxe_external_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - XXE_JAR_001
+        - XXE_NETDOC_001
   output: "[NGINX SQLi] Advanced SQL Injection Attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: WARNING
   tags: [security, sql_injection, advanced_sqli, enumeration, phase3]
@@ -731,6 +784,33 @@
       comps: in
       values:
         - XSS_ENC_001
+    # Issue #43 Fix: CMDi blind patterns - should be caught by CMDi rules
+    - name: cmdi_blind_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - CMD_BLIND_003
+        - CMD_BLIND_004
+    # Issue #43 Fix: CMDi substitution patterns - should be caught by Command Substitution rule
+    - name: cmdi_sub_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - CMD_SUB_002
+        - CMD_SUB_004
+    # Issue #43 Fix: SSTI patterns - should be caught by Template Injection rule
+    - name: ssti_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - SSTI_FREEMKR_001
+        - SSTI_VEL_001
+    # Issue #43 Fix: XSS bypass patterns - should be caught by XSS Filter Bypass rule
+    - name: xss_bypass_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - XSS_BYPASS_006
   output: "[NGINX SQLi] Encoded SQL Injection Pattern test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: WARNING
   tags: [security, sql_injection, advanced_sqli, encoding_evasion, phase3]
@@ -790,6 +870,21 @@
       (nginx.request_uri icontains "<object" and nginx.request_uri icontains "data=") or
       (nginx.request_uri contains "%3Cobject" and nginx.request_uri contains "data%3D")
     )
+  exceptions:
+    # Issue #43 Fix: XSS MUT patterns - should be caught by Advanced XSS rule
+    - name: xss_mut_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - XSS_MUT_002
+        - XSS_MUT_003
+        - XSS_MUT_005
+    # Issue #43 Fix: XSS Bypass patterns - should be caught by XSS Filter Bypass rule
+    - name: xss_bypass_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - XSS_BYPASS_003
   output: "[NGINX XSS] DOM-based XSS Attack test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: CRITICAL
   tags: [security, xss, dom_based, advanced_xss, phase3]
@@ -901,6 +996,13 @@
       nginx.request_uri icontains "</style><script>" or
       nginx.request_uri icontains "</textarea><script>"
     )
+  exceptions:
+    # Issue #43 Fix: XSS MUT patterns - should be caught by Advanced XSS rule
+    - name: xss_mut_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - XSS_MUT_004
   output: "[NGINX XSS] Polyglot XSS Attack test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: CRITICAL
   tags: [security, xss, polyglot, advanced_xss, phase3]
@@ -959,6 +1061,14 @@
       nginx.request_uri contains "&lt;script" or
       nginx.request_uri contains "&gt;"
     )
+  exceptions:
+    # Issue #43 Fix: XSS DOM patterns - should be caught by DOM-based XSS rule
+    - name: xss_dom_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - XSS_DOM_006
+        - XSS_DOM_010
   output: "[NGINX XSS] Advanced XSS Attack Attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: WARNING
   tags: [security, xss, advanced_xss, event_handlers, phase3]
@@ -1060,6 +1170,26 @@
       comps: in
       values:
         - OTHER_API_001
+    # Issue #43 Fix: Advanced Path Traversal patterns - should be caught by Advanced Path Traversal rule
+    - name: path_adv_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - PATH_ADV_002
+        - PATH_ADV_003
+        - PATH_ADV_004
+        - PATH_ADV_005
+        - PATH_ADV_006
+    # Issue #43 Fix: Windows Path Traversal patterns - should be caught by Windows Path Traversal rule
+    - name: path_win_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - PATH_WIN_001
+        - PATH_WIN_002
+        - PATH_WIN_003
+        - PATH_WIN_004
+        - PATH_WIN_005
   output: "[NGINX Traversal] Basic path traversal attack detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: CRITICAL
   tags: [security, path_traversal, advanced_traversal, basic, phase3]
@@ -1213,6 +1343,12 @@
       values:
         - XXE_ENTITY_001
         - XXE_ENTITY_004
+    # Issue #43 Fix: CMDi substitution patterns - should be caught by Command Substitution rule
+    - name: cmdi_sub_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - CMD_SUB_003
   output: "[NGINX Traversal] File inclusion attack detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: CRITICAL
   tags: [security, path_traversal, file_inclusion, advanced_traversal, phase3]
