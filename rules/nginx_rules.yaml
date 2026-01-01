@@ -521,7 +521,8 @@
      nginx.request_uri contains "GROUP%20BY" or
      nginx.request_uri icontains "group by" or
      nginx.request_uri icontains "having" or
-     nginx.request_uri contains "ORDER%20BY")
+     nginx.request_uri contains "ORDER%20BY" or
+     nginx.request_uri icontains "+UNION+SELECT+")
 
 # Hex and char patterns - contains maintained (0x prefix, special chars)
 - macro: contains_hex_char_patterns
@@ -549,7 +550,9 @@
      nginx.request_uri icontains "delete from" or
      nginx.request_uri icontains "delete%20from" or
      nginx.request_uri icontains "truncate table" or
-     nginx.request_uri icontains "truncate%20table")
+     nginx.request_uri icontains "truncate%20table" or
+     nginx.request_uri icontains "create table" or
+     nginx.request_uri icontains "create%20table")
 
 # ====================================
 # MACROS - Advanced SQL Injection (Level 2: Combined)
@@ -569,7 +572,10 @@
     (nginx.request_uri contains "%2527" or
      nginx.request_uri contains "%252F" or
      nginx.request_uri contains "%u0027" or
-     nginx.request_uri contains "%u002f")
+     nginx.request_uri contains "%u002f" or
+     nginx.request_uri contains "%2520" or
+     nginx.request_uri contains "%250A" or
+     nginx.request_uri contains "%2509")
 
 # Pattern #A300: Removed - Mixed case keywords are now redundant
 # icontains "select" and icontains "union" already cover all case variations
@@ -868,7 +874,11 @@
       (nginx.request_uri icontains "<iframe" and nginx.request_uri icontains "src=") or
       (nginx.request_uri contains "%3Ciframe" and nginx.request_uri contains "src%3D") or
       (nginx.request_uri icontains "<object" and nginx.request_uri icontains "data=") or
-      (nginx.request_uri contains "%3Cobject" and nginx.request_uri contains "data%3D")
+      (nginx.request_uri contains "%3Cobject" and nginx.request_uri contains "data%3D") or
+      nginx.request_uri icontains "eval(" or
+      nginx.request_uri contains "eval%28" or
+      nginx.request_uri icontains "setTimeout(" or
+      nginx.request_uri contains "setTimeout%28"
     )
   exceptions:
     # Issue #43 Fix: XSS MUT patterns - should be caught by Advanced XSS rule
@@ -1059,7 +1069,11 @@
       nginx.request_uri contains "&#x3C;" or
       nginx.request_uri contains "&#60;" or
       nginx.request_uri contains "&lt;script" or
-      nginx.request_uri contains "&gt;"
+      nginx.request_uri contains "&gt;" or
+      nginx.request_uri contains "onclick%3D" or
+      nginx.request_uri contains "ondblclick%3D" or
+      nginx.request_uri contains "onmousedown%3D" or
+      nginx.request_uri contains "onkeydown%3D"
     )
   exceptions:
     # Issue #43 Fix: XSS DOM patterns - should be caught by DOM-based XSS rule
@@ -1252,7 +1266,9 @@
       nginx.request_uri icontains "drivers%5Cetc%5Chosts" or
       nginx.request_uri contains "file:%2f%2f%2f" or
       nginx.request_uri contains "%5c%5c.%5c" or
-      nginx.request_uri contains "%5c%5c%2e%5c"
+      nginx.request_uri contains "%5c%5c%2e%5c" or
+      nginx.request_uri contains "..%5C" or
+      nginx.request_uri contains "..%5c"
     )
   output: "[NGINX Traversal] Windows path traversal attack detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: CRITICAL
@@ -1425,10 +1441,12 @@
       nginx.request_uri icontains ";ls" or
       nginx.request_uri icontains ";nc" or
       nginx.request_uri icontains ";pwd" or
+      nginx.request_uri icontains ";sleep" or
       nginx.request_uri icontains "; ls" or
       nginx.request_uri icontains "; uname" or
       nginx.request_uri icontains "; ifconfig" or
       nginx.request_uri icontains "; cat" or
+      nginx.request_uri icontains "; sleep" or
       nginx.request_uri contains ";;" or
       nginx.request_uri contains "%3Bcat" or
       nginx.request_uri contains "%3Brm" or
@@ -1439,11 +1457,13 @@
       nginx.request_uri contains "%3Bls" or
       nginx.request_uri contains "%3Bnc" or
       nginx.request_uri contains "%3Bpwd" or
+      nginx.request_uri contains "%3Bsleep" or
       nginx.request_uri contains "%3B%3B" or
       nginx.request_uri contains "%3B%20ls" or
       nginx.request_uri contains "%3B%20uname" or
       nginx.request_uri contains "%3B%20ifconfig" or
-      nginx.request_uri contains "%3B%20cat"
+      nginx.request_uri contains "%3B%20cat" or
+      nginx.request_uri contains "%3B%20sleep"
     )
   output: "[NGINX CMDi] Command injection via semicolon test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: CRITICAL
