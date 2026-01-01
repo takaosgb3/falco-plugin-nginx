@@ -1,0 +1,15 @@
+{
+  "pattern_id": "PATH_ABS_008",
+  "test_id": "PATH_ABS_008-1767274135281-erlup7",
+  "category": "path",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 26000,
+  "evidence": "13:28:55.000000000: Critical [NGINX Traversal] File inclusion attack detected test_id=PATH_ABS_008-1767274135281-erlup7 pattern_id=PATH_ABS_008 uri=/?q=%2Fetc%2Fcrontab client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] File inclusion attack detected test_id=PATH_ABS_008-1767274135281-erlup7 pattern_id=PATH_ABS_008 uri=/?q=%2Fetc%2Fcrontab client=127.0.0.1",
+  "expected_rule": "",
+  "rule_id": "",
+  "sent_at": 1767274161000,
+  "detected_at": 1767274135000,
+  "status": "passed"
+}

@@ -1,0 +1,15 @@
+{
+  "pattern_id": "PATH_DOT_009",
+  "test_id": "PATH_DOT_009-1767274127264-sp2pcc",
+  "category": "path",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 34000,
+  "evidence": "13:28:47.000000000: Critical [NGINX Traversal] Basic path traversal attack detected test_id=PATH_DOT_009-1767274127264-sp2pcc pattern_id=PATH_DOT_009 uri=/?q=../../home/user/.ssh/id_rsa client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] Basic path traversal attack detected test_id=PATH_DOT_009-1767274127264-sp2pcc pattern_id=PATH_DOT_009 uri=/?q=../../home/user/.ssh/id_rsa client=127.0.0.1",
+  "expected_rule": "",
+  "rule_id": "",
+  "sent_at": 1767274161000,
+  "detected_at": 1767274127000,
+  "status": "passed"
+}

@@ -1,0 +1,15 @@
+{
+  "pattern_id": "PATH_ADV_003",
+  "test_id": "PATH_ADV_003-1767274138789-rzmvavn",
+  "category": "path",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 23000,
+  "evidence": "13:28:58.000000000: Critical [NGINX Traversal] Windows path traversal attack detected test_id=PATH_ADV_003-1767274138789-rzmvavn pattern_id=PATH_ADV_003 uri=/?q=..%5C..%2F client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] Windows path traversal attack detected test_id=PATH_ADV_003-1767274138789-rzmvavn pattern_id=PATH_ADV_003 uri=/?q=..%5C..%2F client=127.0.0.1",
+  "expected_rule": "Advanced Path Traversal Attempt",
+  "rule_id": "",
+  "sent_at": 1767274161000,
+  "detected_at": 1767274138000,
+  "status": "passed"
+}
