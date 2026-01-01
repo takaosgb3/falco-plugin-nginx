@@ -1,0 +1,15 @@
+{
+  "pattern_id": "EMRG_MONGO_003",
+  "test_id": "EMRG_MONGO_003-1767269884615-60gglr",
+  "category": "other",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 30000,
+  "evidence": "12:18:04.000000000: Critical [NGINX Emerging Threat] MongoDB NoSQL injection test_id=EMRG_MONGO_003-1767269884615-60gglr pattern_id=EMRG_MONGO_003 uri=/?q=%7B%22%24gt%22%3A%20%22%22%7D client=127.0.0.1",
+  "rule_name": "[NGINX Emerging Threat] MongoDB NoSQL injection test_id=EMRG_MONGO_003-1767269884615-60gglr pattern_id=EMRG_MONGO_003 uri=/?q=%7B%22%24gt%22%3A%20%22%22%7D client=127.0.0.1",
+  "expected_rule": "",
+  "rule_id": "",
+  "sent_at": 1767269914000,
+  "detected_at": 1767269884000,
+  "status": "passed"
+}

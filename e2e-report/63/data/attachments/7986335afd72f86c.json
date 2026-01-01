@@ -1,0 +1,15 @@
+{
+  "pattern_id": "XSS_DOM_005",
+  "test_id": "XSS_DOM_005-1767269883645-5linok",
+  "category": "xss",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 31000,
+  "evidence": "12:18:03.000000000: Critical [NGINX XSS] DOM-based XSS Attack test_id=XSS_DOM_005-1767269883645-5linok pattern_id=XSS_DOM_005 uri=/?q=outerHTML%3D%27%3Cscript%3Ealert%28%22DOM%22%29%3C%2Fscript%3E%27 client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX XSS] DOM-based XSS Attack test_id=XSS_DOM_005-1767269883645-5linok pattern_id=XSS_DOM_005 uri=/?q=outerHTML%3D%27%3Cscript%3Ealert%28%22DOM%22%29%3C%2Fscript%3E%27 client=127.0.0.1 method=GET",
+  "expected_rule": "DOM-based XSS Attack",
+  "rule_id": "",
+  "sent_at": 1767269914000,
+  "detected_at": 1767269883000,
+  "status": "passed"
+}

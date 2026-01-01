@@ -1,0 +1,5 @@
+Pattern ID: SQLI_BYPASS_003
+        Status: failed
+        Latency: N/A
+        Detection: 0 / 1
+        Rule:

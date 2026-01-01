@@ -1,0 +1,15 @@
+{
+  "pattern_id": "SQLI_BYPASS_003",
+  "test_id": "SQLI_BYPASS_003-1767269891676-cwhlbs",
+  "category": "sqli",
+  "detected": false,
+  "expected_detection": true,
+  "latency_ms": null,
+  "evidence": "",
+  "rule_name": "",
+  "expected_rule": "Encoded SQL Injection Pattern",
+  "rule_id": "",
+  "sent_at": 1767269914000,
+  "detected_at": null,
+  "status": "failed"
+}

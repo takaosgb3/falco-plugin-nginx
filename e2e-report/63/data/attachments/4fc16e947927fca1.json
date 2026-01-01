@@ -1,0 +1,15 @@
+{
+  "pattern_id": "XSS_DOM_010",
+  "test_id": "XSS_DOM_010-1767269886151-kywyr",
+  "category": "xss",
+  "detected": false,
+  "expected_detection": true,
+  "latency_ms": null,
+  "evidence": "",
+  "rule_name": "",
+  "expected_rule": "DOM-based XSS Attack",
+  "rule_id": "",
+  "sent_at": 1767269914000,
+  "detected_at": null,
+  "status": "failed"
+}

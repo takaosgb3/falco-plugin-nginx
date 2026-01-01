@@ -1,0 +1,15 @@
+{
+  "pattern_id": "CMD_BLIND_001",
+  "test_id": "CMD_BLIND_001-1767269891144-5mfon",
+  "category": "cmdinj",
+  "detected": false,
+  "expected_detection": true,
+  "latency_ms": null,
+  "evidence": "",
+  "rule_name": "",
+  "expected_rule": "Command Injection via Semicolon",
+  "rule_id": "",
+  "sent_at": 1767269914000,
+  "detected_at": null,
+  "status": "failed"
+}

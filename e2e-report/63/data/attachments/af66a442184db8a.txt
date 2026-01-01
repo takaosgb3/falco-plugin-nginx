@@ -1,0 +1,5 @@
+Pattern ID: SSTI_VEL_002
+        Status: passed
+        Latency: ~4000ms
+        Detection: 1 / 1
+        Rule: [NGINX Emerging Threat] Spring4Shell attack test_id=SSTI_VEL_002-1767269910117-jefr5c pattern_id=SSTI_VEL_002 uri=/?q=%24class.inspect%28%22java.lang.Runtime%22%29.type.getRuntime%28%29.exec%28%22id%22%29 client=127.0.0.1

@@ -1,0 +1,15 @@
+{
+  "pattern_id": "XSS_MUT_004",
+  "test_id": "XSS_MUT_004-1767269882643-4jak99",
+  "category": "xss",
+  "detected": false,
+  "expected_detection": true,
+  "latency_ms": null,
+  "evidence": "",
+  "rule_name": "",
+  "expected_rule": "Advanced XSS Attack Attempt",
+  "rule_id": "",
+  "sent_at": 1767269914000,
+  "detected_at": null,
+  "status": "failed"
+}

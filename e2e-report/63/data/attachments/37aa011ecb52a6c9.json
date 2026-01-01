@@ -1,0 +1,15 @@
+{
+  "pattern_id": "PATH_WIN_001",
+  "test_id": "PATH_WIN_001-1767269888651-wkvtl",
+  "category": "path",
+  "detected": false,
+  "expected_detection": true,
+  "latency_ms": null,
+  "evidence": "",
+  "rule_name": "",
+  "expected_rule": "Windows Path Traversal Attack",
+  "rule_id": "",
+  "sent_at": 1767269914000,
+  "detected_at": null,
+  "status": "failed"
+}

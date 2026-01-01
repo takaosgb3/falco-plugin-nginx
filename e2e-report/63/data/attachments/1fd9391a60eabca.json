@@ -1,0 +1,15 @@
+{
+  "pattern_id": "PATH_ADV_006",
+  "test_id": "PATH_ADV_006-1767269893161-4thlna",
+  "category": "path",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 21000,
+  "evidence": "12:18:13.000000000: Warning [NGINX Traversal] Advanced path traversal attempt detected test_id=PATH_ADV_006-1767269893161-4thlna pattern_id=PATH_ADV_006 uri=/?q=..%5Cx2f client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] Advanced path traversal attempt detected test_id=PATH_ADV_006-1767269893161-4thlna pattern_id=PATH_ADV_006 uri=/?q=..%5Cx2f client=127.0.0.1",
+  "expected_rule": "Advanced Path Traversal Attempt",
+  "rule_id": "",
+  "sent_at": 1767269914000,
+  "detected_at": 1767269893000,
+  "status": "passed"
+}

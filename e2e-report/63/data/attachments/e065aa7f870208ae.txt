@@ -1,0 +1,2 @@
+Test failed: XSS_DOM_006
+Reason: Unknown error
