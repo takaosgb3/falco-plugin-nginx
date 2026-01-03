@@ -1,0 +1,15 @@
+{
+  "pattern_id": "CMD_NEST_003",
+  "test_id": "CMD_NEST_003-1767433049386-2bxnqm",
+  "category": "cmdinj",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 18000,
+  "evidence": "09:37:29.000000000: Critical [NGINX Traversal] File inclusion attack detected test_id=CMD_NEST_003-1767433049386-2bxnqm pattern_id=CMD_NEST_003 uri=/?q=%24(%24(%24(echo%20cat)%20%2Fetc%2Fpasswd)) client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] File inclusion attack detected test_id=CMD_NEST_003-1767433049386-2bxnqm pattern_id=CMD_NEST_003 uri=/?q=%24(%24(%24(echo%20cat)%20%2Fetc%2Fpasswd)) client=127.0.0.1",
+  "expected_rule": "Command substitution attack",
+  "rule_id": "",
+  "sent_at": 1767433067000,
+  "detected_at": 1767433049000,
+  "status": "passed"
+}

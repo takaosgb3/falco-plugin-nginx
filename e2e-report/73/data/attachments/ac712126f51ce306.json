@@ -1,0 +1,15 @@
+{
+  "pattern_id": "CMD_PROC_003",
+  "test_id": "CMD_PROC_003-1767433052391-9fro6m",
+  "category": "cmdinj",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 15000,
+  "evidence": "09:37:32.000000000: Warning [NGINX CMDi] Advanced command injection attempt test_id=CMD_PROC_003-1767433052391-9fro6m pattern_id=CMD_PROC_003 uri=/?q=%2Ftmp%2Fmalware%20%26%20disown client=127.0.0.1",
+  "rule_name": "[NGINX CMDi] Advanced command injection attempt test_id=CMD_PROC_003-1767433052391-9fro6m pattern_id=CMD_PROC_003 uri=/?q=%2Ftmp%2Fmalware%20%26%20disown client=127.0.0.1",
+  "expected_rule": "Advanced Command Injection Attempt",
+  "rule_id": "",
+  "sent_at": 1767433067000,
+  "detected_at": 1767433052000,
+  "status": "passed"
+}

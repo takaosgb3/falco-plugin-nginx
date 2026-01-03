@@ -1,0 +1,5 @@
+Pattern ID: XSS_DOM_015
+        Status: passed
+        Latency: ~28000ms
+        Detection: 1 / 1
+        Rule: [NGINX XSS] DOM-based XSS Attack test_id=XSS_DOM_015-1767433039886-7059 pattern_id=XSS_DOM_015 uri=/?q=insertAdjacentHTML('beforeend'%2C'%3Cscript%3Ealert(1)%3C%2Fscript%3E') client=127.0.0.1 method=GET

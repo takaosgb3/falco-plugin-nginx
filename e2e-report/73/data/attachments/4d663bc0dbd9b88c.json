@@ -1,0 +1,15 @@
+{
+  "pattern_id": "CMD_ENV_003",
+  "test_id": "CMD_ENV_003-1767433047882-lqqrff",
+  "category": "cmdinj",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 20000,
+  "evidence": "09:37:27.000000000: Critical [NGINX Traversal] File inclusion attack detected test_id=CMD_ENV_003-1767433047882-lqqrff pattern_id=CMD_ENV_003 uri=/?q=IFS%3D%2C%3Bcat%2C%2Fetc%2Fpasswd client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] File inclusion attack detected test_id=CMD_ENV_003-1767433047882-lqqrff pattern_id=CMD_ENV_003 uri=/?q=IFS%3D%2C%3Bcat%2C%2Fetc%2Fpasswd client=127.0.0.1",
+  "expected_rule": "Advanced Command Injection Attempt",
+  "rule_id": "",
+  "sent_at": 1767433067000,
+  "detected_at": 1767433047000,
+  "status": "passed"
+}

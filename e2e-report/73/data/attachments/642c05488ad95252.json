@@ -1,0 +1,15 @@
+{
+  "pattern_id": "PATH_SENS_002",
+  "test_id": "PATH_SENS_002-1767433044385-691zai",
+  "category": "path",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 23000,
+  "evidence": "09:37:24.000000000: Critical [NGINX Traversal] Basic path traversal attack detected test_id=PATH_SENS_002-1767433044385-691zai pattern_id=PATH_SENS_002 uri=/?q=..%2F..%2F..%2Fvar%2Frun%2Fsecrets%2Fkubernetes.io%2Fserviceaccount%2Ftoken client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] Basic path traversal attack detected test_id=PATH_SENS_002-1767433044385-691zai pattern_id=PATH_SENS_002 uri=/?q=..%2F..%2F..%2Fvar%2Frun%2Fsecrets%2Fkubernetes.io%2Fserviceaccount%2Ftoken client=127.0.0.1",
+  "expected_rule": "Path Traversal Attack",
+  "rule_id": "",
+  "sent_at": 1767433067000,
+  "detected_at": 1767433044000,
+  "status": "passed"
+}

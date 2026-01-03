@@ -1,0 +1,15 @@
+{
+  "pattern_id": "PATH_TRUNC_002",
+  "test_id": "PATH_TRUNC_002-1767433040878-kqveh",
+  "category": "path",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 27000,
+  "evidence": "09:37:20.000000000: Critical [NGINX Traversal] Basic path traversal attack detected test_id=PATH_TRUNC_002-1767433040878-kqveh pattern_id=PATH_TRUNC_002 uri=/?q=..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] Basic path traversal attack detected test_id=PATH_TRUNC_002-1767433040878-kqveh pattern_id=PATH_TRUNC_002 uri=/?q=..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd client=127.0.0.1",
+  "expected_rule": "Path Traversal Attack",
+  "rule_id": "",
+  "sent_at": 1767433067000,
+  "detected_at": 1767433040000,
+  "status": "passed"
+}
