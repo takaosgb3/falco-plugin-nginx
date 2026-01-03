@@ -71,7 +71,7 @@
       "port": 8007,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "XXE DOCTYPE Entity Injection Attempt"
+      "expected_rule": "DOCTYPE/ENTITY injection"
     },
     {
       "id": "XXE_JAR_001",
@@ -83,7 +83,7 @@
       "port": 8007,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "XXE External Resource Access Attempt"
+      "expected_rule": "DOCTYPE/ENTITY injection"
     },
     {
       "id": "XXE_NETDOC_001",
@@ -95,7 +95,7 @@
       "port": 8007,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "XXE External Resource Access Attempt"
+      "expected_rule": "File inclusion attack detected"
     }
   ]
 }

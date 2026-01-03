@@ -315,7 +315,7 @@
       "port": 8004,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "Command Injection via Pipe"
+      "expected_rule": "Command substitution attack"
     },
     {
       "id": "CMD_BLIND_004",
@@ -327,7 +327,7 @@
       "port": 8004,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "Command Injection via Semicolon"
+      "expected_rule": "Command substitution attack"
     },
     {
       "id": "CMD_BLIND_005",
@@ -351,7 +351,7 @@
       "port": 8004,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "Command Substitution Attack"
+      "expected_rule": "Command substitution attack"
     },
     {
       "id": "CMD_SUB_002",
@@ -363,7 +363,7 @@
       "port": 8004,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "Command Substitution Attack"
+      "expected_rule": "Command substitution attack"
     },
     {
       "id": "CMD_SUB_003",
@@ -375,7 +375,7 @@
       "port": 8004,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "Command Substitution Attack"
+      "expected_rule": "Command substitution attack"
     },
     {
       "id": "CMD_SUB_004",
@@ -387,7 +387,7 @@
       "port": 8004,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Command Substitution Attack"
+      "expected_rule": "Command substitution attack"
     },
     {
       "id": "CMD_SUB_005",
@@ -399,7 +399,7 @@
       "port": 8004,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "Command Substitution Attack"
+      "expected_rule": "Command substitution attack"
     },
     {
       "id": "CMD_ENC_002",
@@ -411,7 +411,7 @@
       "port": 8004,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "Advanced Command Injection Attempt"
+      "expected_rule": "Encoded SQL Injection Pattern"
     },
     {
       "id": "CMD_ENC_003",

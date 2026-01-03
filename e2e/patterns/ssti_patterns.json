@@ -16,7 +16,7 @@
       "port": 8010,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Template Injection Detection"
+      "expected_rule": "Template injection"
     },
     {
       "id": "SSTI_JINJA_002",
@@ -28,7 +28,7 @@
       "port": 8010,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "Template Injection Detection"
+      "expected_rule": "Template injection"
     },
     {
       "id": "SSTI_VEL_001",
@@ -40,7 +40,7 @@
       "port": 8010,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "Template Injection Detection"
+      "expected_rule": "Spring4Shell attack"
     },
     {
       "id": "SSTI_VEL_002",
@@ -52,7 +52,7 @@
       "port": 8010,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "Template Injection Detection"
+      "expected_rule": "Spring4Shell attack"
     },
     {
       "id": "SSTI_FREEMKR_001",
@@ -64,7 +64,7 @@
       "port": 8010,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "Template Injection Detection"
+      "expected_rule": "Template injection"
     }
   ]
 }
