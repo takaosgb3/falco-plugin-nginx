@@ -1,0 +1,15 @@
+{
+  "pattern_id": "LDAP_BASIC_002",
+  "test_id": "LDAP_BASIC_002-1767404008728-yaimgt",
+  "category": "ldap",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 26000,
+  "evidence": "01:33:28.000000000: Critical [NGINX LDAP Injection] Authentication bypass attempt test_id=LDAP_BASIC_002-1767404008728-yaimgt pattern_id=LDAP_BASIC_002 uri=/?q=*)(|(password%3D*)) client=127.0.0.1",
+  "rule_name": "[NGINX LDAP Injection] Authentication bypass attempt test_id=LDAP_BASIC_002-1767404008728-yaimgt pattern_id=LDAP_BASIC_002 uri=/?q=*)(|(password%3D*)) client=127.0.0.1",
+  "expected_rule": "",
+  "rule_id": "",
+  "sent_at": 1767404034000,
+  "detected_at": 1767404008000,
+  "status": "passed"
+}

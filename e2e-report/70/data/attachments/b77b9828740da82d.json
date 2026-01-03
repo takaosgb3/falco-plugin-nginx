@@ -1,0 +1,15 @@
+{
+  "pattern_id": "XSS_BYPASS_002",
+  "test_id": "XSS_BYPASS_002-1767404006266-mrxcmo",
+  "category": "xss",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 28000,
+  "evidence": "01:33:26.000000000: Warning [NGINX XSS] XSS Filter Bypass Attempt test_id=XSS_BYPASS_002-1767404006266-mrxcmo pattern_id=XSS_BYPASS_002 uri=/?q=%3CSCRiPT%3Ealert%28%27XSS%27%29%3C%2FSCRiPT%3E client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX XSS] XSS Filter Bypass Attempt test_id=XSS_BYPASS_002-1767404006266-mrxcmo pattern_id=XSS_BYPASS_002 uri=/?q=%3CSCRiPT%3Ealert%28%27XSS%27%29%3C%2FSCRiPT%3E client=127.0.0.1 method=GET",
+  "expected_rule": "XSS Filter Bypass Attempt",
+  "rule_id": "",
+  "sent_at": 1767404034000,
+  "detected_at": 1767404006000,
+  "status": "passed"
+}

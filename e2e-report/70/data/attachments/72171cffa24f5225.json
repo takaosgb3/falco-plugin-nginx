@@ -1,0 +1,15 @@
+{
+  "pattern_id": "XSS_DOM_003",
+  "test_id": "XSS_DOM_003-1767403998250-c5p2b8",
+  "category": "xss",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 36000,
+  "evidence": "01:33:18.000000000: Critical [NGINX XSS] DOM-based XSS Attack test_id=XSS_DOM_003-1767403998250-c5p2b8 pattern_id=XSS_DOM_003 uri=/?q=eval('alert(document.domain)') client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX XSS] DOM-based XSS Attack test_id=XSS_DOM_003-1767403998250-c5p2b8 pattern_id=XSS_DOM_003 uri=/?q=eval('alert(document.domain)') client=127.0.0.1 method=GET",
+  "expected_rule": "",
+  "rule_id": "",
+  "sent_at": 1767404034000,
+  "detected_at": 1767403998000,
+  "status": "passed"
+}

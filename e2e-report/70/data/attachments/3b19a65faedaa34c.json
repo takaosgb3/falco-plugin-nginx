@@ -1,0 +1,15 @@
+{
+  "pattern_id": "XSS_REFL_014",
+  "test_id": "XSS_REFL_014-1767403994742-rlwwj",
+  "category": "xss",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 40000,
+  "evidence": "01:33:14.000000000: Critical [NGINX XSS] DOM-based XSS Attack test_id=XSS_REFL_014-1767403994742-rlwwj pattern_id=XSS_REFL_014 uri=/?q=%3Ca%20href%3D%22javascript%3Aalert(1)%22%3Eclick%3C%2Fa%3E client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX XSS] DOM-based XSS Attack test_id=XSS_REFL_014-1767403994742-rlwwj pattern_id=XSS_REFL_014 uri=/?q=%3Ca%20href%3D%22javascript%3Aalert(1)%22%3Eclick%3C%2Fa%3E client=127.0.0.1 method=GET",
+  "expected_rule": "",
+  "rule_id": "",
+  "sent_at": 1767404034000,
+  "detected_at": 1767403994000,
+  "status": "passed"
+}
