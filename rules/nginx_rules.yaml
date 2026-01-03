@@ -1,9 +1,9 @@
 # =============================================================================
 # nginx_rules.yaml - Falco Rules for NGINX Plugin
 # =============================================================================
-# Version: 1.5.1
-# Generated: 2025-12-11
-# Source: E2E tested rules (100/100 patterns, Phase 1 expanded, fix undetected patterns)
+# Version: 1.6.0
+# Generated: 2026-01-03
+# Source: E2E tested rules (300 patterns, Phase 4 expanded, API Security added)
 #
 # This file is auto-generated from:
 #   - advanced_sqli_enhanced.yaml
@@ -2147,5 +2147,38 @@
   output: "[NGINX XPath Injection] XPath injection attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: WARNING
   tags: [security, xpath_injection, injection, phase3]
+  source: nginx
+
+# ==============================================================================
+# Phase 4 New Rules: API Security (Issue #785)
+# ==============================================================================
+
+# ====================================
+# API_ATK_001: API Security Attack Attempt
+# ====================================
+# Detects API security vulnerabilities including:
+# - BOLA (Broken Object Level Authorization)
+# - JWT Algorithm None attack
+# - Mass Assignment
+# - Prototype Pollution
+# - IDOR (Insecure Direct Object Reference)
+
+- rule: API Security Attack Attempt
+  desc: Detects API security vulnerabilities including BOLA, JWT attacks, Mass Assignment, and Prototype Pollution
+  condition: >-
+    (
+      nginx.request_uri contains "eyJhbGciOiJub25lIi" or
+      nginx.request_uri contains "__proto__" or
+      nginx.request_uri contains "%5F%5Fproto%5F%5F" or
+      nginx.request_uri contains "isAdmin" or
+      nginx.request_uri contains "%22isAdmin%22" or
+      nginx.request_uri contains "\"role\":\"admin\"" or
+      nginx.request_uri contains "%22role%22%3A%22admin%22" or
+      (nginx.request_uri contains "/api/" and nginx.request_uri contains "/users/" and nginx.request_uri contains "/profile") or
+      (nginx.request_uri contains "/api/" and nginx.request_uri contains "/orders/" and nginx.request_uri contains "/invoice")
+    )
+  output: "[NGINX API Attack] API security vulnerability detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
+  priority: WARNING
+  tags: [security, api_security, bola, jwt, mass_assignment, prototype_pollution, phase4]
   source: nginx
 
