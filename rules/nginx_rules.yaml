@@ -2240,4 +2240,3 @@
   priority: WARNING
   tags: [security, api_security, bola, jwt, mass_assignment, prototype_pollution, phase4]
   source: nginx
-
