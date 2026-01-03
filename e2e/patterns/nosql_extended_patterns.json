@@ -1,7 +1,7 @@
 {
   "metadata": {
     "category": "nosql_extended",
-    "total_patterns": 2,
+    "total_patterns": 7,
     "port": 8011,
     "description": "k6 test patterns for extended NoSQL injection attacks (CouchDB)"
   },
@@ -28,6 +28,66 @@
       "port": 8011,
       "expected_detection": true,
       "severity": "medium",
+      "expected_rule": "MongoDB NoSQL injection"
+    },
+    {
+      "id": "NOSQL_MONGO_001",
+      "name": "MongoDB $where JavaScript injection",
+      "category": "nosql_extended",
+      "subcategory": "mongodb",
+      "payload": "{\"$where\": \"this.username == 'admin'\"}",
+      "encoded": "%7B%22%24where%22%3A%20%22this.username%20%3D%3D%20'admin'%22%7D",
+      "port": 8011,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "MongoDB NoSQL injection"
+    },
+    {
+      "id": "NOSQL_MONGO_002",
+      "name": "MongoDB $regex bypass",
+      "category": "nosql_extended",
+      "subcategory": "mongodb",
+      "payload": "{\"username\": {\"$regex\": \"^admin\"}}",
+      "encoded": "%7B%22username%22%3A%20%7B%22%24regex%22%3A%20%22%5Eadmin%22%7D%7D",
+      "port": 8011,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "MongoDB NoSQL injection"
+    },
+    {
+      "id": "NOSQL_MONGO_003",
+      "name": "MongoDB $gt operator bypass",
+      "category": "nosql_extended",
+      "subcategory": "mongodb",
+      "payload": "{\"password\": {\"$gt\": \"\"}}",
+      "encoded": "%7B%22password%22%3A%20%7B%22%24gt%22%3A%20%22%22%7D%7D",
+      "port": 8011,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "MongoDB NoSQL injection"
+    },
+    {
+      "id": "NOSQL_REDIS_001",
+      "name": "Redis EVAL command injection",
+      "category": "nosql_extended",
+      "subcategory": "redis",
+      "payload": "EVAL \"return redis.call('GET', KEYS[1])\" 1 secret",
+      "encoded": "EVAL%20%22return%20redis.call('GET'%2C%20KEYS%5B1%5D)%22%201%20secret",
+      "port": 8011,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "MongoDB NoSQL injection"
+    },
+    {
+      "id": "NOSQL_REDIS_002",
+      "name": "Redis CONFIG GET disclosure",
+      "category": "nosql_extended",
+      "subcategory": "redis",
+      "payload": "CONFIG GET *",
+      "encoded": "CONFIG%20GET%20*",
+      "port": 8011,
+      "expected_detection": true,
+      "severity": "high",
       "expected_rule": "MongoDB NoSQL injection"
     }
   ]

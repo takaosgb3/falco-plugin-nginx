@@ -1,7 +1,7 @@
 {
   "metadata": {
     "category": "ssti",
-    "total_patterns": 5,
+    "total_patterns": 10,
     "port": 8010,
     "description": "k6 test patterns for Server-Side Template Injection attacks"
   },
@@ -65,6 +65,66 @@
       "expected_detection": true,
       "severity": "critical",
       "expected_rule": "Template injection"
+    },
+    {
+      "id": "SSTI_THYME_001",
+      "name": "Thymeleaf expression injection",
+      "category": "ssti",
+      "subcategory": "thymeleaf",
+      "payload": "__${T(java.lang.Runtime).getRuntime().exec(\"id\")}__",
+      "encoded": "__%24%7BT(java.lang.Runtime).getRuntime().exec(%22id%22)%7D__",
+      "port": 8005,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "SSTI Attack Detected"
+    },
+    {
+      "id": "SSTI_PEBBLE_001",
+      "name": "Pebble command execution",
+      "category": "ssti",
+      "subcategory": "pebble",
+      "payload": "{% set cmd = \"id\" %}{{ system(cmd) }}",
+      "encoded": "%7B%25%20set%20cmd%20%3D%20%22id%22%20%25%7D%7B%7B%20system(cmd)%20%7D%7D",
+      "port": 8005,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "SSTI Attack Detected"
+    },
+    {
+      "id": "SSTI_SMARTY_001",
+      "name": "Smarty PHP code execution",
+      "category": "ssti",
+      "subcategory": "smarty",
+      "payload": "{php}system(\"id\");{/php}",
+      "encoded": "%7Bphp%7Dsystem(%22id%22)%3B%7B%2Fphp%7D",
+      "port": 8005,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "SSTI Attack Detected"
+    },
+    {
+      "id": "SSTI_TWIG_001",
+      "name": "Twig file read",
+      "category": "ssti",
+      "subcategory": "twig",
+      "payload": "{{\"/etc/passwd\"|file_excerpt(1,30)}}",
+      "encoded": "%7B%7B%22%2Fetc%2Fpasswd%22%7Cfile_excerpt(1%2C30)%7D%7D",
+      "port": 8005,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "SSTI Attack Detected"
+    },
+    {
+      "id": "SSTI_MAKO_001",
+      "name": "Mako Python execution",
+      "category": "ssti",
+      "subcategory": "mako",
+      "payload": "${self.module.cache.util.os.system(\"id\")}",
+      "encoded": "%24%7Bself.module.cache.util.os.system(%22id%22)%7D",
+      "port": 8005,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "SSTI Attack Detected"
     }
   ]
 }

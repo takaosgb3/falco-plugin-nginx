@@ -1,0 +1,75 @@
+{
+  "metadata": {
+    "category": "api_security",
+    "total_patterns": 5,
+    "port": 8012,
+    "description": "k6 test patterns for API security vulnerabilities (BOLA, JWT, Mass Assignment, GraphQL)"
+  },
+  "patterns": [
+    {
+      "id": "API_BOLA_001",
+      "name": "BOLA - Broken Object Level Authorization",
+      "category": "api_security",
+      "subcategory": "bola",
+      "payload": "/api/v1/users/1/profile",
+      "encoded": "%2Fapi%2Fv1%2Fusers%2F1%2Fprofile",
+      "port": 8012,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "API Security Attack Attempt",
+      "description": "Attempts to access another user's profile by manipulating object ID"
+    },
+    {
+      "id": "API_JWT_001",
+      "name": "JWT Algorithm None Attack",
+      "category": "api_security",
+      "subcategory": "jwt",
+      "payload": "eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6ImFkbWluIiwiaWF0IjoxNTE2MjM5MDIyfQ.",
+      "encoded": "eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6ImFkbWluIiwiaWF0IjoxNTE2MjM5MDIyfQ.",
+      "port": 8012,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "API Security Attack Attempt",
+      "description": "JWT with algorithm set to \"none\" to bypass signature verification"
+    },
+    {
+      "id": "API_MASS_001",
+      "name": "Mass Assignment - Role Escalation",
+      "category": "api_security",
+      "subcategory": "mass_assignment",
+      "payload": "{\"username\":\"user\",\"role\":\"admin\",\"isAdmin\":true}",
+      "encoded": "%7B%22username%22%3A%22user%22%2C%22role%22%3A%22admin%22%2C%22isAdmin%22%3Atrue%7D",
+      "port": 8012,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "API Security Attack Attempt",
+      "description": "Attempts to set privileged fields through mass assignment"
+    },
+    {
+      "id": "API_PROTO_001",
+      "name": "Prototype Pollution Attack",
+      "category": "api_security",
+      "subcategory": "prototype_pollution",
+      "payload": "{\"__proto__\":{\"isAdmin\":true}}",
+      "encoded": "%7B%22__proto__%22%3A%7B%22isAdmin%22%3Atrue%7D%7D",
+      "port": 8012,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "API Security Attack Attempt",
+      "description": "JavaScript prototype pollution to inject malicious properties"
+    },
+    {
+      "id": "API_IDOR_001",
+      "name": "IDOR - Insecure Direct Object Reference",
+      "category": "api_security",
+      "subcategory": "idor",
+      "payload": "/api/v1/orders/99999/invoice",
+      "encoded": "%2Fapi%2Fv1%2Forders%2F99999%2Finvoice",
+      "port": 8012,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "API Security Attack Attempt",
+      "description": "Attempts to access invoices of other users by guessing order IDs"
+    }
+  ]
+}
