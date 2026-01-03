@@ -165,7 +165,7 @@
       "name": "data: protocol injection",
       "category": "xss",
       "subcategory": "reflected_xss",
-      "payload": "<object data=\"data:text/html,<script>alert(1)<\/script>\">",
+      "payload": "<object data=\"data:text/html,<script>alert(1)</script>\">",
       "encoded": "%3Cobject%20data%3D%22data%3Atext%2Fhtml%2C%3Cscript%3Ealert(1)%3C%2Fscript%3E%22%3E",
       "port": 8002,
       "expected_detection": true,
@@ -302,7 +302,7 @@
       "port": 8002,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Advanced XSS Attack Attempt"
+      "expected_rule": "Polyglot XSS Attack"
     },
     {
       "id": "XSS_MUT_003",
@@ -314,7 +314,7 @@
       "port": 8002,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Advanced XSS Attack Attempt"
+      "expected_rule": "XSS Filter Bypass Attempt"
     },
     {
       "id": "XSS_MUT_004",
@@ -338,7 +338,7 @@
       "port": 8002,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Advanced XSS Attack Attempt"
+      "expected_rule": "Polyglot XSS Attack"
     },
     {
       "id": "XSS_DOM_005",
@@ -470,7 +470,7 @@
       "port": 8002,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "XSS Filter Bypass Attempt"
+      "expected_rule": "DOM-based XSS Attack"
     }
   ]
 }

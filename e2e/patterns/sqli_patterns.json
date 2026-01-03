@@ -493,7 +493,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Advanced SQL Injection Attempt"
+      "expected_rule": "Boolean-based Blind SQL Injection"
     },
     {
       "id": "SQLI_UNION_003",
@@ -505,7 +505,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "Advanced SQL Injection Attempt"
+      "expected_rule": "Error-based SQL Injection"
     },
     {
       "id": "SQLI_UNION_004",
@@ -517,7 +517,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "Advanced SQL Injection Attempt"
+      "expected_rule": "Error-based SQL Injection"
     },
     {
       "id": "SQLI_UNION_005",
@@ -529,7 +529,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "Advanced SQL Injection Attempt"
+      "expected_rule": "Error-based SQL Injection"
     },
     {
       "id": "SQLI_UNION_006",
@@ -589,7 +589,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "Error-based SQL Injection"
+      "expected_rule": "XPath injection attempt"
     },
     {
       "id": "SQLI_ERROR_009",
@@ -661,7 +661,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Advanced SQL Injection Attempt"
+      "expected_rule": "Error-based SQL Injection"
     },
     {
       "id": "SQLI_BYPASS_005",

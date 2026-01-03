@@ -346,7 +346,7 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Windows Path Traversal Attack"
+      "expected_rule": "Windows path traversal attack detected"
     },
     {
       "id": "PATH_WIN_002",
@@ -358,7 +358,7 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Windows Path Traversal Attack"
+      "expected_rule": "Windows path traversal attack detected"
     },
     {
       "id": "PATH_WIN_003",
@@ -370,7 +370,7 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "Windows Path Traversal Attack"
+      "expected_rule": "Windows path traversal attack detected"
     },
     {
       "id": "PATH_WIN_004",
@@ -382,7 +382,7 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Windows Path Traversal Attack"
+      "expected_rule": "Windows path traversal attack detected"
     },
     {
       "id": "PATH_WIN_005",
@@ -394,7 +394,7 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Windows Path Traversal Attack"
+      "expected_rule": "Windows path traversal attack detected"
     },
     {
       "id": "PATH_ADV_002",
@@ -418,7 +418,7 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Advanced Path Traversal Attempt"
+      "expected_rule": "Windows path traversal attack detected"
     },
     {
       "id": "PATH_ADV_004",
@@ -430,7 +430,7 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "Advanced Path Traversal Attempt"
+      "expected_rule": "File inclusion attack detected"
     },
     {
       "id": "PATH_ADV_005",
@@ -454,7 +454,7 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Advanced Path Traversal Attempt"
+      "expected_rule": "Windows path traversal attack detected"
     }
   ]
 }
