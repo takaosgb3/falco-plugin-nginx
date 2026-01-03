@@ -1,0 +1,15 @@
+{
+  "pattern_id": "CMD_NEST_002",
+  "test_id": "CMD_NEST_002-1767433337400-tlgxb",
+  "category": "cmdinj",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 19000,
+  "evidence": "09:42:17.000000000: Warning [NGINX SQLi] Encoded SQL Injection Pattern test_id=CMD_NEST_002-1767433337400-tlgxb pattern_id=CMD_NEST_002 uri=/?q=%24(%60echo%20id%60) client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Encoded SQL Injection Pattern test_id=CMD_NEST_002-1767433337400-tlgxb pattern_id=CMD_NEST_002 uri=/?q=%24(%60echo%20id%60) client=127.0.0.1 method=GET",
+  "expected_rule": "Command substitution attack",
+  "rule_id": "",
+  "sent_at": 1767433356000,
+  "detected_at": 1767433337000,
+  "status": "passed"
+}

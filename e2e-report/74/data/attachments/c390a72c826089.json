@@ -1,0 +1,15 @@
+{
+  "pattern_id": "XSS_DOM_006",
+  "test_id": "XSS_DOM_006-1767433319380-aifhks",
+  "category": "xss",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 37000,
+  "evidence": "09:41:59.000000000: Critical [NGINX XSS] DOM-based XSS Attack test_id=XSS_DOM_006-1767433319380-aifhks pattern_id=XSS_DOM_006 uri=/?q=eval%28%27alert%28%22DOM%20XSS%22%29%27%29 client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX XSS] DOM-based XSS Attack test_id=XSS_DOM_006-1767433319380-aifhks pattern_id=XSS_DOM_006 uri=/?q=eval%28%27alert%28%22DOM%20XSS%22%29%27%29 client=127.0.0.1 method=GET",
+  "expected_rule": "DOM-based XSS Attack",
+  "rule_id": "",
+  "sent_at": 1767433356000,
+  "detected_at": 1767433319000,
+  "status": "passed"
+}

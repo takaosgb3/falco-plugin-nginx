@@ -1,0 +1,15 @@
+{
+  "pattern_id": "API_BOLA_001",
+  "test_id": "API_BOLA_001-1767433353847-urksbs",
+  "category": "api_security",
+  "detected": false,
+  "expected_detection": true,
+  "latency_ms": null,
+  "evidence": "",
+  "rule_name": "",
+  "expected_rule": "API Security Attack Attempt",
+  "rule_id": "",
+  "sent_at": 1767433356000,
+  "detected_at": null,
+  "status": "failed"
+}

@@ -1,0 +1,15 @@
+{
+  "pattern_id": "CMD_FILE_003",
+  "test_id": "CMD_FILE_003-1767433339405-c7a9h",
+  "category": "cmdinj",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 17000,
+  "evidence": "09:42:19.000000000: Warning [NGINX CMDi] Advanced command injection attempt test_id=CMD_FILE_003-1767433339405-c7a9h pattern_id=CMD_FILE_003 uri=/?q=%3B%20echo%20%22*%20*%20*%20*%20*%20%2Ftmp%2Fevil.sh%22%20%3E%3E%20%2Fvar%2Fspool%2Fcron%2Fcrontabs%2Froot client=127.0.0.1",
+  "rule_name": "[NGINX CMDi] Advanced command injection attempt test_id=CMD_FILE_003-1767433339405-c7a9h pattern_id=CMD_FILE_003 uri=/?q=%3B%20echo%20%22*%20*%20*%20*%20*%20%2Ftmp%2Fevil.sh%22%20%3E%3E%20%2Fvar%2Fspool%2Fcron%2Fcrontabs%2Froot client=127.0.0.1",
+  "expected_rule": "Command Injection via Semicolon",
+  "rule_id": "",
+  "sent_at": 1767433356000,
+  "detected_at": 1767433339000,
+  "status": "passed"
+}

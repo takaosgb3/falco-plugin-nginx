@@ -1,0 +1,15 @@
+{
+  "pattern_id": "API_PROTO_001",
+  "test_id": "API_PROTO_001-1767433355352-bjdbzj",
+  "category": "api_security",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 1000,
+  "evidence": "09:42:35.000000000: Critical [NGINX Emerging Threat] Template injection test_id=API_PROTO_001-1767433355352-bjdbzj pattern_id=API_PROTO_001 uri=/?q=%7B%22__proto__%22%3A%7B%22isAdmin%22%3Atrue%7D%7D client=127.0.0.1",
+  "rule_name": "[NGINX Emerging Threat] Template injection test_id=API_PROTO_001-1767433355352-bjdbzj pattern_id=API_PROTO_001 uri=/?q=%7B%22__proto__%22%3A%7B%22isAdmin%22%3Atrue%7D%7D client=127.0.0.1",
+  "expected_rule": "API Security Attack Attempt",
+  "rule_id": "",
+  "sent_at": 1767433356000,
+  "detected_at": 1767433355000,
+  "status": "passed"
+}

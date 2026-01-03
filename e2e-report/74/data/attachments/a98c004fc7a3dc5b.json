@@ -1,0 +1,15 @@
+{
+  "pattern_id": "NOSQL_REDIS_002",
+  "test_id": "NOSQL_REDIS_002-1767433351856-q9mibt",
+  "category": "nosql_extended",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 5000,
+  "evidence": "09:42:31.000000000: Critical [NGINX Emerging Threat] Redis command injection test_id=NOSQL_REDIS_002-1767433351856-q9mibt pattern_id=NOSQL_REDIS_002 uri=/?q=CONFIG%20GET%20* client=127.0.0.1",
+  "rule_name": "[NGINX Emerging Threat] Redis command injection test_id=NOSQL_REDIS_002-1767433351856-q9mibt pattern_id=NOSQL_REDIS_002 uri=/?q=CONFIG%20GET%20* client=127.0.0.1",
+  "expected_rule": "MongoDB NoSQL injection",
+  "rule_id": "",
+  "sent_at": 1767433356000,
+  "detected_at": 1767433351000,
+  "status": "passed"
+}

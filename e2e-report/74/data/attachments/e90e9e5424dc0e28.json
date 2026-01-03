@@ -1,0 +1,15 @@
+{
+  "pattern_id": "XSS_POLY_006",
+  "test_id": "XSS_POLY_006-1767433330904-e655kw",
+  "category": "xss",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 26000,
+  "evidence": "09:42:10.000000000: Critical [NGINX XSS] DOM-based XSS Attack test_id=XSS_POLY_006-1767433330904-e655kw pattern_id=XSS_POLY_006 uri=/?q='%2F%3E%3Cimg%20src%3Dx%20onerror%3Dalert(1)%20%2F%3E%3Cinput%20type%3D'hidden'%20value%3D' client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX XSS] DOM-based XSS Attack test_id=XSS_POLY_006-1767433330904-e655kw pattern_id=XSS_POLY_006 uri=/?q='%2F%3E%3Cimg%20src%3Dx%20onerror%3Dalert(1)%20%2F%3E%3Cinput%20type%3D'hidden'%20value%3D' client=127.0.0.1 method=GET",
+  "expected_rule": "Polyglot XSS Attack",
+  "rule_id": "",
+  "sent_at": 1767433356000,
+  "detected_at": 1767433330000,
+  "status": "passed"
+}

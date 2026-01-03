@@ -1,0 +1,15 @@
+{
+  "pattern_id": "XSS_MUT_004",
+  "test_id": "XSS_MUT_004-1767433317877-05c2gu",
+  "category": "xss",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 39000,
+  "evidence": "09:41:57.000000000: Warning [NGINX XSS] Advanced XSS Attack Attempt test_id=XSS_MUT_004-1767433317877-05c2gu pattern_id=XSS_MUT_004 uri=/?q=%3Ctable%3E%3Ctd%2Fonclick%3Dalert%28%27XSS%27%29%3Eclick%3C%2Ftd%3E%3C%2Ftable%3E client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX XSS] Advanced XSS Attack Attempt test_id=XSS_MUT_004-1767433317877-05c2gu pattern_id=XSS_MUT_004 uri=/?q=%3Ctable%3E%3Ctd%2Fonclick%3Dalert%28%27XSS%27%29%3Eclick%3C%2Ftd%3E%3C%2Ftable%3E client=127.0.0.1 method=GET",
+  "expected_rule": "Advanced XSS Attack Attempt",
+  "rule_id": "",
+  "sent_at": 1767433356000,
+  "detected_at": 1767433317000,
+  "status": "passed"
+}
