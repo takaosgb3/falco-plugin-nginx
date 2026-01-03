@@ -1,9 +1,10 @@
 # =============================================================================
 # nginx_rules.yaml - Falco Rules for NGINX Plugin
 # =============================================================================
-# Version: 1.5.1
-# Generated: 2025-12-11
-# Source: E2E tested rules (100/100 patterns, Phase 1 expanded, fix undetected patterns)
+# Version: 1.6.1
+# Generated: 2026-01-03
+# Source: E2E tested rules (300 patterns, Phase 4 expanded, API Security added)
+# Fix: Added 13 missing detection patterns for Phase 4 expansion
 #
 # This file is auto-generated from:
 #   - advanced_sqli_enhanced.yaml
@@ -266,7 +267,13 @@
      nginx.request_uri contains "' OR '1'='1' --" or
      nginx.request_uri contains "' or '1'='1' --" or
      nginx.request_uri contains "'%20OR%20'1'%3D'1'%20--" or
-     nginx.request_uri contains "'%20or%20'1'%3D'1'%20--")
+     nginx.request_uri contains "'%20or%20'1'%3D'1'%20--" or
+     nginx.request_uri contains "') OR" or
+     nginx.request_uri contains "')%20OR" or
+     nginx.request_uri contains "' OR TRUE" or
+     nginx.request_uri contains "'%20OR%20TRUE" or
+     nginx.request_uri contains "OR TRUE --" or
+     nginx.request_uri contains "OR%20TRUE%20--")
 
 # Numeric prefix patterns - contains maintained (contains quotes, equals)
 - macro: contains_numeric_prefix_sqli_patterns
@@ -872,6 +879,8 @@
       nginx.request_uri icontains "document.write" or
       nginx.request_uri icontains "document.cookie" or
       nginx.request_uri icontains "window.location" or
+      nginx.request_uri icontains "location.hash" or
+      nginx.request_uri icontains "location.href" or
       (nginx.request_uri icontains "<iframe" and nginx.request_uri icontains "src=") or
       (nginx.request_uri contains "%3Ciframe" and nginx.request_uri contains "src%3D") or
       (nginx.request_uri icontains "<object" and nginx.request_uri icontains "data=") or
@@ -1620,7 +1629,22 @@
       nginx.request_uri contains "%253Bid" or
       nginx.request_uri contains "%2526%2526" or
       nginx.request_uri contains "%2524%2528" or
-      nginx.request_uri contains "%2560"
+      nginx.request_uri contains "%2560" or
+      nginx.request_uri icontains "/dev/tcp" or
+      nginx.request_uri contains "%2Fdev%2Ftcp" or
+      nginx.request_uri icontains "LD_PRELOAD" or
+      nginx.request_uri contains "LD_PRELOAD%3D" or
+      nginx.request_uri icontains "nohup" or
+      nginx.request_uri icontains "disown" or
+      nginx.request_uri contains ":|:" or
+      nginx.request_uri contains "%3A%7C%3A" or
+      nginx.request_uri icontains "crontab" or
+      nginx.request_uri contains "spool/cron" or
+      nginx.request_uri contains "%2Fspool%2Fcron" or
+      nginx.request_uri contains "$($" or
+      nginx.request_uri contains "%24(%24" or
+      nginx.request_uri icontains "$PATH" or
+      nginx.request_uri contains "%24PATH"
     )
   output: "[NGINX CMDi] Advanced command injection attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: WARNING
@@ -1901,6 +1925,8 @@
       nginx.request_uri icontains "FLUSHDB" or
       nginx.request_uri icontains "CONFIG SET" or
       nginx.request_uri icontains "CONFIG%20SET" or
+      nginx.request_uri icontains "CONFIG GET" or
+      nginx.request_uri icontains "CONFIG%20GET" or
       nginx.request_uri icontains "SLAVEOF" or
       nginx.request_uri icontains "DEBUG SEGFAULT" or
       nginx.request_uri icontains "DEBUG%20SEGFAULT"
@@ -1908,6 +1934,39 @@
   output: "[NGINX Emerging Threat] Redis command injection test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: CRITICAL
   tags: [security, emerging_threats, redis, injection, phase5]
+  source: nginx
+
+# ====================================
+# ADV_EMRG_008: SSTI Detection (Phase 4, Issue #49)
+# ====================================
+# Test patterns: SSTI_SMARTY_001, SSTI_THYME_001, SSTI_PEBBLE_001, SSTI_TWIG_001, SSTI_MAKO_001
+- rule: SSTI Attack Detected
+  desc: Detects Server-Side Template Injection attempts
+  condition: >-
+    (
+      nginx.request_uri contains "{php}" or
+      nginx.request_uri contains "%7Bphp%7D" or
+      nginx.request_uri contains "{/php}" or
+      nginx.request_uri contains "%7B%2Fphp%7D" or
+      nginx.request_uri contains "{{" or
+      nginx.request_uri contains "%7B%7B" or
+      nginx.request_uri contains "}}" or
+      nginx.request_uri contains "%7D%7D" or
+      nginx.request_uri contains "${" or
+      nginx.request_uri contains "%24%7B" or
+      nginx.request_uri contains "{%" or
+      nginx.request_uri contains "%7B%25" or
+      nginx.request_uri contains "%}" or
+      nginx.request_uri contains "%25%7D" or
+      nginx.request_uri icontains "file_excerpt" or
+      nginx.request_uri icontains "self.module" or
+      nginx.request_uri contains "__${T(" or
+      nginx.request_uri contains "__%24%7BT(" or
+      (nginx.request_uri icontains "system" and nginx.request_uri contains "(")
+    )
+  output: "[NGINX SSTI] Server-Side Template Injection detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
+  priority: CRITICAL
+  tags: [security, emerging_threats, ssti, template_injection, phase4]
   source: nginx
 
 # =========================================================================
@@ -2147,5 +2206,38 @@
   output: "[NGINX XPath Injection] XPath injection attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: WARNING
   tags: [security, xpath_injection, injection, phase3]
+  source: nginx
+
+# ==============================================================================
+# Phase 4 New Rules: API Security (Issue #785)
+# ==============================================================================
+
+# ====================================
+# API_ATK_001: API Security Attack Attempt
+# ====================================
+# Detects API security vulnerabilities including:
+# - BOLA (Broken Object Level Authorization)
+# - JWT Algorithm None attack
+# - Mass Assignment
+# - Prototype Pollution
+# - IDOR (Insecure Direct Object Reference)
+
+- rule: API Security Attack Attempt
+  desc: Detects API security vulnerabilities including BOLA, JWT attacks, Mass Assignment, and Prototype Pollution
+  condition: >-
+    (
+      nginx.request_uri contains "eyJhbGciOiJub25lIi" or
+      nginx.request_uri contains "__proto__" or
+      nginx.request_uri contains "%5F%5Fproto%5F%5F" or
+      nginx.request_uri contains "isAdmin" or
+      nginx.request_uri contains "%22isAdmin%22" or
+      nginx.request_uri contains "\"role\":\"admin\"" or
+      nginx.request_uri contains "%22role%22%3A%22admin%22" or
+      (nginx.request_uri contains "/api/" and nginx.request_uri contains "/users/" and nginx.request_uri contains "/profile") or
+      (nginx.request_uri contains "/api/" and nginx.request_uri contains "/orders/" and nginx.request_uri contains "/invoice")
+    )
+  output: "[NGINX API Attack] API security vulnerability detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
+  priority: WARNING
+  tags: [security, api_security, bola, jwt, mass_assignment, prototype_pollution, phase4]
   source: nginx
 

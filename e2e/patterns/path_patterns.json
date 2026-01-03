@@ -1,7 +1,7 @@
 {
   "metadata": {
     "category": "path",
-    "total_patterns": 40,
+    "total_patterns": 50,
     "port": 8003,
     "description": "k6 test patterns for path"
   },
@@ -455,6 +455,126 @@
       "expected_detection": true,
       "severity": "high",
       "expected_rule": "Windows path traversal attack detected"
+    },
+    {
+      "id": "PATH_TRUNC_001",
+      "name": "Null byte truncation",
+      "category": "path",
+      "subcategory": "truncation",
+      "payload": "../../../etc/passwd%00.jpg",
+      "encoded": "..%2F..%2F..%2Fetc%2Fpasswd%2500.jpg",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "Path Traversal Attack"
+    },
+    {
+      "id": "PATH_TRUNC_002",
+      "name": "Long path truncation",
+      "category": "path",
+      "subcategory": "truncation",
+      "payload": "../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../etc/passwd",
+      "encoded": "..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "Path Traversal Attack"
+    },
+    {
+      "id": "PATH_NORM_001",
+      "name": "Backslash normalization bypass",
+      "category": "path",
+      "subcategory": "normalization",
+      "payload": "..\\..\\..\\etc\\passwd",
+      "encoded": "..%5C..%5C..%5Cetc%5Cpasswd",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "Path Traversal Attack"
+    },
+    {
+      "id": "PATH_NORM_002",
+      "name": "Mixed slashes bypass",
+      "category": "path",
+      "subcategory": "normalization",
+      "payload": "../..\\../etc/passwd",
+      "encoded": "..%2F..%5C..%2Fetc%2Fpasswd",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "Path Traversal Attack"
+    },
+    {
+      "id": "PATH_NORM_003",
+      "name": "URL encoded backslash",
+      "category": "path",
+      "subcategory": "normalization",
+      "payload": "..%5c..%5c..%5cetc%5cpasswd",
+      "encoded": "..%255c..%255c..%255cetc%255cpasswd",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "Path Traversal Attack"
+    },
+    {
+      "id": "PATH_DBL_002",
+      "name": "Double encoded forward slash",
+      "category": "path",
+      "subcategory": "double_encoding",
+      "payload": "..%252f..%252f..%252fetc%252fpasswd",
+      "encoded": "..%25252f..%25252f..%25252fetc%25252fpasswd",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "Path Traversal Attack"
+    },
+    {
+      "id": "PATH_DBL_003",
+      "name": "Double encoded dot",
+      "category": "path",
+      "subcategory": "double_encoding",
+      "payload": "%252e%252e/%252e%252e/%252e%252e/etc/passwd",
+      "encoded": "%25252e%25252e%2F%25252e%25252e%2F%25252e%25252e%2Fetc%2Fpasswd",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "Path Traversal Attack"
+    },
+    {
+      "id": "PATH_SENS_001",
+      "name": "AWS credentials access",
+      "category": "path",
+      "subcategory": "sensitive_files",
+      "payload": "../../../root/.aws/credentials",
+      "encoded": "..%2F..%2F..%2Froot%2F.aws%2Fcredentials",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "Path Traversal Attack"
+    },
+    {
+      "id": "PATH_SENS_002",
+      "name": "Kubernetes secrets access",
+      "category": "path",
+      "subcategory": "sensitive_files",
+      "payload": "../../../var/run/secrets/kubernetes.io/serviceaccount/token",
+      "encoded": "..%2F..%2F..%2Fvar%2Frun%2Fsecrets%2Fkubernetes.io%2Fserviceaccount%2Ftoken",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "Path Traversal Attack"
+    },
+    {
+      "id": "PATH_SENS_003",
+      "name": "Docker socket access",
+      "category": "path",
+      "subcategory": "sensitive_files",
+      "payload": "../../../var/run/docker.sock",
+      "encoded": "..%2F..%2F..%2Fvar%2Frun%2Fdocker.sock",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "Path Traversal Attack"
     }
   ]
 }

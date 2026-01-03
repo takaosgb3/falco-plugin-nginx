@@ -107,6 +107,11 @@ const nosqlExtendedPatterns = new SharedArray('nosql_extended', function() {
     return data.patterns;
 });
 
+const apiSecurityPatterns = new SharedArray('api_security', function() {
+    const data = JSON.parse(open('../patterns/api_security_patterns.json'));
+    return data.patterns;
+});
+
 // ========================================
 // Test Options
 // ========================================
@@ -201,12 +206,21 @@ export const options = {
             exec: 'testNoSQLExtended',
             startTime: '50s',
             tags: { category: 'nosql_extended' }
+        },
+        // Phase 4: API Security patterns (Issue #49)
+        api_security_test: {
+            executor: 'per-vu-iterations',
+            vus: 1,
+            iterations: apiSecurityPatterns.length,
+            exec: 'testAPISecurity',
+            startTime: '55s',
+            tags: { category: 'api_security' }
         }
     },
     thresholds: {
         'http_req_duration': ['p(95)<5000'],  // 95% of requests under 5s
         'http_req_failed': ['rate<0.05'],      // Less than 5% failure rate
-        'attacks_sent': ['count==225']          // All 225 patterns sent (Phase 3 expanded)
+        'attacks_sent': ['count==300']          // All 300 patterns sent (Phase 4 expanded)
     },
     summaryTimeUnit: 'ms',
     summaryTrendStats: ['avg', 'med', 'p(90)', 'p(95)', 'p(99)', 'max', 'count']
@@ -339,6 +353,16 @@ export function testNoSQLExtended() {
     });
 }
 
+// Phase 4: API Security Tests (Issue #49)
+const apiSecurityAttacks = new Counter('api_security_attacks');
+
+export function testAPISecurity() {
+    group('API Security Tests', function() {
+        const pattern = apiSecurityPatterns[scenario.iterationInTest];
+        executeAttack(pattern, apiSecurityAttacks);
+    });
+}
+
 // ========================================
 // Setup/Teardown
 // ========================================
@@ -346,18 +370,19 @@ export function setup() {
     console.log('========================================');
     console.log('k6 E2E Test Starting (Public Repo Mode)');
     console.log(`Target: ${TARGET_IP}:${TARGET_PORT}`);
-    console.log('Total Patterns: 225 (Phase 3 expanded)');
-    console.log('  - SQLi: 59');
-    console.log('  - XSS: 41');
-    console.log('  - Path: 40');
-    console.log('  - CmdInj: 40');
+    console.log('Total Patterns: 300 (Phase 4 expanded)');
+    console.log('  - SQLi: 79');
+    console.log('  - XSS: 56');
+    console.log('  - Path: 50');
+    console.log('  - CmdInj: 55');
     console.log('  - Other: 10');
     console.log('  - LDAP: 10');
     console.log('  - XXE: 8');
     console.log('  - GraphQL: 5');
-    console.log('  - XPath: 5 (NEW)');
-    console.log('  - SSTI: 5 (NEW)');
-    console.log('  - NoSQL Extended: 2 (NEW)');
+    console.log('  - XPath: 5');
+    console.log('  - SSTI: 10');
+    console.log('  - NoSQL Extended: 7');
+    console.log('  - API Security: 5 (NEW)');
     console.log('========================================');
 }
 
@@ -390,7 +415,9 @@ export function handleSummary(data) {
                 // Phase 3: New categories (Issue #783)
                 xpath: data.metrics.xpath_attacks ? data.metrics.xpath_attacks.values.count : 0,
                 ssti: data.metrics.ssti_attacks ? data.metrics.ssti_attacks.values.count : 0,
-                nosql_extended: data.metrics.nosql_extended_attacks ? data.metrics.nosql_extended_attacks.values.count : 0
+                nosql_extended: data.metrics.nosql_extended_attacks ? data.metrics.nosql_extended_attacks.values.count : 0,
+                // Phase 4: API Security (Issue #49)
+                api_security: data.metrics.api_security_attacks ? data.metrics.api_security_attacks.values.count : 0
             }
         }
     };
