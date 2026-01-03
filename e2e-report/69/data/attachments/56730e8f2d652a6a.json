@@ -1,0 +1,15 @@
+{
+  "pattern_id": "CMD_BASIC_019",
+  "test_id": "CMD_BASIC_019-1767402979793-832msl",
+  "category": "cmdinj",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 27000,
+  "evidence": "01:16:19.000000000: Warning [NGINX CMDi] Advanced command injection attempt test_id=CMD_BASIC_019-1767402979793-832msl pattern_id=CMD_BASIC_019 uri=/?q=%250als client=127.0.0.1",
+  "rule_name": "[NGINX CMDi] Advanced command injection attempt test_id=CMD_BASIC_019-1767402979793-832msl pattern_id=CMD_BASIC_019 uri=/?q=%250als client=127.0.0.1",
+  "expected_rule": "",
+  "rule_id": "",
+  "sent_at": 1767403006000,
+  "detected_at": 1767402979000,
+  "status": "passed"
+}
