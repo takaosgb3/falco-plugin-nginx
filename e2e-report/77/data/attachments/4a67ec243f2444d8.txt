@@ -1,0 +1,5 @@
+Pattern ID: CMD_BASIC_013
+        Status: passed
+        Latency: ~36000ms
+        Detection: 1 / 1
+        Rule: [NGINX CMDi] Command injection via semicolon test_id=CMD_BASIC_013-1767850787078-5tbnde pattern_id=CMD_BASIC_013 uri=/?q=%3Bpwd client=127.0.0.1

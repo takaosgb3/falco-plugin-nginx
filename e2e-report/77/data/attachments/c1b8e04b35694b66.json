@@ -1,0 +1,15 @@
+{
+  "pattern_id": "PATH_ENC_002",
+  "test_id": "PATH_ENC_002-1767850786592-lcgbvi",
+  "category": "path",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 37000,
+  "evidence": "05:39:46.000000000: Critical [NGINX Traversal] Encoded path traversal attack detected test_id=PATH_ENC_002-1767850786592-lcgbvi pattern_id=PATH_ENC_002 uri=/?q=%25252e%25252e%25252f client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] Encoded path traversal attack detected test_id=PATH_ENC_002-1767850786592-lcgbvi pattern_id=PATH_ENC_002 uri=/?q=%25252e%25252e%25252f client=127.0.0.1",
+  "expected_rule": "",
+  "rule_id": "",
+  "sent_at": 1767850823000,
+  "detected_at": 1767850786000,
+  "status": "passed"
+}

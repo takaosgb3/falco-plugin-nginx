@@ -1,0 +1,15 @@
+{
+  "pattern_id": "SSTI_MAKO_001",
+  "test_id": "SSTI_MAKO_001-1767850815576-t6km7",
+  "category": "ssti",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 8000,
+  "evidence": "05:40:15.000000000: Critical [NGINX Emerging Threat] Template injection test_id=SSTI_MAKO_001-1767850815576-t6km7 pattern_id=SSTI_MAKO_001 uri=/?q=%24%7Bself.module.cache.util.os.system(%22id%22)%7D client=127.0.0.1",
+  "rule_name": "[NGINX Emerging Threat] Template injection test_id=SSTI_MAKO_001-1767850815576-t6km7 pattern_id=SSTI_MAKO_001 uri=/?q=%24%7Bself.module.cache.util.os.system(%22id%22)%7D client=127.0.0.1",
+  "expected_rule": "SSTI Attack Detected",
+  "rule_id": "",
+  "sent_at": 1767850823000,
+  "detected_at": 1767850815000,
+  "status": "passed"
+}

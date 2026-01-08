@@ -1,0 +1,15 @@
+{
+  "pattern_id": "CMD_BACK_001",
+  "test_id": "CMD_BACK_001-1767850791087-6xe6yb",
+  "category": "cmdinj",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 32000,
+  "evidence": "05:39:51.000000000: Critical [NGINX CMDi] Command substitution attack test_id=CMD_BACK_001-1767850791087-6xe6yb pattern_id=CMD_BACK_001 uri=/?q=%60rm%20-rf%20%2Ftmp%2F*%60 client=127.0.0.1",
+  "rule_name": "[NGINX CMDi] Command substitution attack test_id=CMD_BACK_001-1767850791087-6xe6yb pattern_id=CMD_BACK_001 uri=/?q=%60rm%20-rf%20%2Ftmp%2F*%60 client=127.0.0.1",
+  "expected_rule": "",
+  "rule_id": "",
+  "sent_at": 1767850823000,
+  "detected_at": 1767850791000,
+  "status": "passed"
+}

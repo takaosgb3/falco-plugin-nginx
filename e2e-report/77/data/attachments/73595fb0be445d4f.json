@@ -1,0 +1,15 @@
+{
+  "pattern_id": "CMD_ENC_006",
+  "test_id": "CMD_ENC_006-1767850800608-ftt5v8",
+  "category": "cmdinj",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 23000,
+  "evidence": "05:40:00.000000000: Warning [NGINX CMDi] Advanced command injection attempt test_id=CMD_ENC_006-1767850800608-ftt5v8 pattern_id=CMD_ENC_006 uri=/?q=%2560id%2560 client=127.0.0.1",
+  "rule_name": "[NGINX CMDi] Advanced command injection attempt test_id=CMD_ENC_006-1767850800608-ftt5v8 pattern_id=CMD_ENC_006 uri=/?q=%2560id%2560 client=127.0.0.1",
+  "expected_rule": "Advanced Command Injection Attempt",
+  "rule_id": "",
+  "sent_at": 1767850823000,
+  "detected_at": 1767850800000,
+  "status": "passed"
+}
