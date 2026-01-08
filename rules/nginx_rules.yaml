@@ -2234,7 +2234,9 @@
       nginx.request_uri contains "\"role\":\"admin\"" or
       nginx.request_uri contains "%22role%22%3A%22admin%22" or
       (nginx.request_uri contains "/api/" and nginx.request_uri contains "/users/" and nginx.request_uri contains "/profile") or
-      (nginx.request_uri contains "/api/" and nginx.request_uri contains "/orders/" and nginx.request_uri contains "/invoice")
+      (nginx.request_uri contains "%2Fapi%2F" and nginx.request_uri contains "%2Fusers%2F" and nginx.request_uri contains "%2Fprofile") or
+      (nginx.request_uri contains "/api/" and nginx.request_uri contains "/orders/" and nginx.request_uri contains "/invoice") or
+      (nginx.request_uri contains "%2Fapi%2F" and nginx.request_uri contains "%2Forders%2F" and nginx.request_uri contains "%2Finvoice")
     )
   output: "[NGINX API Attack] API security vulnerability detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: WARNING
