@@ -1,0 +1,15 @@
+{
+  "pattern_id": "SSTI_THYME_001",
+  "test_id": "SSTI_THYME_001-1767842078391-3yzo2",
+  "category": "ssti",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 10000,
+  "evidence": "03:14:38.000000000: Critical [NGINX Emerging Threat] Spring4Shell attack test_id=SSTI_THYME_001-1767842078391-3yzo2 pattern_id=SSTI_THYME_001 uri=/?q=__%24%7BT(java.lang.Runtime).getRuntime().exec(%22id%22)%7D__ client=127.0.0.1",
+  "rule_name": "[NGINX Emerging Threat] Spring4Shell attack test_id=SSTI_THYME_001-1767842078391-3yzo2 pattern_id=SSTI_THYME_001 uri=/?q=__%24%7BT(java.lang.Runtime).getRuntime().exec(%22id%22)%7D__ client=127.0.0.1",
+  "expected_rule": "SSTI Attack Detected",
+  "rule_id": "",
+  "sent_at": 1767842088000,
+  "detected_at": 1767842078000,
+  "status": "passed"
+}

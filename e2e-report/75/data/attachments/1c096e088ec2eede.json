@@ -1,0 +1,15 @@
+{
+  "pattern_id": "CMD_ENC_004",
+  "test_id": "CMD_ENC_004-1767842064425-tgrprp",
+  "category": "cmdinj",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 24000,
+  "evidence": "03:14:24.000000000: Warning [NGINX CMDi] Advanced command injection attempt test_id=CMD_ENC_004-1767842064425-tgrprp pattern_id=CMD_ENC_004 uri=/?q=%2524%2528whoami%2529 client=127.0.0.1",
+  "rule_name": "[NGINX CMDi] Advanced command injection attempt test_id=CMD_ENC_004-1767842064425-tgrprp pattern_id=CMD_ENC_004 uri=/?q=%2524%2528whoami%2529 client=127.0.0.1",
+  "expected_rule": "Advanced Command Injection Attempt",
+  "rule_id": "",
+  "sent_at": 1767842088000,
+  "detected_at": 1767842064000,
+  "status": "passed"
+}

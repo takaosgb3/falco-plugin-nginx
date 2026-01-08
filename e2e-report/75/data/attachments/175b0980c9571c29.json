@@ -1,0 +1,15 @@
+{
+  "pattern_id": "PATH_TRUNC_001",
+  "test_id": "PATH_TRUNC_001-1767842060926-wt3fun",
+  "category": "path",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 28000,
+  "evidence": "03:14:20.000000000: Critical [NGINX Traversal] Basic path traversal attack detected test_id=PATH_TRUNC_001-1767842060926-wt3fun pattern_id=PATH_TRUNC_001 uri=/?q=..%2F..%2F..%2Fetc%2Fpasswd%2500.jpg client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] Basic path traversal attack detected test_id=PATH_TRUNC_001-1767842060926-wt3fun pattern_id=PATH_TRUNC_001 uri=/?q=..%2F..%2F..%2Fetc%2Fpasswd%2500.jpg client=127.0.0.1",
+  "expected_rule": "Path Traversal Attack",
+  "rule_id": "",
+  "sent_at": 1767842088000,
+  "detected_at": 1767842060000,
+  "status": "passed"
+}

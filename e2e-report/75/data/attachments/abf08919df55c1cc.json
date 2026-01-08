@@ -1,0 +1,15 @@
+{
+  "pattern_id": "CMD_ENC_005",
+  "test_id": "CMD_ENC_005-1767842064925-v9vgr",
+  "category": "cmdinj",
+  "detected": false,
+  "expected_detection": false,
+  "latency_ms": null,
+  "evidence": "",
+  "rule_name": "",
+  "expected_rule": "Advanced Command Injection Attempt",
+  "rule_id": "",
+  "sent_at": 1767842088000,
+  "detected_at": null,
+  "status": "passed"
+}

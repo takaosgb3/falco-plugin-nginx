@@ -1,0 +1,15 @@
+{
+  "pattern_id": "CMD_NEST_001",
+  "test_id": "CMD_NEST_001-1767842068938-t69oqk",
+  "category": "cmdinj",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 20000,
+  "evidence": "03:14:28.000000000: Warning [NGINX CMDi] Advanced command injection attempt test_id=CMD_NEST_001-1767842068938-t69oqk pattern_id=CMD_NEST_001 uri=/?q=%24(%24(echo%20whoami)) client=127.0.0.1",
+  "rule_name": "[NGINX CMDi] Advanced command injection attempt test_id=CMD_NEST_001-1767842068938-t69oqk pattern_id=CMD_NEST_001 uri=/?q=%24(%24(echo%20whoami)) client=127.0.0.1",
+  "expected_rule": "Command substitution attack",
+  "rule_id": "",
+  "sent_at": 1767842088000,
+  "detected_at": 1767842068000,
+  "status": "passed"
+}

@@ -1,0 +1,15 @@
+{
+  "pattern_id": "CMD_FILE_002",
+  "test_id": "CMD_FILE_002-1767842070942-3851oi",
+  "category": "cmdinj",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 18000,
+  "evidence": "03:14:30.000000000: Warning [NGINX CMDi] Advanced command injection attempt test_id=CMD_FILE_002-1767842070942-3851oi pattern_id=CMD_FILE_002 uri=/?q=%26%26%20cat%20~%2F.ssh%2Fid_rsa client=127.0.0.1",
+  "rule_name": "[NGINX CMDi] Advanced command injection attempt test_id=CMD_FILE_002-1767842070942-3851oi pattern_id=CMD_FILE_002 uri=/?q=%26%26%20cat%20~%2F.ssh%2Fid_rsa client=127.0.0.1",
+  "expected_rule": "Advanced Command Injection Attempt",
+  "rule_id": "",
+  "sent_at": 1767842088000,
+  "detected_at": 1767842070000,
+  "status": "passed"
+}
