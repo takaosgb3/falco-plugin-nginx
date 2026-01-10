@@ -1,0 +1,3 @@
+Expected Rule: API Security Attack Attempt
+Matched Rule: [NGINX SQLi] Boolean-based Blind SQL Injection test_id=API_IDOR_001-1768052095215-otd6md pattern_id=API_IDOR_001 uri=/?q=%2Fapi%2Fv1%2Forders%2F99999%2Finvoice client=127.0.0.1 method=GET
+Rule Match: ❌ Mismatch

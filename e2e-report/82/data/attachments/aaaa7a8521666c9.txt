@@ -1,0 +1,3 @@
+Expected Rule: [NGINX Traversal] Windows path traversal attack detected
+Matched Rule: [NGINX Traversal] Windows path traversal attack detected test_id=PATH_WIN_003-1768052064252-mo3hf pattern_id=PATH_WIN_003 uri=/?q=..%5C..%5C..%5CWindows%5CSystem32%5Cconfig%5CSAM client=127.0.0.1
+Rule Match: ✅ Match

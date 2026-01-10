@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SSTI_JINJA_001",
+  "test_id": "SSTI_JINJA_001-1768052083210-ha47k4",
+  "category": "ssti",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 12000,
+  "evidence": "13:34:43.000000000: Critical [NGINX Emerging Threat] Template injection test_id=SSTI_JINJA_001-1768052083210-ha47k4 pattern_id=SSTI_JINJA_001 uri=/?q=%7B%7B7%2A7%7D%7D client=127.0.0.1",
+  "rule_name": "[NGINX Emerging Threat] Template injection test_id=SSTI_JINJA_001-1768052083210-ha47k4 pattern_id=SSTI_JINJA_001 uri=/?q=%7B%7B7%2A7%7D%7D client=127.0.0.1",
+  "expected_rule": "Template injection",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Emerging Threat] Template injection test_id=SSTI_JINJA_001-1768052083210-ha47k4 pattern_id=SSTI_JINJA_001 uri=/?q=%7B%7B7%2A7%7D%7D client=127.0.0.1",
+  "sent_at": 1768052095000,
+  "detected_at": 1768052083000,
+  "status": "passed"
+}

@@ -1,0 +1,5 @@
+Pattern ID: XSS_POLY_003
+        Status: passed
+        Latency: ~27000ms
+        Detection: 1 / 1
+        Rule: [NGINX XSS] DOM-based XSS Attack test_id=XSS_POLY_003-1768052068775-kxzcm pattern_id=XSS_POLY_003 uri=/?q=--%3E%3Cscript%3Ealert(1)%3C%2Fscript%3E%3C!-- client=127.0.0.1 method=GET

