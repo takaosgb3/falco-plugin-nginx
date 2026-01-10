@@ -44,6 +44,13 @@ RULE_NAME_PATTERN = re.compile(r'(?:Notice|Info|Warning|Error|Critical|Alert|Eme
 LATENCY_SUBSECOND_THRESHOLD_MS = 60000  # 1 minute
 MILLISECONDS_PER_DAY = 24 * 60 * 60 * 1000  # 86,400,000ms
 
+# Rule matching threshold
+# Minimum length for substring matching to avoid false positives with short patterns.
+# Short rule names (< 10 chars) like "SQL" or "XSS" could match too broadly.
+# Example: "sql" (3 chars) would match any rule containing "sql" anywhere.
+# With 10+ chars like "sql injection" (13 chars), false positives are unlikely.
+SUBSTRING_MATCH_MIN_LENGTH = 10
+
 logger = logging.getLogger(__name__)
 
 # ========================================
@@ -62,6 +69,78 @@ def extract_pattern_id(test_id: str) -> str:
     if len(parts) == 3:
         return parts[0]
     return test_id
+
+
+def normalize_rule_name(name: Optional[str]) -> str:
+    """
+    Normalize rule name for comparison by removing prefix and lowercasing
+
+    Issue #53: E2E ルールマッピング検証機能
+
+    Examples:
+        "[NGINX SQLi] Advanced SQL Injection Attempt" → "advanced sql injection attempt"
+        "[NGINX XSS] Cross-Site Scripting" → "cross-site scripting"
+        "Simple Rule Name" → "simple rule name"
+        None → ""
+        123 (non-string) → ""
+
+    Args:
+        name: Rule name string, None, or any other type
+
+    Returns:
+        Normalized lowercase rule name, or empty string for invalid inputs
+    """
+    # Type validation: only accept strings
+    if not isinstance(name, str):
+        return ""
+    if not name:
+        return ""
+    # Remove [NGINX XXX] prefix if present
+    match = re.match(r'\[NGINX [^\]]+\]\s*(.+)', name)
+    return match.group(1).strip().lower() if match else name.strip().lower()
+
+
+def compare_rules(expected_rule: str, rule_name: str) -> bool:
+    """
+    Compare expected rule with actual fired rule
+
+    Issue #53: E2E ルールマッピング検証機能
+
+    Matching logic:
+    1. Exact match
+    2. Normalized match (case-insensitive, without prefix)
+    3. Substring match (if normalized expected >= SUBSTRING_MATCH_MIN_LENGTH chars
+       and contained in actual)
+
+    The SUBSTRING_MATCH_MIN_LENGTH threshold prevents false positives with short
+    patterns like "SQL" or "XSS" that could match too broadly.
+
+    Args:
+        expected_rule: Expected rule name from pattern definition
+        rule_name: Actual rule name from Falco detection
+
+    Returns:
+        True if rules match, False otherwise
+    """
+    if not expected_rule or not rule_name:
+        return False
+
+    # Exact match
+    if expected_rule == rule_name:
+        return True
+
+    # Normalized match
+    norm_expected = normalize_rule_name(expected_rule)
+    norm_actual = normalize_rule_name(rule_name)
+
+    if norm_expected == norm_actual:
+        return True
+
+    # Substring match for longer rule names
+    if len(norm_expected) >= SUBSTRING_MATCH_MIN_LENGTH and norm_expected in norm_actual:
+        return True
+
+    return False
 
 
 def parse_timestamp_to_ms(timestamp_str: str, log_format: str) -> Optional[int]:
@@ -297,6 +376,12 @@ class BatchAnalyzer:
             # Pattern #A326: Properly handle expected_detection field
             expected_detection = pattern_data.get('expected_detection', True)
 
+            # Issue #53: Calculate rule_match and matched_rule
+            # rule_match: True if expected_rule matches actual rule_name
+            # matched_rule: The actual rule that was matched (only if detected)
+            rule_match = compare_rules(expected_rule, rule_name) if detected and expected_rule else False
+            matched_rule = rule_name if detected else None
+
             result = {
                 "pattern_id": pattern_id,
                 "test_id": test_id,
@@ -309,7 +394,9 @@ class BatchAnalyzer:
                 "evidence": evidence,
                 "rule_name": rule_name,
                 "expected_rule": expected_rule,
-                "rule_id": rule_id
+                "rule_id": rule_id,
+                "rule_match": rule_match,
+                "matched_rule": matched_rule
             }
 
             results.append(result)
@@ -361,6 +448,8 @@ class BatchAnalyzer:
                 "rule_name": result.get("rule_name", ""),
                 "expected_rule": result.get("expected_rule", ""),
                 "rule_id": result.get("rule_id", ""),
+                "rule_match": result.get("rule_match", False),
+                "matched_rule": result.get("matched_rule"),
                 "sent_at": result["sent_at"],
                 "detected_at": result["detected_at"],
                 "status": status
