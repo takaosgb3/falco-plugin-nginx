@@ -458,6 +458,14 @@ def test_e2e_with_logs(request, test_result: Dict):
 - **Latency**: {format_latency(test_result)}
 - **Timestamp**: {format_timestamp(test_result.get('detected_at'))}
 
+## Rule Mapping
+
+| Item | Value |
+|------|-------|
+| **Expected Rule** | `{test_result.get('expected_rule', 'N/A')}` |
+| **Matched Rule** | `{test_result.get('matched_rule', 'N/A')}` |
+| **Rule Match** | {'✅ Match' if test_result.get('rule_match') else '❌ Mismatch' if test_result.get('expected_rule') else '⚠️ Not Defined'} |
+
 ## Detection Evidence
 
 {'**Rule Name**: ' + test_result.get('rule_name', 'N/A') if test_result.get('rule_name') else ''}
@@ -480,6 +488,14 @@ Pattern details could not be loaded.
 - **Status**: `{status.upper()}`
 - **Detection**: {format_detection_count(test_result)}
 - **Latency**: {format_latency(test_result)}
+
+### Rule Mapping
+
+| Item | Value |
+|------|-------|
+| **Expected Rule** | `{test_result.get('expected_rule', 'N/A')}` |
+| **Matched Rule** | `{test_result.get('matched_rule', 'N/A')}` |
+| **Rule Match** | {'✅ Match' if test_result.get('rule_match') else '❌ Mismatch' if test_result.get('expected_rule') else '⚠️ Not Defined'} |
 
 ### Detection Evidence
 
@@ -601,6 +617,31 @@ Pattern details could not be loaded.
                 name="Detection Evidence (HTML)",
                 attachment_type=allure.attachment_type.HTML
             )
+
+    # ========================================
+    # Step: Rule Mapping Verification (Issue #53)
+    # ========================================
+    with allure.step("Rule Mapping Verification"):
+        expected_rule = test_result.get('expected_rule', 'N/A')
+        matched_rule = test_result.get('matched_rule', 'N/A')
+        rule_match = test_result.get('rule_match', False)
+
+        if expected_rule and expected_rule != 'N/A':
+            match_status = '✅ Match' if rule_match else '❌ Mismatch'
+        else:
+            match_status = '⚠️ Expected Rule Not Defined'
+
+        mapping_summary = f"""
+Expected Rule: {expected_rule}
+Matched Rule: {matched_rule}
+Rule Match: {match_status}
+        """
+
+        allure.attach(
+            mapping_summary.strip(),
+            name="Rule Mapping",
+            attachment_type=allure.attachment_type.TEXT
+        )
 
     # ========================================
     # Step 4: Verification Result

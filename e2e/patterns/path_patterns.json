@@ -15,7 +15,8 @@
       "encoded": "../",
       "port": 8003,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
     },
     {
       "id": "PATH_BASIC_002",
@@ -26,7 +27,8 @@
       "encoded": "../../",
       "port": 8003,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
     },
     {
       "id": "PATH_BASIC_003",
@@ -37,7 +39,8 @@
       "encoded": "../../../",
       "port": 8003,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
     },
     {
       "id": "PATH_BASIC_004",
@@ -48,7 +51,8 @@
       "encoded": "../../../../",
       "port": 8003,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
     },
     {
       "id": "PATH_BASIC_005",
@@ -59,7 +63,8 @@
       "encoded": "../../../../../",
       "port": 8003,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
     },
     {
       "id": "PATH_DOT_001",
@@ -70,7 +75,8 @@
       "encoded": "../etc/passwd",
       "port": 8003,
       "expected_detection": true,
-      "severity": "critical"
+      "severity": "critical",
+      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
     },
     {
       "id": "PATH_DOT_002",
@@ -81,7 +87,8 @@
       "encoded": "../../etc/shadow",
       "port": 8003,
       "expected_detection": true,
-      "severity": "critical"
+      "severity": "critical",
+      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
     },
     {
       "id": "PATH_DOT_003",
@@ -92,7 +99,8 @@
       "encoded": "../../../etc/hosts",
       "port": 8003,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
     },
     {
       "id": "PATH_DOT_004",
@@ -103,7 +111,8 @@
       "encoded": "../../../../etc/apache2/apache2.conf",
       "port": 8003,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
     },
     {
       "id": "PATH_DOT_005",
@@ -114,7 +123,8 @@
       "encoded": "../../../../../etc/ssh/sshd_config",
       "port": 8003,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
     },
     {
       "id": "PATH_DOT_006",
@@ -125,7 +135,8 @@
       "encoded": "../../var/log/apache2/access.log",
       "port": 8003,
       "expected_detection": true,
-      "severity": "medium"
+      "severity": "medium",
+      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
     },
     {
       "id": "PATH_DOT_007",
@@ -136,7 +147,8 @@
       "encoded": "../../../proc/version",
       "port": 8003,
       "expected_detection": true,
-      "severity": "medium"
+      "severity": "medium",
+      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
     },
     {
       "id": "PATH_DOT_008",
@@ -147,7 +159,8 @@
       "encoded": "../../../../root/.bash_history",
       "port": 8003,
       "expected_detection": true,
-      "severity": "critical"
+      "severity": "critical",
+      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
     },
     {
       "id": "PATH_DOT_009",
@@ -158,7 +171,8 @@
       "encoded": "../../home/user/.ssh/id_rsa",
       "port": 8003,
       "expected_detection": true,
-      "severity": "critical"
+      "severity": "critical",
+      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
     },
     {
       "id": "PATH_DOT_010",
@@ -169,7 +183,8 @@
       "encoded": "../../../etc/mysql/my.cnf",
       "port": 8003,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
     },
     {
       "id": "PATH_ABS_001",
@@ -180,7 +195,8 @@
       "encoded": "/etc/passwd",
       "port": 8003,
       "expected_detection": true,
-      "severity": "critical"
+      "severity": "critical",
+      "expected_rule": "[NGINX Traversal] File inclusion attack detected"
     },
     {
       "id": "PATH_ABS_002",
@@ -191,7 +207,8 @@
       "encoded": "/etc/shadow",
       "port": 8003,
       "expected_detection": true,
-      "severity": "critical"
+      "severity": "critical",
+      "expected_rule": "[NGINX Traversal] File inclusion attack detected"
     },
     {
       "id": "PATH_ABS_003",
@@ -202,7 +219,8 @@
       "encoded": "/root/.ssh/authorized_keys",
       "port": 8003,
       "expected_detection": true,
-      "severity": "critical"
+      "severity": "critical",
+      "expected_rule": "[NGINX Traversal] File inclusion attack detected"
     },
     {
       "id": "PATH_ABS_004",
@@ -213,7 +231,8 @@
       "encoded": "/var/log/auth.log",
       "port": 8003,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "[NGINX Traversal] File inclusion attack detected"
     },
     {
       "id": "PATH_ABS_005",
@@ -224,7 +243,8 @@
       "encoded": "/proc/self/environ",
       "port": 8003,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "[NGINX Traversal] File inclusion attack detected"
     },
     {
       "id": "PATH_ENC_001",
@@ -235,7 +255,8 @@
       "encoded": "%252e%252e%252fetc%2Fpasswd",
       "port": 8003,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "[NGINX Traversal] Encoded path traversal attack detected"
     },
     {
       "id": "PATH_ENC_002",
@@ -246,7 +267,8 @@
       "encoded": "%25252e%25252e%25252f",
       "port": 8003,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "[NGINX Traversal] Encoded path traversal attack detected"
     },
     {
       "id": "PATH_NULL_001",
@@ -257,7 +279,8 @@
       "encoded": "../etc/passwd%2500.jpg",
       "port": 8003,
       "expected_detection": true,
-      "severity": "critical"
+      "severity": "critical",
+      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
     },
     {
       "id": "PATH_UNICODE_001",
@@ -268,7 +291,8 @@
       "encoded": "..%25c0%25afetc%2Fpasswd",
       "port": 8003,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
     },
     {
       "id": "PATH_UNICODE_002",
@@ -279,7 +303,8 @@
       "encoded": "..%25c0%25ae%25c0%25ae%2Fetc%2Fpasswd",
       "port": 8003,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
     },
     {
       "id": "PATH_ADV_001",
@@ -290,7 +315,8 @@
       "encoded": "....%2F%2F",
       "port": 8003,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
     },
     {
       "id": "PATH_DBL_001",
@@ -301,7 +327,8 @@
       "encoded": "%25252E%25252E%25252F",
       "port": 8003,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "[NGINX Traversal] Encoded path traversal attack detected"
     },
     {
       "id": "PATH_ABS_006",
@@ -312,7 +339,8 @@
       "encoded": "%2Fetc%2Fapache2%2Fsites-available%2F000-default.conf",
       "port": 8003,
       "expected_detection": true,
-      "severity": "medium"
+      "severity": "medium",
+      "expected_rule": "[NGINX Traversal] File inclusion attack detected"
     },
     {
       "id": "PATH_ABS_007",
@@ -323,7 +351,8 @@
       "encoded": "%2Fvar%2Fwww%2Fhtml%2F.htaccess",
       "port": 8003,
       "expected_detection": true,
-      "severity": "medium"
+      "severity": "medium",
+      "expected_rule": "[NGINX Traversal] File inclusion attack detected"
     },
     {
       "id": "PATH_ABS_008",
@@ -334,7 +363,8 @@
       "encoded": "%2Fetc%2Fcrontab",
       "port": 8003,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "[NGINX Traversal] File inclusion attack detected"
     },
     {
       "id": "PATH_WIN_001",
@@ -346,7 +376,7 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Windows path traversal attack detected"
+      "expected_rule": "[NGINX Traversal] Windows path traversal attack detected"
     },
     {
       "id": "PATH_WIN_002",
@@ -358,7 +388,7 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Windows path traversal attack detected"
+      "expected_rule": "[NGINX Traversal] Windows path traversal attack detected"
     },
     {
       "id": "PATH_WIN_003",
@@ -370,7 +400,7 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "Windows path traversal attack detected"
+      "expected_rule": "[NGINX Traversal] Windows path traversal attack detected"
     },
     {
       "id": "PATH_WIN_004",
@@ -382,7 +412,7 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Windows path traversal attack detected"
+      "expected_rule": "[NGINX Traversal] Windows path traversal attack detected"
     },
     {
       "id": "PATH_WIN_005",
@@ -394,7 +424,7 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Windows path traversal attack detected"
+      "expected_rule": "[NGINX Traversal] Windows path traversal attack detected"
     },
     {
       "id": "PATH_ADV_002",
@@ -406,7 +436,7 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Advanced Path Traversal Attempt"
+      "expected_rule": "[NGINX Traversal] Advanced path traversal attempt detected"
     },
     {
       "id": "PATH_ADV_003",
@@ -418,7 +448,7 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Windows path traversal attack detected"
+      "expected_rule": "[NGINX Traversal] Windows path traversal attack detected"
     },
     {
       "id": "PATH_ADV_004",
@@ -430,7 +460,7 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "File inclusion attack detected"
+      "expected_rule": "[NGINX Traversal] File inclusion attack detected"
     },
     {
       "id": "PATH_ADV_005",
@@ -442,7 +472,7 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Advanced Path Traversal Attempt"
+      "expected_rule": "[NGINX Traversal] Advanced path traversal attempt detected"
     },
     {
       "id": "PATH_ADV_006",
@@ -454,7 +484,7 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Windows path traversal attack detected"
+      "expected_rule": "[NGINX Traversal] Windows path traversal attack detected"
     },
     {
       "id": "PATH_TRUNC_001",
@@ -466,7 +496,7 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Path Traversal Attack"
+      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
     },
     {
       "id": "PATH_TRUNC_002",
@@ -478,7 +508,7 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Path Traversal Attack"
+      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
     },
     {
       "id": "PATH_NORM_001",
@@ -490,7 +520,7 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Path Traversal Attack"
+      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
     },
     {
       "id": "PATH_NORM_002",
@@ -502,7 +532,7 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Path Traversal Attack"
+      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
     },
     {
       "id": "PATH_NORM_003",
@@ -514,7 +544,7 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Path Traversal Attack"
+      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
     },
     {
       "id": "PATH_DBL_002",
@@ -526,7 +556,7 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Path Traversal Attack"
+      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
     },
     {
       "id": "PATH_DBL_003",
@@ -538,7 +568,7 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Path Traversal Attack"
+      "expected_rule": "[NGINX Traversal] File inclusion attack detected"
     },
     {
       "id": "PATH_SENS_001",
@@ -550,7 +580,7 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "Path Traversal Attack"
+      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
     },
     {
       "id": "PATH_SENS_002",
@@ -562,7 +592,7 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "Path Traversal Attack"
+      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
     },
     {
       "id": "PATH_SENS_003",
@@ -574,7 +604,7 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "Path Traversal Attack"
+      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
     }
   ]
 }

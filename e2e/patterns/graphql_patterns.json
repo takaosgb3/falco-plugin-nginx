@@ -15,6 +15,7 @@
       "encoded": "query%7B__schema%7Btypes%7Bname%7D%7D%7D",
       "port": 8008,
       "expected_detection": true,
+      "expected_rule": "[NGINX Emerging Threat] Template injection",
       "severity": "medium"
     },
     {
@@ -26,6 +27,7 @@
       "encoded": "query%7B__type(name%3A%22User%22)%7Bfields%7Bname%7D%7D%7D",
       "port": 8008,
       "expected_detection": true,
+      "expected_rule": "[NGINX SSTI] Server-Side Template Injection detected",
       "severity": "medium"
     },
     {
@@ -37,6 +39,7 @@
       "encoded": "mutation%7B__schema%7BqueryType%7Bname%7D%7D%7D",
       "port": 8008,
       "expected_detection": true,
+      "expected_rule": "[NGINX Emerging Threat] Template injection",
       "severity": "medium"
     },
     {
@@ -48,6 +51,7 @@
       "encoded": "%7Busers(first%3A999999)%7Bid%2Cemail%2Cpassword%7D%7D",
       "port": 8008,
       "expected_detection": true,
+      "expected_rule": "[NGINX Emerging Threat] Template injection",
       "severity": "high"
     },
     {
@@ -59,6 +63,7 @@
       "encoded": "query%7Buser(id%3A%221'%20UNION%20SELECT%20*%20FROM%20admin_users--%22)%7Bname%7D%7D",
       "port": 8008,
       "expected_detection": true,
+      "expected_rule": "[NGINX SQLi] Boolean-based Blind SQL Injection",
       "severity": "critical"
     }
   ]

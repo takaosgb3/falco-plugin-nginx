@@ -15,6 +15,7 @@
       "encoded": "%7B%22%24where%22%3A%20%22this.username%20%3D%3D%20%27admin%27%22%7D",
       "port": 8005,
       "expected_detection": true,
+      "expected_rule": "[NGINX Emerging Threat] MongoDB NoSQL injection",
       "severity": "high"
     },
     {
@@ -26,6 +27,7 @@
       "encoded": "%7B%22%24ne%22%3A%20null%7D",
       "port": 8005,
       "expected_detection": true,
+      "expected_rule": "[NGINX Emerging Threat] MongoDB NoSQL injection",
       "severity": "high"
     },
     {
@@ -37,6 +39,7 @@
       "encoded": "%7B%22%24gt%22%3A%20%22%22%7D",
       "port": 8005,
       "expected_detection": true,
+      "expected_rule": "[NGINX Emerging Threat] MongoDB NoSQL injection",
       "severity": "high"
     },
     {
@@ -48,6 +51,7 @@
       "encoded": "%7B%22%24regex%22%3A%20%22.%2A%22%7D",
       "port": 8005,
       "expected_detection": true,
+      "expected_rule": "[NGINX Emerging Threat] MongoDB NoSQL injection",
       "severity": "medium"
     },
     {
@@ -59,6 +63,7 @@
       "encoded": "%27%3B%20return%20db.users.find%28%29%3B%20//",
       "port": 8005,
       "expected_detection": true,
+      "expected_rule": "[NGINX Emerging Threat] MongoDB NoSQL injection",
       "severity": "critical"
     },
     {
@@ -70,6 +75,7 @@
       "encoded": "%2Fapi%2Fv1%2Fusers%2F..%2F..%2F..%2Fetc%2Fpasswd",
       "port": 8005,
       "expected_detection": true,
+      "expected_rule": "[NGINX Traversal] File inclusion attack detected",
       "severity": "critical"
     },
     {
@@ -81,6 +87,7 @@
       "encoded": "FLUSHALL",
       "port": 8005,
       "expected_detection": true,
+      "expected_rule": "[NGINX Emerging Threat] Redis command injection",
       "severity": "critical"
     },
     {
@@ -92,6 +99,7 @@
       "encoded": "%7B%7B7*7%7D%7D",
       "port": 8005,
       "expected_detection": true,
+      "expected_rule": "[NGINX Emerging Threat] Template injection",
       "severity": "high"
     },
     {
@@ -103,6 +111,7 @@
       "encoded": "O%3A8%3A%22stdClass%22%3A1%3A%7Bs%3A4%3A%22test%22%3Bs%3A4%3A%22data%22%3B%7D",
       "port": 8005,
       "expected_detection": true,
+      "expected_rule": "[NGINX Emerging Threat] Deserialization attack",
       "severity": "high"
     },
     {
@@ -114,6 +123,7 @@
       "encoded": "rO0ABXNyABFqYXZhLnV0aWwuSGFzaE1hcA%3D%3D",
       "port": 8005,
       "expected_detection": true,
+      "expected_rule": "[NGINX Emerging Threat] Deserialization attack",
       "severity": "critical"
     }
   ]

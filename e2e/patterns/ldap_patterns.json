@@ -15,6 +15,7 @@
       "encoded": "*)(%28uid%3D*))(|(uid%3D*",
       "port": 8006,
       "expected_detection": true,
+      "expected_rule": "[NGINX LDAP Injection] Authentication bypass attempt",
       "severity": "high"
     },
     {
@@ -26,6 +27,7 @@
       "encoded": "*)(|(password%3D*))",
       "port": 8006,
       "expected_detection": true,
+      "expected_rule": "[NGINX LDAP Injection] Authentication bypass attempt",
       "severity": "high"
     },
     {
@@ -37,6 +39,7 @@
       "encoded": "admin)(%26(password%3D*)",
       "port": 8006,
       "expected_detection": true,
+      "expected_rule": "[NGINX LDAP Injection] Authentication bypass attempt",
       "severity": "high"
     },
     {
@@ -48,6 +51,7 @@
       "encoded": "*)(cn%3D*",
       "port": 8006,
       "expected_detection": true,
+      "expected_rule": "[NGINX LDAP Injection] Authentication bypass attempt",
       "severity": "medium"
     },
     {
@@ -59,6 +63,7 @@
       "encoded": "*)(%26(objectClass%3D*)",
       "port": 8006,
       "expected_detection": true,
+      "expected_rule": "[NGINX LDAP Injection] Authentication bypass attempt",
       "severity": "medium"
     },
     {
@@ -70,6 +75,7 @@
       "encoded": "*)(uid%3Dadmin)(password%3Da*",
       "port": 8006,
       "expected_detection": true,
+      "expected_rule": "[NGINX LDAP Injection] Authentication bypass attempt",
       "severity": "high"
     },
     {
@@ -81,6 +87,7 @@
       "encoded": "*)(|(uid%3Dadmin)(uid%3Dadministrator))",
       "port": 8006,
       "expected_detection": true,
+      "expected_rule": "[NGINX LDAP Injection] Authentication bypass attempt",
       "severity": "high"
     },
     {
@@ -92,6 +99,7 @@
       "encoded": "*)(memberOf%3Dcn%3DAdministrators*",
       "port": 8006,
       "expected_detection": true,
+      "expected_rule": "[NGINX LDAP Injection] Authentication bypass attempt",
       "severity": "high"
     },
     {
@@ -103,6 +111,7 @@
       "encoded": "*)(mail%3D*%40company.com)",
       "port": 8006,
       "expected_detection": true,
+      "expected_rule": "[NGINX LDAP Injection] Authentication bypass attempt",
       "severity": "medium"
     },
     {
@@ -114,6 +123,7 @@
       "encoded": "*)(description%3D*secret*)",
       "port": 8006,
       "expected_detection": true,
+      "expected_rule": "[NGINX LDAP Injection] Authentication bypass attempt",
       "severity": "medium"
     }
   ]
