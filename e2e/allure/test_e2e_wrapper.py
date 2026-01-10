@@ -261,6 +261,34 @@ def format_latency(test_result: Dict) -> str:
     return f"{latency}ms"
 
 
+def format_rule_match_status(test_result: Dict) -> str:
+    """
+    Format rule match status for display
+
+    Issue #53: E2E ルールマッピング検証機能
+    Extracted helper to eliminate code duplication
+
+    Args:
+        test_result: Test result dictionary containing:
+            - expected_rule: Expected rule from pattern definition
+            - rule_match: Boolean indicating if rules matched
+
+    Returns:
+        One of:
+        - "✅ Match" if rule_match is True
+        - "❌ Mismatch" if expected_rule is defined but no match
+        - "⚠️ Not Defined" if expected_rule is empty or N/A
+    """
+    expected_rule = test_result.get('expected_rule', '')
+    rule_match = test_result.get('rule_match', False)
+
+    if not expected_rule or expected_rule == 'N/A':
+        return '⚠️ Not Defined'
+    if rule_match:
+        return '✅ Match'
+    return '❌ Mismatch'
+
+
 # ============================================
 # Pattern Information Loading
 # ============================================
@@ -429,9 +457,6 @@ def test_e2e_with_logs(request, test_result: Dict):
     # Load pattern information
     pattern_info = load_pattern_info(pattern_id)
 
-    # Get rule information from test result
-    actual_rule = test_result.get('rule_name', 'N/A')
-
     # Build description
     if pattern_info:
         description = f"""
@@ -464,7 +489,7 @@ def test_e2e_with_logs(request, test_result: Dict):
 |------|-------|
 | **Expected Rule** | `{test_result.get('expected_rule', 'N/A')}` |
 | **Matched Rule** | `{test_result.get('matched_rule', 'N/A')}` |
-| **Rule Match** | {'✅ Match' if test_result.get('rule_match') else '❌ Mismatch' if test_result.get('expected_rule') and test_result.get('expected_rule') != 'N/A' else '⚠️ Not Defined'} |
+| **Rule Match** | {format_rule_match_status(test_result)} |
 
 ## Detection Evidence
 
@@ -495,7 +520,7 @@ Pattern details could not be loaded.
 |------|-------|
 | **Expected Rule** | `{test_result.get('expected_rule', 'N/A')}` |
 | **Matched Rule** | `{test_result.get('matched_rule', 'N/A')}` |
-| **Rule Match** | {'✅ Match' if test_result.get('rule_match') else '❌ Mismatch' if test_result.get('expected_rule') and test_result.get('expected_rule') != 'N/A' else '⚠️ Not Defined'} |
+| **Rule Match** | {format_rule_match_status(test_result)} |
 
 ### Detection Evidence
 
@@ -624,12 +649,7 @@ Pattern details could not be loaded.
     with allure.step("Rule Mapping Verification"):
         expected_rule = test_result.get('expected_rule', 'N/A')
         matched_rule = test_result.get('matched_rule', 'N/A')
-        rule_match = test_result.get('rule_match', False)
-
-        if expected_rule and expected_rule != 'N/A':
-            match_status = '✅ Match' if rule_match else '❌ Mismatch'
-        else:
-            match_status = '⚠️ Expected Rule Not Defined'
+        match_status = format_rule_match_status(test_result)
 
         mapping_summary = f"""
 Expected Rule: {expected_rule}
