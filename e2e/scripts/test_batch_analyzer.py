@@ -56,6 +56,19 @@ class TestNormalizeRuleName:
         """Should not match partial NGINX prefix"""
         assert normalize_rule_name("[NGINX Some Rule") == "[nginx some rule"
 
+    # === Type Validation Tests ===
+    def test_integer_input(self):
+        """Should return empty string for integer input (type validation)"""
+        assert normalize_rule_name(123) == ""
+
+    def test_list_input(self):
+        """Should return empty string for list input (type validation)"""
+        assert normalize_rule_name(['test']) == ""
+
+    def test_dict_input(self):
+        """Should return empty string for dict input (type validation)"""
+        assert normalize_rule_name({'name': 'test'}) == ""
+
 
 class TestCompareRules:
     """Tests for compare_rules() function"""
@@ -78,6 +91,20 @@ class TestCompareRules:
         # Note: Function expects strings, None should be handled externally
         # This tests the empty string path
         assert compare_rules("", "") is False
+
+    def test_expected_none(self):
+        """Should return False when expected_rule is None"""
+        # normalize_rule_name handles None -> "", compare_rules returns False for empty
+        assert compare_rules(None, "Some Rule") is False
+
+    def test_actual_none(self):
+        """Should return False when rule_name is None"""
+        # normalize_rule_name handles None -> "", compare_rules returns False for empty
+        assert compare_rules("Some Rule", None) is False
+
+    def test_both_none_direct(self):
+        """Should return False when both inputs are None directly"""
+        assert compare_rules(None, None) is False
 
     # === Exact Match Tests ===
     def test_exact_match(self):

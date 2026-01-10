@@ -44,6 +44,13 @@ RULE_NAME_PATTERN = re.compile(r'(?:Notice|Info|Warning|Error|Critical|Alert|Eme
 LATENCY_SUBSECOND_THRESHOLD_MS = 60000  # 1 minute
 MILLISECONDS_PER_DAY = 24 * 60 * 60 * 1000  # 86,400,000ms
 
+# Rule matching threshold
+# Minimum length for substring matching to avoid false positives with short patterns.
+# Short rule names (< 10 chars) like "SQL" or "XSS" could match too broadly.
+# Example: "sql" (3 chars) would match any rule containing "sql" anywhere.
+# With 10+ chars like "sql injection" (13 chars), false positives are unlikely.
+SUBSTRING_MATCH_MIN_LENGTH = 10
+
 logger = logging.getLogger(__name__)
 
 # ========================================
@@ -74,7 +81,18 @@ def normalize_rule_name(name: Optional[str]) -> str:
         "[NGINX SQLi] Advanced SQL Injection Attempt" → "advanced sql injection attempt"
         "[NGINX XSS] Cross-Site Scripting" → "cross-site scripting"
         "Simple Rule Name" → "simple rule name"
+        None → ""
+        123 (non-string) → ""
+
+    Args:
+        name: Rule name string, None, or any other type
+
+    Returns:
+        Normalized lowercase rule name, or empty string for invalid inputs
     """
+    # Type validation: only accept strings
+    if not isinstance(name, str):
+        return ""
     if not name:
         return ""
     # Remove [NGINX XXX] prefix if present
@@ -91,7 +109,11 @@ def compare_rules(expected_rule: str, rule_name: str) -> bool:
     Matching logic:
     1. Exact match
     2. Normalized match (case-insensitive, without prefix)
-    3. Substring match (if normalized expected >= 10 chars and contained in actual)
+    3. Substring match (if normalized expected >= SUBSTRING_MATCH_MIN_LENGTH chars
+       and contained in actual)
+
+    The SUBSTRING_MATCH_MIN_LENGTH threshold prevents false positives with short
+    patterns like "SQL" or "XSS" that could match too broadly.
 
     Args:
         expected_rule: Expected rule name from pattern definition
@@ -115,7 +137,7 @@ def compare_rules(expected_rule: str, rule_name: str) -> bool:
         return True
 
     # Substring match for longer rule names
-    if len(norm_expected) >= 10 and norm_expected in norm_actual:
+    if len(norm_expected) >= SUBSTRING_MATCH_MIN_LENGTH and norm_expected in norm_actual:
         return True
 
     return False

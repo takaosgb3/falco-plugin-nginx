@@ -18,6 +18,7 @@ Usage:
 """
 
 import json
+import logging
 import pytest
 import allure
 import html
@@ -25,6 +26,8 @@ import re
 from pathlib import Path
 from typing import Dict, List, Literal, Optional
 from datetime import datetime, timezone
+
+logger = logging.getLogger(__name__)
 
 # ============================================
 # Keyword Highlighting Functions (Issue #17)
@@ -275,12 +278,18 @@ def format_rule_match_status(test_result: Dict) -> str:
 
     Returns:
         One of:
-        - "✅ Match" if rule_match is True
+        - "✅ Match" if rule_match is exactly True (boolean)
         - "❌ Mismatch" if expected_rule is defined but no match
-        - "⚠️ Not Defined" if expected_rule is empty or N/A
+        - "⚠️ Not Defined" if expected_rule is empty, None, or N/A
+
+    Note:
+        Type safety: Only boolean True triggers Match status.
+        String "true" or other truthy values are treated as Mismatch
+        to prevent false positives from JSON parsing issues.
     """
     expected_rule = test_result.get('expected_rule', '')
-    rule_match = test_result.get('rule_match', False)
+    # Type-safe check: only boolean True triggers match
+    rule_match = test_result.get('rule_match') is True
 
     if not expected_rule or expected_rule == 'N/A':
         return '⚠️ Not Defined'
@@ -302,32 +311,59 @@ def load_all_patterns() -> Dict:
 
     Returns:
         Dictionary with pattern_id as key, pattern info as value
+
+    Note:
+        Individual file loading errors are logged but don't prevent
+        loading other files. Empty dict is returned only if the
+        patterns directory doesn't exist.
     """
     global _PATTERNS_CACHE
 
     if _PATTERNS_CACHE is not None:
         return _PATTERNS_CACHE
 
-    try:
-        current_dir = Path(__file__).parent
-        patterns_dir = current_dir.parent / 'patterns'
+    current_dir = Path(__file__).parent
+    patterns_dir = current_dir.parent / 'patterns'
 
+    if not patterns_dir.exists():
+        logger.warning(f"Patterns directory not found: {patterns_dir}")
         _PATTERNS_CACHE = {}
+        return _PATTERNS_CACHE
 
-        # Load all category pattern files
-        for pattern_file in patterns_dir.glob('*_patterns.json'):
+    _PATTERNS_CACHE = {}
+    loaded_count = 0
+    error_count = 0
+
+    # Load all category pattern files
+    for pattern_file in patterns_dir.glob('*_patterns.json'):
+        try:
             with open(pattern_file, 'r', encoding='utf-8') as f:
                 data = json.load(f)
                 if isinstance(data, dict) and 'patterns' in data:
                     for p in data['patterns']:
+                        if 'id' not in p:
+                            logger.warning(
+                                f"Pattern missing 'id' field in {pattern_file.name}: {p}"
+                            )
+                            continue
                         _PATTERNS_CACHE[p['id']] = p
+                        loaded_count += 1
+        except json.JSONDecodeError as e:
+            logger.error(f"Invalid JSON in {pattern_file.name}: {e}")
+            error_count += 1
+        except IOError as e:
+            logger.error(f"Failed to read {pattern_file.name}: {e}")
+            error_count += 1
 
-        return _PATTERNS_CACHE
+    if error_count > 0:
+        logger.warning(
+            f"Pattern loading completed with errors: "
+            f"{loaded_count} loaded, {error_count} files failed"
+        )
+    else:
+        logger.debug(f"Loaded {loaded_count} patterns from {patterns_dir}")
 
-    except Exception as e:
-        print(f"Error loading patterns: {e}")
-        _PATTERNS_CACHE = {}
-        return _PATTERNS_CACHE
+    return _PATTERNS_CACHE
 
 
 def load_pattern_info(pattern_id: str) -> Optional[Dict]:

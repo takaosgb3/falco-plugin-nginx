@@ -106,6 +106,40 @@ class TestFormatRuleMatchStatus:
         }
         assert format_rule_match_status(test_result) == '⚠️ Not Defined'
 
+    # === Type Safety Tests ===
+    def test_rule_match_string_true(self):
+        """Should return 'Mismatch' when rule_match is string "true" (not boolean True)"""
+        # Type safety: string "true" should NOT trigger Match status
+        test_result = {
+            'expected_rule': '[NGINX SQLi] Advanced SQL Injection',
+            'rule_match': "true"  # string, not boolean
+        }
+        assert format_rule_match_status(test_result) == '❌ Mismatch'
+
+    def test_rule_match_string_false(self):
+        """Should return 'Mismatch' when rule_match is string "false"""
+        test_result = {
+            'expected_rule': '[NGINX SQLi] Advanced SQL Injection',
+            'rule_match': "false"
+        }
+        assert format_rule_match_status(test_result) == '❌ Mismatch'
+
+    def test_rule_match_integer_one(self):
+        """Should return 'Mismatch' when rule_match is integer 1 (truthy but not True)"""
+        test_result = {
+            'expected_rule': '[NGINX SQLi] Advanced SQL Injection',
+            'rule_match': 1  # integer, not boolean True
+        }
+        assert format_rule_match_status(test_result) == '❌ Mismatch'
+
+    def test_rule_match_integer_zero(self):
+        """Should return 'Mismatch' when rule_match is integer 0"""
+        test_result = {
+            'expected_rule': '[NGINX SQLi] Advanced SQL Injection',
+            'rule_match': 0
+        }
+        assert format_rule_match_status(test_result) == '❌ Mismatch'
+
 
 class TestFormatRuleMatchStatusIntegration:
     """Integration tests with realistic test result structures"""
