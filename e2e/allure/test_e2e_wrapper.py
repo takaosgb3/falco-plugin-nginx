@@ -464,7 +464,7 @@ def test_e2e_with_logs(request, test_result: Dict):
 |------|-------|
 | **Expected Rule** | `{test_result.get('expected_rule', 'N/A')}` |
 | **Matched Rule** | `{test_result.get('matched_rule', 'N/A')}` |
-| **Rule Match** | {'✅ Match' if test_result.get('rule_match') else '❌ Mismatch' if test_result.get('expected_rule') else '⚠️ Not Defined'} |
+| **Rule Match** | {'✅ Match' if test_result.get('rule_match') else '❌ Mismatch' if test_result.get('expected_rule') and test_result.get('expected_rule') != 'N/A' else '⚠️ Not Defined'} |
 
 ## Detection Evidence
 
@@ -495,7 +495,7 @@ Pattern details could not be loaded.
 |------|-------|
 | **Expected Rule** | `{test_result.get('expected_rule', 'N/A')}` |
 | **Matched Rule** | `{test_result.get('matched_rule', 'N/A')}` |
-| **Rule Match** | {'✅ Match' if test_result.get('rule_match') else '❌ Mismatch' if test_result.get('expected_rule') else '⚠️ Not Defined'} |
+| **Rule Match** | {'✅ Match' if test_result.get('rule_match') else '❌ Mismatch' if test_result.get('expected_rule') and test_result.get('expected_rule') != 'N/A' else '⚠️ Not Defined'} |
 
 ### Detection Evidence
 
