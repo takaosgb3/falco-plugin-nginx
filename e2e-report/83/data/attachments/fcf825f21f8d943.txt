@@ -1,0 +1,3 @@
+Expected Rule: MongoDB NoSQL injection
+Matched Rule: [NGINX SQLi] Boolean-based Blind SQL Injection test_id=NOSQL_MONGO_003-1768119585977-azqg39 pattern_id=NOSQL_MONGO_003 uri=/?q=%7B%22password%22%3A%20%7B%22%24gt%22%3A%20%22%22%7D%7D client=127.0.0.1 method=GET
+Rule Match: ❌ Mismatch

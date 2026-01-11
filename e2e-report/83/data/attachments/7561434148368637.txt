@@ -1,0 +1,3 @@
+Expected Rule: [NGINX Emerging Threat] Template injection
+Matched Rule: [NGINX Emerging Threat] Template injection test_id=OTHER_JINJA_001-1768119557484-9bctw pattern_id=OTHER_JINJA_001 uri=/?q=%7B%7B7*7%7D%7D client=127.0.0.1
+Rule Match: ✅ Match

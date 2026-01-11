@@ -1,0 +1,5 @@
+Pattern ID: SQLI_BLIND_008
+        Status: passed
+        Latency: ~20000ms
+        Detection: 1 / 1
+        Rule: [NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_BLIND_008-1768119571054-0q8y2m pattern_id=SQLI_BLIND_008 uri=/?q='%20AND%20(SELECT%20SUBSTR(table_name%2C1%2C1)%20FROM%20information_schema.tables%20WHERE%20table_schema%3Ddatabase()%20LIMIT%201)%3D'u'%20-- client=127.0.0.1 method=GET

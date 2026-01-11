@@ -1,0 +1,17 @@
+{
+  "pattern_id": "XXE_BILLION_001",
+  "test_id": "XXE_BILLION_001-1768119566479-kmh1l6",
+  "category": "xxe",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 25000,
+  "evidence": "08:19:26.000000000: Critical [NGINX XXE Attack] DOCTYPE/ENTITY injection test_id=XXE_BILLION_001-1768119566479-kmh1l6 pattern_id=XXE_BILLION_001 uri=/?q=%3C%21ENTITY%20lol%20%22lol%22%3E%3C%21ENTITY%20lol2%20%22%26lol%3B%26lol%3B%26lol%3B%26lol%3B%26lol%3B%26lol%3B%26lol%3B%26lol%3B%26lol%3B%26lol%3B%22%3E client=127.0.0.1",
+  "rule_name": "[NGINX XXE Attack] DOCTYPE/ENTITY injection test_id=XXE_BILLION_001-1768119566479-kmh1l6 pattern_id=XXE_BILLION_001 uri=/?q=%3C%21ENTITY%20lol%20%22lol%22%3E%3C%21ENTITY%20lol2%20%22%26lol%3B%26lol%3B%26lol%3B%26lol%3B%26lol%3B%26lol%3B%26lol%3B%26lol%3B%26lol%3B%26lol%3B%22%3E client=127.0.0.1",
+  "expected_rule": "[NGINX XXE Attack] DOCTYPE/ENTITY injection",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX XXE Attack] DOCTYPE/ENTITY injection test_id=XXE_BILLION_001-1768119566479-kmh1l6 pattern_id=XXE_BILLION_001 uri=/?q=%3C%21ENTITY%20lol%20%22lol%22%3E%3C%21ENTITY%20lol2%20%22%26lol%3B%26lol%3B%26lol%3B%26lol%3B%26lol%3B%26lol%3B%26lol%3B%26lol%3B%26lol%3B%26lol%3B%22%3E client=127.0.0.1",
+  "sent_at": 1768119591000,
+  "detected_at": 1768119566000,
+  "status": "passed"
+}

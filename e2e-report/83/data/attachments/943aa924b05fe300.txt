@@ -1,0 +1,5 @@
+Pattern ID: CMD_SUB_003
+        Status: passed
+        Latency: ~26000ms
+        Detection: 1 / 1
+        Rule: [NGINX CMDi] Command substitution attack test_id=CMD_SUB_003-1768119565011-gwoube pattern_id=CMD_SUB_003 uri=/?q=%24%28cat%20%2Fetc%2Fpasswd%29 client=127.0.0.1

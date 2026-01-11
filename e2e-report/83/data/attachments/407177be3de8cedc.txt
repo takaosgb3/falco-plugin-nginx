@@ -1,0 +1,5 @@
+Pattern ID: OTHER_JAVA_001
+        Status: passed
+        Latency: ~33000ms
+        Detection: 1 / 1
+        Rule: [NGINX Emerging Threat] Deserialization attack test_id=OTHER_JAVA_001-1768119558487-3dm3ak pattern_id=OTHER_JAVA_001 uri=/?q=rO0ABXNyABFqYXZhLnV0aWwuSGFzaE1hcA%3D%3D client=127.0.0.1

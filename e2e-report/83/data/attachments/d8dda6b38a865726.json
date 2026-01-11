@@ -1,0 +1,17 @@
+{
+  "pattern_id": "API_IDOR_001",
+  "test_id": "API_IDOR_001-1768119590978-mvjy2d",
+  "category": "api_security",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 1000,
+  "evidence": "08:19:50.000000000: Critical [NGINX SQLi] Boolean-based Blind SQL Injection test_id=API_IDOR_001-1768119590978-mvjy2d pattern_id=API_IDOR_001 uri=/?q=%2Fapi%2Fv1%2Forders%2F99999%2Finvoice client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Boolean-based Blind SQL Injection test_id=API_IDOR_001-1768119590978-mvjy2d pattern_id=API_IDOR_001 uri=/?q=%2Fapi%2Fv1%2Forders%2F99999%2Finvoice client=127.0.0.1 method=GET",
+  "expected_rule": "API Security Attack Attempt",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": "[NGINX SQLi] Boolean-based Blind SQL Injection test_id=API_IDOR_001-1768119590978-mvjy2d pattern_id=API_IDOR_001 uri=/?q=%2Fapi%2Fv1%2Forders%2F99999%2Finvoice client=127.0.0.1 method=GET",
+  "sent_at": 1768119591000,
+  "detected_at": 1768119590000,
+  "status": "passed"
+}

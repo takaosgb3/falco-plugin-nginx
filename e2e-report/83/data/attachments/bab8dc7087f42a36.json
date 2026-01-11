@@ -1,0 +1,17 @@
+{
+  "pattern_id": "XSS_POLY_001",
+  "test_id": "XSS_POLY_001-1768119550499-t4p788",
+  "category": "xss",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 41000,
+  "evidence": "08:19:10.000000000: Critical [NGINX XSS] DOM-based XSS Attack test_id=XSS_POLY_001-1768119550499-t4p788 pattern_id=XSS_POLY_001 uri=/?q=javascript%3A%2F*--%3E%3C%2Ftitle%3E%3C%2Fstyle%3E%3C%2Ftextarea%3E%3C%2Fscript%3E%3C%2Fxmp%3E%3Csvg%2Fonload%3D'%2B%2F%22%2F%2B%2Fonmouseover%3D1%2F%2B%2F%5B*%2F%5B%5D%2F%2Balert('XSS')%3B%2F%2F'%3E client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX XSS] DOM-based XSS Attack test_id=XSS_POLY_001-1768119550499-t4p788 pattern_id=XSS_POLY_001 uri=/?q=javascript%3A%2F*--%3E%3C%2Ftitle%3E%3C%2Fstyle%3E%3C%2Ftextarea%3E%3C%2Fscript%3E%3C%2Fxmp%3E%3Csvg%2Fonload%3D'%2B%2F%22%2F%2B%2Fonmouseover%3D1%2F%2B%2F%5B*%2F%5B%5D%2F%2Balert('XSS')%3B%2F%2F'%3E client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX XSS] DOM-based XSS Attack",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX XSS] DOM-based XSS Attack test_id=XSS_POLY_001-1768119550499-t4p788 pattern_id=XSS_POLY_001 uri=/?q=javascript%3A%2F*--%3E%3C%2Ftitle%3E%3C%2Fstyle%3E%3C%2Ftextarea%3E%3C%2Fscript%3E%3C%2Fxmp%3E%3Csvg%2Fonload%3D'%2B%2F%22%2F%2B%2Fonmouseover%3D1%2F%2B%2F%5B*%2F%5B%5D%2F%2Balert('XSS')%3B%2F%2F'%3E client=127.0.0.1 method=GET",
+  "sent_at": 1768119591000,
+  "detected_at": 1768119550000,
+  "status": "passed"
+}

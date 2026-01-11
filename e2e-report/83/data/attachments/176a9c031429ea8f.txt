@@ -1,0 +1,3 @@
+Expected Rule: API Security Attack Attempt
+Matched Rule: [NGINX Emerging Threat] Template injection test_id=API_PROTO_001-1768119590477-ctj5tl pattern_id=API_PROTO_001 uri=/?q=%7B%22__proto__%22%3A%7B%22isAdmin%22%3Atrue%7D%7D client=127.0.0.1
+Rule Match: ❌ Mismatch

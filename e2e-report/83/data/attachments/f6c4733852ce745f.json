@@ -1,0 +1,17 @@
+{
+  "pattern_id": "NOSQL_MONGO_003",
+  "test_id": "NOSQL_MONGO_003-1768119585977-azqg39",
+  "category": "nosql_extended",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 6000,
+  "evidence": "08:19:45.000000000: Critical [NGINX SQLi] Boolean-based Blind SQL Injection test_id=NOSQL_MONGO_003-1768119585977-azqg39 pattern_id=NOSQL_MONGO_003 uri=/?q=%7B%22password%22%3A%20%7B%22%24gt%22%3A%20%22%22%7D%7D client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Boolean-based Blind SQL Injection test_id=NOSQL_MONGO_003-1768119585977-azqg39 pattern_id=NOSQL_MONGO_003 uri=/?q=%7B%22password%22%3A%20%7B%22%24gt%22%3A%20%22%22%7D%7D client=127.0.0.1 method=GET",
+  "expected_rule": "MongoDB NoSQL injection",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": "[NGINX SQLi] Boolean-based Blind SQL Injection test_id=NOSQL_MONGO_003-1768119585977-azqg39 pattern_id=NOSQL_MONGO_003 uri=/?q=%7B%22password%22%3A%20%7B%22%24gt%22%3A%20%22%22%7D%7D client=127.0.0.1 method=GET",
+  "sent_at": 1768119591000,
+  "detected_at": 1768119585000,
+  "status": "passed"
+}
