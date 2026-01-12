@@ -4,7 +4,7 @@
 
 | Item | Value |
 |------|-------|
-| Version | v1.8.0 |
+| Version | v1.9.0 |
 | Created | 2026-01-12 |
 | Reviewer | Claude Code |
 | Status | Review Complete |
@@ -225,6 +225,22 @@ Test.Patterns=300
 
 **推奨対応**: e2e-test.yml Line 488を更新
 
+### Issue #14: TASK-4.6に公開リポジトリでは無関係な「セルフホスト停止」リスク 🟡 MEDIUM (NEW - 10th Review)
+
+**場所**: RELEASE_V1.5.0_TASK_DEFINITION.md TASK-4.6 Past Failure Patterns (Line 569)
+
+**問題**:
+```markdown
+| セルフホスト停止 | プライベートリポジトリでのワークフロー失敗 | 事前確認 |
+```
+
+公開リポジトリ（falco-plugin-nginx）でのリリースでは:
+- セルフホストランナーは使用しない
+- 「セルフホスト停止」リスクは無関係
+- 「事前確認」も不要
+
+**推奨対応**: 該当行を削除し、公開リポジトリでは不要である旨の注記を追加
+
 ---
 
 ## 3.1 Additional Findings
@@ -409,6 +425,12 @@ $ grep -l "ubuntu-latest" .github/workflows/*.yml
 | 第7回 | NFR-003/Pattern #3 公開リポジトリへの誤適用 | ✅ 修正済み |
 | 第8回 | Test Categories 6→12カテゴリ、Risk Assessment、TASK重複 | ✅ 修正済み |
 | 第9回 | e2e-test.yml Test.Patterns=100（Workflow Files詳細確認） | ✅ 修正済み |
+| 第10回 | TASK-4.6「セルフホスト停止」リスク（公開リポジトリでは不要） | ✅ 修正済み |
+
+### 第10回レビューで発見された問題
+
+1. **Issue #14** ✅: TASK-4.6「セルフホスト停止」行を削除、公開リポジトリでは不要の注記を追加
+   - 公開リポジトリではGitHub-hosted runnerを使用するため、セルフホストランナーの問題は発生しない
 
 ### 第9回レビューで発見された問題
 
@@ -435,7 +457,7 @@ $ grep -l "ubuntu-latest" .github/workflows/*.yml
 
 ### 推奨アクション
 
-**すべてのレビュー指摘事項（Issue #1〜#13）が修正されました。** リリース作業を開始する準備が整いました。
+**すべてのレビュー指摘事項（Issue #1〜#14）が修正されました。** リリース作業を開始する準備が整いました。
 
 **リリース前の最終確認事項**:
 1. **TASK-2.5の実行**: 公開リポジトリのドキュメント更新（README.md, e2e/README.md, docs/*.md）
@@ -458,8 +480,9 @@ $ grep -l "ubuntu-latest" .github/workflows/*.yml
 | v1.6.0 | 2026-01-12 | Claude Code | 第7回レビュー：Issue #9 NFR-003/Pattern #3の公開リポジトリへの誤適用を修正（料金問題→バージョンドリフト） |
 | v1.7.0 | 2026-01-12 | Claude Code | 第8回レビュー：Issue #10 Test Categories 6→12カテゴリ、Issue #11 Risk Assessment修正、Issue #12 TASK重複整理 |
 | v1.8.0 | 2026-01-12 | Claude Code | 第9回レビュー：Issue #13 e2e-test.yml Test.Patterns=100→300（Section 6.2 Workflow Files詳細確認） |
+| v1.9.0 | 2026-01-12 | Claude Code | 第10回レビュー：Issue #14 TASK-4.6「セルフホスト停止」行削除（公開リポジトリでは不要） |
 
 ---
 
-*Document Version: v1.8.0*
+*Document Version: v1.9.0*
 *Last Updated: 2026-01-12*

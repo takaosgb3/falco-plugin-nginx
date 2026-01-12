@@ -566,7 +566,8 @@ grep -r "runs-on:" .github/workflows/
 | Pattern | Description | Prevention |
 |---------|-------------|------------|
 | ubuntu-latest使用 | バージョン変動リスク | ubuntu-24.04に固定 |
-| セルフホスト停止 | プライベートリポジトリでのワークフロー失敗 | 事前確認 |
+
+> **注意**: 「セルフホスト停止」リスクはプライベートリポジトリ（falco-nginx-plugin-claude）のみに該当。公開リポジトリ（falco-plugin-nginx）ではGitHub-hosted runnerを使用するため、この問題は発生しない。
 
 ---
 
@@ -811,8 +812,9 @@ gh release list --repo takaosgb3/falco-plugin-nginx --limit 3
 | v1.5.0 | 2026-01-12 | Claude Code | 第6回レビュー対応：Issue #6修正（既存5カテゴリ）、Issue #7追加（JA版詳細行番号）、Issue #8追加（Directory Structure更新手順） |
 | v1.6.0 | 2026-01-12 | Claude Code | 第8回レビュー対応：Issue #10修正（Test Categories 6→12カテゴリ）、Issue #12修正（E2E_REPORT_GUIDE重複削除） |
 | v1.7.0 | 2026-01-12 | Claude Code | 第9回レビュー対応：Issue #13追加（TASK-2.5.2にe2e-test.yml Test.Patterns更新を追加） |
+| v1.8.0 | 2026-01-12 | Claude Code | 第10回レビュー対応：Issue #14修正（TASK-4.6「セルフホスト停止」行削除、公開リポジトリでは不要の注記追加） |
 
 ---
 
-*Document Version: v1.7.0*
+*Document Version: v1.8.0*
 *Last Updated: 2026-01-12*
