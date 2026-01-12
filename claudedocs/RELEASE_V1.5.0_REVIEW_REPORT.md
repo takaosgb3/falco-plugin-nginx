@@ -4,7 +4,7 @@
 
 | Item | Value |
 |------|-------|
-| Version | v1.0.0 |
+| Version | v1.1.0 |
 | Created | 2026-01-12 |
 | Reviewer | Claude Code |
 | Status | Review Complete |
