@@ -1,0 +1,3 @@
+Expected Rule: [NGINX Emerging Threat] Redis command injection
+Matched Rule: [NGINX Emerging Threat] Redis command injection test_id=NOSQL_REDIS_001-1768216301496-jgi3c pattern_id=NOSQL_REDIS_001 uri=/?q=EVAL%20%22return%20redis.call('GET'%2C%20KEYS%5B1%5D)%22%201%20secret client=127.0.0.1
+Rule Match: ✅ Match
