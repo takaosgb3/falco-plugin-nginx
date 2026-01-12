@@ -4,7 +4,7 @@
 
 | Item | Value |
 |------|-------|
-| Version | v1.0.0 |
+| Version | v1.1.0 |
 | Created | 2026-01-12 |
 | Updated | 2026-01-12 |
 | Status | Draft |
@@ -25,6 +25,7 @@
 |---------|-------|--------|----------|
 | TASK-1 | Pre-Release Verification | ⏳ Pending | 15分 |
 | TASK-2 | CHANGELOG.md Update | ⏳ Pending | 15分 |
+| TASK-2.5 | Public Repo README Updates | ⏳ Pending | 15分 |
 | TASK-3 | Source Sync Verification | ⏳ Pending | 10分 |
 | TASK-4 | Runner Configuration Check | ⏳ Pending | 5分 |
 | TASK-5 | Release Workflow Execution | ⏳ Pending | 10分 |
@@ -140,6 +141,94 @@ git diff CHANGELOG.md
 | Issue #56, #58, #59 | 全体 | 変更内容確認 |
 
 ### 2.6 Past Failure Patterns
+
+なし（ドキュメント作業）
+
+---
+
+## TASK-2.5: Public Repo README Updates
+
+### 2.5.1 Purpose
+
+公開リポジトリのREADMEドキュメントを300パターン対応に更新する。
+
+### 2.5.2 Files to Update
+
+| File | Section | Current | Target |
+|------|---------|---------|--------|
+| README.md | E2E Security Tests (EN) | 65 attack patterns | 300 attack patterns |
+| README.md | E2Eセキュリティテスト (JA) | 65攻撃パターン | 300攻撃パターン |
+| e2e/README.md | Directory Structure | 19/11/20/10/5 | 79/56/50/55+others |
+| e2e/README.md | Test Categories (EN) | Total: 65 | Total: 300 |
+| e2e/README.md | テストカテゴリ (JA) | 合計: 65 | 合計: 300 |
+| e2e/README.md | Workflow Steps | 65 patterns | 300 patterns |
+
+### 2.5.3 README.md Updates
+
+**英語セクション（Lines 110-120）**:
+```markdown
+**Test Coverage** (300 attack patterns):
+
+| Category | Patterns | Description |
+|----------|----------|-------------|
+| SQL Injection | 79 | Time-based, Boolean-based blind SQLi |
+| XSS | 56 | DOM-based, Reflected XSS attacks |
+| Path Traversal | 50 | Directory traversal, absolute path access |
+| Command Injection | 55 | Shell command injection patterns |
+| Emerging Threats | 60 | LDAP, SSTI, NoSQL, XXE, XPath, GraphQL, API Security |
+```
+
+**日本語セクション（Lines 231-241）**:
+同様に更新。
+
+### 2.5.4 e2e/README.md Updates
+
+**Directory Structure（Lines 37-41）**:
+```markdown
+├── patterns/
+│   ├── sqli_patterns.json      # SQL Injection patterns (79)
+│   ├── xss_patterns.json       # XSS patterns (56)
+│   ├── path_patterns.json      # Path Traversal patterns (50)
+│   ├── cmdinj_patterns.json    # Command Injection patterns (55)
+│   ├── ldap_patterns.json      # LDAP Injection patterns (10)
+│   ├── ssti_patterns.json      # SSTI patterns (10)
+│   ├── nosql_extended_patterns.json  # NoSQL patterns (7)
+│   ├── xxe_patterns.json       # XXE patterns (8)
+│   ├── xpath_patterns.json     # XPath patterns (5)
+│   ├── graphql_patterns.json   # GraphQL patterns (5)
+│   ├── api_security_patterns.json    # API Security patterns (5)
+│   └── other_patterns.json     # Other patterns (10)
+```
+
+**Test Categories Table（Lines 56-63）**:
+```markdown
+| Category | Count | Description | Expected Rule |
+|----------|-------|-------------|---------------|
+| SQLi | 79 | SQL Injection attacks | Various SQL Injection Rules |
+| XSS | 56 | Cross-Site Scripting attacks | XSS Detection Rules |
+| Path | 50 | Path Traversal attacks | Path Traversal Rules |
+| CmdInj | 55 | Command Injection attacks | Command Injection Rules |
+| Emerging | 60 | LDAP, SSTI, NoSQL, XXE, etc. | Emerging Threat Rules |
+| **Total** | **300** | | |
+```
+
+### 2.5.5 Acceptance Criteria
+
+- [ ] README.md英語セクションが300パターン対応
+- [ ] README.md日本語セクションが300パターン対応
+- [ ] e2e/README.md Directory Structureが更新
+- [ ] e2e/README.md Test Categories表が更新
+- [ ] e2e/README.md Workflow Stepsが更新
+- [ ] 日英両言語で一貫性がある
+
+### 2.5.6 Reference Documents
+
+| Document | Section | Purpose |
+|----------|---------|---------|
+| e2e/patterns/*.json | 全ファイル | 正確なパターン数確認 |
+| RELEASE_V1.5.0_REVIEW_REPORT.md | Issue #1 | 正確な数値参照 |
+
+### 2.5.7 Past Failure Patterns
 
 なし（ドキュメント作業）
 
