@@ -19,7 +19,7 @@ This document explains how to read and understand the E2E Security Test Report g
 
 ## Overview
 
-The E2E Security Test Report provides comprehensive visibility into the security detection capabilities of the Falco nginx plugin. Each test run executes **65 attack patterns** across 5 categories and generates a detailed report showing:
+The E2E Security Test Report provides comprehensive visibility into the security detection capabilities of the Falco nginx plugin. Each test run executes **300 attack patterns** across 12 categories and generates a detailed report showing:
 
 - Detection rate (target: 100%)
 - Per-category breakdown
@@ -54,7 +54,7 @@ The Overview page provides a high-level summary of the test execution:
 
 | Section | Description |
 |---------|-------------|
-| **Test Cases** | Total number of test patterns executed (65) |
+| **Test Cases** | Total number of test patterns executed (300) |
 | **Success Rate** | Percentage of patterns detected (100% = all detected) |
 | **Suites** | Test suite organization |
 | **Environment** | Execution environment details |
@@ -92,15 +92,22 @@ The Behaviors page organizes tests by **Epic > Feature > Story** hierarchy:
 
 | Category | Patterns | Description |
 |----------|----------|-------------|
-| **SQLI** | 19 | SQL Injection attacks |
-| **XSS** | 11 | Cross-Site Scripting attacks |
-| **PATH** | 20 | Path Traversal attacks |
-| **CMDINJ** | 10 | Command Injection attacks |
-| **OTHER** | 5 | NoSQL/MongoDB injection attacks |
+| **SQLI** | 79 | SQL Injection attacks |
+| **XSS** | 56 | Cross-Site Scripting attacks |
+| **PATH** | 50 | Path Traversal attacks |
+| **CMDINJ** | 55 | Command Injection attacks |
+| **LDAP** | 10 | LDAP Injection attacks |
+| **SSTI** | 10 | Server-Side Template Injection |
+| **NOSQL** | 7 | NoSQL Injection attacks |
+| **XXE** | 8 | XML External Entity attacks |
+| **XPATH** | 5 | XPath Injection attacks |
+| **GRAPHQL** | 5 | GraphQL Injection attacks |
+| **API** | 5 | API Security attacks |
+| **OTHER** | 10 | Other attack patterns |
 
 ### Status Indicators
 
-- **Green (65)**: Passed tests
+- **Green (300)**: Passed tests
 - **Red (0)**: Failed tests
 - **Orange (0)**: Broken tests
 - **Gray (0)**: Skipped tests
@@ -238,46 +245,103 @@ Shows category-based results across runs.
 
 ## Test Categories
 
-### SQL Injection (SQLI) - 19 Patterns
+### SQL Injection (SQLI) - 79 Patterns
 
 | Pattern ID | Type | Description |
 |------------|------|-------------|
-| SQLI_TIME_001-015 | Time-based Blind | SLEEP(), BENCHMARK(), WAITFOR DELAY |
-| SQLI_BOOL_001-004 | Boolean-based Blind | OR '1'='1, AND '1'='1 |
+| SQLI_TIME_001-025 | Time-based Blind | SLEEP(), BENCHMARK(), WAITFOR DELAY, pg_sleep |
+| SQLI_BOOL_001-025 | Boolean-based Blind | OR '1'='1, AND '1'='1, various bypass techniques |
+| SQLI_ERR_001-029 | Error-based | EXTRACTVALUE, UPDATEXML, error messages |
 
-**Detection Rule**: `[NGINX SQLi] Time-based Blind SQL Injection`
+**Detection Rules**: Various SQL Injection Rules
 
-### Cross-Site Scripting (XSS) - 11 Patterns
-
-| Pattern ID | Type | Description |
-|------------|------|-------------|
-| XSS_REFL_001-011 | Reflected XSS | script, img onerror, svg onload, iframe, etc. |
-
-**Detection Rule**: `[NGINX XSS] Reflected Cross-Site Scripting`
-
-### Path Traversal (PATH) - 20 Patterns
+### Cross-Site Scripting (XSS) - 56 Patterns
 
 | Pattern ID | Type | Description |
 |------------|------|-------------|
-| PATH_ABS_001-020 | Absolute/Relative | ../etc/passwd, ....//....// |
+| XSS_REFL_001-056 | Reflected/DOM/Stored XSS | script, img onerror, svg onload, iframe, etc. |
 
-**Detection Rule**: `[NGINX Path] Path Traversal Attempt`
+**Detection Rules**: XSS Detection Rules
 
-### Command Injection (CMDINJ) - 10 Patterns
-
-| Pattern ID | Type | Description |
-|------------|------|-------------|
-| CMDINJ_SHELL_001-010 | Shell Commands | ;ls, |cat, \`whoami\` |
-
-**Detection Rule**: `[NGINX CMDi] Command Injection Attempt`
-
-### Other (OTHER) - 5 Patterns
+### Path Traversal (PATH) - 50 Patterns
 
 | Pattern ID | Type | Description |
 |------------|------|-------------|
-| OTHER_NOSQL_001-005 | NoSQL Injection | MongoDB $where, $regex |
+| PATH_001-050 | LFI/RFI/Directory | ../etc/passwd, ....//....// , various encoding |
 
-**Detection Rule**: `[NGINX NoSQL] MongoDB Injection Attempt`
+**Detection Rules**: Path Traversal Rules
+
+### Command Injection (CMDINJ) - 55 Patterns
+
+| Pattern ID | Type | Description |
+|------------|------|-------------|
+| CMDINJ_001-055 | Shell/OS Commands | ;ls, |cat, \`whoami\`, various bypass techniques |
+
+**Detection Rules**: Command Injection Rules
+
+### LDAP Injection (LDAP) - 10 Patterns
+
+| Pattern ID | Type | Description |
+|------------|------|-------------|
+| LDAP_001-010 | LDAP Query Manipulation | )(uid=*, |(cn=admin) |
+
+**Detection Rules**: LDAP Injection Rules
+
+### Server-Side Template Injection (SSTI) - 10 Patterns
+
+| Pattern ID | Type | Description |
+|------------|------|-------------|
+| SSTI_001-010 | Template Injection | {{7*7}}, ${7*7}, various template syntaxes |
+
+**Detection Rules**: SSTI Detection Rules
+
+### NoSQL Injection (NOSQL) - 7 Patterns
+
+| Pattern ID | Type | Description |
+|------------|------|-------------|
+| NOSQL_001-007 | NoSQL/MongoDB | $where, $regex, $gt |
+
+**Detection Rules**: NoSQL Injection Rules
+
+### XML External Entity (XXE) - 8 Patterns
+
+| Pattern ID | Type | Description |
+|------------|------|-------------|
+| XXE_001-008 | XXE | <!DOCTYPE, <!ENTITY, SYSTEM references |
+
+**Detection Rules**: XXE Detection Rules
+
+### XPath Injection (XPATH) - 5 Patterns
+
+| Pattern ID | Type | Description |
+|------------|------|-------------|
+| XPATH_001-005 | XPath Query | ' or '1'='1, //*, ancestor::* |
+
+**Detection Rules**: XPath Injection Rules
+
+### GraphQL Injection (GRAPHQL) - 5 Patterns
+
+| Pattern ID | Type | Description |
+|------------|------|-------------|
+| GRAPHQL_001-005 | GraphQL Attacks | __schema, introspection queries |
+
+**Detection Rules**: GraphQL Injection Rules
+
+### API Security (API) - 5 Patterns
+
+| Pattern ID | Type | Description |
+|------------|------|-------------|
+| API_001-005 | BOLA/Auth Bypass | Object reference manipulation, auth bypass |
+
+**Detection Rules**: API Security Rules
+
+### Other (OTHER) - 10 Patterns
+
+| Pattern ID | Type | Description |
+|------------|------|-------------|
+| OTHER_001-010 | Additional Patterns | Various security patterns |
+
+**Detection Rules**: Other Detection Rules
 
 ---
 

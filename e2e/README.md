@@ -34,11 +34,18 @@ e2e/
 ├── k6/
 │   └── main.js         # k6 test script
 ├── patterns/
-│   ├── sqli_patterns.json    # SQL Injection patterns (19)
-│   ├── xss_patterns.json     # XSS patterns (11)
-│   ├── path_patterns.json    # Path Traversal patterns (20)
-│   ├── cmdinj_patterns.json  # Command Injection patterns (10)
-│   └── other_patterns.json   # Other threats patterns (5)
+│   ├── sqli_patterns.json           # SQL Injection patterns (79)
+│   ├── xss_patterns.json            # XSS patterns (56)
+│   ├── path_patterns.json           # Path Traversal patterns (50)
+│   ├── cmdinj_patterns.json         # Command Injection patterns (55)
+│   ├── ldap_patterns.json           # LDAP Injection patterns (10)
+│   ├── ssti_patterns.json           # SSTI patterns (10)
+│   ├── nosql_extended_patterns.json # NoSQL patterns (7)
+│   ├── xxe_patterns.json            # XXE patterns (8)
+│   ├── xpath_patterns.json          # XPath patterns (5)
+│   ├── graphql_patterns.json        # GraphQL patterns (5)
+│   ├── api_security_patterns.json   # API Security patterns (5)
+│   └── other_patterns.json          # Other patterns (10)
 ├── scripts/
 │   └── batch_analyzer.py     # Test result analyzer
 ├── allure/
@@ -55,12 +62,19 @@ e2e/
 
 | Category | Count | Description | Expected Rule |
 |----------|-------|-------------|---------------|
-| SQLi | 19 | SQL Injection attacks | Time-based/Boolean-based Blind SQL Injection |
-| XSS | 11 | Cross-Site Scripting attacks | DOM-based XSS Attack |
-| Path | 20 | Path Traversal attacks | Advanced Path Traversal Attack |
-| CmdInj | 10 | Command Injection attacks | Command Injection Attack |
-| Other | 5 | Other threats (MongoDB, etc.) | Emerging Threat: NoSQL/MongoDB Injection |
-| **Total** | **65** | | |
+| SQLi | 79 | SQL Injection attacks | SQL Injection Rules |
+| XSS | 56 | Cross-Site Scripting attacks | XSS Detection Rules |
+| Path | 50 | Path Traversal attacks | Path Traversal Rules |
+| CmdInj | 55 | Command Injection attacks | Command Injection Rules |
+| LDAP | 10 | LDAP Injection attacks | LDAP Injection Rules |
+| SSTI | 10 | Server-Side Template Injection | SSTI Detection Rules |
+| NoSQL | 7 | NoSQL Injection attacks | NoSQL Injection Rules |
+| XXE | 8 | XML External Entity attacks | XXE Detection Rules |
+| XPath | 5 | XPath Injection attacks | XPath Injection Rules |
+| GraphQL | 5 | GraphQL Injection attacks | GraphQL Injection Rules |
+| API | 5 | API Security attacks | API Security Rules |
+| Other | 10 | Other attack patterns | Other Detection Rules |
+| **Total** | **300** | | |
 
 ## Running Tests
 
@@ -142,7 +156,7 @@ E2E tests run automatically via GitHub Actions workflow:
 
 1. Environment setup (Falco, nginx, k6, Python)
 2. Service startup (nginx, Falco with plugin)
-3. k6 test execution (65 patterns)
+3. k6 test execution (300 patterns)
 4. Wait for Falco processing (60s)
 5. Result analysis (batch_analyzer.py)
 6. Allure report generation
@@ -213,12 +227,19 @@ allure open allure-report-<RUN_ID>
 
 | カテゴリ | 数 | 説明 | 期待ルール |
 |----------|-------|-------------|---------------|
-| SQLi | 19 | SQLインジェクション攻撃 | Time-based/Boolean-based Blind SQL Injection |
-| XSS | 11 | クロスサイトスクリプティング攻撃 | DOM-based XSS Attack |
-| Path | 20 | パストラバーサル攻撃 | Advanced Path Traversal Attack |
-| CmdInj | 10 | コマンドインジェクション攻撃 | Command Injection Attack |
-| Other | 5 | その他の脅威（MongoDB等） | Emerging Threat: NoSQL/MongoDB Injection |
-| **合計** | **65** | | |
+| SQLi | 79 | SQLインジェクション攻撃 | SQL Injection Rules |
+| XSS | 56 | クロスサイトスクリプティング攻撃 | XSS Detection Rules |
+| Path | 50 | パストラバーサル攻撃 | Path Traversal Rules |
+| CmdInj | 55 | コマンドインジェクション攻撃 | Command Injection Rules |
+| LDAP | 10 | LDAPインジェクション攻撃 | LDAP Injection Rules |
+| SSTI | 10 | サーバーサイドテンプレートインジェクション | SSTI Detection Rules |
+| NoSQL | 7 | NoSQLインジェクション攻撃 | NoSQL Injection Rules |
+| XXE | 8 | XML外部エンティティ攻撃 | XXE Detection Rules |
+| XPath | 5 | XPathインジェクション攻撃 | XPath Injection Rules |
+| GraphQL | 5 | GraphQLインジェクション攻撃 | GraphQL Injection Rules |
+| API | 5 | APIセキュリティ攻撃 | API Security Rules |
+| Other | 10 | その他の攻撃パターン | Other Detection Rules |
+| **合計** | **300** | | |
 
 ## テストの実行
 

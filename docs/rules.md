@@ -1,6 +1,6 @@
 # Rule Writing Guide / ルール作成ガイド
 
-> Version: 1.4.2 | Last Updated: 2025-12-06
+> Version: 1.5.0 | Last Updated: 2026-01-12
 
 [English](#english) | [日本語](#japanese)
 
