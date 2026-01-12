@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SQLI_ERROR_008",
+  "test_id": "SQLI_ERROR_008-1768201691868-x0lhsq",
+  "category": "sqli",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 32000,
+  "evidence": "07:08:11.000000000: Warning [NGINX XPath Injection] XPath injection attempt test_id=SQLI_ERROR_008-1768201691868-x0lhsq pattern_id=SQLI_ERROR_008 uri=/?q=%27%20AND%20GTID_SUBSET%28version%28%29%2C1%29%20-- client=127.0.0.1",
+  "rule_name": "[NGINX XPath Injection] XPath injection attempt test_id=SQLI_ERROR_008-1768201691868-x0lhsq pattern_id=SQLI_ERROR_008 uri=/?q=%27%20AND%20GTID_SUBSET%28version%28%29%2C1%29%20-- client=127.0.0.1",
+  "expected_rule": "[NGINX XPath Injection] XPath injection attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX XPath Injection] XPath injection attempt test_id=SQLI_ERROR_008-1768201691868-x0lhsq pattern_id=SQLI_ERROR_008 uri=/?q=%27%20AND%20GTID_SUBSET%28version%28%29%2C1%29%20-- client=127.0.0.1",
+  "sent_at": 1768201723000,
+  "detected_at": 1768201691000,
+  "status": "passed"
+}

@@ -1,0 +1,17 @@
+{
+  "pattern_id": "PATH_WIN_004",
+  "test_id": "PATH_WIN_004-1768201692851-n27o3l",
+  "category": "path",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 31000,
+  "evidence": "07:08:12.000000000: Critical [NGINX Traversal] Windows path traversal attack detected test_id=PATH_WIN_004-1768201692851-n27o3l pattern_id=PATH_WIN_004 uri=/?q=..%5C..%5CWindows%5CSystem32%5Cdrivers%5Cetc%5Chosts client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] Windows path traversal attack detected test_id=PATH_WIN_004-1768201692851-n27o3l pattern_id=PATH_WIN_004 uri=/?q=..%5C..%5CWindows%5CSystem32%5Cdrivers%5Cetc%5Chosts client=127.0.0.1",
+  "expected_rule": "[NGINX Traversal] Windows path traversal attack detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Traversal] Windows path traversal attack detected test_id=PATH_WIN_004-1768201692851-n27o3l pattern_id=PATH_WIN_004 uri=/?q=..%5C..%5CWindows%5CSystem32%5Cdrivers%5Cetc%5Chosts client=127.0.0.1",
+  "sent_at": 1768201723000,
+  "detected_at": 1768201692000,
+  "status": "passed"
+}

@@ -1,0 +1,5 @@
+Pattern ID: PATH_NORM_003
+        Status: passed
+        Latency: ~25000ms
+        Detection: 1 / 1
+        Rule: [NGINX Traversal] Basic path traversal attack detected test_id=PATH_NORM_003-1768201698363-4imav pattern_id=PATH_NORM_003 uri=/?q=..%255c..%255c..%255cetc%255cpasswd client=127.0.0.1
