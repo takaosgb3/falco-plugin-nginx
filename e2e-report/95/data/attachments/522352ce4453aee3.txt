@@ -1,0 +1,5 @@
+Pattern ID: PATH_SENS_001
+        Status: passed
+        Latency: ~24000ms
+        Detection: 1 / 1
+        Rule: [NGINX Traversal] Basic path traversal attack detected test_id=PATH_SENS_001-1768222495629-97srg pattern_id=PATH_SENS_001 uri=/?q=..%2F..%2F..%2Froot%2F.aws%2Fcredentials client=127.0.0.1
