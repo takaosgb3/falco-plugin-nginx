@@ -126,6 +126,41 @@ gh workflow run e2e-test.yml
 
 **Latest Results**: See [Actions](../../actions/workflows/e2e-test.yml) for test runs and [Allure Report](https://takaosgb3.github.io/falco-plugin-nginx/) for detailed results.
 
+### Extractable Fields
+
+This plugin provides 17 fields for use in Falco rules:
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `nginx.remote_addr` | string | Client IP address |
+| `nginx.remote_user` | string | Authenticated username |
+| `nginx.time_local` | string | Local time of the request |
+| `nginx.method` | string | HTTP request method (GET, POST, etc.) |
+| `nginx.path` | string | Request URI path |
+| `nginx.query_string` | string | Query string parameters |
+| `nginx.request_uri` | string | Complete request URI (path + query) |
+| `nginx.protocol` | string | HTTP protocol version |
+| `nginx.status` | uint64 | HTTP response status code |
+| `nginx.bytes_sent` | uint64 | Response size in bytes |
+| `nginx.referer` | string | HTTP referer header |
+| `nginx.user_agent` | string | HTTP user agent |
+| `nginx.log_path` | string | Path to the log file |
+| `nginx.raw` | string | Raw log line |
+| `nginx.headers[key]` | string | HTTP request headers (key-based access) |
+| `nginx.test_id` | string | E2E test identifier (X-Test-ID header) |
+| `nginx.category` | string | Attack category (X-Category header) |
+| `nginx.pattern_id` | string | Pattern ID (X-Pattern-ID header) |
+
+**Example rule using these fields**:
+```yaml
+- rule: SQL Injection Attempt
+  desc: Detects SQL injection patterns in nginx access logs
+  condition: nginx.request_uri contains "' OR " or nginx.request_uri contains "1=1"
+  output: "SQL Injection detected (client=%nginx.remote_addr path=%nginx.path)"
+  priority: WARNING
+  source: nginx
+```
+
 ### Documentation
 
 - [Quick Start Binary Installation](docs/QUICK_START_BINARY_INSTALLATION.md)
@@ -253,6 +288,41 @@ gh workflow run e2e-test.yml
 | その他 | 10 | 追加セキュリティパターン |
 
 **最新結果**: テスト実行は[Actions](../../actions/workflows/e2e-test.yml)、詳細結果は[Allure Report](https://takaosgb3.github.io/falco-plugin-nginx/)を参照。
+
+### 抽出可能フィールド
+
+このプラグインはFalcoルールで使用できる17フィールドを提供します：
+
+| フィールド | 型 | 説明 |
+|------------|------|------|
+| `nginx.remote_addr` | string | クライアントIPアドレス |
+| `nginx.remote_user` | string | 認証済みユーザー名 |
+| `nginx.time_local` | string | リクエストのローカル時刻 |
+| `nginx.method` | string | HTTPリクエストメソッド（GET、POSTなど） |
+| `nginx.path` | string | リクエストURIパス |
+| `nginx.query_string` | string | クエリ文字列パラメータ |
+| `nginx.request_uri` | string | 完全なリクエストURI（パス＋クエリ） |
+| `nginx.protocol` | string | HTTPプロトコルバージョン |
+| `nginx.status` | uint64 | HTTPレスポンスステータスコード |
+| `nginx.bytes_sent` | uint64 | レスポンスサイズ（バイト） |
+| `nginx.referer` | string | HTTPリファラーヘッダー |
+| `nginx.user_agent` | string | HTTPユーザーエージェント |
+| `nginx.log_path` | string | ログファイルのパス |
+| `nginx.raw` | string | 生のログ行 |
+| `nginx.headers[key]` | string | HTTPリクエストヘッダー（キーベースアクセス） |
+| `nginx.test_id` | string | E2Eテスト識別子（X-Test-IDヘッダー） |
+| `nginx.category` | string | 攻撃カテゴリ（X-Categoryヘッダー） |
+| `nginx.pattern_id` | string | パターンID（X-Pattern-IDヘッダー） |
+
+**これらのフィールドを使用したルール例**：
+```yaml
+- rule: SQL Injection Attempt
+  desc: nginxアクセスログでSQLインジェクションパターンを検出
+  condition: nginx.request_uri contains "' OR " or nginx.request_uri contains "1=1"
+  output: "SQLインジェクション検出 (client=%nginx.remote_addr path=%nginx.path)"
+  priority: WARNING
+  source: nginx
+```
 
 ### ドキュメント
 
