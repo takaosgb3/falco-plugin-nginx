@@ -1,0 +1,17 @@
+{
+  "pattern_id": "PATH_ABS_008",
+  "test_id": "PATH_ABS_008-1768200327013-jc5ers",
+  "category": "path",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 33000,
+  "evidence": "06:45:27.000000000: Critical [NGINX Traversal] File inclusion attack detected test_id=PATH_ABS_008-1768200327013-jc5ers pattern_id=PATH_ABS_008 uri=/?q=%2Fetc%2Fcrontab client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] File inclusion attack detected test_id=PATH_ABS_008-1768200327013-jc5ers pattern_id=PATH_ABS_008 uri=/?q=%2Fetc%2Fcrontab client=127.0.0.1",
+  "expected_rule": "[NGINX Traversal] File inclusion attack detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Traversal] File inclusion attack detected test_id=PATH_ABS_008-1768200327013-jc5ers pattern_id=PATH_ABS_008 uri=/?q=%2Fetc%2Fcrontab client=127.0.0.1",
+  "sent_at": 1768200360000,
+  "detected_at": 1768200327000,
+  "status": "passed"
+}
