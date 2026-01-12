@@ -1,0 +1,17 @@
+{
+  "pattern_id": "NOSQL_MONGO_002",
+  "test_id": "NOSQL_MONGO_002-1768205880272-v963g",
+  "category": "nosql_extended",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 6000,
+  "evidence": "08:18:00.000000000: Critical [NGINX Emerging Threat] MongoDB NoSQL injection test_id=NOSQL_MONGO_002-1768205880272-v963g pattern_id=NOSQL_MONGO_002 uri=/?q=%7B%22username%22%3A%20%7B%22%24regex%22%3A%20%22%5Eadmin%22%7D%7D client=127.0.0.1",
+  "rule_name": "[NGINX Emerging Threat] MongoDB NoSQL injection test_id=NOSQL_MONGO_002-1768205880272-v963g pattern_id=NOSQL_MONGO_002 uri=/?q=%7B%22username%22%3A%20%7B%22%24regex%22%3A%20%22%5Eadmin%22%7D%7D client=127.0.0.1",
+  "expected_rule": "MongoDB NoSQL injection",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Emerging Threat] MongoDB NoSQL injection test_id=NOSQL_MONGO_002-1768205880272-v963g pattern_id=NOSQL_MONGO_002 uri=/?q=%7B%22username%22%3A%20%7B%22%24regex%22%3A%20%22%5Eadmin%22%7D%7D client=127.0.0.1",
+  "sent_at": 1768205886000,
+  "detected_at": 1768205880000,
+  "status": "passed"
+}

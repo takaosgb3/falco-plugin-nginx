@@ -1,0 +1,17 @@
+{
+  "pattern_id": "GQL_INTRO_003",
+  "test_id": "GQL_INTRO_003-1768205864766-bc479",
+  "category": "graphql",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 22000,
+  "evidence": "08:17:44.000000000: Critical [NGINX Emerging Threat] Template injection test_id=GQL_INTRO_003-1768205864766-bc479 pattern_id=GQL_INTRO_003 uri=/?q=mutation%7B__schema%7BqueryType%7Bname%7D%7D%7D client=127.0.0.1",
+  "rule_name": "[NGINX Emerging Threat] Template injection test_id=GQL_INTRO_003-1768205864766-bc479 pattern_id=GQL_INTRO_003 uri=/?q=mutation%7B__schema%7BqueryType%7Bname%7D%7D%7D client=127.0.0.1",
+  "expected_rule": "[NGINX Emerging Threat] Template injection",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Emerging Threat] Template injection test_id=GQL_INTRO_003-1768205864766-bc479 pattern_id=GQL_INTRO_003 uri=/?q=mutation%7B__schema%7BqueryType%7Bname%7D%7D%7D client=127.0.0.1",
+  "sent_at": 1768205886000,
+  "detected_at": 1768205864000,
+  "status": "passed"
+}

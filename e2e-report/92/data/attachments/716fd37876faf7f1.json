@@ -1,0 +1,17 @@
+{
+  "pattern_id": "XSS_POLY_003",
+  "test_id": "XSS_POLY_003-1768205859321-pdrw3s",
+  "category": "xss",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 27000,
+  "evidence": "08:17:39.000000000: Critical [NGINX XSS] DOM-based XSS Attack test_id=XSS_POLY_003-1768205859321-pdrw3s pattern_id=XSS_POLY_003 uri=/?q=--%3E%3Cscript%3Ealert(1)%3C%2Fscript%3E%3C!-- client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX XSS] DOM-based XSS Attack test_id=XSS_POLY_003-1768205859321-pdrw3s pattern_id=XSS_POLY_003 uri=/?q=--%3E%3Cscript%3Ealert(1)%3C%2Fscript%3E%3C!-- client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX XSS] DOM-based XSS Attack",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX XSS] DOM-based XSS Attack test_id=XSS_POLY_003-1768205859321-pdrw3s pattern_id=XSS_POLY_003 uri=/?q=--%3E%3Cscript%3Ealert(1)%3C%2Fscript%3E%3C!-- client=127.0.0.1 method=GET",
+  "sent_at": 1768205886000,
+  "detected_at": 1768205859000,
+  "status": "passed"
+}

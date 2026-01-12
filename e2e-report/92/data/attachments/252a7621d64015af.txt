@@ -1,0 +1,5 @@
+Pattern ID: SQLI_TIME_012
+        Status: passed
+        Latency: ~52000ms
+        Detection: 1 / 1
+        Rule: [NGINX SQLi] Time-based Blind SQL Injection test_id=SQLI_TIME_012-1768205834276-qzvonk pattern_id=SQLI_TIME_012 uri=/?q=SLeep%285%29 client=127.0.0.1 method=GET
