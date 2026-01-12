@@ -352,6 +352,8 @@ runs-on: ubuntu-latest  # GitHubが随時更新するため環境が予期せず
 | E2E Test Workflow | `.github/workflows/e2e-test.yml` | E2E検証 |
 | Test Build Workflow | `.github/workflows/test-build.yml` | ビルド検証 |
 
+> **更新必須**: e2e-test.yml Line 488の `Test.Patterns=100` を `Test.Patterns=300` に更新が必要（Allure環境ウィジェットに表示される値）
+
 ### 6.3 Changelog
 
 | Document | Path | Purpose |
@@ -431,8 +433,9 @@ runs-on: ubuntu-latest  # GitHubが随時更新するため環境が予期せず
 | v1.5.0 | 2026-01-12 | Claude Code | FR-004.2/FR-004.4詳細化：テーブル構造の完全な更新要件を追加（5→12カテゴリ） |
 | v1.6.0 | 2026-01-12 | Claude Code | NFR-003/Pattern #3修正：公開リポジトリでは料金不要のため、バージョンドリフトリスクに焦点を変更 |
 | v1.7.0 | 2026-01-12 | Claude Code | 第8回レビュー対応：Issue #11修正（Risk Assessment「セルフホストランナー停止」→「ランナー環境変更」） |
+| v1.8.0 | 2026-01-12 | Claude Code | 第9回レビュー対応：Issue #13追加（Section 6.2にe2e-test.yml Test.Patterns更新必須の注記を追加） |
 
 ---
 
-*Document Version: v1.7.0*
+*Document Version: v1.8.0*
 *Last Updated: 2026-01-12*

@@ -167,6 +167,7 @@ git diff CHANGELOG.md
 | docs/NGINX_RULES_REFERENCE.md | Line 5 | Version: 1.4.2 | Version: 1.5.0 |
 | docs/installation.md | Lines 12, 15, 19 | v1.4.2 | v1.5.0 |
 | docs/QUICK_START_BINARY_INSTALLATION.md | Lines 36, 39, 46, 234, 237, 244 | v1.4.2 | v1.5.0 |
+| .github/workflows/e2e-test.yml | Line 488 (environment.properties) | Test.Patterns=100 | Test.Patterns=300 |
 
 > **注意**: docs/E2E_REPORT_GUIDE.md と docs/E2E_REPORT_GUIDE_JA.md の更新詳細は TASK-2.5.5 を参照してください。
 
@@ -809,8 +810,9 @@ gh release list --repo takaosgb3/falco-plugin-nginx --limit 3
 | v1.4.0 | 2026-01-12 | Claude Code | TASK-2.5詳細化：テーブル構造の完全な更新手順を追加（5→12カテゴリ） |
 | v1.5.0 | 2026-01-12 | Claude Code | 第6回レビュー対応：Issue #6修正（既存5カテゴリ）、Issue #7追加（JA版詳細行番号）、Issue #8追加（Directory Structure更新手順） |
 | v1.6.0 | 2026-01-12 | Claude Code | 第8回レビュー対応：Issue #10修正（Test Categories 6→12カテゴリ）、Issue #12修正（E2E_REPORT_GUIDE重複削除） |
+| v1.7.0 | 2026-01-12 | Claude Code | 第9回レビュー対応：Issue #13追加（TASK-2.5.2にe2e-test.yml Test.Patterns更新を追加） |
 
 ---
 
-*Document Version: v1.6.0*
+*Document Version: v1.7.0*
 *Last Updated: 2026-01-12*
