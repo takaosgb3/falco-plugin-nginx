@@ -4,7 +4,7 @@
 
 | Item | Value |
 |------|-------|
-| Version | v1.4.0 |
+| Version | v1.5.0 |
 | Created | 2026-01-12 |
 | Updated | 2026-01-12 |
 | Status | Draft |
@@ -214,24 +214,46 @@ git diff CHANGELOG.md
 
 ### 2.5.4 e2e/README.md Updates
 
-**Directory Structure（Lines 37-41）**:
+**Directory Structure（Lines 30-52）** - **構造変更必須**:
+
+現在（5ファイル構成）:
 ```markdown
+e2e/
+├── README.md           # This file
+├── .gitignore          # Git ignore rules
+├── k6/
+│   └── main.js         # k6 test script
 ├── patterns/
-│   ├── sqli_patterns.json      # SQL Injection patterns (79)
-│   ├── xss_patterns.json       # XSS patterns (56)
-│   ├── path_patterns.json      # Path Traversal patterns (50)
-│   ├── cmdinj_patterns.json    # Command Injection patterns (55)
-│   ├── ldap_patterns.json      # LDAP Injection patterns (10)
-│   ├── ssti_patterns.json      # SSTI patterns (10)
-│   ├── nosql_extended_patterns.json  # NoSQL patterns (7)
-│   ├── xxe_patterns.json       # XXE patterns (8)
-│   ├── xpath_patterns.json     # XPath patterns (5)
-│   ├── graphql_patterns.json   # GraphQL patterns (5)
-│   ├── api_security_patterns.json    # API Security patterns (5)
-│   └── other_patterns.json     # Other patterns (10)
+│   ├── sqli_patterns.json    # SQL Injection patterns (19)
+│   ├── xss_patterns.json     # XSS patterns (11)
+│   ├── path_patterns.json    # Path Traversal patterns (20)
+│   ├── cmdinj_patterns.json  # Command Injection patterns (10)
+│   └── other_patterns.json   # Other threats patterns (5)
 ```
 
-**Test Categories Table（Lines 56-63）**:
+変更後（12ファイル構成）:
+```markdown
+e2e/
+├── README.md           # This file
+├── .gitignore          # Git ignore rules
+├── k6/
+│   └── main.js         # k6 test script
+├── patterns/
+│   ├── sqli_patterns.json           # SQL Injection patterns (79)
+│   ├── xss_patterns.json            # XSS patterns (56)
+│   ├── path_patterns.json           # Path Traversal patterns (50)
+│   ├── cmdinj_patterns.json         # Command Injection patterns (55)
+│   ├── ldap_patterns.json           # LDAP Injection patterns (10)
+│   ├── ssti_patterns.json           # SSTI patterns (10)
+│   ├── nosql_extended_patterns.json # NoSQL patterns (7)
+│   ├── xxe_patterns.json            # XXE patterns (8)
+│   ├── xpath_patterns.json          # XPath patterns (5)
+│   ├── graphql_patterns.json        # GraphQL patterns (5)
+│   ├── api_security_patterns.json   # API Security patterns (5)
+│   └── other_patterns.json          # Other patterns (10)
+```
+
+**Test Categories Table - EN（Lines 56-63）**:
 ```markdown
 | Category | Count | Description | Expected Rule |
 |----------|-------|-------------|---------------|
@@ -241,6 +263,26 @@ git diff CHANGELOG.md
 | CmdInj | 55 | Command Injection attacks | Command Injection Rules |
 | Emerging | 60 | LDAP, SSTI, NoSQL, XXE, etc. | Emerging Threat Rules |
 | **Total** | **300** | | |
+```
+
+**Test Categories Table - JA（Lines 212-221）**:
+```markdown
+| カテゴリ | 数 | 説明 | 期待ルール |
+|----------|-------|-------------|---------------|
+| SQLi | 79 | SQLインジェクション攻撃 | Various SQL Injection Rules |
+| XSS | 56 | クロスサイトスクリプティング攻撃 | XSS Detection Rules |
+| Path | 50 | パストラバーサル攻撃 | Path Traversal Rules |
+| CmdInj | 55 | コマンドインジェクション攻撃 | Command Injection Rules |
+| Emerging | 60 | LDAP, SSTI, NoSQL, XXE等 | Emerging Threat Rules |
+| **合計** | **300** | | |
+```
+
+**Workflow Steps（Line 145）**:
+```markdown
+# 変更前
+3. k6 test execution (65 patterns)
+# 変更後
+3. k6 test execution (300 patterns)
 ```
 
 ### 2.5.5 docs/*.md Version Updates
@@ -336,10 +378,62 @@ PLUGIN_VERSION=v1.5.0
    ```
 
 5. **Test Categories セクション (Lines 239-280)** - **大幅な構造変更**:
-   - 既存4カテゴリのパターン数を更新
+   - 既存5カテゴリのパターン数を更新（SQLI, XSS, PATH, CMDINJ, OTHER）
    - 新規7カテゴリを追加（LDAP, SSTI, NoSQL, XXE, XPath, GraphQL, API）
 
-**docs/E2E_REPORT_GUIDE_JA.md** - 同様の更新を日本語版でも実施
+**docs/E2E_REPORT_GUIDE_JA.md** - 日本語版の詳細更新箇所：
+
+1. **概要 (Line 20)**:
+   ```markdown
+   # 変更前
+   5つのカテゴリにわたる**65の攻撃パターン**を実行し
+   # 変更後
+   12のカテゴリにわたる**300の攻撃パターン**を実行し
+   ```
+
+2. **主要メトリクス テーブル (Line 55)**:
+   ```markdown
+   # 変更前
+   | **Test Cases** | 実行されたテストパターンの総数（65） |
+   # 変更後
+   | **Test Cases** | 実行されたテストパターンの総数（300） |
+   ```
+
+3. **カテゴリ別内訳 テーブル (Lines 91-97)** - **構造変更**:
+   ```markdown
+   # 変更前（5行）
+   | **SQLI** | 19 | SQLインジェクション攻撃 |
+   | **XSS** | 11 | クロスサイトスクリプティング攻撃 |
+   | **PATH** | 20 | パストラバーサル攻撃 |
+   | **CMDINJ** | 10 | コマンドインジェクション攻撃 |
+   | **OTHER** | 5 | NoSQL/MongoDBインジェクション攻撃 |
+
+   # 変更後（12行）
+   | **SQLI** | 79 | SQLインジェクション攻撃 |
+   | **XSS** | 56 | クロスサイトスクリプティング攻撃 |
+   | **PATH** | 50 | パストラバーサル攻撃 |
+   | **CMDINJ** | 55 | コマンドインジェクション攻撃 |
+   | **LDAP** | 10 | LDAPインジェクション攻撃 |
+   | **SSTI** | 10 | サーバーサイドテンプレートインジェクション |
+   | **NOSQL** | 7 | NoSQLインジェクション攻撃 |
+   | **XXE** | 8 | XML外部エンティティ攻撃 |
+   | **XPATH** | 5 | XPathインジェクション攻撃 |
+   | **GRAPHQL** | 5 | GraphQLインジェクション攻撃 |
+   | **API** | 5 | APIセキュリティ攻撃 |
+   | **OTHER** | 10 | その他の攻撃パターン |
+   ```
+
+4. **ステータス表示 (Line 101)**:
+   ```markdown
+   # 変更前
+   - **緑色（65）**：成功したテスト
+   # 変更後
+   - **緑色（300）**：成功したテスト
+   ```
+
+5. **テストカテゴリ セクション (Lines 237-278)** - **大幅な構造変更**:
+   - 既存5カテゴリのパターン数を更新
+   - 新規7カテゴリを日本語で追加（LDAP, SSTI, NoSQL, XXE, XPath, GraphQL, API）
 
 ### 2.5.6 Acceptance Criteria
 
@@ -699,8 +793,9 @@ gh release list --repo takaosgb3/falco-plugin-nginx --limit 3
 | v1.2.0 | 2026-01-12 | Claude Code | TASK-2.5にdocs/*.mdバージョン更新を追加（FR-004.4に対応） |
 | v1.3.0 | 2026-01-12 | Claude Code | TASK-2.5にE2E_REPORT_GUIDE.md更新を追加（FR-004.4に対応） |
 | v1.4.0 | 2026-01-12 | Claude Code | TASK-2.5詳細化：テーブル構造の完全な更新手順を追加（5→12カテゴリ） |
+| v1.5.0 | 2026-01-12 | Claude Code | 第6回レビュー対応：Issue #6修正（既存5カテゴリ）、Issue #7追加（JA版詳細行番号）、Issue #8追加（Directory Structure更新手順） |
 
 ---
 
-*Document Version: v1.4.0*
+*Document Version: v1.5.0*
 *Last Updated: 2026-01-12*

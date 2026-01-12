@@ -4,7 +4,7 @@
 
 | Item | Value |
 |------|-------|
-| Version | v1.4.0 |
+| Version | v1.5.0 |
 | Created | 2026-01-12 |
 | Reviewer | Claude Code |
 | Status | Review Complete |
@@ -109,6 +109,75 @@
 - 実際: 300 patterns
 
 **推奨対応**: 次回の主要更新時にメモリを更新
+
+### Issue #6: TASK-2.5 カテゴリ数の誤記 🟡 MEDIUM (NEW)
+
+**場所**: RELEASE_V1.5.0_TASK_DEFINITION.md Section 2.5.5 (Line 339)
+
+**問題**: 「既存4カテゴリ」と記載されているが、実際は5カテゴリ
+
+**現在の記載**:
+```markdown
+- 既存4カテゴリのパターン数を更新
+```
+
+**正しい内容**:
+```markdown
+- 既存5カテゴリのパターン数を更新（SQLI, XSS, PATH, CMDINJ, OTHER）
+```
+
+**推奨対応**: 「4カテゴリ」を「5カテゴリ」に修正
+
+### Issue #7: E2E_REPORT_GUIDE_JA.md 更新箇所の不完全な指定 🟡 MEDIUM (NEW)
+
+**場所**: RELEASE_V1.5.0_TASK_DEFINITION.md Section 2.5.2 Files to Update
+
+**問題**: JA版の詳細更新箇所がEN版と異なるにもかかわらず、行番号が不正確
+
+| Section | EN Lines | JA Lines | Current Spec |
+|---------|----------|----------|--------------|
+| Overview | Line 22 | Line 20 | ⚠️ JA: Lines 20, 55, 101 のみ |
+| Key Metrics | Line 57 | Line 55 | ✅ 含まれている |
+| Category Breakdown | Lines 93-99 | Lines 91-97 | ❌ JA未指定 |
+| Status Indicators | Line 103 | Line 101 | ⚠️ JA: 101のみ |
+| Test Categories | Lines 239-280 | Lines 237-278 | ❌ JA未指定 |
+
+**推奨対応**: E2E_REPORT_GUIDE_JA.md の詳細更新箇所を明示的に追加
+
+### Issue #8: e2e/README.md Directory Structure の更新手順が不十分 🟡 MEDIUM (NEW)
+
+**場所**: RELEASE_V1.5.0_TASK_DEFINITION.md Section 2.5.4
+
+**問題**: 現在の Directory Structure は5ファイルのみ記載だが、12ファイルに更新が必要
+
+**現在の e2e/README.md (Lines 37-41)**:
+```
+├── patterns/
+│   ├── sqli_patterns.json    # SQL Injection patterns (19)
+│   ├── xss_patterns.json     # XSS patterns (11)
+│   ├── path_patterns.json    # Path Traversal patterns (20)
+│   ├── cmdinj_patterns.json  # Command Injection patterns (10)
+│   └── other_patterns.json   # Other threats patterns (5)
+```
+
+**必要な更新後**:
+```
+├── patterns/
+│   ├── sqli_patterns.json           # SQL Injection patterns (79)
+│   ├── xss_patterns.json            # XSS patterns (56)
+│   ├── path_patterns.json           # Path Traversal patterns (50)
+│   ├── cmdinj_patterns.json         # Command Injection patterns (55)
+│   ├── ldap_patterns.json           # LDAP Injection patterns (10)
+│   ├── ssti_patterns.json           # SSTI patterns (10)
+│   ├── nosql_extended_patterns.json # NoSQL patterns (7)
+│   ├── xxe_patterns.json            # XXE patterns (8)
+│   ├── xpath_patterns.json          # XPath patterns (5)
+│   ├── graphql_patterns.json        # GraphQL patterns (5)
+│   ├── api_security_patterns.json   # API Security patterns (5)
+│   └── other_patterns.json          # Other patterns (10)
+```
+
+**推奨対応**: TASK-2.5 に Directory Structure の完全な更新内容を明示
 
 ---
 
@@ -242,17 +311,32 @@ $ grep -l "ubuntu-latest" .github/workflows/*.yml
 
 ## 7. Conclusion
 
-要件定義書とタスク定義書は概ね適切に作成されていましたが、以下の問題を発見・修正しました：
+要件定義書とタスク定義書のレビューを実施しました。複数の問題を発見し、必要な修正を特定しました。
 
-**第1回レビュー（修正済み）**:
-- パターン数の不整合
-- TASK-4の説明不足
+### レビュー履歴サマリー
 
-**第2回レビュー（本レビュー）**:
-- 🔴 **重大な欠落**: 公開リポジトリのREADME更新タスクが未定義
-- ✅ **対応**: TASK-2.5として追加完了
+| Review | Key Findings | Status |
+|--------|-------------|--------|
+| 第1回 | パターン数の不整合、TASK-4の説明不足 | ✅ 修正済み |
+| 第2回 | 公開リポジトリREADME更新タスク欠落 | ✅ TASK-2.5追加 |
+| 第3回 | docs/*.mdバージョン更新要件 | ✅ FR-004.4追加 |
+| 第4回 | E2E_REPORT_GUIDE更新漏れ | ✅ 追加済み |
+| 第5回 | テーブル構造の完全更新要件 | ✅ 詳細化完了 |
+| 第6回 | カテゴリ数誤記、JA版行番号、Directory Structure | ⚠️ 修正必要 |
 
-リリース作業を開始する前に、**TASK-2.5**を実行して公開リポジトリのドキュメントを更新することを推奨します。
+### 第6回レビューで発見された問題
+
+1. **Issue #6**: TASK-2.5で「既存4カテゴリ」→「既存5カテゴリ」に修正が必要
+2. **Issue #7**: E2E_REPORT_GUIDE_JA.mdのCategory Breakdown (91-97), Test Categories (237-278) の更新が未指定
+3. **Issue #8**: e2e/README.md Directory Structure の12ファイル構成への更新が不十分
+
+### 推奨アクション
+
+リリース作業を開始する前に以下を実施：
+
+1. **TASK-2.5の修正**: 上記Issue #6, #7, #8の内容をタスク定義書に反映
+2. **TASK-2.5の実行**: 公開リポジトリのドキュメント更新
+3. **最終確認**: 更新後のドキュメントがすべて正確であることを検証
 
 ---
 
@@ -265,8 +349,9 @@ $ grep -l "ubuntu-latest" .github/workflows/*.yml
 | v1.2.0 | 2026-01-12 | Claude Code | 第3回レビュー：TASK-2.5にdocs/*.mdバージョン更新を追加（FR-004.4に対応） |
 | v1.3.0 | 2026-01-12 | Claude Code | 第4回レビュー：E2E_REPORT_GUIDE.md/E2E_REPORT_GUIDE_JA.mdの更新漏れを発見・追加 |
 | v1.4.0 | 2026-01-12 | Claude Code | 第5回レビュー：ドキュメント内容の精査、テーブル構造の完全更新要件を追加（5→12カテゴリ） |
+| v1.5.0 | 2026-01-12 | Claude Code | 第6回レビュー：Issue #6 カテゴリ数誤記、Issue #7 JA版行番号不正確、Issue #8 Directory Structure更新手順不足を発見 |
 
 ---
 
-*Document Version: v1.4.0*
+*Document Version: v1.5.0*
 *Last Updated: 2026-01-12*
