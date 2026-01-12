@@ -115,7 +115,7 @@ func init() {
 // Info returns plugin information
 func (n *NginxPlugin) Info() *plugins.Info {
 	return &plugins.Info{
-		ID:          999,
+		ID:          27,
 		Name:        "nginx",
 		Description: "Real-time nginx access log monitoring for security threats",
 		Contact:     "github.com/takaosgb3/falco-nginx-plugin",
