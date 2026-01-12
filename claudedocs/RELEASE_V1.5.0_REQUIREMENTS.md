@@ -4,7 +4,7 @@
 
 | Item | Value |
 |------|-------|
-| Version | v1.0.0 |
+| Version | v1.1.0 |
 | Created | 2026-01-12 |
 | Updated | 2026-01-12 |
 | Status | Draft |
@@ -287,10 +287,11 @@ runs-on: ubuntu-latest  # 料金発生
 |-------|------|----------|
 | 1 | 要件定義書・タスク定義書作成 | 30分 |
 | 2 | CHANGELOG.md更新 | 15分 |
+| 2.5 | 公開リポジトリREADME更新 | 15分 |
 | 3 | 同期確認・検証 | 15分 |
 | 4 | リリースワークフロー実行 | 10分 |
 | 5 | リリース検証 | 15分 |
-| **Total** | | **~85分** |
+| **Total** | | **~100分** |
 
 ---
 
@@ -303,5 +304,14 @@ runs-on: ubuntu-latest  # 料金発生
 
 ---
 
-*Document Version: v1.0.0*
+## 11. Revision History
+
+| Version | Date | Author | Changes |
+|---------|------|--------|---------|
+| v1.0.0 | 2026-01-12 | Claude Code | 初版作成 |
+| v1.1.0 | 2026-01-12 | Claude Code | FR-003パターン数修正（79/56/50/55等）、Timeline更新（Phase 2.5追加） |
+
+---
+
+*Document Version: v1.1.0*
 *Last Updated: 2026-01-12*
