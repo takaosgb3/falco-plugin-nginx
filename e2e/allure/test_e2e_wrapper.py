@@ -269,15 +269,17 @@ def format_rule_match_status(test_result: Dict) -> str:
     Format rule match status for display
 
     Issue #53: E2E ルールマッピング検証機能
-    Extracted helper to eliminate code duplication
+    Issue #58: Improve display of expected_detection: false patterns
 
     Args:
         test_result: Test result dictionary containing:
             - expected_rule: Expected rule from pattern definition
             - rule_match: Boolean indicating if rules matched
+            - expected_detection: Boolean indicating if detection is expected (default True)
 
     Returns:
         One of:
+        - "✅ Expected Not Detected" if expected_detection is exactly False (negative test case)
         - "✅ Match" if rule_match is exactly True (boolean)
         - "❌ Mismatch" if expected_rule is defined but no match
         - "⚠️ Not Defined" if expected_rule is empty, None, or N/A
@@ -287,6 +289,13 @@ def format_rule_match_status(test_result: Dict) -> str:
         String "true" or other truthy values are treated as Mismatch
         to prevent false positives from JSON parsing issues.
     """
+    # Issue #58: Check for negative test case first
+    # expected_detection: false means this pattern is intentionally not expected to be detected
+    # (e.g., Base64/Hex encoded commands that require decoding)
+    expected_detection = test_result.get('expected_detection', True)
+    if expected_detection is False:
+        return '✅ Expected Not Detected'
+
     expected_rule = test_result.get('expected_rule', '')
     # Type-safe check: only boolean True triggers match
     rule_match = test_result.get('rule_match') is True

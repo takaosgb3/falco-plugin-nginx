@@ -3,6 +3,7 @@
 Unit tests for format_rule_match_status() helper function
 
 Issue #53: E2E ルールマッピング検証機能
+Issue #58: Improve display of expected_detection: false patterns
 
 Test coverage for:
 - format_rule_match_status(): Status formatting for rule matching display
@@ -10,6 +11,90 @@ Test coverage for:
 
 import pytest
 from test_e2e_wrapper import format_rule_match_status
+
+
+class TestFormatRuleMatchStatusExpectedNotDetected:
+    """Tests for expected_detection: false patterns (Issue #58)"""
+
+    def test_expected_detection_false_returns_expected_not_detected(self):
+        """Should return 'Expected Not Detected' when expected_detection is False"""
+        test_result = {
+            'expected_detection': False,
+            'expected_rule': '',
+            'rule_match': False
+        }
+        assert format_rule_match_status(test_result) == '✅ Expected Not Detected'
+
+    def test_expected_detection_false_with_empty_expected_rule(self):
+        """CMD_ENC_003/CMD_ENC_005 pattern: expected_detection=false, expected_rule=empty"""
+        test_result = {
+            'pattern_id': 'CMD_ENC_003',
+            'detected': False,
+            'expected_detection': False,
+            'expected_rule': '',
+            'rule_match': False,
+            'matched_rule': None
+        }
+        assert format_rule_match_status(test_result) == '✅ Expected Not Detected'
+
+    def test_expected_detection_false_takes_precedence_over_empty_expected_rule(self):
+        """expected_detection: false should take precedence over empty expected_rule"""
+        test_result = {
+            'expected_detection': False,
+            'expected_rule': '',  # Would normally trigger 'Not Defined'
+            'rule_match': False
+        }
+        # Should NOT return 'Not Defined', but 'Expected Not Detected'
+        assert format_rule_match_status(test_result) == '✅ Expected Not Detected'
+
+    def test_expected_detection_false_takes_precedence_over_na(self):
+        """expected_detection: false should take precedence over N/A expected_rule"""
+        test_result = {
+            'expected_detection': False,
+            'expected_rule': 'N/A',
+            'rule_match': False
+        }
+        assert format_rule_match_status(test_result) == '✅ Expected Not Detected'
+
+    def test_expected_detection_false_even_if_detected(self):
+        """Should return 'Expected Not Detected' even if pattern was actually detected (false positive case)"""
+        test_result = {
+            'expected_detection': False,
+            'detected': True,  # Pattern was detected (false positive)
+            'expected_rule': '',
+            'rule_match': False,
+            'matched_rule': 'Some Rule'
+        }
+        # Still shows 'Expected Not Detected' because that's the expectation
+        assert format_rule_match_status(test_result) == '✅ Expected Not Detected'
+
+    def test_expected_detection_true_does_not_affect_normal_flow(self):
+        """expected_detection: true should not affect normal rule match flow"""
+        test_result = {
+            'expected_detection': True,
+            'expected_rule': '[NGINX SQLi] Advanced SQL Injection',
+            'rule_match': True
+        }
+        assert format_rule_match_status(test_result) == '✅ Match'
+
+    def test_expected_detection_missing_defaults_to_true(self):
+        """When expected_detection is missing, should default to True (normal flow)"""
+        test_result = {
+            'expected_rule': '[NGINX SQLi] Advanced SQL Injection',
+            'rule_match': True
+        }
+        # No expected_detection key, should default to True and go through normal flow
+        assert format_rule_match_status(test_result) == '✅ Match'
+
+    def test_expected_detection_string_false_not_treated_as_false(self):
+        """String 'false' should not be treated as boolean False (type safety)"""
+        test_result = {
+            'expected_detection': 'false',  # String, not boolean
+            'expected_rule': '',
+            'rule_match': False
+        }
+        # String 'false' is truthy, so should go through normal flow
+        assert format_rule_match_status(test_result) == '⚠️ Not Defined'
 
 
 class TestFormatRuleMatchStatus:
@@ -167,7 +252,10 @@ class TestFormatRuleMatchStatusIntegration:
         assert format_rule_match_status(test_result) == '❌ Mismatch'
 
     def test_no_detection_expected(self):
-        """Test result where no detection was expected (evasion test)"""
+        """Test result where no detection was expected (evasion test)
+
+        Issue #58: Updated to return 'Expected Not Detected' for negative test cases
+        """
         test_result = {
             'pattern_id': 'CMD_ENC_003',
             'detected': False,
@@ -176,7 +264,8 @@ class TestFormatRuleMatchStatusIntegration:
             'rule_match': False,
             'matched_rule': None
         }
-        assert format_rule_match_status(test_result) == '⚠️ Not Defined'
+        # Issue #58: Now returns 'Expected Not Detected' instead of 'Not Defined'
+        assert format_rule_match_status(test_result) == '✅ Expected Not Detected'
 
     def test_detection_without_expected_rule(self):
         """Test result where rule was detected but expected_rule not defined"""
