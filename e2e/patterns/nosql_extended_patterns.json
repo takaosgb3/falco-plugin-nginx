@@ -76,7 +76,7 @@
       "port": 8011,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "MongoDB NoSQL injection"
+      "expected_rule": "[NGINX Emerging Threat] Redis command injection"
     },
     {
       "id": "NOSQL_REDIS_002",
@@ -88,7 +88,7 @@
       "port": 8011,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "MongoDB NoSQL injection"
+      "expected_rule": "[NGINX Emerging Threat] Redis command injection"
     }
   ]
 }
