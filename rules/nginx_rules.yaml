@@ -1935,7 +1935,7 @@
 # ====================================
 # ADV_EMRG_007: Redis Command Injection (Phase 5, Issue #780)
 # ====================================
-# Test patterns: OTHER_REDIS_001
+# Test patterns: OTHER_REDIS_001, NOSQL_REDIS_001, NOSQL_REDIS_002
 - rule: Redis Command Injection Detection
   desc: Detects Redis command injection attempts
   condition: >-
@@ -1948,7 +1948,9 @@
       nginx.request_uri icontains "CONFIG%20GET" or
       nginx.request_uri icontains "SLAVEOF" or
       nginx.request_uri icontains "DEBUG SEGFAULT" or
-      nginx.request_uri icontains "DEBUG%20SEGFAULT"
+      nginx.request_uri icontains "DEBUG%20SEGFAULT" or
+      nginx.request_uri icontains "EVAL " or
+      nginx.request_uri icontains "EVAL%20"
     )
   output: "[NGINX Emerging Threat] Redis command injection test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: CRITICAL
@@ -1986,6 +1988,13 @@
   output: "[NGINX SSTI] Server-Side Template Injection detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: CRITICAL
   tags: [security, emerging_threats, ssti, template_injection, phase4]
+  exceptions:
+    # Issue #56 Fix: API Prototype Pollution patterns match %7D%7D (}}) but should be caught by API Security rule
+    - name: api_prototype_pollution
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - API_PROTO_001
   source: nginx
 
 # =========================================================================
