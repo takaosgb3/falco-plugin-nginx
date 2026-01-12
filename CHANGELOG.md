@@ -6,7 +6,37 @@
 
 All notable changes to the Falco nginx plugin binaries will be documented in this file.
 
-## [v1.4.2] - 2025-12-06 - Plugin Version Display Fix (Latest)
+## [v1.5.0] - 2026-01-12 - E2E 300 Patterns Release (Latest)
+
+### Added
+- **300 Attack Patterns**: E2E test coverage expanded from 65 to 300 patterns across 12 categories
+  - SQL Injection: 79 patterns (Time-based, Boolean-based, Error-based SQLi)
+  - XSS: 56 patterns (Reflected, DOM-based, Stored XSS)
+  - Path Traversal: 50 patterns (Directory traversal, LFI, RFI)
+  - Command Injection: 55 patterns (Shell, OS command injection)
+  - LDAP Injection: 10 patterns (LDAP query manipulation)
+  - SSTI: 10 patterns (Server-Side Template Injection)
+  - NoSQL Injection: 7 patterns (MongoDB, Redis injection)
+  - XXE: 8 patterns (XML External Entity attacks)
+  - XPath Injection: 5 patterns (XPath query manipulation)
+  - GraphQL Injection: 5 patterns (GraphQL query attacks)
+  - API Security: 5 patterns (BOLA, authentication bypass)
+  - Other: 10 patterns (Additional security patterns)
+- **Rule Mapping Trend** (Issue #59): Allure Report now shows Rule Mapping trend in Categories Trend graph
+- **Rule Mapping Validation** (Issue #53): Automated validation of expected_rule mappings
+
+### Fixed
+- **15 Rule Mapping Mismatches** (Issue #56): Resolved all rule name inconsistencies between test patterns and Falco rules
+- **Negative Test Display** (Issue #58): Improved display for expected_detection: false patterns showing "Expected: Not Detected"
+- **API_BOLA_001 Detection** (Issue #51): Added URL-encoded pattern support for API security detection
+
+### Technical Details
+- Built with Falco Plugin SDK v0.8.1
+- Tested with Falco 0.42.1
+- E2E tested on GitHub Actions (ubuntu-24.04)
+- Full compatibility with nginx combined log format
+
+## [v1.4.2] - 2025-12-06 - Plugin Version Display Fix
 
 ### Fixed
 - **Plugin Version Display**: Fixed hardcoded version string from 0.3.0 to 1.4.2
@@ -330,7 +360,37 @@ All notable changes to the Falco nginx plugin binaries will be documented in thi
 
 Falco nginxプラグインバイナリの重要な変更はすべてこのファイルに記録されます。
 
-## [v1.4.2] - 2025-12-06 - プラグインバージョン表示修正（最新）
+## [v1.5.0] - 2026-01-12 - E2E 300パターンリリース（最新）
+
+### 追加
+- **300攻撃パターン**: E2Eテストカバレッジを65から300パターン、12カテゴリに拡大
+  - SQLインジェクション: 79パターン（時間ベース、ブールベース、エラーベースSQLi）
+  - XSS: 56パターン（Reflected、DOM-based、Stored XSS）
+  - パストラバーサル: 50パターン（ディレクトリトラバーサル、LFI、RFI）
+  - コマンドインジェクション: 55パターン（シェル、OSコマンドインジェクション）
+  - LDAPインジェクション: 10パターン（LDAPクエリ操作）
+  - SSTI: 10パターン（サーバーサイドテンプレートインジェクション）
+  - NoSQLインジェクション: 7パターン（MongoDB、Redisインジェクション）
+  - XXE: 8パターン（XML外部エンティティ攻撃）
+  - XPathインジェクション: 5パターン（XPathクエリ操作）
+  - GraphQLインジェクション: 5パターン（GraphQLクエリ攻撃）
+  - APIセキュリティ: 5パターン（BOLA、認証バイパス）
+  - その他: 10パターン（追加セキュリティパターン）
+- **Rule Mappingトレンド**（Issue #59）: AllureレポートにRule Mappingトレンドグラフを追加
+- **Rule Mapping検証**（Issue #53）: expected_ruleマッピングの自動検証
+
+### 修正
+- **15件のRule Mappingミスマッチ**（Issue #56）: テストパターンとFalcoルール間のルール名不整合をすべて解決
+- **ネガティブテスト表示**（Issue #58）: expected_detection: falseパターンの表示を改善し「Expected: Not Detected」を表示
+- **API_BOLA_001検出**（Issue #51）: APIセキュリティ検出のURLエンコードパターンサポートを追加
+
+### 技術詳細
+- Falco Plugin SDK v0.8.1でビルド
+- Falco 0.42.1でテスト済み
+- GitHub Actions（ubuntu-24.04）でE2Eテスト済み
+- nginx combinedログフォーマットとの完全な互換性
+
+## [v1.4.2] - 2025-12-06 - プラグインバージョン表示修正
 
 ### 修正
 - **プラグインバージョン表示**: ハードコードされたバージョン文字列を0.3.0から1.4.2に修正

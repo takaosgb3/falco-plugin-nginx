@@ -485,7 +485,7 @@ jobs:
           nginx.Version=$(nginx -v 2>&1 | awk -F/ '{print $NF}' || echo "unknown")
           k6.Version=$(k6 version 2>/dev/null | head -1 | awk '{print $NF}' || echo "unknown")
           Python.Version=$(python --version 2>&1 | awk '{print $2}')
-          Test.Patterns=100
+          Test.Patterns=300
           Target.Host=${{ env.TARGET_IP }}:${{ env.TARGET_PORT }}
           EOF
 

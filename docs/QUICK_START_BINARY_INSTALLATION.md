@@ -33,17 +33,17 @@ curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/in
 curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo SKIP_TEST_CONTENT=yes bash
 
 # Install a specific version
-curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo PLUGIN_VERSION=v1.4.2 bash
+curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo PLUGIN_VERSION=v1.5.0 bash
 
 # Combine multiple options
-curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo PLUGIN_VERSION=v1.4.2 SETUP_TEST_CONTENT=yes bash
+curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo PLUGIN_VERSION=v1.5.0 SETUP_TEST_CONTENT=yes bash
 ```
 
 #### Installation Options
 
 | Environment Variable | Description | Values |
 |---------------------|-------------|--------|
-| `PLUGIN_VERSION` | Plugin version to install | `latest` (default), `v1.4.2`, `v1.4.0`, etc. |
+| `PLUGIN_VERSION` | Plugin version to install | `latest` (default), `v1.5.0`, `v1.4.0`, etc. |
 | `SETUP_TEST_CONTENT` | Automatically set up test web content | `yes`, `true`, `1` |
 | `SKIP_TEST_CONTENT` | Skip test content setup prompt | `yes`, `true`, `1` |
 
@@ -231,17 +231,17 @@ curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/in
 curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo SKIP_TEST_CONTENT=yes bash
 
 # 特定のバージョンをインストール
-curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo PLUGIN_VERSION=v1.4.2 bash
+curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo PLUGIN_VERSION=v1.5.0 bash
 
 # 複数のオプションを組み合わせ
-curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo PLUGIN_VERSION=v1.4.2 SETUP_TEST_CONTENT=yes bash
+curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo PLUGIN_VERSION=v1.5.0 SETUP_TEST_CONTENT=yes bash
 ```
 
 #### インストールオプション
 
 | 環境変数 | 説明 | 値 |
 |---------------------|-------------|--------|
-| `PLUGIN_VERSION` | インストールするプラグインバージョン | `latest` (デフォルト), `v1.4.2` など |
+| `PLUGIN_VERSION` | インストールするプラグインバージョン | `latest` (デフォルト), `v1.5.0` など |
 | `SETUP_TEST_CONTENT` | テストWebコンテンツを自動セットアップ | `yes`, `true`, `1` |
 | `SKIP_TEST_CONTENT` | テストコンテンツのプロンプトをスキップ | `yes`, `true`, `1` |
 

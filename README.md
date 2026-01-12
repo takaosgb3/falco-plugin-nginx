@@ -107,15 +107,22 @@ This repository includes comprehensive E2E tests for security detection validati
 gh workflow run e2e-test.yml
 ```
 
-**Test Coverage** (65 attack patterns):
+**Test Coverage** (300 attack patterns across 12 categories):
 
 | Category | Patterns | Description |
 |----------|----------|-------------|
-| SQL Injection | 19 | Time-based, Boolean-based blind SQLi |
-| XSS | 11 | DOM-based, Reflected XSS attacks |
-| Path Traversal | 20 | Directory traversal, absolute path access |
-| Command Injection | 10 | Shell command injection patterns |
-| Other | 5 | NoSQL/MongoDB injection |
+| SQL Injection | 79 | Time-based, Boolean-based, Error-based SQLi |
+| XSS | 56 | Reflected, DOM-based, Stored XSS attacks |
+| Path Traversal | 50 | Directory traversal, LFI, RFI patterns |
+| Command Injection | 55 | Shell, OS command injection patterns |
+| LDAP Injection | 10 | LDAP query manipulation |
+| SSTI | 10 | Server-Side Template Injection |
+| NoSQL Injection | 7 | MongoDB, Redis injection patterns |
+| XXE | 8 | XML External Entity attacks |
+| XPath Injection | 5 | XPath query manipulation |
+| GraphQL Injection | 5 | GraphQL query attacks |
+| API Security | 5 | BOLA, authentication bypass |
+| Other | 10 | Additional security patterns |
 
 **Latest Results**: See [Actions](../../actions/workflows/e2e-test.yml) for test runs and [Allure Report](https://takaosgb3.github.io/falco-plugin-nginx/) for detailed results.
 
@@ -228,15 +235,22 @@ curl "http://localhost/search.php?q=%27%20OR%20%271%27%3D%271"
 gh workflow run e2e-test.yml
 ```
 
-**テストカバレッジ**（65攻撃パターン）:
+**テストカバレッジ**（300攻撃パターン、12カテゴリ）:
 
 | カテゴリ | パターン数 | 説明 |
 |----------|------------|------|
-| SQLインジェクション | 19 | 時間ベース、ブラインドSQLi |
-| XSS | 11 | DOMベース、反射型XSS攻撃 |
-| パストラバーサル | 20 | ディレクトリトラバーサル、絶対パスアクセス |
-| コマンドインジェクション | 10 | シェルコマンドインジェクションパターン |
-| その他 | 5 | NoSQL/MongoDBインジェクション |
+| SQLインジェクション | 79 | 時間ベース、ブールベース、エラーベースSQLi |
+| XSS | 56 | 反射型、DOMベース、格納型XSS攻撃 |
+| パストラバーサル | 50 | ディレクトリトラバーサル、LFI、RFI |
+| コマンドインジェクション | 55 | シェル、OSコマンドインジェクション |
+| LDAPインジェクション | 10 | LDAPクエリ操作 |
+| SSTI | 10 | サーバーサイドテンプレートインジェクション |
+| NoSQLインジェクション | 7 | MongoDB、Redisインジェクション |
+| XXE | 8 | XML外部エンティティ攻撃 |
+| XPathインジェクション | 5 | XPathクエリ操作 |
+| GraphQLインジェクション | 5 | GraphQLクエリ攻撃 |
+| APIセキュリティ | 5 | BOLA、認証バイパス |
+| その他 | 10 | 追加セキュリティパターン |
 
 **最新結果**: テスト実行は[Actions](../../actions/workflows/e2e-test.yml)、詳細結果は[Allure Report](https://takaosgb3.github.io/falco-plugin-nginx/)を参照。
 
