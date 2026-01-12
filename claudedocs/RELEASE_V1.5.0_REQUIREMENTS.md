@@ -4,7 +4,7 @@
 
 | Item | Value |
 |------|-------|
-| Version | v1.1.0 |
+| Version | v1.2.0 |
 | Created | 2026-01-12 |
 | Updated | 2026-01-12 |
 | Status | Draft |
@@ -124,9 +124,34 @@ E2Eテストパターンが以下を含むこと：
 
 以下のドキュメントが更新されていること：
 
-- CHANGELOG.md（英語・日本語）
-- README.md（必要に応じて）
-- VERSION情報
+#### FR-004.1: CHANGELOG.md
+
+| Requirement | Specification |
+|-------------|---------------|
+| File | CHANGELOG.md |
+| Content | v1.5.0セクション追加（英語・日本語） |
+| Details | 300パターン対応、Issue #56/#58/#59の修正内容 |
+
+#### FR-004.2: README.md（公開リポジトリ）
+
+| File | Section | Current | Target |
+|------|---------|---------|--------|
+| README.md | E2E Security Tests (EN, Line ~110) | 65 attack patterns | 300 attack patterns |
+| README.md | E2Eセキュリティテスト (JA, Line ~231) | 65攻撃パターン | 300攻撃パターン |
+| README.md | Test Coverage Table (EN/JA) | 19/11/20/10/5 | 79/56/50/55/60 |
+
+#### FR-004.3: e2e/README.md
+
+| File | Section | Current | Target |
+|------|---------|---------|--------|
+| e2e/README.md | Directory Structure (Line ~37) | 古いパターン数 | 12ファイル構成 |
+| e2e/README.md | Test Categories (EN, Line ~56) | Total: 65 | Total: 300 |
+| e2e/README.md | テストカテゴリ (JA, Line ~214) | 合計: 65 | 合計: 300 |
+| e2e/README.md | Workflow Steps (Line ~145) | 65 patterns | 300 patterns |
+
+#### FR-004.4: VERSION情報
+
+- plugin/main.go内のバージョン定数が1.5.0であること
 
 ---
 
@@ -310,8 +335,9 @@ runs-on: ubuntu-latest  # 料金発生
 |---------|------|--------|---------|
 | v1.0.0 | 2026-01-12 | Claude Code | 初版作成 |
 | v1.1.0 | 2026-01-12 | Claude Code | FR-003パターン数修正（79/56/50/55等）、Timeline更新（Phase 2.5追加） |
+| v1.2.0 | 2026-01-12 | Claude Code | FR-004詳細化：README.md/e2e/README.mdの具体的な更新要件を追加 |
 
 ---
 
-*Document Version: v1.1.0*
+*Document Version: v1.2.0*
 *Last Updated: 2026-01-12*
