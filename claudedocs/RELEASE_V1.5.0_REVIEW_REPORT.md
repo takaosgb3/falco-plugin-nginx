@@ -256,6 +256,14 @@ $ grep -l "ubuntu-latest" .github/workflows/*.yml
 
 ---
 
+## 8. Revision History
+
+| Version | Date | Author | Changes |
+|---------|------|--------|---------|
+| v1.0.0 | 2026-01-12 | Claude Code | 初回レビュー：FR-003パターン数不整合、TASK-2 CHANGELOGテンプレート、TASK-4ランナー設定の指摘 |
+| v1.1.0 | 2026-01-12 | Claude Code | 第2回レビュー：公開リポジトリREADME更新タスク（TASK-2.5）の欠落を発見・追加、Issue #59実装確認 |
+
+---
+
 *Document Version: v1.1.0*
-*First Review: 2026-01-12*
-*Second Review: 2026-01-12*
+*Last Updated: 2026-01-12*

@@ -554,5 +554,14 @@ gh release list --repo takaosgb3/falco-plugin-nginx --limit 3
 
 ---
 
-*Document Version: v1.0.0*
+## Revision History
+
+| Version | Date | Author | Changes |
+|---------|------|--------|---------|
+| v1.0.0 | 2026-01-12 | Claude Code | 初版作成：TASK-1〜TASK-7定義 |
+| v1.1.0 | 2026-01-12 | Claude Code | TASK-2.5追加（公開リポジトリREADME更新）、TASK-4にContext追加 |
+
+---
+
+*Document Version: v1.1.0*
 *Last Updated: 2026-01-12*
