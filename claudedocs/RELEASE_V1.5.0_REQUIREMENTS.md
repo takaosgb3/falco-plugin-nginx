@@ -104,14 +104,21 @@ df1f4651 feat: Expand E2E test patterns to 300 (Phase 4) (#50)
 
 E2Eテストパターンが以下を含むこと：
 
-| Category | Count |
-|----------|-------|
-| SQL Injection | 100+ patterns |
-| XSS | 60+ patterns |
-| Path Traversal | 70+ patterns |
-| Command Injection | 35+ patterns |
-| Other (NoSQL, LDAP, etc.) | 35+ patterns |
-| **Total** | **300 patterns** |
+| Category | Count | Files |
+|----------|-------|-------|
+| SQL Injection | 79 patterns | sqli_patterns.json |
+| XSS | 56 patterns | xss_patterns.json |
+| Path Traversal | 50 patterns | path_patterns.json |
+| Command Injection | 55 patterns | cmdinj_patterns.json |
+| LDAP Injection | 10 patterns | ldap_patterns.json |
+| SSTI | 10 patterns | ssti_patterns.json |
+| NoSQL Injection | 7 patterns | nosql_extended_patterns.json |
+| XXE | 8 patterns | xxe_patterns.json |
+| XPath Injection | 5 patterns | xpath_patterns.json |
+| GraphQL Injection | 5 patterns | graphql_patterns.json |
+| API Security | 5 patterns | api_security_patterns.json |
+| Other | 10 patterns | other_patterns.json |
+| **Total** | **300 patterns** | **12 files** |
 
 ### FR-004: Documentation
 

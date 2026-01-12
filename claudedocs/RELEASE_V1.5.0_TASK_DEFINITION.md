@@ -26,7 +26,7 @@
 | TASK-1 | Pre-Release Verification | ⏳ Pending | 15分 |
 | TASK-2 | CHANGELOG.md Update | ⏳ Pending | 15分 |
 | TASK-3 | Source Sync Verification | ⏳ Pending | 10分 |
-| TASK-4 | Self-Hosted Runner Check | ⏳ Pending | 5分 |
+| TASK-4 | Runner Configuration Check | ⏳ Pending | 5分 |
 | TASK-5 | Release Workflow Execution | ⏳ Pending | 10分 |
 | TASK-6 | Post-Release Verification | ⏳ Pending | 15分 |
 | TASK-7 | Documentation Update | ⏳ Pending | 10分 |
@@ -91,11 +91,11 @@ v1.5.0の変更内容をCHANGELOG.mdに追加する。
 
 ### Added
 - **300 Attack Patterns**: E2E test coverage expanded from 65 to 300 patterns
-  - SQL Injection: 100+ patterns
-  - XSS: 60+ patterns
-  - Path Traversal: 70+ patterns
-  - Command Injection: 35+ patterns
-  - Other (NoSQL, LDAP, SSTI, etc.): 35+ patterns
+  - SQL Injection: 79 patterns
+  - XSS: 56 patterns
+  - Path Traversal: 50 patterns
+  - Command Injection: 55 patterns
+  - Emerging Threats: 60 patterns (LDAP, SSTI, NoSQL, XXE, XPath, GraphQL, API Security)
 - **Rule Mapping Trend** (Issue #59): Allure Report now shows Rule Mapping trend in Categories Trend graph
 - **Rule Mapping Validation** (Issue #53): Automated validation of expected_rule mappings
 
@@ -186,44 +186,53 @@ make sync-public 2>/dev/null || ./scripts/sync-source.sh
 
 ---
 
-## TASK-4: Self-Hosted Runner Check
+## TASK-4: Runner Configuration Check
 
 ### 4.1 Purpose
 
-セルフホストランナーが稼働していることを確認する。
+ワークフローのランナー設定を確認する。
 
-### 4.2 Steps
+### 4.2 Context
+
+**公開リポジトリ特有の注意点**:
+- 公開リポジトリ（falco-plugin-nginx）はユーザーがフォークして使用するため、
+  `ubuntu-24.04`などのGitHub提供ランナーを使用することは許容される
+- `ubuntu-latest`は非推奨（バージョン変動リスク）
+- プライベートリポジトリ（falco-nginx-plugin-claude）では必ずセルフホストランナーを使用
+
+### 4.3 Steps
 
 ```bash
-# Step 4.1: ワークフローでubuntu-latest使用確認（禁止）
+# Step 4.1: ubuntu-latest使用確認（禁止）
 grep -r "ubuntu-latest" .github/workflows/
 # 出力があれば修正が必要
 
-# Step 4.2: セルフホストランナー設定確認
-grep -r "self-hosted" .github/workflows/
+# Step 4.2: 使用されているランナーの確認
+grep -r "runs-on:" .github/workflows/
+# ubuntu-24.04 は許容される（公開リポジトリの場合）
 
-# Step 4.3: ランナー状態確認（GitHubで確認）
-# Settings → Actions → Runners で確認
+# Step 4.3: ワークフロー構文の確認
+# release.yml が正しく設定されていること
 ```
 
-### 4.3 Acceptance Criteria
+### 4.4 Acceptance Criteria
 
-- [ ] ubuntu-latestが使用されていない
-- [ ] self-hostedランナーが設定されている
-- [ ] ランナーがオンライン状態
+- [ ] `ubuntu-latest`が使用されていない（バージョン固定推奨）
+- [ ] 公開リポジトリでは`ubuntu-24.04`が許容される
+- [ ] ワークフローが正常に実行可能
 
-### 4.4 Reference Documents
+### 4.5 Reference Documents
 
 | Document | Section | Purpose |
 |----------|---------|---------|
-| CLAUDE.md | GitHub Actions使用料金の節約 | 絶対ルール |
+| CLAUDE.md | GitHub Actions使用料金の節約 | 絶対ルール（プライベートリポジトリ向け） |
 
-### 4.5 Past Failure Patterns
+### 4.6 Past Failure Patterns
 
 | Pattern | Description | Prevention |
 |---------|-------------|------------|
-| ubuntu-latest使用 | 料金発生 | grep確認必須 |
-| ランナー停止 | ワークフロー失敗 | 事前確認 |
+| ubuntu-latest使用 | バージョン変動リスク | ubuntu-24.04に固定 |
+| セルフホスト停止 | プライベートリポジトリでのワークフロー失敗 | 事前確認 |
 
 ---
 
@@ -449,7 +458,7 @@ gh release list --repo takaosgb3/falco-plugin-nginx --limit 3
 | TASK-1 | 事前検証 | E2Eテスト、Rule Mapping確認 |
 | TASK-2 | CHANGELOG更新 | 英語・日本語両方 |
 | TASK-3 | ソース同期 | プライベート→公開 |
-| TASK-4 | ランナー確認 | セルフホスト必須 |
+| TASK-4 | ランナー確認 | ubuntu-24.04許容 |
 | TASK-5 | リリース実行 | ワークフローのみ |
 | TASK-6 | リリース検証 | ELF形式確認必須 |
 | TASK-7 | 後処理 | ドキュメント更新 |
