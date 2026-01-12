@@ -4,7 +4,7 @@
 
 | Item | Value |
 |------|-------|
-| Version | v1.6.0 |
+| Version | v1.7.0 |
 | Created | 2026-01-12 |
 | Updated | 2026-01-12 |
 | Status | Draft |
@@ -391,7 +391,7 @@ runs-on: ubuntu-latest  # GitHubが随時更新するため環境が予期せず
 |------|-------------|--------|------------|
 | macOSバイナリ混入 | Low | Critical | ワークフローのみ使用、file検証 |
 | ルール構文エラー | Low | High | ワークフロー内で事前検証 |
-| セルフホストランナー停止 | Low | Medium | 事前に稼働確認 |
+| ランナー環境変更 | Low | Medium | ubuntu-24.04バージョン固定 |
 | E2Eテスト失敗 | Very Low | Medium | リリース前に最新テスト確認 |
 
 ---
@@ -430,8 +430,9 @@ runs-on: ubuntu-latest  # GitHubが随時更新するため環境が予期せず
 | v1.4.0 | 2026-01-12 | Claude Code | FR-004.4追加：E2E_REPORT_GUIDE.md/E2E_REPORT_GUIDE_JA.mdの更新要件 |
 | v1.5.0 | 2026-01-12 | Claude Code | FR-004.2/FR-004.4詳細化：テーブル構造の完全な更新要件を追加（5→12カテゴリ） |
 | v1.6.0 | 2026-01-12 | Claude Code | NFR-003/Pattern #3修正：公開リポジトリでは料金不要のため、バージョンドリフトリスクに焦点を変更 |
+| v1.7.0 | 2026-01-12 | Claude Code | 第8回レビュー対応：Issue #11修正（Risk Assessment「セルフホストランナー停止」→「ランナー環境変更」） |
 
 ---
 
-*Document Version: v1.6.0*
+*Document Version: v1.7.0*
 *Last Updated: 2026-01-12*

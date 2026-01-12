@@ -4,7 +4,7 @@
 
 | Item | Value |
 |------|-------|
-| Version | v1.5.0 |
+| Version | v1.6.0 |
 | Created | 2026-01-12 |
 | Updated | 2026-01-12 |
 | Status | Draft |
@@ -167,8 +167,8 @@ git diff CHANGELOG.md
 | docs/NGINX_RULES_REFERENCE.md | Line 5 | Version: 1.4.2 | Version: 1.5.0 |
 | docs/installation.md | Lines 12, 15, 19 | v1.4.2 | v1.5.0 |
 | docs/QUICK_START_BINARY_INSTALLATION.md | Lines 36, 39, 46, 234, 237, 244 | v1.4.2 | v1.5.0 |
-| docs/E2E_REPORT_GUIDE.md | Lines 22, 57, 103 | 65 attack patterns | 300 attack patterns |
-| docs/E2E_REPORT_GUIDE_JA.md | Lines 20, 55, 101 | 65の攻撃パターン | 300の攻撃パターン |
+
+> **注意**: docs/E2E_REPORT_GUIDE.md と docs/E2E_REPORT_GUIDE_JA.md の更新詳細は TASK-2.5.5 を参照してください。
 
 ### 2.5.3 README.md Updates
 
@@ -253,27 +253,41 @@ e2e/
 │   └── other_patterns.json          # Other patterns (10)
 ```
 
-**Test Categories Table - EN（Lines 56-63）**:
+**Test Categories Table - EN（Lines 56-63）** - **12カテゴリに拡大**:
 ```markdown
 | Category | Count | Description | Expected Rule |
 |----------|-------|-------------|---------------|
-| SQLi | 79 | SQL Injection attacks | Various SQL Injection Rules |
+| SQLi | 79 | SQL Injection attacks | SQL Injection Rules |
 | XSS | 56 | Cross-Site Scripting attacks | XSS Detection Rules |
 | Path | 50 | Path Traversal attacks | Path Traversal Rules |
 | CmdInj | 55 | Command Injection attacks | Command Injection Rules |
-| Emerging | 60 | LDAP, SSTI, NoSQL, XXE, etc. | Emerging Threat Rules |
+| LDAP | 10 | LDAP Injection attacks | LDAP Injection Rules |
+| SSTI | 10 | Server-Side Template Injection | SSTI Detection Rules |
+| NoSQL | 7 | NoSQL Injection attacks | NoSQL Injection Rules |
+| XXE | 8 | XML External Entity attacks | XXE Detection Rules |
+| XPath | 5 | XPath Injection attacks | XPath Injection Rules |
+| GraphQL | 5 | GraphQL Injection attacks | GraphQL Injection Rules |
+| API | 5 | API Security attacks | API Security Rules |
+| Other | 10 | Other attack patterns | Other Detection Rules |
 | **Total** | **300** | | |
 ```
 
-**Test Categories Table - JA（Lines 212-221）**:
+**Test Categories Table - JA（Lines 212-221）** - **12カテゴリに拡大**:
 ```markdown
 | カテゴリ | 数 | 説明 | 期待ルール |
 |----------|-------|-------------|---------------|
-| SQLi | 79 | SQLインジェクション攻撃 | Various SQL Injection Rules |
+| SQLi | 79 | SQLインジェクション攻撃 | SQL Injection Rules |
 | XSS | 56 | クロスサイトスクリプティング攻撃 | XSS Detection Rules |
 | Path | 50 | パストラバーサル攻撃 | Path Traversal Rules |
 | CmdInj | 55 | コマンドインジェクション攻撃 | Command Injection Rules |
-| Emerging | 60 | LDAP, SSTI, NoSQL, XXE等 | Emerging Threat Rules |
+| LDAP | 10 | LDAPインジェクション攻撃 | LDAP Injection Rules |
+| SSTI | 10 | サーバーサイドテンプレートインジェクション | SSTI Detection Rules |
+| NoSQL | 7 | NoSQLインジェクション攻撃 | NoSQL Injection Rules |
+| XXE | 8 | XML外部エンティティ攻撃 | XXE Detection Rules |
+| XPath | 5 | XPathインジェクション攻撃 | XPath Injection Rules |
+| GraphQL | 5 | GraphQLインジェクション攻撃 | GraphQL Injection Rules |
+| API | 5 | APIセキュリティ攻撃 | API Security Rules |
+| Other | 10 | その他の攻撃パターン | Other Detection Rules |
 | **合計** | **300** | | |
 ```
 
@@ -794,8 +808,9 @@ gh release list --repo takaosgb3/falco-plugin-nginx --limit 3
 | v1.3.0 | 2026-01-12 | Claude Code | TASK-2.5にE2E_REPORT_GUIDE.md更新を追加（FR-004.4に対応） |
 | v1.4.0 | 2026-01-12 | Claude Code | TASK-2.5詳細化：テーブル構造の完全な更新手順を追加（5→12カテゴリ） |
 | v1.5.0 | 2026-01-12 | Claude Code | 第6回レビュー対応：Issue #6修正（既存5カテゴリ）、Issue #7追加（JA版詳細行番号）、Issue #8追加（Directory Structure更新手順） |
+| v1.6.0 | 2026-01-12 | Claude Code | 第8回レビュー対応：Issue #10修正（Test Categories 6→12カテゴリ）、Issue #12修正（E2E_REPORT_GUIDE重複削除） |
 
 ---
 
-*Document Version: v1.5.0*
+*Document Version: v1.6.0*
 *Last Updated: 2026-01-12*

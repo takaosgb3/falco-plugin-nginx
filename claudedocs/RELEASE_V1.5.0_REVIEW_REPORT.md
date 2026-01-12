@@ -4,7 +4,7 @@
 
 | Item | Value |
 |------|-------|
-| Version | v1.6.0 |
+| Version | v1.7.0 |
 | Created | 2026-01-12 |
 | Reviewer | Claude Code |
 | Status | Review Complete |
@@ -150,24 +150,68 @@
 
 **問題**: 現在の Directory Structure は5ファイルのみ記載だが、12ファイルに更新が必要
 
-### Issue #9: NFR-003/Pattern #3 公開リポジトリへの誤適用 🟡 MEDIUM (NEW)
+### Issue #9: NFR-003/Pattern #3 公開リポジトリへの誤適用 🟡 MEDIUM
 
 **場所**: RELEASE_V1.5.0_REQUIREMENTS.md NFR-003, Pattern #3
 
 **問題**: 非公開リポジトリ向けの「セルフホストランナー必須」「料金発生」の記述が、公開リポジトリに誤って適用されている
 
-**誤った記載**:
-- NFR-003: 「すべてのワークフローは必ずセルフホストランナーを使用」「runs-on: ubuntu-latest # 料金発生」
-- Pattern #3: 「GitHubホストランナーを使用して料金発生」「月次請求で予想外の料金」
-
-**正しい内容**:
-- **公開リポジトリではGitHub-hosted runnerの使用は無料**
-- `ubuntu-latest`の問題は料金ではなく**バージョンドリフト**のリスク
-- バージョン固定（`ubuntu-24.04`）を推奨
-
 **推奨対応**: ✅ 修正済み
-- NFR-003: 「Runner Version Stability」に名称変更、バージョン固定の推奨に変更
-- Pattern #3: 「ubuntu-latest Version Drift」に名称変更、バージョンドリフトリスクに焦点を変更
+
+### Issue #10: e2e/README.md Test Categoriesテーブルが6カテゴリの提案 🔴 CRITICAL (NEW)
+
+**場所**: RELEASE_V1.5.0_TASK_DEFINITION.md Section 2.5.4 (Lines 256-278)
+
+**問題**: TASK-2.5.4のTest Categoriesテーブル更新提案が6行（5カテゴリ + Total）だが、以下と矛盾：
+- FR-003: 12カテゴリを明示
+- FR-004.2 README.md: 12カテゴリのテーブルを提案
+- FR-004.4 E2E_REPORT_GUIDE.md: 12カテゴリのテーブルを提案
+- 実際のパターンファイル: 12ファイルが存在
+
+**現在の提案（TASK-2.5.4）**:
+```markdown
+| Category | Count |
+|----------|-------|
+| SQLi | 79 |
+| XSS | 56 |
+| Path | 50 |
+| CmdInj | 55 |
+| Emerging | 60 |  ← LDAP, SSTI, NoSQL, XXE等を統合
+| **Total** | **300** |
+```
+
+**推奨修正**: 12カテゴリすべてを個別に記載（README.md、E2E_REPORT_GUIDE.mdと整合性を取る）
+
+### Issue #11: Risk Assessmentに「セルフホストランナー停止」が残存 🟡 MEDIUM (NEW)
+
+**場所**: RELEASE_V1.5.0_REQUIREMENTS.md Section 8 Risk Assessment (Line 394)
+
+**問題**: Issue #9でNFR-003を修正したが、Risk Assessmentにまだ以下が残存：
+```markdown
+| セルフホストランナー停止 | Low | Medium | 事前に稼働確認 |
+```
+
+公開リポジトリではセルフホストランナーは使用しないため、この項目は不適切。
+
+**推奨対応**: 削除または「ランナー環境変更」に修正
+
+### Issue #12: E2E_REPORT_GUIDE.md更新範囲の重複 🟡 MEDIUM (NEW)
+
+**場所**: RELEASE_V1.5.0_TASK_DEFINITION.md TASK-2.5.2 (Lines 170-171) と TASK-2.5.5 (Lines 330-436)
+
+**問題**: 同じファイル（E2E_REPORT_GUIDE.md/JA.md）が2つのセクションで言及され、更新範囲が不明確：
+- TASK-2.5.2: Lines 22, 57, 103 のみ記載
+- TASK-2.5.5: Lines 22, 57, 93-99, 103, 239-280 を詳細に記載
+
+**推奨対応**: TASK-2.5.2からE2E_REPORT_GUIDE.md/JA.mdを削除し、TASK-2.5.5に統合
+
+---
+
+## 3.1 Additional Findings
+
+### Serena Memory `e2e_test` の更新必要性
+
+e2e_testメモリには65パターン時代の古い情報が含まれている。リリース完了後に更新が必要。
 
 **現在の e2e/README.md (Lines 37-41)**:
 ```
@@ -343,6 +387,13 @@ $ grep -l "ubuntu-latest" .github/workflows/*.yml
 | 第5回 | テーブル構造の完全更新要件 | ✅ 詳細化完了 |
 | 第6回 | カテゴリ数誤記、JA版行番号、Directory Structure | ✅ 修正済み |
 | 第7回 | NFR-003/Pattern #3 公開リポジトリへの誤適用 | ✅ 修正済み |
+| 第8回 | Test Categories 6→12カテゴリ、Risk Assessment、TASK重複 | ✅ 修正済み |
+
+### 第8回レビューで発見された問題（すべて修正済み）
+
+1. **Issue #10** ✅: TASK-2.5.4 Test Categoriesテーブルを12カテゴリに修正
+2. **Issue #11** ✅: Risk Assessment「セルフホストランナー停止」→「ランナー環境変更」に修正
+3. **Issue #12** ✅: TASK-2.5.2からE2E_REPORT_GUIDE.md/JA.mdを削除、TASK-2.5.5への参照を追加
 
 ### 第7回レビューで発見された問題
 
@@ -357,9 +408,9 @@ $ grep -l "ubuntu-latest" .github/workflows/*.yml
 
 ### 推奨アクション
 
-すべてのレビュー指摘事項が修正されました。リリース作業を開始する準備が整いました。
+**すべてのレビュー指摘事項（Issue #1〜#12）が修正されました。** リリース作業を開始する準備が整いました。
 
-リリース前の最終確認事項：
+**リリース前の最終確認事項**:
 1. **TASK-2.5の実行**: 公開リポジトリのドキュメント更新（README.md, e2e/README.md, docs/*.md）
 2. **最終確認**: 更新後のドキュメントがすべて正確であることを検証
 3. **リリースワークフロー実行**: 手動トリガーではなくワークフロー経由で実行
@@ -377,8 +428,9 @@ $ grep -l "ubuntu-latest" .github/workflows/*.yml
 | v1.4.0 | 2026-01-12 | Claude Code | 第5回レビュー：ドキュメント内容の精査、テーブル構造の完全更新要件を追加（5→12カテゴリ） |
 | v1.5.0 | 2026-01-12 | Claude Code | 第6回レビュー：Issue #6 カテゴリ数誤記、Issue #7 JA版行番号不正確、Issue #8 Directory Structure更新手順不足を発見 |
 | v1.6.0 | 2026-01-12 | Claude Code | 第7回レビュー：Issue #9 NFR-003/Pattern #3の公開リポジトリへの誤適用を修正（料金問題→バージョンドリフト） |
+| v1.7.0 | 2026-01-12 | Claude Code | 第8回レビュー：Issue #10 Test Categories 6→12カテゴリ、Issue #11 Risk Assessment修正、Issue #12 TASK重複整理 |
 
 ---
 
-*Document Version: v1.6.0*
+*Document Version: v1.7.0*
 *Last Updated: 2026-01-12*
