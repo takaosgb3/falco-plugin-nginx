@@ -4,7 +4,7 @@
 
 | Item | Value |
 |------|-------|
-| Version | v1.4.0 |
+| Version | v1.5.0 |
 | Created | 2026-01-12 |
 | Updated | 2026-01-12 |
 | Status | Draft |
@@ -138,7 +138,38 @@ E2Eテストパターンが以下を含むこと：
 |------|---------|---------|--------|
 | README.md | E2E Security Tests (EN, Line ~110) | 65 attack patterns | 300 attack patterns |
 | README.md | E2Eセキュリティテスト (JA, Line ~231) | 65攻撃パターン | 300攻撃パターン |
-| README.md | Test Coverage Table (EN/JA) | 19/11/20/10/5 | 79/56/50/55/60 |
+| README.md | Test Coverage Table (EN/JA) | 5 categories, 65 patterns | 12 categories, 300 patterns |
+
+**重要**: Test Coverage Tableは単なる数値更新ではなく、**テーブル構造自体の更新**が必要：
+
+現在のテーブル（5カテゴリ）:
+```markdown
+| Category | Patterns | Description |
+|----------|----------|-------------|
+| SQL Injection | 19 | Time-based, Boolean-based blind SQLi |
+| XSS | 11 | DOM-based, Reflected XSS attacks |
+| Path Traversal | 20 | Directory traversal, absolute path access |
+| Command Injection | 10 | Shell command injection patterns |
+| Other | 5 | NoSQL/MongoDB injection |
+```
+
+更新後のテーブル（12カテゴリ）:
+```markdown
+| Category | Patterns | Description |
+|----------|----------|-------------|
+| SQL Injection | 79 | Time-based, Boolean-based, Error-based SQLi |
+| XSS | 56 | Reflected, DOM-based, Stored XSS attacks |
+| Path Traversal | 50 | Directory traversal, LFI, RFI patterns |
+| Command Injection | 55 | Shell, OS command injection patterns |
+| LDAP Injection | 10 | LDAP query manipulation |
+| SSTI | 10 | Server-Side Template Injection |
+| NoSQL Injection | 7 | MongoDB, Redis injection patterns |
+| XXE | 8 | XML External Entity attacks |
+| XPath Injection | 5 | XPath query manipulation |
+| GraphQL Injection | 5 | GraphQL query attacks |
+| API Security | 5 | BOLA, authentication bypass |
+| Other | 10 | Additional security patterns |
+```
 
 #### FR-004.3: e2e/README.md
 
@@ -159,8 +190,48 @@ E2Eテストパターンが以下を含むこと：
 | docs/NGINX_RULES_REFERENCE.md | 5 | Version: 1.4.2 | Version: 1.5.0 |
 | docs/installation.md | 12, 15, 19 | v1.4.2 | v1.5.0 |
 | docs/QUICK_START_BINARY_INSTALLATION.md | 36, 39, 46, 234, 237, 244 | v1.4.2 | v1.5.0 |
-| docs/E2E_REPORT_GUIDE.md | 22, 57, 103 | 65 attack patterns | 300 attack patterns |
-| docs/E2E_REPORT_GUIDE_JA.md | 20, 55, 101 | 65の攻撃パターン | 300の攻撃パターン |
+| docs/E2E_REPORT_GUIDE.md | 複数箇所 | 65 patterns, 5 categories | 300 patterns, 12 categories |
+| docs/E2E_REPORT_GUIDE_JA.md | 複数箇所 | 65パターン, 5カテゴリ | 300パターン, 12カテゴリ |
+
+**E2E_REPORT_GUIDE.md/JA の詳細更新箇所**:
+
+1. **Overview セクション** (Line 22/20):
+   - 「5 categories」→「12 categories」
+   - 「65 attack patterns」→「300 attack patterns」
+
+2. **Key Metrics テーブル** (Line 57/55):
+   - 「(65)」→「(300)」
+
+3. **Category Breakdown テーブル** (Lines 93-99):
+   ```markdown
+   # 現在（古い）
+   | **SQLI** | 19 | SQL Injection attacks |
+   | **XSS** | 11 | Cross-Site Scripting attacks |
+   | **PATH** | 20 | Path Traversal attacks |
+   | **CMDINJ** | 10 | Command Injection attacks |
+   | **OTHER** | 5 | NoSQL/MongoDB injection attacks |
+
+   # 更新後（12カテゴリ）
+   | **SQLI** | 79 | SQL Injection attacks |
+   | **XSS** | 56 | Cross-Site Scripting attacks |
+   | **PATH** | 50 | Path Traversal attacks |
+   | **CMDINJ** | 55 | Command Injection attacks |
+   | **LDAP** | 10 | LDAP Injection attacks |
+   | **SSTI** | 10 | Server-Side Template Injection |
+   | **NOSQL** | 7 | NoSQL Injection attacks |
+   | **XXE** | 8 | XML External Entity attacks |
+   | **XPATH** | 5 | XPath Injection attacks |
+   | **GRAPHQL** | 5 | GraphQL Injection attacks |
+   | **API** | 5 | API Security attacks |
+   | **OTHER** | 10 | Other attack patterns |
+   ```
+
+4. **Status Indicators** (Line 103/101):
+   - 「Green (65)」→「Green (300)」
+
+5. **Test Categories セクション** (Lines 239-280):
+   - 各カテゴリのパターン数を更新
+   - 新カテゴリ（LDAP, SSTI, NoSQL, XXE, XPath, GraphQL, API）を追加
 
 > **注意**: `PLUGIN_VERSION=latest`を使用している箇所は更新不要（自動的に最新を取得）
 
@@ -353,8 +424,9 @@ runs-on: ubuntu-latest  # 料金発生
 | v1.2.0 | 2026-01-12 | Claude Code | FR-004詳細化：README.md/e2e/README.mdの具体的な更新要件を追加 |
 | v1.3.0 | 2026-01-12 | Claude Code | FR-004.4追加：docs/*.mdのバージョン参照更新要件（rules.md, installation.md等） |
 | v1.4.0 | 2026-01-12 | Claude Code | FR-004.4追加：E2E_REPORT_GUIDE.md/E2E_REPORT_GUIDE_JA.mdの更新要件 |
+| v1.5.0 | 2026-01-12 | Claude Code | FR-004.2/FR-004.4詳細化：テーブル構造の完全な更新要件を追加（5→12カテゴリ） |
 
 ---
 
-*Document Version: v1.4.0*
+*Document Version: v1.5.0*
 *Last Updated: 2026-01-12*

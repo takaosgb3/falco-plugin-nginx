@@ -4,7 +4,7 @@
 
 | Item | Value |
 |------|-------|
-| Version | v1.3.0 |
+| Version | v1.4.0 |
 | Created | 2026-01-12 |
 | Updated | 2026-01-12 |
 | Status | Draft |
@@ -172,21 +172,45 @@ git diff CHANGELOG.md
 
 ### 2.5.3 README.md Updates
 
+**重要**: Test Coverage Tableは単なる数値更新ではなく、**テーブル構造自体の完全な置き換え**が必要。
+
 **英語セクション（Lines 110-120）**:
+
+現在:
 ```markdown
-**Test Coverage** (300 attack patterns):
+**Test Coverage** (65 attack patterns):
 
 | Category | Patterns | Description |
 |----------|----------|-------------|
-| SQL Injection | 79 | Time-based, Boolean-based blind SQLi |
-| XSS | 56 | DOM-based, Reflected XSS attacks |
-| Path Traversal | 50 | Directory traversal, absolute path access |
-| Command Injection | 55 | Shell command injection patterns |
-| Emerging Threats | 60 | LDAP, SSTI, NoSQL, XXE, XPath, GraphQL, API Security |
+| SQL Injection | 19 | Time-based, Boolean-based blind SQLi |
+| XSS | 11 | DOM-based, Reflected XSS attacks |
+| Path Traversal | 20 | Directory traversal, absolute path access |
+| Command Injection | 10 | Shell command injection patterns |
+| Other | 5 | NoSQL/MongoDB injection |
+```
+
+更新後（12カテゴリに拡大）:
+```markdown
+**Test Coverage** (300 attack patterns across 12 categories):
+
+| Category | Patterns | Description |
+|----------|----------|-------------|
+| SQL Injection | 79 | Time-based, Boolean-based, Error-based SQLi |
+| XSS | 56 | Reflected, DOM-based, Stored XSS attacks |
+| Path Traversal | 50 | Directory traversal, LFI, RFI patterns |
+| Command Injection | 55 | Shell, OS command injection patterns |
+| LDAP Injection | 10 | LDAP query manipulation |
+| SSTI | 10 | Server-Side Template Injection |
+| NoSQL Injection | 7 | MongoDB, Redis injection patterns |
+| XXE | 8 | XML External Entity attacks |
+| XPath Injection | 5 | XPath query manipulation |
+| GraphQL Injection | 5 | GraphQL query attacks |
+| API Security | 5 | BOLA, authentication bypass |
+| Other | 10 | Additional security patterns |
 ```
 
 **日本語セクション（Lines 231-241）**:
-同様に更新。
+同様に12カテゴリのテーブルに置き換え。
 
 ### 2.5.4 e2e/README.md Updates
 
@@ -261,41 +285,61 @@ PLUGIN_VERSION=v1.5.0
 
 > **注意**: `PLUGIN_VERSION=latest`を使用している箇所は更新不要（自動的に最新を取得）
 
-**docs/E2E_REPORT_GUIDE.md (Lines 22, 57, 103)**:
-```markdown
-# Line 22: 変更前
-Each test run executes **65 attack patterns** across 5 categories
-# Line 22: 変更後
-Each test run executes **300 attack patterns** across 12 categories
+**docs/E2E_REPORT_GUIDE.md - 複数箇所の更新が必要**:
 
-# Line 57: テーブル内
-| **Test Cases** | Total number of test patterns executed (65) |
-→
-| **Test Cases** | Total number of test patterns executed (300) |
+1. **Overview (Line 22)**:
+   ```markdown
+   # 変更前
+   Each test run executes **65 attack patterns** across 5 categories
+   # 変更後
+   Each test run executes **300 attack patterns** across 12 categories
+   ```
 
-# Line 103: チャート説明
-- **Green (65)**: Passed tests
-→
-- **Green (300)**: Passed tests
-```
+2. **Key Metrics テーブル (Line 57)**:
+   ```markdown
+   # 変更前
+   | **Test Cases** | Total number of test patterns executed (65) |
+   # 変更後
+   | **Test Cases** | Total number of test patterns executed (300) |
+   ```
 
-**docs/E2E_REPORT_GUIDE_JA.md (Lines 20, 55, 101)**:
-```markdown
-# Line 20: 変更前
-各テスト実行では、5つのカテゴリにわたる**65の攻撃パターン**を実行し
-# Line 20: 変更後
-各テスト実行では、12のカテゴリにわたる**300の攻撃パターン**を実行し
+3. **Category Breakdown テーブル (Lines 93-99)** - **構造変更**:
+   ```markdown
+   # 変更前（5行）
+   | **SQLI** | 19 | SQL Injection attacks |
+   | **XSS** | 11 | Cross-Site Scripting attacks |
+   | **PATH** | 20 | Path Traversal attacks |
+   | **CMDINJ** | 10 | Command Injection attacks |
+   | **OTHER** | 5 | NoSQL/MongoDB injection attacks |
 
-# Line 55: テーブル内
-| **Test Cases** | 実行されたテストパターンの総数（65） |
-→
-| **Test Cases** | 実行されたテストパターンの総数（300） |
+   # 変更後（12行）
+   | **SQLI** | 79 | SQL Injection attacks |
+   | **XSS** | 56 | Cross-Site Scripting attacks |
+   | **PATH** | 50 | Path Traversal attacks |
+   | **CMDINJ** | 55 | Command Injection attacks |
+   | **LDAP** | 10 | LDAP Injection attacks |
+   | **SSTI** | 10 | Server-Side Template Injection |
+   | **NOSQL** | 7 | NoSQL Injection attacks |
+   | **XXE** | 8 | XML External Entity attacks |
+   | **XPATH** | 5 | XPath Injection attacks |
+   | **GRAPHQL** | 5 | GraphQL Injection attacks |
+   | **API** | 5 | API Security attacks |
+   | **OTHER** | 10 | Other attack patterns |
+   ```
 
-# Line 101: チャート説明
-- **緑色（65）**：成功したテスト
-→
-- **緑色（300）**：成功したテスト
-```
+4. **Status Indicators (Line 103)**:
+   ```markdown
+   # 変更前
+   - **Green (65)**: Passed tests
+   # 変更後
+   - **Green (300)**: Passed tests
+   ```
+
+5. **Test Categories セクション (Lines 239-280)** - **大幅な構造変更**:
+   - 既存4カテゴリのパターン数を更新
+   - 新規7カテゴリを追加（LDAP, SSTI, NoSQL, XXE, XPath, GraphQL, API）
+
+**docs/E2E_REPORT_GUIDE_JA.md** - 同様の更新を日本語版でも実施
 
 ### 2.5.6 Acceptance Criteria
 
@@ -654,8 +698,9 @@ gh release list --repo takaosgb3/falco-plugin-nginx --limit 3
 | v1.1.0 | 2026-01-12 | Claude Code | TASK-2.5追加（公開リポジトリREADME更新）、TASK-4にContext追加 |
 | v1.2.0 | 2026-01-12 | Claude Code | TASK-2.5にdocs/*.mdバージョン更新を追加（FR-004.4に対応） |
 | v1.3.0 | 2026-01-12 | Claude Code | TASK-2.5にE2E_REPORT_GUIDE.md更新を追加（FR-004.4に対応） |
+| v1.4.0 | 2026-01-12 | Claude Code | TASK-2.5詳細化：テーブル構造の完全な更新手順を追加（5→12カテゴリ） |
 
 ---
 
-*Document Version: v1.3.0*
+*Document Version: v1.4.0*
 *Last Updated: 2026-01-12*

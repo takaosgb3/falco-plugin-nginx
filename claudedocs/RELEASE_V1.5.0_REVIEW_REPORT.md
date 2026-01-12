@@ -4,7 +4,7 @@
 
 | Item | Value |
 |------|-------|
-| Version | v1.3.0 |
+| Version | v1.4.0 |
 | Created | 2026-01-12 |
 | Reviewer | Claude Code |
 | Status | Review Complete |
@@ -264,8 +264,9 @@ $ grep -l "ubuntu-latest" .github/workflows/*.yml
 | v1.1.0 | 2026-01-12 | Claude Code | 第2回レビュー：公開リポジトリREADME更新タスク（TASK-2.5）の欠落を発見・追加、Issue #59実装確認 |
 | v1.2.0 | 2026-01-12 | Claude Code | 第3回レビュー：TASK-2.5にdocs/*.mdバージョン更新を追加（FR-004.4に対応） |
 | v1.3.0 | 2026-01-12 | Claude Code | 第4回レビュー：E2E_REPORT_GUIDE.md/E2E_REPORT_GUIDE_JA.mdの更新漏れを発見・追加 |
+| v1.4.0 | 2026-01-12 | Claude Code | 第5回レビュー：ドキュメント内容の精査、テーブル構造の完全更新要件を追加（5→12カテゴリ） |
 
 ---
 
-*Document Version: v1.3.0*
+*Document Version: v1.4.0*
 *Last Updated: 2026-01-12*
