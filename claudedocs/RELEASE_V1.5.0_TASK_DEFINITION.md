@@ -4,7 +4,7 @@
 
 | Item | Value |
 |------|-------|
-| Version | v1.1.0 |
+| Version | v1.3.0 |
 | Created | 2026-01-12 |
 | Updated | 2026-01-12 |
 | Status | Draft |
@@ -158,10 +158,17 @@ git diff CHANGELOG.md
 |------|---------|---------|--------|
 | README.md | E2E Security Tests (EN) | 65 attack patterns | 300 attack patterns |
 | README.md | E2Eセキュリティテスト (JA) | 65攻撃パターン | 300攻撃パターン |
+| README.md | Test Coverage Table (EN/JA) | 19/11/20/10/5 | 79/56/50/55/60 |
 | e2e/README.md | Directory Structure | 19/11/20/10/5 | 79/56/50/55+others |
 | e2e/README.md | Test Categories (EN) | Total: 65 | Total: 300 |
 | e2e/README.md | テストカテゴリ (JA) | 合計: 65 | 合計: 300 |
 | e2e/README.md | Workflow Steps | 65 patterns | 300 patterns |
+| docs/rules.md | Line 3 | Version: 1.4.2 | Version: 1.5.0 |
+| docs/NGINX_RULES_REFERENCE.md | Line 5 | Version: 1.4.2 | Version: 1.5.0 |
+| docs/installation.md | Lines 12, 15, 19 | v1.4.2 | v1.5.0 |
+| docs/QUICK_START_BINARY_INSTALLATION.md | Lines 36, 39, 46, 234, 237, 244 | v1.4.2 | v1.5.0 |
+| docs/E2E_REPORT_GUIDE.md | Lines 22, 57, 103 | 65 attack patterns | 300 attack patterns |
+| docs/E2E_REPORT_GUIDE_JA.md | Lines 20, 55, 101 | 65の攻撃パターン | 300の攻撃パターン |
 
 ### 2.5.3 README.md Updates
 
@@ -212,23 +219,108 @@ git diff CHANGELOG.md
 | **Total** | **300** | | |
 ```
 
-### 2.5.5 Acceptance Criteria
+### 2.5.5 docs/*.md Version Updates
+
+以下のドキュメントファイルのバージョン参照を v1.4.2 → v1.5.0 に更新する。
+
+**docs/rules.md (Line 3)**:
+```markdown
+# 変更前
+> Version: 1.4.2 | Last Updated: 2025-12-06
+
+# 変更後
+> Version: 1.5.0 | Last Updated: 2026-01-12
+```
+
+**docs/NGINX_RULES_REFERENCE.md (Line 5)**:
+```markdown
+# 変更前
+> Version: 1.4.2
+
+# 変更後
+> Version: 1.5.0
+```
+
+**docs/installation.md (Lines 12, 15, 19)**:
+```bash
+# 変更前
+PLUGIN_VERSION=v1.4.2
+
+# 変更後
+PLUGIN_VERSION=v1.5.0
+```
+
+**docs/QUICK_START_BINARY_INSTALLATION.md (Lines 36, 39, 46, 234, 237, 244)**:
+```bash
+# 変更前（複数箇所）
+PLUGIN_VERSION=v1.4.2
+
+# 変更後
+PLUGIN_VERSION=v1.5.0
+```
+
+> **注意**: `PLUGIN_VERSION=latest`を使用している箇所は更新不要（自動的に最新を取得）
+
+**docs/E2E_REPORT_GUIDE.md (Lines 22, 57, 103)**:
+```markdown
+# Line 22: 変更前
+Each test run executes **65 attack patterns** across 5 categories
+# Line 22: 変更後
+Each test run executes **300 attack patterns** across 12 categories
+
+# Line 57: テーブル内
+| **Test Cases** | Total number of test patterns executed (65) |
+→
+| **Test Cases** | Total number of test patterns executed (300) |
+
+# Line 103: チャート説明
+- **Green (65)**: Passed tests
+→
+- **Green (300)**: Passed tests
+```
+
+**docs/E2E_REPORT_GUIDE_JA.md (Lines 20, 55, 101)**:
+```markdown
+# Line 20: 変更前
+各テスト実行では、5つのカテゴリにわたる**65の攻撃パターン**を実行し
+# Line 20: 変更後
+各テスト実行では、12のカテゴリにわたる**300の攻撃パターン**を実行し
+
+# Line 55: テーブル内
+| **Test Cases** | 実行されたテストパターンの総数（65） |
+→
+| **Test Cases** | 実行されたテストパターンの総数（300） |
+
+# Line 101: チャート説明
+- **緑色（65）**：成功したテスト
+→
+- **緑色（300）**：成功したテスト
+```
+
+### 2.5.6 Acceptance Criteria
 
 - [ ] README.md英語セクションが300パターン対応
 - [ ] README.md日本語セクションが300パターン対応
 - [ ] e2e/README.md Directory Structureが更新
 - [ ] e2e/README.md Test Categories表が更新
 - [ ] e2e/README.md Workflow Stepsが更新
+- [ ] docs/rules.md のバージョンが v1.5.0 に更新
+- [ ] docs/NGINX_RULES_REFERENCE.md のバージョンが v1.5.0 に更新
+- [ ] docs/installation.md のバージョンが v1.5.0 に更新
+- [ ] docs/QUICK_START_BINARY_INSTALLATION.md のバージョンが v1.5.0 に更新
+- [ ] docs/E2E_REPORT_GUIDE.md が300パターン対応に更新
+- [ ] docs/E2E_REPORT_GUIDE_JA.md が300パターン対応に更新
 - [ ] 日英両言語で一貫性がある
 
-### 2.5.6 Reference Documents
+### 2.5.7 Reference Documents
 
 | Document | Section | Purpose |
 |----------|---------|---------|
 | e2e/patterns/*.json | 全ファイル | 正確なパターン数確認 |
 | RELEASE_V1.5.0_REVIEW_REPORT.md | Issue #1 | 正確な数値参照 |
+| RELEASE_V1.5.0_REQUIREMENTS.md | FR-004.4 | docs/*.md更新要件 |
 
-### 2.5.7 Past Failure Patterns
+### 2.5.8 Past Failure Patterns
 
 なし（ドキュメント作業）
 
@@ -560,8 +652,10 @@ gh release list --repo takaosgb3/falco-plugin-nginx --limit 3
 |---------|------|--------|---------|
 | v1.0.0 | 2026-01-12 | Claude Code | 初版作成：TASK-1〜TASK-7定義 |
 | v1.1.0 | 2026-01-12 | Claude Code | TASK-2.5追加（公開リポジトリREADME更新）、TASK-4にContext追加 |
+| v1.2.0 | 2026-01-12 | Claude Code | TASK-2.5にdocs/*.mdバージョン更新を追加（FR-004.4に対応） |
+| v1.3.0 | 2026-01-12 | Claude Code | TASK-2.5にE2E_REPORT_GUIDE.md更新を追加（FR-004.4に対応） |
 
 ---
 
-*Document Version: v1.1.0*
+*Document Version: v1.3.0*
 *Last Updated: 2026-01-12*

@@ -4,7 +4,7 @@
 
 | Item | Value |
 |------|-------|
-| Version | v1.3.0 |
+| Version | v1.4.0 |
 | Created | 2026-01-12 |
 | Updated | 2026-01-12 |
 | Status | Draft |
@@ -159,6 +159,8 @@ E2Eテストパターンが以下を含むこと：
 | docs/NGINX_RULES_REFERENCE.md | 5 | Version: 1.4.2 | Version: 1.5.0 |
 | docs/installation.md | 12, 15, 19 | v1.4.2 | v1.5.0 |
 | docs/QUICK_START_BINARY_INSTALLATION.md | 36, 39, 46, 234, 237, 244 | v1.4.2 | v1.5.0 |
+| docs/E2E_REPORT_GUIDE.md | 22, 57, 103 | 65 attack patterns | 300 attack patterns |
+| docs/E2E_REPORT_GUIDE_JA.md | 20, 55, 101 | 65の攻撃パターン | 300の攻撃パターン |
 
 > **注意**: `PLUGIN_VERSION=latest`を使用している箇所は更新不要（自動的に最新を取得）
 
@@ -350,8 +352,9 @@ runs-on: ubuntu-latest  # 料金発生
 | v1.1.0 | 2026-01-12 | Claude Code | FR-003パターン数修正（79/56/50/55等）、Timeline更新（Phase 2.5追加） |
 | v1.2.0 | 2026-01-12 | Claude Code | FR-004詳細化：README.md/e2e/README.mdの具体的な更新要件を追加 |
 | v1.3.0 | 2026-01-12 | Claude Code | FR-004.4追加：docs/*.mdのバージョン参照更新要件（rules.md, installation.md等） |
+| v1.4.0 | 2026-01-12 | Claude Code | FR-004.4追加：E2E_REPORT_GUIDE.md/E2E_REPORT_GUIDE_JA.mdの更新要件 |
 
 ---
 
-*Document Version: v1.3.0*
+*Document Version: v1.4.0*
 *Last Updated: 2026-01-12*
