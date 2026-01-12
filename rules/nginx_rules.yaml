@@ -714,6 +714,13 @@
       comps: in
       values:
         - SQLI_STACK_004
+    # Issue #56 Fix: NoSQL/API patterns - should be caught by MongoDB NoSQL Injection and API Security rules
+    - name: nosql_api_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - NOSQL_MONGO_003
+        - API_IDOR_001
   output: "[NGINX SQLi] Boolean-based Blind SQL Injection test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: CRITICAL
   tags: [security, sql_injection, advanced_sqli, boolean_based, phase3]
@@ -1093,6 +1100,12 @@
       values:
         - XSS_DOM_006
         - XSS_DOM_010
+    # Issue #56 Fix: Redis patterns - should be caught by Redis Command Injection rule
+    - name: redis_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - NOSQL_REDIS_001
   output: "[NGINX XSS] Advanced XSS Attack Attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: WARNING
   tags: [security, xss, advanced_xss, event_handlers, phase3]
@@ -1908,6 +1921,12 @@
       comps: in
       values:
         - GQL_INTRO_002
+    # Issue #56 Fix: API Prototype Pollution patterns - should be caught by API Security rule
+    - name: api_security_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - API_PROTO_001
   output: "[NGINX Emerging Threat] Template injection test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: CRITICAL
   tags: [security, emerging_threats, ssti, template_injection, phase5]
