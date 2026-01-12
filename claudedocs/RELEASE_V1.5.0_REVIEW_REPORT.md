@@ -4,7 +4,7 @@
 
 | Item | Value |
 |------|-------|
-| Version | v1.5.0 |
+| Version | v1.6.0 |
 | Created | 2026-01-12 |
 | Reviewer | Claude Code |
 | Status | Review Complete |
@@ -144,11 +144,30 @@
 
 **推奨対応**: E2E_REPORT_GUIDE_JA.md の詳細更新箇所を明示的に追加
 
-### Issue #8: e2e/README.md Directory Structure の更新手順が不十分 🟡 MEDIUM (NEW)
+### Issue #8: e2e/README.md Directory Structure の更新手順が不十分 🟡 MEDIUM
 
 **場所**: RELEASE_V1.5.0_TASK_DEFINITION.md Section 2.5.4
 
 **問題**: 現在の Directory Structure は5ファイルのみ記載だが、12ファイルに更新が必要
+
+### Issue #9: NFR-003/Pattern #3 公開リポジトリへの誤適用 🟡 MEDIUM (NEW)
+
+**場所**: RELEASE_V1.5.0_REQUIREMENTS.md NFR-003, Pattern #3
+
+**問題**: 非公開リポジトリ向けの「セルフホストランナー必須」「料金発生」の記述が、公開リポジトリに誤って適用されている
+
+**誤った記載**:
+- NFR-003: 「すべてのワークフローは必ずセルフホストランナーを使用」「runs-on: ubuntu-latest # 料金発生」
+- Pattern #3: 「GitHubホストランナーを使用して料金発生」「月次請求で予想外の料金」
+
+**正しい内容**:
+- **公開リポジトリではGitHub-hosted runnerの使用は無料**
+- `ubuntu-latest`の問題は料金ではなく**バージョンドリフト**のリスク
+- バージョン固定（`ubuntu-24.04`）を推奨
+
+**推奨対応**: ✅ 修正済み
+- NFR-003: 「Runner Version Stability」に名称変更、バージョン固定の推奨に変更
+- Pattern #3: 「ubuntu-latest Version Drift」に名称変更、バージョンドリフトリスクに焦点を変更
 
 **現在の e2e/README.md (Lines 37-41)**:
 ```
@@ -322,21 +341,28 @@ $ grep -l "ubuntu-latest" .github/workflows/*.yml
 | 第3回 | docs/*.mdバージョン更新要件 | ✅ FR-004.4追加 |
 | 第4回 | E2E_REPORT_GUIDE更新漏れ | ✅ 追加済み |
 | 第5回 | テーブル構造の完全更新要件 | ✅ 詳細化完了 |
-| 第6回 | カテゴリ数誤記、JA版行番号、Directory Structure | ⚠️ 修正必要 |
+| 第6回 | カテゴリ数誤記、JA版行番号、Directory Structure | ✅ 修正済み |
+| 第7回 | NFR-003/Pattern #3 公開リポジトリへの誤適用 | ✅ 修正済み |
 
-### 第6回レビューで発見された問題
+### 第7回レビューで発見された問題
 
-1. **Issue #6**: TASK-2.5で「既存4カテゴリ」→「既存5カテゴリ」に修正が必要
-2. **Issue #7**: E2E_REPORT_GUIDE_JA.mdのCategory Breakdown (91-97), Test Categories (237-278) の更新が未指定
-3. **Issue #8**: e2e/README.md Directory Structure の12ファイル構成への更新が不十分
+1. **Issue #9**: NFR-003とPattern #3で非公開リポジトリ向けの「セルフホストランナー必須」「料金発生」が公開リポジトリに誤適用
+   - **修正内容**: バージョンドリフトリスクに焦点を変更、`ubuntu-24.04`推奨に更新
+
+### 過去のレビューで発見された問題（修正済み）
+
+1. **Issue #6**: TASK-2.5で「既存4カテゴリ」→「既存5カテゴリ」に修正
+2. **Issue #7**: E2E_REPORT_GUIDE_JA.mdのCategory Breakdown (91-97), Test Categories (237-278) の更新箇所を明示
+3. **Issue #8**: e2e/README.md Directory Structure の12ファイル構成への更新を追加
 
 ### 推奨アクション
 
-リリース作業を開始する前に以下を実施：
+すべてのレビュー指摘事項が修正されました。リリース作業を開始する準備が整いました。
 
-1. **TASK-2.5の修正**: 上記Issue #6, #7, #8の内容をタスク定義書に反映
-2. **TASK-2.5の実行**: 公開リポジトリのドキュメント更新
-3. **最終確認**: 更新後のドキュメントがすべて正確であることを検証
+リリース前の最終確認事項：
+1. **TASK-2.5の実行**: 公開リポジトリのドキュメント更新（README.md, e2e/README.md, docs/*.md）
+2. **最終確認**: 更新後のドキュメントがすべて正確であることを検証
+3. **リリースワークフロー実行**: 手動トリガーではなくワークフロー経由で実行
 
 ---
 
@@ -350,8 +376,9 @@ $ grep -l "ubuntu-latest" .github/workflows/*.yml
 | v1.3.0 | 2026-01-12 | Claude Code | 第4回レビュー：E2E_REPORT_GUIDE.md/E2E_REPORT_GUIDE_JA.mdの更新漏れを発見・追加 |
 | v1.4.0 | 2026-01-12 | Claude Code | 第5回レビュー：ドキュメント内容の精査、テーブル構造の完全更新要件を追加（5→12カテゴリ） |
 | v1.5.0 | 2026-01-12 | Claude Code | 第6回レビュー：Issue #6 カテゴリ数誤記、Issue #7 JA版行番号不正確、Issue #8 Directory Structure更新手順不足を発見 |
+| v1.6.0 | 2026-01-12 | Claude Code | 第7回レビュー：Issue #9 NFR-003/Pattern #3の公開リポジトリへの誤適用を修正（料金問題→バージョンドリフト） |
 
 ---
 
-*Document Version: v1.5.0*
+*Document Version: v1.6.0*
 *Last Updated: 2026-01-12*

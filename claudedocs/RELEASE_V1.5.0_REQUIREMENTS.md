@@ -4,7 +4,7 @@
 
 | Item | Value |
 |------|-------|
-| Version | v1.5.0 |
+| Version | v1.6.0 |
 | Created | 2026-01-12 |
 | Updated | 2026-01-12 |
 | Status | Draft |
@@ -263,17 +263,20 @@ ls -la libfalco-nginx-plugin-linux-amd64.so
 # Expected: ~4MB
 ```
 
-### NFR-003: Self-Hosted Runner
+### NFR-003: Runner Version Stability
 
-すべてのワークフローは必ずセルフホストランナーを使用：
+ワークフローの安定性を確保するため、バージョン固定のランナーを使用：
 
 ```yaml
-# REQUIRED
-runs-on: [self-hosted, linux, x64, local]
+# RECOMMENDED: バージョン固定（環境の安定性を保証）
+runs-on: ubuntu-24.04
 
-# PROHIBITED
-runs-on: ubuntu-latest  # 料金発生
+# NOT RECOMMENDED: バージョンドリフトのリスク
+runs-on: ubuntu-latest  # GitHubが随時更新するため環境が予期せず変更される
 ```
+
+> **注意**: 公開リポジトリ（Public Repository）ではGitHub-hosted runnerの使用は無料です。
+> `ubuntu-latest`の問題は料金ではなく、**バージョンドリフト**（依存ライブラリの非互換、ビルド失敗等）のリスクです。
 
 ---
 
@@ -299,14 +302,16 @@ runs-on: ubuntu-latest  # 料金発生
 | Prevention | 必ずリリースワークフローを使用 |
 | Reference | CLAUDE.md「リリースプロセス - 絶対にこれに従うこと」 |
 
-### Pattern #3: ubuntu-latest Usage
+### Pattern #3: ubuntu-latest Version Drift
 
 | Item | Description |
 |------|-------------|
-| Issue | GitHubホストランナーを使用して料金発生 |
-| Symptom | 月次請求で予想外の料金 |
-| Prevention | 必ずセルフホストランナーを使用 |
-| Reference | CLAUDE.md「GitHub Actions使用料金の節約」 |
+| Issue | `ubuntu-latest`はGitHubが随時更新するため、ビルド環境が予期せず変更される |
+| Symptom | 依存ライブラリの非互換、ビルド失敗、テスト結果の不安定化 |
+| Prevention | バージョン固定（`ubuntu-24.04`）を使用 |
+| Reference | GitHub Docs「About GitHub-hosted runners」 |
+
+> **補足**: 公開リポジトリではGitHub-hosted runnerの使用料金は無料です。
 
 ### Pattern #4: Rules Syntax Error
 
@@ -362,8 +367,7 @@ runs-on: ubuntu-latest  # 料金発生
 - [ ] すべてのE2Eテストがパス（300パターン）
 - [ ] Rule Mapping 100% Match
 - [ ] CHANGELOG.md v1.5.0セクション追加
-- [ ] ubuntu-latest使用がないことを確認
-- [ ] セルフホストランナーの稼働確認
+- [ ] ランナーバージョンが固定されていることを確認（ubuntu-24.04推奨）
 
 ### 7.2 Release Process
 
@@ -425,8 +429,9 @@ runs-on: ubuntu-latest  # 料金発生
 | v1.3.0 | 2026-01-12 | Claude Code | FR-004.4追加：docs/*.mdのバージョン参照更新要件（rules.md, installation.md等） |
 | v1.4.0 | 2026-01-12 | Claude Code | FR-004.4追加：E2E_REPORT_GUIDE.md/E2E_REPORT_GUIDE_JA.mdの更新要件 |
 | v1.5.0 | 2026-01-12 | Claude Code | FR-004.2/FR-004.4詳細化：テーブル構造の完全な更新要件を追加（5→12カテゴリ） |
+| v1.6.0 | 2026-01-12 | Claude Code | NFR-003/Pattern #3修正：公開リポジトリでは料金不要のため、バージョンドリフトリスクに焦点を変更 |
 
 ---
 
-*Document Version: v1.5.0*
+*Document Version: v1.6.0*
 *Last Updated: 2026-01-12*
