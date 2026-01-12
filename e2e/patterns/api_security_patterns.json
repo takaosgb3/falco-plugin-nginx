@@ -16,7 +16,7 @@
       "port": 8012,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "API Security Attack Attempt",
+      "expected_rule": "[NGINX API Attack] API security vulnerability detected",
       "description": "Attempts to access another user's profile by manipulating object ID"
     },
     {
@@ -29,7 +29,7 @@
       "port": 8012,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "API Security Attack Attempt",
+      "expected_rule": "[NGINX API Attack] API security vulnerability detected",
       "description": "JWT with algorithm set to \"none\" to bypass signature verification"
     },
     {
@@ -42,7 +42,7 @@
       "port": 8012,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "API Security Attack Attempt",
+      "expected_rule": "[NGINX API Attack] API security vulnerability detected",
       "description": "Attempts to set privileged fields through mass assignment"
     },
     {
@@ -55,7 +55,7 @@
       "port": 8012,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "API Security Attack Attempt",
+      "expected_rule": "[NGINX API Attack] API security vulnerability detected",
       "description": "JavaScript prototype pollution to inject malicious properties"
     },
     {
@@ -68,7 +68,7 @@
       "port": 8012,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "API Security Attack Attempt",
+      "expected_rule": "[NGINX API Attack] API security vulnerability detected",
       "description": "Attempts to access invoices of other users by guessing order IDs"
     }
   ]

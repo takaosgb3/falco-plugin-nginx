@@ -76,7 +76,7 @@
       "port": 8005,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "SSTI Attack Detected"
+      "expected_rule": "[NGINX Emerging Threat] Spring4Shell attack"
     },
     {
       "id": "SSTI_PEBBLE_001",
@@ -88,7 +88,7 @@
       "port": 8005,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "SSTI Attack Detected"
+      "expected_rule": "[NGINX Emerging Threat] Template injection"
     },
     {
       "id": "SSTI_SMARTY_001",
@@ -100,7 +100,7 @@
       "port": 8005,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "SSTI Attack Detected"
+      "expected_rule": "[NGINX SSTI] Server-Side Template Injection detected"
     },
     {
       "id": "SSTI_TWIG_001",
@@ -112,7 +112,7 @@
       "port": 8005,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "SSTI Attack Detected"
+      "expected_rule": "[NGINX Traversal] File inclusion attack detected"
     },
     {
       "id": "SSTI_MAKO_001",
@@ -124,7 +124,7 @@
       "port": 8005,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "SSTI Attack Detected"
+      "expected_rule": "[NGINX Emerging Threat] Template injection"
     }
   ]
 }
