@@ -434,6 +434,35 @@ jobs:
           fi
 
       # ========================================
+      # 10a. Generate Rule Mapping Trend (Issue #59)
+      # ========================================
+      - name: Generate Rule Mapping Trend
+        run: |
+          echo "=========================================="
+          echo "Generating Rule Mapping Trend (Issue #59)"
+          echo "=========================================="
+
+          cd e2e
+
+          # Ensure history directory exists
+          mkdir -p allure-results/history
+
+          # Generate Rule Mapping trend data and merge with history
+          python scripts/generate_rule_mapping_trend.py \
+            --test-results results/test-results.json \
+            --run-number ${{ github.run_number }} \
+            --report-url "https://takaosgb3.github.io/falco-plugin-nginx/e2e-report/${{ github.run_number }}/" \
+            --history-input allure-results/history/categories-trend.json \
+            --history-output allure-results/history/categories-trend.json \
+            --max-history 10
+
+          echo "Rule Mapping trend data generated"
+          if [ -f allure-results/history/categories-trend.json ]; then
+            echo "=== Categories Trend (last 3 entries) ==="
+            head -50 allure-results/history/categories-trend.json
+          fi
+
+      # ========================================
       # 11. Generate Allure Report (DD-004, DD-010)
       # ========================================
       - name: Install Allure CLI
@@ -636,6 +665,28 @@ jobs:
             fi
           else
             echo "Analysis summary not available" >> $GITHUB_STEP_SUMMARY
+          fi
+
+          # Issue #59: Add Rule Mapping statistics to summary
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [ -f e2e/allure-results/history/categories-trend.json ]; then
+            echo "### Rule Mapping (Issue #59)" >> $GITHUB_STEP_SUMMARY
+            CURRENT_RUN=$(jq -r '.[0]' e2e/allure-results/history/categories-trend.json)
+            MATCH=$(echo "$CURRENT_RUN" | jq -r '.data["Rule Match"] // 0')
+            MISMATCH=$(echo "$CURRENT_RUN" | jq -r '.data["Rule Mismatch"] // 0')
+            EXPECTED_NOT=$(echo "$CURRENT_RUN" | jq -r '.data["Expected Not Detected"] // 0')
+            NOT_DEF=$(echo "$CURRENT_RUN" | jq -r '.data["Not Defined"] // 0')
+            TOTAL_RM=$((MATCH + MISMATCH + EXPECTED_NOT + NOT_DEF))
+            if [ "$TOTAL_RM" -gt 0 ]; then
+              MATCH_RATE=$(echo "scale=1; $MATCH * 100 / $TOTAL_RM" | bc)
+              echo "| Status | Count |" >> $GITHUB_STEP_SUMMARY
+              echo "|--------|-------|" >> $GITHUB_STEP_SUMMARY
+              echo "| Rule Match | $MATCH |" >> $GITHUB_STEP_SUMMARY
+              echo "| Rule Mismatch | $MISMATCH |" >> $GITHUB_STEP_SUMMARY
+              echo "| Expected Not Detected | $EXPECTED_NOT |" >> $GITHUB_STEP_SUMMARY
+              echo "| Not Defined | $NOT_DEF |" >> $GITHUB_STEP_SUMMARY
+              echo "| **Match Rate** | **${MATCH_RATE}%** |" >> $GITHUB_STEP_SUMMARY
+            fi
           fi
 
           echo "" >> $GITHUB_STEP_SUMMARY
