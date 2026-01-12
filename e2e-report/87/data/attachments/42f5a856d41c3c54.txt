@@ -1,0 +1,3 @@
+Expected Rule: [NGINX SQLi] Boolean-based Blind SQL Injection
+Matched Rule: [NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_BYPASS_010-1768198897480-zs6pgc pattern_id=SQLI_BYPASS_010 uri=/?q='%20UNION%2F*comment*%2FSELECT%2F*comment*%2Fversion()%2CNULL%2CNULL-- client=127.0.0.1 method=GET
+Rule Match: ✅ Match

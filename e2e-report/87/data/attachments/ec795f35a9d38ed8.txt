@@ -1,0 +1,3 @@
+Expected Rule: [NGINX Emerging Threat] Spring4Shell attack
+Matched Rule: [NGINX Emerging Threat] Spring4Shell attack test_id=SSTI_THYME_001-1768198913405-xvmpmq pattern_id=SSTI_THYME_001 uri=/?q=__%24%7BT(java.lang.Runtime).getRuntime().exec(%22id%22)%7D__ client=127.0.0.1
+Rule Match: ✅ Match

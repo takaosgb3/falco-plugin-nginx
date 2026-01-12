@@ -1,0 +1,5 @@
+Pattern ID: XSS_REFL_012
+        Status: passed
+        Latency: ~47000ms
+        Detection: 1 / 1
+        Rule: [NGINX XSS] Polyglot XSS Attack test_id=XSS_REFL_012-1768198876415-5ptk0k pattern_id=XSS_REFL_012 uri=/?q=%3Cdiv%20onclick%3Dalert(1)%3Eclick%3C%2Fdiv%3E client=127.0.0.1 method=GET

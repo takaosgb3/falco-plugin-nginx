@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SQLI_BYPASS_005",
+  "test_id": "SQLI_BYPASS_005-1768198894974-xbiyqr",
+  "category": "sqli",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 29000,
+  "evidence": "06:21:34.000000000: Warning [NGINX SQLi] Advanced SQL Injection Attempt test_id=SQLI_BYPASS_005-1768198894974-xbiyqr pattern_id=SQLI_BYPASS_005 uri=/?q=%27%2BUNION%2BSELECT%2Bversion%28%29%2CNULL%2CNULL-- client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Advanced SQL Injection Attempt test_id=SQLI_BYPASS_005-1768198894974-xbiyqr pattern_id=SQLI_BYPASS_005 uri=/?q=%27%2BUNION%2BSELECT%2Bversion%28%29%2CNULL%2CNULL-- client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX SQLi] Advanced SQL Injection Attempt test_id=SQLI_BYPASS_005-1768198894974-xbiyqr pattern_id=SQLI_BYPASS_005 uri=/?q=%27%2BUNION%2BSELECT%2Bversion%28%29%2CNULL%2CNULL-- client=127.0.0.1 method=GET",
+  "sent_at": 1768198923000,
+  "detected_at": 1768198894000,
+  "status": "passed"
+}
