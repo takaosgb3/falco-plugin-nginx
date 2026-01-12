@@ -1,0 +1,300 @@
+# Release v1.5.0 Requirements Document
+
+## Document Info
+
+| Item | Value |
+|------|-------|
+| Version | v1.0.0 |
+| Created | 2026-01-12 |
+| Updated | 2026-01-12 |
+| Status | Draft |
+| Author | Claude Code |
+
+---
+
+## 1. Executive Summary
+
+### 1.1 Purpose
+
+300の攻撃パターンによるE2Eテストが完了したため、Falco nginx プラグインのリリース v1.5.0 を実施します。
+
+### 1.2 Release Highlights
+
+| Feature | Description |
+|---------|-------------|
+| 300 Attack Patterns | E2Eテストパターンを65から300に拡大 |
+| Rule Mapping Trend | Allure ReportにRule Mapping Trendグラフを追加 (Issue #59) |
+| Rule Mapping Fix | 15件のRule Mapping Mismatchを解決 (Issue #56) |
+| Negative Test Support | expected_detection: false パターンの表示改善 (Issue #58) |
+
+### 1.3 Version Decision
+
+**New Version: v1.5.0**
+
+セマンティックバージョニングに従い：
+- **MAJOR (1)**: 変更なし（後方互換性維持）
+- **MINOR (4→5)**: 新機能追加（300パターン対応、Rule Mapping Trend）
+- **PATCH**: 0にリセット
+
+前バージョン: v1.4.4 (internal) / v1.4.2 (public release)
+
+---
+
+## 2. Background
+
+### 2.1 Current State
+
+| Component | Version | Status |
+|-----------|---------|--------|
+| Private Repo (main) | v1.4.4 | 最新のコミット: 4e67e2e3 |
+| Public Repo (release) | v1.4.2 | 2025-12-06リリース |
+| E2E Tests | 300 patterns | 全パターン成功 |
+| Rule Mapping | 100% Match | Issue #56完了 |
+
+### 2.2 Recent Changes Since v1.4.2
+
+```
+4e67e2e3 feat(e2e): Add Rule Mapping Trend to Allure Report (#61)
+067938c9 fix(e2e): Improve display of expected_detection: false patterns (#60)
+2bd0c794 fix: Resolve 15 Rule Mapping Mismatches (#57)
+c43cda94 feat(e2e): Add rule mapping validation (Issue #53) (#54)
+c6cf72a3 fix: Add URL-encoded patterns for API_BOLA_001 detection (#52)
+df1f4651 feat: Expand E2E test patterns to 300 (Phase 4) (#50)
+8598d39c fix(e2e): Improve rule mapping accuracy from 36% to 97%+ (#48)
+```
+
+### 2.3 Completed Issues
+
+| Issue | Title | PR | Status |
+|-------|-------|-----|--------|
+| #49 | Expand E2E test patterns to 300 | #50 | ✅ Closed |
+| #51 | API_BOLA_001 URL Encoding | #52 | ✅ Closed |
+| #53 | Rule Mapping Validation | #54 | ✅ Closed |
+| #56 | Resolve Rule Mapping Mismatches | #57 | ✅ Closed |
+| #58 | expected_detection: false display | #60 | ✅ Closed |
+| #59 | Rule Mapping Trend Graph | #61 | ✅ Closed |
+
+---
+
+## 3. Functional Requirements
+
+### FR-001: Plugin Binary
+
+プラグインバイナリが以下の要件を満たすこと：
+
+| Requirement | Specification |
+|-------------|---------------|
+| Format | ELF 64-bit LSB shared object |
+| Platform | Linux x86_64 |
+| Version | 1.5.0 |
+| Build Method | GitHub Actions Workflow |
+
+### FR-002: Falco Rules
+
+ルールファイルが以下の要件を満たすこと：
+
+| Requirement | Specification |
+|-------------|---------------|
+| File Name | nginx_rules.yaml |
+| Categories | SQL Injection, XSS, Path Traversal, Command Injection, Emerging Threats |
+| Detection Rate | 100% for all 300 E2E patterns |
+| Falco Version | 0.42.1+ compatible |
+
+### FR-003: E2E Test Patterns
+
+E2Eテストパターンが以下を含むこと：
+
+| Category | Count |
+|----------|-------|
+| SQL Injection | 100+ patterns |
+| XSS | 60+ patterns |
+| Path Traversal | 70+ patterns |
+| Command Injection | 35+ patterns |
+| Other (NoSQL, LDAP, etc.) | 35+ patterns |
+| **Total** | **300 patterns** |
+
+### FR-004: Documentation
+
+以下のドキュメントが更新されていること：
+
+- CHANGELOG.md（英語・日本語）
+- README.md（必要に応じて）
+- VERSION情報
+
+---
+
+## 4. Non-Functional Requirements
+
+### NFR-001: Build Reproducibility
+
+- 必ずGitHub Actions Workflowでビルド
+- 手動ビルドは禁止
+- ローカルビルドは検証用のみ
+
+### NFR-002: Binary Verification
+
+リリースバイナリは以下を満たすこと：
+
+```bash
+# Must show ELF 64-bit, not Mach-O
+file libfalco-nginx-plugin-linux-amd64.so
+# Expected: ELF 64-bit LSB shared object, x86-64
+
+# Size should be approximately 4MB
+ls -la libfalco-nginx-plugin-linux-amd64.so
+# Expected: ~4MB
+```
+
+### NFR-003: Self-Hosted Runner
+
+すべてのワークフローは必ずセルフホストランナーを使用：
+
+```yaml
+# REQUIRED
+runs-on: [self-hosted, linux, x64, local]
+
+# PROHIBITED
+runs-on: ubuntu-latest  # 料金発生
+```
+
+---
+
+## 5. Past Failure Patterns (Lessons Learned)
+
+> **重要**: 過去に発生した問題パターンを理解し、同じ失敗を繰り返さないこと
+
+### Pattern #1: macOS Binary on Linux
+
+| Item | Description |
+|------|-------------|
+| Issue | macOSでビルドしたバイナリをLinux用としてリリース |
+| Symptom | `file` コマンドで「Mach-O 64-bit」と表示 |
+| Prevention | 必ずワークフローでビルド、`file`コマンドで検証 |
+| Reference | CLAUDE.md「ビルドとリリースの鉄則」セクション |
+
+### Pattern #2: Manual Release Creation
+
+| Item | Description |
+|------|-------------|
+| Issue | 手動で`gh release create`を実行 |
+| Symptom | 検証されていないバイナリがリリースされる |
+| Prevention | 必ずリリースワークフローを使用 |
+| Reference | CLAUDE.md「リリースプロセス - 絶対にこれに従うこと」 |
+
+### Pattern #3: ubuntu-latest Usage
+
+| Item | Description |
+|------|-------------|
+| Issue | GitHubホストランナーを使用して料金発生 |
+| Symptom | 月次請求で予想外の料金 |
+| Prevention | 必ずセルフホストランナーを使用 |
+| Reference | CLAUDE.md「GitHub Actions使用料金の節約」 |
+
+### Pattern #4: Rules Syntax Error
+
+| Item | Description |
+|------|-------------|
+| Issue | バックスラッシュやEC2エラーを含むルール |
+| Symptom | Falcoがルールを読み込めない |
+| Prevention | ルール検証ステップをワークフローに含める |
+| Reference | CLAUDE.md「EC2エラー防止チェックリスト」 |
+
+### Pattern #5: Missing source: nginx
+
+| Item | Description |
+|------|-------------|
+| Issue | Falcoルールに`source: nginx`がない |
+| Symptom | アラートが生成されない |
+| Prevention | すべてのルールに`source: nginx`を含める |
+| Reference | CLAUDE.md「Falcoルール構文エラー（SDK版）」 |
+
+---
+
+## 6. Reference Documents
+
+### 6.1 Required Reading Before Release
+
+| Document | Path | Purpose |
+|----------|------|---------|
+| CLAUDE.md | `/CLAUDE.md` | ビルドとリリースの鉄則 |
+| Task Completion Checklist | Serena Memory: `task_completion_checklist` | リリースチェックリスト |
+| Problem Patterns | Serena Memory: `problem_patterns_key_issues` | 過去の問題パターン |
+| E2E Test Memory | Serena Memory: `e2e_test` | E2Eテストの構成 |
+
+### 6.2 Workflow Files
+
+| Workflow | Path | Purpose |
+|----------|------|---------|
+| Release Workflow | `.github/workflows/release.yml` | リリース作成 |
+| E2E Test Workflow | `.github/workflows/e2e-test.yml` | E2E検証 |
+| Test Build Workflow | `.github/workflows/test-build.yml` | ビルド検証 |
+
+### 6.3 Changelog
+
+| Document | Path | Purpose |
+|----------|------|---------|
+| CHANGELOG.md | `/CHANGELOG.md` | 変更履歴（更新必須） |
+
+---
+
+## 7. Acceptance Criteria
+
+### 7.1 Pre-Release
+
+- [ ] すべてのE2Eテストがパス（300パターン）
+- [ ] Rule Mapping 100% Match
+- [ ] CHANGELOG.md v1.5.0セクション追加
+- [ ] ubuntu-latest使用がないことを確認
+- [ ] セルフホストランナーの稼働確認
+
+### 7.2 Release Process
+
+- [ ] リリースワークフロー実行（手動トリガー禁止）
+- [ ] バイナリがELF 64-bitであることを確認
+- [ ] SHA256チェックサム生成
+- [ ] リリースノート生成
+
+### 7.3 Post-Release
+
+- [ ] ダウンロードテスト
+- [ ] バイナリ動作確認
+- [ ] ルール構文検証
+- [ ] GitHub Pagesの更新確認
+
+---
+
+## 8. Risk Assessment
+
+| Risk | Probability | Impact | Mitigation |
+|------|-------------|--------|------------|
+| macOSバイナリ混入 | Low | Critical | ワークフローのみ使用、file検証 |
+| ルール構文エラー | Low | High | ワークフロー内で事前検証 |
+| セルフホストランナー停止 | Low | Medium | 事前に稼働確認 |
+| E2Eテスト失敗 | Very Low | Medium | リリース前に最新テスト確認 |
+
+---
+
+## 9. Timeline
+
+| Phase | Task | Duration |
+|-------|------|----------|
+| 1 | 要件定義書・タスク定義書作成 | 30分 |
+| 2 | CHANGELOG.md更新 | 15分 |
+| 3 | 同期確認・検証 | 15分 |
+| 4 | リリースワークフロー実行 | 10分 |
+| 5 | リリース検証 | 15分 |
+| **Total** | | **~85分** |
+
+---
+
+## 10. Approvals
+
+| Role | Name | Status |
+|------|------|--------|
+| Author | Claude Code | ✅ Drafted |
+| Reviewer | User | ⏳ Pending |
+
+---
+
+*Document Version: v1.0.0*
+*Last Updated: 2026-01-12*
