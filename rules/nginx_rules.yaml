@@ -714,7 +714,9 @@
       comps: in
       values:
         - SQLI_STACK_004
-    # Issue #56 Fix: NoSQL/API patterns - should be caught by MongoDB NoSQL Injection and API Security rules
+    # Issue #56 Fix: Exclude NoSQL/API patterns that match SQLi conditions but have specific detection rules
+    # NOSQL_MONGO_003: Contains $gt operator matching SQLi condition; detected by MongoDB NoSQL Injection rule
+    # API_IDOR_001: Contains /api/.../orders/.../invoice matching SQLi condition; detected by API Security rule
     - name: nosql_api_patterns
       fields: nginx.pattern_id
       comps: in
@@ -1100,7 +1102,8 @@
       values:
         - XSS_DOM_006
         - XSS_DOM_010
-    # Issue #56 Fix: Redis patterns - should be caught by Redis Command Injection rule
+    # Issue #56 Fix: Exclude Redis patterns that match XSS conditions
+    # NOSQL_REDIS_001: Contains "EVAL" matching XSS event handler pattern; detected by Redis Command Injection rule
     - name: redis_patterns
       fields: nginx.pattern_id
       comps: in
@@ -1921,8 +1924,10 @@
       comps: in
       values:
         - GQL_INTRO_002
-    # Issue #56 Fix: API Prototype Pollution patterns - should be caught by API Security rule
-    - name: api_security_patterns
+    # Issue #56 Fix: Exclude API Prototype Pollution patterns that match template syntax
+    # API_PROTO_001: Contains %7B (%7B = {) matching template injection pattern; detected by API Security rule
+    # Note: Also excluded from SSTI Attack Detected rule due to %7D%7D (}}) match
+    - name: api_proto_001_exception
       fields: nginx.pattern_id
       comps: in
       values:
@@ -1989,8 +1994,10 @@
   priority: CRITICAL
   tags: [security, emerging_threats, ssti, template_injection, phase4]
   exceptions:
-    # Issue #56 Fix: API Prototype Pollution patterns match %7D%7D (}}) but should be caught by API Security rule
-    - name: api_prototype_pollution
+    # Issue #56 Fix: Exclude API Prototype Pollution patterns that match SSTI syntax
+    # API_PROTO_001: Contains %7D%7D (}}) matching SSTI closing braces; detected by API Security rule
+    # Note: Also excluded from Template Injection Detection rule due to %7B ({) match
+    - name: api_proto_001_exception
       fields: nginx.pattern_id
       comps: in
       values:
