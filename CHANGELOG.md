@@ -6,7 +6,24 @@
 
 All notable changes to the Falco nginx plugin binaries will be documented in this file.
 
-## [v1.5.0] - 2026-01-12 - E2E 300 Patterns Release (Latest)
+## [v1.5.1] - 2026-01-12 - Falco Plugin Registry Registration (Latest)
+
+### Changed
+- **Plugin ID**: Changed from 999 (development) to 27 (official registry ID)
+  - Required for Falco Plugin Registry registration
+  - PR: https://github.com/falcosecurity/plugins/pull/1146
+
+### Added
+- **Extractable Fields Documentation**: Added 17 fields reference to README
+  - `nginx.remote_addr`, `nginx.method`, `nginx.path`, `nginx.query_string`, etc.
+  - Complete field list with types and descriptions
+
+### Technical Details
+- Built with Falco Plugin SDK v0.8.1
+- Plugin ID: 27 (Falco Plugin Registry)
+- No functional changes from v1.5.0
+
+## [v1.5.0] - 2026-01-12 - E2E 300 Patterns Release
 
 ### Added
 - **300 Attack Patterns**: E2E test coverage expanded from 65 to 300 patterns across 12 categories
@@ -360,7 +377,24 @@ All notable changes to the Falco nginx plugin binaries will be documented in thi
 
 Falco nginxプラグインバイナリの重要な変更はすべてこのファイルに記録されます。
 
-## [v1.5.0] - 2026-01-12 - E2E 300パターンリリース（最新）
+## [v1.5.1] - 2026-01-12 - Falco Plugin Registry登録（最新）
+
+### 変更
+- **Plugin ID**: 999（開発用）から27（公式レジストリID）に変更
+  - Falco Plugin Registry登録に必要
+  - PR: https://github.com/falcosecurity/plugins/pull/1146
+
+### 追加
+- **抽出可能フィールドのドキュメント**: READMEに17フィールドのリファレンスを追加
+  - `nginx.remote_addr`, `nginx.method`, `nginx.path`, `nginx.query_string` など
+  - 型と説明を含む完全なフィールド一覧
+
+### 技術詳細
+- Falco Plugin SDK v0.8.1でビルド
+- Plugin ID: 27（Falco Plugin Registry）
+- v1.5.0から機能変更なし
+
+## [v1.5.0] - 2026-01-12 - E2E 300パターンリリース
 
 ### 追加
 - **300攻撃パターン**: E2Eテストカバレッジを65から300パターン、12カテゴリに拡大
