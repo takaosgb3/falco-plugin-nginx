@@ -46,6 +46,8 @@ const graphqlAttacks = new Counter('graphql_attacks');
 const xpathAttacks = new Counter('xpath_attacks');
 const sstiAttacks = new Counter('ssti_attacks');
 const nosqlExtendedAttacks = new Counter('nosql_extended_attacks');
+// Phase 5: Pickle Deserialization metrics (Issue #64)
+const pickleAttacks = new Counter('pickle_attacks');
 
 // ========================================
 // Load attack patterns (SharedArray for efficiency)
@@ -109,6 +111,12 @@ const nosqlExtendedPatterns = new SharedArray('nosql_extended', function() {
 
 const apiSecurityPatterns = new SharedArray('api_security', function() {
     const data = JSON.parse(open('../patterns/api_security_patterns.json'));
+    return data.patterns;
+});
+
+// Phase 5: Pickle Deserialization patterns (Issue #64)
+const picklePatterns = new SharedArray('pickle', function() {
+    const data = JSON.parse(open('../patterns/pickle_patterns.json'));
     return data.patterns;
 });
 
@@ -215,12 +223,21 @@ export const options = {
             exec: 'testAPISecurity',
             startTime: '55s',
             tags: { category: 'api_security' }
+        },
+        // Phase 5: Pickle Deserialization patterns (Issue #64)
+        pickle_test: {
+            executor: 'per-vu-iterations',
+            vus: 1,
+            iterations: picklePatterns.length,
+            exec: 'testPickle',
+            startTime: '60s',
+            tags: { category: 'pickle' }
         }
     },
     thresholds: {
         'http_req_duration': ['p(95)<5000'],  // 95% of requests under 5s
         'http_req_failed': ['rate<0.05'],      // Less than 5% failure rate
-        'attacks_sent': ['count==300']          // All 300 patterns sent (Phase 4 expanded)
+        'attacks_sent': ['count==350']          // All 350 patterns sent (Phase 5 expanded)
     },
     summaryTimeUnit: 'ms',
     summaryTrendStats: ['avg', 'med', 'p(90)', 'p(95)', 'p(99)', 'max', 'count']
@@ -363,6 +380,14 @@ export function testAPISecurity() {
     });
 }
 
+// Phase 5: Pickle Deserialization Tests (Issue #64)
+export function testPickle() {
+    group('Pickle Deserialization Tests', function() {
+        const pattern = picklePatterns[scenario.iterationInTest];
+        executeAttack(pattern, pickleAttacks);
+    });
+}
+
 // ========================================
 // Setup/Teardown
 // ========================================
@@ -370,19 +395,20 @@ export function setup() {
     console.log('========================================');
     console.log('k6 E2E Test Starting (Public Repo Mode)');
     console.log(`Target: ${TARGET_IP}:${TARGET_PORT}`);
-    console.log('Total Patterns: 300 (Phase 4 expanded)');
-    console.log('  - SQLi: 79');
-    console.log('  - XSS: 56');
-    console.log('  - Path: 50');
-    console.log('  - CmdInj: 55');
+    console.log('Total Patterns: 350 (Phase 5 expanded)');
+    console.log('  - SQLi: 94');
+    console.log('  - XSS: 66');
+    console.log('  - Path: 58');
+    console.log('  - CmdInj: 67');
     console.log('  - Other: 10');
     console.log('  - LDAP: 10');
     console.log('  - XXE: 8');
     console.log('  - GraphQL: 5');
     console.log('  - XPath: 5');
     console.log('  - SSTI: 10');
-    console.log('  - NoSQL Extended: 7');
-    console.log('  - API Security: 5 (NEW)');
+    console.log('  - NoSQL Extended: 8');
+    console.log('  - API Security: 5');
+    console.log('  - Pickle: 4 (NEW)');
     console.log('========================================');
 }
 
@@ -417,7 +443,9 @@ export function handleSummary(data) {
                 ssti: data.metrics.ssti_attacks ? data.metrics.ssti_attacks.values.count : 0,
                 nosql_extended: data.metrics.nosql_extended_attacks ? data.metrics.nosql_extended_attacks.values.count : 0,
                 // Phase 4: API Security (Issue #49)
-                api_security: data.metrics.api_security_attacks ? data.metrics.api_security_attacks.values.count : 0
+                api_security: data.metrics.api_security_attacks ? data.metrics.api_security_attacks.values.count : 0,
+                // Phase 5: Pickle Deserialization (Issue #64)
+                pickle: data.metrics.pickle_attacks ? data.metrics.pickle_attacks.values.count : 0
             }
         }
     };

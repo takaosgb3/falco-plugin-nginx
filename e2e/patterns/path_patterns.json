@@ -1,7 +1,7 @@
 {
   "metadata": {
     "category": "path",
-    "total_patterns": 50,
+    "total_patterns": 58,
     "port": 8003,
     "description": "k6 test patterns for path"
   },
@@ -605,6 +605,102 @@
       "expected_detection": true,
       "severity": "critical",
       "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
+    },
+    {
+      "id": "PATH_ADV_051",
+      "name": "Double Dot Bypass",
+      "category": "path",
+      "subcategory": "filter_bypass",
+      "payload": "....//....//etc/passwd",
+      "encoded": "....%2F%2F....%2F%2Fetc%2Fpasswd",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX Traversal] Advanced path traversal attack detected"
+    },
+    {
+      "id": "PATH_ADV_052",
+      "name": "Dot Dot Slash Variant",
+      "category": "path",
+      "subcategory": "filter_bypass",
+      "payload": "..././..././etc/passwd",
+      "encoded": "..%2E%2F.%2E%2F..%2E%2F.%2E%2Fetc%2Fpasswd",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX Traversal] Advanced path traversal attack detected"
+    },
+    {
+      "id": "PATH_ADV_053",
+      "name": "Null Byte Variant",
+      "category": "path",
+      "subcategory": "filter_bypass",
+      "payload": "../etc/passwd%00.jpg",
+      "encoded": "..%2Fetc%2Fpasswd%2500.jpg",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX Traversal] Advanced path traversal attack detected"
+    },
+    {
+      "id": "PATH_ADV_054",
+      "name": "Unicode Encoded Traversal",
+      "category": "path",
+      "subcategory": "filter_bypass",
+      "payload": "%c0%ae%c0%ae/%c0%ae%c0%ae/etc/passwd",
+      "encoded": "%c0%ae%c0%ae%2F%c0%ae%c0%ae%2Fetc%2Fpasswd",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX Traversal] Advanced path traversal attack detected"
+    },
+    {
+      "id": "PATH_ADV_055",
+      "name": "Double URL Encoding",
+      "category": "path",
+      "subcategory": "filter_bypass",
+      "payload": "%252e%252e%252f",
+      "encoded": "%252e%252e%252f",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX Traversal] Advanced path traversal attack detected"
+    },
+    {
+      "id": "PATH_ADV_056",
+      "name": "Backslash Traversal",
+      "category": "path",
+      "subcategory": "filter_bypass",
+      "payload": "..\\..\\etc\\passwd",
+      "encoded": "..%5C..%5Cetc%5Cpasswd",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX Traversal] Advanced path traversal attack detected"
+    },
+    {
+      "id": "PATH_ADV_057",
+      "name": "Semicolon Variant",
+      "category": "path",
+      "subcategory": "filter_bypass",
+      "payload": "..;/etc/passwd",
+      "encoded": "..%3B%2Fetc%2Fpasswd",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX Traversal] Advanced path traversal attack detected"
+    },
+    {
+      "id": "PATH_ADV_058",
+      "name": "URL Fragment Bypass",
+      "category": "path",
+      "subcategory": "filter_bypass",
+      "payload": "..#/../etc/passwd",
+      "encoded": "..%23%2F..%2Fetc%2Fpasswd",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX Traversal] Advanced path traversal attack detected"
     }
   ]
 }

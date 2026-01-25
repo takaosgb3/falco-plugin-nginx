@@ -1,0 +1,58 @@
+{
+  "metadata": {
+    "category": "pickle",
+    "total_patterns": 4,
+    "port": 8001,
+    "description": "k6 test patterns for Pickle Deserialization attacks"
+  },
+  "patterns": [
+    {
+      "id": "PICKLE_DESER_001",
+      "name": "Basic __reduce__ Method Exploit",
+      "category": "pickle",
+      "subcategory": "deserialization",
+      "payload": "__reduce__",
+      "encoded": "__reduce__",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "Pickle Deserialization Attack Attempt"
+    },
+    {
+      "id": "PICKLE_DESER_002",
+      "name": "pickle.loads Remote Code Execution",
+      "category": "pickle",
+      "subcategory": "deserialization",
+      "payload": "pickle.loads(base64.b64decode(data))",
+      "encoded": "pickle.loads%28base64.b64decode%28data%29%29",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "Pickle Deserialization Attack Attempt"
+    },
+    {
+      "id": "PICKLE_DESER_003",
+      "name": "cPickle.loads Remote Code Execution",
+      "category": "pickle",
+      "subcategory": "deserialization",
+      "payload": "cPickle.loads(data)",
+      "encoded": "cPickle.loads%28data%29",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "Pickle Deserialization Attack Attempt"
+    },
+    {
+      "id": "PICKLE_DESER_004",
+      "name": "Class MRO Traversal Attack",
+      "category": "pickle",
+      "subcategory": "deserialization",
+      "payload": "__class__.__mro__[1].__subclasses__()",
+      "encoded": "%5F%5Fclass%5F%5F.%5F%5Fmro%5F%5F%5B1%5D.%5F%5Fsubclasses%5F%5F%28%29",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "Pickle Deserialization Attack Attempt"
+    }
+  ]
+}
