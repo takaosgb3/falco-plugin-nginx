@@ -1,0 +1,5 @@
+Pattern ID: XSS_DOM_005
+        Status: passed
+        Latency: ~42000ms
+        Detection: 1 / 1
+        Rule: [NGINX XSS] DOM-based XSS Attack test_id=XSS_DOM_005-1769351170197-q3897 pattern_id=XSS_DOM_005 uri=/?q=outerHTML%3D%27%3Cscript%3Ealert%28%22DOM%22%29%3C%2Fscript%3E%27 client=127.0.0.1 method=GET

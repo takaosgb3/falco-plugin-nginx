@@ -1,0 +1,3 @@
+Expected Rule: [NGINX XSS] DOM-based XSS Attack
+Matched Rule: [NGINX XSS] DOM-based XSS Attack test_id=XSS_STORED_001-1769351167190-cs54c9 pattern_id=XSS_STORED_001 uri=/?q=%3Cscript%3Ealert('Stored%20XSS')%3C%2Fscript%3E client=127.0.0.1 method=GET
+Rule Match: ✅ Match

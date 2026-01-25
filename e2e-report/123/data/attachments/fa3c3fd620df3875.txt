@@ -1,0 +1,5 @@
+Pattern ID: XSS_ADV_059
+        Status: passed
+        Latency: ~28000ms
+        Detection: 1 / 1
+        Rule: [NGINX XSS] DOM-based XSS Attack test_id=XSS_ADV_059-1769351184226-8ufoar pattern_id=XSS_ADV_059 uri=/?q=%3Cmath%3E%3Cmtext%3E%3Ctable%3E%3Cmglyph%3E%3Cstyle%3E%3Cimg%20src%3Dx%20onerror%3Dalert%281%29%3E client=127.0.0.1 method=GET

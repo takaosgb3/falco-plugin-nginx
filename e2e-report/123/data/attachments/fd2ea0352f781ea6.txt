@@ -1,0 +1,5 @@
+Pattern ID: PICKLE_DESER_002
+        Status: passed
+        Latency: ~2000ms
+        Detection: 1 / 1
+        Rule: [NGINX Emerging Threat] Deserialization attack test_id=PICKLE_DESER_002-1769351210662-aixoto pattern_id=PICKLE_DESER_002 uri=/?q=pickle.loads%28base64.b64decode%28data%29%29 client=127.0.0.1

@@ -1,0 +1,17 @@
+{
+  "pattern_id": "PATH_DOT_002",
+  "test_id": "PATH_DOT_002-1769351163170-y5fiv9b",
+  "category": "path",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 49000,
+  "evidence": "14:26:03.000000000: Critical [NGINX Traversal] Basic path traversal attack detected test_id=PATH_DOT_002-1769351163170-y5fiv9b pattern_id=PATH_DOT_002 uri=/?q=../../etc/shadow client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] Basic path traversal attack detected test_id=PATH_DOT_002-1769351163170-y5fiv9b pattern_id=PATH_DOT_002 uri=/?q=../../etc/shadow client=127.0.0.1",
+  "expected_rule": "[NGINX Traversal] Basic path traversal attack detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Traversal] Basic path traversal attack detected test_id=PATH_DOT_002-1769351163170-y5fiv9b pattern_id=PATH_DOT_002 uri=/?q=../../etc/shadow client=127.0.0.1",
+  "sent_at": 1769351212000,
+  "detected_at": 1769351163000,
+  "status": "passed"
+}

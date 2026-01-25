@@ -1,0 +1,1 @@
+Test passed: CMD_PIPE_001
