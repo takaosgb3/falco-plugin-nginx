@@ -551,9 +551,10 @@ jobs:
 
       # ========================================
       # 11b. Merge Rule Mapping data into Categories Trend (Issue #73, #76)
-      # IMPORTANT: This must run BEFORE allure generate so that the
-      # merged data is included in the static SVG charts.
-      # The Allure CLI generates charts at build time, not view time.
+      # IMPORTANT: This must run BEFORE allure generate because:
+      # 1. allure generate copies history/*.json to widgets/*.json
+      # 2. The browser renders charts from the widgets/ directory
+      # 3. Updating allure-report/history/ AFTER generate is too late
       # ========================================
       - name: Merge Rule Mapping into Categories Trend
         run: |
@@ -574,21 +575,29 @@ jobs:
 
           # Merge Rule Mapping data into allure-results/history/categories-trend.json
           # This is the INPUT directory for allure generate
-          if ! python scripts/generate_rule_mapping_trend.py \
+          MERGE_OUTPUT=$(python scripts/generate_rule_mapping_trend.py \
             --test-results results/test-results.json \
             --run-number ${{ github.run_number }} \
             --report-url "https://takaosgb3.github.io/falco-plugin-nginx/e2e-report/${{ github.run_number }}/" \
             --history-input allure-results/history/categories-trend.json \
             --history-output allure-results/history/categories-trend.json \
             --max-history 20 \
-            --verbose; then
-            echo "::warning::Failed to merge Rule Mapping data into categories-trend.json"
+            --verbose 2>&1) || {
+            MERGE_EXIT_CODE=$?
+            echo "::warning::Failed to merge Rule Mapping data (exit code: $MERGE_EXIT_CODE)"
+            echo "Script output:"
+            echo "$MERGE_OUTPUT"
             # Continue anyway since Categories Trend is non-critical
-          fi
+          }
+          echo "$MERGE_OUTPUT"
 
           echo ""
-          echo "Updated categories-trend.json (will be used by allure generate):"
-          cat allure-results/history/categories-trend.json | head -50
+          if [ -f allure-results/history/categories-trend.json ]; then
+            echo "Updated categories-trend.json (will be used by allure generate):"
+            cat allure-results/history/categories-trend.json | head -50
+          else
+            echo "::warning::categories-trend.json does not exist after merge step"
+          fi
 
       - name: Generate Allure Report
         run: |
