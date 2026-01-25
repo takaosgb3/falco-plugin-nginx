@@ -1,0 +1,3 @@
+Expected Rule: [NGINX SSTI] Server-Side Template Injection detected
+Matched Rule: [NGINX SSTI] Server-Side Template Injection detected test_id=GQL_INTRO_002-1769334378318-u9xr89 pattern_id=GQL_INTRO_002 uri=/?q=query%7B__type(name%3A%22User%22)%7Bfields%7Bname%7D%7D%7D client=127.0.0.1
+Rule Match: ✅ Match

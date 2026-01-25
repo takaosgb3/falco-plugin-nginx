@@ -1,0 +1,5 @@
+Pattern ID: CMD_BASIC_011
+        Status: passed
+        Latency: ~42000ms
+        Detection: 1 / 1
+        Rule: [NGINX CMDi] Command injection via pipe test_id=CMD_BASIC_011-1769334362829-zsun38 pattern_id=CMD_BASIC_011 uri=/?q=%7Cid client=127.0.0.1

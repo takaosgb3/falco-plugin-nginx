@@ -1,0 +1,3 @@
+Expected Rule: [NGINX XSS] Polyglot XSS Attack
+Matched Rule: [NGINX XSS] Polyglot XSS Attack test_id=XSS_MUT_005-1769334362351-8cpbqm pattern_id=XSS_MUT_005 uri=/?q=%3Clisting%3E%3Cimg%20src%3Dx%20onerror%3Dalert%28%27XSS%27%29%3E%3C%2Flisting%3E client=127.0.0.1 method=GET
+Rule Match: ✅ Match

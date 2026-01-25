@@ -1,0 +1,17 @@
+{
+  "pattern_id": "XSS_DOM_010",
+  "test_id": "XSS_DOM_010-1769334365357-yqldct",
+  "category": "xss",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 39000,
+  "evidence": "09:46:05.000000000: Critical [NGINX XSS] DOM-based XSS Attack test_id=XSS_DOM_010-1769334365357-yqldct pattern_id=XSS_DOM_010 uri=/?q=setTimeout%28%27alert%28%22DOM%22%29%27%2C1000%29 client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX XSS] DOM-based XSS Attack test_id=XSS_DOM_010-1769334365357-yqldct pattern_id=XSS_DOM_010 uri=/?q=setTimeout%28%27alert%28%22DOM%22%29%27%2C1000%29 client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX XSS] DOM-based XSS Attack",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX XSS] DOM-based XSS Attack test_id=XSS_DOM_010-1769334365357-yqldct pattern_id=XSS_DOM_010 uri=/?q=setTimeout%28%27alert%28%22DOM%22%29%27%2C1000%29 client=127.0.0.1 method=GET",
+  "sent_at": 1769334404000,
+  "detected_at": 1769334365000,
+  "status": "passed"
+}

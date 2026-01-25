@@ -1,0 +1,3 @@
+Expected Rule: [NGINX CMDi] Advanced command injection attempt
+Matched Rule: [NGINX SQLi] Encoded SQL Injection Pattern test_id=CMD_ADV_060-1769334387380-qh1ly5 pattern_id=CMD_ADV_060 uri=/?q=%60id%60 client=127.0.0.1 method=GET
+Rule Match: ❌ Mismatch
