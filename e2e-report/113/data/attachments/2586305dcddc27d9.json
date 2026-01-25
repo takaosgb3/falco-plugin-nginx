@@ -1,0 +1,17 @@
+{
+  "pattern_id": "XSS_MUT_002",
+  "test_id": "XSS_MUT_002-1769346833805-y17228",
+  "category": "xss",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 44000,
+  "evidence": "13:13:53.000000000: Critical [NGINX XSS] Polyglot XSS Attack test_id=XSS_MUT_002-1769346833805-y17228 pattern_id=XSS_MUT_002 uri=/?q=%3Csvg%3E%3Cg%2Fonload%3Dalert%28%27XSS%27%29%3E%3C%2Fg%3E%3C%2Fsvg%3E client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX XSS] Polyglot XSS Attack test_id=XSS_MUT_002-1769346833805-y17228 pattern_id=XSS_MUT_002 uri=/?q=%3Csvg%3E%3Cg%2Fonload%3Dalert%28%27XSS%27%29%3E%3C%2Fg%3E%3C%2Fsvg%3E client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX XSS] Polyglot XSS Attack",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX XSS] Polyglot XSS Attack test_id=XSS_MUT_002-1769346833805-y17228 pattern_id=XSS_MUT_002 uri=/?q=%3Csvg%3E%3Cg%2Fonload%3Dalert%28%27XSS%27%29%3E%3C%2Fg%3E%3C%2Fsvg%3E client=127.0.0.1 method=GET",
+  "sent_at": 1769346877000,
+  "detected_at": 1769346833000,
+  "status": "passed"
+}

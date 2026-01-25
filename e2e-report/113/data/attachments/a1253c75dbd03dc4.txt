@@ -1,0 +1,5 @@
+Pattern ID: PICKLE_DESER_004
+        Status: passed
+        Latency: 0ms
+        Detection: 1 / 1
+        Rule: [NGINX Pickle Attack] Pickle deserialization attack attempt test_id=PICKLE_DESER_004-1769346877278-tawvzj pattern_id=PICKLE_DESER_004 uri=/?q=%5F%5Fclass%5F%5F.%5F%5Fmro%5F%5F%5B1%5D.%5F%5Fsubclasses%5F%5F%28%29 client=127.0.0.1

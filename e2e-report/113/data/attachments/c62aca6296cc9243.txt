@@ -1,0 +1,5 @@
+Pattern ID: CMD_ENV_003
+        Status: passed
+        Latency: ~24000ms
+        Detection: 1 / 1
+        Rule: [NGINX Traversal] File inclusion attack detected test_id=CMD_ENV_003-1769346853326-xyqw2 pattern_id=CMD_ENV_003 uri=/?q=IFS%3D%2C%3Bcat%2C%2Fetc%2Fpasswd client=127.0.0.1

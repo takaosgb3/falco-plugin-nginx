@@ -1,0 +1,5 @@
+Pattern ID: CMD_NEST_002
+        Status: passed
+        Latency: ~23000ms
+        Detection: 1 / 1
+        Rule: [NGINX SQLi] Encoded SQL Injection Pattern test_id=CMD_NEST_002-1769346854328-erns5d pattern_id=CMD_NEST_002 uri=/?q=%24(%60echo%20id%60) client=127.0.0.1 method=GET

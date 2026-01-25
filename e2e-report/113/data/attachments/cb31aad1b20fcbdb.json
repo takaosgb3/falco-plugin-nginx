@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SQLI_STACK_002",
+  "test_id": "SQLI_STACK_002-1769346830806-gn6b8k",
+  "category": "sqli",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 47000,
+  "evidence": "13:13:50.000000000: Critical [NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_STACK_002-1769346830806-gn6b8k pattern_id=SQLI_STACK_002 uri=/?q='%3B%20INSERT%20INTO%20users%20VALUES%20('hacker'%2C'password')%3B%20-- client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_STACK_002-1769346830806-gn6b8k pattern_id=SQLI_STACK_002 uri=/?q='%3B%20INSERT%20INTO%20users%20VALUES%20('hacker'%2C'password')%3B%20-- client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX SQLi] Boolean-based Blind SQL Injection",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_STACK_002-1769346830806-gn6b8k pattern_id=SQLI_STACK_002 uri=/?q='%3B%20INSERT%20INTO%20users%20VALUES%20('hacker'%2C'password')%3B%20-- client=127.0.0.1 method=GET",
+  "sent_at": 1769346877000,
+  "detected_at": 1769346830000,
+  "status": "passed"
+}
