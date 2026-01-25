@@ -442,36 +442,10 @@ jobs:
           fi
 
       # ========================================
-      # 10a. Generate Rule Mapping Trend (Issue #59)
-      # ========================================
-      - name: Generate Rule Mapping Trend
-        run: |
-          echo "=========================================="
-          echo "Generating Rule Mapping Trend (Issue #59)"
-          echo "=========================================="
-
-          cd e2e
-
-          # Ensure history directory exists
-          mkdir -p allure-results/history
-
-          # Generate Rule Mapping trend data and merge with history
-          python scripts/generate_rule_mapping_trend.py \
-            --test-results results/test-results.json \
-            --run-number ${{ github.run_number }} \
-            --report-url "https://takaosgb3.github.io/falco-plugin-nginx/e2e-report/${{ github.run_number }}/" \
-            --history-input allure-results/history/categories-trend.json \
-            --history-output allure-results/history/categories-trend.json \
-            --max-history 10
-
-          echo "Rule Mapping trend data generated"
-          if [ -f allure-results/history/categories-trend.json ]; then
-            echo "=== Categories Trend (last 3 entries) ==="
-            head -50 allure-results/history/categories-trend.json
-          fi
-
-      # ========================================
-      # 10b. Generate Rule Mapping Trend HTML (Issue #68)
+      # 10. Generate Rule Mapping Trend HTML (Issue #68)
+      # Note: Issue #59 script (generate_rule_mapping_trend.py) removed in Issue #70
+      #       It caused duplicate entries in categories-trend.json by conflicting
+      #       with Allure CLI's own history management.
       # ========================================
       - name: Generate Rule Mapping Trend HTML
         run: |
@@ -728,11 +702,14 @@ jobs:
             echo "Analysis summary not available" >> $GITHUB_STEP_SUMMARY
           fi
 
-          # Issue #59: Add Rule Mapping statistics to summary
+          # Issue #68: Add Rule Mapping statistics to summary
+          # Note: Updated in Issue #70 to read from rule-mapping-trend-history.json
+          #       instead of categories-trend.json (which is managed by Allure CLI)
           echo "" >> $GITHUB_STEP_SUMMARY
-          if [ -f e2e/allure-results/history/categories-trend.json ]; then
-            echo "### Rule Mapping (Issue #59)" >> $GITHUB_STEP_SUMMARY
-            CURRENT_RUN=$(jq -r '.[0]' e2e/allure-results/history/categories-trend.json)
+          if [ -f e2e/allure-results/widgets/rule-mapping-trend-history.json ]; then
+            echo "### Rule Mapping" >> $GITHUB_STEP_SUMMARY
+            # Get the latest entry (sorted by buildOrder ascending, so last is newest)
+            CURRENT_RUN=$(jq -r '.[-1]' e2e/allure-results/widgets/rule-mapping-trend-history.json)
             MATCH=$(echo "$CURRENT_RUN" | jq -r '.data["Rule Match"] // 0')
             MISMATCH=$(echo "$CURRENT_RUN" | jq -r '.data["Rule Mismatch"] // 0')
             EXPECTED_NOT=$(echo "$CURRENT_RUN" | jq -r '.data["Expected Not Detected"] // 0')
