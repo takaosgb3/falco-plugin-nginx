@@ -1,0 +1,5 @@
+Pattern ID: PATH_SENS_002
+        Status: passed
+        Latency: ~28000ms
+        Detection: 1 / 1
+        Rule: [NGINX Traversal] Basic path traversal attack detected test_id=PATH_SENS_002-1769331929159-l1e5pl pattern_id=PATH_SENS_002 uri=/?q=..%2F..%2F..%2Fvar%2Frun%2Fsecrets%2Fkubernetes.io%2Fserviceaccount%2Ftoken client=127.0.0.1

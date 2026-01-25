@@ -1,0 +1,3 @@
+Expected Rule: [NGINX XSS] DOM-based XSS Attack
+Matched Rule: [NGINX XSS] DOM-based XSS Attack test_id=XSS_DOM_010-1769331917652-xjur1 pattern_id=XSS_DOM_010 uri=/?q=setTimeout%28%27alert%28%22DOM%22%29%27%2C1000%29 client=127.0.0.1 method=GET
+Rule Match: ✅ Match
