@@ -1,0 +1,5 @@
+Pattern ID: CMD_ADV_060
+        Status: passed
+        Latency: ~17000ms
+        Detection: 1 / 1
+        Rule: [NGINX SQLi] Encoded SQL Injection Pattern test_id=CMD_ADV_060-1769348788380-mbu56 pattern_id=CMD_ADV_060 uri=/?q=%60id%60 client=127.0.0.1 method=GET

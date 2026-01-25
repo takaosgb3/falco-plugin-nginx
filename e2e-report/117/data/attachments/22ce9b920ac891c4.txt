@@ -1,0 +1,5 @@
+Pattern ID: CMD_FILE_003
+        Status: passed
+        Latency: ~21000ms
+        Detection: 1 / 1
+        Rule: [NGINX CMDi] Advanced command injection attempt test_id=CMD_FILE_003-1769348784370-5pqo5c pattern_id=CMD_FILE_003 uri=/?q=%3B%20echo%20%22*%20*%20*%20*%20*%20%2Ftmp%2Fevil.sh%22%20%3E%3E%20%2Fvar%2Fspool%2Fcron%2Fcrontabs%2Froot client=127.0.0.1

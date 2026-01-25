@@ -1,0 +1,5 @@
+Pattern ID: SSTI_TWIG_001
+        Status: passed
+        Latency: ~13000ms
+        Detection: 1 / 1
+        Rule: [NGINX Traversal] File inclusion attack detected test_id=SSTI_TWIG_001-1769348792820-ndghbf pattern_id=SSTI_TWIG_001 uri=/?q=%7B%7B%22%2Fetc%2Fpasswd%22%7Cfile_excerpt(1%2C30)%7D%7D client=127.0.0.1

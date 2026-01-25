@@ -1,0 +1,5 @@
+Pattern ID: CMD_BACK_001
+        Status: passed
+        Latency: ~37000ms
+        Detection: 1 / 1
+        Rule: [NGINX CMDi] Command substitution attack test_id=CMD_BACK_001-1769348768833-4a3bzm pattern_id=CMD_BACK_001 uri=/?q=%60rm%20-rf%20%2Ftmp%2F*%60 client=127.0.0.1
