@@ -614,8 +614,16 @@ jobs:
             # This is the key fix for Issue #78 - widgets/ is what the charts read from
             echo ""
             echo "Copying merged categories-trend.json to widgets/ for chart rendering..."
-            cp allure-report/history/categories-trend.json allure-report/widgets/categories-trend.json
-            echo "Widgets updated successfully"
+
+            # Ensure widgets directory exists (may not exist if allure generate had issues)
+            mkdir -p allure-report/widgets
+
+            if cp allure-report/history/categories-trend.json allure-report/widgets/categories-trend.json; then
+              echo "Widgets updated successfully"
+            else
+              echo "::error::Failed to copy categories-trend.json to widgets/"
+              echo "This will cause Categories Trend chart to not show Rule Mapping data"
+            fi
           else
             echo "::warning::categories-trend.json does not exist after merge step"
           fi
