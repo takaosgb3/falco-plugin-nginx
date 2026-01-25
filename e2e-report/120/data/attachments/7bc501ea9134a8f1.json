@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SQLI_ERROR_009",
+  "test_id": "SQLI_ERROR_009-1769350281182-5ci9m",
+  "category": "sqli",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 36000,
+  "evidence": "14:11:21.000000000: Critical [NGINX SQLi] Error-based SQL Injection test_id=SQLI_ERROR_009-1769350281182-5ci9m pattern_id=SQLI_ERROR_009 uri=/?q=%27%20AND%20POLYGON%28%28SELECT%20%2A%20FROM%28SELECT%20%2A%20FROM%20information_schema.tables%29x%29%29%20-- client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Error-based SQL Injection test_id=SQLI_ERROR_009-1769350281182-5ci9m pattern_id=SQLI_ERROR_009 uri=/?q=%27%20AND%20POLYGON%28%28SELECT%20%2A%20FROM%28SELECT%20%2A%20FROM%20information_schema.tables%29x%29%29%20-- client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX SQLi] Error-based SQL Injection",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX SQLi] Error-based SQL Injection test_id=SQLI_ERROR_009-1769350281182-5ci9m pattern_id=SQLI_ERROR_009 uri=/?q=%27%20AND%20POLYGON%28%28SELECT%20%2A%20FROM%28SELECT%20%2A%20FROM%20information_schema.tables%29x%29%29%20-- client=127.0.0.1 method=GET",
+  "sent_at": 1769350317000,
+  "detected_at": 1769350281000,
+  "status": "passed"
+}

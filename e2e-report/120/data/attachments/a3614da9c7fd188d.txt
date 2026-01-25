@@ -1,0 +1,5 @@
+Pattern ID: API_BOLA_001
+        Status: passed
+        Latency: ~7000ms
+        Detection: 1 / 1
+        Rule: [NGINX API Attack] API security vulnerability detected test_id=API_BOLA_001-1769350310122-rpfcv pattern_id=API_BOLA_001 uri=/?q=%2Fapi%2Fv1%2Fusers%2F1%2Fprofile client=127.0.0.1

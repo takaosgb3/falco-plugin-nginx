@@ -1,0 +1,3 @@
+Expected Rule: [NGINX Traversal] File inclusion attack detected
+Matched Rule: [NGINX Traversal] File inclusion attack detected test_id=PATH_DBL_003-1769350288175-16bwm9 pattern_id=PATH_DBL_003 uri=/?q=%25252e%25252e%2F%25252e%25252e%2F%25252e%25252e%2Fetc%2Fpasswd client=127.0.0.1
+Rule Match: ✅ Match

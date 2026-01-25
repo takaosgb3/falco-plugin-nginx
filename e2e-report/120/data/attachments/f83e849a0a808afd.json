@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SSTI_PEBBLE_001",
+  "test_id": "SSTI_PEBBLE_001-1769350303130-krq3ol",
+  "category": "ssti",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 14000,
+  "evidence": "14:11:43.000000000: Critical [NGINX Emerging Threat] Template injection test_id=SSTI_PEBBLE_001-1769350303130-krq3ol pattern_id=SSTI_PEBBLE_001 uri=/?q=%7B%25%20set%20cmd%20%3D%20%22id%22%20%25%7D%7B%7B%20system(cmd)%20%7D%7D client=127.0.0.1",
+  "rule_name": "[NGINX Emerging Threat] Template injection test_id=SSTI_PEBBLE_001-1769350303130-krq3ol pattern_id=SSTI_PEBBLE_001 uri=/?q=%7B%25%20set%20cmd%20%3D%20%22id%22%20%25%7D%7B%7B%20system(cmd)%20%7D%7D client=127.0.0.1",
+  "expected_rule": "[NGINX Emerging Threat] Template injection",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Emerging Threat] Template injection test_id=SSTI_PEBBLE_001-1769350303130-krq3ol pattern_id=SSTI_PEBBLE_001 uri=/?q=%7B%25%20set%20cmd%20%3D%20%22id%22%20%25%7D%7B%7B%20system(cmd)%20%7D%7D client=127.0.0.1",
+  "sent_at": 1769350317000,
+  "detected_at": 1769350303000,
+  "status": "passed"
+}
