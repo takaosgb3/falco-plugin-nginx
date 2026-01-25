@@ -1,0 +1,3 @@
+Expected Rule: [NGINX SQLi] Encoded SQL Injection Pattern
+Matched Rule: [NGINX SQLi] Encoded SQL Injection Pattern test_id=XSS_POLY_007-1769348414484-3la4be pattern_id=XSS_POLY_007 uri=/?q=jaVasCript%3A%2F*-%2F*%60%2F*'%20%2F*onerror%3Dalert(1)%2F%2F%20*%2F client=127.0.0.1 method=GET
+Rule Match: ✅ Match

@@ -1,0 +1,17 @@
+{
+  "pattern_id": "CMD_ADV_058",
+  "test_id": "CMD_ADV_058-1769348425497-6ltwi",
+  "category": "cmdinj",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 18000,
+  "evidence": "13:40:25.000000000: Critical [NGINX SQLi] Time-based Blind SQL Injection test_id=CMD_ADV_058-1769348425497-6ltwi pattern_id=CMD_ADV_058 uri=/?q=%3B%20sleep%205 client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Time-based Blind SQL Injection test_id=CMD_ADV_058-1769348425497-6ltwi pattern_id=CMD_ADV_058 uri=/?q=%3B%20sleep%205 client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX CMDi] Advanced command injection attempt",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": "[NGINX SQLi] Time-based Blind SQL Injection test_id=CMD_ADV_058-1769348425497-6ltwi pattern_id=CMD_ADV_058 uri=/?q=%3B%20sleep%205 client=127.0.0.1 method=GET",
+  "sent_at": 1769348443000,
+  "detected_at": 1769348425000,
+  "status": "passed"
+}

@@ -1,0 +1,3 @@
+Expected Rule: [NGINX XSS] DOM-based XSS Attack
+Matched Rule: [NGINX XSS] DOM-based XSS Attack test_id=XSS_MUT_001-1769348397950-mxwd9k pattern_id=XSS_MUT_001 uri=/?q=%3Cnoscript%3E%3Cp%20title%3D%22%3C%2Fnoscript%3E%3Cimg%20src%3Dx%20onerror%3Dalert('XSS')%3E%22%3E client=127.0.0.1 method=GET
+Rule Match: ✅ Match

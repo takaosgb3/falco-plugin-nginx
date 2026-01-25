@@ -1,0 +1,5 @@
+Pattern ID: SSTI_FREEMKR_001
+        Status: passed
+        Latency: ~15000ms
+        Detection: 1 / 1
+        Rule: [NGINX Emerging Threat] Template injection test_id=SSTI_FREEMKR_001-1769348428930-pco967 pattern_id=SSTI_FREEMKR_001 uri=/?q=%3C%23assign%20ex%3D%22freemarker.template.utility.Execute%22%3Fnew%28%29%3E%20%24%7Bex%28%22whoami%22%29%7D client=127.0.0.1
