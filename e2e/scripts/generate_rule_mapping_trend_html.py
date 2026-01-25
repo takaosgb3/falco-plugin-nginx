@@ -513,6 +513,7 @@ def generate_html(history: List[Dict], current_run: int) -> str:
                         displayColors: true,
                         callbacks: {{
                             title: function(context) {{
+                                if (!context || !context[0]) return '';
                                 const idx = context[0].dataIndex;
                                 return 'Run ' + labels[idx];
                             }}
