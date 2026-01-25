@@ -158,57 +158,95 @@ class TestCreateTrendEntry:
 
 
 class TestMergeTrendHistory:
-    """Tests for merge_trend_history()"""
+    """Tests for merge_trend_history() - Issue #73 updated signature"""
 
-    def test_empty_history(self):
-        """Should work with empty existing history"""
-        new_entry = {'buildOrder': 100, 'data': {'Match': 95}}
-        result = merge_trend_history(new_entry, [])
+    def test_empty_history_creates_new_entry(self):
+        """Should create new entry when history is empty"""
+        stats = {'Rule Match': 95, 'Rule Mismatch': 5}
+        result = merge_trend_history(
+            run_number=100,
+            stats=stats,
+            existing_history=[]
+        )
         assert len(result) == 1
         assert result[0]['buildOrder'] == 100
+        assert result[0]['data'] == stats
 
-    def test_adds_to_history(self):
-        """Should add new entry to existing history"""
-        new_entry = {'buildOrder': 102, 'data': {'Match': 97}}
+    def test_merges_into_existing_entry(self):
+        """Should merge stats into existing entry with same buildOrder (Issue #73)"""
+        stats = {'Rule Match': 95, 'Rule Mismatch': 5}
         existing = [
-            {'buildOrder': 101, 'data': {'Match': 96}},
-            {'buildOrder': 100, 'data': {'Match': 95}}
+            {'buildOrder': 100, 'reportName': 'Allure Report', 'data': {}},
+            {'buildOrder': 99, 'data': {'Rule Match': 90}}
         ]
-        result = merge_trend_history(new_entry, existing)
+        result = merge_trend_history(
+            run_number=100,
+            stats=stats,
+            existing_history=existing
+        )
+        assert len(result) == 2  # No new entry added
+        assert result[0]['buildOrder'] == 100
+        assert result[0]['data'] == stats  # Stats merged
+        assert result[0]['reportName'] == 'E2E Tests #100'  # Name updated
+
+    def test_creates_new_entry_if_not_found(self):
+        """Should create new entry if no matching buildOrder found"""
+        stats = {'Rule Match': 97}
+        existing = [
+            {'buildOrder': 99, 'data': {'Rule Match': 90}},
+            {'buildOrder': 98, 'data': {'Rule Match': 85}}
+        ]
+        result = merge_trend_history(
+            run_number=100,
+            stats=stats,
+            existing_history=existing
+        )
         assert len(result) == 3
-        assert result[0]['buildOrder'] == 102  # Newest first
+        assert result[0]['buildOrder'] == 100  # Newest first
 
     def test_respects_max_history(self):
         """Should keep only max_history entries"""
-        new_entry = {'buildOrder': 110, 'data': {'Match': 99}}
-        existing = [{'buildOrder': i, 'data': {'Match': i}} for i in range(109, 99, -1)]
-        result = merge_trend_history(new_entry, existing, max_history=5)
+        stats = {'Rule Match': 99}
+        existing = [{'buildOrder': i, 'data': {'Rule Match': i}} for i in range(109, 99, -1)]
+        result = merge_trend_history(
+            run_number=110,
+            stats=stats,
+            existing_history=existing,
+            max_history=5
+        )
         assert len(result) == 5
         assert result[0]['buildOrder'] == 110
         assert result[-1]['buildOrder'] == 106
 
-    def test_deduplicates_by_build_order(self):
-        """Should remove duplicates with same buildOrder"""
-        new_entry = {'buildOrder': 100, 'data': {'Match': 98}}  # Updated
+    def test_preserves_existing_data_fields(self):
+        """Should preserve other data in existing entry when merging"""
+        stats = {'Rule Match': 95, 'Rule Mismatch': 5}
         existing = [
-            {'buildOrder': 100, 'data': {'Match': 95}},  # Old
-            {'buildOrder': 99, 'data': {'Match': 94}}
+            {'buildOrder': 100, 'data': {'Product defects': 2}, 'reportUrl': 'https://example.com/100/'},
         ]
-        result = merge_trend_history(new_entry, existing)
-        assert len(result) == 2
-        # New entry should be kept (first occurrence wins)
-        assert result[0]['buildOrder'] == 100
-        assert result[0]['data']['Match'] == 98
+        result = merge_trend_history(
+            run_number=100,
+            stats=stats,
+            existing_history=existing
+        )
+        # Should have both original and new data
+        assert result[0]['data']['Product defects'] == 2
+        assert result[0]['data']['Rule Match'] == 95
+        assert result[0]['data']['Rule Mismatch'] == 5
 
     def test_sorts_descending(self):
         """Should sort by buildOrder descending"""
-        new_entry = {'buildOrder': 50, 'data': {}}
+        stats = {'Rule Match': 50}
         existing = [
             {'buildOrder': 100, 'data': {}},
             {'buildOrder': 75, 'data': {}},
             {'buildOrder': 25, 'data': {}}
         ]
-        result = merge_trend_history(new_entry, existing)
+        result = merge_trend_history(
+            run_number=50,
+            stats=stats,
+            existing_history=existing
+        )
         build_orders = [e['buildOrder'] for e in result]
         assert build_orders == [100, 75, 50, 25]
 
