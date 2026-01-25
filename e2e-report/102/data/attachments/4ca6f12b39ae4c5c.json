@@ -1,0 +1,17 @@
+{
+  "pattern_id": "CMD_PROC_002",
+  "test_id": "CMD_PROC_002-1769328888140-j3sb0r",
+  "category": "cmdinj",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 20000,
+  "evidence": "08:14:48.000000000: Warning [NGINX CMDi] Advanced command injection attempt test_id=CMD_PROC_002-1769328888140-j3sb0r pattern_id=CMD_PROC_002 uri=/?q=nohup%20%2Ftmp%2Fbackdoor.sh%20%26 client=127.0.0.1",
+  "rule_name": "[NGINX CMDi] Advanced command injection attempt test_id=CMD_PROC_002-1769328888140-j3sb0r pattern_id=CMD_PROC_002 uri=/?q=nohup%20%2Ftmp%2Fbackdoor.sh%20%26 client=127.0.0.1",
+  "expected_rule": "[NGINX CMDi] Advanced command injection attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX CMDi] Advanced command injection attempt test_id=CMD_PROC_002-1769328888140-j3sb0r pattern_id=CMD_PROC_002 uri=/?q=nohup%20%2Ftmp%2Fbackdoor.sh%20%26 client=127.0.0.1",
+  "sent_at": 1769328908000,
+  "detected_at": 1769328888000,
+  "status": "passed"
+}

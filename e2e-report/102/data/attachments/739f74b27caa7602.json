@@ -1,0 +1,17 @@
+{
+  "pattern_id": "PATH_ADV_058",
+  "test_id": "PATH_ADV_058-1769328885142-3hv9r9",
+  "category": "path",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 23000,
+  "evidence": "08:14:45.000000000: Warning [NGINX SQLi] Encoded SQL Injection Pattern test_id=PATH_ADV_058-1769328885142-3hv9r9 pattern_id=PATH_ADV_058 uri=/?q=..%23%2F..%2Fetc%2Fpasswd client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Encoded SQL Injection Pattern test_id=PATH_ADV_058-1769328885142-3hv9r9 pattern_id=PATH_ADV_058 uri=/?q=..%23%2F..%2Fetc%2Fpasswd client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX Traversal] Advanced path traversal attack detected",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": "[NGINX SQLi] Encoded SQL Injection Pattern test_id=PATH_ADV_058-1769328885142-3hv9r9 pattern_id=PATH_ADV_058 uri=/?q=..%23%2F..%2Fetc%2Fpasswd client=127.0.0.1 method=GET",
+  "sent_at": 1769328908000,
+  "detected_at": 1769328885000,
+  "status": "passed"
+}

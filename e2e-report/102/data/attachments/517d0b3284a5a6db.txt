@@ -1,0 +1,5 @@
+Pattern ID: PATH_SENS_003
+        Status: passed
+        Latency: ~27000ms
+        Detection: 1 / 1
+        Rule: [NGINX Traversal] Basic path traversal attack detected test_id=PATH_SENS_003-1769328881132-hbkcog pattern_id=PATH_SENS_003 uri=/?q=..%2F..%2F..%2Fvar%2Frun%2Fdocker.sock client=127.0.0.1

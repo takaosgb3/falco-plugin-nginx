@@ -1,0 +1,5 @@
+Pattern ID: CMD_PROC_002
+        Status: passed
+        Latency: ~20000ms
+        Detection: 1 / 1
+        Rule: [NGINX CMDi] Advanced command injection attempt test_id=CMD_PROC_002-1769328888140-j3sb0r pattern_id=CMD_PROC_002 uri=/?q=nohup%20%2Ftmp%2Fbackdoor.sh%20%26 client=127.0.0.1

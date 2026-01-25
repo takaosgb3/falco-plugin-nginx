@@ -1,0 +1,3 @@
+Expected Rule: [NGINX XSS] Polyglot XSS Attack
+Matched Rule: [NGINX XSS] Polyglot XSS Attack test_id=XSS_MUT_002-1769328864604-jrm9cei pattern_id=XSS_MUT_002 uri=/?q=%3Csvg%3E%3Cg%2Fonload%3Dalert%28%27XSS%27%29%3E%3C%2Fg%3E%3C%2Fsvg%3E client=127.0.0.1 method=GET
+Rule Match: ✅ Match
