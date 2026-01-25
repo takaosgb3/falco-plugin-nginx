@@ -428,6 +428,8 @@ jobs:
           if git show "gh-pages:e2e-report/$LATEST_RUN/widgets/rule-mapping-trend-history.json" \
             > e2e/allure-results/history/rule-mapping-trend-history.json 2>/dev/null; then
             echo "Downloaded rule-mapping-trend-history.json"
+          else
+            echo "::notice::Rule Mapping Trend history not found in run $LATEST_RUN (expected for first run or after migration)"
           fi
 
           if [ "$HISTORY_FOUND" = true ]; then
@@ -483,20 +485,32 @@ jobs:
           mkdir -p allure-results/history
           mkdir -p allure-results/widgets
 
-          # Generate Rule Mapping Trend HTML page
-          python scripts/generate_rule_mapping_trend_html.py \
+          # Generate Rule Mapping Trend HTML page with error checking
+          if ! python scripts/generate_rule_mapping_trend_html.py \
             --test-results results/test-results.json \
             --run-number ${{ github.run_number }} \
             --report-url "https://takaosgb3.github.io/falco-plugin-nginx/e2e-report/${{ github.run_number }}/" \
             --history-input allure-results/history/rule-mapping-trend-history.json \
             --history-output allure-results/widgets/rule-mapping-trend-history.json \
             --html-output allure-results/widgets/rule-mapping-trend.html \
-            --max-history 20
-
-          echo "Rule Mapping Trend HTML generated"
-          if [ -f allure-results/widgets/rule-mapping-trend.html ]; then
-            echo "HTML file size: $(wc -c < allure-results/widgets/rule-mapping-trend.html) bytes"
+            --max-history 20; then
+            echo "::error::Failed to generate Rule Mapping Trend HTML"
+            exit 1
           fi
+
+          # Verify outputs exist
+          if [ ! -f allure-results/widgets/rule-mapping-trend.html ]; then
+            echo "::error::Rule Mapping Trend HTML file was not created"
+            exit 1
+          fi
+
+          if [ ! -f allure-results/widgets/rule-mapping-trend-history.json ]; then
+            echo "::error::Rule Mapping Trend history JSON was not created"
+            exit 1
+          fi
+
+          echo "Rule Mapping Trend HTML generated successfully"
+          echo "HTML file size: $(wc -c < allure-results/widgets/rule-mapping-trend.html) bytes"
 
       # ========================================
       # 11. Generate Allure Report (DD-004, DD-010)
@@ -582,6 +596,8 @@ jobs:
             cp -r allure-results/widgets/* allure-report/widgets/
             echo "Widgets copied:"
             ls -la allure-report/widgets/
+          else
+            echo "::warning::Rule Mapping Trend widgets directory not found. The trend HTML page will not be available in this report."
           fi
 
       # ========================================

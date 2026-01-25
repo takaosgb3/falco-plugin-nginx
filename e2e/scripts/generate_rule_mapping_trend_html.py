@@ -27,7 +27,7 @@ import json
 import logging
 import sys
 from pathlib import Path
-from typing import Dict, List
+from typing import Dict, List, Optional
 from datetime import datetime, timezone
 
 logger = logging.getLogger(__name__)
@@ -40,7 +40,20 @@ CATEGORY_NOT_DEFINED = "Not Defined"
 
 
 def calculate_rule_mapping_status(test_result: Dict) -> str:
-    """Calculate Rule Mapping status for a single test result."""
+    """Calculate Rule Mapping status for a single test result.
+
+    This logic mirrors format_rule_match_status() in test_e2e_wrapper.py
+    and calculate_rule_mapping_status() in generate_rule_mapping_trend.py.
+    Changes must be synchronized across all three locations.
+
+    Args:
+        test_result: Test result dictionary containing expected_detection,
+                     expected_rule, and rule_match fields
+
+    Returns:
+        One of: CATEGORY_MATCH, CATEGORY_MISMATCH,
+                CATEGORY_EXPECTED_NOT_DETECTED, CATEGORY_NOT_DEFINED
+    """
     expected_detection = test_result.get('expected_detection', True)
     if expected_detection is False:
         return CATEGORY_EXPECTED_NOT_DETECTED
@@ -75,9 +88,19 @@ def create_trend_entry(
     run_number: int,
     report_url: str,
     stats: Dict[str, int],
-    timestamp: str = None
+    timestamp: Optional[str] = None
 ) -> Dict:
-    """Create a single trend entry."""
+    """Create a single trend entry for history.
+
+    Args:
+        run_number: GitHub Actions run number
+        report_url: URL to the Allure report for this run
+        stats: Dictionary of Rule Mapping category counts
+        timestamp: ISO 8601 formatted timestamp string, or None to auto-generate
+
+    Returns:
+        Dictionary containing buildOrder, reportName, reportUrl, timestamp, and data
+    """
     if timestamp is None:
         timestamp = datetime.now(timezone.utc).isoformat()
 
@@ -488,8 +511,26 @@ def main():
         logger.error(f"Test results file not found: {args.test_results}")
         sys.exit(1)
 
-    with open(test_results_path, 'r') as f:
-        test_results = json.load(f)
+    try:
+        with open(test_results_path, 'r') as f:
+            test_results = json.load(f)
+    except json.JSONDecodeError as e:
+        logger.error(f"Invalid JSON in test results file: {e}")
+        sys.exit(1)
+    except IOError as e:
+        logger.error(f"Could not read test results file: {e}")
+        sys.exit(1)
+
+    # Validate test results structure
+    if not isinstance(test_results, list):
+        logger.error(
+            f"Invalid test results format: expected JSON array, "
+            f"got {type(test_results).__name__}"
+        )
+        sys.exit(1)
+
+    if len(test_results) == 0:
+        logger.warning("Test results file is empty - no patterns to analyze")
 
     logger.info(f"Loaded {len(test_results)} test results")
 
@@ -513,8 +554,16 @@ def main():
                 with open(history_path, 'r') as f:
                     existing_history = json.load(f)
                 logger.info(f"Loaded {len(existing_history)} existing history entries")
-            except (json.JSONDecodeError, IOError) as e:
-                logger.warning(f"Could not load existing history: {e}")
+            except json.JSONDecodeError as e:
+                logger.warning(
+                    f"History file is corrupted: {history_path}\n"
+                    f"Error: {e}\n"
+                    f"Starting fresh history."
+                )
+            except IOError as e:
+                logger.warning(f"Could not read history file: {e}")
+        else:
+            logger.info(f"No existing history file found (starting fresh)")
 
     # Merge with existing history
     updated_history = merge_trend_history(
@@ -525,19 +574,27 @@ def main():
 
     # Write history JSON
     history_output_path = Path(args.history_output)
-    history_output_path.parent.mkdir(parents=True, exist_ok=True)
-    with open(history_output_path, 'w') as f:
-        json.dump(updated_history, f, indent=2)
-    logger.info(f"Written {len(updated_history)} history entries to {args.history_output}")
+    try:
+        history_output_path.parent.mkdir(parents=True, exist_ok=True)
+        with open(history_output_path, 'w') as f:
+            json.dump(updated_history, f, indent=2)
+        logger.info(f"Written {len(updated_history)} history entries to {args.history_output}")
+    except IOError as e:
+        logger.error(f"Failed to write history JSON to {args.history_output}: {e}")
+        sys.exit(1)
 
     # Generate HTML
     html_content = generate_html(updated_history, args.run_number)
 
     html_output_path = Path(args.html_output)
-    html_output_path.parent.mkdir(parents=True, exist_ok=True)
-    with open(html_output_path, 'w') as f:
-        f.write(html_content)
-    logger.info(f"Generated HTML trend page: {args.html_output}")
+    try:
+        html_output_path.parent.mkdir(parents=True, exist_ok=True)
+        with open(html_output_path, 'w', encoding='utf-8') as f:
+            f.write(html_content)
+        logger.info(f"Generated HTML trend page: {args.html_output}")
+    except IOError as e:
+        logger.error(f"Failed to write HTML output to {args.html_output}: {e}")
+        sys.exit(1)
 
     # Print summary
     total = sum(stats.values())
