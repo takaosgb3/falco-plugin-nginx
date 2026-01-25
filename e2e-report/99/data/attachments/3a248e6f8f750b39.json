@@ -1,0 +1,17 @@
+{
+  "pattern_id": "XSS_STORED_001",
+  "test_id": "XSS_STORED_001-1769326195861-kfgzp7",
+  "category": "xss",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 45000,
+  "evidence": "07:29:55.000000000: Critical [NGINX XSS] DOM-based XSS Attack test_id=XSS_STORED_001-1769326195861-kfgzp7 pattern_id=XSS_STORED_001 uri=/?q=%3Cscript%3Ealert('Stored%20XSS')%3C%2Fscript%3E client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX XSS] DOM-based XSS Attack test_id=XSS_STORED_001-1769326195861-kfgzp7 pattern_id=XSS_STORED_001 uri=/?q=%3Cscript%3Ealert('Stored%20XSS')%3C%2Fscript%3E client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX XSS] DOM-based XSS Attack",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX XSS] DOM-based XSS Attack test_id=XSS_STORED_001-1769326195861-kfgzp7 pattern_id=XSS_STORED_001 uri=/?q=%3Cscript%3Ealert('Stored%20XSS')%3C%2Fscript%3E client=127.0.0.1 method=GET",
+  "sent_at": 1769326240000,
+  "detected_at": 1769326195000,
+  "status": "passed"
+}

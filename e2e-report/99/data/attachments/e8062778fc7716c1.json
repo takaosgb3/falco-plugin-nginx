@@ -1,0 +1,17 @@
+{
+  "pattern_id": "XSS_ADV_058",
+  "test_id": "XSS_ADV_058-1769326212395-axjxx",
+  "category": "xss",
+  "detected": false,
+  "expected_detection": true,
+  "latency_ms": null,
+  "evidence": "",
+  "rule_name": "",
+  "expected_rule": "[NGINX XSS] DOM-based XSS Attack",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": null,
+  "sent_at": 1769326240000,
+  "detected_at": null,
+  "status": "failed"
+}

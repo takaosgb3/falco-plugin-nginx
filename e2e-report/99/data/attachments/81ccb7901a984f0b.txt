@@ -1,0 +1,5 @@
+Pattern ID: XSS_ADV_058
+        Status: failed
+        Latency: N/A
+        Detection: 0 / 1
+        Rule:

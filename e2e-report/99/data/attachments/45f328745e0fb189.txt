@@ -1,0 +1,5 @@
+Pattern ID: CMD_ADV_063
+        Status: passed
+        Latency: ~16000ms
+        Detection: 1 / 1
+        Rule: [NGINX Traversal] File inclusion attack detected test_id=CMD_ADV_063-1769326224904-64ef2g pattern_id=CMD_ADV_063 uri=/?q=%7C%20cat%20%2Fetc%2Fpasswd client=127.0.0.1

@@ -1,0 +1,5 @@
+Pattern ID: XSS_ENC_002
+        Status: passed
+        Latency: ~49000ms
+        Detection: 1 / 1
+        Rule: [NGINX XSS] XSS Filter Bypass Attempt test_id=XSS_ENC_002-1769326191852-8kmr3v pattern_id=XSS_ENC_002 uri=/?q=%5Cu003cscript%5Cu003ealert(1)%5Cu003c%2Fscript%5Cu003e client=127.0.0.1 method=GET
