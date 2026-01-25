@@ -702,11 +702,14 @@ jobs:
             echo "Analysis summary not available" >> $GITHUB_STEP_SUMMARY
           fi
 
-          # Issue #59: Add Rule Mapping statistics to summary
+          # Issue #68: Add Rule Mapping statistics to summary
+          # Note: Updated in Issue #70 to read from rule-mapping-trend-history.json
+          #       instead of categories-trend.json (which is managed by Allure CLI)
           echo "" >> $GITHUB_STEP_SUMMARY
-          if [ -f e2e/allure-results/history/categories-trend.json ]; then
-            echo "### Rule Mapping (Issue #59)" >> $GITHUB_STEP_SUMMARY
-            CURRENT_RUN=$(jq -r '.[0]' e2e/allure-results/history/categories-trend.json)
+          if [ -f e2e/allure-results/widgets/rule-mapping-trend-history.json ]; then
+            echo "### Rule Mapping" >> $GITHUB_STEP_SUMMARY
+            # Get the latest entry (sorted by buildOrder ascending, so last is newest)
+            CURRENT_RUN=$(jq -r '.[-1]' e2e/allure-results/widgets/rule-mapping-trend-history.json)
             MATCH=$(echo "$CURRENT_RUN" | jq -r '.data["Rule Match"] // 0')
             MISMATCH=$(echo "$CURRENT_RUN" | jq -r '.data["Rule Mismatch"] // 0')
             EXPECTED_NOT=$(echo "$CURRENT_RUN" | jq -r '.data["Expected Not Detected"] // 0')
