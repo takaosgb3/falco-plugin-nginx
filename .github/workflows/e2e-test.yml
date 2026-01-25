@@ -585,14 +585,17 @@ jobs:
           fi
 
           # Merge Rule Mapping data into categories-trend.json
-          python scripts/generate_rule_mapping_trend.py \
+          if ! python scripts/generate_rule_mapping_trend.py \
             --test-results results/test-results.json \
             --run-number ${{ github.run_number }} \
             --report-url "https://takaosgb3.github.io/falco-plugin-nginx/e2e-report/${{ github.run_number }}/" \
             --history-input allure-report/history/categories-trend.json \
             --history-output allure-report/history/categories-trend.json \
             --max-history 20 \
-            --verbose
+            --verbose; then
+            echo "::warning::Failed to merge Rule Mapping data into categories-trend.json"
+            # Continue anyway since Categories Trend is non-critical
+          fi
 
           echo ""
           echo "Updated categories-trend.json:"

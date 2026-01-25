@@ -234,6 +234,21 @@ class TestMergeTrendHistory:
         assert result[0]['data']['Rule Match'] == 95
         assert result[0]['data']['Rule Mismatch'] == 5
 
+    def test_overwrites_same_key_values(self):
+        """Should overwrite existing Rule Mapping values with new values (intentional)"""
+        stats = {'Rule Match': 95, 'Rule Mismatch': 5}
+        existing = [
+            {'buildOrder': 100, 'data': {'Rule Match': 50, 'Rule Mismatch': 10}},  # Old values
+        ]
+        result = merge_trend_history(
+            run_number=100,
+            stats=stats,
+            existing_history=existing
+        )
+        # New values should overwrite old values
+        assert result[0]['data']['Rule Match'] == 95
+        assert result[0]['data']['Rule Mismatch'] == 5
+
     def test_sorts_descending(self):
         """Should sort by buildOrder descending"""
         stats = {'Rule Match': 50}
