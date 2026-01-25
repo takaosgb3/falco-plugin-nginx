@@ -1,0 +1,3 @@
+Expected Rule: [NGINX CMDi] Advanced command injection attempt
+Matched Rule: [NGINX CMDi] Command substitution attack test_id=CMD_ADV_056-1769341924045-gp31f pattern_id=CMD_ADV_056 uri=/?q=%24%28whoami%29 client=127.0.0.1
+Rule Match: ❌ Mismatch

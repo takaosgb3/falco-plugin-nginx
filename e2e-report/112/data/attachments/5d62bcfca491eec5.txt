@@ -1,0 +1,5 @@
+Pattern ID: XSS_DOM_006
+        Status: passed
+        Latency: ~41000ms
+        Detection: 1 / 1
+        Rule: [NGINX XSS] DOM-based XSS Attack test_id=XSS_DOM_006-1769341902010-gbyhys pattern_id=XSS_DOM_006 uri=/?q=eval%28%27alert%28%22DOM%20XSS%22%29%27%29 client=127.0.0.1 method=GET

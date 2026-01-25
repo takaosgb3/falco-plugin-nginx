@@ -1,0 +1,5 @@
+Pattern ID: CMD_ADV_064
+        Status: passed
+        Latency: ~15000ms
+        Detection: 1 / 1
+        Rule: [NGINX CMDi] Command injection via pipe test_id=CMD_ADV_064-1769341928056-pgozgo pattern_id=CMD_ADV_064 uri=/?q=%7C%7C%20id client=127.0.0.1
