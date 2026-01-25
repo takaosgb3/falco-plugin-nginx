@@ -2277,3 +2277,33 @@
   priority: WARNING
   tags: [security, api_security, bola, jwt, mass_assignment, prototype_pollution, phase4]
   source: nginx
+
+# ==============================================================================
+# Phase 5 New Rules: Pickle Deserialization (Issue #787)
+# ==============================================================================
+
+# ====================================
+# PICKLE_ATK_001: Pickle Deserialization Attack Attempt
+# ====================================
+# Detects Python pickle deserialization attacks including:
+# - __reduce__ method exploitation
+# - pickle.loads() and cPickle.loads() remote code execution
+# - __class__.__mro__ traversal for sandbox escape
+
+- rule: Pickle Deserialization Attack Attempt
+  desc: Detects Python pickle deserialization attacks that can lead to Remote Code Execution
+  condition: >-
+    (
+      nginx.request_uri icontains "__reduce__" or
+      nginx.request_uri icontains "%5F%5Freduce%5F%5F" or
+      nginx.request_uri icontains "pickle.loads" or
+      nginx.request_uri icontains "pickle.loads%28" or
+      nginx.request_uri icontains "cPickle.loads" or
+      nginx.request_uri icontains "cPickle.loads%28" or
+      nginx.request_uri icontains "__class__.__mro__" or
+      nginx.request_uri icontains "%5F%5Fclass%5F%5F.%5F%5Fmro%5F%5F"
+    )
+  output: "[NGINX Pickle Attack] Pickle deserialization attack attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
+  priority: CRITICAL
+  tags: [security, pickle, deserialization, rce, python, phase5]
+  source: nginx

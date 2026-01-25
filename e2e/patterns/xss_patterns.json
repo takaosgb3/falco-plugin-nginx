@@ -1,7 +1,7 @@
 {
   "metadata": {
     "category": "xss",
-    "total_patterns": 56,
+    "total_patterns": 66,
     "port": 8002,
     "description": "k6 test patterns for xss"
   },
@@ -677,6 +677,126 @@
       "expected_detection": true,
       "severity": "high",
       "expected_rule": "[NGINX SQLi] Encoded SQL Injection Pattern"
+    },
+    {
+      "id": "XSS_ADV_057",
+      "name": "SVG onload Vector",
+      "category": "xss",
+      "subcategory": "advanced",
+      "payload": "<svg/onload=alert(1)>",
+      "encoded": "%3Csvg%2Fonload%3Dalert%281%29%3E",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
+    },
+    {
+      "id": "XSS_ADV_058",
+      "name": "SVG animate onbegin",
+      "category": "xss",
+      "subcategory": "advanced",
+      "payload": "<svg><animate onbegin=alert(1)>",
+      "encoded": "%3Csvg%3E%3Canimate%20onbegin%3Dalert%281%29%3E",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
+    },
+    {
+      "id": "XSS_ADV_059",
+      "name": "Math MathML Injection",
+      "category": "xss",
+      "subcategory": "advanced",
+      "payload": "<math><mtext><table><mglyph><style><img src=x onerror=alert(1)>",
+      "encoded": "%3Cmath%3E%3Cmtext%3E%3Ctable%3E%3Cmglyph%3E%3Cstyle%3E%3Cimg%20src%3Dx%20onerror%3Dalert%281%29%3E",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
+    },
+    {
+      "id": "XSS_ADV_060",
+      "name": "DOM innerHTML Mutation",
+      "category": "xss",
+      "subcategory": "advanced",
+      "payload": "element.innerHTML=payload",
+      "encoded": "element.innerHTML%3Dpayload",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
+    },
+    {
+      "id": "XSS_ADV_061",
+      "name": "DOM outerHTML Mutation",
+      "category": "xss",
+      "subcategory": "advanced",
+      "payload": "element.outerHTML=payload",
+      "encoded": "element.outerHTML%3Dpayload",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
+    },
+    {
+      "id": "XSS_ADV_062",
+      "name": "DOM insertAdjacentHTML",
+      "category": "xss",
+      "subcategory": "advanced",
+      "payload": "insertAdjacentHTML('beforeend','<script>alert(1)</script>')",
+      "encoded": "insertAdjacentHTML%28%27beforeend%27%2C%27%3Cscript%3Ealert%281%29%3C%2Fscript%3E%27%29",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
+    },
+    {
+      "id": "XSS_ADV_063",
+      "name": "Image onerror Handler",
+      "category": "xss",
+      "subcategory": "advanced",
+      "payload": "<img src=x onerror=alert(1)>",
+      "encoded": "%3Cimg%20src%3Dx%20onerror%3Dalert%281%29%3E",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
+    },
+    {
+      "id": "XSS_ADV_064",
+      "name": "Body onload Handler",
+      "category": "xss",
+      "subcategory": "advanced",
+      "payload": "<body onload=alert(1)>",
+      "encoded": "%3Cbody%20onload%3Dalert%281%29%3E",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
+    },
+    {
+      "id": "XSS_ADV_065",
+      "name": "JavaScript Protocol Handler",
+      "category": "xss",
+      "subcategory": "advanced",
+      "payload": "javascript:alert(1)",
+      "encoded": "javascript%3Aalert%281%29",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
+    },
+    {
+      "id": "XSS_ADV_066",
+      "name": "Data URL XSS",
+      "category": "xss",
+      "subcategory": "advanced",
+      "payload": "data:text/html,<script>alert(1)</script>",
+      "encoded": "data%3Atext%2Fhtml%2C%3Cscript%3Ealert%281%29%3C%2Fscript%3E",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
     }
   ]
 }

@@ -1,7 +1,7 @@
 {
   "metadata": {
     "category": "sqli",
-    "total_patterns": 79,
+    "total_patterns": 94,
     "port": 8001,
     "description": "k6 test patterns for sqli"
   },
@@ -953,6 +953,186 @@
       "expected_detection": true,
       "severity": "high",
       "expected_rule": "[NGINX SQLi] Time-based Blind SQL Injection"
+    },
+    {
+      "id": "SQLI_ADV_080",
+      "name": "MySQL Comment Bypass UNION",
+      "category": "sqli",
+      "subcategory": "advanced",
+      "payload": "/*!50000UNION*/SELECT",
+      "encoded": "%2F%2A%2150000UNION%2A%2FSELECT",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX SQLi] Union-based SQL Injection Attempt"
+    },
+    {
+      "id": "SQLI_ADV_081",
+      "name": "Boolean Injection with Quotes",
+      "category": "sqli",
+      "subcategory": "advanced",
+      "payload": "' AND '1'='1'--",
+      "encoded": "%27%20AND%20%271%27%3D%271%27--",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt"
+    },
+    {
+      "id": "SQLI_ADV_082",
+      "name": "MySQL Comment Bypass with SELECT",
+      "category": "sqli",
+      "subcategory": "advanced",
+      "payload": "/*!SELECT*/user,password",
+      "encoded": "%2F%2A%21SELECT%2A%2Fuser%2Cpassword",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt"
+    },
+    {
+      "id": "SQLI_ADV_083",
+      "name": "Hex Encoded OR Injection",
+      "category": "sqli",
+      "subcategory": "advanced",
+      "payload": "0x4f52%201=1",
+      "encoded": "0x4f52%201%3D1",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt"
+    },
+    {
+      "id": "SQLI_ADV_084",
+      "name": "URL Encoded CHAR Function",
+      "category": "sqli",
+      "subcategory": "advanced",
+      "payload": "CHAR(65,66,67)",
+      "encoded": "CHAR%2865%2C66%2C67%29",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt"
+    },
+    {
+      "id": "SQLI_ADV_085",
+      "name": "Stacked Query DROP TABLE",
+      "category": "sqli",
+      "subcategory": "advanced",
+      "payload": "1;DROP TABLE users--",
+      "encoded": "1%3BDROP%20TABLE%20users--",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt"
+    },
+    {
+      "id": "SQLI_ADV_086",
+      "name": "INSERT INTO Injection",
+      "category": "sqli",
+      "subcategory": "advanced",
+      "payload": "INSERT INTO users VALUES",
+      "encoded": "INSERT%20INTO%20users%20VALUES",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt"
+    },
+    {
+      "id": "SQLI_ADV_087",
+      "name": "UPDATE SET Injection",
+      "category": "sqli",
+      "subcategory": "advanced",
+      "payload": "UPDATE users SET role='admin'",
+      "encoded": "UPDATE%20users%20SET%20role%3D%27admin%27",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt"
+    },
+    {
+      "id": "SQLI_ADV_088",
+      "name": "DELETE FROM Injection",
+      "category": "sqli",
+      "subcategory": "advanced",
+      "payload": "DELETE FROM users WHERE 1=1",
+      "encoded": "DELETE%20FROM%20users%20WHERE%201%3D1",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt"
+    },
+    {
+      "id": "SQLI_ADV_089",
+      "name": "EXEC xp_cmdshell Injection",
+      "category": "sqli",
+      "subcategory": "advanced",
+      "payload": "EXEC xp_cmdshell('whoami')",
+      "encoded": "EXEC%20xp_cmdshell%28%27whoami%27%29",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt"
+    },
+    {
+      "id": "SQLI_ADV_090",
+      "name": "MSSQL WAITFOR DELAY",
+      "category": "sqli",
+      "subcategory": "advanced",
+      "payload": "WAITFOR DELAY '0:0:5'",
+      "encoded": "WAITFOR%20DELAY%20%270%3A0%3A5%27",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX SQLi] Time-based Blind SQL Injection"
+    },
+    {
+      "id": "SQLI_ADV_091",
+      "name": "PostgreSQL pg_sleep",
+      "category": "sqli",
+      "subcategory": "advanced",
+      "payload": "pg_sleep(5)",
+      "encoded": "pg_sleep%285%29",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX SQLi] Time-based Blind SQL Injection"
+    },
+    {
+      "id": "SQLI_ADV_092",
+      "name": "Oracle DBMS_LOCK.SLEEP",
+      "category": "sqli",
+      "subcategory": "advanced",
+      "payload": "DBMS_LOCK.SLEEP(5)",
+      "encoded": "DBMS_LOCK.SLEEP%285%29",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX SQLi] Time-based Blind SQL Injection"
+    },
+    {
+      "id": "SQLI_ADV_093",
+      "name": "Blind SQLi with Subquery",
+      "category": "sqli",
+      "subcategory": "advanced",
+      "payload": "1' AND (SELECT COUNT(*) FROM users)>0--",
+      "encoded": "1%27%20AND%20%28SELECT%20COUNT%28%2A%29%20FROM%20users%29%3E0--",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt"
+    },
+    {
+      "id": "SQLI_ADV_094",
+      "name": "Case Alternation Bypass",
+      "category": "sqli",
+      "subcategory": "advanced",
+      "payload": "SeLeCt UsEr FrOm DuAl",
+      "encoded": "SeLeCt%20UsEr%20FrOm%20DuAl",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt"
     }
   ]
 }
