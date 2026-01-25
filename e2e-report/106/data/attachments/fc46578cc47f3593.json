@@ -1,0 +1,17 @@
+{
+  "pattern_id": "XSS_ADV_062",
+  "test_id": "XSS_ADV_062-1769332335627-lvcjaq",
+  "category": "xss",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 27000,
+  "evidence": "09:12:15.000000000: Critical [NGINX XSS] DOM-based XSS Attack test_id=XSS_ADV_062-1769332335627-lvcjaq pattern_id=XSS_ADV_062 uri=/?q=insertAdjacentHTML%28%27beforeend%27%2C%27%3Cscript%3Ealert%281%29%3C%2Fscript%3E%27%29 client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX XSS] DOM-based XSS Attack test_id=XSS_ADV_062-1769332335627-lvcjaq pattern_id=XSS_ADV_062 uri=/?q=insertAdjacentHTML%28%27beforeend%27%2C%27%3Cscript%3Ealert%281%29%3C%2Fscript%3E%27%29 client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX XSS] DOM-based XSS Attack",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX XSS] DOM-based XSS Attack test_id=XSS_ADV_062-1769332335627-lvcjaq pattern_id=XSS_ADV_062 uri=/?q=insertAdjacentHTML%28%27beforeend%27%2C%27%3Cscript%3Ealert%281%29%3C%2Fscript%3E%27%29 client=127.0.0.1 method=GET",
+  "sent_at": 1769332362000,
+  "detected_at": 1769332335000,
+  "status": "passed"
+}

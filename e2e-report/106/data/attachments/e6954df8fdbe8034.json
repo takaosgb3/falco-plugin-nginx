@@ -1,0 +1,17 @@
+{
+  "pattern_id": "PATH_UNICODE_001",
+  "test_id": "PATH_UNICODE_001-1769332321589-relkc",
+  "category": "path",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 41000,
+  "evidence": "09:12:01.000000000: Critical [NGINX Traversal] Basic path traversal attack detected test_id=PATH_UNICODE_001-1769332321589-relkc pattern_id=PATH_UNICODE_001 uri=/?q=..%25c0%25afetc%2Fpasswd client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] Basic path traversal attack detected test_id=PATH_UNICODE_001-1769332321589-relkc pattern_id=PATH_UNICODE_001 uri=/?q=..%25c0%25afetc%2Fpasswd client=127.0.0.1",
+  "expected_rule": "[NGINX Traversal] Basic path traversal attack detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Traversal] Basic path traversal attack detected test_id=PATH_UNICODE_001-1769332321589-relkc pattern_id=PATH_UNICODE_001 uri=/?q=..%25c0%25afetc%2Fpasswd client=127.0.0.1",
+  "sent_at": 1769332362000,
+  "detected_at": 1769332321000,
+  "status": "passed"
+}

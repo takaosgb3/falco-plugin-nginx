@@ -1,0 +1,5 @@
+Pattern ID: CMD_PROC_001
+        Status: passed
+        Latency: ~21000ms
+        Detection: 1 / 1
+        Rule: [NGINX CMDi] Advanced command injection attempt test_id=CMD_PROC_001-1769332341126-hqjn7 pattern_id=CMD_PROC_001 uri=/?q=%3A()%7B%20%3A%7C%3A%26%20%7D%3B%3A client=127.0.0.1

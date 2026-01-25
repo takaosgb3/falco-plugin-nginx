@@ -1,0 +1,3 @@
+Expected Rule: [NGINX Traversal] Advanced path traversal attempt detected
+Matched Rule: [NGINX Traversal] Advanced path traversal attempt detected test_id=PATH_ADV_002-1769332327600-hdysqq pattern_id=PATH_ADV_002 uri=/?q=..%3B%2F client=127.0.0.1
+Rule Match: ✅ Match

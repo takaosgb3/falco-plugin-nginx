@@ -1,0 +1,3 @@
+Expected Rule: [NGINX CMDi] Advanced command injection attempt
+Matched Rule: [NGINX CMDi] Advanced command injection attempt test_id=CMD_ENV_002-1769332337116-h9qqvu pattern_id=CMD_ENV_002 uri=/?q=LD_PRELOAD%3D%2Ftmp%2Fevil.so%20%2Fbin%2Fid client=127.0.0.1
+Rule Match: ✅ Match

@@ -1,0 +1,17 @@
+{
+  "pattern_id": "CMD_ADV_066",
+  "test_id": "CMD_ADV_066-1769332347642-bbhleg",
+  "category": "cmdinj",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 15000,
+  "evidence": "09:12:27.000000000: Critical [NGINX Traversal] File inclusion attack detected test_id=CMD_ADV_066-1769332347642-bbhleg pattern_id=CMD_ADV_066 uri=/?q=%24%7BIFS%7Dcat%24%7BIFS%7D%2Fetc%2Fpasswd client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] File inclusion attack detected test_id=CMD_ADV_066-1769332347642-bbhleg pattern_id=CMD_ADV_066 uri=/?q=%24%7BIFS%7Dcat%24%7BIFS%7D%2Fetc%2Fpasswd client=127.0.0.1",
+  "expected_rule": "[NGINX CMDi] Advanced command injection attempt",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": "[NGINX Traversal] File inclusion attack detected test_id=CMD_ADV_066-1769332347642-bbhleg pattern_id=CMD_ADV_066 uri=/?q=%24%7BIFS%7Dcat%24%7BIFS%7D%2Fetc%2Fpasswd client=127.0.0.1",
+  "sent_at": 1769332362000,
+  "detected_at": 1769332347000,
+  "status": "passed"
+}
