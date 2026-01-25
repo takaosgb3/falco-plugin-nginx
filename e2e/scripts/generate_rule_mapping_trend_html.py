@@ -326,6 +326,18 @@ def generate_html(history: List[Dict], current_run: int) -> str:
             </div>
         </div>
 
+        <div class="chart-container">
+            <h2 class="chart-title">Rule Mismatch Trend (Detailed View)</h2>
+            <div class="chart-wrapper" style="height: 300px;">
+                <canvas id="mismatchChart"></canvas>
+            </div>
+            <div class="legend-info">
+                <span class="legend-item"><span class="legend-color" style="background: #f44336;"></span>Rule Mismatch</span>
+                <span class="legend-item"><span class="legend-color" style="background: #2196F3;"></span>Expected Not Detected</span>
+                <p style="margin-top: 10px; color: #666;">This chart shows Rule Mismatch and Expected Not Detected with a focused scale for better visibility.</p>
+            </div>
+        </div>
+
         <footer>
             Generated at {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')} |
             <a href="https://github.com/takaosgb3/falco-plugin-nginx" style="color: #64b5f6;">falco-plugin-nginx</a>
@@ -432,6 +444,99 @@ def generate_html(history: List[Dict], current_run: int) -> str:
                         }},
                         ticks: {{
                             color: '#888'
+                        }}
+                    }}
+                }},
+                onClick: function(evt, elements) {{
+                    if (elements.length > 0) {{
+                        const idx = elements[0].index;
+                        if (urls[idx]) {{
+                            window.open(urls[idx], '_blank');
+                        }}
+                    }}
+                }}
+            }}
+        }});
+
+        // Rule Mismatch Detailed Chart
+        const mismatchCtx = document.getElementById('mismatchChart').getContext('2d');
+        const mismatchChart = new Chart(mismatchCtx, {{
+            type: 'line',
+            data: {{
+                labels: labels,
+                datasets: [
+                    {{
+                        label: 'Rule Mismatch',
+                        data: {json.dumps(mismatch_data)},
+                        borderColor: '#f44336',
+                        backgroundColor: 'rgba(244, 67, 54, 0.2)',
+                        fill: true,
+                        tension: 0.3,
+                        pointRadius: 5,
+                        pointHoverRadius: 8,
+                        borderWidth: 3
+                    }},
+                    {{
+                        label: 'Expected Not Detected',
+                        data: {json.dumps(expected_not_detected_data)},
+                        borderColor: '#2196F3',
+                        backgroundColor: 'rgba(33, 150, 243, 0.2)',
+                        fill: true,
+                        tension: 0.3,
+                        pointRadius: 5,
+                        pointHoverRadius: 8,
+                        borderWidth: 2
+                    }}
+                ]
+            }},
+            options: {{
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {{
+                    mode: 'index',
+                    intersect: false
+                }},
+                plugins: {{
+                    legend: {{
+                        display: true,
+                        position: 'top',
+                        labels: {{
+                            color: '#888',
+                            usePointStyle: true
+                        }}
+                    }},
+                    tooltip: {{
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        titleColor: '#fff',
+                        bodyColor: '#e0e0e0',
+                        padding: 12,
+                        displayColors: true,
+                        callbacks: {{
+                            title: function(context) {{
+                                const idx = context[0].dataIndex;
+                                return 'Run ' + labels[idx];
+                            }}
+                        }}
+                    }}
+                }},
+                scales: {{
+                    x: {{
+                        grid: {{
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        }},
+                        ticks: {{
+                            color: '#888'
+                        }}
+                    }},
+                    y: {{
+                        beginAtZero: true,
+                        suggestedMax: Math.max(...{json.dumps(mismatch_data)}, ...{json.dumps(expected_not_detected_data)}) * 1.2 || 10,
+                        grid: {{
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        }},
+                        ticks: {{
+                            color: '#888',
+                            stepSize: 5
                         }}
                     }}
                 }},
