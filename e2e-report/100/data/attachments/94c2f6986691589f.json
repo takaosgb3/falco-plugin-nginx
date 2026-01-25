@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SQLI_BYPASS_004",
+  "test_id": "SQLI_BYPASS_004-1769326627369-xlvgyg",
+  "category": "sqli",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 33000,
+  "evidence": "07:37:07.000000000: Critical [NGINX SQLi] Error-based SQL Injection test_id=SQLI_BYPASS_004-1769326627369-xlvgyg pattern_id=SQLI_BYPASS_004 uri=/?q=%27%20UNION%28SELECT%28version%28%29%29%2CNULL%2CNULL%29-- client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Error-based SQL Injection test_id=SQLI_BYPASS_004-1769326627369-xlvgyg pattern_id=SQLI_BYPASS_004 uri=/?q=%27%20UNION%28SELECT%28version%28%29%29%2CNULL%2CNULL%29-- client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX SQLi] Error-based SQL Injection",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX SQLi] Error-based SQL Injection test_id=SQLI_BYPASS_004-1769326627369-xlvgyg pattern_id=SQLI_BYPASS_004 uri=/?q=%27%20UNION%28SELECT%28version%28%29%29%2CNULL%2CNULL%29-- client=127.0.0.1 method=GET",
+  "sent_at": 1769326660000,
+  "detected_at": 1769326627000,
+  "status": "passed"
+}

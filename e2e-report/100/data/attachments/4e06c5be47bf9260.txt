@@ -1,0 +1,3 @@
+Expected Rule: [NGINX CMDi] Advanced command injection attempt
+Matched Rule: [NGINX Traversal] File inclusion attack detected test_id=CMD_ADV_066-1769326646375-6aqqc pattern_id=CMD_ADV_066 uri=/?q=%24%7BIFS%7Dcat%24%7BIFS%7D%2Fetc%2Fpasswd client=127.0.0.1
+Rule Match: ❌ Mismatch

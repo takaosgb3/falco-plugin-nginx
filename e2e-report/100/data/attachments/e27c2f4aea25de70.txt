@@ -1,0 +1,3 @@
+Expected Rule: [NGINX SQLi] Advanced SQL Injection Attempt
+Matched Rule: None
+Rule Match: ❌ Mismatch

@@ -1,0 +1,1 @@
+[{"values":["ubuntu-24.04"],"name":"Platform"},{"values":["0.42.1"],"name":"Falco.Version"},{"values":["falco-plugin-nginx"],"name":"Plugin"},{"values":["1.24.0 (Ubuntu)"],"name":"nginx.Version"},{"values":["linux/amd64)"],"name":"k6.Version"},{"values":["3.11.14"],"name":"Python.Version"},{"values":["300"],"name":"Test.Patterns"},{"values":["localhost:80"],"name":"Target.Host"}]
