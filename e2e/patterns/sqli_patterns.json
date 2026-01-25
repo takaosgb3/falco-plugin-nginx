@@ -964,7 +964,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "[NGINX SQLi] Union-based SQL Injection Attempt"
+      "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt"
     },
     {
       "id": "SQLI_ADV_081",
@@ -976,7 +976,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt"
+      "expected_rule": "[NGINX SQLi] Boolean-based Blind SQL Injection"
     },
     {
       "id": "SQLI_ADV_082",
@@ -988,7 +988,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt"
+      "expected_rule": "[NGINX SQLi] Boolean-based Blind SQL Injection"
     },
     {
       "id": "SQLI_ADV_083",
@@ -1012,7 +1012,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt"
+      "expected_rule": "[NGINX SQLi] Boolean-based Blind SQL Injection"
     },
     {
       "id": "SQLI_ADV_085",
@@ -1120,7 +1120,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt"
+      "expected_rule": "[NGINX SQLi] Boolean-based Blind SQL Injection"
     },
     {
       "id": "SQLI_ADV_094",
@@ -1132,7 +1132,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt"
+      "expected_rule": "[NGINX SQLi] Encoded SQL Injection Pattern"
     }
   ]
 }

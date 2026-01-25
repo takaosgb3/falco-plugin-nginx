@@ -549,6 +549,7 @@
 
 # Phase 4 (Issue #780): Stacked queries patterns
 # Test patterns: SQLI_STACK_001-003, SQLI_OUT_001-002
+# Issue #66 Fix: Added UPDATE SET for SQLI_ADV_087
 - macro: contains_stacked_queries
   condition: >
     (nginx.request_uri icontains "drop table" or
@@ -560,7 +561,9 @@
      nginx.request_uri icontains "truncate table" or
      nginx.request_uri icontains "truncate%20table" or
      nginx.request_uri icontains "create table" or
-     nginx.request_uri icontains "create%20table")
+     nginx.request_uri icontains "create%20table" or
+     nginx.request_uri icontains "update " and nginx.request_uri icontains " set " or
+     nginx.request_uri icontains "update%20" and nginx.request_uri icontains "%20set%20")
 
 # ====================================
 # MACROS - Advanced SQL Injection (Level 2: Combined)
@@ -897,7 +900,11 @@
       nginx.request_uri icontains "eval(" or
       nginx.request_uri contains "eval%28" or
       nginx.request_uri icontains "setTimeout(" or
-      nginx.request_uri contains "setTimeout%28"
+      nginx.request_uri contains "setTimeout%28" or
+      nginx.request_uri icontains "innerHTML" or
+      nginx.request_uri icontains "outerHTML" or
+      nginx.request_uri icontains "onbegin=" or
+      nginx.request_uri contains "onbegin%3D"
     )
   exceptions:
     # Issue #43 Fix: XSS MUT patterns - should be caught by Advanced XSS rule
@@ -1085,6 +1092,9 @@
       nginx.request_uri icontains "Function" or
       nginx.request_uri icontains "constructor" or
       nginx.request_uri icontains "innerHTML" or
+      nginx.request_uri icontains "outerHTML" or
+      nginx.request_uri icontains "onbegin=" or
+      nginx.request_uri contains "onbegin%3D" or
       nginx.request_uri contains "&#x3C;" or
       nginx.request_uri contains "&#60;" or
       nginx.request_uri contains "&lt;script" or
@@ -1635,9 +1645,13 @@
       nginx.request_uri contains "%26%20ps" or
       nginx.request_uri contains "%26%20dir" or
       nginx.request_uri contains "%0a" or
+      nginx.request_uri contains "%0A" or
       nginx.request_uri contains "%0d" or
+      nginx.request_uri contains "%0D" or
       nginx.request_uri contains "%250a" or
+      nginx.request_uri contains "%250A" or
       nginx.request_uri contains "%250d" or
+      nginx.request_uri contains "%250D" or
       nginx.request_uri contains "%253B" or
       nginx.request_uri contains "%253Bwhoami" or
       nginx.request_uri contains "%253Bcat" or
