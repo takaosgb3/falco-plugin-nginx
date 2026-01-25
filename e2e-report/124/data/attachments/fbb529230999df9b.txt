@@ -1,0 +1,3 @@
+Expected Rule: [NGINX SQLi] Boolean-based Blind SQL Injection
+Matched Rule: [NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_STACK_002-1769351443345-by1n4 pattern_id=SQLI_STACK_002 uri=/?q='%3B%20INSERT%20INTO%20users%20VALUES%20('hacker'%2C'password')%3B%20-- client=127.0.0.1 method=GET
+Rule Match: ✅ Match

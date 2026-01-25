@@ -1,0 +1,3 @@
+Expected Rule: Spring4Shell attack
+Matched Rule: [NGINX Emerging Threat] Spring4Shell attack test_id=SSTI_VEL_001-1769351474314-0j78n pattern_id=SSTI_VEL_001 uri=/?q=%23set%28%24runtime%20%3D%20%24runtime.getRuntime%28%29%29%24runtime.exec%28%27whoami%27%29 client=127.0.0.1
+Rule Match: ✅ Match

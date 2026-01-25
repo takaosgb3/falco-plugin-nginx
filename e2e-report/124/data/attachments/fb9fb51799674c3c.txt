@@ -1,0 +1,5 @@
+Pattern ID: PATH_DOT_009
+        Status: passed
+        Latency: ~46000ms
+        Detection: 1 / 1
+        Rule: [NGINX Traversal] Basic path traversal attack detected test_id=PATH_DOT_009-1769351444828-4tazyb pattern_id=PATH_DOT_009 uri=/?q=../../home/user/.ssh/id_rsa client=127.0.0.1
