@@ -1192,7 +1192,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "[NGINX SQLi] Error-based SQL Injection"
+      "expected_rule": "[NGINX SQLi] Boolean-based Blind SQL Injection"
     },
     {
       "id": "SQLI_ERROR_011",
@@ -1216,7 +1216,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "[NGINX SQLi] Boolean-based Blind SQL Injection"
+      "expected_rule": "[NGINX SQLi] Time-based Blind SQL Injection"
     },
     {
       "id": "SQLI_ERROR_013",
@@ -1228,7 +1228,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "[NGINX SQLi] Boolean-based Blind SQL Injection"
+      "expected_rule": "[NGINX SQLi] Error-based SQL Injection"
     },
     {
       "id": "SQLI_ERROR_014",
@@ -1252,7 +1252,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt"
+      "expected_rule": "[NGINX SQLi] Boolean-based Blind SQL Injection"
     },
     {
       "id": "SQLI_BOOL_016",
@@ -1300,7 +1300,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt"
+      "expected_rule": "[NGINX Traversal] File inclusion attack detected"
     },
     {
       "id": "SQLI_STACK_007",

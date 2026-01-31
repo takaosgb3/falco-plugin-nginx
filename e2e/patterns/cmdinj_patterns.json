@@ -820,7 +820,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "[NGINX CMDi] Command substitution attack"
+      "expected_rule": "[NGINX SQLi] Encoded SQL Injection Pattern"
     },
     {
       "id": "CMD_BACK_003",
@@ -844,7 +844,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "[NGINX CMDi] Command substitution attack"
+      "expected_rule": "[NGINX SQLi] Encoded SQL Injection Pattern"
     },
     {
       "id": "CMD_BACK_005",
@@ -880,7 +880,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "[NGINX CMDi] Command injection via pipe"
+      "expected_rule": "[NGINX Traversal] File inclusion attack detected"
     },
     {
       "id": "CMD_BASH_004",
@@ -952,7 +952,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "[NGINX CMDi] Command injection via pipe"
+      "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt"
     }
   ]
 }

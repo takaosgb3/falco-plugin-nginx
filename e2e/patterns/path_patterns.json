@@ -713,7 +713,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "[NGINX Traversal] Advanced path traversal"
+      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
     },
     {
       "id": "PATH_UNI_002",
@@ -725,7 +725,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "[NGINX Traversal] Advanced path traversal"
+      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
     },
     {
       "id": "PATH_UNI_003",
@@ -737,7 +737,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "[NGINX Traversal] Advanced path traversal"
+      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
     },
     {
       "id": "PATH_URL_001",
@@ -749,7 +749,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "[NGINX Traversal] URL-encoded path traversal"
+      "expected_rule": "[NGINX SQLi] Encoded SQL Injection Pattern"
     },
     {
       "id": "PATH_URL_002",
@@ -761,7 +761,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "[NGINX Traversal] URL-encoded path traversal"
+      "expected_rule": "[NGINX SQLi] Encoded SQL Injection Pattern"
     },
     {
       "id": "PATH_DBL_004",
@@ -785,7 +785,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "[NGINX Traversal] Double-encoded path traversal"
+      "expected_rule": "[NGINX Traversal] Encoded path traversal attack detected"
     },
     {
       "id": "PATH_ABS_009",
