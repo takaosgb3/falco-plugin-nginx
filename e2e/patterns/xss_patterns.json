@@ -1,7 +1,7 @@
 {
   "metadata": {
     "category": "xss",
-    "total_patterns": 66,
+    "total_patterns": 76,
     "port": 8002,
     "description": "k6 test patterns for xss"
   },
@@ -797,6 +797,126 @@
       "expected_detection": true,
       "severity": "high",
       "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
+    },
+    {
+      "id": "XSS_DOM_016",
+      "name": "Onclick event handler DOM XSS",
+      "category": "xss",
+      "subcategory": "dom_based",
+      "payload": "onclick=alert('DOM')",
+      "encoded": "onclick%3Dalert%28%27DOM%27%29",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] Advanced XSS Attack Attempt"
+    },
+    {
+      "id": "XSS_DOM_017",
+      "name": "Onmouseover event handler DOM XSS",
+      "category": "xss",
+      "subcategory": "dom_based",
+      "payload": "onmouseover=alert('DOM')",
+      "encoded": "onmouseover%3Dalert%28%27DOM%27%29",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] Advanced XSS Attack Attempt"
+    },
+    {
+      "id": "XSS_DOM_018",
+      "name": "Onfocus event handler DOM XSS",
+      "category": "xss",
+      "subcategory": "dom_based",
+      "payload": "onfocus=alert('DOM')",
+      "encoded": "onfocus%3Dalert%28%27DOM%27%29",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] Advanced XSS Attack Attempt"
+    },
+    {
+      "id": "XSS_POLY_008",
+      "name": "Template literal polyglot",
+      "category": "xss",
+      "subcategory": "polyglot",
+      "payload": "{alert('XSS')}",
+      "encoded": "%7Balert%28%27XSS%27%29%7D",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] Advanced XSS Attack Attempt"
+    },
+    {
+      "id": "XSS_POLY_009",
+      "name": "Template string polyglot",
+      "category": "xss",
+      "subcategory": "polyglot",
+      "payload": "`alert('XSS')`",
+      "encoded": "%60alert%28%27XSS%27%29%60",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] Advanced XSS Attack Attempt"
+    },
+    {
+      "id": "XSS_POLY_010",
+      "name": "HTML comment breaking polyglot",
+      "category": "xss",
+      "subcategory": "polyglot",
+      "payload": "--><script>alert('XSS')</script><!--",
+      "encoded": "--%3E%3Cscript%3Ealert%28%27XSS%27%29%3C%2Fscript%3E%3C%21--",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] Advanced XSS Attack Attempt"
+    },
+    {
+      "id": "XSS_STORED_002",
+      "name": "Stored image onerror XSS",
+      "category": "xss",
+      "subcategory": "stored",
+      "payload": "<img src=x onerror=alert('Stored')>",
+      "encoded": "%3Cimg%20src%3Dx%20onerror%3Dalert%28%27Stored%27%29%3E",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX XSS] Basic XSS Attack Attempt"
+    },
+    {
+      "id": "XSS_STORED_003",
+      "name": "Stored SVG onload XSS",
+      "category": "xss",
+      "subcategory": "stored",
+      "payload": "<svg onload=alert('Stored')>",
+      "encoded": "%3Csvg%20onload%3Dalert%28%27Stored%27%29%3E",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX XSS] Basic XSS Attack Attempt"
+    },
+    {
+      "id": "XSS_REFL_016",
+      "name": "URL encoded script tag XSS",
+      "category": "xss",
+      "subcategory": "reflected",
+      "payload": "%3Cscript%3Ealert('XSS')%3C/script%3E",
+      "encoded": "%253Cscript%253Ealert%28%27XSS%27%29%253C%2Fscript%253E",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] Basic XSS Attack Attempt"
+    },
+    {
+      "id": "XSS_REFL_017",
+      "name": "Base64 URL encoded XSS",
+      "category": "xss",
+      "subcategory": "reflected",
+      "payload": "PHNjcmlwdD5hbGVydCgnWFNTJyk8L3NjcmlwdD4%3D",
+      "encoded": "PHNjcmlwdD5hbGVydCgnWFNTJyk8L3NjcmlwdD4%253D",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] Basic XSS Attack Attempt"
     }
   ]
 }

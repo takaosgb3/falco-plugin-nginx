@@ -1,7 +1,7 @@
 {
   "metadata": {
     "category": "path",
-    "total_patterns": 58,
+    "total_patterns": 66,
     "port": 8003,
     "description": "k6 test patterns for path"
   },
@@ -702,6 +702,102 @@
       "severity": "critical",
       "expected_rule": "[NGINX SQLi] Encoded SQL Injection Pattern",
       "rule_mismatch_reason": "Type B->D: %23 (URL-encoded #) matches SQLi comment pattern. Detected as SQLi is acceptable."
+    },
+    {
+      "id": "PATH_UNI_001",
+      "name": "Unicode encoded slash",
+      "category": "path",
+      "subcategory": "unicode",
+      "payload": "../",
+      "encoded": "..%2F",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Traversal] Advanced path traversal"
+    },
+    {
+      "id": "PATH_UNI_002",
+      "name": "Full unicode dot-dot-slash",
+      "category": "path",
+      "subcategory": "unicode",
+      "payload": "../",
+      "encoded": "..%2F",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Traversal] Advanced path traversal"
+    },
+    {
+      "id": "PATH_UNI_003",
+      "name": "Unicode encoded backslash",
+      "category": "path",
+      "subcategory": "unicode",
+      "payload": "..\\",
+      "encoded": "..%5C",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Traversal] Advanced path traversal"
+    },
+    {
+      "id": "PATH_URL_001",
+      "name": "URL encoded dot-dot-slash",
+      "category": "path",
+      "subcategory": "url_encoded",
+      "payload": "..%2F",
+      "encoded": "..%252F",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Traversal] URL-encoded path traversal"
+    },
+    {
+      "id": "PATH_URL_002",
+      "name": "URL encoded double traversal",
+      "category": "path",
+      "subcategory": "url_encoded",
+      "payload": "..%2F..%2F",
+      "encoded": "..%252F..%252F",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Traversal] URL-encoded path traversal"
+    },
+    {
+      "id": "PATH_DBL_004",
+      "name": "Double encoded Windows-style traversal",
+      "category": "path",
+      "subcategory": "double_encoded",
+      "payload": "%252E%252E%255C",
+      "encoded": "%25252E%25252E%25255C",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Traversal] Double-encoded path traversal"
+    },
+    {
+      "id": "PATH_DBL_005",
+      "name": "Double encoded bash history access",
+      "category": "path",
+      "subcategory": "double_encoded",
+      "payload": "%252E%252E%252F%252E%252E%252Froot%252F.bash_history",
+      "encoded": "%25252E%25252E%25252F%25252E%25252E%25252Froot%25252F.bash_history",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Traversal] Double-encoded path traversal"
+    },
+    {
+      "id": "PATH_ABS_009",
+      "name": "Sudoers file access",
+      "category": "path",
+      "subcategory": "absolute",
+      "payload": "/etc/sudoers",
+      "encoded": "%2Fetc%2Fsudoers",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Traversal] Absolute path traversal"
     }
   ]
 }
