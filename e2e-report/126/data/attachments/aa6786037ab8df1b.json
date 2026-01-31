@@ -1,0 +1,17 @@
+{
+  "pattern_id": "CMD_ENC_006",
+  "test_id": "CMD_ENC_006-1769852773176-0wb2uj",
+  "category": "cmdinj",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 27000,
+  "evidence": "09:46:13.000000000: Warning [NGINX CMDi] Advanced command injection attempt test_id=CMD_ENC_006-1769852773176-0wb2uj pattern_id=CMD_ENC_006 uri=/?q=%2560id%2560 client=127.0.0.1",
+  "rule_name": "[NGINX CMDi] Advanced command injection attempt test_id=CMD_ENC_006-1769852773176-0wb2uj pattern_id=CMD_ENC_006 uri=/?q=%2560id%2560 client=127.0.0.1",
+  "expected_rule": "[NGINX CMDi] Advanced command injection attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX CMDi] Advanced command injection attempt test_id=CMD_ENC_006-1769852773176-0wb2uj pattern_id=CMD_ENC_006 uri=/?q=%2560id%2560 client=127.0.0.1",
+  "sent_at": 1769852800000,
+  "detected_at": 1769852773000,
+  "status": "passed"
+}

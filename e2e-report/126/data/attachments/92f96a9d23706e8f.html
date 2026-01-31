@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: auto;
+            min-height: 600px;
+            overflow: auto;
+        }
+        body {
+            font-family: monospace;
+            padding: 15px;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            line-height: 1.5;
+        }
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            margin: 0;
+            overflow: visible;
+        }
+        .content {
+            overflow: visible;
+        }
+        mark {
+            background-color: #FFFF00;
+            color: #000;
+            padding: 1px 3px;
+            border-radius: 2px;
+        }
+        h3 {
+            color: #4CAF50;
+            margin: 0 0 15px 0;
+        }
+    </style>
+</head>
+<body>
+<h3>Detection Evidence (Falco Log Entry)</h3>
+<pre>09:46:30.000000000: Critical [NGINX Emerging Threat] MongoDB NoSQL injection test_id=NOSQL_MONGO_003-1769852790633-3xyjw pattern_id=NOSQL_MONGO_003 uri=/?q=<mark style="background-color: #FFFF00; padding: 1px 3px;">%7B%22password%22%3A%20%7B%22%24gt%22%3A%20%22%22%7D%7D</mark> client=127.0.0.1</pre>
+</body>
+</html>
