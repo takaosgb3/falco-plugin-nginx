@@ -1,0 +1,3 @@
+Expected Rule: [NGINX XSS] XSS Filter Bypass Attempt
+Matched Rule: [NGINX XSS] XSS Filter Bypass Attempt test_id=XSS_ENC_003-1769852482511-0j0gtm pattern_id=XSS_ENC_003 uri=/?q=%3CScRiPt%3Ealert(1)%3C%2FScRiPt%3E client=127.0.0.1 method=GET
+Rule Match: ✅ Match
