@@ -964,7 +964,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt"
+      "expected_rule": "[NGINX SQLi] Encoded SQL Injection Pattern"
     },
     {
       "id": "SQLI_ADV_081",

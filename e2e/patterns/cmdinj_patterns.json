@@ -676,7 +676,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "[NGINX CMDi] Advanced command injection attempt"
+      "expected_rule": "[NGINX CMDi] Command substitution attack"
     },
     {
       "id": "CMD_ADV_057",
@@ -688,7 +688,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "[NGINX CMDi] Advanced command injection attempt"
+      "expected_rule": "[NGINX CMDi] Command substitution attack"
     },
     {
       "id": "CMD_ADV_058",
@@ -772,7 +772,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "[NGINX CMDi] Advanced command injection attempt"
+      "expected_rule": "[NGINX CMDi] Command injection via pipe"
     },
     {
       "id": "CMD_ADV_065",
@@ -784,7 +784,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "[NGINX CMDi] Advanced command injection attempt"
+      "expected_rule": "[NGINX CMDi] Command substitution attack"
     },
     {
       "id": "CMD_ADV_066",

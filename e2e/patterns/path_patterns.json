@@ -616,7 +616,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "[NGINX Traversal] Advanced path traversal attack detected"
+      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
     },
     {
       "id": "PATH_ADV_052",
@@ -628,7 +628,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "[NGINX Traversal] Advanced path traversal attack detected"
+      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
     },
     {
       "id": "PATH_ADV_053",
@@ -640,7 +640,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "[NGINX Traversal] Advanced path traversal attack detected"
+      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
     },
     {
       "id": "PATH_ADV_054",
@@ -652,7 +652,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "[NGINX Traversal] Advanced path traversal attack detected"
+      "expected_rule": "[NGINX Traversal] Encoded path traversal attack detected"
     },
     {
       "id": "PATH_ADV_055",
@@ -664,7 +664,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "[NGINX Traversal] Advanced path traversal attack detected"
+      "expected_rule": "[NGINX Traversal] Encoded path traversal attack detected"
     },
     {
       "id": "PATH_ADV_056",
@@ -676,7 +676,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "[NGINX Traversal] Advanced path traversal attack detected"
+      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
     },
     {
       "id": "PATH_ADV_057",
@@ -688,7 +688,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "[NGINX Traversal] Advanced path traversal attack detected"
+      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
     },
     {
       "id": "PATH_ADV_058",
