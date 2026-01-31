@@ -1,0 +1,5 @@
+Pattern ID: CMD_NEST_003
+        Status: passed
+        Latency: ~23000ms
+        Detection: 1 / 1
+        Rule: [NGINX Traversal] File inclusion attack detected test_id=CMD_NEST_003-1769860909633-6gxjff pattern_id=CMD_NEST_003 uri=/?q=%24(%24(%24(echo%20cat)%20%2Fetc%2Fpasswd)) client=127.0.0.1

@@ -1,0 +1,3 @@
+Expected Rule: [NGINX SQLi] Error-based SQL Injection
+Matched Rule: [NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_ERROR_015-1769860922187-q9g078 pattern_id=SQLI_ERROR_015 uri=/?q=%27%20UNION%20SELECT%20NULL%2Cversion%28%29%2CNULL%20-- client=127.0.0.1 method=GET
+Rule Match: ❌ Mismatch

@@ -1,0 +1,17 @@
+{
+  "pattern_id": "PATH_DBL_004",
+  "test_id": "PATH_DBL_004-1769860912144-hgxjkj",
+  "category": "path",
+  "detected": false,
+  "expected_detection": true,
+  "latency_ms": null,
+  "evidence": "",
+  "rule_name": "",
+  "expected_rule": "[NGINX Traversal] Double-encoded path traversal",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": null,
+  "sent_at": 1769860932000,
+  "detected_at": null,
+  "status": "failed"
+}

@@ -1,0 +1,17 @@
+{
+  "pattern_id": "CMD_FILE_003",
+  "test_id": "CMD_FILE_003-1769860911137-wht2js",
+  "category": "cmdinj",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 21000,
+  "evidence": "12:01:51.000000000: Warning [NGINX CMDi] Advanced command injection attempt test_id=CMD_FILE_003-1769860911137-wht2js pattern_id=CMD_FILE_003 uri=/?q=%3B%20echo%20%22*%20*%20*%20*%20*%20%2Ftmp%2Fevil.sh%22%20%3E%3E%20%2Fvar%2Fspool%2Fcron%2Fcrontabs%2Froot client=127.0.0.1",
+  "rule_name": "[NGINX CMDi] Advanced command injection attempt test_id=CMD_FILE_003-1769860911137-wht2js pattern_id=CMD_FILE_003 uri=/?q=%3B%20echo%20%22*%20*%20*%20*%20*%20%2Ftmp%2Fevil.sh%22%20%3E%3E%20%2Fvar%2Fspool%2Fcron%2Fcrontabs%2Froot client=127.0.0.1",
+  "expected_rule": "[NGINX CMDi] Advanced command injection attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX CMDi] Advanced command injection attempt test_id=CMD_FILE_003-1769860911137-wht2js pattern_id=CMD_FILE_003 uri=/?q=%3B%20echo%20%22*%20*%20*%20*%20*%20%2Ftmp%2Fevil.sh%22%20%3E%3E%20%2Fvar%2Fspool%2Fcron%2Fcrontabs%2Froot client=127.0.0.1",
+  "sent_at": 1769860932000,
+  "detected_at": 1769860911000,
+  "status": "passed"
+}

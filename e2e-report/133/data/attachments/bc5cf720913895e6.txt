@@ -1,0 +1,3 @@
+Expected Rule: [NGINX SQLi] Advanced SQL Injection Attempt
+Matched Rule: [NGINX SQLi] Advanced SQL Injection Attempt test_id=SQLI_BYPASS_005-1769860899637-6mhpf pattern_id=SQLI_BYPASS_005 uri=/?q=%27%2BUNION%2BSELECT%2Bversion%28%29%2CNULL%2CNULL-- client=127.0.0.1 method=GET
+Rule Match: ✅ Match

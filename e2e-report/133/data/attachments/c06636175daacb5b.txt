@@ -1,0 +1,2 @@
+Test failed: CMD_PIPE_004
+Reason: Unknown error

@@ -1,0 +1,3 @@
+Expected Rule: [NGINX CMDi] Command injection via pipe
+Matched Rule: [NGINX CMDi] Command injection via pipe test_id=CMD_ADV_063-1769860916652-g2jup pattern_id=CMD_ADV_063 uri=/?q=%7C%20cat%20%2Fetc%2Fpasswd client=127.0.0.1
+Rule Match: ✅ Match

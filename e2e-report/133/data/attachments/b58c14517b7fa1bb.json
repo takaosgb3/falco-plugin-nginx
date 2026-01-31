@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SQLI_STACK_006",
+  "test_id": "SQLI_STACK_006-1769860924191-rnv7ye",
+  "category": "sqli",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 8000,
+  "evidence": "12:02:04.000000000: Critical [NGINX Traversal] File inclusion attack detected test_id=SQLI_STACK_006-1769860924191-rnv7ye pattern_id=SQLI_STACK_006 uri=/?q=%27%3B%20SELECT%20pg_read_file%28%27%2Fetc%2Fpasswd%27%29%3B%20-- client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] File inclusion attack detected test_id=SQLI_STACK_006-1769860924191-rnv7ye pattern_id=SQLI_STACK_006 uri=/?q=%27%3B%20SELECT%20pg_read_file%28%27%2Fetc%2Fpasswd%27%29%3B%20-- client=127.0.0.1",
+  "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": "[NGINX Traversal] File inclusion attack detected test_id=SQLI_STACK_006-1769860924191-rnv7ye pattern_id=SQLI_STACK_006 uri=/?q=%27%3B%20SELECT%20pg_read_file%28%27%2Fetc%2Fpasswd%27%29%3B%20-- client=127.0.0.1",
+  "sent_at": 1769860932000,
+  "detected_at": 1769860924000,
+  "status": "passed"
+}

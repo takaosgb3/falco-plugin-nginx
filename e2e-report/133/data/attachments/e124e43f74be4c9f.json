@@ -1,0 +1,17 @@
+{
+  "pattern_id": "CMD_PIPE_004",
+  "test_id": "CMD_PIPE_004-1769860924169-xat5sn",
+  "category": "cmdi",
+  "detected": false,
+  "expected_detection": true,
+  "latency_ms": null,
+  "evidence": "",
+  "rule_name": "",
+  "expected_rule": "[NGINX CMDi] Command injection via pipe",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": null,
+  "sent_at": 1769860932000,
+  "detected_at": null,
+  "status": "failed"
+}
