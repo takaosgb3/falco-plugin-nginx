@@ -1401,6 +1401,7 @@
       comps: in
       values:
         - CMD_SUB_003
+        - CMD_ADV_066
   output: "[NGINX Traversal] File inclusion attack detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: CRITICAL
   tags: [security, path_traversal, file_inclusion, advanced_traversal, phase3]
