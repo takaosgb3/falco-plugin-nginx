@@ -1,0 +1,3 @@
+Expected Rule: [NGINX Traversal] URL-encoded path traversal
+Matched Rule: [NGINX SQLi] Encoded SQL Injection Pattern test_id=PATH_URL_001-1769864066794-fglqnl pattern_id=PATH_URL_001 uri=/?q=..%252F client=127.0.0.1 method=GET
+Rule Match: ❌ Mismatch

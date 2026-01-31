@@ -1,0 +1,17 @@
+{
+  "pattern_id": "XXE_ENTITY_003",
+  "test_id": "XXE_ENTITY_003-1769864057225-beo1fl",
+  "category": "xxe",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 31000,
+  "evidence": "12:54:17.000000000: Critical [NGINX XXE Attack] DOCTYPE/ENTITY injection test_id=XXE_ENTITY_003-1769864057225-beo1fl pattern_id=XXE_ENTITY_003 uri=/?q=%3C!ENTITY%20xxe%20SYSTEM%20%22expect%3A%2F%2Fid%22%3E client=127.0.0.1",
+  "rule_name": "[NGINX XXE Attack] DOCTYPE/ENTITY injection test_id=XXE_ENTITY_003-1769864057225-beo1fl pattern_id=XXE_ENTITY_003 uri=/?q=%3C!ENTITY%20xxe%20SYSTEM%20%22expect%3A%2F%2Fid%22%3E client=127.0.0.1",
+  "expected_rule": "[NGINX XXE Attack] DOCTYPE/ENTITY injection",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX XXE Attack] DOCTYPE/ENTITY injection test_id=XXE_ENTITY_003-1769864057225-beo1fl pattern_id=XXE_ENTITY_003 uri=/?q=%3C!ENTITY%20xxe%20SYSTEM%20%22expect%3A%2F%2Fid%22%3E client=127.0.0.1",
+  "sent_at": 1769864088000,
+  "detected_at": 1769864057000,
+  "status": "passed"
+}

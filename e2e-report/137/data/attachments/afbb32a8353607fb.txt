@@ -1,0 +1,3 @@
+Expected Rule: [NGINX XSS] DOM-based XSS Attack
+Matched Rule: [NGINX XSS] DOM-based XSS Attack test_id=XSS_POLY_002-1769864056286-1ssfbv pattern_id=XSS_POLY_002 uri=/?q=%3C%2Fstyle%3E%3Cscript%3Ealert(1)%3C%2Fscript%3E%3Cstyle%3E client=127.0.0.1 method=GET
+Rule Match: ✅ Match

