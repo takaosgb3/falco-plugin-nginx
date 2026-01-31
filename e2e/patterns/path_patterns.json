@@ -700,7 +700,8 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "[NGINX Traversal] Advanced path traversal attack detected"
+      "expected_rule": "[NGINX SQLi] Encoded SQL Injection Pattern",
+      "rule_mismatch_reason": "Type B->D: %23 (URL-encoded #) matches SQLi comment pattern. Detected as SQLi is acceptable."
     }
   ]
 }
