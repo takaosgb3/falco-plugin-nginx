@@ -1,0 +1,5 @@
+Pattern ID: OTHER_PHP_001
+        Status: passed
+        Latency: ~38000ms
+        Detection: 1 / 1
+        Rule: [NGINX Emerging Threat] Deserialization attack test_id=OTHER_PHP_001-1769853184187-faxqfb pattern_id=OTHER_PHP_001 uri=/?q=O%3A8%3A%22stdClass%22%3A1%3A%7Bs%3A4%3A%22test%22%3Bs%3A4%3A%22data%22%3B%7D client=127.0.0.1

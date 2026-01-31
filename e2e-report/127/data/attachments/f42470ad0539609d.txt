@@ -1,0 +1,5 @@
+Pattern ID: SQLI_2ND_002
+        Status: passed
+        Latency: ~44000ms
+        Detection: 1 / 1
+        Rule: [NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_2ND_002-1769853178731-geyzj pattern_id=SQLI_2ND_002 uri=/?q=user'%20OR%20'1'%3D'1'%20-- client=127.0.0.1 method=GET

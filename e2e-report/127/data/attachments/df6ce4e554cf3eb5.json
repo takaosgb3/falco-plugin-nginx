@@ -1,0 +1,17 @@
+{
+  "pattern_id": "CMD_ADV_063",
+  "test_id": "CMD_ADV_063-1769853206260-0i6kqm",
+  "category": "cmdinj",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 16000,
+  "evidence": "09:53:26.000000000: Critical [NGINX Traversal] File inclusion attack detected test_id=CMD_ADV_063-1769853206260-0i6kqm pattern_id=CMD_ADV_063 uri=/?q=%7C%20cat%20%2Fetc%2Fpasswd client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] File inclusion attack detected test_id=CMD_ADV_063-1769853206260-0i6kqm pattern_id=CMD_ADV_063 uri=/?q=%7C%20cat%20%2Fetc%2Fpasswd client=127.0.0.1",
+  "expected_rule": "[NGINX Traversal] File inclusion attack detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Traversal] File inclusion attack detected test_id=CMD_ADV_063-1769853206260-0i6kqm pattern_id=CMD_ADV_063 uri=/?q=%7C%20cat%20%2Fetc%2Fpasswd client=127.0.0.1",
+  "sent_at": 1769853222000,
+  "detected_at": 1769853206000,
+  "status": "passed"
+}

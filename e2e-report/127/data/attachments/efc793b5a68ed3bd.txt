@@ -1,0 +1,3 @@
+Expected Rule: [NGINX CMDi] Advanced command injection attempt
+Matched Rule: [NGINX CMDi] Advanced command injection attempt test_id=CMD_NEST_001-1769853198239-aht0jf pattern_id=CMD_NEST_001 uri=/?q=%24(%24(echo%20whoami)) client=127.0.0.1
+Rule Match: ✅ Match

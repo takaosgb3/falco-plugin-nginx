@@ -1,0 +1,5 @@
+Pattern ID: CMD_SUB_005
+        Status: passed
+        Latency: ~30000ms
+        Detection: 1 / 1
+        Rule: [NGINX CMDi] Command substitution attack test_id=CMD_SUB_005-1769853192222-qbbsj pattern_id=CMD_SUB_005 uri=/?q=%24%28ls%20-la%20%2Froot%29 client=127.0.0.1

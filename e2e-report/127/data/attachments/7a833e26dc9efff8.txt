@@ -1,0 +1,5 @@
+Pattern ID: OTHER_JINJA_001
+        Status: passed
+        Latency: ~39000ms
+        Detection: 1 / 1
+        Rule: [NGINX Emerging Threat] Template injection test_id=OTHER_JINJA_001-1769853183686-y9u6m pattern_id=OTHER_JINJA_001 uri=/?q=%7B%7B7*7%7D%7D client=127.0.0.1

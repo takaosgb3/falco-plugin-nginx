@@ -1,0 +1,17 @@
+{
+  "pattern_id": "PATH_SENS_001",
+  "test_id": "PATH_SENS_001-1769853193740-oup8kn",
+  "category": "path",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 29000,
+  "evidence": "09:53:13.000000000: Critical [NGINX Traversal] Basic path traversal attack detected test_id=PATH_SENS_001-1769853193740-oup8kn pattern_id=PATH_SENS_001 uri=/?q=..%2F..%2F..%2Froot%2F.aws%2Fcredentials client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] Basic path traversal attack detected test_id=PATH_SENS_001-1769853193740-oup8kn pattern_id=PATH_SENS_001 uri=/?q=..%2F..%2F..%2Froot%2F.aws%2Fcredentials client=127.0.0.1",
+  "expected_rule": "[NGINX Traversal] Basic path traversal attack detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Traversal] Basic path traversal attack detected test_id=PATH_SENS_001-1769853193740-oup8kn pattern_id=PATH_SENS_001 uri=/?q=..%2F..%2F..%2Froot%2F.aws%2Fcredentials client=127.0.0.1",
+  "sent_at": 1769853222000,
+  "detected_at": 1769853193000,
+  "status": "passed"
+}
