@@ -228,11 +228,14 @@
      nginx.request_uri contains "version%28")
 
 # URL-encoded boolean operators - contains maintained (hex patterns)
+# Phase 6 Fix: Added Base64 encoded patterns (JyBPUi = ' OR, JyBBTkQ = ' AND)
 - macro: contains_encoded_boolean_operators
   condition: >
     (nginx.request_uri contains "%41%4E%44" or
      nginx.request_uri contains "%61%6E%64" or
-     nginx.request_uri contains "%4F%52")
+     nginx.request_uri contains "%4F%52" or
+     nginx.request_uri contains "JyBPUi" or
+     nginx.request_uri contains "JyBBTkQ")
 
 # Pattern #A213 & #A299 fix - Classic SQLi patterns
 # contains maintained (contains quotes, equals, URL-encoded patterns)
@@ -1146,7 +1149,7 @@
   condition: >-
     (
       nginx.request_uri icontains "script" or
-      nginx.request_uri contains "PHNjcmlwdD4" or
+      nginx.request_uri contains "PHNjcmlwd" or
       nginx.request_uri contains "{alert(" or
       nginx.request_uri contains "%7Balert%28" or
       nginx.request_uri contains "%00" or
