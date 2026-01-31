@@ -1,0 +1,3 @@
+Expected Rule: [NGINX XSS] DOM-based XSS Attack
+Matched Rule: [NGINX XSS] DOM-based XSS Attack test_id=XSS_DOM_012-1769864750295-fpp5ra pattern_id=XSS_DOM_012 uri=/?q=document.write('%3Cscript%3Ealert(1)%3C%2Fscript%3E') client=127.0.0.1 method=GET
+Rule Match: ✅ Match

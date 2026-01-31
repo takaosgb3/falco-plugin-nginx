@@ -1,0 +1,5 @@
+Pattern ID: CMD_ADV_060
+        Status: passed
+        Latency: ~18000ms
+        Detection: 1 / 1
+        Rule: [NGINX CMDi] Command substitution attack test_id=CMD_ADV_060-1769864766812-7kwlkf pattern_id=CMD_ADV_060 uri=/?q=%60id%60 client=127.0.0.1

@@ -1,0 +1,5 @@
+Pattern ID: CMD_BACK_005
+        Status: passed
+        Latency: ~12000ms
+        Detection: 1 / 1
+        Rule: [NGINX SQLi] Encoded SQL Injection Pattern test_id=CMD_BACK_005-1769864772324-xxiqw pattern_id=CMD_BACK_005 uri=/?q=%60echo%20%27hacked%27%20%3E%20%2Fetc%2Fmotd%60 client=127.0.0.1 method=GET
