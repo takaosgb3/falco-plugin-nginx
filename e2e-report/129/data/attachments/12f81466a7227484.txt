@@ -1,0 +1,5 @@
+Pattern ID: CMD_ENC_002
+        Status: passed
+        Latency: ~30000ms
+        Detection: 1 / 1
+        Rule: [NGINX SQLi] Encoded SQL Injection Pattern test_id=CMD_ENC_002-1769858330616-xwasg pattern_id=CMD_ENC_002 uri=/?q=%2526%2526%2520ls%2520-la client=127.0.0.1 method=GET

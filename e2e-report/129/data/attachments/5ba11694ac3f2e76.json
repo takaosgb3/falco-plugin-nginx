@@ -1,0 +1,17 @@
+{
+  "pattern_id": "CMD_ADV_063",
+  "test_id": "CMD_ADV_063-1769858344149-nqk6h",
+  "category": "cmdinj",
+  "detected": false,
+  "expected_detection": true,
+  "latency_ms": null,
+  "evidence": "",
+  "rule_name": "",
+  "expected_rule": "[NGINX CMDi] Command injection via pipe",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": null,
+  "sent_at": 1769858360000,
+  "detected_at": null,
+  "status": "failed"
+}

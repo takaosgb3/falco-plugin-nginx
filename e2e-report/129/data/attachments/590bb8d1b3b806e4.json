@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SQLI_ADV_094",
+  "test_id": "SQLI_ADV_094-1769858344681-xyfkcw",
+  "category": "sqli",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 16000,
+  "evidence": "11:19:04.000000000: Warning [NGINX SQLi] Encoded SQL Injection Pattern test_id=SQLI_ADV_094-1769858344681-xyfkcw pattern_id=SQLI_ADV_094 uri=/?q=SeLeCt%20UsEr%20FrOm%20DuAl client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Encoded SQL Injection Pattern test_id=SQLI_ADV_094-1769858344681-xyfkcw pattern_id=SQLI_ADV_094 uri=/?q=SeLeCt%20UsEr%20FrOm%20DuAl client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX SQLi] Encoded SQL Injection Pattern",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX SQLi] Encoded SQL Injection Pattern test_id=SQLI_ADV_094-1769858344681-xyfkcw pattern_id=SQLI_ADV_094 uri=/?q=SeLeCt%20UsEr%20FrOm%20DuAl client=127.0.0.1 method=GET",
+  "sent_at": 1769858360000,
+  "detected_at": 1769858344000,
+  "status": "passed"
+}

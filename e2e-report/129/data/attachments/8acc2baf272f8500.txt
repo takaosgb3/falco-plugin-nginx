@@ -1,0 +1,3 @@
+Expected Rule: [NGINX XXE Attack] DOCTYPE/ENTITY injection
+Matched Rule: [NGINX XXE Attack] DOCTYPE/ENTITY injection test_id=XXE_ENTITY_004-1769858329580-agsu9d pattern_id=XXE_ENTITY_004 uri=/?q=%3C!ENTITY%20%25%20file%20SYSTEM%20%22php%3A%2F%2Ffilter%2Fread%3Dconvert.base64-encode%2Fresource%3D%2Fetc%2Fpasswd%22%3E client=127.0.0.1
+Rule Match: ✅ Match
