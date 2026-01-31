@@ -1526,12 +1526,15 @@
 # Pattern #A324: Added |grep and %7Cgrep/%7C%20grep for CMD_PIPE_001
 #   - CMD_PIPE_001: cat /etc/passwd | grep root
 #   - Fixed PR #33 exception without corresponding detection pattern
+# E2E Run #124 Fix: Added "| cat" (single pipe with space) for CMD_ADV_063
+#   - CMD_ADV_063: | cat /etc/passwd
 - rule: Command Injection via Pipe
   desc: Detects command injection attempts using pipe operators
   condition: >-
     (
       nginx.request_uri icontains "|whoami" or
       nginx.request_uri icontains "|cat" or
+      nginx.request_uri icontains "| cat" or
       nginx.request_uri icontains "|id" or
       nginx.request_uri icontains "||nc" or
       nginx.request_uri icontains "||ls" or
@@ -1555,6 +1558,7 @@
       nginx.request_uri contains "%7Csh" or
       nginx.request_uri contains "%7C%7C%20id" or
       nginx.request_uri contains "%7C%7C%20cat" or
+      nginx.request_uri contains "%7C%20cat" or
       nginx.request_uri contains "%7Cgrep" or
       nginx.request_uri contains "%7C%20grep"
     )
