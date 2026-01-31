@@ -1,0 +1,17 @@
+{
+  "pattern_id": "XSS_MUT_001",
+  "test_id": "XSS_MUT_001-1769859280468-7buti",
+  "category": "xss",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 46000,
+  "evidence": "11:34:40.000000000: Critical [NGINX XSS] DOM-based XSS Attack test_id=XSS_MUT_001-1769859280468-7buti pattern_id=XSS_MUT_001 uri=/?q=%3Cnoscript%3E%3Cp%20title%3D%22%3C%2Fnoscript%3E%3Cimg%20src%3Dx%20onerror%3Dalert('XSS')%3E%22%3E client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX XSS] DOM-based XSS Attack test_id=XSS_MUT_001-1769859280468-7buti pattern_id=XSS_MUT_001 uri=/?q=%3Cnoscript%3E%3Cp%20title%3D%22%3C%2Fnoscript%3E%3Cimg%20src%3Dx%20onerror%3Dalert('XSS')%3E%22%3E client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX XSS] DOM-based XSS Attack",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX XSS] DOM-based XSS Attack test_id=XSS_MUT_001-1769859280468-7buti pattern_id=XSS_MUT_001 uri=/?q=%3Cnoscript%3E%3Cp%20title%3D%22%3C%2Fnoscript%3E%3Cimg%20src%3Dx%20onerror%3Dalert('XSS')%3E%22%3E client=127.0.0.1 method=GET",
+  "sent_at": 1769859326000,
+  "detected_at": 1769859280000,
+  "status": "passed"
+}

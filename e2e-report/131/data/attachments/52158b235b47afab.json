@@ -1,0 +1,17 @@
+{
+  "pattern_id": "CMD_ADV_059",
+  "test_id": "CMD_ADV_059-1769859308511-ns7wgj",
+  "category": "cmdinj",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 18000,
+  "evidence": "11:35:08.000000000: Warning [NGINX CMDi] Advanced command injection attempt test_id=CMD_ADV_059-1769859308511-ns7wgj pattern_id=CMD_ADV_059 uri=/?q=%0Aid client=127.0.0.1",
+  "rule_name": "[NGINX CMDi] Advanced command injection attempt test_id=CMD_ADV_059-1769859308511-ns7wgj pattern_id=CMD_ADV_059 uri=/?q=%0Aid client=127.0.0.1",
+  "expected_rule": "[NGINX CMDi] Advanced command injection attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX CMDi] Advanced command injection attempt test_id=CMD_ADV_059-1769859308511-ns7wgj pattern_id=CMD_ADV_059 uri=/?q=%0Aid client=127.0.0.1",
+  "sent_at": 1769859326000,
+  "detected_at": 1769859308000,
+  "status": "passed"
+}

@@ -1,0 +1,17 @@
+{
+  "pattern_id": "CMD_ENC_005",
+  "test_id": "CMD_ENC_005-1769859298488-qitps",
+  "category": "cmdinj",
+  "detected": false,
+  "expected_detection": false,
+  "latency_ms": null,
+  "evidence": "",
+  "rule_name": "",
+  "expected_rule": "",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": null,
+  "sent_at": 1769859326000,
+  "detected_at": null,
+  "status": "passed"
+}

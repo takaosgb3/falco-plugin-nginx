@@ -1,0 +1,17 @@
+{
+  "pattern_id": "CMD_ADV_063",
+  "test_id": "CMD_ADV_063-1769859310516-vfsayk",
+  "category": "cmdinj",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 16000,
+  "evidence": "11:35:10.000000000: Critical [NGINX CMDi] Command injection via pipe test_id=CMD_ADV_063-1769859310516-vfsayk pattern_id=CMD_ADV_063 uri=/?q=%7C%20cat%20%2Fetc%2Fpasswd client=127.0.0.1",
+  "rule_name": "[NGINX CMDi] Command injection via pipe test_id=CMD_ADV_063-1769859310516-vfsayk pattern_id=CMD_ADV_063 uri=/?q=%7C%20cat%20%2Fetc%2Fpasswd client=127.0.0.1",
+  "expected_rule": "[NGINX CMDi] Command injection via pipe",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX CMDi] Command injection via pipe test_id=CMD_ADV_063-1769859310516-vfsayk pattern_id=CMD_ADV_063 uri=/?q=%7C%20cat%20%2Fetc%2Fpasswd client=127.0.0.1",
+  "sent_at": 1769859326000,
+  "detected_at": 1769859310000,
+  "status": "passed"
+}
