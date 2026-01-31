@@ -1277,6 +1277,8 @@
       nginx.request_uri contains "%25252E%25252E%25252F" or
       nginx.request_uri contains "%252e%252e%255c" or
       nginx.request_uri contains "%252E%252E%255C" or
+      nginx.request_uri contains "%25252e%25252e%25255c" or
+      nginx.request_uri contains "%25252E%25252E%25255C" or
       nginx.request_uri contains "%c0%ae%c0%ae" or
       nginx.request_uri contains "%c1%9c" or
       nginx.request_uri contains "%e0%80%ae" or
@@ -1355,6 +1357,7 @@
       nginx.request_uri icontains "/root/.ssh" or
       nginx.request_uri contains "%2Fetc%2Fpasswd" or
       nginx.request_uri contains "%2Fetc%2Fshadow" or
+      nginx.request_uri contains "%2Fetc%2Fsudoers" or
       nginx.request_uri contains "%2Fproc%2Fself" or
       nginx.request_uri contains "%2Fvar%2Flog" or
       nginx.request_uri icontains "win.ini" or
@@ -1576,7 +1579,9 @@
       nginx.request_uri contains "%7C%7C%20cat" or
       nginx.request_uri contains "%7C%20cat" or
       nginx.request_uri contains "%7Cgrep" or
-      nginx.request_uri contains "%7C%20grep"
+      nginx.request_uri contains "%7C%20grep" or
+      nginx.request_uri contains "%7C%20head" or
+      nginx.request_uri contains "%7Chead"
     )
   output: "[NGINX CMDi] Command injection via pipe test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: CRITICAL
