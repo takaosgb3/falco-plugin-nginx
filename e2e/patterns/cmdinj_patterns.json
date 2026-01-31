@@ -700,8 +700,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "[NGINX SQLi] Time-based Blind SQL Injection",
-      "rule_mismatch_reason": "Type B->D: 'sleep' matches SQLi time-based pattern. Detected as SQLi is acceptable."
+      "expected_rule": "[NGINX CMDi] Command injection via semicolon"
     },
     {
       "id": "CMD_ADV_059",
@@ -725,8 +724,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "[NGINX SQLi] Encoded SQL Injection Pattern",
-      "rule_mismatch_reason": "Type B->D: Backtick (%60) matches SQLi encoded pattern. Detected as SQLi is acceptable."
+      "expected_rule": "[NGINX CMDi] Command substitution attack"
     },
     {
       "id": "CMD_ADV_061",
@@ -738,8 +736,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "[NGINX SQLi] Encoded SQL Injection Pattern",
-      "rule_mismatch_reason": "Type B->D: Double backtick (%60%60) matches SQLi encoded pattern. Detected as SQLi is acceptable."
+      "expected_rule": "[NGINX CMDi] Command substitution attack"
     },
     {
       "id": "CMD_ADV_062",
@@ -763,8 +760,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "[NGINX Traversal] File inclusion attack detected",
-      "rule_mismatch_reason": "Type B->D: /etc/passwd matches file inclusion pattern. Detected as Traversal is acceptable."
+      "expected_rule": "[NGINX CMDi] Command injection via pipe"
     },
     {
       "id": "CMD_ADV_064",

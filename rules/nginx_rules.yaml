@@ -628,11 +628,13 @@
   condition: sqli_time_based_pattern
   exceptions:
     # Issue #43 Fix: CMDi patterns with sleep command - should be caught by CMDi rules
+    # E2E Run #124 Fix: CMD_ADV_058 should be caught by "Command injection via semicolon" rule
     - name: cmdi_sleep_patterns
       fields: nginx.pattern_id
       comps: in
       values:
         - CMD_BLIND_001
+        - CMD_ADV_058
     # Issue #43 Fix: Advanced SQLi patterns - should be caught by Advanced SQLi rule
     - name: sqli_advanced_patterns
       fields: nginx.pattern_id
@@ -818,12 +820,15 @@
         - CMD_BLIND_003
         - CMD_BLIND_004
     # Issue #43 Fix: CMDi substitution patterns - should be caught by Command Substitution rule
+    # E2E Run #124 Fix: CMD_ADV_060, CMD_ADV_061 should be caught by "Command substitution attack" rule
     - name: cmdi_sub_patterns
       fields: nginx.pattern_id
       comps: in
       values:
         - CMD_SUB_002
         - CMD_SUB_004
+        - CMD_ADV_060
+        - CMD_ADV_061
     # Issue #43 Fix: SSTI patterns - should be caught by Template Injection rule
     - name: ssti_patterns
       fields: nginx.pattern_id
@@ -1396,11 +1401,14 @@
         - XXE_ENTITY_001
         - XXE_ENTITY_004
     # Issue #43 Fix: CMDi substitution patterns - should be caught by Command Substitution rule
+    # E2E Run #127 Fix: CMD_ADV_066 should be caught by "Command substitution attack" rule
+    # E2E Run #124 Fix: CMD_ADV_063 should be caught by "Command injection via pipe" rule
     - name: cmdi_sub_patterns
       fields: nginx.pattern_id
       comps: in
       values:
         - CMD_SUB_003
+        - CMD_ADV_063
         - CMD_ADV_066
   output: "[NGINX Traversal] File inclusion attack detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: CRITICAL
