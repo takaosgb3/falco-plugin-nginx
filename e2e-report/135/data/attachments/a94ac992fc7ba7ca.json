@@ -1,0 +1,17 @@
+{
+  "pattern_id": "EMRG_COUCH_002",
+  "test_id": "EMRG_COUCH_002-1769862979076-1j7j4",
+  "category": "nosql",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 7000,
+  "evidence": "12:36:19.000000000: Critical [NGINX Emerging Threat] MongoDB NoSQL injection test_id=EMRG_COUCH_002-1769862979076-1j7j4 pattern_id=EMRG_COUCH_002 uri=/?q=_design%2Ftest%2F_view%2Fall client=127.0.0.1",
+  "rule_name": "[NGINX Emerging Threat] MongoDB NoSQL injection test_id=EMRG_COUCH_002-1769862979076-1j7j4 pattern_id=EMRG_COUCH_002 uri=/?q=_design%2Ftest%2F_view%2Fall client=127.0.0.1",
+  "expected_rule": "[NGINX Emerging Threat] CouchDB injection",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": "[NGINX Emerging Threat] MongoDB NoSQL injection test_id=EMRG_COUCH_002-1769862979076-1j7j4 pattern_id=EMRG_COUCH_002 uri=/?q=_design%2Ftest%2F_view%2Fall client=127.0.0.1",
+  "sent_at": 1769862986000,
+  "detected_at": 1769862979000,
+  "status": "passed"
+}

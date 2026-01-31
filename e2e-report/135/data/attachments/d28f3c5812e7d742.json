@@ -1,0 +1,17 @@
+{
+  "pattern_id": "XSS_REFL_017",
+  "test_id": "XSS_REFL_017-1769862967145-sltc2g",
+  "category": "xss",
+  "detected": false,
+  "expected_detection": true,
+  "latency_ms": null,
+  "evidence": "",
+  "rule_name": "",
+  "expected_rule": "[NGINX XSS] XSS Filter Bypass Attempt",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": null,
+  "sent_at": 1769862986000,
+  "detected_at": null,
+  "status": "failed"
+}

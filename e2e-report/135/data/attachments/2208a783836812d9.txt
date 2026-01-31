@@ -1,0 +1,5 @@
+Pattern ID: PATH_ABS_009
+        Status: failed
+        Latency: N/A
+        Detection: 0 / 1
+        Rule:

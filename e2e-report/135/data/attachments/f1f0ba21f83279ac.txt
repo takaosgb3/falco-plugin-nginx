@@ -1,0 +1,3 @@
+Expected Rule: [NGINX Emerging Threat] Template injection
+Matched Rule: [NGINX Emerging Threat] Template injection test_id=GQL_INTRO_001-1769862959563-zhlmmv pattern_id=GQL_INTRO_001 uri=/?q=query%7B__schema%7Btypes%7Bname%7D%7D%7D client=127.0.0.1
+Rule Match: ✅ Match

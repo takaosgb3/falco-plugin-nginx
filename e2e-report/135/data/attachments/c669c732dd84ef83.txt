@@ -1,0 +1,5 @@
+Pattern ID: GQL_INTRO_003
+        Status: passed
+        Latency: ~26000ms
+        Detection: 1 / 1
+        Rule: [NGINX Emerging Threat] Template injection test_id=GQL_INTRO_003-1769862960566-yl10bn pattern_id=GQL_INTRO_003 uri=/?q=mutation%7B__schema%7BqueryType%7Bname%7D%7D%7D client=127.0.0.1

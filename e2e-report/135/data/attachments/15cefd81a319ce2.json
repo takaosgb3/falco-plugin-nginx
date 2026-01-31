@@ -1,0 +1,17 @@
+{
+  "pattern_id": "PATH_DBL_004",
+  "test_id": "PATH_DBL_004-1769862966132-tooa2d",
+  "category": "path",
+  "detected": false,
+  "expected_detection": true,
+  "latency_ms": null,
+  "evidence": "",
+  "rule_name": "",
+  "expected_rule": "[NGINX Traversal] Encoded path traversal attack detected",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": null,
+  "sent_at": 1769862986000,
+  "detected_at": null,
+  "status": "failed"
+}

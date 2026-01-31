@@ -1,0 +1,17 @@
+{
+  "pattern_id": "PATH_ABS_009",
+  "test_id": "PATH_ABS_009-1769862967134-2enveg",
+  "category": "path",
+  "detected": false,
+  "expected_detection": true,
+  "latency_ms": null,
+  "evidence": "",
+  "rule_name": "",
+  "expected_rule": "[NGINX Traversal] File inclusion attack detected",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": null,
+  "sent_at": 1769862986000,
+  "detected_at": null,
+  "status": "failed"
+}

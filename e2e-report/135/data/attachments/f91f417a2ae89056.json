@@ -1,0 +1,17 @@
+{
+  "pattern_id": "CMD_SUB_005",
+  "test_id": "CMD_SUB_005-1769862956603-ql29g",
+  "category": "cmdinj",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 30000,
+  "evidence": "12:35:56.000000000: Critical [NGINX CMDi] Command substitution attack test_id=CMD_SUB_005-1769862956603-ql29g pattern_id=CMD_SUB_005 uri=/?q=%24%28ls%20-la%20%2Froot%29 client=127.0.0.1",
+  "rule_name": "[NGINX CMDi] Command substitution attack test_id=CMD_SUB_005-1769862956603-ql29g pattern_id=CMD_SUB_005 uri=/?q=%24%28ls%20-la%20%2Froot%29 client=127.0.0.1",
+  "expected_rule": "[NGINX CMDi] Command substitution attack",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX CMDi] Command substitution attack test_id=CMD_SUB_005-1769862956603-ql29g pattern_id=CMD_SUB_005 uri=/?q=%24%28ls%20-la%20%2Froot%29 client=127.0.0.1",
+  "sent_at": 1769862986000,
+  "detected_at": 1769862956000,
+  "status": "passed"
+}

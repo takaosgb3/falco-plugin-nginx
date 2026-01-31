@@ -1,0 +1,3 @@
+Expected Rule: [NGINX XSS] XSS Filter Bypass Attempt
+Matched Rule: None
+Rule Match: ❌ Mismatch
