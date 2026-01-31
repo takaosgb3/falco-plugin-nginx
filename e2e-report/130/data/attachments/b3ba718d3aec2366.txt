@@ -1,0 +1,3 @@
+Expected Rule: [NGINX XSS] DOM-based XSS Attack
+Matched Rule: [NGINX XSS] DOM-based XSS Attack test_id=XSS_ADV_063-1769858730489-natdmp pattern_id=XSS_ADV_063 uri=/?q=%3Cimg%20src%3Dx%20onerror%3Dalert%281%29%3E client=127.0.0.1 method=GET
+Rule Match: ✅ Match

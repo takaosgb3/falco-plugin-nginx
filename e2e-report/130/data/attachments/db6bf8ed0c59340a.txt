@@ -1,0 +1,3 @@
+Expected Rule: [NGINX CMDi] Command injection via semicolon
+Matched Rule: [NGINX CMDi] Command injection via semicolon test_id=CMD_BASIC_005-1769858711411-8s9wm pattern_id=CMD_BASIC_005 uri=/?q=%3B%20cat%20/etc/passwd client=127.0.0.1
+Rule Match: ✅ Match

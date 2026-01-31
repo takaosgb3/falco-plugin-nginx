@@ -1,0 +1,5 @@
+Pattern ID: NOSQL_COUCH_001
+        Status: passed
+        Latency: ~12000ms
+        Detection: 1 / 1
+        Rule: [NGINX Emerging Threat] MongoDB NoSQL injection test_id=NOSQL_COUCH_001-1769858744405-wqih7 pattern_id=NOSQL_COUCH_001 uri=/?q=_all_docs%3Finclude_docs%3Dtrue client=127.0.0.1

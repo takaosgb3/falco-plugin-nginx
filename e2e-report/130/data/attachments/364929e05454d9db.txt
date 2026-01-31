@@ -1,0 +1,5 @@
+Pattern ID: XXE_NETDOC_001
+        Status: passed
+        Latency: ~29000ms
+        Detection: 1 / 1
+        Rule: [NGINX Traversal] File inclusion attack detected test_id=XXE_NETDOC_001-1769858727917-79uwm9 pattern_id=XXE_NETDOC_001 uri=/?q=%3C%21ENTITY%20xxe%20SYSTEM%20%22netdoc%3A%2F%2F%2Fetc%2Fpasswd%22%3E client=127.0.0.1
