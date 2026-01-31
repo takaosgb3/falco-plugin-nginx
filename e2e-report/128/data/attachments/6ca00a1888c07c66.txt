@@ -1,0 +1,5 @@
+Pattern ID: XSS_BYPASS_010
+        Status: passed
+        Latency: ~35000ms
+        Detection: 1 / 1
+        Rule: [NGINX XSS] DOM-based XSS Attack test_id=XSS_BYPASS_010-1769857904908-rn7jir pattern_id=XSS_BYPASS_010 uri=/?q=%3Cmeta%20http-equiv%3D'refresh'%20content%3D'0%3Burl%3Djavascript%3Aalert(1)'%3E client=127.0.0.1 method=GET

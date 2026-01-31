@@ -1,0 +1,17 @@
+{
+  "pattern_id": "PATH_DBL_002",
+  "test_id": "PATH_DBL_002-1769857910413-5vcq",
+  "category": "path",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 29000,
+  "evidence": "11:11:50.000000000: Critical [NGINX Traversal] Basic path traversal attack detected test_id=PATH_DBL_002-1769857910413-5vcq pattern_id=PATH_DBL_002 uri=/?q=..%25252f..%25252f..%25252fetc%25252fpasswd client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] Basic path traversal attack detected test_id=PATH_DBL_002-1769857910413-5vcq pattern_id=PATH_DBL_002 uri=/?q=..%25252f..%25252f..%25252fetc%25252fpasswd client=127.0.0.1",
+  "expected_rule": "[NGINX Traversal] Basic path traversal attack detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Traversal] Basic path traversal attack detected test_id=PATH_DBL_002-1769857910413-5vcq pattern_id=PATH_DBL_002 uri=/?q=..%25252f..%25252f..%25252fetc%25252fpasswd client=127.0.0.1",
+  "sent_at": 1769857939000,
+  "detected_at": 1769857910000,
+  "status": "passed"
+}

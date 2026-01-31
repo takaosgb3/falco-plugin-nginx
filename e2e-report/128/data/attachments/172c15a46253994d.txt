@@ -1,0 +1,5 @@
+Pattern ID: SSTI_SMARTY_001
+        Status: passed
+        Latency: ~13000ms
+        Detection: 1 / 1
+        Rule: [NGINX SSTI] Server-Side Template Injection detected test_id=SSTI_SMARTY_001-1769857926372-shhefr pattern_id=SSTI_SMARTY_001 uri=/?q=%7Bphp%7Dsystem(%22id%22)%3B%7B%2Fphp%7D client=127.0.0.1

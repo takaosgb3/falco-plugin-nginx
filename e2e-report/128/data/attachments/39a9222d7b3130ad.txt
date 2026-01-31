@@ -1,0 +1,5 @@
+Pattern ID: XSS_DOM_007
+        Status: passed
+        Latency: ~41000ms
+        Detection: 1 / 1
+        Rule: [NGINX XSS] DOM-based XSS Attack test_id=XSS_DOM_007-1769857898896-zek534 pattern_id=XSS_DOM_007 uri=/?q=window.location%3D%27javascript%3Aalert%28%22DOM%22%29%27 client=127.0.0.1 method=GET
