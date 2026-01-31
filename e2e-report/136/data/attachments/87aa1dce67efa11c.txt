@@ -1,0 +1,3 @@
+Expected Rule: [NGINX Emerging Threat] Redis command injection
+Matched Rule: [NGINX Emerging Threat] Redis command injection test_id=EMRG_REDIS_002-1769863678431-icta8 pattern_id=EMRG_REDIS_002 uri=/?q=CONFIG%20GET%20%2A client=127.0.0.1
+Rule Match: ✅ Match

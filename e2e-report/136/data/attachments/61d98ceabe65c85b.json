@@ -1,0 +1,17 @@
+{
+  "pattern_id": "PATH_DBL_001",
+  "test_id": "PATH_DBL_001-1769863645443-a1m4ia",
+  "category": "path",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 39000,
+  "evidence": "12:47:25.000000000: Critical [NGINX Traversal] Encoded path traversal attack detected test_id=PATH_DBL_001-1769863645443-a1m4ia pattern_id=PATH_DBL_001 uri=/?q=%25252E%25252E%25252F client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] Encoded path traversal attack detected test_id=PATH_DBL_001-1769863645443-a1m4ia pattern_id=PATH_DBL_001 uri=/?q=%25252E%25252E%25252F client=127.0.0.1",
+  "expected_rule": "[NGINX Traversal] Encoded path traversal attack detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Traversal] Encoded path traversal attack detected test_id=PATH_DBL_001-1769863645443-a1m4ia pattern_id=PATH_DBL_001 uri=/?q=%25252E%25252E%25252F client=127.0.0.1",
+  "sent_at": 1769863684000,
+  "detected_at": 1769863645000,
+  "status": "passed"
+}

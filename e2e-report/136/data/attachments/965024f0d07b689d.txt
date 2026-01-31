@@ -1,0 +1,1 @@
+Test passed: CMD_BASH_003

@@ -1,0 +1,17 @@
+{
+  "pattern_id": "PATH_ABS_009",
+  "test_id": "PATH_ABS_009-1769863664991-7e9qua",
+  "category": "path",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 20000,
+  "evidence": "12:47:44.000000000: Critical [NGINX Traversal] File inclusion attack detected test_id=PATH_ABS_009-1769863664991-7e9qua pattern_id=PATH_ABS_009 uri=/?q=%2Fetc%2Fsudoers client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] File inclusion attack detected test_id=PATH_ABS_009-1769863664991-7e9qua pattern_id=PATH_ABS_009 uri=/?q=%2Fetc%2Fsudoers client=127.0.0.1",
+  "expected_rule": "[NGINX Traversal] File inclusion attack detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Traversal] File inclusion attack detected test_id=PATH_ABS_009-1769863664991-7e9qua pattern_id=PATH_ABS_009 uri=/?q=%2Fetc%2Fsudoers client=127.0.0.1",
+  "sent_at": 1769863684000,
+  "detected_at": 1769863664000,
+  "status": "passed"
+}
