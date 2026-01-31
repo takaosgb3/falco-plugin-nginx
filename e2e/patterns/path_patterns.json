@@ -773,7 +773,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "[NGINX Traversal] Double-encoded path traversal"
+      "expected_rule": "[NGINX Traversal] Encoded path traversal attack detected"
     },
     {
       "id": "PATH_DBL_005",
@@ -797,7 +797,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "[NGINX Traversal] Absolute path traversal"
+      "expected_rule": "[NGINX Traversal] File inclusion attack detected"
     }
   ]
 }

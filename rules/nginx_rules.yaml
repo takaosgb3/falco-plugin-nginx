@@ -273,7 +273,9 @@
      nginx.request_uri contains "' OR TRUE" or
      nginx.request_uri contains "'%20OR%20TRUE" or
      nginx.request_uri contains "OR TRUE --" or
-     nginx.request_uri contains "OR%20TRUE%20--")
+     nginx.request_uri contains "OR%20TRUE%20--" or
+     nginx.request_uri contains "JyBPUi" or
+     nginx.request_uri contains "JyBBTkQ")
 
 # Numeric prefix patterns - contains maintained (contains quotes, equals)
 - macro: contains_numeric_prefix_sqli_patterns
@@ -541,11 +543,16 @@
      (nginx.request_uri icontains "char" and nginx.request_uri contains ","))
 
 # File operations - icontains for alphabetic parts
+# E2E Run #134 Fix: Added INTO OUTFILE patterns for SQLI_STACK_007
 - macro: contains_file_operations
   condition: >
     (nginx.request_uri icontains "load_file" or
+     nginx.request_uri icontains "into outfile" or
+     nginx.request_uri icontains "into dumpfile" or
      nginx.request_uri contains "into%20outfile" or
-     nginx.request_uri contains "into%20dumpfile")
+     nginx.request_uri contains "INTO%20OUTFILE" or
+     nginx.request_uri contains "into%20dumpfile" or
+     nginx.request_uri contains "INTO%20DUMPFILE")
 
 # Phase 4 (Issue #780): Stacked queries patterns
 # Test patterns: SQLI_STACK_001-003, SQLI_OUT_001-002
@@ -1139,6 +1146,9 @@
   condition: >-
     (
       nginx.request_uri icontains "script" or
+      nginx.request_uri contains "PHNjcmlwdD4" or
+      nginx.request_uri contains "{alert(" or
+      nginx.request_uri contains "%7Balert%28" or
       nginx.request_uri contains "%00" or
       nginx.request_uri contains "\\x00" or
       nginx.request_uri contains "%09" or
@@ -1266,6 +1276,7 @@
       nginx.request_uri contains "%25252e%25252e%25252f" or
       nginx.request_uri contains "%25252E%25252E%25252F" or
       nginx.request_uri contains "%252e%252e%255c" or
+      nginx.request_uri contains "%252E%252E%255C" or
       nginx.request_uri contains "%c0%ae%c0%ae" or
       nginx.request_uri contains "%c1%9c" or
       nginx.request_uri contains "%e0%80%ae" or
@@ -1333,6 +1344,7 @@
     (
       nginx.request_uri icontains "/etc/passwd" or
       nginx.request_uri icontains "/etc/shadow" or
+      nginx.request_uri icontains "/etc/sudoers" or
       nginx.request_uri icontains "/etc/hosts" or
       nginx.request_uri icontains "/proc/self" or
       nginx.request_uri icontains "/var/log" or
@@ -1545,6 +1557,10 @@
       nginx.request_uri icontains "|python" or
       nginx.request_uri icontains "|perl" or
       nginx.request_uri icontains "|grep" or
+      nginx.request_uri icontains "| head" or
+      nginx.request_uri icontains "|head" or
+      nginx.request_uri icontains "| xargs" or
+      nginx.request_uri icontains "|xargs" or
       nginx.request_uri icontains "|| id" or
       nginx.request_uri icontains "|| cat" or
       nginx.request_uri contains "%7Cwhoami" or

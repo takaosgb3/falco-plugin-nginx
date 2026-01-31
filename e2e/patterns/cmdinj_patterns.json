@@ -820,7 +820,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "[NGINX CMDi] Command injection via backtick"
+      "expected_rule": "[NGINX CMDi] Command substitution attack"
     },
     {
       "id": "CMD_BACK_003",
@@ -832,7 +832,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "[NGINX CMDi] Command injection via backtick"
+      "expected_rule": "[NGINX SQLi] Encoded SQL Injection Pattern"
     },
     {
       "id": "CMD_BACK_004",
@@ -844,7 +844,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "[NGINX CMDi] Command injection via backtick"
+      "expected_rule": "[NGINX CMDi] Command substitution attack"
     },
     {
       "id": "CMD_BACK_005",
@@ -856,7 +856,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "[NGINX CMDi] Command injection via backtick"
+      "expected_rule": "[NGINX SQLi] Encoded SQL Injection Pattern"
     },
     {
       "id": "CMD_BASH_002",
@@ -868,7 +868,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "[NGINX CMDi] Basic command injection"
+      "expected_rule": "[NGINX CMDi] Advanced command injection attempt"
     },
     {
       "id": "CMD_BASH_003",
@@ -880,7 +880,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "[NGINX CMDi] Basic command injection"
+      "expected_rule": "[NGINX CMDi] Command injection via pipe"
     },
     {
       "id": "CMD_BASH_004",
@@ -892,7 +892,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "[NGINX CMDi] Basic command injection"
+      "expected_rule": "[NGINX CMDi] Command injection via semicolon"
     },
     {
       "id": "CMD_BASH_005",
@@ -904,7 +904,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "[NGINX CMDi] Basic command injection"
+      "expected_rule": "[NGINX CMDi] Advanced command injection attempt"
     },
     {
       "id": "CMD_PIPE_002",

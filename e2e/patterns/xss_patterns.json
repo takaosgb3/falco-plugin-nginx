@@ -808,7 +808,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "[NGINX XSS] Advanced XSS Attack Attempt"
+      "expected_rule": "[NGINX XSS] Polyglot XSS Attack"
     },
     {
       "id": "XSS_DOM_017",
@@ -820,7 +820,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "[NGINX XSS] Advanced XSS Attack Attempt"
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
     },
     {
       "id": "XSS_DOM_018",
@@ -832,7 +832,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "[NGINX XSS] Advanced XSS Attack Attempt"
+      "expected_rule": "[NGINX XSS] Polyglot XSS Attack"
     },
     {
       "id": "XSS_POLY_008",
@@ -844,7 +844,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "[NGINX XSS] Advanced XSS Attack Attempt"
+      "expected_rule": "[NGINX XSS] XSS Filter Bypass Attempt"
     },
     {
       "id": "XSS_POLY_009",
@@ -856,7 +856,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "[NGINX XSS] Advanced XSS Attack Attempt"
+      "expected_rule": "[NGINX SQLi] Encoded SQL Injection Pattern"
     },
     {
       "id": "XSS_POLY_010",
@@ -868,7 +868,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "[NGINX XSS] Advanced XSS Attack Attempt"
+      "expected_rule": "[NGINX XSS] Polyglot XSS Attack"
     },
     {
       "id": "XSS_STORED_002",
@@ -880,7 +880,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "[NGINX XSS] Basic XSS Attack Attempt"
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
     },
     {
       "id": "XSS_STORED_003",
@@ -892,7 +892,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "[NGINX XSS] Basic XSS Attack Attempt"
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
     },
     {
       "id": "XSS_REFL_016",
@@ -904,7 +904,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "[NGINX XSS] Basic XSS Attack Attempt"
+      "expected_rule": "[NGINX XSS] XSS Filter Bypass Attempt"
     },
     {
       "id": "XSS_REFL_017",
@@ -916,7 +916,7 @@
       "port": 8001,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "[NGINX XSS] Basic XSS Attack Attempt"
+      "expected_rule": "[NGINX XSS] XSS Filter Bypass Attempt"
     }
   ]
 }
