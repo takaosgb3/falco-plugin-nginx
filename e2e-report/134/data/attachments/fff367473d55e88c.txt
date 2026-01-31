@@ -1,0 +1,5 @@
+Pattern ID: CMD_ENC_001
+        Status: passed
+        Latency: ~35000ms
+        Detection: 1 / 1
+        Rule: [NGINX CMDi] Advanced command injection attempt test_id=CMD_ENC_001-1769861363356-nzdwns pattern_id=CMD_ENC_001 uri=/?q=%253Bwhoami client=127.0.0.1

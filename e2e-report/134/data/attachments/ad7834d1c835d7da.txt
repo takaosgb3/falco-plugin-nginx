@@ -1,0 +1,5 @@
+Pattern ID: CMD_FILE_002
+        Status: passed
+        Latency: ~22000ms
+        Detection: 1 / 1
+        Rule: [NGINX CMDi] Advanced command injection attempt test_id=CMD_FILE_002-1769861376384-ejhxiw pattern_id=CMD_FILE_002 uri=/?q=%26%26%20cat%20~%2F.ssh%2Fid_rsa client=127.0.0.1

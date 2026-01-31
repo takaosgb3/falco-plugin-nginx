@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SQLI_STACK_007",
+  "test_id": "SQLI_STACK_007-1769861390442-eq5xs9",
+  "category": "sqli",
+  "detected": false,
+  "expected_detection": true,
+  "latency_ms": null,
+  "evidence": "",
+  "rule_name": "",
+  "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": null,
+  "sent_at": 1769861398000,
+  "detected_at": null,
+  "status": "failed"
+}

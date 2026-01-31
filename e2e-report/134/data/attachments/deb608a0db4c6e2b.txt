@@ -1,0 +1,3 @@
+Expected Rule: [NGINX XSS] Advanced XSS Attack Attempt
+Matched Rule: None
+Rule Match: ❌ Mismatch

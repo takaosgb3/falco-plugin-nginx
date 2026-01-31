@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: auto;
+            min-height: 600px;
+            overflow: auto;
+        }
+        body {
+            font-family: monospace;
+            padding: 15px;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            line-height: 1.5;
+        }
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            margin: 0;
+            overflow: visible;
+        }
+        .content {
+            overflow: visible;
+        }
+        mark {
+            background-color: #FFFF00;
+            color: #000;
+            padding: 1px 3px;
+            border-radius: 2px;
+        }
+        h3 {
+            color: #4CAF50;
+            margin: 0 0 15px 0;
+        }
+    </style>
+</head>
+<body>
+<h3>nginx access.log</h3>
+<pre>127.0.0.1 - - [31/Jan/2026:12:09:17 +0000] &quot;GET /?q=<mark style="background-color: #FFFF00; padding: 1px 3px;">..%25c0%25afetc%2Fpasswd</mark> HTTP/1.1&quot; 200 51 &quot;-&quot; &quot;Grafana k6/1.5.0&quot; x_test_id=PATH_UNICODE_001-1769861357857-a1tr2h x_category=PATH x_pattern_id=PATH_UNICODE_001</pre>
+</body>
+</html>

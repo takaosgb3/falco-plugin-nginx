@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SQLI_ADV_088",
+  "test_id": "SQLI_ADV_088-1769861379922-0b8tak",
+  "category": "sqli",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 19000,
+  "evidence": "12:09:39.000000000: Warning [NGINX SQLi] Advanced SQL Injection Attempt test_id=SQLI_ADV_088-1769861379922-0b8tak pattern_id=SQLI_ADV_088 uri=/?q=DELETE%20FROM%20users%20WHERE%201%3D1 client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Advanced SQL Injection Attempt test_id=SQLI_ADV_088-1769861379922-0b8tak pattern_id=SQLI_ADV_088 uri=/?q=DELETE%20FROM%20users%20WHERE%201%3D1 client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX SQLi] Advanced SQL Injection Attempt test_id=SQLI_ADV_088-1769861379922-0b8tak pattern_id=SQLI_ADV_088 uri=/?q=DELETE%20FROM%20users%20WHERE%201%3D1 client=127.0.0.1 method=GET",
+  "sent_at": 1769861398000,
+  "detected_at": 1769861379000,
+  "status": "passed"
+}

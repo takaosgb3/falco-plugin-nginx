@@ -1,0 +1,17 @@
+{
+  "pattern_id": "GQL_INTRO_002",
+  "test_id": "GQL_INTRO_002-1769861371832-47gv0q",
+  "category": "graphql",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 27000,
+  "evidence": "12:09:31.000000000: Critical [NGINX SSTI] Server-Side Template Injection detected test_id=GQL_INTRO_002-1769861371832-47gv0q pattern_id=GQL_INTRO_002 uri=/?q=query%7B__type(name%3A%22User%22)%7Bfields%7Bname%7D%7D%7D client=127.0.0.1",
+  "rule_name": "[NGINX SSTI] Server-Side Template Injection detected test_id=GQL_INTRO_002-1769861371832-47gv0q pattern_id=GQL_INTRO_002 uri=/?q=query%7B__type(name%3A%22User%22)%7Bfields%7Bname%7D%7D%7D client=127.0.0.1",
+  "expected_rule": "[NGINX SSTI] Server-Side Template Injection detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX SSTI] Server-Side Template Injection detected test_id=GQL_INTRO_002-1769861371832-47gv0q pattern_id=GQL_INTRO_002 uri=/?q=query%7B__type(name%3A%22User%22)%7Bfields%7Bname%7D%7D%7D client=127.0.0.1",
+  "sent_at": 1769861398000,
+  "detected_at": 1769861371000,
+  "status": "passed"
+}

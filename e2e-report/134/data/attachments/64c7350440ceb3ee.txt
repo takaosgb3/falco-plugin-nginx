@@ -1,0 +1,3 @@
+Expected Rule: [NGINX Traversal] Double-encoded path traversal
+Matched Rule: None
+Rule Match: ❌ Mismatch

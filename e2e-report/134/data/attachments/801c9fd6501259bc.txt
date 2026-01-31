@@ -1,0 +1,3 @@
+Expected Rule: [NGINX XSS] DOM-based XSS Attack
+Matched Rule: [NGINX XSS] DOM-based XSS Attack test_id=XSS_ADV_064-1769861372901-64ixvo pattern_id=XSS_ADV_064 uri=/?q=%3Cbody%20onload%3Dalert%281%29%3E client=127.0.0.1 method=GET
+Rule Match: ✅ Match

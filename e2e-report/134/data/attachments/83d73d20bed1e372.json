@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SQLI_POLY_002",
+  "test_id": "SQLI_POLY_002-1769861383429-mm2iwj",
+  "category": "sqli",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 15000,
+  "evidence": "12:09:43.000000000: Critical [NGINX SQLi] Error-based SQL Injection test_id=SQLI_POLY_002-1769861383429-mm2iwj pattern_id=SQLI_POLY_002 uri=/?q=%27%7C%7CUTL_INADDR.get_host_name%28%28select%20user%20from%20dual%29%29%7C%7C%27 client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Error-based SQL Injection test_id=SQLI_POLY_002-1769861383429-mm2iwj pattern_id=SQLI_POLY_002 uri=/?q=%27%7C%7CUTL_INADDR.get_host_name%28%28select%20user%20from%20dual%29%29%7C%7C%27 client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": "[NGINX SQLi] Error-based SQL Injection test_id=SQLI_POLY_002-1769861383429-mm2iwj pattern_id=SQLI_POLY_002 uri=/?q=%27%7C%7CUTL_INADDR.get_host_name%28%28select%20user%20from%20dual%29%29%7C%7C%27 client=127.0.0.1 method=GET",
+  "sent_at": 1769861398000,
+  "detected_at": 1769861383000,
+  "status": "passed"
+}

@@ -1,0 +1,17 @@
+{
+  "pattern_id": "CMD_BACK_003",
+  "test_id": "CMD_BACK_003-1769861385407-4s975w",
+  "category": "cmdi",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 13000,
+  "evidence": "12:09:45.000000000: Warning [NGINX SQLi] Encoded SQL Injection Pattern test_id=CMD_BACK_003-1769861385407-4s975w pattern_id=CMD_BACK_003 uri=/?q=%60nc%20-l%20-p%201234%20-e%20%2Fbin%2Fbash%60 client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Encoded SQL Injection Pattern test_id=CMD_BACK_003-1769861385407-4s975w pattern_id=CMD_BACK_003 uri=/?q=%60nc%20-l%20-p%201234%20-e%20%2Fbin%2Fbash%60 client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX CMDi] Command injection via backtick",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": "[NGINX SQLi] Encoded SQL Injection Pattern test_id=CMD_BACK_003-1769861385407-4s975w pattern_id=CMD_BACK_003 uri=/?q=%60nc%20-l%20-p%201234%20-e%20%2Fbin%2Fbash%60 client=127.0.0.1 method=GET",
+  "sent_at": 1769861398000,
+  "detected_at": 1769861385000,
+  "status": "passed"
+}

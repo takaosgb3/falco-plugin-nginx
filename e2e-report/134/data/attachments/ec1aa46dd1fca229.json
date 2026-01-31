@@ -1,0 +1,17 @@
+{
+  "pattern_id": "XSS_DOM_016",
+  "test_id": "XSS_DOM_016-1769861374404-qykyjn",
+  "category": "xss",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 24000,
+  "evidence": "12:09:34.000000000: Critical [NGINX XSS] Polyglot XSS Attack test_id=XSS_DOM_016-1769861374404-qykyjn pattern_id=XSS_DOM_016 uri=/?q=onclick%3Dalert%28%27DOM%27%29 client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX XSS] Polyglot XSS Attack test_id=XSS_DOM_016-1769861374404-qykyjn pattern_id=XSS_DOM_016 uri=/?q=onclick%3Dalert%28%27DOM%27%29 client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX XSS] Advanced XSS Attack Attempt",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": "[NGINX XSS] Polyglot XSS Attack test_id=XSS_DOM_016-1769861374404-qykyjn pattern_id=XSS_DOM_016 uri=/?q=onclick%3Dalert%28%27DOM%27%29 client=127.0.0.1 method=GET",
+  "sent_at": 1769861398000,
+  "detected_at": 1769861374000,
+  "status": "passed"
+}
