@@ -1,7 +1,7 @@
 {
   "metadata": {
     "category": "sqli",
-    "total_patterns": 94,
+    "total_patterns": 109,
     "port": 8001,
     "description": "k6 test patterns for sqli"
   },
@@ -1133,6 +1133,186 @@
       "expected_detection": true,
       "severity": "high",
       "expected_rule": "[NGINX SQLi] Encoded SQL Injection Pattern"
+    },
+    {
+      "id": "SQLI_POLY_002",
+      "name": "Oracle-specific polyglot injection",
+      "category": "sqli",
+      "subcategory": "polyglot",
+      "payload": "'||UTL_INADDR.get_host_name((select user from dual))||'",
+      "encoded": "%27%7C%7CUTL_INADDR.get_host_name%28%28select%20user%20from%20dual%29%29%7C%7C%27",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt"
+    },
+    {
+      "id": "SQLI_POLY_003",
+      "name": "Multi-database time delay polyglot",
+      "category": "sqli",
+      "subcategory": "polyglot",
+      "payload": "1';WAITFOR DELAY '0:0:30'--",
+      "encoded": "1%27%3BWAITFOR%20DELAY%20%270%3A0%3A30%27--",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt"
+    },
+    {
+      "id": "SQLI_POLY_004",
+      "name": "MySQL polyglot version extraction",
+      "category": "sqli",
+      "subcategory": "polyglot",
+      "payload": "1'+(select*from(select name_const(@@version,0))a)+'1",
+      "encoded": "1%27%2B%28select%2Afrom%28select%20name_const%28%40%40version%2C0%29%29a%29%2B%271",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt"
+    },
+    {
+      "id": "SQLI_UNION_008",
+      "name": "File read via LOAD_FILE",
+      "category": "sqli",
+      "subcategory": "union_based",
+      "payload": "' UNION SELECT LOAD_FILE('/etc/passwd'),NULL,NULL --",
+      "encoded": "%27%20UNION%20SELECT%20LOAD_FILE%28%27%2Fetc%2Fpasswd%27%29%2CNULL%2CNULL%20--",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX SQLi] UNION-based SQL Injection"
+    },
+    {
+      "id": "SQLI_2ND_005",
+      "name": "Second-order error-based injection",
+      "category": "sqli",
+      "subcategory": "second_order",
+      "payload": "value' AND EXTRACTVALUE(1,CONCAT(0x7e,version(),0x7e)) --",
+      "encoded": "value%27%20AND%20EXTRACTVALUE%281%2CCONCAT%280x7e%2Cversion%28%29%2C0x7e%29%29%20--",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt"
+    },
+    {
+      "id": "SQLI_ERROR_011",
+      "name": "PostgreSQL type casting error",
+      "category": "sqli",
+      "subcategory": "error_based",
+      "payload": "' AND CAST((SELECT version()) AS int) --",
+      "encoded": "%27%20AND%20CAST%28%28SELECT%20version%28%29%29%20AS%20int%29%20--",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX SQLi] Error-based SQL Injection"
+    },
+    {
+      "id": "SQLI_ERROR_012",
+      "name": "PostgreSQL conditional cast error",
+      "category": "sqli",
+      "subcategory": "error_based",
+      "payload": "' AND (SELECT CASE WHEN (1=1) THEN CAST(version() AS int) ELSE 1 END) --",
+      "encoded": "%27%20AND%20%28SELECT%20CASE%20WHEN%20%281%3D1%29%20THEN%20CAST%28version%28%29%20AS%20int%29%20ELSE%201%20END%29%20--",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX SQLi] Error-based SQL Injection"
+    },
+    {
+      "id": "SQLI_ERROR_013",
+      "name": "PostgreSQL generate_series resource exhaustion",
+      "category": "sqli",
+      "subcategory": "error_based",
+      "payload": "' AND (SELECT * FROM generate_series(1,1000000)) --",
+      "encoded": "%27%20AND%20%28SELECT%20%2A%20FROM%20generate_series%281%2C1000000%29%29%20--",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX SQLi] Error-based SQL Injection"
+    },
+    {
+      "id": "SQLI_ERROR_014",
+      "name": "PostgreSQL information schema enumeration",
+      "category": "sqli",
+      "subcategory": "error_based",
+      "payload": "' AND (1)=(SELECT COUNT(*) FROM information_schema.tables WHERE table_name LIKE '%user%') --",
+      "encoded": "%27%20AND%20%281%29%3D%28SELECT%20COUNT%28%2A%29%20FROM%20information_schema.tables%20WHERE%20table_name%20LIKE%20%27%25user%25%27%29%20--",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX SQLi] Error-based SQL Injection"
+    },
+    {
+      "id": "SQLI_ERROR_015",
+      "name": "PostgreSQL version disclosure via UNION",
+      "category": "sqli",
+      "subcategory": "error_based",
+      "payload": "' UNION SELECT NULL,version(),NULL --",
+      "encoded": "%27%20UNION%20SELECT%20NULL%2Cversion%28%29%2CNULL%20--",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX SQLi] Error-based SQL Injection"
+    },
+    {
+      "id": "SQLI_BOOL_016",
+      "name": "URL encoded classic boolean",
+      "category": "sqli",
+      "subcategory": "boolean_blind",
+      "payload": "%27%20OR%20%271%27%3D%271",
+      "encoded": "%2527%2520OR%2520%25271%2527%253D%25271",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX SQLi] Boolean-based Blind SQL Injection"
+    },
+    {
+      "id": "SQLI_BOOL_017",
+      "name": "Base64 encoded boolean injection",
+      "category": "sqli",
+      "subcategory": "boolean_blind",
+      "payload": "JyBPUiAnMSc9JzE%3D",
+      "encoded": "JyBPUiAnMSc9JzE%253D",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX SQLi] Boolean-based Blind SQL Injection"
+    },
+    {
+      "id": "SQLI_BOOL_018",
+      "name": "URL encoded AND injection",
+      "category": "sqli",
+      "subcategory": "boolean_blind",
+      "payload": "%27%20AND%20%271%27%3D%271",
+      "encoded": "%2527%2520AND%2520%25271%2527%253D%25271",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX SQLi] Boolean-based Blind SQL Injection"
+    },
+    {
+      "id": "SQLI_STACK_006",
+      "name": "PostgreSQL file read",
+      "category": "sqli",
+      "subcategory": "stacked_query",
+      "payload": "'; SELECT pg_read_file('/etc/passwd'); --",
+      "encoded": "%27%3B%20SELECT%20pg_read_file%28%27%2Fetc%2Fpasswd%27%29%3B%20--",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt"
+    },
+    {
+      "id": "SQLI_STACK_007",
+      "name": "Web shell creation",
+      "category": "sqli",
+      "subcategory": "stacked_query",
+      "payload": "'; SELECT INTO OUTFILE '/var/www/html/shell.php' 'PHP_SHELL_CODE'; --",
+      "encoded": "%27%3B%20SELECT%20INTO%20OUTFILE%20%27%2Fvar%2Fwww%2Fhtml%2Fshell.php%27%20%27PHP_SHELL_CODE%27%3B%20--",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt"
     }
   ]
 }
