@@ -1,0 +1,17 @@
+{
+  "pattern_id": "XSS_REFL_017",
+  "test_id": "XSS_REFL_017-1769912951619-8eel7d",
+  "category": "xss",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 33000,
+  "evidence": "02:29:11.000000000: Warning [NGINX XSS] XSS Filter Bypass Attempt test_id=XSS_REFL_017-1769912951619-8eel7d pattern_id=XSS_REFL_017 uri=/?q=PHNjcmlwdD5hbGVydCgnWFNTJyk8L3NjcmlwdD4%253D client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX XSS] XSS Filter Bypass Attempt test_id=XSS_REFL_017-1769912951619-8eel7d pattern_id=XSS_REFL_017 uri=/?q=PHNjcmlwdD5hbGVydCgnWFNTJyk8L3NjcmlwdD4%253D client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX XSS] XSS Filter Bypass Attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX XSS] XSS Filter Bypass Attempt test_id=XSS_REFL_017-1769912951619-8eel7d pattern_id=XSS_REFL_017 uri=/?q=PHNjcmlwdD5hbGVydCgnWFNTJyk8L3NjcmlwdD4%253D client=127.0.0.1 method=GET",
+  "sent_at": 1769912984000,
+  "detected_at": 1769912951000,
+  "status": "passed"
+}

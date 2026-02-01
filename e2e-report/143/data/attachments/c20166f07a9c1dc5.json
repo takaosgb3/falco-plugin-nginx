@@ -1,0 +1,17 @@
+{
+  "pattern_id": "XSS_MUT_002",
+  "test_id": "XSS_MUT_002-1769912927056-vdo5i6",
+  "category": "xss",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 57000,
+  "evidence": "02:28:47.000000000: Critical [NGINX XSS] Polyglot XSS Attack test_id=XSS_MUT_002-1769912927056-vdo5i6 pattern_id=XSS_MUT_002 uri=/?q=%3Csvg%3E%3Cg%2Fonload%3Dalert%28%27XSS%27%29%3E%3C%2Fg%3E%3C%2Fsvg%3E client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX XSS] Polyglot XSS Attack test_id=XSS_MUT_002-1769912927056-vdo5i6 pattern_id=XSS_MUT_002 uri=/?q=%3Csvg%3E%3Cg%2Fonload%3Dalert%28%27XSS%27%29%3E%3C%2Fg%3E%3C%2Fsvg%3E client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX XSS] Polyglot XSS Attack",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX XSS] Polyglot XSS Attack test_id=XSS_MUT_002-1769912927056-vdo5i6 pattern_id=XSS_MUT_002 uri=/?q=%3Csvg%3E%3Cg%2Fonload%3Dalert%28%27XSS%27%29%3E%3C%2Fg%3E%3C%2Fsvg%3E client=127.0.0.1 method=GET",
+  "sent_at": 1769912984000,
+  "detected_at": 1769912927000,
+  "status": "passed"
+}

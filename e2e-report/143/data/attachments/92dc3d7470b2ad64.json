@@ -1,0 +1,17 @@
+{
+  "pattern_id": "HRS_HEADER_002",
+  "test_id": "HRS_HEADER_002-1769912982532-nwma5",
+  "category": "http_smuggling",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 2000,
+  "evidence": "02:29:42.000000000: Critical [NGINX HRS] HTTP Request Smuggling attempt test_id=HRS_HEADER_002-1769912982532-nwma5 pattern_id=HRS_HEADER_002 uri=/?q=Content-Length%3A%2010%0D%0AContent-Length%3A%200 client=127.0.0.1",
+  "rule_name": "[NGINX HRS] HTTP Request Smuggling attempt test_id=HRS_HEADER_002-1769912982532-nwma5 pattern_id=HRS_HEADER_002 uri=/?q=Content-Length%3A%2010%0D%0AContent-Length%3A%200 client=127.0.0.1",
+  "expected_rule": "[NGINX HRS] HTTP Request Smuggling attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX HRS] HTTP Request Smuggling attempt test_id=HRS_HEADER_002-1769912982532-nwma5 pattern_id=HRS_HEADER_002 uri=/?q=Content-Length%3A%2010%0D%0AContent-Length%3A%200 client=127.0.0.1",
+  "sent_at": 1769912984000,
+  "detected_at": 1769912982000,
+  "status": "passed"
+}

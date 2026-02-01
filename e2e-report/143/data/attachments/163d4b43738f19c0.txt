@@ -1,0 +1,5 @@
+Pattern ID: CMD_ADV_058
+        Status: passed
+        Latency: ~32000ms
+        Detection: 1 / 1
+        Rule: [NGINX CMDi] Command injection via semicolon test_id=CMD_ADV_058-1769912952596-9tsws pattern_id=CMD_ADV_058 uri=/?q=%3B%20sleep%205 client=127.0.0.1

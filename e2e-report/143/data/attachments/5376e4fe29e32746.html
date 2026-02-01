@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: auto;
+            min-height: 600px;
+            overflow: auto;
+        }
+        body {
+            font-family: monospace;
+            padding: 15px;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            line-height: 1.5;
+        }
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            margin: 0;
+            overflow: visible;
+        }
+        .content {
+            overflow: visible;
+        }
+        mark {
+            background-color: #FFFF00;
+            color: #000;
+            padding: 1px 3px;
+            border-radius: 2px;
+        }
+        h3 {
+            color: #4CAF50;
+            margin: 0 0 15px 0;
+        }
+    </style>
+</head>
+<body>
+<h3>nginx access.log</h3>
+<pre>127.0.0.1 - - [01/Feb/2026:02:28:54 +0000] &quot;GET /?q=<mark style="background-color: #FFFF00; padding: 1px 3px;">%3B%20%2Fbin%2Fbash%20-c%20&#x27;whoami&#x27;</mark> HTTP/1.1&quot; 200 51 &quot;-&quot; &quot;Grafana k6/1.5.0&quot; x_test_id=CMD_BASH_001-1769912934548-dn9ba x_category=CMDINJ x_pattern_id=CMD_BASH_001</pre>
+</body>
+</html>

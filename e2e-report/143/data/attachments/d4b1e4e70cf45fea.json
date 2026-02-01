@@ -1,0 +1,17 @@
+{
+  "pattern_id": "OTHER_PHP_001",
+  "test_id": "OTHER_PHP_001-1769912933032-5suyp8",
+  "category": "other",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 51000,
+  "evidence": "02:28:53.000000000: Critical [NGINX Emerging Threat] Deserialization attack test_id=OTHER_PHP_001-1769912933032-5suyp8 pattern_id=OTHER_PHP_001 uri=/?q=O%3A8%3A%22stdClass%22%3A1%3A%7Bs%3A4%3A%22test%22%3Bs%3A4%3A%22data%22%3B%7D client=127.0.0.1",
+  "rule_name": "[NGINX Emerging Threat] Deserialization attack test_id=OTHER_PHP_001-1769912933032-5suyp8 pattern_id=OTHER_PHP_001 uri=/?q=O%3A8%3A%22stdClass%22%3A1%3A%7Bs%3A4%3A%22test%22%3Bs%3A4%3A%22data%22%3B%7D client=127.0.0.1",
+  "expected_rule": "[NGINX Emerging Threat] Deserialization attack",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Emerging Threat] Deserialization attack test_id=OTHER_PHP_001-1769912933032-5suyp8 pattern_id=OTHER_PHP_001 uri=/?q=O%3A8%3A%22stdClass%22%3A1%3A%7Bs%3A4%3A%22test%22%3Bs%3A4%3A%22data%22%3B%7D client=127.0.0.1",
+  "sent_at": 1769912984000,
+  "detected_at": 1769912933000,
+  "status": "passed"
+}

@@ -1,0 +1,3 @@
+Expected Rule: [NGINX Traversal] Basic path traversal attack detected
+Matched Rule: [NGINX Traversal] Basic path traversal attack detected test_id=PATH_SENS_002-1769912943085-ojtzaa pattern_id=PATH_SENS_002 uri=/?q=..%2F..%2F..%2Fvar%2Frun%2Fsecrets%2Fkubernetes.io%2Fserviceaccount%2Ftoken client=127.0.0.1
+Rule Match: ✅ Match

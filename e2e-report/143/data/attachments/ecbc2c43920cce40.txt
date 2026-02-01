@@ -1,0 +1,3 @@
+Expected Rule: [NGINX SQLi] Boolean-based Blind SQL Injection
+Matched Rule: [NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_ERR_001-1769912922553-relkd pattern_id=SQLI_ERR_001 uri=/?q=EXTRACTVALUE(1%2CCONCAT(0x7e%2Cversion())) client=127.0.0.1 method=GET
+Rule Match: ✅ Match

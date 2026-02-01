@@ -1,0 +1,5 @@
+Pattern ID: CMD_BLIND_005
+        Status: passed
+        Latency: ~46000ms
+        Detection: 1 / 1
+        Rule: [NGINX CMDi] Advanced command injection attempt test_id=CMD_BLIND_005-1769912938559-zxd8qg pattern_id=CMD_BLIND_005 uri=/?q=%26%26%20timeout%2015%20bash client=127.0.0.1
