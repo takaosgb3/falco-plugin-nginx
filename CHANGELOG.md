@@ -6,7 +6,30 @@
 
 All notable changes to the Falco nginx plugin binaries will be documented in this file.
 
-## [v1.5.1] - 2026-01-12 - Falco Plugin Registry Registration (Latest)
+## [v1.6.0] - 2026-02-01 - E2E 457 Patterns Release (Phase 7) (Latest)
+
+### Added
+- **Phase 7: 457 Attack Patterns**: E2E test coverage expanded from 420 to 457 patterns
+  - **Stage 1**: Prototype Pollution (+10) and HTTP Request Smuggling (+10) patterns
+  - **Stage 2**: SQLi Advanced (+15) and Command Injection Obfuscation (+10) patterns
+  - **Stage 3**: XSS Mutation (+5) and Path Unicode (+7) patterns
+- **New Attack Categories**:
+  - Prototype Pollution: 10 patterns (`__proto__`, `constructor.prototype` pollution)
+  - HTTP Smuggling: 10 patterns (CL.TE, TE.CL, request splitting)
+- **Enhanced Detection Patterns**:
+  - SQLi: Out-of-band, time-based advanced, bitwise operations, JSON/XML injection
+  - CMDi: Quote splitting, backslash obfuscation, variable concatenation, IFS bypass
+  - XSS: SVG/MathML mutations, template literal injection
+  - Path: Unicode normalization, overlong UTF-8, full-width encoding
+
+### Technical Details
+- Rule Mismatch: 0 (100% rule mapping accuracy)
+- Detection Rate: 96.5% (441/457 patterns detected)
+- Expected Not Detected: 16 patterns (advanced obfuscation techniques)
+- Built with Falco Plugin SDK v0.8.1
+- E2E tested on GitHub Actions (ubuntu-24.04)
+
+## [v1.5.1] - 2026-01-12 - Falco Plugin Registry Registration
 
 ### Changed
 - **Plugin ID**: Changed from 999 (development) to 27 (official registry ID)
@@ -377,7 +400,30 @@ All notable changes to the Falco nginx plugin binaries will be documented in thi
 
 Falco nginxプラグインバイナリの重要な変更はすべてこのファイルに記録されます。
 
-## [v1.5.1] - 2026-01-12 - Falco Plugin Registry登録（最新）
+## [v1.6.0] - 2026-02-01 - E2E 457パターンリリース（Phase 7）（最新）
+
+### 追加
+- **Phase 7: 457攻撃パターン**: E2Eテストカバレッジを420から457パターンに拡大
+  - **Stage 1**: Prototype Pollution (+10) と HTTPリクエストスマグリング (+10) パターン
+  - **Stage 2**: SQLi Advanced (+15) と コマンドインジェクション難読化 (+10) パターン
+  - **Stage 3**: XSS Mutation (+5) と Path Unicode (+7) パターン
+- **新しい攻撃カテゴリ**:
+  - Prototype Pollution: 10パターン（`__proto__`、`constructor.prototype`汚染）
+  - HTTP Smuggling: 10パターン（CL.TE、TE.CL、リクエスト分割）
+- **検出パターンの強化**:
+  - SQLi: Out-of-band、時間ベース高度、ビット演算、JSON/XMLインジェクション
+  - CMDi: クォート分割、バックスラッシュ難読化、変数連結、IFSバイパス
+  - XSS: SVG/MathMLミューテーション、テンプレートリテラルインジェクション
+  - Path: Unicode正規化、オーバーロングUTF-8、全角エンコーディング
+
+### 技術詳細
+- Rule Mismatch: 0（100%ルールマッピング精度）
+- 検出率: 96.5%（441/457パターン検出）
+- Expected Not Detected: 16パターン（高度な難読化技術）
+- Falco Plugin SDK v0.8.1でビルド
+- GitHub Actions（ubuntu-24.04）でE2Eテスト済み
+
+## [v1.5.1] - 2026-01-12 - Falco Plugin Registry登録
 
 ### 変更
 - **Plugin ID**: 999（開発用）から27（公式レジストリID）に変更
