@@ -796,6 +796,12 @@
       values:
         - XXE_JAR_001
         - XXE_NETDOC_001
+    # Phase 7: Exclude HTTP Smuggling patterns (Transfer-Encoding triggers SQLi encoded conditions)
+    - name: phase7_http_smuggling_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - HRS_CHUNK_002
   output: "[NGINX SQLi] Advanced SQL Injection Attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: WARNING
   tags: [security, sql_injection, advanced_sqli, enumeration, phase3]
@@ -1134,6 +1140,13 @@
       comps: in
       values:
         - NOSQL_REDIS_001
+    # Phase 7: Exclude Prototype Pollution patterns (constructor.prototype triggers XSS condition)
+    - name: phase7_prototype_pollution_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - PP_CONSTR_001
+        - PP_CONSTR_002
   output: "[NGINX XSS] Advanced XSS Attack Attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: WARNING
   tags: [security, xss, advanced_xss, event_handlers, phase3]
@@ -1183,6 +1196,12 @@
       comps: in
       values:
         - LDAP_BLIND_005
+    # Phase 7: Exclude HTTP Smuggling patterns (tab character triggers XSS bypass conditions)
+    - name: phase7_http_smuggling_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - HRS_OBFUSC_001
   output: "[NGINX XSS] XSS Filter Bypass Attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: WARNING
   tags: [security, xss, filter_bypass, advanced_xss, phase3]
@@ -1717,6 +1736,16 @@
   priority: WARNING
   tags: [security, command_injection, advanced_cmdi, phase3]
   source: nginx
+  exceptions:
+    # Phase 7: Exclude HTTP Smuggling patterns (CRLF injection triggers CMDi conditions)
+    - name: phase7_http_smuggling_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - HRS_CL_TE_002
+        - HRS_TE_CL_001
+        - HRS_TE_CL_002
+        - HRS_HEADER_002
 
 # ==============================================================================
 # Emerging Threats Detection Rules (from advanced_emerging_enhanced.yaml)
@@ -1983,6 +2012,12 @@
       comps: in
       values:
         - API_PROTO_001
+    # Phase 7: Exclude Prototype Pollution JSON patterns
+    - name: phase7_prototype_pollution_json
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - PP_JSON_001
   output: "[NGINX Emerging Threat] Template injection test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: CRITICAL
   tags: [security, emerging_threats, ssti, template_injection, phase5]
@@ -2053,6 +2088,12 @@
       comps: in
       values:
         - API_PROTO_001
+    # Phase 7: Exclude Prototype Pollution JSON patterns
+    - name: phase7_prototype_pollution_json
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - PP_JSON_001
   source: nginx
 
 # =========================================================================
@@ -2328,6 +2369,20 @@
   priority: WARNING
   tags: [security, api_security, bola, jwt, mass_assignment, prototype_pollution, phase4]
   source: nginx
+  exceptions:
+    - name: phase7_prototype_pollution_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - PP_BASIC_001
+        - PP_BASIC_002
+        - PP_BASIC_003
+        - PP_CONSTR_002
+        - PP_NESTED_001
+        - PP_NESTED_002
+        - PP_JSON_001
+        - PP_BYPASS_001
+        - PP_BYPASS_002
 
 # ==============================================================================
 # Phase 5 New Rules: Pickle Deserialization (Issue #64)
@@ -2357,4 +2412,74 @@
   output: "[NGINX Pickle Attack] Pickle deserialization attack attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: CRITICAL
   tags: [security, pickle, deserialization, rce, python, phase5]
+  source: nginx
+
+# ==============================================================================
+# Phase 7 New Rules: Prototype Pollution & HTTP Request Smuggling
+# ==============================================================================
+
+# ====================================
+# PP_ATK_001: Prototype Pollution Attack Attempt
+# ====================================
+# Detects JavaScript/Node.js prototype pollution attacks including:
+# - __proto__ property injection
+# - constructor.prototype manipulation
+# - Object.prototype pollution via query string/path
+#
+# Note: More specific detection than API Security rule for dedicated testing
+
+- rule: Prototype Pollution Attack Attempt
+  desc: Detects JavaScript/Node.js prototype pollution attacks targeting object prototype chain
+  condition: >-
+    (
+      nginx.request_uri icontains "__proto__" or
+      nginx.request_uri contains "%5F%5Fproto%5F%5F" or
+      nginx.request_uri icontains "constructor.prototype" or
+      nginx.request_uri contains "constructor%5Bprototype%5D" or
+      nginx.request_uri contains "constructor%2Eprototype" or
+      nginx.request_uri icontains "__proto__[" or
+      nginx.request_uri contains "%5F%5Fproto%5F%5F%5B" or
+      nginx.request_uri icontains "prototype][" or
+      nginx.request_uri contains "prototype%5D%5B" or
+      nginx.request_uri icontains "__proto__.polluted" or
+      nginx.request_uri contains "%5F%5Fproto%5F%5F%2Epolluted"
+    )
+  output: "[NGINX PP] Prototype pollution attack attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
+  priority: WARNING
+  tags: [security, prototype_pollution, javascript, nodejs, phase7]
+  source: nginx
+
+# ====================================
+# HRS_ATK_001: HTTP Request Smuggling Attempt
+# ====================================
+# Detects HTTP Request Smuggling attack signatures including:
+# - CL.TE (Content-Length / Transfer-Encoding) conflicts
+# - TE.CL conflicts
+# - Chunked encoding abuse
+# - Header injection for smuggling
+#
+# Note: nginx access log does not include HTTP headers, so detection is
+# limited to smuggling signatures in query strings and request paths
+
+- rule: HTTP Request Smuggling Attempt
+  desc: Detects HTTP Request Smuggling attack signatures in request
+  condition: >-
+    (
+      nginx.request_uri icontains "Transfer-Encoding" or
+      nginx.request_uri contains "Transfer-Encoding%3A" or
+      nginx.request_uri contains "Transfer%2DEncoding" or
+      nginx.request_uri icontains "Content-Length:" or
+      nginx.request_uri contains "Content-Length%3A" or
+      nginx.request_uri contains "Content%2DLength" or
+      nginx.request_uri contains "chunked" or
+      nginx.request_uri contains "0%0D%0A%0D%0A" or
+      nginx.request_uri contains "0%0d%0a%0d%0a" or
+      nginx.request_uri contains "%0D%0ATransfer-Encoding" or
+      nginx.request_uri contains "%0d%0aTransfer-Encoding" or
+      nginx.request_uri contains "X-Forwarded-Host%3A" or
+      nginx.request_uri contains "X%2DForwarded%2DHost"
+    )
+  output: "[NGINX HRS] HTTP Request Smuggling attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
+  priority: CRITICAL
+  tags: [security, http_smuggling, clte, tecl, phase7]
   source: nginx
