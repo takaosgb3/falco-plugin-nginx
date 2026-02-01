@@ -1,7 +1,7 @@
 {
   "metadata": {
     "category": "path",
-    "total_patterns": 66,
+    "total_patterns": 76,
     "port": 8003,
     "description": "k6 test patterns for path"
   },
@@ -704,42 +704,6 @@
       "rule_mismatch_reason": "Type B->D: %23 (URL-encoded #) matches SQLi comment pattern. Detected as SQLi is acceptable."
     },
     {
-      "id": "PATH_UNI_001",
-      "name": "Unicode encoded slash",
-      "category": "path",
-      "subcategory": "unicode",
-      "payload": "../",
-      "encoded": "..%2F",
-      "port": 8001,
-      "expected_detection": true,
-      "severity": "high",
-      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
-    },
-    {
-      "id": "PATH_UNI_002",
-      "name": "Full unicode dot-dot-slash",
-      "category": "path",
-      "subcategory": "unicode",
-      "payload": "../",
-      "encoded": "..%2F",
-      "port": 8001,
-      "expected_detection": true,
-      "severity": "high",
-      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
-    },
-    {
-      "id": "PATH_UNI_003",
-      "name": "Unicode encoded backslash",
-      "category": "path",
-      "subcategory": "unicode",
-      "payload": "..\\",
-      "encoded": "..%5C",
-      "port": 8001,
-      "expected_detection": true,
-      "severity": "high",
-      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
-    },
-    {
       "id": "PATH_URL_001",
       "name": "URL encoded dot-dot-slash",
       "category": "path",
@@ -798,6 +762,126 @@
       "expected_detection": true,
       "severity": "high",
       "expected_rule": "[NGINX Traversal] File inclusion attack detected"
+    },
+    {
+      "id": "PATH_UNI_001",
+      "name": "Overlong UTF-8 dot encoding",
+      "category": "path",
+      "subcategory": "unicode",
+      "payload": "%c0%ae%c0%ae/%c0%ae%c0%ae/etc/passwd",
+      "encoded": "%25c0%25ae%25c0%25ae%2F%25c0%25ae%25c0%25ae%2Fetc%2Fpasswd",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX Traversal] File inclusion attack detected"
+    },
+    {
+      "id": "PATH_UNI_002",
+      "name": "UTF-8 slash encoding",
+      "category": "path",
+      "subcategory": "unicode",
+      "payload": "..%c0%af..%c0%af..%c0%afetc/passwd",
+      "encoded": "..%25c0%25af..%25c0%25af..%25c0%25afetc%2Fpasswd",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
+    },
+    {
+      "id": "PATH_UNI_003",
+      "name": "Full-width dot traversal",
+      "category": "path",
+      "subcategory": "unicode",
+      "payload": "％２ｅ％２ｅ/etc/passwd",
+      "encoded": "%EF%BC%85%EF%BC%92%EF%BD%85%EF%BC%85%EF%BC%92%EF%BD%85%2Fetc%2Fpasswd",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Traversal] File inclusion attack detected"
+    },
+    {
+      "id": "PATH_UNI_004",
+      "name": "Unicode null byte injection",
+      "category": "path",
+      "subcategory": "unicode",
+      "payload": "../../../etc/passwd%00.jpg",
+      "encoded": "..%2F..%2F..%2Fetc%2Fpasswd%2500.jpg",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
+    },
+    {
+      "id": "PATH_UNI_005",
+      "name": "UTF-16 encoded traversal",
+      "category": "path",
+      "subcategory": "unicode",
+      "payload": "%u002e%u002e%u002f%u002e%u002e%u002fetc/passwd",
+      "encoded": "%25u002e%25u002e%25u002f%25u002e%25u002e%25u002fetc%2Fpasswd",
+      "port": 8003,
+      "expected_detection": false,
+      "severity": "critical",
+      "expected_rule": "[NGINX Traversal] Encoded Path Traversal Attack"
+    },
+    {
+      "id": "PATH_UNI_006",
+      "name": "Double URL encoded traversal",
+      "category": "path",
+      "subcategory": "unicode",
+      "payload": "%252e%252e%252f%252e%252e%252fetc/passwd",
+      "encoded": "%25252e%25252e%25252f%25252e%25252e%25252fetc%2Fpasswd",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX Traversal] Encoded Path Traversal Attack"
+    },
+    {
+      "id": "PATH_UNI_007",
+      "name": "Mixed encoding traversal",
+      "category": "path",
+      "subcategory": "unicode",
+      "payload": "..%2f..%5c..%2fetc/passwd",
+      "encoded": "..%252f..%255c..%252fetc%2Fpasswd",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
+    },
+    {
+      "id": "PATH_UNI_008",
+      "name": "IRI encoded path",
+      "category": "path",
+      "subcategory": "unicode",
+      "payload": "../\u200B../etc/passwd",
+      "encoded": "..%2F%E2%80%8B..%2Fetc%2Fpasswd",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
+    },
+    {
+      "id": "PATH_UNI_009",
+      "name": "Unicode backslash traversal",
+      "category": "path",
+      "subcategory": "unicode",
+      "payload": "..%5c..%5c..%5cetc%5cpasswd",
+      "encoded": "..%255c..%255c..%255cetc%255cpasswd",
+      "port": 8003,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
+    },
+    {
+      "id": "PATH_UNI_010",
+      "name": "Triple URL encoded traversal",
+      "category": "path",
+      "subcategory": "unicode",
+      "payload": "%25252e%25252e%25252f%25252e%25252e%25252fetc/passwd",
+      "encoded": "%2525252e%2525252e%2525252f%2525252e%2525252e%2525252fetc%2Fpasswd",
+      "port": 8003,
+      "expected_detection": false,
+      "severity": "critical",
+      "expected_rule": "[NGINX Traversal] Encoded Path Traversal Attack"
     }
   ]
 }
