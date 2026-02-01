@@ -1,0 +1,3 @@
+Expected Rule: [NGINX SQLi] Advanced SQL Injection Attempt
+Matched Rule: [NGINX SQLi] Advanced SQL Injection Attempt test_id=SQLI_UNION_007-1769913917486-f1iqu pattern_id=SQLI_UNION_007 uri=/?q=%27%20UNION%20SELECT%201%2C2%2C3%20INTO%20OUTFILE%20%27%2Ftmp%2Ftest.txt%27%20-- client=127.0.0.1 method=GET
+Rule Match: ✅ Match

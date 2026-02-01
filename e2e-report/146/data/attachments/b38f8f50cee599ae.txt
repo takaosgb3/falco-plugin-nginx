@@ -1,0 +1,5 @@
+Pattern ID: XSS_DOM_016
+        Status: passed
+        Latency: ~37000ms
+        Detection: 1 / 1
+        Rule: [NGINX XSS] Polyglot XSS Attack test_id=XSS_DOM_016-1769913931515-f1b89a pattern_id=XSS_DOM_016 uri=/?q=onclick%3Dalert%28%27DOM%27%29 client=127.0.0.1 method=GET

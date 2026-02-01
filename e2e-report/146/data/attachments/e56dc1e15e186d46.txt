@@ -1,0 +1,3 @@
+Expected Rule: [NGINX SQLi] Encoded SQL Injection Pattern
+Matched Rule: [NGINX SQLi] Encoded SQL Injection Pattern test_id=SQLI_CASE_001-1769913952577-chmzrc pattern_id=SQLI_CASE_001 uri=/?q='uNiOn%20SeLeCt%20NuLl%2CVeRsIoN()%2CNuLl-- client=127.0.0.1 method=GET
+Rule Match: ✅ Match

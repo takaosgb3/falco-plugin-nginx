@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SQLI_TIME_ADV_002",
+  "test_id": "SQLI_TIME_ADV_002-1769913950572-lhodi",
+  "category": "sqli",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 18000,
+  "evidence": "02:45:50.000000000: Critical [NGINX SQLi] Time-based Blind SQL Injection test_id=SQLI_TIME_ADV_002-1769913950572-lhodi pattern_id=SQLI_TIME_ADV_002 uri=/?q='%20AND%20IF(1%3D1%2CSLEEP(5)%2C0)-- client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Time-based Blind SQL Injection test_id=SQLI_TIME_ADV_002-1769913950572-lhodi pattern_id=SQLI_TIME_ADV_002 uri=/?q='%20AND%20IF(1%3D1%2CSLEEP(5)%2C0)-- client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX SQLi] Time-based Blind SQL Injection",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX SQLi] Time-based Blind SQL Injection test_id=SQLI_TIME_ADV_002-1769913950572-lhodi pattern_id=SQLI_TIME_ADV_002 uri=/?q='%20AND%20IF(1%3D1%2CSLEEP(5)%2C0)-- client=127.0.0.1 method=GET",
+  "sent_at": 1769913968000,
+  "detected_at": 1769913950000,
+  "status": "passed"
+}

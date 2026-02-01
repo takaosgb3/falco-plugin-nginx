@@ -1,0 +1,17 @@
+{
+  "pattern_id": "EMRG_REDIS_001",
+  "test_id": "EMRG_REDIS_001-1769913948949-ghl4gt",
+  "category": "nosql",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 20000,
+  "evidence": "02:45:48.000000000: Critical [NGINX Emerging Threat] Redis command injection test_id=EMRG_REDIS_001-1769913948949-ghl4gt pattern_id=EMRG_REDIS_001 uri=/?q=FLUSHALL client=127.0.0.1",
+  "rule_name": "[NGINX Emerging Threat] Redis command injection test_id=EMRG_REDIS_001-1769913948949-ghl4gt pattern_id=EMRG_REDIS_001 uri=/?q=FLUSHALL client=127.0.0.1",
+  "expected_rule": "[NGINX Emerging Threat] Redis command injection",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Emerging Threat] Redis command injection test_id=EMRG_REDIS_001-1769913948949-ghl4gt pattern_id=EMRG_REDIS_001 uri=/?q=FLUSHALL client=127.0.0.1",
+  "sent_at": 1769913968000,
+  "detected_at": 1769913948000,
+  "status": "passed"
+}

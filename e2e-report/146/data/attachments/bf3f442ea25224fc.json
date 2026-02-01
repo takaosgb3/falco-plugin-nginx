@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SQLI_XML_001",
+  "test_id": "SQLI_XML_001-1769913953579-vmvjo",
+  "category": "sqli",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 15000,
+  "evidence": "02:45:53.000000000: Critical [NGINX SQLi] Error-based SQL Injection test_id=SQLI_XML_001-1769913953579-vmvjo pattern_id=SQLI_XML_001 uri=/?q='%20AND%20EXTRACTVALUE(XMLTYPE('%3Ca%3E'%7C%7C(SELECT%20user%20FROM%20dual)%7C%7C'%3C%2Fa%3E')%2C'%2Fa')%3D'test'-- client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Error-based SQL Injection test_id=SQLI_XML_001-1769913953579-vmvjo pattern_id=SQLI_XML_001 uri=/?q='%20AND%20EXTRACTVALUE(XMLTYPE('%3Ca%3E'%7C%7C(SELECT%20user%20FROM%20dual)%7C%7C'%3C%2Fa%3E')%2C'%2Fa')%3D'test'-- client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX SQLi] Error-based SQL Injection",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX SQLi] Error-based SQL Injection test_id=SQLI_XML_001-1769913953579-vmvjo pattern_id=SQLI_XML_001 uri=/?q='%20AND%20EXTRACTVALUE(XMLTYPE('%3Ca%3E'%7C%7C(SELECT%20user%20FROM%20dual)%7C%7C'%3C%2Fa%3E')%2C'%2Fa')%3D'test'-- client=127.0.0.1 method=GET",
+  "sent_at": 1769913968000,
+  "detected_at": 1769913953000,
+  "status": "passed"
+}

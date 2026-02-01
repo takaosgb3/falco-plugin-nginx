@@ -1,0 +1,17 @@
+{
+  "pattern_id": "XXE_NETDOC_001",
+  "test_id": "XXE_NETDOC_001-1769913926940-1mxd1l",
+  "category": "xxe",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 42000,
+  "evidence": "02:45:26.000000000: Critical [NGINX Traversal] File inclusion attack detected test_id=XXE_NETDOC_001-1769913926940-1mxd1l pattern_id=XXE_NETDOC_001 uri=/?q=%3C%21ENTITY%20xxe%20SYSTEM%20%22netdoc%3A%2F%2F%2Fetc%2Fpasswd%22%3E client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] File inclusion attack detected test_id=XXE_NETDOC_001-1769913926940-1mxd1l pattern_id=XXE_NETDOC_001 uri=/?q=%3C%21ENTITY%20xxe%20SYSTEM%20%22netdoc%3A%2F%2F%2Fetc%2Fpasswd%22%3E client=127.0.0.1",
+  "expected_rule": "[NGINX Traversal] File inclusion attack detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Traversal] File inclusion attack detected test_id=XXE_NETDOC_001-1769913926940-1mxd1l pattern_id=XXE_NETDOC_001 uri=/?q=%3C%21ENTITY%20xxe%20SYSTEM%20%22netdoc%3A%2F%2F%2Fetc%2Fpasswd%22%3E client=127.0.0.1",
+  "sent_at": 1769913968000,
+  "detected_at": 1769913926000,
+  "status": "passed"
+}
