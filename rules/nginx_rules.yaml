@@ -796,6 +796,12 @@
       values:
         - XXE_JAR_001
         - XXE_NETDOC_001
+    # Phase 7: Exclude HTTP Smuggling patterns (Transfer-Encoding triggers SQLi encoded conditions)
+    - name: phase7_http_smuggling_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - HRS_CHUNK_002
   output: "[NGINX SQLi] Advanced SQL Injection Attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: WARNING
   tags: [security, sql_injection, advanced_sqli, enumeration, phase3]
@@ -1134,6 +1140,13 @@
       comps: in
       values:
         - NOSQL_REDIS_001
+    # Phase 7: Exclude Prototype Pollution patterns (constructor.prototype triggers XSS condition)
+    - name: phase7_prototype_pollution_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - PP_CONSTR_001
+        - PP_CONSTR_002
   output: "[NGINX XSS] Advanced XSS Attack Attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: WARNING
   tags: [security, xss, advanced_xss, event_handlers, phase3]
@@ -1183,6 +1196,12 @@
       comps: in
       values:
         - LDAP_BLIND_005
+    # Phase 7: Exclude HTTP Smuggling patterns (tab character triggers XSS bypass conditions)
+    - name: phase7_http_smuggling_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - HRS_OBFUSC_001
   output: "[NGINX XSS] XSS Filter Bypass Attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: WARNING
   tags: [security, xss, filter_bypass, advanced_xss, phase3]
@@ -1717,6 +1736,16 @@
   priority: WARNING
   tags: [security, command_injection, advanced_cmdi, phase3]
   source: nginx
+  exceptions:
+    # Phase 7: Exclude HTTP Smuggling patterns (CRLF injection triggers CMDi conditions)
+    - name: phase7_http_smuggling_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - HRS_CL_TE_002
+        - HRS_TE_CL_001
+        - HRS_TE_CL_002
+        - HRS_HEADER_002
 
 # ==============================================================================
 # Emerging Threats Detection Rules (from advanced_emerging_enhanced.yaml)
@@ -1983,6 +2012,12 @@
       comps: in
       values:
         - API_PROTO_001
+    # Phase 7: Exclude Prototype Pollution JSON patterns
+    - name: phase7_prototype_pollution_json
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - PP_JSON_001
   output: "[NGINX Emerging Threat] Template injection test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: CRITICAL
   tags: [security, emerging_threats, ssti, template_injection, phase5]
@@ -2328,6 +2363,18 @@
   priority: WARNING
   tags: [security, api_security, bola, jwt, mass_assignment, prototype_pollution, phase4]
   source: nginx
+  exceptions:
+    - name: phase7_prototype_pollution_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - PP_BASIC_001
+        - PP_BASIC_002
+        - PP_BASIC_003
+        - PP_NESTED_001
+        - PP_NESTED_002
+        - PP_BYPASS_001
+        - PP_BYPASS_002
 
 # ==============================================================================
 # Phase 5 New Rules: Pickle Deserialization (Issue #64)
