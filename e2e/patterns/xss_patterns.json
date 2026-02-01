@@ -1,7 +1,7 @@
 {
   "metadata": {
     "category": "xss",
-    "total_patterns": 76,
+    "total_patterns": 86,
     "port": 8002,
     "description": "k6 test patterns for xss"
   },
@@ -917,6 +917,126 @@
       "expected_detection": true,
       "severity": "high",
       "expected_rule": "[NGINX XSS] XSS Filter Bypass Attempt"
+    },
+    {
+      "id": "XSS_MUT_001",
+      "name": "SVG onload XSS",
+      "category": "xss",
+      "subcategory": "mutation",
+      "payload": "<svg onload=alert('XSS')>",
+      "encoded": "%3Csvg%20onload%3Dalert('XSS')%3E",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
+    },
+    {
+      "id": "XSS_MUT_002",
+      "name": "SVG animate XSS",
+      "category": "xss",
+      "subcategory": "mutation",
+      "payload": "<svg><animate onbegin=alert('XSS')>",
+      "encoded": "%3Csvg%3E%3Canimate%20onbegin%3Dalert('XSS')%3E",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
+    },
+    {
+      "id": "XSS_MUT_003",
+      "name": "MathML XSS",
+      "category": "xss",
+      "subcategory": "mutation",
+      "payload": "<math><maction actiontype=statusline#http://evil>XSS</maction></math>",
+      "encoded": "%3Cmath%3E%3Cmaction%20actiontype%3Dstatusline%23http%3A%2F%2Fevil%3EXSS%3C%2Fmaction%3E%3C%2Fmath%3E",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] Advanced XSS Attack Attempt"
+    },
+    {
+      "id": "XSS_MUT_004",
+      "name": "Data URI script XSS",
+      "category": "xss",
+      "subcategory": "mutation",
+      "payload": "<a href=data:text/html,<script>alert('XSS')</script>>click</a>",
+      "encoded": "%3Ca%20href%3Ddata%3Atext%2Fhtml%2C%3Cscript%3Ealert('XSS')%3C%2Fscript%3E%3Eclick%3C%2Fa%3E",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] Advanced XSS Attack Attempt"
+    },
+    {
+      "id": "XSS_MUT_005",
+      "name": "Template literal injection",
+      "category": "xss",
+      "subcategory": "mutation",
+      "payload": "${alert('XSS')}",
+      "encoded": "%24%7Balert('XSS')%7D",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
+    },
+    {
+      "id": "XSS_MUT_006",
+      "name": "Details tag XSS",
+      "category": "xss",
+      "subcategory": "mutation",
+      "payload": "<details open ontoggle=alert('XSS')>",
+      "encoded": "%3Cdetails%20open%20ontoggle%3Dalert('XSS')%3E",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
+    },
+    {
+      "id": "XSS_MUT_007",
+      "name": "Marquee tag XSS",
+      "category": "xss",
+      "subcategory": "mutation",
+      "payload": "<marquee onstart=alert('XSS')>",
+      "encoded": "%3Cmarquee%20onstart%3Dalert('XSS')%3E",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
+    },
+    {
+      "id": "XSS_MUT_008",
+      "name": "Video tag XSS",
+      "category": "xss",
+      "subcategory": "mutation",
+      "payload": "<video src=x onerror=alert('XSS')>",
+      "encoded": "%3Cvideo%20src%3Dx%20onerror%3Dalert('XSS')%3E",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
+    },
+    {
+      "id": "XSS_MUT_009",
+      "name": "Object tag XSS",
+      "category": "xss",
+      "subcategory": "mutation",
+      "payload": "<object data=javascript:alert('XSS')>",
+      "encoded": "%3Cobject%20data%3Djavascript%3Aalert('XSS')%3E",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
+    },
+    {
+      "id": "XSS_MUT_010",
+      "name": "Iframe srcdoc XSS",
+      "category": "xss",
+      "subcategory": "mutation",
+      "payload": "<iframe srcdoc='<script>alert(1)</script>'>",
+      "encoded": "%3Ciframe%20srcdoc%3D'%3Cscript%3Ealert(1)%3C%2Fscript%3E'%3E",
+      "port": 8002,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
     }
   ]
 }
