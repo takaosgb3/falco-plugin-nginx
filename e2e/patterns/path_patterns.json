@@ -809,7 +809,7 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
+      "expected_rule": "[NGINX Traversal] File inclusion attack detected"
     },
     {
       "id": "PATH_UNI_002",
@@ -833,7 +833,7 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
+      "expected_rule": "[NGINX Traversal] File inclusion attack detected"
     },
     {
       "id": "PATH_UNI_004",

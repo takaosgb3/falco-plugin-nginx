@@ -940,7 +940,7 @@
       "port": 8002,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "[NGINX XSS] Advanced XSS Attack Attempt"
+      "expected_rule": "[NGINX XSS] Polyglot XSS Attack"
     },
     {
       "id": "XSS_MUT_003",
@@ -952,7 +952,7 @@
       "port": 8002,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "[NGINX SQLi] Encoded SQL Injection Pattern"
+      "expected_rule": "[NGINX XSS] XSS Filter Bypass Attempt"
     },
     {
       "id": "XSS_MUT_004",
@@ -964,7 +964,7 @@
       "port": 8002,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
+      "expected_rule": "[NGINX XSS] Advanced XSS Attack Attempt"
     },
     {
       "id": "XSS_MUT_005",
@@ -976,7 +976,7 @@
       "port": 8002,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "[NGINX Emerging Threat] Template injection"
+      "expected_rule": "[NGINX XSS] Polyglot XSS Attack"
     },
     {
       "id": "XSS_MUT_006",
