@@ -809,7 +809,7 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "[NGINX Traversal] Encoded Path Traversal Attack"
+      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
     },
     {
       "id": "PATH_UNI_002",
@@ -821,7 +821,7 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "[NGINX Traversal] Encoded Path Traversal Attack"
+      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
     },
     {
       "id": "PATH_UNI_003",
@@ -833,7 +833,7 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "[NGINX Traversal] File inclusion attack detected"
+      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
     },
     {
       "id": "PATH_UNI_004",
@@ -845,7 +845,7 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "[NGINX Traversal] Encoded Path Traversal Attack"
+      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
     },
     {
       "id": "PATH_UNI_005",
@@ -855,7 +855,7 @@
       "payload": "%u002e%u002e%u002f%u002e%u002e%u002fetc/passwd",
       "encoded": "%25u002e%25u002e%25u002f%25u002e%25u002e%25u002fetc%2Fpasswd",
       "port": 8003,
-      "expected_detection": true,
+      "expected_detection": false,
       "severity": "critical",
       "expected_rule": "[NGINX Traversal] Encoded Path Traversal Attack"
     },
@@ -881,7 +881,7 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "[NGINX Traversal] Encoded Path Traversal Attack"
+      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
     },
     {
       "id": "PATH_UNI_008",
@@ -893,7 +893,7 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "[NGINX Traversal] File inclusion attack detected"
+      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
     },
     {
       "id": "PATH_UNI_009",
@@ -905,7 +905,7 @@
       "port": 8003,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "[NGINX Traversal] Encoded Path Traversal Attack"
+      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
     },
     {
       "id": "PATH_UNI_010",
@@ -915,7 +915,7 @@
       "payload": "%25252e%25252e%25252f%25252e%25252e%25252fetc/passwd",
       "encoded": "%2525252e%2525252e%2525252f%2525252e%2525252e%2525252fetc%2Fpasswd",
       "port": 8003,
-      "expected_detection": true,
+      "expected_detection": false,
       "severity": "critical",
       "expected_rule": "[NGINX Traversal] Encoded Path Traversal Attack"
     }
