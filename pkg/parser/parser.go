@@ -164,26 +164,7 @@ func New(cfg Config) *Parser {
 // NewParser creates a new log parser with the specified format.
 // Deprecated: Use New with a Config struct instead.
 // This function is kept for backward compatibility.
-//
-// Valid formats are: "combined", "common", "custom"
-// For "custom" format, customFormat must be provided.
-// Returns an error for invalid format names.
 func NewParser(format string, customFormat string) (*Parser, error) {
-	// Validate format
-	validFormats := map[string]bool{
-		"combined": true,
-		"common":   true,
-		"custom":   true,
-	}
-	if !validFormats[format] {
-		return nil, fmt.Errorf("invalid log format: %q (valid formats: combined, common, custom)", format)
-	}
-
-	// For custom format, customFormat must be provided
-	if format == "custom" && customFormat == "" {
-		return nil, fmt.Errorf("custom format requires a customFormat string")
-	}
-
 	cfg := Config{
 		LogFormat:              format,
 		CustomFormat:           customFormat,
