@@ -2358,3 +2358,73 @@
   priority: CRITICAL
   tags: [security, pickle, deserialization, rce, python, phase5]
   source: nginx
+
+# ==============================================================================
+# Phase 7 New Rules: Prototype Pollution & HTTP Request Smuggling
+# ==============================================================================
+
+# ====================================
+# PP_ATK_001: Prototype Pollution Attack Attempt
+# ====================================
+# Detects JavaScript/Node.js prototype pollution attacks including:
+# - __proto__ property injection
+# - constructor.prototype manipulation
+# - Object.prototype pollution via query string/path
+#
+# Note: More specific detection than API Security rule for dedicated testing
+
+- rule: Prototype Pollution Attack Attempt
+  desc: Detects JavaScript/Node.js prototype pollution attacks targeting object prototype chain
+  condition: >-
+    (
+      nginx.request_uri icontains "__proto__" or
+      nginx.request_uri contains "%5F%5Fproto%5F%5F" or
+      nginx.request_uri icontains "constructor.prototype" or
+      nginx.request_uri contains "constructor%5Bprototype%5D" or
+      nginx.request_uri contains "constructor%2Eprototype" or
+      nginx.request_uri icontains "__proto__[" or
+      nginx.request_uri contains "%5F%5Fproto%5F%5F%5B" or
+      nginx.request_uri icontains "prototype][" or
+      nginx.request_uri contains "prototype%5D%5B" or
+      nginx.request_uri icontains "__proto__.polluted" or
+      nginx.request_uri contains "%5F%5Fproto%5F%5F%2Epolluted"
+    )
+  output: "[NGINX PP] Prototype pollution attack attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
+  priority: WARNING
+  tags: [security, prototype_pollution, javascript, nodejs, phase7]
+  source: nginx
+
+# ====================================
+# HRS_ATK_001: HTTP Request Smuggling Attempt
+# ====================================
+# Detects HTTP Request Smuggling attack signatures including:
+# - CL.TE (Content-Length / Transfer-Encoding) conflicts
+# - TE.CL conflicts
+# - Chunked encoding abuse
+# - Header injection for smuggling
+#
+# Note: nginx access log does not include HTTP headers, so detection is
+# limited to smuggling signatures in query strings and request paths
+
+- rule: HTTP Request Smuggling Attempt
+  desc: Detects HTTP Request Smuggling attack signatures in request
+  condition: >-
+    (
+      nginx.request_uri icontains "Transfer-Encoding" or
+      nginx.request_uri contains "Transfer-Encoding%3A" or
+      nginx.request_uri contains "Transfer%2DEncoding" or
+      nginx.request_uri icontains "Content-Length:" or
+      nginx.request_uri contains "Content-Length%3A" or
+      nginx.request_uri contains "Content%2DLength" or
+      nginx.request_uri contains "chunked" or
+      nginx.request_uri contains "0%0D%0A%0D%0A" or
+      nginx.request_uri contains "0%0d%0a%0d%0a" or
+      nginx.request_uri contains "%0D%0ATransfer-Encoding" or
+      nginx.request_uri contains "%0d%0aTransfer-Encoding" or
+      nginx.request_uri contains "X-Forwarded-Host%3A" or
+      nginx.request_uri contains "X%2DForwarded%2DHost"
+    )
+  output: "[NGINX HRS] HTTP Request Smuggling attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
+  priority: CRITICAL
+  tags: [security, http_smuggling, clte, tecl, phase7]
+  source: nginx

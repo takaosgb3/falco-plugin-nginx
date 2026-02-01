@@ -1,0 +1,140 @@
+{
+  "metadata": {
+    "category": "http_smuggling",
+    "total_patterns": 10,
+    "port": 8015,
+    "description": "k6 test patterns for HTTP Request Smuggling attacks (Phase 7)"
+  },
+  "patterns": [
+    {
+      "id": "HRS_CL_TE_001",
+      "name": "CL.TE Basic Smuggling",
+      "category": "http_smuggling",
+      "subcategory": "cl_te",
+      "payload": "Transfer-Encoding: chunked",
+      "encoded": "Transfer-Encoding%3A%20chunked",
+      "port": 8015,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX HRS] HTTP Request Smuggling attempt",
+      "description": "Content-Length / Transfer-Encoding conflict (CL.TE)"
+    },
+    {
+      "id": "HRS_CL_TE_002",
+      "name": "CL.TE with CRLF Injection",
+      "category": "http_smuggling",
+      "subcategory": "cl_te",
+      "payload": "x\r\nTransfer-Encoding: chunked",
+      "encoded": "x%0D%0ATransfer-Encoding%3A%20chunked",
+      "port": 8015,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX HRS] HTTP Request Smuggling attempt",
+      "description": "CL.TE smuggling with CRLF header injection"
+    },
+    {
+      "id": "HRS_TE_CL_001",
+      "name": "TE.CL Basic Smuggling",
+      "category": "http_smuggling",
+      "subcategory": "te_cl",
+      "payload": "Content-Length: 0\r\n\r\n",
+      "encoded": "Content-Length%3A%200%0D%0A%0D%0A",
+      "port": 8015,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX HRS] HTTP Request Smuggling attempt",
+      "description": "Transfer-Encoding / Content-Length conflict (TE.CL)"
+    },
+    {
+      "id": "HRS_TE_CL_002",
+      "name": "TE.CL with Zero Chunk",
+      "category": "http_smuggling",
+      "subcategory": "te_cl",
+      "payload": "0\r\n\r\nSMUGGLED",
+      "encoded": "0%0D%0A%0D%0ASMUGGLED",
+      "port": 8015,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX HRS] HTTP Request Smuggling attempt",
+      "description": "TE.CL smuggling with zero chunk terminator"
+    },
+    {
+      "id": "HRS_CHUNK_001",
+      "name": "Chunked Encoding Abuse",
+      "category": "http_smuggling",
+      "subcategory": "chunked",
+      "payload": "chunked, identity",
+      "encoded": "chunked%2C%20identity",
+      "port": 8015,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX HRS] HTTP Request Smuggling attempt",
+      "description": "Chunked encoding with multiple transfer codings"
+    },
+    {
+      "id": "HRS_CHUNK_002",
+      "name": "Obfuscated Chunked",
+      "category": "http_smuggling",
+      "subcategory": "chunked",
+      "payload": "Transfer-Encoding: xchunked",
+      "encoded": "Transfer-Encoding%3A%20xchunked",
+      "port": 8015,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX HRS] HTTP Request Smuggling attempt",
+      "description": "Obfuscated chunked transfer encoding"
+    },
+    {
+      "id": "HRS_HEADER_001",
+      "name": "X-Forwarded-Host Injection",
+      "category": "http_smuggling",
+      "subcategory": "header_injection",
+      "payload": "X-Forwarded-Host: evil.com",
+      "encoded": "X-Forwarded-Host%3A%20evil.com",
+      "port": 8015,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX HRS] HTTP Request Smuggling attempt",
+      "description": "X-Forwarded-Host header injection for cache poisoning"
+    },
+    {
+      "id": "HRS_HEADER_002",
+      "name": "Double Content-Length",
+      "category": "http_smuggling",
+      "subcategory": "header_injection",
+      "payload": "Content-Length: 10\r\nContent-Length: 0",
+      "encoded": "Content-Length%3A%2010%0D%0AContent-Length%3A%200",
+      "port": 8015,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX HRS] HTTP Request Smuggling attempt",
+      "description": "Double Content-Length header smuggling"
+    },
+    {
+      "id": "HRS_OBFUSC_001",
+      "name": "Tab-Obfuscated Transfer-Encoding",
+      "category": "http_smuggling",
+      "subcategory": "obfuscation",
+      "payload": "Transfer-Encoding:\tchunked",
+      "encoded": "Transfer-Encoding%3A%09chunked",
+      "port": 8015,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX HRS] HTTP Request Smuggling attempt",
+      "description": "Transfer-Encoding with tab obfuscation"
+    },
+    {
+      "id": "HRS_OBFUSC_002",
+      "name": "URL Encoded Transfer-Encoding",
+      "category": "http_smuggling",
+      "subcategory": "obfuscation",
+      "payload": "Transfer%2DEncoding: chunked",
+      "encoded": "Transfer%252DEncoding%3A%20chunked",
+      "port": 8015,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX HRS] HTTP Request Smuggling attempt",
+      "description": "Double URL-encoded Transfer-Encoding header"
+    }
+  ]
+}

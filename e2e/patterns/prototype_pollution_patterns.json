@@ -1,0 +1,140 @@
+{
+  "metadata": {
+    "category": "prototype_pollution",
+    "total_patterns": 10,
+    "port": 8014,
+    "description": "k6 test patterns for Prototype Pollution attacks (Phase 7)"
+  },
+  "patterns": [
+    {
+      "id": "PP_BASIC_001",
+      "name": "Basic __proto__ Pollution",
+      "category": "prototype_pollution",
+      "subcategory": "basic",
+      "payload": "?__proto__[polluted]=true",
+      "encoded": "%3F__proto__%5Bpolluted%5D%3Dtrue",
+      "port": 8014,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX PP] Prototype pollution attack attempt",
+      "description": "Basic prototype pollution via __proto__ property"
+    },
+    {
+      "id": "PP_BASIC_002",
+      "name": "__proto__ with isAdmin",
+      "category": "prototype_pollution",
+      "subcategory": "basic",
+      "payload": "?__proto__[isAdmin]=true",
+      "encoded": "%3F__proto__%5BisAdmin%5D%3Dtrue",
+      "port": 8014,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX PP] Prototype pollution attack attempt",
+      "description": "Prototype pollution attempting to set isAdmin property"
+    },
+    {
+      "id": "PP_BASIC_003",
+      "name": "__proto__ with role escalation",
+      "category": "prototype_pollution",
+      "subcategory": "basic",
+      "payload": "?__proto__[role]=admin",
+      "encoded": "%3F__proto__%5Brole%5D%3Dadmin",
+      "port": 8014,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX PP] Prototype pollution attack attempt",
+      "description": "Prototype pollution attempting role escalation"
+    },
+    {
+      "id": "PP_CONSTR_001",
+      "name": "Constructor.prototype Pollution",
+      "category": "prototype_pollution",
+      "subcategory": "constructor",
+      "payload": "?constructor[prototype][polluted]=true",
+      "encoded": "%3Fconstructor%5Bprototype%5D%5Bpolluted%5D%3Dtrue",
+      "port": 8014,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX PP] Prototype pollution attack attempt",
+      "description": "Prototype pollution via constructor.prototype"
+    },
+    {
+      "id": "PP_CONSTR_002",
+      "name": "Constructor.prototype with isAdmin",
+      "category": "prototype_pollution",
+      "subcategory": "constructor",
+      "payload": "?constructor.prototype.isAdmin=true",
+      "encoded": "%3Fconstructor.prototype.isAdmin%3Dtrue",
+      "port": 8014,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX PP] Prototype pollution attack attempt",
+      "description": "Prototype pollution via constructor.prototype targeting isAdmin"
+    },
+    {
+      "id": "PP_NESTED_001",
+      "name": "Nested __proto__ Pollution",
+      "category": "prototype_pollution",
+      "subcategory": "nested",
+      "payload": "?a[__proto__][b]=polluted",
+      "encoded": "%3Fa%5B__proto__%5D%5Bb%5D%3Dpolluted",
+      "port": 8014,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX PP] Prototype pollution attack attempt",
+      "description": "Nested prototype pollution attack"
+    },
+    {
+      "id": "PP_NESTED_002",
+      "name": "Deep Nested __proto__",
+      "category": "prototype_pollution",
+      "subcategory": "nested",
+      "payload": "?obj[__proto__][__proto__][polluted]=true",
+      "encoded": "%3Fobj%5B__proto__%5D%5B__proto__%5D%5Bpolluted%5D%3Dtrue",
+      "port": 8014,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX PP] Prototype pollution attack attempt",
+      "description": "Deep nested prototype pollution via multiple __proto__"
+    },
+    {
+      "id": "PP_JSON_001",
+      "name": "JSON __proto__ Pollution",
+      "category": "prototype_pollution",
+      "subcategory": "json",
+      "payload": "{\"__proto__\":{\"polluted\":true}}",
+      "encoded": "%7B%22__proto__%22%3A%7B%22polluted%22%3Atrue%7D%7D",
+      "port": 8014,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX PP] Prototype pollution attack attempt",
+      "description": "JSON-based prototype pollution"
+    },
+    {
+      "id": "PP_BYPASS_001",
+      "name": "__proto__ URL Encoded Bypass",
+      "category": "prototype_pollution",
+      "subcategory": "bypass",
+      "payload": "?%5F%5Fproto%5F%5F%5Bpolluted%5D=true",
+      "encoded": "%3F%5F%5Fproto%5F%5F%5Bpolluted%5D%3Dtrue",
+      "port": 8014,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX PP] Prototype pollution attack attempt",
+      "description": "URL-encoded __proto__ bypass attempt"
+    },
+    {
+      "id": "PP_BYPASS_002",
+      "name": "__proto__.polluted Direct Access",
+      "category": "prototype_pollution",
+      "subcategory": "bypass",
+      "payload": "?__proto__.polluted=true",
+      "encoded": "%3F__proto__.polluted%3Dtrue",
+      "port": 8014,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX PP] Prototype pollution attack attempt",
+      "description": "Direct __proto__.polluted property access"
+    }
+  ]
+}
