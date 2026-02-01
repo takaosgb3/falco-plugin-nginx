@@ -704,42 +704,6 @@
       "rule_mismatch_reason": "Type B->D: %23 (URL-encoded #) matches SQLi comment pattern. Detected as SQLi is acceptable."
     },
     {
-      "id": "PATH_UNI_001",
-      "name": "Unicode encoded slash",
-      "category": "path",
-      "subcategory": "unicode",
-      "payload": "../",
-      "encoded": "..%2F",
-      "port": 8001,
-      "expected_detection": true,
-      "severity": "high",
-      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
-    },
-    {
-      "id": "PATH_UNI_002",
-      "name": "Full unicode dot-dot-slash",
-      "category": "path",
-      "subcategory": "unicode",
-      "payload": "../",
-      "encoded": "..%2F",
-      "port": 8001,
-      "expected_detection": true,
-      "severity": "high",
-      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
-    },
-    {
-      "id": "PATH_UNI_003",
-      "name": "Unicode encoded backslash",
-      "category": "path",
-      "subcategory": "unicode",
-      "payload": "..\\",
-      "encoded": "..%5C",
-      "port": 8001,
-      "expected_detection": true,
-      "severity": "high",
-      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
-    },
-    {
       "id": "PATH_URL_001",
       "name": "URL encoded dot-dot-slash",
       "category": "path",
