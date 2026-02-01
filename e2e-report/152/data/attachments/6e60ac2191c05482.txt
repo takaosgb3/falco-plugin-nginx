@@ -1,0 +1,5 @@
+Pattern ID: SQLI_2ND_003
+        Status: passed
+        Latency: ~36000ms
+        Detection: 1 / 1
+        Rule: [NGINX SQLi] Advanced SQL Injection Attempt test_id=SQLI_2ND_003-1769916571250-e02cij pattern_id=SQLI_2ND_003 uri=/?q='%3B%20DROP%20TABLE%20logs%3B%20-- client=127.0.0.1 method=GET

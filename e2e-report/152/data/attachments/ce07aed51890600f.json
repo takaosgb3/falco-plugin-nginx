@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SQLI_UNION_001",
+  "test_id": "SQLI_UNION_001-1769916545188-6bmtc",
+  "category": "sqli",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 86338000,
+  "evidence": "03:29:05.000000000: Warning [NGINX SQLi] Advanced SQL Injection Attempt test_id=SQLI_UNION_001-1769916545188-6bmtc pattern_id=SQLI_UNION_001 uri=/?q=UNION%20SELECT%20NULL client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Advanced SQL Injection Attempt test_id=SQLI_UNION_001-1769916545188-6bmtc pattern_id=SQLI_UNION_001 uri=/?q=UNION%20SELECT%20NULL client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX SQLi] Advanced SQL Injection Attempt test_id=SQLI_UNION_001-1769916545188-6bmtc pattern_id=SQLI_UNION_001 uri=/?q=UNION%20SELECT%20NULL client=127.0.0.1 method=GET",
+  "sent_at": 1769916607000,
+  "detected_at": 1769916545000,
+  "status": "passed"
+}

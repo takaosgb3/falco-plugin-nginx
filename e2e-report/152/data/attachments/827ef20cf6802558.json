@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SQLI_OOB_002",
+  "test_id": "SQLI_OOB_002-1769916587790-shjukb",
+  "category": "sqli",
+  "detected": false,
+  "expected_detection": false,
+  "latency_ms": null,
+  "evidence": "",
+  "rule_name": "",
+  "expected_rule": "",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": null,
+  "sent_at": 1769916607000,
+  "detected_at": null,
+  "status": "passed"
+}

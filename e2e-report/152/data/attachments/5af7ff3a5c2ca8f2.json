@@ -1,0 +1,17 @@
+{
+  "pattern_id": "CMD_BLIND_002",
+  "test_id": "CMD_BLIND_002-1769916560694-40k9j",
+  "category": "cmdinj",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 47000,
+  "evidence": "03:29:20.000000000: Warning [NGINX CMDi] Advanced command injection attempt test_id=CMD_BLIND_002-1769916560694-40k9j pattern_id=CMD_BLIND_002 uri=/?q=%26%26%20ping%20-c%2010%20127.0.0.1 client=127.0.0.1",
+  "rule_name": "[NGINX CMDi] Advanced command injection attempt test_id=CMD_BLIND_002-1769916560694-40k9j pattern_id=CMD_BLIND_002 uri=/?q=%26%26%20ping%20-c%2010%20127.0.0.1 client=127.0.0.1",
+  "expected_rule": "[NGINX CMDi] Advanced command injection attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX CMDi] Advanced command injection attempt test_id=CMD_BLIND_002-1769916560694-40k9j pattern_id=CMD_BLIND_002 uri=/?q=%26%26%20ping%20-c%2010%20127.0.0.1 client=127.0.0.1",
+  "sent_at": 1769916607000,
+  "detected_at": 1769916560000,
+  "status": "passed"
+}

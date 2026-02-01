@@ -1,0 +1,17 @@
+{
+  "pattern_id": "EMRG_REDIS_002",
+  "test_id": "EMRG_REDIS_002-1769916588676-9qckmd",
+  "category": "nosql",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 19000,
+  "evidence": "03:29:48.000000000: Critical [NGINX Emerging Threat] Redis command injection test_id=EMRG_REDIS_002-1769916588676-9qckmd pattern_id=EMRG_REDIS_002 uri=/?q=CONFIG%20GET%20%2A client=127.0.0.1",
+  "rule_name": "[NGINX Emerging Threat] Redis command injection test_id=EMRG_REDIS_002-1769916588676-9qckmd pattern_id=EMRG_REDIS_002 uri=/?q=CONFIG%20GET%20%2A client=127.0.0.1",
+  "expected_rule": "[NGINX Emerging Threat] Redis command injection",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Emerging Threat] Redis command injection test_id=EMRG_REDIS_002-1769916588676-9qckmd pattern_id=EMRG_REDIS_002 uri=/?q=CONFIG%20GET%20%2A client=127.0.0.1",
+  "sent_at": 1769916607000,
+  "detected_at": 1769916588000,
+  "status": "passed"
+}

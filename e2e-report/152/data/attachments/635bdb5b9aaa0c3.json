@@ -1,0 +1,17 @@
+{
+  "pattern_id": "PATH_ADV_056",
+  "test_id": "PATH_ADV_056-1769916570225-pahzr",
+  "category": "path",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 37000,
+  "evidence": "03:29:30.000000000: Critical [NGINX Traversal] Basic path traversal attack detected test_id=PATH_ADV_056-1769916570225-pahzr pattern_id=PATH_ADV_056 uri=/?q=..%5C..%5Cetc%5Cpasswd client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] Basic path traversal attack detected test_id=PATH_ADV_056-1769916570225-pahzr pattern_id=PATH_ADV_056 uri=/?q=..%5C..%5Cetc%5Cpasswd client=127.0.0.1",
+  "expected_rule": "[NGINX Traversal] Basic path traversal attack detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Traversal] Basic path traversal attack detected test_id=PATH_ADV_056-1769916570225-pahzr pattern_id=PATH_ADV_056 uri=/?q=..%5C..%5Cetc%5Cpasswd client=127.0.0.1",
+  "sent_at": 1769916607000,
+  "detected_at": 1769916570000,
+  "status": "passed"
+}

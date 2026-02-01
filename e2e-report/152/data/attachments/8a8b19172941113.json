@@ -1,0 +1,17 @@
+{
+  "pattern_id": "HRS_HEADER_001",
+  "test_id": "HRS_HEADER_001-1769916605667-wf9awm",
+  "category": "http_smuggling",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 2000,
+  "evidence": "03:30:05.000000000: Critical [NGINX HRS] HTTP Request Smuggling attempt test_id=HRS_HEADER_001-1769916605667-wf9awm pattern_id=HRS_HEADER_001 uri=/?q=X-Forwarded-Host%3A%20evil.com client=127.0.0.1",
+  "rule_name": "[NGINX HRS] HTTP Request Smuggling attempt test_id=HRS_HEADER_001-1769916605667-wf9awm pattern_id=HRS_HEADER_001 uri=/?q=X-Forwarded-Host%3A%20evil.com client=127.0.0.1",
+  "expected_rule": "[NGINX HRS] HTTP Request Smuggling attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX HRS] HTTP Request Smuggling attempt test_id=HRS_HEADER_001-1769916605667-wf9awm pattern_id=HRS_HEADER_001 uri=/?q=X-Forwarded-Host%3A%20evil.com client=127.0.0.1",
+  "sent_at": 1769916607000,
+  "detected_at": 1769916605000,
+  "status": "passed"
+}

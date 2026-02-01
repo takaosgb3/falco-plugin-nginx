@@ -1,0 +1,5 @@
+Pattern ID: OTHER_REDIS_001
+        Status: passed
+        Latency: ~52000ms
+        Detection: 1 / 1
+        Rule: [NGINX Emerging Threat] Redis command injection test_id=OTHER_REDIS_001-1769916555669-7gzkd8 pattern_id=OTHER_REDIS_001 uri=/?q=FLUSHALL client=127.0.0.1

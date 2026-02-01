@@ -1,0 +1,3 @@
+Expected Rule: [NGINX SQLi] Time-based Blind SQL Injection
+Matched Rule: [NGINX SQLi] Time-based Blind SQL Injection test_id=SQLI_POLY_003-1769916580271-xwu428 pattern_id=SQLI_POLY_003 uri=/?q=1%27%3BWAITFOR%20DELAY%20%270%3A0%3A30%27-- client=127.0.0.1 method=GET
+Rule Match: ✅ Match
