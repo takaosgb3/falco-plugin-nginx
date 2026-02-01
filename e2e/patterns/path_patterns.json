@@ -888,7 +888,7 @@
       "name": "IRI encoded path",
       "category": "path",
       "subcategory": "unicode",
-      "payload": "../\xe2\x80\x8b../etc/passwd",
+      "payload": "../\u200B../etc/passwd",
       "encoded": "..%2F%E2%80%8B..%2Fetc%2Fpasswd",
       "port": 8003,
       "expected_detection": true,
