@@ -2088,6 +2088,12 @@
       comps: in
       values:
         - API_PROTO_001
+    # Phase 7: Exclude Prototype Pollution JSON patterns
+    - name: phase7_prototype_pollution_json
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - PP_JSON_001
   source: nginx
 
 # =========================================================================
@@ -2371,6 +2377,7 @@
         - PP_BASIC_001
         - PP_BASIC_002
         - PP_BASIC_003
+        - PP_CONSTR_002
         - PP_NESTED_001
         - PP_NESTED_002
         - PP_BYPASS_001
