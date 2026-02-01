@@ -2380,6 +2380,7 @@
         - PP_CONSTR_002
         - PP_NESTED_001
         - PP_NESTED_002
+        - PP_JSON_001
         - PP_BYPASS_001
         - PP_BYPASS_002
 
