@@ -1,0 +1,5 @@
+Pattern ID: PATH_DOT_001
+        Status: passed
+        Latency: ~63000ms
+        Detection: 1 / 1
+        Rule: [NGINX Traversal] Basic path traversal attack detected test_id=PATH_DOT_001-1769917224551-00jpru pattern_id=PATH_DOT_001 uri=/?q=../etc/passwd client=127.0.0.1

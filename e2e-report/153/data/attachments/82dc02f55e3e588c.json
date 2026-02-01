@@ -1,0 +1,17 @@
+{
+  "pattern_id": "CMD_BASH_001",
+  "test_id": "CMD_BASH_001-1769917237565-fwe6ys",
+  "category": "cmdinj",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 50000,
+  "evidence": "03:40:37.000000000: Warning [NGINX CMDi] Advanced command injection attempt test_id=CMD_BASH_001-1769917237565-fwe6ys pattern_id=CMD_BASH_001 uri=/?q=%3B%20%2Fbin%2Fbash%20-c%20'whoami' client=127.0.0.1",
+  "rule_name": "[NGINX CMDi] Advanced command injection attempt test_id=CMD_BASH_001-1769917237565-fwe6ys pattern_id=CMD_BASH_001 uri=/?q=%3B%20%2Fbin%2Fbash%20-c%20'whoami' client=127.0.0.1",
+  "expected_rule": "[NGINX CMDi] Advanced command injection attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX CMDi] Advanced command injection attempt test_id=CMD_BASH_001-1769917237565-fwe6ys pattern_id=CMD_BASH_001 uri=/?q=%3B%20%2Fbin%2Fbash%20-c%20'whoami' client=127.0.0.1",
+  "sent_at": 1769917287000,
+  "detected_at": 1769917237000,
+  "status": "passed"
+}

@@ -1,0 +1,5 @@
+Pattern ID: XSS_MUT_009
+        Status: passed
+        Latency: ~31000ms
+        Detection: 1 / 1
+        Rule: [NGINX XSS] DOM-based XSS Attack test_id=XSS_MUT_009-1769917256630-r9lpqn pattern_id=XSS_MUT_009 uri=/?q=%3Cobject%20data%3Djavascript%3Aalert('XSS')%3E client=127.0.0.1 method=GET

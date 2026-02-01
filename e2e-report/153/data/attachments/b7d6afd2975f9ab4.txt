@@ -1,0 +1,5 @@
+Pattern ID: HRS_CHUNK_001
+        Status: passed
+        Latency: ~3000ms
+        Detection: 1 / 1
+        Rule: [NGINX HRS] HTTP Request Smuggling attempt test_id=HRS_CHUNK_001-1769917284049-z69mbi pattern_id=HRS_CHUNK_001 uri=/?q=chunked%2C%20identity client=127.0.0.1

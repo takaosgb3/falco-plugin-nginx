@@ -1,0 +1,5 @@
+Pattern ID: PATH_WIN_005
+        Status: passed
+        Latency: ~48000ms
+        Detection: 1 / 1
+        Rule: [NGINX Traversal] Windows path traversal attack detected test_id=PATH_WIN_005-1769917239082-n05tkb pattern_id=PATH_WIN_005 uri=/?q=..%5C..%5C..%5C..%5Cboot.ini client=127.0.0.1

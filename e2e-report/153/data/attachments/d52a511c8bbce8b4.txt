@@ -1,0 +1,5 @@
+Pattern ID: LDAP_BLIND_003
+        Status: passed
+        Latency: ~47000ms
+        Detection: 1 / 1
+        Rule: [NGINX LDAP Injection] Authentication bypass attempt test_id=LDAP_BLIND_003-1769917240552-uuw9ka pattern_id=LDAP_BLIND_003 uri=/?q=*)(memberOf%3Dcn%3DAdministrators* client=127.0.0.1
