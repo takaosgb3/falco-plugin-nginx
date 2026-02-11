@@ -1,7 +1,7 @@
 {
   "metadata": {
     "category": "pickle",
-    "total_patterns": 10,
+    "total_patterns": 15,
     "port": 8001,
     "description": "k6 test patterns for Pickle Deserialization attacks"
   },
@@ -131,6 +131,71 @@
       "severity": "high",
       "expected_rule": "[NGINX Pickle Attack] Pickle deserialization attack attempt",
       "description": "URL-encoded MRO traversal at index 0 for base class access"
+    },
+    {
+      "id": "PICKLE_DESER_011",
+      "name": "Uppercase __REDUCE__ Case Bypass",
+      "category": "pickle",
+      "subcategory": "deserialization",
+      "payload": "__REDUCE__",
+      "encoded": "__REDUCE__",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX Pickle Attack] Pickle deserialization attack attempt",
+      "description": "Uppercase __REDUCE__ bypasses Deserialization rule (case-sensitive contains) but caught by Pickle rule (icontains)"
+    },
+    {
+      "id": "PICKLE_DESER_012",
+      "name": "URL-encoded MRO Index 3 Traversal",
+      "category": "pickle",
+      "subcategory": "deserialization",
+      "payload": "__class__.__mro__[3]",
+      "encoded": "%5F%5Fclass%5F%5F.%5F%5Fmro%5F%5F%5B3%5D",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Pickle Attack] Pickle deserialization attack attempt",
+      "description": "URL-encoded MRO traversal at index 3 to test %5F%5Fclass%5F%5F.%5F%5Fmro%5F%5F condition"
+    },
+    {
+      "id": "PICKLE_DESER_013",
+      "name": "MRO __getitem__ Method Access",
+      "category": "pickle",
+      "subcategory": "deserialization",
+      "payload": "__class__.__mro__.__getitem__(0)",
+      "encoded": "__class__.__mro__.__getitem__%280%29",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Pickle Attack] Pickle deserialization attack attempt",
+      "description": "Alternative MRO access via __getitem__ method to test __class__.__mro__ condition"
+    },
+    {
+      "id": "PICKLE_DESER_014",
+      "name": "YAML Unsafe Load Deserialization",
+      "category": "pickle",
+      "subcategory": "deserialization",
+      "payload": "yaml.load(data)",
+      "encoded": "yaml.load%28data%29",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX Emerging Threat] Deserialization attack",
+      "description": "YAML unsafe load deserialization to test yaml.load condition in Deserialization rule"
+    },
+    {
+      "id": "PICKLE_DESER_015",
+      "name": "Python YAML Object Instantiation",
+      "category": "pickle",
+      "subcategory": "deserialization",
+      "payload": "!!python/object:os.system",
+      "encoded": "!!python/object:os.system",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX Emerging Threat] Deserialization attack",
+      "description": "Python YAML !!python tag for arbitrary object instantiation to test !!python condition"
     }
   ]
 }

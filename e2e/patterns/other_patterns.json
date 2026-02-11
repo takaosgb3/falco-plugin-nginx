@@ -1,7 +1,7 @@
 {
   "metadata": {
     "category": "other",
-    "total_patterns": 10,
+    "total_patterns": 15,
     "port": 8005,
     "description": "k6 test patterns for other"
   },
@@ -125,6 +125,71 @@
       "expected_detection": true,
       "expected_rule": "[NGINX Emerging Threat] Deserialization attack",
       "severity": "critical"
+    },
+    {
+      "id": "EMRG_MONGO_006",
+      "name": "MongoDB less-than operator injection",
+      "category": "other",
+      "subcategory": "mongodb_injection",
+      "payload": "{\"$lt\": 10}",
+      "encoded": "%7B%22%24lt%22%3A%2010%7D",
+      "port": 80,
+      "expected_detection": true,
+      "expected_rule": "[NGINX Emerging Threat] MongoDB NoSQL injection",
+      "severity": "high",
+      "description": "MongoDB $lt operator to test previously uncovered %24lt condition"
+    },
+    {
+      "id": "EMRG_MONGO_007",
+      "name": "CouchDB _all_docs enumeration",
+      "category": "other",
+      "subcategory": "mongodb_injection",
+      "payload": "_all_docs",
+      "encoded": "_all_docs",
+      "port": 80,
+      "expected_detection": true,
+      "expected_rule": "[NGINX Emerging Threat] MongoDB NoSQL injection",
+      "severity": "high",
+      "description": "CouchDB _all_docs endpoint access to test icontains '_all_docs' condition"
+    },
+    {
+      "id": "EMRG_MONGO_008",
+      "name": "MongoDB $exists operator bypass",
+      "category": "other",
+      "subcategory": "mongodb_injection",
+      "payload": "{\"$exists\": true}",
+      "encoded": "%7B%22%24exists%22%3A%20true%7D",
+      "port": 80,
+      "expected_detection": true,
+      "expected_rule": "[NGINX Emerging Threat] MongoDB NoSQL injection",
+      "severity": "high",
+      "description": "MongoDB $exists operator to test previously uncovered %24exists condition"
+    },
+    {
+      "id": "OTHER_REDIS_002",
+      "name": "Redis database flush specific DB",
+      "category": "other",
+      "subcategory": "redis_injection",
+      "payload": "FLUSHDB",
+      "encoded": "FLUSHDB",
+      "port": 80,
+      "expected_detection": true,
+      "expected_rule": "[NGINX Emerging Threat] Redis command injection",
+      "severity": "critical",
+      "description": "Redis FLUSHDB command to test previously uncovered FLUSHDB condition"
+    },
+    {
+      "id": "OTHER_REDIS_003",
+      "name": "Redis CONFIG SET password override",
+      "category": "other",
+      "subcategory": "redis_injection",
+      "payload": "CONFIG SET requirepass hacked",
+      "encoded": "CONFIG%20SET%20requirepass%20hacked",
+      "port": 80,
+      "expected_detection": true,
+      "expected_rule": "[NGINX Emerging Threat] Redis command injection",
+      "severity": "critical",
+      "description": "Redis CONFIG SET to test previously uncovered CONFIG%20SET condition"
     }
   ]
 }
