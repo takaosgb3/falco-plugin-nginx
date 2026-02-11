@@ -1,7 +1,7 @@
 {
   "metadata": {
     "category": "graphql",
-    "total_patterns": 5,
+    "total_patterns": 10,
     "port": 8008,
     "description": "k6 test patterns for GraphQL injection"
   },
@@ -65,6 +65,71 @@
       "expected_detection": true,
       "expected_rule": "[NGINX SQLi] Boolean-based Blind SQL Injection",
       "severity": "critical"
+    },
+    {
+      "id": "GQL_INTRO_004",
+      "name": "GraphQL __typename introspection query",
+      "category": "graphql",
+      "subcategory": "introspection",
+      "payload": "__typename",
+      "encoded": "__typename",
+      "port": 80,
+      "expected_detection": true,
+      "expected_rule": "[NGINX GraphQL Attack] Introspection query detected",
+      "severity": "medium",
+      "description": "Simple __typename introspection without nested braces to target GraphQL rule directly"
+    },
+    {
+      "id": "GQL_INTRO_005",
+      "name": "GraphQL URL-encoded __schema introspection",
+      "category": "graphql",
+      "subcategory": "introspection",
+      "payload": "__schema{queryType}",
+      "encoded": "%5F%5Fschema%7BqueryType%7D",
+      "port": 80,
+      "expected_detection": true,
+      "expected_rule": "[NGINX GraphQL Attack] Introspection query detected",
+      "severity": "medium",
+      "description": "URL-encoded __schema to match encoded introspection condition"
+    },
+    {
+      "id": "GQL_INTRO_006",
+      "name": "GraphQL URL-encoded __typename introspection",
+      "category": "graphql",
+      "subcategory": "introspection",
+      "payload": "__typename",
+      "encoded": "%5F%5Ftypename",
+      "port": 80,
+      "expected_detection": true,
+      "expected_rule": "[NGINX GraphQL Attack] Introspection query detected",
+      "severity": "medium",
+      "description": "URL-encoded __typename to match encoded introspection condition"
+    },
+    {
+      "id": "GQL_DATA_002",
+      "name": "GraphQL mass extraction via limit keyword",
+      "category": "graphql",
+      "subcategory": "data_extraction",
+      "payload": "limit:999999",
+      "encoded": "limit%3A999999",
+      "port": 80,
+      "expected_detection": true,
+      "expected_rule": "[NGINX GraphQL Attack] Mass data extraction attempt",
+      "severity": "high",
+      "description": "GraphQL limit parameter with large value for mass data extraction"
+    },
+    {
+      "id": "GQL_DATA_003",
+      "name": "GraphQL mass extraction via first keyword",
+      "category": "graphql",
+      "subcategory": "data_extraction",
+      "payload": "first:999999",
+      "encoded": "first%3A999999",
+      "port": 80,
+      "expected_detection": true,
+      "expected_rule": "[NGINX GraphQL Attack] Mass data extraction attempt",
+      "severity": "high",
+      "description": "GraphQL first parameter with large value for mass data extraction"
     }
   ]
 }

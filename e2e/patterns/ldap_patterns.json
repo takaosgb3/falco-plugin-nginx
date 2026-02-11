@@ -1,7 +1,7 @@
 {
   "metadata": {
     "category": "ldap",
-    "total_patterns": 10,
+    "total_patterns": 15,
     "port": 8006,
     "description": "k6 test patterns for LDAP injection"
   },
@@ -125,6 +125,71 @@
       "expected_detection": true,
       "expected_rule": "[NGINX LDAP Injection] Authentication bypass attempt",
       "severity": "medium"
+    },
+    {
+      "id": "LDAP_ATTR_001",
+      "name": "LDAP Attribute Injection via CN",
+      "category": "ldap",
+      "subcategory": "attribute_injection",
+      "payload": ")(cn=admin",
+      "encoded": ")(cn=admin",
+      "port": 80,
+      "expected_detection": true,
+      "expected_rule": "[NGINX LDAP Injection] Attribute injection attempt",
+      "severity": "high",
+      "description": "LDAP attribute injection targeting common name field without wildcard prefix"
+    },
+    {
+      "id": "LDAP_ATTR_002",
+      "name": "LDAP Attribute Injection via objectClass",
+      "category": "ldap",
+      "subcategory": "attribute_injection",
+      "payload": ")(objectClass=person",
+      "encoded": ")(objectClass=person",
+      "port": 80,
+      "expected_detection": true,
+      "expected_rule": "[NGINX LDAP Injection] Attribute injection attempt",
+      "severity": "high",
+      "description": "LDAP objectClass attribute enumeration for person entries"
+    },
+    {
+      "id": "LDAP_ATTR_003",
+      "name": "LDAP Attribute Injection via memberOf",
+      "category": "ldap",
+      "subcategory": "attribute_injection",
+      "payload": ")(memberOf=cn=Users",
+      "encoded": ")(memberOf=cn=Users",
+      "port": 80,
+      "expected_detection": true,
+      "expected_rule": "[NGINX LDAP Injection] Attribute injection attempt",
+      "severity": "high",
+      "description": "LDAP memberOf attribute injection for group enumeration"
+    },
+    {
+      "id": "LDAP_ATTR_004",
+      "name": "LDAP Attribute Injection via mail",
+      "category": "ldap",
+      "subcategory": "attribute_injection",
+      "payload": ")(mail=admin@target.com",
+      "encoded": ")(mail=admin@target.com",
+      "port": 80,
+      "expected_detection": true,
+      "expected_rule": "[NGINX LDAP Injection] Attribute injection attempt",
+      "severity": "medium",
+      "description": "LDAP mail attribute injection for email enumeration"
+    },
+    {
+      "id": "LDAP_BLIND_006",
+      "name": "LDAP Blind Injection via cn=Administrators",
+      "category": "ldap",
+      "subcategory": "blind_injection",
+      "payload": "cn=Administrators,ou=Groups",
+      "encoded": "cn=Administrators,ou=Groups",
+      "port": 80,
+      "expected_detection": true,
+      "expected_rule": "[NGINX LDAP Injection] Blind injection attempt",
+      "severity": "high",
+      "description": "LDAP blind injection targeting Administrators group DN"
     }
   ]
 }

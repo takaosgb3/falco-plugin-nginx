@@ -696,6 +696,16 @@
         - XPATH_FUNC_001
         - XPATH_BLIND_001
         - XPATH_ENUM_001
+    # Phase 8 Stage 3: New XPath patterns with boolean-like syntax
+    - name: phase8_xpath_boolean_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - XPATH_AND_001
+        - XPATH_BOOL_002
+        - XPATH_FUNC_002
+        - XPATH_BLIND_002
+        - XPATH_PAREN_002
     # Issue #43 Fix: Error-based SQLi patterns - should be caught by Error-based SQLi rule
     - name: sqli_error_patterns
       fields: nginx.pattern_id
