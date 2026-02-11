@@ -2483,3 +2483,71 @@
   priority: CRITICAL
   tags: [security, http_smuggling, clte, tecl, phase7]
   source: nginx
+
+
+# ==============================================================================
+# SSRF Detection Rules (Phase 8 Stage 1)
+# ==============================================================================
+#
+# Server-Side Request Forgery detection
+# Detects attempts to access internal services, cloud metadata,
+# and use alternative protocols via URL parameters
+#
+
+- rule: SSRF Attack Attempt
+  desc: Detects Server-Side Request Forgery attempts targeting cloud metadata, internal services, and alternative protocols
+  condition: >-
+    (
+      nginx.request_uri icontains "169.254.169.254" or
+      nginx.request_uri icontains "metadata.google.internal" or
+      nginx.request_uri contains "file://" or
+      nginx.request_uri contains "file%3A%2F%2F" or
+      nginx.request_uri contains "file%3a%2f%2f" or
+      nginx.request_uri contains "gopher://" or
+      nginx.request_uri contains "gopher%3A%2F%2F" or
+      nginx.request_uri contains "gopher%3a%2f%2f" or
+      nginx.request_uri contains "dict://" or
+      nginx.request_uri contains "dict%3A%2F%2F" or
+      nginx.request_uri contains "dict%3a%2f%2f" or
+      nginx.request_uri icontains "0x7f000001" or
+      nginx.request_uri contains "2130706433" or
+      nginx.request_uri contains "http://127.0.0.1" or
+      nginx.request_uri contains "http%3A%2F%2F127.0.0.1" or
+      nginx.request_uri contains "http%3a%2f%2f127.0.0.1" or
+      nginx.request_uri contains "http://localhost" or
+      nginx.request_uri contains "http%3A%2F%2Flocalhost" or
+      nginx.request_uri contains "http%3a%2f%2flocalhost" or
+      nginx.request_uri contains "http://0.0.0.0" or
+      nginx.request_uri contains "http%3A%2F%2F0.0.0.0" or
+      nginx.request_uri contains "http%3a%2f%2f0.0.0.0"
+    )
+  output: "[NGINX SSRF] SSRF attack attempt detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
+  priority: CRITICAL
+  tags: [security, ssrf, owasp_top10, cloud_metadata, phase8]
+  source: nginx
+
+
+# ==============================================================================
+# CRLF Injection Detection Rules (Phase 8 Stage 1)
+# ==============================================================================
+#
+# CRLF (Carriage Return Line Feed) Injection detection
+# Detects attempts to inject CRLF sequences for header injection,
+# log injection, and HTTP response splitting
+#
+
+- rule: CRLF Injection Attempt
+  desc: Detects CRLF Injection attempts via URL-encoded CR/LF sequences
+  condition: >-
+    (
+      nginx.request_uri contains "%0d%0a" or
+      nginx.request_uri contains "%0D%0A" or
+      nginx.request_uri contains "%0a" or
+      nginx.request_uri contains "%0A" or
+      nginx.request_uri contains "%E5%98%8A%E5%98%8D" or
+      nginx.request_uri contains "%e5%98%8a%e5%98%8d"
+    )
+  output: "[NGINX CRLF] CRLF Injection attempt detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
+  priority: WARNING
+  tags: [security, crlf, header_injection, log_injection, phase8]
+  source: nginx

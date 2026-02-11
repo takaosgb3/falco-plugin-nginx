@@ -1,0 +1,107 @@
+{
+  "metadata": {
+    "category": "crlf",
+    "description": "CRLF (Carriage Return Line Feed) Injection attack patterns",
+    "total_patterns": 8,
+    "phase": "Phase 8 Stage 1",
+    "created": "2026-02-11"
+  },
+  "patterns": [
+    {
+      "id": "CRLF_HDR_001",
+      "name": "Cookie Header Injection via CRLF",
+      "category": "crlf",
+      "subcategory": "header_injection",
+      "payload": "\\r\\nSet-Cookie:hacked=true",
+      "encoded": "%0d%0aSet-Cookie%3Ahacked%3Dtrue",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX CRLF] CRLF Injection attempt detected"
+    },
+    {
+      "id": "CRLF_HDR_002",
+      "name": "Custom Header Injection via CRLF",
+      "category": "crlf",
+      "subcategory": "header_injection",
+      "payload": "\\r\\nX-Injected:true",
+      "encoded": "%0d%0aX-Injected%3Atrue",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX CRLF] CRLF Injection attempt detected"
+    },
+    {
+      "id": "CRLF_HDR_003",
+      "name": "Redirect Injection via CRLF",
+      "category": "crlf",
+      "subcategory": "header_injection",
+      "payload": "\\r\\nLocation:http://evil.com",
+      "encoded": "%0d%0aLocation%3Ahttp%3A%2F%2Fevil.com",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX CRLF] CRLF Injection attempt detected"
+    },
+    {
+      "id": "CRLF_LOG_001",
+      "name": "HTTP Status Spoofing via Log Injection",
+      "category": "crlf",
+      "subcategory": "log_injection",
+      "payload": "\\r\\n200 OK",
+      "encoded": "%0d%0a200%20OK",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "medium",
+      "expected_rule": "[NGINX CRLF] CRLF Injection attempt detected"
+    },
+    {
+      "id": "CRLF_LOG_002",
+      "name": "Fake Log Entry Injection",
+      "category": "crlf",
+      "subcategory": "log_injection",
+      "payload": "\\r\\nFake-Log-Entry",
+      "encoded": "%0d%0aFake-Log-Entry",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "medium",
+      "expected_rule": "[NGINX CRLF] CRLF Injection attempt detected"
+    },
+    {
+      "id": "CRLF_RESP_001",
+      "name": "HTTP Response Splitting with HTML Injection",
+      "category": "crlf",
+      "subcategory": "response_splitting",
+      "payload": "\\r\\n\\r\\n<html>injected</html>",
+      "encoded": "%0d%0a%0d%0a%3Chtml%3Einjected%3C%2Fhtml%3E",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX CRLF] CRLF Injection attempt detected"
+    },
+    {
+      "id": "CRLF_RESP_002",
+      "name": "Content-Type Header Injection",
+      "category": "crlf",
+      "subcategory": "response_splitting",
+      "payload": "\\r\\nContent-Type:text/html\\r\\n",
+      "encoded": "%0d%0aContent-Type%3Atext%2Fhtml%0d%0a",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX CRLF] CRLF Injection attempt detected"
+    },
+    {
+      "id": "CRLF_ENC_001",
+      "name": "Unicode Encoded CRLF Injection",
+      "category": "crlf",
+      "subcategory": "encoded_crlf",
+      "payload": "Unicode CRLF U+560A U+560D",
+      "encoded": "%E5%98%8A%E5%98%8D",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX CRLF] CRLF Injection attempt detected"
+    }
+  ]
+}
