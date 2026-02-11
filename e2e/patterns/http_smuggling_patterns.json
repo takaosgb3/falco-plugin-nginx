@@ -1,7 +1,7 @@
 {
   "metadata": {
     "category": "http_smuggling",
-    "total_patterns": 10,
+    "total_patterns": 15,
     "port": 8015,
     "description": "k6 test patterns for HTTP Request Smuggling attacks (Phase 7)"
   },
@@ -135,6 +135,71 @@
       "severity": "high",
       "expected_rule": "[NGINX HRS] HTTP Request Smuggling attempt",
       "description": "Double URL-encoded Transfer-Encoding header"
+    },
+    {
+      "id": "HRS_ENCLEN_001",
+      "name": "Encoded Hyphen Content-Length",
+      "category": "http_smuggling",
+      "subcategory": "obfuscation",
+      "payload": "Content-Length: 0",
+      "encoded": "Content%2DLength%3A%200",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX HRS] HTTP Request Smuggling attempt",
+      "description": "Content-Length with encoded hyphen (%2D) to test Content%2DLength condition"
+    },
+    {
+      "id": "HRS_ENCHOST_001",
+      "name": "Encoded Hyphen X-Forwarded-Host",
+      "category": "http_smuggling",
+      "subcategory": "obfuscation",
+      "payload": "X-Forwarded-Host: evil.com",
+      "encoded": "X%2DForwarded%2DHost%3A%20evil.com",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX HRS] HTTP Request Smuggling attempt",
+      "description": "X-Forwarded-Host with encoded hyphens (%2D) to test X%2DForwarded%2DHost condition"
+    },
+    {
+      "id": "HRS_RAWCL_001",
+      "name": "Raw Content-Length Header",
+      "category": "http_smuggling",
+      "subcategory": "header_injection",
+      "payload": "Content-Length:0",
+      "encoded": "Content-Length:0",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX HRS] HTTP Request Smuggling attempt",
+      "description": "Raw Content-Length: with unencoded colon to test icontains 'Content-Length:' condition"
+    },
+    {
+      "id": "HRS_ENCTE_001",
+      "name": "Single Encoded Transfer-Encoding",
+      "category": "http_smuggling",
+      "subcategory": "obfuscation",
+      "payload": "Transfer-Encoding: chunked",
+      "encoded": "Transfer%2DEncoding%3A%20chunked",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX HRS] HTTP Request Smuggling attempt",
+      "description": "Transfer-Encoding with single-encoded hyphen to test Transfer%2DEncoding condition"
+    },
+    {
+      "id": "HRS_LOWCASE_001",
+      "name": "Lowercase Transfer-Encoding",
+      "category": "http_smuggling",
+      "subcategory": "obfuscation",
+      "payload": "transfer-encoding:chunked",
+      "encoded": "transfer-encoding:chunked",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX HRS] HTTP Request Smuggling attempt",
+      "description": "Lowercase transfer-encoding to test icontains case-insensitive matching"
     }
   ]
 }

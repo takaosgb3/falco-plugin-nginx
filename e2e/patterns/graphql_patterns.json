@@ -1,7 +1,7 @@
 {
   "metadata": {
     "category": "graphql",
-    "total_patterns": 10,
+    "total_patterns": 15,
     "port": 8008,
     "description": "k6 test patterns for GraphQL injection"
   },
@@ -130,6 +130,71 @@
       "expected_rule": "[NGINX GraphQL Attack] Mass data extraction attempt",
       "severity": "high",
       "description": "GraphQL first parameter with large value for mass data extraction"
+    },
+    {
+      "id": "GQL_INTRO_007",
+      "name": "GraphQL URL-encoded __type introspection",
+      "category": "graphql",
+      "subcategory": "introspection",
+      "payload": "__type(name:\"Query\")",
+      "encoded": "%5F%5Ftype(name%3A%22Query%22)",
+      "port": 80,
+      "expected_detection": true,
+      "expected_rule": "[NGINX GraphQL Attack] Introspection query detected",
+      "severity": "medium",
+      "description": "URL-encoded __type to independently test %5F%5Ftype condition"
+    },
+    {
+      "id": "GQL_INTRO_008",
+      "name": "GraphQL raw __schema introspection",
+      "category": "graphql",
+      "subcategory": "introspection",
+      "payload": "__schema",
+      "encoded": "__schema",
+      "port": 80,
+      "expected_detection": true,
+      "expected_rule": "[NGINX GraphQL Attack] Introspection query detected",
+      "severity": "medium",
+      "description": "Raw __schema keyword to test non-encoded introspection condition on port 80"
+    },
+    {
+      "id": "GQL_DATA_004",
+      "name": "GraphQL encoded users with password extraction",
+      "category": "graphql",
+      "subcategory": "data_extraction",
+      "payload": "{users(first:10){id,password}}",
+      "encoded": "%7Busers(first%3A10)%7Bid%2Cpassword%7D",
+      "port": 80,
+      "expected_detection": true,
+      "expected_rule": "[NGINX GraphQL Attack] Mass data extraction attempt",
+      "severity": "high",
+      "description": "Tests %7Busers + password condition for mass data extraction"
+    },
+    {
+      "id": "GQL_DATA_005",
+      "name": "GraphQL raw first keyword mass extraction",
+      "category": "graphql",
+      "subcategory": "data_extraction",
+      "payload": "first:9999",
+      "encoded": "first:9999",
+      "port": 80,
+      "expected_detection": true,
+      "expected_rule": "[NGINX GraphQL Attack] Mass data extraction attempt",
+      "severity": "high",
+      "description": "Raw first: with colon to test icontains 'first:' condition path (not first%3A)"
+    },
+    {
+      "id": "GQL_DATA_006",
+      "name": "GraphQL raw limit keyword mass extraction",
+      "category": "graphql",
+      "subcategory": "data_extraction",
+      "payload": "limit:9999",
+      "encoded": "limit:9999",
+      "port": 80,
+      "expected_detection": true,
+      "expected_rule": "[NGINX GraphQL Attack] Mass data extraction attempt",
+      "severity": "high",
+      "description": "Raw limit: with colon to test icontains 'limit:' condition path (not limit%3A)"
     }
   ]
 }
