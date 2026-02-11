@@ -1,9 +1,11 @@
 {
   "metadata": {
     "category": "prototype_pollution",
-    "total_patterns": 10,
-    "port": 8014,
-    "description": "k6 test patterns for Prototype Pollution attacks (Phase 7)"
+    "total_patterns": 15,
+    "port": 80,
+    "description": "k6 test patterns for Prototype Pollution attacks",
+    "phase": "Phase 9 Stage 1",
+    "updated": "2026-02-12"
   },
   "patterns": [
     {
@@ -98,6 +100,19 @@
       "description": "Deep nested prototype pollution via multiple __proto__"
     },
     {
+      "id": "PP_NESTED_003",
+      "name": "Nested __proto__ with toString Override",
+      "category": "prototype_pollution",
+      "subcategory": "nested",
+      "payload": "?data[__proto__][toString]=hacked",
+      "encoded": "%3Fdata%5B__proto__%5D%5BtoString%5D%3Dhacked",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX PP] Prototype pollution attack attempt",
+      "description": "Phase 9: __proto__ pollution targeting toString method override"
+    },
+    {
       "id": "PP_JSON_001",
       "name": "JSON __proto__ Pollution",
       "category": "prototype_pollution",
@@ -135,6 +150,58 @@
       "severity": "critical",
       "expected_rule": "[NGINX PP] Prototype pollution attack attempt",
       "description": "Direct __proto__.polluted property access"
+    },
+    {
+      "id": "PP_DOT_001",
+      "name": "Constructor Dot-Encoded Prototype Access",
+      "category": "prototype_pollution",
+      "subcategory": "encoding",
+      "payload": "?constructor.prototype.polluted=1",
+      "encoded": "constructor%2Eprototype%2Epolluted%3D1",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX PP] Prototype pollution attack attempt",
+      "description": "Phase 9: Tests constructor%2Eprototype condition (previously uncovered)"
+    },
+    {
+      "id": "PP_BRACKET_001",
+      "name": "Prototype Bracket Access Pollution",
+      "category": "prototype_pollution",
+      "subcategory": "encoding",
+      "payload": "?a[prototype][polluted]=1",
+      "encoded": "a%5Bprototype%5D%5Bpolluted%5D%3D1",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX PP] Prototype pollution attack attempt",
+      "description": "Phase 9: Tests prototype%5D%5B condition (previously uncovered)"
+    },
+    {
+      "id": "PP_ENC_001",
+      "name": "Fully Encoded __proto__.polluted",
+      "category": "prototype_pollution",
+      "subcategory": "encoding",
+      "payload": "?__proto__.polluted=1",
+      "encoded": "%5F%5Fproto%5F%5F%2Epolluted%3D1",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX PP] Prototype pollution attack attempt",
+      "description": "Phase 9: Tests %5F%5Fproto%5F%5F%2Epolluted condition (previously uncovered)"
+    },
+    {
+      "id": "PP_PROTO_001",
+      "name": "__proto__ Status Property Injection",
+      "category": "prototype_pollution",
+      "subcategory": "basic",
+      "payload": "?__proto__[status]=polluted",
+      "encoded": "__proto__%5Bstatus%5D%3Dpolluted",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX PP] Prototype pollution attack attempt",
+      "description": "Phase 9: __proto__ injection targeting status property"
     }
   ]
 }

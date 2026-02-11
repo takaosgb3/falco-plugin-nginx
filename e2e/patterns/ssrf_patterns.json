@@ -2,9 +2,10 @@
   "metadata": {
     "category": "ssrf",
     "description": "Server-Side Request Forgery (SSRF) attack patterns",
-    "total_patterns": 10,
-    "phase": "Phase 8 Stage 1",
-    "created": "2026-02-11"
+    "total_patterns": 15,
+    "phase": "Phase 9 Stage 1",
+    "created": "2026-02-11",
+    "updated": "2026-02-12"
   },
   "patterns": [
     {
@@ -44,6 +45,32 @@
       "expected_rule": "[NGINX SSRF] SSRF attack attempt detected"
     },
     {
+      "id": "SSRF_CLOUD_004",
+      "name": "AWS IMDSv2 Token Endpoint Access",
+      "category": "ssrf",
+      "subcategory": "cloud_metadata",
+      "payload": "http://169.254.169.254/latest/api/token",
+      "encoded": "http%3A%2F%2F169.254.169.254%2Flatest%2Fapi%2Ftoken",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX SSRF] SSRF attack attempt detected",
+      "description": "Phase 9: AWS IMDSv2 token endpoint for credential theft"
+    },
+    {
+      "id": "SSRF_CLOUD_005",
+      "name": "AWS IAM Security Credentials Access",
+      "category": "ssrf",
+      "subcategory": "cloud_metadata",
+      "payload": "http://169.254.169.254/latest/meta-data/iam/security-credentials/",
+      "encoded": "http%3A%2F%2F169.254.169.254%2Flatest%2Fmeta-data%2Fiam%2Fsecurity-credentials%2F",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX SSRF] SSRF attack attempt detected",
+      "description": "Phase 9: AWS IAM role credential extraction"
+    },
+    {
       "id": "SSRF_INT_001",
       "name": "Internal Redis Service Access",
       "category": "ssrf",
@@ -78,6 +105,32 @@
       "expected_detection": true,
       "severity": "high",
       "expected_rule": "[NGINX SSRF] SSRF attack attempt detected"
+    },
+    {
+      "id": "SSRF_INT_004",
+      "name": "Kubernetes API via Lowercase Encoded Localhost",
+      "category": "ssrf",
+      "subcategory": "internal_service",
+      "payload": "http://localhost:8443/api/v1/pods",
+      "encoded": "http%3a%2f%2flocalhost%3a8443%2fapi%2fv1%2fpods",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX SSRF] SSRF attack attempt detected",
+      "description": "Phase 9: Tests lowercase http%3a%2f%2flocalhost condition"
+    },
+    {
+      "id": "SSRF_INT_005",
+      "name": "Docker API via Lowercase Encoded 0.0.0.0",
+      "category": "ssrf",
+      "subcategory": "internal_service",
+      "payload": "http://0.0.0.0:2375/containers/json",
+      "encoded": "http%3a%2f%2f0.0.0.0%3a2375%2fcontainers%2fjson",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX SSRF] SSRF attack attempt detected",
+      "description": "Phase 9: Tests lowercase http%3a%2f%2f0.0.0.0 condition"
     },
     {
       "id": "SSRF_DNS_001",
@@ -126,6 +179,19 @@
       "expected_detection": true,
       "severity": "high",
       "expected_rule": "[NGINX SSRF] SSRF attack attempt detected"
+    },
+    {
+      "id": "SSRF_SCHEME_003",
+      "name": "Dict Protocol Memcached Access",
+      "category": "ssrf",
+      "subcategory": "protocol_smuggling",
+      "payload": "dict://attacker.com:11211/stat",
+      "encoded": "dict%3A%2F%2Fattacker.com%3A11211%2Fstat",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX SSRF] SSRF attack attempt detected",
+      "description": "Phase 9: Tests dict:// protocol condition (previously uncovered)"
     }
   ]
 }

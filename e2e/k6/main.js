@@ -303,7 +303,7 @@ export const options = {
     thresholds: {
         'http_req_duration': ['p(95)<5000'],  // 95% of requests under 5s
         'http_req_failed': ['rate<0.05'],      // Less than 5% failure rate
-        'attacks_sent': ['count==520']          // All 520 patterns sent (Phase 8 Stage 3)
+        'attacks_sent': ['count==542']          // All 542 patterns sent (Phase 9 Stage 1)
     },
     summaryTimeUnit: 'ms',
     summaryTrendStats: ['avg', 'med', 'p(90)', 'p(95)', 'p(99)', 'max', 'count']
@@ -493,7 +493,7 @@ export function setup() {
     console.log('========================================');
     console.log('k6 E2E Test Starting (Public Repo Mode)');
     console.log(`Target: ${TARGET_IP}:${TARGET_PORT}`);
-    console.log('Total Patterns: 520 (Phase 8 Stage 3)');
+    console.log('Total Patterns: 542 (Phase 9 Stage 1)');
     console.log('  - SQLi: 124');
     console.log('  - XSS: 81');
     console.log('  - Path: 73');
