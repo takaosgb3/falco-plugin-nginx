@@ -1,0 +1,17 @@
+{
+  "pattern_id": "XSS_MUT_003",
+  "test_id": "XSS_MUT_003-1770821092867-0bxkef",
+  "category": "xss",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 86334000,
+  "evidence": "14:44:52.000000000: Warning [NGINX XSS] XSS Filter Bypass Attempt test_id=XSS_MUT_003-1770821092867-0bxkef pattern_id=XSS_MUT_003 uri=/?q=%3Cmath%3E%3Cmi%2F%2Fxlink%3Ahref%3D%22data%3Ax%2C%3Cscript%3Ealert%28%27XSS%27%29%3C%2Fscript%3E%22%3E client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX XSS] XSS Filter Bypass Attempt test_id=XSS_MUT_003-1770821092867-0bxkef pattern_id=XSS_MUT_003 uri=/?q=%3Cmath%3E%3Cmi%2F%2Fxlink%3Ahref%3D%22data%3Ax%2C%3Cscript%3Ealert%28%27XSS%27%29%3C%2Fscript%3E%22%3E client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX XSS] XSS Filter Bypass Attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX XSS] XSS Filter Bypass Attempt test_id=XSS_MUT_003-1770821092867-0bxkef pattern_id=XSS_MUT_003 uri=/?q=%3Cmath%3E%3Cmi%2F%2Fxlink%3Ahref%3D%22data%3Ax%2C%3Cscript%3Ealert%28%27XSS%27%29%3C%2Fscript%3E%22%3E client=127.0.0.1 method=GET",
+  "sent_at": 1770821158000,
+  "detected_at": 1770821092000,
+  "status": "passed"
+}

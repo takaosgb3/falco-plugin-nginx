@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: auto;
+            min-height: 600px;
+            overflow: auto;
+        }
+        body {
+            font-family: monospace;
+            padding: 15px;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            line-height: 1.5;
+        }
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            margin: 0;
+            overflow: visible;
+        }
+        .content {
+            overflow: visible;
+        }
+        mark {
+            background-color: #FFFF00;
+            color: #000;
+            padding: 1px 3px;
+            border-radius: 2px;
+        }
+        h3 {
+            color: #4CAF50;
+            margin: 0 0 15px 0;
+        }
+    </style>
+</head>
+<body>
+<h3>nginx access.log</h3>
+<pre>127.0.0.1 - - [11/Feb/2026:14:45:09 +0000] &quot;GET /?q=<mark style="background-color: #FFFF00; padding: 1px 3px;">%3C%21DOCTYPE%20foo%20%5B%3C%21ENTITY%20xxe%20SYSTEM%20%22http%3A%2F%2Finternal-service%3A8080%2Fadmin%22%3E%5D%3E%3Csoap%3ABody%3E%26xxe%3B%3C%2Fsoap%3ABody%3E</mark> HTTP/1.1&quot; 200 51 &quot;-&quot; &quot;Grafana k6/1.6.0&quot; x_test_id=XXE_SOAP_001-1770821109851-ofjjp x_category=XXE x_pattern_id=XXE_SOAP_001</pre>
+</body>
+</html>

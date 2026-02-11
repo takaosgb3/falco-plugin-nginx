@@ -1,0 +1,5 @@
+Pattern ID: XPATH_BLIND_002
+        Status: passed
+        Latency: ~40000ms
+        Detection: 1 / 1
+        Rule: [NGINX XPath Injection] XPath injection attempt test_id=XPATH_BLIND_002-1770821118347-c51oyi pattern_id=XPATH_BLIND_002 uri=/?q=%27%20and%20string-length%28%2F%2Fuser%5B1%5D%2Fname%29%3E3%20and%20%271%27%3D%271 client=127.0.0.1

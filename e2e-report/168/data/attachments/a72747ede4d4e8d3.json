@@ -1,0 +1,17 @@
+{
+  "pattern_id": "PP_NESTED_002",
+  "test_id": "PP_NESTED_002-1770821142342-g2q48",
+  "category": "prototype_pollution",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 16000,
+  "evidence": "14:45:42.000000000: Warning [NGINX PP] Prototype pollution attack attempt test_id=PP_NESTED_002-1770821142342-g2q48 pattern_id=PP_NESTED_002 uri=/?q=%3Fobj%5B__proto__%5D%5B__proto__%5D%5Bpolluted%5D%3Dtrue client=127.0.0.1",
+  "rule_name": "[NGINX PP] Prototype pollution attack attempt test_id=PP_NESTED_002-1770821142342-g2q48 pattern_id=PP_NESTED_002 uri=/?q=%3Fobj%5B__proto__%5D%5B__proto__%5D%5Bpolluted%5D%3Dtrue client=127.0.0.1",
+  "expected_rule": "[NGINX PP] Prototype pollution attack attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX PP] Prototype pollution attack attempt test_id=PP_NESTED_002-1770821142342-g2q48 pattern_id=PP_NESTED_002 uri=/?q=%3Fobj%5B__proto__%5D%5B__proto__%5D%5Bpolluted%5D%3Dtrue client=127.0.0.1",
+  "sent_at": 1770821158000,
+  "detected_at": 1770821142000,
+  "status": "passed"
+}

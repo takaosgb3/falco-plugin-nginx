@@ -1,0 +1,5 @@
+Pattern ID: HRS_OBFUSC_002
+        Status: passed
+        Latency: ~10000ms
+        Detection: 1 / 1
+        Rule: [NGINX HRS] HTTP Request Smuggling attempt test_id=HRS_OBFUSC_002-1770821148846-sy8i8j pattern_id=HRS_OBFUSC_002 uri=/?q=Transfer%252DEncoding%3A%20chunked client=127.0.0.1

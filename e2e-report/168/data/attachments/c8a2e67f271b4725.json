@@ -1,0 +1,17 @@
+{
+  "pattern_id": "PATH_URL_002",
+  "test_id": "PATH_URL_002-1770821113905-k84duf",
+  "category": "path",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 45000,
+  "evidence": "14:45:13.000000000: Warning [NGINX SQLi] Encoded SQL Injection Pattern test_id=PATH_URL_002-1770821113905-k84duf pattern_id=PATH_URL_002 uri=/?q=..%252F..%252F client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Encoded SQL Injection Pattern test_id=PATH_URL_002-1770821113905-k84duf pattern_id=PATH_URL_002 uri=/?q=..%252F..%252F client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX SQLi] Encoded SQL Injection Pattern",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX SQLi] Encoded SQL Injection Pattern test_id=PATH_URL_002-1770821113905-k84duf pattern_id=PATH_URL_002 uri=/?q=..%252F..%252F client=127.0.0.1 method=GET",
+  "sent_at": 1770821158000,
+  "detected_at": 1770821113000,
+  "status": "passed"
+}

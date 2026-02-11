@@ -1,0 +1,5 @@
+Pattern ID: PATH_UNI_003
+        Status: passed
+        Latency: ~42000ms
+        Detection: 1 / 1
+        Rule: [NGINX Traversal] File inclusion attack detected test_id=PATH_UNI_003-1770821116912-terivc pattern_id=PATH_UNI_003 uri=/?q=%EF%BC%85%EF%BC%92%EF%BD%85%EF%BC%85%EF%BC%92%EF%BD%85%2Fetc%2Fpasswd client=127.0.0.1

@@ -1,0 +1,5 @@
+Pattern ID: API_PROTO_003
+        Status: passed
+        Latency: ~22000ms
+        Detection: 1 / 1
+        Rule: [NGINX API Attack] API security vulnerability detected test_id=API_PROTO_003-1770821136353-n1nzlg pattern_id=API_PROTO_003 uri=/?q=__proto__%5BisAdmin%5D%3Dtrue client=127.0.0.1

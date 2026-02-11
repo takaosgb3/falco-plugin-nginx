@@ -1,0 +1,17 @@
+{
+  "pattern_id": "OTHER_REDIS_001",
+  "test_id": "OTHER_REDIS_001-1770821097343-hivdio",
+  "category": "other",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 86339000,
+  "evidence": "14:44:57.000000000: Critical [NGINX Emerging Threat] Redis command injection test_id=OTHER_REDIS_001-1770821097343-hivdio pattern_id=OTHER_REDIS_001 uri=/?q=FLUSHALL client=127.0.0.1",
+  "rule_name": "[NGINX Emerging Threat] Redis command injection test_id=OTHER_REDIS_001-1770821097343-hivdio pattern_id=OTHER_REDIS_001 uri=/?q=FLUSHALL client=127.0.0.1",
+  "expected_rule": "[NGINX Emerging Threat] Redis command injection",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Emerging Threat] Redis command injection test_id=OTHER_REDIS_001-1770821097343-hivdio pattern_id=OTHER_REDIS_001 uri=/?q=FLUSHALL client=127.0.0.1",
+  "sent_at": 1770821158000,
+  "detected_at": 1770821097000,
+  "status": "passed"
+}

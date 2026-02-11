@@ -1,0 +1,17 @@
+{
+  "pattern_id": "CMD_BASIC_020",
+  "test_id": "CMD_BASIC_020-1770821098860-dfzfy",
+  "category": "cmdinj",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 86340000,
+  "evidence": "14:44:58.000000000: Warning [NGINX CMDi] Advanced command injection attempt test_id=CMD_BASIC_020-1770821098860-dfzfy pattern_id=CMD_BASIC_020 uri=/?q=%250d%250acat%20%2Fetc%2Fpasswd client=127.0.0.1",
+  "rule_name": "[NGINX CMDi] Advanced command injection attempt test_id=CMD_BASIC_020-1770821098860-dfzfy pattern_id=CMD_BASIC_020 uri=/?q=%250d%250acat%20%2Fetc%2Fpasswd client=127.0.0.1",
+  "expected_rule": "[NGINX CMDi] Advanced command injection attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX CMDi] Advanced command injection attempt test_id=CMD_BASIC_020-1770821098860-dfzfy pattern_id=CMD_BASIC_020 uri=/?q=%250d%250acat%20%2Fetc%2Fpasswd client=127.0.0.1",
+  "sent_at": 1770821158000,
+  "detected_at": 1770821098000,
+  "status": "passed"
+}

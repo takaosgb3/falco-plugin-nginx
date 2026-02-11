@@ -1,0 +1,17 @@
+{
+  "pattern_id": "OTHER_JINJA_001",
+  "test_id": "OTHER_JINJA_001-1770821097845-7yv8yb",
+  "category": "other",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 86339000,
+  "evidence": "14:44:57.000000000: Critical [NGINX Emerging Threat] Template injection test_id=OTHER_JINJA_001-1770821097845-7yv8yb pattern_id=OTHER_JINJA_001 uri=/?q=%7B%7B7*7%7D%7D client=127.0.0.1",
+  "rule_name": "[NGINX Emerging Threat] Template injection test_id=OTHER_JINJA_001-1770821097845-7yv8yb pattern_id=OTHER_JINJA_001 uri=/?q=%7B%7B7*7%7D%7D client=127.0.0.1",
+  "expected_rule": "[NGINX Emerging Threat] Template injection",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Emerging Threat] Template injection test_id=OTHER_JINJA_001-1770821097845-7yv8yb pattern_id=OTHER_JINJA_001 uri=/?q=%7B%7B7*7%7D%7D client=127.0.0.1",
+  "sent_at": 1770821158000,
+  "detected_at": 1770821097000,
+  "status": "passed"
+}

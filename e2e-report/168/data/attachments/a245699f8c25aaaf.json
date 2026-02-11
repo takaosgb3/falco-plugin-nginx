@@ -1,0 +1,17 @@
+{
+  "pattern_id": "CMD_ENC_003",
+  "test_id": "CMD_ENC_003-1770821107383-icn78l",
+  "category": "cmdinj",
+  "detected": false,
+  "expected_detection": false,
+  "latency_ms": null,
+  "evidence": "",
+  "rule_name": "",
+  "expected_rule": "",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": null,
+  "sent_at": 1770821158000,
+  "detected_at": null,
+  "status": "passed"
+}

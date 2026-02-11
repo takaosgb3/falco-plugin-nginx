@@ -1,0 +1,17 @@
+{
+  "pattern_id": "PATH_ADV_002",
+  "test_id": "PATH_ADV_002-1770821101876-u64pu",
+  "category": "path",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 57000,
+  "evidence": "14:45:01.000000000: Warning [NGINX Traversal] Advanced path traversal attempt detected test_id=PATH_ADV_002-1770821101876-u64pu pattern_id=PATH_ADV_002 uri=/?q=..%3B%2F client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] Advanced path traversal attempt detected test_id=PATH_ADV_002-1770821101876-u64pu pattern_id=PATH_ADV_002 uri=/?q=..%3B%2F client=127.0.0.1",
+  "expected_rule": "[NGINX Traversal] Advanced path traversal attempt detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Traversal] Advanced path traversal attempt detected test_id=PATH_ADV_002-1770821101876-u64pu pattern_id=PATH_ADV_002 uri=/?q=..%3B%2F client=127.0.0.1",
+  "sent_at": 1770821158000,
+  "detected_at": 1770821101000,
+  "status": "passed"
+}

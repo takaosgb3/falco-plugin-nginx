@@ -1,0 +1,17 @@
+{
+  "pattern_id": "GQL_INTRO_005",
+  "test_id": "GQL_INTRO_005-1770821112342-p8tfac",
+  "category": "graphql",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 46000,
+  "evidence": "14:45:12.000000000: Critical [NGINX SQLi] Error-based SQL Injection test_id=GQL_INTRO_005-1770821112342-p8tfac pattern_id=GQL_INTRO_005 uri=/?q=%5F%5Fschema%7BqueryType%7D client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Error-based SQL Injection test_id=GQL_INTRO_005-1770821112342-p8tfac pattern_id=GQL_INTRO_005 uri=/?q=%5F%5Fschema%7BqueryType%7D client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX GraphQL Attack] Introspection query detected",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": "[NGINX SQLi] Error-based SQL Injection test_id=GQL_INTRO_005-1770821112342-p8tfac pattern_id=GQL_INTRO_005 uri=/?q=%5F%5Fschema%7BqueryType%7D client=127.0.0.1 method=GET",
+  "sent_at": 1770821158000,
+  "detected_at": 1770821112000,
+  "status": "passed"
+}
