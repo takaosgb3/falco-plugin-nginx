@@ -1,7 +1,7 @@
 {
   "metadata": {
     "category": "xxe",
-    "total_patterns": 15,
+    "total_patterns": 18,
     "port": 8007,
     "description": "k6 test patterns for XXE attacks"
   },
@@ -192,6 +192,45 @@
       "expected_rule": "[NGINX XXE Attack] DOCTYPE/ENTITY injection",
       "description": "XXE combined with SSRF targeting cloud metadata",
       "encoded": "%3C%21DOCTYPE%20foo%20%5B%3C%21ENTITY%20xxe%20SYSTEM%20%22http%3A%2F%2F169.254.169.254%2Flatest%2Fmeta-data%2F%22%3E%5D%3E%3Croot%3E%26xxe%3B%3C%2Froot%3E"
+    },
+    {
+      "id": "XXE_ENCODE_002",
+      "name": "XXE Lowercase Percent-Encoded DOCTYPE",
+      "category": "xxe",
+      "subcategory": "encoded_xxe",
+      "payload": "<!DOCTYPE foo [<!ENTITY xxe \"test\">]>",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XXE Attack] DOCTYPE/ENTITY injection",
+      "description": "DOCTYPE with lowercase %3c encoding to independently test contains '%3c!DOCTYPE' condition (vs uppercase %3C)",
+      "encoded": "%3c!DOCTYPE%20foo%20%5B%3c!ENTITY%20xxe%20%22test%22%3E%5D%3E"
+    },
+    {
+      "id": "XXE_ENCODE_003",
+      "name": "XXE Double-Encoded Exclamation ENTITY",
+      "category": "xxe",
+      "subcategory": "encoded_xxe",
+      "payload": "<!ENTITY xxe SYSTEM \"file:///etc/hosts\">",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XXE Attack] DOCTYPE/ENTITY injection",
+      "description": "ENTITY with double-encoded exclamation mark (%3C%21 vs %3C!) to test contains '%3C%21ENTITY' condition",
+      "encoded": "%3C%21ENTITY%20xxe%20SYSTEM%20%22file%3A%2F%2F%2Fetc%2Fhosts%22%3E"
+    },
+    {
+      "id": "XXE_ENCODE_004",
+      "name": "XXE Lowercase Double-Encoded ENTITY",
+      "category": "xxe",
+      "subcategory": "encoded_xxe",
+      "payload": "<!ENTITY xxe \"sensitive-data\">",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XXE Attack] DOCTYPE/ENTITY injection",
+      "description": "ENTITY with lowercase + double-encoded (%3c%21ENTITY) to test contains '%3c%21ENTITY' condition",
+      "encoded": "%3c%21ENTITY%20xxe%20%22sensitive-data%22%3E"
     }
   ]
 }

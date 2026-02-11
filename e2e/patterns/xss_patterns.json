@@ -977,6 +977,71 @@
       "expected_detection": true,
       "severity": "high",
       "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
+    },
+    {
+      "id": "XSS_ADV_067",
+      "name": "URL-encoded ondblclick Event Handler",
+      "category": "xss",
+      "subcategory": "advanced_xss",
+      "payload": "ondblclick=alert(1)",
+      "encoded": "ondblclick%3Dalert(1)",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] Advanced XSS Attack Attempt",
+      "description": "URL-encoded ondblclick event handler to independently test contains 'ondblclick%3D' condition in Advanced XSS"
+    },
+    {
+      "id": "XSS_ADV_068",
+      "name": "URL-encoded onmousedown Event Handler",
+      "category": "xss",
+      "subcategory": "advanced_xss",
+      "payload": "onmousedown=alert(1)",
+      "encoded": "onmousedown%3Dalert(1)",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] Advanced XSS Attack Attempt",
+      "description": "URL-encoded onmousedown event handler to independently test contains 'onmousedown%3D' condition in Advanced XSS"
+    },
+    {
+      "id": "XSS_ADV_069",
+      "name": "URL-encoded onkeydown Event Handler",
+      "category": "xss",
+      "subcategory": "advanced_xss",
+      "payload": "onkeydown=alert(1)",
+      "encoded": "onkeydown%3Dalert(1)",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] Advanced XSS Attack Attempt",
+      "description": "URL-encoded onkeydown event handler to independently test contains 'onkeydown%3D' condition in Advanced XSS"
+    },
+    {
+      "id": "XSS_BYPASS_011",
+      "name": "Mozilla CSS Binding XSS Vector",
+      "category": "xss",
+      "subcategory": "filter_bypass",
+      "payload": "-moz-binding:url(evil)",
+      "encoded": "-moz-binding:url%28evil%29",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] XSS Filter Bypass Attempt",
+      "description": "Mozilla-specific CSS binding to independently test icontains '-moz-binding:' condition in XSS Filter Bypass"
+    },
+    {
+      "id": "XSS_BYPASS_012",
+      "name": "LiveScript Protocol XSS Vector",
+      "category": "xss",
+      "subcategory": "filter_bypass",
+      "payload": "livescript:alert(1)",
+      "encoded": "livescript:alert%281%29",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] XSS Filter Bypass Attempt",
+      "description": "LiveScript protocol handler to independently test icontains 'livescript:' condition in XSS Filter Bypass"
     }
   ]
 }
