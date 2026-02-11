@@ -2,9 +2,10 @@
   "metadata": {
     "category": "crlf",
     "description": "CRLF (Carriage Return Line Feed) Injection attack patterns",
-    "total_patterns": 8,
-    "phase": "Phase 8 Stage 1",
-    "created": "2026-02-11"
+    "total_patterns": 15,
+    "phase": "Phase 9 Stage 1",
+    "created": "2026-02-11",
+    "updated": "2026-02-12"
   },
   "patterns": [
     {
@@ -44,6 +45,32 @@
       "expected_rule": "[NGINX CRLF] CRLF Injection attempt detected"
     },
     {
+      "id": "CRLF_HDR_004",
+      "name": "CORS Header Injection via Uppercase CRLF",
+      "category": "crlf",
+      "subcategory": "header_injection",
+      "payload": "\\r\\nAccess-Control-Allow-Origin:*",
+      "encoded": "%0D%0AAccess-Control-Allow-Origin%3A*",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX CRLF] CRLF Injection attempt detected",
+      "description": "Phase 9: Tests uppercase %0D%0A condition"
+    },
+    {
+      "id": "CRLF_HDR_005",
+      "name": "X-Forwarded-For Spoofing via CRLF",
+      "category": "crlf",
+      "subcategory": "header_injection",
+      "payload": "\\r\\nX-Forwarded-For:10.0.0.1",
+      "encoded": "%0d%0aX-Forwarded-For%3A10.0.0.1",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX CRLF] CRLF Injection attempt detected",
+      "description": "Phase 9: X-Forwarded-For header spoofing via CRLF"
+    },
+    {
       "id": "CRLF_LOG_001",
       "name": "HTTP Status Spoofing via Log Injection",
       "category": "crlf",
@@ -66,6 +93,19 @@
       "expected_detection": true,
       "severity": "medium",
       "expected_rule": "[NGINX CRLF] CRLF Injection attempt detected"
+    },
+    {
+      "id": "CRLF_LOG_003",
+      "name": "Fake Admin Access Log via CRLF",
+      "category": "crlf",
+      "subcategory": "log_injection",
+      "payload": "\\r\\n127.0.0.1 GET /admin 200",
+      "encoded": "%0d%0a127.0.0.1%20GET%20%2Fadmin%20200",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "medium",
+      "expected_rule": "[NGINX CRLF] CRLF Injection attempt detected",
+      "description": "Phase 9: Fake log entry injection with admin path"
     },
     {
       "id": "CRLF_RESP_001",
@@ -92,6 +132,19 @@
       "expected_rule": "[NGINX CRLF] CRLF Injection attempt detected"
     },
     {
+      "id": "CRLF_RESP_003",
+      "name": "HTTP 302 Response Splitting",
+      "category": "crlf",
+      "subcategory": "response_splitting",
+      "payload": "\\r\\nHTTP/1.1 302 Found\\r\\nLocation:http://evil.com",
+      "encoded": "%0d%0aHTTP%2F1.1%20302%20Found%0d%0aLocation%3Ahttp%3A%2F%2Fevil.com",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX CRLF] CRLF Injection attempt detected",
+      "description": "Phase 9: Full HTTP response splitting with redirect"
+    },
+    {
       "id": "CRLF_ENC_001",
       "name": "Unicode Encoded CRLF Injection",
       "category": "crlf",
@@ -102,6 +155,45 @@
       "expected_detection": true,
       "severity": "high",
       "expected_rule": "[NGINX CRLF] CRLF Injection attempt detected"
+    },
+    {
+      "id": "CRLF_ENC_002",
+      "name": "LF-Only Injection (lowercase)",
+      "category": "crlf",
+      "subcategory": "encoded_crlf",
+      "payload": "LF-only line feed injection",
+      "encoded": "%0aInjectedHeader%3Atrue",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX CRLF] CRLF Injection attempt detected",
+      "description": "Phase 9: Tests %0a (LF-only lowercase) condition"
+    },
+    {
+      "id": "CRLF_ENC_003",
+      "name": "LF-Only Injection (uppercase)",
+      "category": "crlf",
+      "subcategory": "encoded_crlf",
+      "payload": "LF-only uppercase line feed injection",
+      "encoded": "%0AInjectedHeader%3Atrue",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX CRLF] CRLF Injection attempt detected",
+      "description": "Phase 9: Tests %0A (LF-only uppercase) condition - no cross-rule triggers"
+    },
+    {
+      "id": "CRLF_ENC_004",
+      "name": "Lowercase Unicode CRLF with Header Injection",
+      "category": "crlf",
+      "subcategory": "encoded_crlf",
+      "payload": "Lowercase Unicode CRLF U+560A U+560D",
+      "encoded": "%e5%98%8a%e5%98%8dX-Injected%3Amalicious",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX CRLF] CRLF Injection attempt detected",
+      "description": "Phase 9: Tests lowercase %e5%98%8a%e5%98%8d Unicode condition"
     }
   ]
 }

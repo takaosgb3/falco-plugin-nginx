@@ -1,9 +1,11 @@
 {
   "metadata": {
     "category": "ssti",
-    "total_patterns": 10,
-    "port": 8010,
-    "description": "k6 test patterns for Server-Side Template Injection attacks"
+    "total_patterns": 15,
+    "port": 80,
+    "description": "k6 test patterns for Server-Side Template Injection attacks",
+    "phase": "Phase 9 Stage 1",
+    "updated": "2026-02-12"
   },
   "patterns": [
     {
@@ -29,6 +31,19 @@
       "expected_detection": true,
       "severity": "critical",
       "expected_rule": "Template injection"
+    },
+    {
+      "id": "SSTI_JINJA_003",
+      "name": "Jinja2 Lipsum Function Injection",
+      "category": "ssti",
+      "subcategory": "jinja2",
+      "payload": "{{lipsum(1)}}",
+      "encoded": "%7B%7Blipsum(1)%7D%7D",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Emerging Threat] Template injection",
+      "description": "Phase 9: Jinja2 lipsum built-in function exploitation"
     },
     {
       "id": "SSTI_VEL_001",
@@ -125,6 +140,58 @@
       "expected_detection": true,
       "severity": "critical",
       "expected_rule": "[NGINX Emerging Threat] Template injection"
+    },
+    {
+      "id": "SSTI_NUNJUCKS_001",
+      "name": "Nunjucks Range Function Injection",
+      "category": "ssti",
+      "subcategory": "nunjucks",
+      "payload": "{{range(10)}}",
+      "encoded": "%7B%7Brange(10)%7D%7D",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Emerging Threat] Template injection",
+      "description": "Phase 9: Nunjucks/Jinja2 range function for data enumeration"
+    },
+    {
+      "id": "SSTI_EL_001",
+      "name": "Expression Language Injection",
+      "category": "ssti",
+      "subcategory": "expression_language",
+      "payload": "${7*7}",
+      "encoded": "%24%7B7*7%7D",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Emerging Threat] Template injection",
+      "description": "Phase 9: Java/JSP Expression Language injection"
+    },
+    {
+      "id": "SSTI_EJS_001",
+      "name": "EJS Template Output Injection",
+      "category": "ssti",
+      "subcategory": "ejs",
+      "payload": "<%=7*7%>",
+      "encoded": "%3C%25%3D7*7%25%3E",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Emerging Threat] Template injection",
+      "description": "Phase 9: EJS/ERB template output tag injection"
+    },
+    {
+      "id": "SSTI_DJANGO_001",
+      "name": "Django Debug Template Tag",
+      "category": "ssti",
+      "subcategory": "django",
+      "payload": "{% debug %}",
+      "encoded": "%7B%25%20debug%20%25%7D",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX SSTI] Server-Side Template Injection detected",
+      "description": "Phase 9: Django template debug tag for information disclosure"
     }
   ]
 }

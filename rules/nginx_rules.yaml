@@ -911,6 +911,16 @@
         - CRLF_LOG_002
         - CRLF_RESP_001
         - CRLF_RESP_002
+    # Phase 9: New CRLF patterns with %0d%0a or %0a triggers
+    - name: phase9_crlf_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - CRLF_HDR_004
+        - CRLF_HDR_005
+        - CRLF_LOG_003
+        - CRLF_RESP_003
+        - CRLF_ENC_002
   output: "[NGINX SQLi] Encoded SQL Injection Pattern test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: WARNING
   tags: [security, sql_injection, advanced_sqli, encoding_evasion, phase3]
@@ -1200,6 +1210,12 @@
       values:
         - PP_CONSTR_001
         - PP_CONSTR_002
+    # Phase 9: PP patterns with "constructor" triggering icontains "constructor" XSS condition
+    - name: phase9_pp_constructor_xss
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - PP_DOT_001
     # Phase 8 Stage 2: XXE/NoSQL/API patterns with XSS-like substrings
     # XXE_PARAM_001: "eval" in entity name triggers icontains "eval"
     # NOSQL_MONGO_007: "$where=function()" triggers icontains "Function"
@@ -1279,6 +1295,16 @@
         - CRLF_LOG_002
         - CRLF_RESP_001
         - CRLF_RESP_002
+    # Phase 9: New CRLF patterns with %0d%0a or %0a triggers
+    - name: phase9_crlf_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - CRLF_HDR_004
+        - CRLF_HDR_005
+        - CRLF_LOG_003
+        - CRLF_RESP_003
+        - CRLF_ENC_002
   output: "[NGINX XSS] XSS Filter Bypass Attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: WARNING
   tags: [security, xss, filter_bypass, advanced_xss, phase3]
@@ -1570,6 +1596,16 @@
         - CRLF_LOG_002
         - CRLF_RESP_001
         - CRLF_RESP_002
+    # Phase 9: New CRLF patterns with %0d%0a or %0a triggers
+    - name: phase9_crlf_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - CRLF_HDR_004
+        - CRLF_HDR_005
+        - CRLF_LOG_003
+        - CRLF_RESP_003
+        - CRLF_ENC_002
   output: "[NGINX Traversal] Advanced path traversal attempt detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: WARNING
   tags: [security, path_traversal, advanced_traversal, phase3]
@@ -1857,6 +1893,16 @@
         - CRLF_LOG_002
         - CRLF_RESP_001
         - CRLF_RESP_002
+    # Phase 9: New CRLF patterns with %0d%0a or %0a triggers
+    - name: phase9_crlf_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - CRLF_HDR_004
+        - CRLF_HDR_005
+        - CRLF_LOG_003
+        - CRLF_RESP_003
+        - CRLF_ENC_002
 
 # ==============================================================================
 # Emerging Threats Detection Rules (from advanced_emerging_enhanced.yaml)
@@ -2516,6 +2562,16 @@
         - PP_JSON_001
         - PP_BYPASS_001
         - PP_BYPASS_002
+    # Phase 9: New PP patterns - should be caught by PP-specific rule
+    - name: phase9_pp_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - PP_DOT_001
+        - PP_BRACKET_001
+        - PP_ENC_001
+        - PP_NESTED_003
+        - PP_PROTO_001
 
 # ==============================================================================
 # Phase 5 New Rules: Pickle Deserialization (Issue #64)
