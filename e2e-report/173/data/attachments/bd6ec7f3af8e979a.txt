@@ -1,0 +1,5 @@
+Pattern ID: LDAP_BLIND_006
+        Status: passed
+        Latency: ~56000ms
+        Detection: 1 / 1
+        Rule: [NGINX LDAP Injection] Blind injection attempt test_id=LDAP_BLIND_006-1770841874812-6idh5f pattern_id=LDAP_BLIND_006 uri=/?q=cn=Administrators,ou=Groups client=127.0.0.1

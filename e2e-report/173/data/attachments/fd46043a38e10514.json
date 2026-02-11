@@ -1,0 +1,17 @@
+{
+  "pattern_id": "CMD_OBF_007",
+  "test_id": "CMD_OBF_007-1770841900398-rlpbvl",
+  "category": "cmdinj",
+  "detected": false,
+  "expected_detection": false,
+  "latency_ms": null,
+  "evidence": "",
+  "rule_name": "",
+  "expected_rule": "",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": null,
+  "sent_at": 1770841930000,
+  "detected_at": null,
+  "status": "passed"
+}

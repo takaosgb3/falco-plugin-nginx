@@ -1,0 +1,17 @@
+{
+  "pattern_id": "CMD_PIPE_004",
+  "test_id": "CMD_PIPE_004-1770841896389-erigoo",
+  "category": "cmdi",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 34000,
+  "evidence": "20:31:36.000000000: Critical [NGINX CMDi] Command injection via pipe test_id=CMD_PIPE_004-1770841896389-erigoo pattern_id=CMD_PIPE_004 uri=/?q=ls%20-la%20%7C%20head%20-10 client=127.0.0.1",
+  "rule_name": "[NGINX CMDi] Command injection via pipe test_id=CMD_PIPE_004-1770841896389-erigoo pattern_id=CMD_PIPE_004 uri=/?q=ls%20-la%20%7C%20head%20-10 client=127.0.0.1",
+  "expected_rule": "[NGINX CMDi] Command injection via pipe",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX CMDi] Command injection via pipe test_id=CMD_PIPE_004-1770841896389-erigoo pattern_id=CMD_PIPE_004 uri=/?q=ls%20-la%20%7C%20head%20-10 client=127.0.0.1",
+  "sent_at": 1770841930000,
+  "detected_at": 1770841896000,
+  "status": "passed"
+}

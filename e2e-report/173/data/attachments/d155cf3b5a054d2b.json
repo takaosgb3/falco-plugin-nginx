@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SSRF_CLOUD_004",
+  "test_id": "SSRF_CLOUD_004-1770841919298-hbmidfb",
+  "category": "ssrf",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 11000,
+  "evidence": "20:31:59.000000000: Critical [NGINX SSRF] SSRF attack attempt detected test_id=SSRF_CLOUD_004-1770841919298-hbmidfb pattern_id=SSRF_CLOUD_004 uri=/?q=http%3A%2F%2F169.254.169.254%2Flatest%2Fapi%2Ftoken client=127.0.0.1",
+  "rule_name": "[NGINX SSRF] SSRF attack attempt detected test_id=SSRF_CLOUD_004-1770841919298-hbmidfb pattern_id=SSRF_CLOUD_004 uri=/?q=http%3A%2F%2F169.254.169.254%2Flatest%2Fapi%2Ftoken client=127.0.0.1",
+  "expected_rule": "[NGINX SSRF] SSRF attack attempt detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX SSRF] SSRF attack attempt detected test_id=SSRF_CLOUD_004-1770841919298-hbmidfb pattern_id=SSRF_CLOUD_004 uri=/?q=http%3A%2F%2F169.254.169.254%2Flatest%2Fapi%2Ftoken client=127.0.0.1",
+  "sent_at": 1770841930000,
+  "detected_at": 1770841919000,
+  "status": "passed"
+}

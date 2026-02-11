@@ -1,0 +1,3 @@
+Expected Rule: [NGINX XPath Injection] XPath injection attempt
+Matched Rule: [NGINX SQLi] Boolean-based Blind SQL Injection test_id=XPATH_FUNC_004-1770841888306-9qggw9 pattern_id=XPATH_FUNC_004 uri=/?q=substring%28%2F%2Fuser%2C1%2C1%29 client=127.0.0.1 method=GET
+Rule Match: ❌ Mismatch

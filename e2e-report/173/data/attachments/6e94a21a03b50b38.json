@@ -1,0 +1,17 @@
+{
+  "pattern_id": "LDAP_BLIND_006",
+  "test_id": "LDAP_BLIND_006-1770841874812-6idh5f",
+  "category": "ldap",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 56000,
+  "evidence": "20:31:14.000000000: Warning [NGINX LDAP Injection] Blind injection attempt test_id=LDAP_BLIND_006-1770841874812-6idh5f pattern_id=LDAP_BLIND_006 uri=/?q=cn=Administrators,ou=Groups client=127.0.0.1",
+  "rule_name": "[NGINX LDAP Injection] Blind injection attempt test_id=LDAP_BLIND_006-1770841874812-6idh5f pattern_id=LDAP_BLIND_006 uri=/?q=cn=Administrators,ou=Groups client=127.0.0.1",
+  "expected_rule": "[NGINX LDAP Injection] Blind injection attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX LDAP Injection] Blind injection attempt test_id=LDAP_BLIND_006-1770841874812-6idh5f pattern_id=LDAP_BLIND_006 uri=/?q=cn=Administrators,ou=Groups client=127.0.0.1",
+  "sent_at": 1770841930000,
+  "detected_at": 1770841874000,
+  "status": "passed"
+}

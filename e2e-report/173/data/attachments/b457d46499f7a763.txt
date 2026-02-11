@@ -1,0 +1,5 @@
+Pattern ID: SSTI_DJANGO_001
+        Status: passed
+        Latency: ~36000ms
+        Detection: 1 / 1
+        Rule: [NGINX SSTI] Server-Side Template Injection detected test_id=SSTI_DJANGO_001-1770841894812-9c8d9a pattern_id=SSTI_DJANGO_001 uri=/?q=%7B%25%20debug%20%25%7D client=127.0.0.1

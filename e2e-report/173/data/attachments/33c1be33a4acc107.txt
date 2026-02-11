@@ -1,0 +1,5 @@
+Pattern ID: XXE_ENCODE_002
+        Status: passed
+        Latency: ~50000ms
+        Detection: 1 / 1
+        Rule: [NGINX SQLi] Advanced SQL Injection Attempt test_id=XXE_ENCODE_002-1770841880314-b9pisj pattern_id=XXE_ENCODE_002 uri=/?q=%3c!DOCTYPE%20foo%20%5B%3c!ENTITY%20xxe%20%22test%22%3E%5D%3E client=127.0.0.1 method=GET

@@ -1,0 +1,5 @@
+Pattern ID: SSTI_JINJA_003
+        Status: passed
+        Latency: ~42000ms
+        Detection: 1 / 1
+        Rule: [NGINX Emerging Threat] Template injection test_id=SSTI_JINJA_003-1770841888797-skpi0d pattern_id=SSTI_JINJA_003 uri=/?q=%7B%7Blipsum(1)%7D%7D client=127.0.0.1

@@ -1,0 +1,5 @@
+Pattern ID: CMD_PIPE_003
+        Status: passed
+        Latency: ~35000ms
+        Detection: 1 / 1
+        Rule: [NGINX CMDi] Command injection via pipe test_id=CMD_PIPE_003-1770841895887-jnmono pattern_id=CMD_PIPE_003 uri=/?q=netstat%20-an%20%7C%20grep%20LISTEN client=127.0.0.1

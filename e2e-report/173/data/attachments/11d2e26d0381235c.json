@@ -1,0 +1,17 @@
+{
+  "pattern_id": "XPATH_BOOL_003",
+  "test_id": "XPATH_BOOL_003-1770841889308-atb68l",
+  "category": "xpath",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 41000,
+  "evidence": "20:31:29.000000000: Warning [NGINX XPath Injection] XPath injection attempt test_id=XPATH_BOOL_003-1770841889308-atb68l pattern_id=XPATH_BOOL_003 uri=/?q=%27%20and%20normalize-space%28%2F%2Fsecret%29%21%3D%27%27 client=127.0.0.1",
+  "rule_name": "[NGINX XPath Injection] XPath injection attempt test_id=XPATH_BOOL_003-1770841889308-atb68l pattern_id=XPATH_BOOL_003 uri=/?q=%27%20and%20normalize-space%28%2F%2Fsecret%29%21%3D%27%27 client=127.0.0.1",
+  "expected_rule": "[NGINX XPath Injection] XPath injection attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX XPath Injection] XPath injection attempt test_id=XPATH_BOOL_003-1770841889308-atb68l pattern_id=XPATH_BOOL_003 uri=/?q=%27%20and%20normalize-space%28%2F%2Fsecret%29%21%3D%27%27 client=127.0.0.1",
+  "sent_at": 1770841930000,
+  "detected_at": 1770841889000,
+  "status": "passed"
+}
