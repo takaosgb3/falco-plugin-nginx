@@ -1,0 +1,5 @@
+Pattern ID: GQL_INTRO_002
+        Status: passed
+        Latency: ~49000ms
+        Detection: 1 / 1
+        Rule: [NGINX SSTI] Server-Side Template Injection detected test_id=GQL_INTRO_002-1770818063889-ut31e pattern_id=GQL_INTRO_002 uri=/?q=query%7B__type(name%3A%22User%22)%7Bfields%7Bname%7D%7D%7D client=127.0.0.1

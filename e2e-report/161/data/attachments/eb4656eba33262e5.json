@@ -1,0 +1,17 @@
+{
+  "pattern_id": "PATH_SENS_003",
+  "test_id": "PATH_SENS_003-1770818062948-l04chl",
+  "category": "path",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 50000,
+  "evidence": "13:54:22.000000000: Critical [NGINX Traversal] Basic path traversal attack detected test_id=PATH_SENS_003-1770818062948-l04chl pattern_id=PATH_SENS_003 uri=/?q=..%2F..%2F..%2Fvar%2Frun%2Fdocker.sock client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] Basic path traversal attack detected test_id=PATH_SENS_003-1770818062948-l04chl pattern_id=PATH_SENS_003 uri=/?q=..%2F..%2F..%2Fvar%2Frun%2Fdocker.sock client=127.0.0.1",
+  "expected_rule": "[NGINX Traversal] Basic path traversal attack detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Traversal] Basic path traversal attack detected test_id=PATH_SENS_003-1770818062948-l04chl pattern_id=PATH_SENS_003 uri=/?q=..%2F..%2F..%2Fvar%2Frun%2Fdocker.sock client=127.0.0.1",
+  "sent_at": 1770818112000,
+  "detected_at": 1770818062000,
+  "status": "passed"
+}

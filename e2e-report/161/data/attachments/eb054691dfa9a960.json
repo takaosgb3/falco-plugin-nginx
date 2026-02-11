@@ -1,0 +1,17 @@
+{
+  "pattern_id": "CMD_ENV_002",
+  "test_id": "CMD_ENV_002-1770818065445-rzynb7w",
+  "category": "cmdinj",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 47000,
+  "evidence": "13:54:25.000000000: Warning [NGINX CMDi] Advanced command injection attempt test_id=CMD_ENV_002-1770818065445-rzynb7w pattern_id=CMD_ENV_002 uri=/?q=LD_PRELOAD%3D%2Ftmp%2Fevil.so%20%2Fbin%2Fid client=127.0.0.1",
+  "rule_name": "[NGINX CMDi] Advanced command injection attempt test_id=CMD_ENV_002-1770818065445-rzynb7w pattern_id=CMD_ENV_002 uri=/?q=LD_PRELOAD%3D%2Ftmp%2Fevil.so%20%2Fbin%2Fid client=127.0.0.1",
+  "expected_rule": "[NGINX CMDi] Advanced command injection attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX CMDi] Advanced command injection attempt test_id=CMD_ENV_002-1770818065445-rzynb7w pattern_id=CMD_ENV_002 uri=/?q=LD_PRELOAD%3D%2Ftmp%2Fevil.so%20%2Fbin%2Fid client=127.0.0.1",
+  "sent_at": 1770818112000,
+  "detected_at": 1770818065000,
+  "status": "passed"
+}

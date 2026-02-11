@@ -1,0 +1,17 @@
+{
+  "pattern_id": "PP_BASIC_002",
+  "test_id": "PP_BASIC_002-1770818093890-xizlc",
+  "category": "prototype_pollution",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 19000,
+  "evidence": "13:54:53.000000000: Warning [NGINX PP] Prototype pollution attack attempt test_id=PP_BASIC_002-1770818093890-xizlc pattern_id=PP_BASIC_002 uri=/?q=%3F__proto__%5BisAdmin%5D%3Dtrue client=127.0.0.1",
+  "rule_name": "[NGINX PP] Prototype pollution attack attempt test_id=PP_BASIC_002-1770818093890-xizlc pattern_id=PP_BASIC_002 uri=/?q=%3F__proto__%5BisAdmin%5D%3Dtrue client=127.0.0.1",
+  "expected_rule": "[NGINX PP] Prototype pollution attack attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX PP] Prototype pollution attack attempt test_id=PP_BASIC_002-1770818093890-xizlc pattern_id=PP_BASIC_002 uri=/?q=%3F__proto__%5BisAdmin%5D%3Dtrue client=127.0.0.1",
+  "sent_at": 1770818112000,
+  "detected_at": 1770818093000,
+  "status": "passed"
+}

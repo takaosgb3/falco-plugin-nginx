@@ -1,0 +1,5 @@
+Pattern ID: XSS_REFL_017
+        Status: passed
+        Latency: ~42000ms
+        Detection: 1 / 1
+        Rule: [NGINX XSS] XSS Filter Bypass Attempt test_id=XSS_REFL_017-1770818070983-d8m0f4 pattern_id=XSS_REFL_017 uri=/?q=PHNjcmlwdD5hbGVydCgnWFNTJyk8L3NjcmlwdD4%253D client=127.0.0.1 method=GET

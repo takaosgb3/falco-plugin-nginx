@@ -1,0 +1,17 @@
+{
+  "pattern_id": "CMD_PIPE_003",
+  "test_id": "CMD_PIPE_003-1770818081486-hhv39p",
+  "category": "cmdi",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 31000,
+  "evidence": "13:54:41.000000000: Critical [NGINX CMDi] Command injection via pipe test_id=CMD_PIPE_003-1770818081486-hhv39p pattern_id=CMD_PIPE_003 uri=/?q=netstat%20-an%20%7C%20grep%20LISTEN client=127.0.0.1",
+  "rule_name": "[NGINX CMDi] Command injection via pipe test_id=CMD_PIPE_003-1770818081486-hhv39p pattern_id=CMD_PIPE_003 uri=/?q=netstat%20-an%20%7C%20grep%20LISTEN client=127.0.0.1",
+  "expected_rule": "[NGINX CMDi] Command injection via pipe",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX CMDi] Command injection via pipe test_id=CMD_PIPE_003-1770818081486-hhv39p pattern_id=CMD_PIPE_003 uri=/?q=netstat%20-an%20%7C%20grep%20LISTEN client=127.0.0.1",
+  "sent_at": 1770818112000,
+  "detected_at": 1770818081000,
+  "status": "passed"
+}

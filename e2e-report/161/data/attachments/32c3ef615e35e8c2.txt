@@ -1,0 +1,3 @@
+Expected Rule: [NGINX LDAP Injection] Authentication bypass attempt
+Matched Rule: [NGINX LDAP Injection] Authentication bypass attempt test_id=LDAP_BLIND_002-1770818056396-i39g33 pattern_id=LDAP_BLIND_002 uri=/?q=*)(|(uid%3Dadmin)(uid%3Dadministrator)) client=127.0.0.1
+Rule Match: ✅ Match

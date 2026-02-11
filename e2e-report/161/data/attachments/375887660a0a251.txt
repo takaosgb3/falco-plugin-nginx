@@ -1,0 +1,5 @@
+Pattern ID: CMD_PIPE_002
+        Status: passed
+        Latency: ~32000ms
+        Detection: 1 / 1
+        Rule: [NGINX CMDi] Command injection via pipe test_id=CMD_PIPE_002-1770818080985-jo0fa5 pattern_id=CMD_PIPE_002 uri=/?q=ps%20aux%20%7C%20grep%20apache client=127.0.0.1
