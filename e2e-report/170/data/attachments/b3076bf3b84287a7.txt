@@ -1,0 +1,3 @@
+Expected Rule: [NGINX SQLi] Advanced SQL Injection Attempt
+Matched Rule: [NGINX SQLi] Advanced SQL Injection Attempt test_id=SQLI_UNION_002-1770841802428-c19muq pattern_id=SQLI_UNION_002 uri=/?q=UNION%20ALL%20SELECT%20NULL%2CNULL client=127.0.0.1 method=GET
+Rule Match: ✅ Match

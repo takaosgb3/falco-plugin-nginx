@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SQLI_BLIND_010",
+  "test_id": "SQLI_BLIND_010-1770841827499-57haqb",
+  "category": "sqli",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 49000,
+  "evidence": "20:30:27.000000000: Critical [NGINX SQLi] Time-based Blind SQL Injection test_id=SQLI_BLIND_010-1770841827499-57haqb pattern_id=SQLI_BLIND_010 uri=/?q='%20AND%20(SELECT%20CASE%20WHEN%20(LENGTH(password))%3E10%20THEN%20SLEEP(5)%20ELSE%201%20END)%20FROM%20users%20WHERE%20username%3D'admin'%20-- client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Time-based Blind SQL Injection test_id=SQLI_BLIND_010-1770841827499-57haqb pattern_id=SQLI_BLIND_010 uri=/?q='%20AND%20(SELECT%20CASE%20WHEN%20(LENGTH(password))%3E10%20THEN%20SLEEP(5)%20ELSE%201%20END)%20FROM%20users%20WHERE%20username%3D'admin'%20-- client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX SQLi] Time-based Blind SQL Injection",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX SQLi] Time-based Blind SQL Injection test_id=SQLI_BLIND_010-1770841827499-57haqb pattern_id=SQLI_BLIND_010 uri=/?q='%20AND%20(SELECT%20CASE%20WHEN%20(LENGTH(password))%3E10%20THEN%20SLEEP(5)%20ELSE%201%20END)%20FROM%20users%20WHERE%20username%3D'admin'%20-- client=127.0.0.1 method=GET",
+  "sent_at": 1770841876000,
+  "detected_at": 1770841827000,
+  "status": "passed"
+}

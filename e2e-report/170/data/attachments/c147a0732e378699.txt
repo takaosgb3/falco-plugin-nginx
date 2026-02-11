@@ -1,0 +1,3 @@
+Expected Rule: [NGINX CRLF] CRLF Injection attempt detected
+Matched Rule: [NGINX CMDi] Advanced command injection attempt test_id=CRLF_ENC_003-1770841875910-5p6lm4 pattern_id=CRLF_ENC_003 uri=/?q=%0AInjectedHeader%3Atrue client=127.0.0.1
+Rule Match: ❌ Mismatch

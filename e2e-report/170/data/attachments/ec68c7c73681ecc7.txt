@@ -1,0 +1,5 @@
+Pattern ID: XSS_ADV_061
+        Status: passed
+        Latency: ~52000ms
+        Detection: 1 / 1
+        Rule: [NGINX XSS] DOM-based XSS Attack test_id=XSS_ADV_061-1770841824470-woia7 pattern_id=XSS_ADV_061 uri=/?q=element.outerHTML%3Dpayload client=127.0.0.1 method=GET

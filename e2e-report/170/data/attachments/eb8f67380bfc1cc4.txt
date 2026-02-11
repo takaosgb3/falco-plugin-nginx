@@ -1,0 +1,3 @@
+Expected Rule: [NGINX SQLi] Advanced SQL Injection Attempt
+Matched Rule: [NGINX SQLi] Advanced SQL Injection Attempt test_id=SQLI_HEX_001-1770841847558-d2kic8 pattern_id=SQLI_HEX_001 uri=/?q=0x27554e494f4e2053454c454354 client=127.0.0.1 method=GET
+Rule Match: ✅ Match

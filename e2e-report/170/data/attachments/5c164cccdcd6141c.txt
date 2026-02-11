@@ -1,0 +1,3 @@
+Expected Rule: [NGINX Traversal] Basic path traversal attack detected
+Matched Rule: [NGINX Traversal] Basic path traversal attack detected test_id=PATH_UNI_008-1770841834483-x27ev8 pattern_id=PATH_UNI_008 uri=/?q=..%2F%E2%80%8B..%2Fetc%2Fpasswd client=127.0.0.1
+Rule Match: ✅ Match

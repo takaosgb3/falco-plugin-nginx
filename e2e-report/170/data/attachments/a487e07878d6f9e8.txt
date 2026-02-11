@@ -1,0 +1,3 @@
+Expected Rule: [NGINX SSRF] SSRF attack attempt detected
+Matched Rule: [NGINX SSRF] SSRF attack attempt detected test_id=SSRF_SCHEME_002-1770841870910-epmb8h pattern_id=SSRF_SCHEME_002 uri=/?q=gopher%3A%2F%2F127.0.0.1%3A25%2F client=127.0.0.1
+Rule Match: ✅ Match

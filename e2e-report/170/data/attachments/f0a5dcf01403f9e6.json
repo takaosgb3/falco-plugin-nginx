@@ -1,0 +1,17 @@
+{
+  "pattern_id": "PATH_ADV_055",
+  "test_id": "PATH_ADV_055-1770841826455-ukupt",
+  "category": "path",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 50000,
+  "evidence": "20:30:26.000000000: Critical [NGINX Traversal] Encoded path traversal attack detected test_id=PATH_ADV_055-1770841826455-ukupt pattern_id=PATH_ADV_055 uri=/?q=%252e%252e%252f client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] Encoded path traversal attack detected test_id=PATH_ADV_055-1770841826455-ukupt pattern_id=PATH_ADV_055 uri=/?q=%252e%252e%252f client=127.0.0.1",
+  "expected_rule": "[NGINX Traversal] Encoded path traversal attack detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Traversal] Encoded path traversal attack detected test_id=PATH_ADV_055-1770841826455-ukupt pattern_id=PATH_ADV_055 uri=/?q=%252e%252e%252f client=127.0.0.1",
+  "sent_at": 1770841876000,
+  "detected_at": 1770841826000,
+  "status": "passed"
+}

@@ -1,0 +1,3 @@
+Expected Rule: [NGINX Traversal] Basic path traversal attack detected
+Matched Rule: [NGINX Traversal] Basic path traversal attack detected test_id=PATH_DOT_005-1770841803902-jni3m pattern_id=PATH_DOT_005 uri=/?q=../../../../../etc/ssh/sshd_config client=127.0.0.1
+Rule Match: ✅ Match

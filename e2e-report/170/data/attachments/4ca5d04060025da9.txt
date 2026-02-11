@@ -1,0 +1,3 @@
+Expected Rule: [NGINX SSTI] Server-Side Template Injection detected
+Matched Rule: [NGINX SSTI] Server-Side Template Injection detected test_id=SSTI_SMARTY_001-1770841838404-g1urkb pattern_id=SSTI_SMARTY_001 uri=/?q=%7Bphp%7Dsystem(%22id%22)%3B%7B%2Fphp%7D client=127.0.0.1
+Rule Match: ✅ Match

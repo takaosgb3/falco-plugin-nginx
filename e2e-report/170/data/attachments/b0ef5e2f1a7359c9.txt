@@ -1,0 +1,5 @@
+Pattern ID: PATH_ADV_052
+        Status: passed
+        Latency: ~52000ms
+        Detection: 1 / 1
+        Rule: [NGINX Traversal] Basic path traversal attack detected test_id=PATH_ADV_052-1770841824951-wrs8r pattern_id=PATH_ADV_052 uri=/?q=..%2E%2F.%2E%2F..%2E%2F.%2E%2Fetc%2Fpasswd client=127.0.0.1

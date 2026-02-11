@@ -1,0 +1,17 @@
+{
+  "pattern_id": "API_BOLA_002",
+  "test_id": "API_BOLA_002-1770841849405-7on6g8",
+  "category": "api_security",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 27000,
+  "evidence": "20:30:49.000000000: Warning [NGINX API Attack] API security vulnerability detected test_id=API_BOLA_002-1770841849405-7on6g8 pattern_id=API_BOLA_002 uri=/?q=%2Fapi%2Fv2%2Fusers%2F2%2Fprofile client=127.0.0.1",
+  "rule_name": "[NGINX API Attack] API security vulnerability detected test_id=API_BOLA_002-1770841849405-7on6g8 pattern_id=API_BOLA_002 uri=/?q=%2Fapi%2Fv2%2Fusers%2F2%2Fprofile client=127.0.0.1",
+  "expected_rule": "[NGINX API Attack] API security vulnerability detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX API Attack] API security vulnerability detected test_id=API_BOLA_002-1770841849405-7on6g8 pattern_id=API_BOLA_002 uri=/?q=%2Fapi%2Fv2%2Fusers%2F2%2Fprofile client=127.0.0.1",
+  "sent_at": 1770841876000,
+  "detected_at": 1770841849000,
+  "status": "passed"
+}

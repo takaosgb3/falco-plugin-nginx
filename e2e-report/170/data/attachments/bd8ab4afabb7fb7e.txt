@@ -1,0 +1,5 @@
+Pattern ID: XSS_POLY_007
+        Status: passed
+        Latency: ~55000ms
+        Detection: 1 / 1
+        Rule: [NGINX SQLi] Encoded SQL Injection Pattern test_id=XSS_POLY_007-1770841821963-rhlut9 pattern_id=XSS_POLY_007 uri=/?q=jaVasCript%3A%2F*-%2F*%60%2F*'%20%2F*onerror%3Dalert(1)%2F%2F%20*%2F client=127.0.0.1 method=GET

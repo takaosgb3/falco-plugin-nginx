@@ -1,0 +1,17 @@
+{
+  "pattern_id": "CMD_OBF_009",
+  "test_id": "CMD_OBF_009-1770841848024-wy8q2j",
+  "category": "cmdinj",
+  "detected": false,
+  "expected_detection": false,
+  "latency_ms": null,
+  "evidence": "",
+  "rule_name": "",
+  "expected_rule": "",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": null,
+  "sent_at": 1770841876000,
+  "detected_at": null,
+  "status": "passed"
+}

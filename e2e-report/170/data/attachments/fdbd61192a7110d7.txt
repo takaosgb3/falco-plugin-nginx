@@ -1,0 +1,5 @@
+Pattern ID: CMD_BLIND_001
+        Status: passed
+        Latency: ~60000ms
+        Detection: 1 / 1
+        Rule: [NGINX CMDi] Command injection via semicolon test_id=CMD_BLIND_001-1770841816929-f1iyyv pattern_id=CMD_BLIND_001 uri=/?q=%3B%20sleep%2010 client=127.0.0.1

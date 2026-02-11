@@ -1,0 +1,5 @@
+Pattern ID: XSS_ADV_062
+        Status: passed
+        Latency: ~52000ms
+        Detection: 1 / 1
+        Rule: [NGINX XSS] DOM-based XSS Attack test_id=XSS_ADV_062-1770841824971-5d66zv pattern_id=XSS_ADV_062 uri=/?q=insertAdjacentHTML%28%27beforeend%27%2C%27%3Cscript%3Ealert%281%29%3C%2Fscript%3E%27%29 client=127.0.0.1 method=GET

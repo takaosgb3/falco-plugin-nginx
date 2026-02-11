@@ -1,0 +1,3 @@
+Expected Rule: [NGINX API Attack] API security vulnerability detected
+Matched Rule: [NGINX API Attack] API security vulnerability detected test_id=API_BOLA_003-1770841849906-s53zm pattern_id=API_BOLA_003 uri=/?q=%2Fapi%2Fadmin%2Fusers%2F100%2Fprofile client=127.0.0.1
+Rule Match: ✅ Match
