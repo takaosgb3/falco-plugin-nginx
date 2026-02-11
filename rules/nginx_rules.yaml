@@ -2119,6 +2119,13 @@
       comps: in
       values:
         - PP_JSON_001
+    # Phase 8 Stage 2: API Prototype Pollution pattern
+    # %7D%7D (}}) in JSON triggers template injection condition
+    - name: phase8_api_proto_002
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - API_PROTO_002
   output: "[NGINX Emerging Threat] Template injection test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: CRITICAL
   tags: [security, emerging_threats, ssti, template_injection, phase5]
@@ -2144,6 +2151,14 @@
       nginx.request_uri icontains "EVAL " or
       nginx.request_uri icontains "EVAL%20"
     )
+  exceptions:
+    # Phase 8 Stage 2: XXE pattern with "eval" in entity name
+    # "%20eval%20" matches icontains "EVAL%20"
+    - name: phase8_xxe_eval_pattern
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - XXE_PARAM_001
   output: "[NGINX Emerging Threat] Redis command injection test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: CRITICAL
   tags: [security, emerging_threats, redis, injection, phase5]
@@ -2195,6 +2210,13 @@
       comps: in
       values:
         - PP_JSON_001
+    # Phase 8 Stage 2: API Prototype Pollution pattern
+    # %7D%7D (}}) in JSON triggers SSTI closing braces condition
+    - name: phase8_api_proto_002_ssti
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - API_PROTO_002
   source: nginx
 
 # =========================================================================
