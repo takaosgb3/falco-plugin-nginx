@@ -303,7 +303,7 @@ export const options = {
     thresholds: {
         'http_req_duration': ['p(95)<5000'],  // 95% of requests under 5s
         'http_req_failed': ['rate<0.05'],      // Less than 5% failure rate
-        'attacks_sent': ['count==562']          // All 562 patterns sent (Phase 9 Stage 2)
+        'attacks_sent': ['count==575']          // All 575 patterns sent (Phase 9 Stage 3)
     },
     summaryTimeUnit: 'ms',
     summaryTrendStats: ['avg', 'med', 'p(90)', 'p(95)', 'p(99)', 'max', 'count']
@@ -493,24 +493,24 @@ export function setup() {
     console.log('========================================');
     console.log('k6 E2E Test Starting (Public Repo Mode)');
     console.log(`Target: ${TARGET_IP}:${TARGET_PORT}`);
-    console.log('Total Patterns: 562 (Phase 9 Stage 2)');
+    console.log('Total Patterns: 575 (Phase 9 Stage 3)');
     console.log('  - SQLi: 124');
-    console.log('  - XSS: 81');
+    console.log('  - XSS: 86');
     console.log('  - Path: 73');
     console.log('  - CmdInj: 89');
-    console.log('  - Other: 10');
-    console.log('  - LDAP: 10');
-    console.log('  - XXE: 15 (+7 Phase 8)');
-    console.log('  - GraphQL: 5');
-    console.log('  - XPath: 5');
-    console.log('  - SSTI: 10');
-    console.log('  - NoSQL Extended: 20 (+7 Phase 8)');
-    console.log('  - API Security: 15 (+10 Phase 8)');
-    console.log('  - Pickle: 4');
-    console.log('  - Prototype Pollution: 10');
-    console.log('  - HTTP Smuggling: 10');
-    console.log('  - SSRF: 10');
-    console.log('  - CRLF: 8');
+    console.log('  - Other: 15');
+    console.log('  - LDAP: 15');
+    console.log('  - XXE: 18');
+    console.log('  - GraphQL: 15');
+    console.log('  - XPath: 15');
+    console.log('  - SSTI: 15');
+    console.log('  - NoSQL Extended: 20');
+    console.log('  - API Security: 15');
+    console.log('  - Pickle: 15');
+    console.log('  - Prototype Pollution: 15');
+    console.log('  - HTTP Smuggling: 15');
+    console.log('  - SSRF: 15');
+    console.log('  - CRLF: 15');
     console.log('========================================');
 }
 

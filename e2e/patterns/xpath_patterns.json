@@ -1,7 +1,7 @@
 {
   "metadata": {
     "category": "xpath",
-    "total_patterns": 10,
+    "total_patterns": 15,
     "port": 8009,
     "description": "k6 test patterns for XPath injection attacks"
   },
@@ -130,6 +130,71 @@
       "severity": "high",
       "expected_rule": "[NGINX XPath Injection] XPath injection attempt",
       "description": "XPath parenthesis bypass using true() for authentication bypass"
+    },
+    {
+      "id": "XPATH_FUNC_003",
+      "name": "XPath standalone count function probe",
+      "category": "xpath",
+      "subcategory": "function_abuse",
+      "payload": "count(//node)>0",
+      "encoded": "count%28%2F%2Fnode%29%3E0",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XPath Injection] XPath injection attempt",
+      "description": "Standalone count() function without quote prefix to independently test count%28%2F%2F condition"
+    },
+    {
+      "id": "XPATH_FUNC_004",
+      "name": "XPath standalone substring function probe",
+      "category": "xpath",
+      "subcategory": "blind",
+      "payload": "substring(//user,1,1)",
+      "encoded": "substring%28%2F%2Fuser%2C1%2C1%29",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XPath Injection] XPath injection attempt",
+      "description": "Standalone substring() function without quote prefix to independently test substring%28%2F%2F condition"
+    },
+    {
+      "id": "XPATH_ENUM_002",
+      "name": "XPath standalone string-length function probe",
+      "category": "xpath",
+      "subcategory": "enumeration",
+      "payload": "string-length(//password)>0",
+      "encoded": "string-length%28%2F%2Fpassword%29%3E0",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XPath Injection] XPath injection attempt",
+      "description": "Standalone string-length() function without quote prefix to independently test string-length%28%2F%2F condition"
+    },
+    {
+      "id": "XPATH_BOOL_003",
+      "name": "XPath AND injection with normalize-space function",
+      "category": "xpath",
+      "subcategory": "boolean_based",
+      "payload": "' and normalize-space(//secret)!=''",
+      "encoded": "%27%20and%20normalize-space%28%2F%2Fsecret%29%21%3D%27%27",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XPath Injection] XPath injection attempt",
+      "description": "XPath AND injection with normalize-space() to test %27%20and%20 condition with different function context"
+    },
+    {
+      "id": "XPATH_PAREN_003",
+      "name": "XPath parenthesis bypass with count function",
+      "category": "xpath",
+      "subcategory": "authentication_bypass",
+      "payload": "') or count(//admin)>0 or ('",
+      "encoded": "%27%29%20or%20count%28%2F%2Fadmin%29%3E0%20or%20%28%27",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XPath Injection] XPath injection attempt",
+      "description": "XPath parenthesis bypass combined with count() to test %27%29%20or%20 and count%28%2F%2F conditions together"
     }
   ]
 }
