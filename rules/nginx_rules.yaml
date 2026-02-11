@@ -802,6 +802,13 @@
       comps: in
       values:
         - HRS_CHUNK_002
+    # Phase 8: SSRF patterns - should be caught by SSRF Attack rule
+    # 0x7f000001 triggers contains_hex_char_patterns (0x match)
+    - name: ssrf_hex_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - SSRF_DNS_001
   output: "[NGINX SQLi] Advanced SQL Injection Attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: WARNING
   tags: [security, sql_injection, advanced_sqli, enumeration, phase3]
@@ -858,6 +865,19 @@
       comps: in
       values:
         - XSS_BYPASS_006
+    # Phase 8: CRLF Injection patterns - should be caught by CRLF Injection rule
+    # %0d%0a in URL triggers contains_comment_special_chars (%0a match)
+    - name: crlf_injection_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - CRLF_HDR_001
+        - CRLF_HDR_002
+        - CRLF_HDR_003
+        - CRLF_LOG_001
+        - CRLF_LOG_002
+        - CRLF_RESP_001
+        - CRLF_RESP_002
   output: "[NGINX SQLi] Encoded SQL Injection Pattern test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: WARNING
   tags: [security, sql_injection, advanced_sqli, encoding_evasion, phase3]
@@ -1202,6 +1222,19 @@
       comps: in
       values:
         - HRS_OBFUSC_001
+    # Phase 8: CRLF Injection patterns - should be caught by CRLF Injection rule
+    # %0d%0a in URL triggers %0a and %0d conditions
+    - name: crlf_injection_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - CRLF_HDR_001
+        - CRLF_HDR_002
+        - CRLF_HDR_003
+        - CRLF_LOG_001
+        - CRLF_LOG_002
+        - CRLF_RESP_001
+        - CRLF_RESP_002
   output: "[NGINX XSS] XSS Filter Bypass Attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: WARNING
   tags: [security, xss, filter_bypass, advanced_xss, phase3]
@@ -1447,6 +1480,13 @@
         - CMD_SUB_003
         - CMD_ADV_063
         - CMD_ADV_066
+    # Phase 8: SSRF patterns with file:// scheme - should be caught by SSRF Attack rule
+    # file:///etc/passwd triggers icontains "/etc/passwd" match
+    - name: ssrf_file_scheme_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - SSRF_SCHEME_001
   output: "[NGINX Traversal] File inclusion attack detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: CRITICAL
   tags: [security, path_traversal, file_inclusion, advanced_traversal, phase3]
@@ -1472,6 +1512,20 @@
       nginx.request_uri contains "%2500" or
       nginx.request_uri icontains "..%5Cx2f"
     )
+  exceptions:
+    # Phase 8: CRLF Injection patterns - should be caught by CRLF Injection rule
+    # %0d%0a in URL triggers %0a and %0d conditions
+    - name: crlf_injection_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - CRLF_HDR_001
+        - CRLF_HDR_002
+        - CRLF_HDR_003
+        - CRLF_LOG_001
+        - CRLF_LOG_002
+        - CRLF_RESP_001
+        - CRLF_RESP_002
   output: "[NGINX Traversal] Advanced path traversal attempt detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: WARNING
   tags: [security, path_traversal, advanced_traversal, phase3]
@@ -1746,6 +1800,19 @@
         - HRS_TE_CL_001
         - HRS_TE_CL_002
         - HRS_HEADER_002
+    # Phase 8: CRLF Injection patterns - should be caught by CRLF Injection rule
+    # %0d%0a in URL triggers %0a/%0A and %0d/%0D conditions
+    - name: crlf_injection_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - CRLF_HDR_001
+        - CRLF_HDR_002
+        - CRLF_HDR_003
+        - CRLF_LOG_001
+        - CRLF_LOG_002
+        - CRLF_RESP_001
+        - CRLF_RESP_002
 
 # ==============================================================================
 # Emerging Threats Detection Rules (from advanced_emerging_enhanced.yaml)
@@ -2482,4 +2549,72 @@
   output: "[NGINX HRS] HTTP Request Smuggling attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: CRITICAL
   tags: [security, http_smuggling, clte, tecl, phase7]
+  source: nginx
+
+
+# ==============================================================================
+# SSRF Detection Rules (Phase 8 Stage 1)
+# ==============================================================================
+#
+# Server-Side Request Forgery detection
+# Detects attempts to access internal services, cloud metadata,
+# and use alternative protocols via URL parameters
+#
+
+- rule: SSRF Attack Attempt
+  desc: Detects Server-Side Request Forgery attempts targeting cloud metadata, internal services, and alternative protocols
+  condition: >-
+    (
+      nginx.request_uri icontains "169.254.169.254" or
+      nginx.request_uri icontains "metadata.google.internal" or
+      nginx.request_uri contains "file://" or
+      nginx.request_uri contains "file%3A%2F%2F" or
+      nginx.request_uri contains "file%3a%2f%2f" or
+      nginx.request_uri contains "gopher://" or
+      nginx.request_uri contains "gopher%3A%2F%2F" or
+      nginx.request_uri contains "gopher%3a%2f%2f" or
+      nginx.request_uri contains "dict://" or
+      nginx.request_uri contains "dict%3A%2F%2F" or
+      nginx.request_uri contains "dict%3a%2f%2f" or
+      nginx.request_uri icontains "0x7f000001" or
+      nginx.request_uri contains "2130706433" or
+      nginx.request_uri contains "http://127.0.0.1" or
+      nginx.request_uri contains "http%3A%2F%2F127.0.0.1" or
+      nginx.request_uri contains "http%3a%2f%2f127.0.0.1" or
+      nginx.request_uri contains "http://localhost" or
+      nginx.request_uri contains "http%3A%2F%2Flocalhost" or
+      nginx.request_uri contains "http%3a%2f%2flocalhost" or
+      nginx.request_uri contains "http://0.0.0.0" or
+      nginx.request_uri contains "http%3A%2F%2F0.0.0.0" or
+      nginx.request_uri contains "http%3a%2f%2f0.0.0.0"
+    )
+  output: "[NGINX SSRF] SSRF attack attempt detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
+  priority: CRITICAL
+  tags: [security, ssrf, owasp_top10, cloud_metadata, phase8]
+  source: nginx
+
+
+# ==============================================================================
+# CRLF Injection Detection Rules (Phase 8 Stage 1)
+# ==============================================================================
+#
+# CRLF (Carriage Return Line Feed) Injection detection
+# Detects attempts to inject CRLF sequences for header injection,
+# log injection, and HTTP response splitting
+#
+
+- rule: CRLF Injection Attempt
+  desc: Detects CRLF Injection attempts via URL-encoded CR/LF sequences
+  condition: >-
+    (
+      nginx.request_uri contains "%0d%0a" or
+      nginx.request_uri contains "%0D%0A" or
+      nginx.request_uri contains "%0a" or
+      nginx.request_uri contains "%0A" or
+      nginx.request_uri contains "%E5%98%8A%E5%98%8D" or
+      nginx.request_uri contains "%e5%98%8a%e5%98%8d"
+    )
+  output: "[NGINX CRLF] CRLF Injection attempt detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
+  priority: WARNING
+  tags: [security, crlf, header_injection, log_injection, phase8]
   source: nginx

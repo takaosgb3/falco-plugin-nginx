@@ -1,0 +1,131 @@
+{
+  "metadata": {
+    "category": "ssrf",
+    "description": "Server-Side Request Forgery (SSRF) attack patterns",
+    "total_patterns": 10,
+    "phase": "Phase 8 Stage 1",
+    "created": "2026-02-11"
+  },
+  "patterns": [
+    {
+      "id": "SSRF_CLOUD_001",
+      "name": "AWS IMDSv1 Metadata Access",
+      "category": "ssrf",
+      "subcategory": "cloud_metadata",
+      "payload": "http://169.254.169.254/latest/meta-data/",
+      "encoded": "http%3A%2F%2F169.254.169.254%2Flatest%2Fmeta-data%2F",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX SSRF] SSRF attack attempt detected"
+    },
+    {
+      "id": "SSRF_CLOUD_002",
+      "name": "GCP Metadata Service Access",
+      "category": "ssrf",
+      "subcategory": "cloud_metadata",
+      "payload": "http://metadata.google.internal/computeMetadata/v1/",
+      "encoded": "http%3A%2F%2Fmetadata.google.internal%2FcomputeMetadata%2Fv1%2F",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX SSRF] SSRF attack attempt detected"
+    },
+    {
+      "id": "SSRF_CLOUD_003",
+      "name": "Azure Instance Metadata Access",
+      "category": "ssrf",
+      "subcategory": "cloud_metadata",
+      "payload": "http://169.254.169.254/metadata/instance",
+      "encoded": "http%3A%2F%2F169.254.169.254%2Fmetadata%2Finstance",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX SSRF] SSRF attack attempt detected"
+    },
+    {
+      "id": "SSRF_INT_001",
+      "name": "Internal Redis Service Access",
+      "category": "ssrf",
+      "subcategory": "internal_service",
+      "payload": "http://localhost:6379/",
+      "encoded": "http%3A%2F%2Flocalhost%3A6379%2F",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX SSRF] SSRF attack attempt detected"
+    },
+    {
+      "id": "SSRF_INT_002",
+      "name": "Internal Elasticsearch Access",
+      "category": "ssrf",
+      "subcategory": "internal_service",
+      "payload": "http://127.0.0.1:9200/_cat/indices",
+      "encoded": "http%3A%2F%2F127.0.0.1%3A9200%2F_cat%2Findices",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX SSRF] SSRF attack attempt detected"
+    },
+    {
+      "id": "SSRF_INT_003",
+      "name": "Internal Consul Service Access",
+      "category": "ssrf",
+      "subcategory": "internal_service",
+      "payload": "http://0.0.0.0:8500/v1/agent/members",
+      "encoded": "http%3A%2F%2F0.0.0.0%3A8500%2Fv1%2Fagent%2Fmembers",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX SSRF] SSRF attack attempt detected"
+    },
+    {
+      "id": "SSRF_DNS_001",
+      "name": "Hex IP Bypass for Localhost",
+      "category": "ssrf",
+      "subcategory": "dns_rebinding",
+      "payload": "http://0x7f000001/",
+      "encoded": "http%3A%2F%2F0x7f000001%2F",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX SSRF] SSRF attack attempt detected"
+    },
+    {
+      "id": "SSRF_DNS_002",
+      "name": "Decimal IP Bypass for Localhost",
+      "category": "ssrf",
+      "subcategory": "dns_rebinding",
+      "payload": "http://2130706433/",
+      "encoded": "http%3A%2F%2F2130706433%2F",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX SSRF] SSRF attack attempt detected"
+    },
+    {
+      "id": "SSRF_SCHEME_001",
+      "name": "File Scheme Local File Read",
+      "category": "ssrf",
+      "subcategory": "protocol_smuggling",
+      "payload": "file:///etc/passwd",
+      "encoded": "file%3A%2F%2F%2Fetc%2Fpasswd",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX SSRF] SSRF attack attempt detected"
+    },
+    {
+      "id": "SSRF_SCHEME_002",
+      "name": "Gopher Protocol Smuggling",
+      "category": "ssrf",
+      "subcategory": "protocol_smuggling",
+      "payload": "gopher://127.0.0.1:25/",
+      "encoded": "gopher%3A%2F%2F127.0.0.1%3A25%2F",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX SSRF] SSRF attack attempt detected"
+    }
+  ]
+}

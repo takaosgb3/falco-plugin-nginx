@@ -51,6 +51,9 @@ const pickleAttacks = new Counter('pickle_attacks');
 // Phase 7: Prototype Pollution and HTTP Smuggling metrics
 const prototypePollutionAttacks = new Counter('prototype_pollution_attacks');
 const httpSmugglingAttacks = new Counter('http_smuggling_attacks');
+// Phase 8: SSRF and CRLF Injection metrics
+const ssrfAttacks = new Counter('ssrf_attacks');
+const crlfAttacks = new Counter('crlf_attacks');
 
 // ========================================
 // Load attack patterns (SharedArray for efficiency)
@@ -132,6 +135,18 @@ const prototypePollutionPatterns = new SharedArray('prototype_pollution', functi
 // Phase 7: HTTP Smuggling patterns
 const httpSmugglingPatterns = new SharedArray('http_smuggling', function() {
     const data = JSON.parse(open('../patterns/http_smuggling_patterns.json'));
+    return data.patterns;
+});
+
+// Phase 8 Stage 1: SSRF patterns
+const ssrfPatterns = new SharedArray('ssrf', function() {
+    const data = JSON.parse(open('../patterns/ssrf_patterns.json'));
+    return data.patterns;
+});
+
+// Phase 8 Stage 1: CRLF Injection patterns
+const crlfPatterns = new SharedArray('crlf', function() {
+    const data = JSON.parse(open('../patterns/crlf_patterns.json'));
     return data.patterns;
 });
 
@@ -265,12 +280,30 @@ export const options = {
             exec: 'testHttpSmuggling',
             startTime: '70s',
             tags: { category: 'http_smuggling' }
+        },
+        // Phase 8 Stage 1: SSRF patterns
+        ssrf_test: {
+            executor: 'per-vu-iterations',
+            vus: 1,
+            iterations: ssrfPatterns.length,
+            exec: 'testSSRF',
+            startTime: '75s',
+            tags: { category: 'ssrf' }
+        },
+        // Phase 8 Stage 1: CRLF Injection patterns
+        crlf_test: {
+            executor: 'per-vu-iterations',
+            vus: 1,
+            iterations: crlfPatterns.length,
+            exec: 'testCRLF',
+            startTime: '80s',
+            tags: { category: 'crlf' }
         }
     },
     thresholds: {
         'http_req_duration': ['p(95)<5000'],  // 95% of requests under 5s
         'http_req_failed': ['rate<0.05'],      // Less than 5% failure rate
-        'attacks_sent': ['count==457']          // All 457 patterns sent (Phase 7 Stage 3)
+        'attacks_sent': ['count==475']          // All 475 patterns sent (Phase 8 Stage 1)
     },
     summaryTimeUnit: 'ms',
     summaryTrendStats: ['avg', 'med', 'p(90)', 'p(95)', 'p(99)', 'max', 'count']
@@ -437,6 +470,22 @@ export function testHttpSmuggling() {
     });
 }
 
+// Phase 8 Stage 1: SSRF Tests
+export function testSSRF() {
+    group('SSRF Attack Tests', function() {
+        const pattern = ssrfPatterns[scenario.iterationInTest];
+        executeAttack(pattern, ssrfAttacks);
+    });
+}
+
+// Phase 8 Stage 1: CRLF Injection Tests
+export function testCRLF() {
+    group('CRLF Injection Tests', function() {
+        const pattern = crlfPatterns[scenario.iterationInTest];
+        executeAttack(pattern, crlfAttacks);
+    });
+}
+
 // ========================================
 // Setup/Teardown
 // ========================================
@@ -444,11 +493,11 @@ export function setup() {
     console.log('========================================');
     console.log('k6 E2E Test Starting (Public Repo Mode)');
     console.log(`Target: ${TARGET_IP}:${TARGET_PORT}`);
-    console.log('Total Patterns: 457 (Phase 7 Stage 3)');
+    console.log('Total Patterns: 475 (Phase 8 Stage 1)');
     console.log('  - SQLi: 124');
-    console.log('  - XSS: 86 (+10 Mutation)');
-    console.log('  - Path: 76 (+10 Unicode)');
-    console.log('  - CmdInj: 89 (+10 Obfuscation)');
+    console.log('  - XSS: 81');
+    console.log('  - Path: 73');
+    console.log('  - CmdInj: 89');
     console.log('  - Other: 10');
     console.log('  - LDAP: 10');
     console.log('  - XXE: 8');
@@ -458,8 +507,10 @@ export function setup() {
     console.log('  - NoSQL Extended: 13');
     console.log('  - API Security: 5');
     console.log('  - Pickle: 4');
-    console.log('  - Prototype Pollution: 10 (NEW Phase 7)');
-    console.log('  - HTTP Smuggling: 10 (NEW Phase 7)');
+    console.log('  - Prototype Pollution: 10');
+    console.log('  - HTTP Smuggling: 10');
+    console.log('  - SSRF: 10 (NEW Phase 8)');
+    console.log('  - CRLF: 8 (NEW Phase 8)');
     console.log('========================================');
 }
 
@@ -499,7 +550,10 @@ export function handleSummary(data) {
                 pickle: data.metrics.pickle_attacks ? data.metrics.pickle_attacks.values.count : 0,
                 // Phase 7: Prototype Pollution and HTTP Smuggling
                 prototype_pollution: data.metrics.prototype_pollution_attacks ? data.metrics.prototype_pollution_attacks.values.count : 0,
-                http_smuggling: data.metrics.http_smuggling_attacks ? data.metrics.http_smuggling_attacks.values.count : 0
+                http_smuggling: data.metrics.http_smuggling_attacks ? data.metrics.http_smuggling_attacks.values.count : 0,
+                // Phase 8 Stage 1: SSRF and CRLF
+                ssrf: data.metrics.ssrf_attacks ? data.metrics.ssrf_attacks.values.count : 0,
+                crlf: data.metrics.crlf_attacks ? data.metrics.crlf_attacks.values.count : 0
             }
         }
     };
