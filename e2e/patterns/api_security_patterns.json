@@ -1,9 +1,10 @@
 {
   "metadata": {
     "category": "api_security",
-    "total_patterns": 5,
+    "total_patterns": 15,
     "port": 8012,
-    "description": "k6 test patterns for API security vulnerabilities (BOLA, JWT, Mass Assignment, GraphQL)"
+    "description": "k6 test patterns for API security vulnerabilities (BOLA, JWT, Mass Assignment, GraphQL)",
+    "phase": "Phase 8 Stage 2"
   },
   "patterns": [
     {
@@ -70,6 +71,136 @@
       "severity": "high",
       "expected_rule": "[NGINX API Attack] API security vulnerability detected",
       "description": "Attempts to access invoices of other users by guessing order IDs"
+    },
+    {
+      "id": "API_JWT_002",
+      "name": "JWT Algorithm None with Admin Role Claim",
+      "category": "api_security",
+      "subcategory": "jwt",
+      "payload": "eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJyb2xlIjoiYWRtaW4iLCJpc0FkbWluIjp0cnVlfQ.",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX API Attack] API security vulnerability detected",
+      "description": "JWT with algorithm none and admin role claim",
+      "encoded": "eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJyb2xlIjoiYWRtaW4iLCJpc0FkbWluIjp0cnVlfQ."
+    },
+    {
+      "id": "API_JWT_003",
+      "name": "JWT Algorithm None with User ID Claim",
+      "category": "api_security",
+      "subcategory": "jwt",
+      "payload": "eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJ1c2VyX2lkIjoiMSIsImFkbWluIjp0cnVlfQ.",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX API Attack] API security vulnerability detected",
+      "description": "JWT none algorithm with user_id and admin claim",
+      "encoded": "eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJ1c2VyX2lkIjoiMSIsImFkbWluIjp0cnVlfQ."
+    },
+    {
+      "id": "API_MASS_002",
+      "name": "Mass Assignment isAdmin Privilege Escalation",
+      "category": "api_security",
+      "subcategory": "mass_assignment",
+      "payload": "{\"isAdmin\":true,\"verified\":true}",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX API Attack] API security vulnerability detected",
+      "description": "Mass assignment setting isAdmin and verified flags",
+      "encoded": "%7B%22isAdmin%22%3Atrue%2C%22verified%22%3Atrue%7D"
+    },
+    {
+      "id": "API_MASS_003",
+      "name": "Mass Assignment Role Admin Direct",
+      "category": "api_security",
+      "subcategory": "mass_assignment",
+      "payload": "{\"email\":\"test@test.com\",\"role\":\"admin\"}",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX API Attack] API security vulnerability detected",
+      "description": "Mass assignment with email and admin role",
+      "encoded": "%7B%22email%22%3A%22test%40test.com%22%2C%22role%22%3A%22admin%22%7D"
+    },
+    {
+      "id": "API_MASS_004",
+      "name": "Mass Assignment Multiple Admin Fields",
+      "category": "api_security",
+      "subcategory": "mass_assignment",
+      "payload": "{\"permissions\":\"admin\",\"isAdmin\":true}",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX API Attack] API security vulnerability detected",
+      "description": "Mass assignment with permissions and isAdmin",
+      "encoded": "%7B%22permissions%22%3A%22admin%22%2C%22isAdmin%22%3Atrue%7D"
+    },
+    {
+      "id": "API_BOLA_002",
+      "name": "BOLA User Profile v2 Enumeration",
+      "category": "api_security",
+      "subcategory": "bola",
+      "payload": "/api/v2/users/2/profile",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX API Attack] API security vulnerability detected",
+      "description": "BOLA accessing another user profile via v2 API",
+      "encoded": "%2Fapi%2Fv2%2Fusers%2F2%2Fprofile"
+    },
+    {
+      "id": "API_BOLA_003",
+      "name": "BOLA Admin User Profile Access",
+      "category": "api_security",
+      "subcategory": "bola",
+      "payload": "/api/admin/users/100/profile",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX API Attack] API security vulnerability detected",
+      "description": "BOLA accessing admin user profile",
+      "encoded": "%2Fapi%2Fadmin%2Fusers%2F100%2Fprofile"
+    },
+    {
+      "id": "API_IDOR_002",
+      "name": "IDOR Invoice v2 Enumeration",
+      "category": "api_security",
+      "subcategory": "idor",
+      "payload": "/api/v2/orders/12345/invoice",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX API Attack] API security vulnerability detected",
+      "description": "IDOR accessing invoice via v2 API with guessed ID",
+      "encoded": "%2Fapi%2Fv2%2Forders%2F12345%2Finvoice"
+    },
+    {
+      "id": "API_PROTO_002",
+      "name": "Prototype Pollution via Constructor",
+      "category": "api_security",
+      "subcategory": "prototype_pollution",
+      "payload": "{\"constructor\":{\"prototype\":{\"isAdmin\":true}}}",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX API Attack] API security vulnerability detected",
+      "description": "Prototype pollution via constructor.prototype path",
+      "encoded": "%7B%22constructor%22%3A%7B%22prototype%22%3A%7B%22isAdmin%22%3Atrue%7D%7D%7D"
+    },
+    {
+      "id": "API_PROTO_003",
+      "name": "Prototype Pollution Bracket Notation",
+      "category": "api_security",
+      "subcategory": "prototype_pollution",
+      "payload": "__proto__[isAdmin]=true",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX API Attack] API security vulnerability detected",
+      "description": "Prototype pollution via bracket notation",
+      "encoded": "__proto__%5BisAdmin%5D%3Dtrue"
     }
   ]
 }

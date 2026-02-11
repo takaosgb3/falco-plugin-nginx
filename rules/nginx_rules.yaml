@@ -738,6 +738,17 @@
       values:
         - NOSQL_MONGO_003
         - API_IDOR_001
+    # Phase 8 Stage 2: NoSQL/API patterns with boolean-like substrings
+    # NOSQL_MONGO_004: "$exists" triggers contains_exists_patterns
+    # NOSQL_MONGO_005: "password" contains "ord" triggering contains_boolean_functions
+    # API_IDOR_002: "orders" contains "ord" triggering contains_boolean_functions
+    - name: phase8_nosql_api_boolean_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - NOSQL_MONGO_004
+        - NOSQL_MONGO_005
+        - API_IDOR_002
   output: "[NGINX SQLi] Boolean-based Blind SQL Injection test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: CRITICAL
   tags: [security, sql_injection, advanced_sqli, boolean_based, phase3]
@@ -809,6 +820,18 @@
       comps: in
       values:
         - SSRF_DNS_001
+    # Phase 8 Stage 2: XXE patterns - should be caught by XXE rules
+    # %20xxe creates false "0x" match in contains_hex_char_patterns
+    - name: phase8_xxe_hex_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - XXE_BLIND_001
+        - XXE_BLIND_002
+        - XXE_SOAP_001
+        - XXE_SVG_001
+        - XXE_ENCODE_001
+        - XXE_SSRF_001
   output: "[NGINX SQLi] Advanced SQL Injection Attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: WARNING
   tags: [security, sql_injection, advanced_sqli, enumeration, phase3]
@@ -1167,6 +1190,17 @@
       values:
         - PP_CONSTR_001
         - PP_CONSTR_002
+    # Phase 8 Stage 2: XXE/NoSQL/API patterns with XSS-like substrings
+    # XXE_PARAM_001: "eval" in entity name triggers icontains "eval"
+    # NOSQL_MONGO_007: "$where=function()" triggers icontains "Function"
+    # API_PROTO_002: "constructor.prototype" triggers icontains "constructor"
+    - name: phase8_xxe_nosql_api_xss_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - XXE_PARAM_001
+        - NOSQL_MONGO_007
+        - API_PROTO_002
   output: "[NGINX XSS] Advanced XSS Attack Attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: WARNING
   tags: [security, xss, advanced_xss, event_handlers, phase3]
@@ -2085,6 +2119,13 @@
       comps: in
       values:
         - PP_JSON_001
+    # Phase 8 Stage 2: API Prototype Pollution pattern
+    # %7D%7D (}}) in JSON triggers template injection condition
+    - name: phase8_api_proto_002
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - API_PROTO_002
   output: "[NGINX Emerging Threat] Template injection test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: CRITICAL
   tags: [security, emerging_threats, ssti, template_injection, phase5]
@@ -2110,6 +2151,14 @@
       nginx.request_uri icontains "EVAL " or
       nginx.request_uri icontains "EVAL%20"
     )
+  exceptions:
+    # Phase 8 Stage 2: XXE pattern with "eval" in entity name
+    # "%20eval%20" matches icontains "EVAL%20"
+    - name: phase8_xxe_eval_pattern
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - XXE_PARAM_001
   output: "[NGINX Emerging Threat] Redis command injection test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: CRITICAL
   tags: [security, emerging_threats, redis, injection, phase5]
@@ -2161,6 +2210,13 @@
       comps: in
       values:
         - PP_JSON_001
+    # Phase 8 Stage 2: API Prototype Pollution pattern
+    # %7D%7D (}}) in JSON triggers SSTI closing braces condition
+    - name: phase8_api_proto_002_ssti
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - API_PROTO_002
   source: nginx
 
 # =========================================================================

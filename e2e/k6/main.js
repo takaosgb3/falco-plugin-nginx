@@ -303,7 +303,7 @@ export const options = {
     thresholds: {
         'http_req_duration': ['p(95)<5000'],  // 95% of requests under 5s
         'http_req_failed': ['rate<0.05'],      // Less than 5% failure rate
-        'attacks_sent': ['count==475']          // All 475 patterns sent (Phase 8 Stage 1)
+        'attacks_sent': ['count==499']          // All 499 patterns sent (Phase 8 Stage 2)
     },
     summaryTimeUnit: 'ms',
     summaryTrendStats: ['avg', 'med', 'p(90)', 'p(95)', 'p(99)', 'max', 'count']
@@ -493,24 +493,24 @@ export function setup() {
     console.log('========================================');
     console.log('k6 E2E Test Starting (Public Repo Mode)');
     console.log(`Target: ${TARGET_IP}:${TARGET_PORT}`);
-    console.log('Total Patterns: 475 (Phase 8 Stage 1)');
+    console.log('Total Patterns: 499 (Phase 8 Stage 2)');
     console.log('  - SQLi: 124');
     console.log('  - XSS: 81');
     console.log('  - Path: 73');
     console.log('  - CmdInj: 89');
     console.log('  - Other: 10');
     console.log('  - LDAP: 10');
-    console.log('  - XXE: 8');
+    console.log('  - XXE: 15 (+7 Phase 8)');
     console.log('  - GraphQL: 5');
     console.log('  - XPath: 5');
     console.log('  - SSTI: 10');
-    console.log('  - NoSQL Extended: 13');
-    console.log('  - API Security: 5');
+    console.log('  - NoSQL Extended: 20 (+7 Phase 8)');
+    console.log('  - API Security: 15 (+10 Phase 8)');
     console.log('  - Pickle: 4');
     console.log('  - Prototype Pollution: 10');
     console.log('  - HTTP Smuggling: 10');
-    console.log('  - SSRF: 10 (NEW Phase 8)');
-    console.log('  - CRLF: 8 (NEW Phase 8)');
+    console.log('  - SSRF: 10');
+    console.log('  - CRLF: 8');
     console.log('========================================');
 }
 
