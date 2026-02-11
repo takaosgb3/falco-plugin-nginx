@@ -802,6 +802,13 @@
       comps: in
       values:
         - HRS_CHUNK_002
+    # Phase 8: SSRF patterns - should be caught by SSRF Attack rule
+    # 0x7f000001 triggers contains_hex_char_patterns (0x match)
+    - name: ssrf_hex_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - SSRF_DNS_001
   output: "[NGINX SQLi] Advanced SQL Injection Attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: WARNING
   tags: [security, sql_injection, advanced_sqli, enumeration, phase3]
@@ -858,6 +865,19 @@
       comps: in
       values:
         - XSS_BYPASS_006
+    # Phase 8: CRLF Injection patterns - should be caught by CRLF Injection rule
+    # %0d%0a in URL triggers contains_comment_special_chars (%0a match)
+    - name: crlf_injection_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - CRLF_HDR_001
+        - CRLF_HDR_002
+        - CRLF_HDR_003
+        - CRLF_LOG_001
+        - CRLF_LOG_002
+        - CRLF_RESP_001
+        - CRLF_RESP_002
   output: "[NGINX SQLi] Encoded SQL Injection Pattern test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: WARNING
   tags: [security, sql_injection, advanced_sqli, encoding_evasion, phase3]
@@ -1447,6 +1467,13 @@
         - CMD_SUB_003
         - CMD_ADV_063
         - CMD_ADV_066
+    # Phase 8: SSRF patterns with file:// scheme - should be caught by SSRF Attack rule
+    # file:///etc/passwd triggers icontains "/etc/passwd" match
+    - name: ssrf_file_scheme_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - SSRF_SCHEME_001
   output: "[NGINX Traversal] File inclusion attack detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: CRITICAL
   tags: [security, path_traversal, file_inclusion, advanced_traversal, phase3]
@@ -1472,6 +1499,20 @@
       nginx.request_uri contains "%2500" or
       nginx.request_uri icontains "..%5Cx2f"
     )
+  exceptions:
+    # Phase 8: CRLF Injection patterns - should be caught by CRLF Injection rule
+    # %0d%0a in URL triggers %0a and %0d conditions
+    - name: crlf_injection_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - CRLF_HDR_001
+        - CRLF_HDR_002
+        - CRLF_HDR_003
+        - CRLF_LOG_001
+        - CRLF_LOG_002
+        - CRLF_RESP_001
+        - CRLF_RESP_002
   output: "[NGINX Traversal] Advanced path traversal attempt detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: WARNING
   tags: [security, path_traversal, advanced_traversal, phase3]
