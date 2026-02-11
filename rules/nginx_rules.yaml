@@ -1222,6 +1222,19 @@
       comps: in
       values:
         - HRS_OBFUSC_001
+    # Phase 8: CRLF Injection patterns - should be caught by CRLF Injection rule
+    # %0d%0a in URL triggers %0a and %0d conditions
+    - name: crlf_injection_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - CRLF_HDR_001
+        - CRLF_HDR_002
+        - CRLF_HDR_003
+        - CRLF_LOG_001
+        - CRLF_LOG_002
+        - CRLF_RESP_001
+        - CRLF_RESP_002
   output: "[NGINX XSS] XSS Filter Bypass Attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: WARNING
   tags: [security, xss, filter_bypass, advanced_xss, phase3]
@@ -1787,6 +1800,19 @@
         - HRS_TE_CL_001
         - HRS_TE_CL_002
         - HRS_HEADER_002
+    # Phase 8: CRLF Injection patterns - should be caught by CRLF Injection rule
+    # %0d%0a in URL triggers %0a/%0A and %0d/%0D conditions
+    - name: crlf_injection_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - CRLF_HDR_001
+        - CRLF_HDR_002
+        - CRLF_HDR_003
+        - CRLF_LOG_001
+        - CRLF_LOG_002
+        - CRLF_RESP_001
+        - CRLF_RESP_002
 
 # ==============================================================================
 # Emerging Threats Detection Rules (from advanced_emerging_enhanced.yaml)
