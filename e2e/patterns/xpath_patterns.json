@@ -1,7 +1,7 @@
 {
   "metadata": {
     "category": "xpath",
-    "total_patterns": 5,
+    "total_patterns": 10,
     "port": 8009,
     "description": "k6 test patterns for XPath injection attacks"
   },
@@ -65,6 +65,71 @@
       "expected_detection": true,
       "severity": "high",
       "expected_rule": "XPath injection attempt"
+    },
+    {
+      "id": "XPATH_AND_001",
+      "name": "XPath AND-based injection with count function",
+      "category": "xpath",
+      "subcategory": "function_abuse",
+      "payload": "' and count(//*) > 0",
+      "encoded": "%27%20and%20count%28%2F%2F*%29%3E0",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XPath Injection] XPath injection attempt",
+      "description": "XPath AND injection with wildcard count function"
+    },
+    {
+      "id": "XPATH_BOOL_002",
+      "name": "XPath OR-based boolean with true() function",
+      "category": "xpath",
+      "subcategory": "boolean_based",
+      "payload": "' or true() or '",
+      "encoded": "%27%20or%20true%28%29%20or%20%27",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XPath Injection] XPath injection attempt",
+      "description": "XPath boolean injection using true() function"
+    },
+    {
+      "id": "XPATH_FUNC_002",
+      "name": "XPath substring function name extraction",
+      "category": "xpath",
+      "subcategory": "blind",
+      "payload": "' or substring(//user[1]/name,1,1)='a",
+      "encoded": "%27%20or%20substring%28%2F%2Fuser%5B1%5D%2Fname%2C1%2C1%29%3D%27a",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XPath Injection] XPath injection attempt",
+      "description": "XPath substring extraction targeting user name field"
+    },
+    {
+      "id": "XPATH_BLIND_002",
+      "name": "XPath string-length blind name enumeration",
+      "category": "xpath",
+      "subcategory": "enumeration",
+      "payload": "' and string-length(//user[1]/name)>3 and '1'='1",
+      "encoded": "%27%20and%20string-length%28%2F%2Fuser%5B1%5D%2Fname%29%3E3%20and%20%271%27%3D%271",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XPath Injection] XPath injection attempt",
+      "description": "XPath blind injection using string-length on name field"
+    },
+    {
+      "id": "XPATH_PAREN_002",
+      "name": "XPath parenthesis bypass with true() function",
+      "category": "xpath",
+      "subcategory": "authentication_bypass",
+      "payload": "') or true() or ('",
+      "encoded": "%27%29%20or%20true%28%29%20or%20%28%27",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XPath Injection] XPath injection attempt",
+      "description": "XPath parenthesis bypass using true() for authentication bypass"
     }
   ]
 }

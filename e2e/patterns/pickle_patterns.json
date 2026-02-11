@@ -1,7 +1,7 @@
 {
   "metadata": {
     "category": "pickle",
-    "total_patterns": 4,
+    "total_patterns": 10,
     "port": 8001,
     "description": "k6 test patterns for Pickle Deserialization attacks"
   },
@@ -53,6 +53,84 @@
       "expected_detection": true,
       "severity": "high",
       "expected_rule": "[NGINX Pickle Attack] Pickle deserialization attack attempt"
+    },
+    {
+      "id": "PICKLE_DESER_005",
+      "name": "__reduce__ Method with Module Context",
+      "category": "pickle",
+      "subcategory": "deserialization",
+      "payload": "module.__reduce__",
+      "encoded": "module.__reduce__",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX Emerging Threat] Deserialization attack",
+      "description": "Pickle __reduce__ exploitation via module attribute access"
+    },
+    {
+      "id": "PICKLE_DESER_006",
+      "name": "pickle.loads with Request Data",
+      "category": "pickle",
+      "subcategory": "deserialization",
+      "payload": "pickle.loads(request.data)",
+      "encoded": "pickle.loads%28request.data%29",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX Emerging Threat] Deserialization attack",
+      "description": "Pickle deserialization of untrusted request data"
+    },
+    {
+      "id": "PICKLE_DESER_007",
+      "name": "URL-encoded __reduce__ Exploit",
+      "category": "pickle",
+      "subcategory": "deserialization",
+      "payload": "__reduce__",
+      "encoded": "%5F%5Freduce%5F%5F",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX Pickle Attack] Pickle deserialization attack attempt",
+      "description": "URL-encoded __reduce__ bypasses general deserialization rule, caught by Pickle-specific rule"
+    },
+    {
+      "id": "PICKLE_DESER_008",
+      "name": "Class MRO Index 2 Traversal",
+      "category": "pickle",
+      "subcategory": "deserialization",
+      "payload": "__class__.__mro__[2].__subclasses__()",
+      "encoded": "__class__.__mro__%5B2%5D.__subclasses__%28%29",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Pickle Attack] Pickle deserialization attack attempt",
+      "description": "MRO traversal at index 2 for deeper class hierarchy access"
+    },
+    {
+      "id": "PICKLE_DESER_009",
+      "name": "cPickle.loads with Serialized Payload",
+      "category": "pickle",
+      "subcategory": "deserialization",
+      "payload": "cPickle.loads(serialized)",
+      "encoded": "cPickle.loads%28serialized%29",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX Emerging Threat] Deserialization attack",
+      "description": "cPickle deserialization of serialized payload data"
+    },
+    {
+      "id": "PICKLE_DESER_010",
+      "name": "URL-encoded Class MRO Index 0 Traversal",
+      "category": "pickle",
+      "subcategory": "deserialization",
+      "payload": "__class__.__mro__[0]",
+      "encoded": "%5F%5Fclass%5F%5F.%5F%5Fmro%5F%5F%5B0%5D",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Pickle Attack] Pickle deserialization attack attempt",
+      "description": "URL-encoded MRO traversal at index 0 for base class access"
     }
   ]
 }
