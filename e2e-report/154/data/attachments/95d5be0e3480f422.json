@@ -1,0 +1,17 @@
+{
+  "pattern_id": "PATH_UNI_009",
+  "test_id": "PATH_UNI_009-1770813170480-soi529h",
+  "category": "path",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 29000,
+  "evidence": "12:32:50.000000000: Critical [NGINX Traversal] Basic path traversal attack detected test_id=PATH_UNI_009-1770813170480-soi529h pattern_id=PATH_UNI_009 uri=/?q=..%255c..%255c..%255cetc%255cpasswd client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] Basic path traversal attack detected test_id=PATH_UNI_009-1770813170480-soi529h pattern_id=PATH_UNI_009 uri=/?q=..%255c..%255c..%255cetc%255cpasswd client=127.0.0.1",
+  "expected_rule": "[NGINX Traversal] Basic path traversal attack detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Traversal] Basic path traversal attack detected test_id=PATH_UNI_009-1770813170480-soi529h pattern_id=PATH_UNI_009 uri=/?q=..%255c..%255c..%255cetc%255cpasswd client=127.0.0.1",
+  "sent_at": 1770813199000,
+  "detected_at": 1770813170000,
+  "status": "passed"
+}

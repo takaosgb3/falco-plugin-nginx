@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SQLI_2ND_005",
+  "test_id": "SQLI_2ND_005-1770813174029-ofkmn",
+  "category": "sqli",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 25000,
+  "evidence": "12:32:54.000000000: Critical [NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_2ND_005-1770813174029-ofkmn pattern_id=SQLI_2ND_005 uri=/?q=value%27%20AND%20EXTRACTVALUE%281%2CCONCAT%280x7e%2Cversion%28%29%2C0x7e%29%29%20-- client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_2ND_005-1770813174029-ofkmn pattern_id=SQLI_2ND_005 uri=/?q=value%27%20AND%20EXTRACTVALUE%281%2CCONCAT%280x7e%2Cversion%28%29%2C0x7e%29%29%20-- client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX SQLi] Boolean-based Blind SQL Injection",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_2ND_005-1770813174029-ofkmn pattern_id=SQLI_2ND_005 uri=/?q=value%27%20AND%20EXTRACTVALUE%281%2CCONCAT%280x7e%2Cversion%28%29%2C0x7e%29%29%20-- client=127.0.0.1 method=GET",
+  "sent_at": 1770813199000,
+  "detected_at": 1770813174000,
+  "status": "passed"
+}

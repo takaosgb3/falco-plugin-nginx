@@ -1,0 +1,5 @@
+Pattern ID: PP_NESTED_001
+        Status: passed
+        Latency: ~7000ms
+        Detection: 1 / 1
+        Rule: [NGINX PP] Prototype pollution attack attempt test_id=PP_NESTED_001-1770813192392-goa13 pattern_id=PP_NESTED_001 uri=/?q=%3Fa%5B__proto__%5D%5Bb%5D%3Dpolluted client=127.0.0.1

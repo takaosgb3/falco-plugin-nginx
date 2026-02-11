@@ -1,0 +1,17 @@
+{
+  "pattern_id": "PP_BYPASS_001",
+  "test_id": "PP_BYPASS_001-1770813193895-3g7z6vf",
+  "category": "prototype_pollution",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 6000,
+  "evidence": "12:33:13.000000000: Warning [NGINX PP] Prototype pollution attack attempt test_id=PP_BYPASS_001-1770813193895-3g7z6vf pattern_id=PP_BYPASS_001 uri=/?q=%3F%5F%5Fproto%5F%5F%5Bpolluted%5D%3Dtrue client=127.0.0.1",
+  "rule_name": "[NGINX PP] Prototype pollution attack attempt test_id=PP_BYPASS_001-1770813193895-3g7z6vf pattern_id=PP_BYPASS_001 uri=/?q=%3F%5F%5Fproto%5F%5F%5Bpolluted%5D%3Dtrue client=127.0.0.1",
+  "expected_rule": "[NGINX PP] Prototype pollution attack attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX PP] Prototype pollution attack attempt test_id=PP_BYPASS_001-1770813193895-3g7z6vf pattern_id=PP_BYPASS_001 uri=/?q=%3F%5F%5Fproto%5F%5F%5Bpolluted%5D%3Dtrue client=127.0.0.1",
+  "sent_at": 1770813199000,
+  "detected_at": 1770813193000,
+  "status": "passed"
+}

@@ -1,0 +1,17 @@
+{
+  "pattern_id": "CMD_BASIC_018",
+  "test_id": "CMD_BASIC_018-1770813148408-vdiio8",
+  "category": "cmdinj",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 51000,
+  "evidence": "12:32:28.000000000: Critical [NGINX CMDi] Command substitution attack test_id=CMD_BASIC_018-1770813148408-vdiio8 pattern_id=CMD_BASIC_018 uri=/?q=%24(uname%20-a) client=127.0.0.1",
+  "rule_name": "[NGINX CMDi] Command substitution attack test_id=CMD_BASIC_018-1770813148408-vdiio8 pattern_id=CMD_BASIC_018 uri=/?q=%24(uname%20-a) client=127.0.0.1",
+  "expected_rule": "[NGINX CMDi] Command substitution attack",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX CMDi] Command substitution attack test_id=CMD_BASIC_018-1770813148408-vdiio8 pattern_id=CMD_BASIC_018 uri=/?q=%24(uname%20-a) client=127.0.0.1",
+  "sent_at": 1770813199000,
+  "detected_at": 1770813148000,
+  "status": "passed"
+}

@@ -1,0 +1,3 @@
+Expected Rule: [NGINX SQLi] Error-based SQL Injection
+Matched Rule: [NGINX SQLi] Error-based SQL Injection test_id=SQLI_BYPASS_004-1770813153470-lprkaa pattern_id=SQLI_BYPASS_004 uri=/?q=%27%20UNION%28SELECT%28version%28%29%29%2CNULL%2CNULL%29-- client=127.0.0.1 method=GET
+Rule Match: ✅ Match

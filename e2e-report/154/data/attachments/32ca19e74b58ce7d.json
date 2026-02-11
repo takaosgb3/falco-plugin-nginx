@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SQLI_STACK_007",
+  "test_id": "SQLI_STACK_007-1770813179043-rao68i",
+  "category": "sqli",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 20000,
+  "evidence": "12:32:59.000000000: Warning [NGINX SQLi] Advanced SQL Injection Attempt test_id=SQLI_STACK_007-1770813179043-rao68i pattern_id=SQLI_STACK_007 uri=/?q=%27%3B%20SELECT%20INTO%20OUTFILE%20%27%2Fvar%2Fwww%2Fhtml%2Fshell.php%27%20%27PHP_SHELL_CODE%27%3B%20-- client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Advanced SQL Injection Attempt test_id=SQLI_STACK_007-1770813179043-rao68i pattern_id=SQLI_STACK_007 uri=/?q=%27%3B%20SELECT%20INTO%20OUTFILE%20%27%2Fvar%2Fwww%2Fhtml%2Fshell.php%27%20%27PHP_SHELL_CODE%27%3B%20-- client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX SQLi] Advanced SQL Injection Attempt test_id=SQLI_STACK_007-1770813179043-rao68i pattern_id=SQLI_STACK_007 uri=/?q=%27%3B%20SELECT%20INTO%20OUTFILE%20%27%2Fvar%2Fwww%2Fhtml%2Fshell.php%27%20%27PHP_SHELL_CODE%27%3B%20-- client=127.0.0.1 method=GET",
+  "sent_at": 1770813199000,
+  "detected_at": 1770813179000,
+  "status": "passed"
+}

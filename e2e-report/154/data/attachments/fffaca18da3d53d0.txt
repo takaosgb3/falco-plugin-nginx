@@ -1,0 +1,5 @@
+Pattern ID: EMRG_REDIS_001
+        Status: passed
+        Latency: ~19000ms
+        Detection: 1 / 1
+        Rule: [NGINX Emerging Threat] Redis command injection test_id=EMRG_REDIS_001-1770813180401-vj4phh pattern_id=EMRG_REDIS_001 uri=/?q=FLUSHALL client=127.0.0.1
