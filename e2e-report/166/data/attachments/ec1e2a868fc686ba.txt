@@ -1,0 +1,5 @@
+Pattern ID: XSS_ADV_066
+        Status: passed
+        Latency: ~47000ms
+        Detection: 1 / 1
+        Rule: [NGINX XSS] DOM-based XSS Attack test_id=XSS_ADV_066-1770820080854-kz1pwn pattern_id=XSS_ADV_066 uri=/?q=data%3Atext%2Fhtml%2C%3Cscript%3Ealert%281%29%3C%2Fscript%3E client=127.0.0.1 method=GET

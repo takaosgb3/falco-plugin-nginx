@@ -1,0 +1,5 @@
+Pattern ID: SSRF_SCHEME_001
+        Status: passed
+        Latency: ~5000ms
+        Detection: 1 / 1
+        Rule: [NGINX SSRF] SSRF attack attempt detected test_id=SSRF_SCHEME_001-1770820122290-vp32ps pattern_id=SSRF_SCHEME_001 uri=/?q=file%3A%2F%2F%2Fetc%2Fpasswd client=127.0.0.1

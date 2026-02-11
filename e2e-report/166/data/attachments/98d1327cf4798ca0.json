@@ -1,0 +1,17 @@
+{
+  "pattern_id": "CMD_BASIC_006",
+  "test_id": "CMD_BASIC_006-1770820060785-0pybiim",
+  "category": "cmdinj",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 86333000,
+  "evidence": "14:27:40.000000000: Critical [NGINX CMDi] Command injection via semicolon test_id=CMD_BASIC_006-1770820060785-0pybiim pattern_id=CMD_BASIC_006 uri=/?q=%3B%20uname%20-a client=127.0.0.1",
+  "rule_name": "[NGINX CMDi] Command injection via semicolon test_id=CMD_BASIC_006-1770820060785-0pybiim pattern_id=CMD_BASIC_006 uri=/?q=%3B%20uname%20-a client=127.0.0.1",
+  "expected_rule": "[NGINX CMDi] Command injection via semicolon",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX CMDi] Command injection via semicolon test_id=CMD_BASIC_006-1770820060785-0pybiim pattern_id=CMD_BASIC_006 uri=/?q=%3B%20uname%20-a client=127.0.0.1",
+  "sent_at": 1770820127000,
+  "detected_at": 1770820060000,
+  "status": "passed"
+}

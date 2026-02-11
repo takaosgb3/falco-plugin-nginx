@@ -1,0 +1,5 @@
+Pattern ID: NOSQL_MONGO_006
+        Status: passed
+        Latency: ~27000ms
+        Detection: 1 / 1
+        Rule: [NGINX Emerging Threat] MongoDB NoSQL injection test_id=NOSQL_MONGO_006-1770820100795-rzfxkm pattern_id=NOSQL_MONGO_006 uri=/?q=%7B%22%24or%22%3A%20%5B%7B%22username%22%3A%20%22admin%22%7D%2C%20%7B%22username%22%3A%20%22root%22%7D%5D%7D client=127.0.0.1

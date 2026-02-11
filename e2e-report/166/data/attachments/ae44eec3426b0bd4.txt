@@ -1,0 +1,1 @@
+Test passed: XXE_SVG_001
