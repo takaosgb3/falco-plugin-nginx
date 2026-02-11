@@ -1,0 +1,17 @@
+{
+  "pattern_id": "XPATH_ENUM_002",
+  "test_id": "XPATH_ENUM_002-1770842255002-hydrk9",
+  "category": "xpath",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 41000,
+  "evidence": "20:37:35.000000000: Critical [NGINX SQLi] Boolean-based Blind SQL Injection test_id=XPATH_ENUM_002-1770842255002-hydrk9 pattern_id=XPATH_ENUM_002 uri=/?q=string-length%28%2F%2Fpassword%29%3E0 client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Boolean-based Blind SQL Injection test_id=XPATH_ENUM_002-1770842255002-hydrk9 pattern_id=XPATH_ENUM_002 uri=/?q=string-length%28%2F%2Fpassword%29%3E0 client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX XPath Injection] XPath injection attempt",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": "[NGINX SQLi] Boolean-based Blind SQL Injection test_id=XPATH_ENUM_002-1770842255002-hydrk9 pattern_id=XPATH_ENUM_002 uri=/?q=string-length%28%2F%2Fpassword%29%3E0 client=127.0.0.1 method=GET",
+  "sent_at": 1770842296000,
+  "detected_at": 1770842255000,
+  "status": "passed"
+}

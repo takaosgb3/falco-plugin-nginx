@@ -1,0 +1,3 @@
+Expected Rule: [NGINX Emerging Threat] Redis command injection
+Matched Rule: [NGINX Emerging Threat] Redis command injection test_id=NOSQL_REDIS_004-1770842268008-plbwb pattern_id=NOSQL_REDIS_004 uri=/?q=DEBUG%20SEGFAULT client=127.0.0.1
+Rule Match: ✅ Match

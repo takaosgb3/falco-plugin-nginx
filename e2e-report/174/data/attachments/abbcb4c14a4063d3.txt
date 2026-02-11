@@ -1,0 +1,5 @@
+Pattern ID: PP_PROTO_001
+        Status: passed
+        Latency: ~15000ms
+        Detection: 1 / 1
+        Rule: [NGINX PP] Prototype pollution attack attempt test_id=PP_PROTO_001-1770842281004-ngzks6 pattern_id=PP_PROTO_001 uri=/?q=__proto__%5Bstatus%5D%3Dpolluted client=127.0.0.1

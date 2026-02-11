@@ -1,0 +1,5 @@
+Pattern ID: XSS_ADV_067
+        Status: passed
+        Latency: ~42000ms
+        Detection: 1 / 1
+        Rule: [NGINX XSS] Advanced XSS Attack Attempt test_id=XSS_ADV_067-1770842254586-njnrr pattern_id=XSS_ADV_067 uri=/?q=ondblclick%3Dalert(1) client=127.0.0.1 method=GET

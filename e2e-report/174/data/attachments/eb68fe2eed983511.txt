@@ -1,0 +1,5 @@
+Pattern ID: CMD_PIPE_005
+        Status: passed
+        Latency: ~33000ms
+        Detection: 1 / 1
+        Rule: [NGINX SQLi] Advanced SQL Injection Attempt test_id=CMD_PIPE_005-1770842263090-v480gt pattern_id=CMD_PIPE_005 uri=/?q=find%20%2F%20-name%20%27%2A.conf%27%20%7C%20xargs%20cat client=127.0.0.1 method=GET

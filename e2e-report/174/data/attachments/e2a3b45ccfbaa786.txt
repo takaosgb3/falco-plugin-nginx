@@ -1,0 +1,5 @@
+Pattern ID: XSS_MUT_003
+        Status: passed
+        Latency: ~69000ms
+        Detection: 1 / 1
+        Rule: [NGINX XSS] XSS Filter Bypass Attempt test_id=XSS_MUT_003-1770842227520-on0aw pattern_id=XSS_MUT_003 uri=/?q=%3Cmath%3E%3Cmi%2F%2Fxlink%3Ahref%3D%22data%3Ax%2C%3Cscript%3Ealert%28%27XSS%27%29%3C%2Fscript%3E%22%3E client=127.0.0.1 method=GET

@@ -1,0 +1,3 @@
+Expected Rule: [NGINX CMDi] Advanced command injection attempt
+Matched Rule: [NGINX CMDi] Advanced command injection attempt test_id=CMD_PROC_002-1770842250556-a8079 pattern_id=CMD_PROC_002 uri=/?q=nohup%20%2Ftmp%2Fbackdoor.sh%20%26 client=127.0.0.1
+Rule Match: ✅ Match

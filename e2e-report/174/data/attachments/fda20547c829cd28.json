@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SQLI_DUMP_001",
+  "test_id": "SQLI_DUMP_001-1770842265124-rip9ad",
+  "category": "sqli",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 31000,
+  "evidence": "20:37:45.000000000: Critical [NGINX SQLi] Error-based SQL Injection test_id=SQLI_DUMP_001-1770842265124-rip9ad pattern_id=SQLI_DUMP_001 uri=/?q='%20UNION%20SELECT%200x3C3F706870%20INTO%20DUMPFILE%20'%2Fvar%2Fwww%2Fhtml%2Fbackdoor.php'-- client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Error-based SQL Injection test_id=SQLI_DUMP_001-1770842265124-rip9ad pattern_id=SQLI_DUMP_001 uri=/?q='%20UNION%20SELECT%200x3C3F706870%20INTO%20DUMPFILE%20'%2Fvar%2Fwww%2Fhtml%2Fbackdoor.php'-- client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX SQLi] Error-based SQL Injection",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX SQLi] Error-based SQL Injection test_id=SQLI_DUMP_001-1770842265124-rip9ad pattern_id=SQLI_DUMP_001 uri=/?q='%20UNION%20SELECT%200x3C3F706870%20INTO%20DUMPFILE%20'%2Fvar%2Fwww%2Fhtml%2Fbackdoor.php'-- client=127.0.0.1 method=GET",
+  "sent_at": 1770842296000,
+  "detected_at": 1770842265000,
+  "status": "passed"
+}

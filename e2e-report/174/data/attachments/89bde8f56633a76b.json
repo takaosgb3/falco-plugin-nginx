@@ -1,0 +1,17 @@
+{
+  "pattern_id": "CMD_OBF_003",
+  "test_id": "CMD_OBF_003-1770842264594-9xl6nn",
+  "category": "cmdinj",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 32000,
+  "evidence": "20:37:44.000000000: Critical [NGINX Traversal] File inclusion attack detected test_id=CMD_OBF_003-1770842264594-9xl6nn pattern_id=CMD_OBF_003 uri=/?q=%3Bc%5Cat%20%2Fetc%2Fpasswd client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] File inclusion attack detected test_id=CMD_OBF_003-1770842264594-9xl6nn pattern_id=CMD_OBF_003 uri=/?q=%3Bc%5Cat%20%2Fetc%2Fpasswd client=127.0.0.1",
+  "expected_rule": "[NGINX Traversal] File inclusion attack detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Traversal] File inclusion attack detected test_id=CMD_OBF_003-1770842264594-9xl6nn pattern_id=CMD_OBF_003 uri=/?q=%3Bc%5Cat%20%2Fetc%2Fpasswd client=127.0.0.1",
+  "sent_at": 1770842296000,
+  "detected_at": 1770842264000,
+  "status": "passed"
+}

@@ -1,0 +1,17 @@
+{
+  "pattern_id": "XSS_DOM_015",
+  "test_id": "XSS_DOM_015-1770842238548-nle28j",
+  "category": "xss",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 58000,
+  "evidence": "20:37:18.000000000: Critical [NGINX XSS] DOM-based XSS Attack test_id=XSS_DOM_015-1770842238548-nle28j pattern_id=XSS_DOM_015 uri=/?q=insertAdjacentHTML('beforeend'%2C'%3Cscript%3Ealert(1)%3C%2Fscript%3E') client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX XSS] DOM-based XSS Attack test_id=XSS_DOM_015-1770842238548-nle28j pattern_id=XSS_DOM_015 uri=/?q=insertAdjacentHTML('beforeend'%2C'%3Cscript%3Ealert(1)%3C%2Fscript%3E') client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX XSS] DOM-based XSS Attack",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX XSS] DOM-based XSS Attack test_id=XSS_DOM_015-1770842238548-nle28j pattern_id=XSS_DOM_015 uri=/?q=insertAdjacentHTML('beforeend'%2C'%3Cscript%3Ealert(1)%3C%2Fscript%3E') client=127.0.0.1 method=GET",
+  "sent_at": 1770842296000,
+  "detected_at": 1770842238000,
+  "status": "passed"
+}

@@ -1,0 +1,17 @@
+{
+  "pattern_id": "GQL_DATA_004",
+  "test_id": "GQL_DATA_004-1770842250002-3h03ki",
+  "category": "graphql",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 46000,
+  "evidence": "20:37:30.000000000: Critical [NGINX SQLi] Boolean-based Blind SQL Injection test_id=GQL_DATA_004-1770842250002-3h03ki pattern_id=GQL_DATA_004 uri=/?q=%7Busers(first%3A10)%7Bid%2Cpassword%7D client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Boolean-based Blind SQL Injection test_id=GQL_DATA_004-1770842250002-3h03ki pattern_id=GQL_DATA_004 uri=/?q=%7Busers(first%3A10)%7Bid%2Cpassword%7D client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX GraphQL Attack] Mass data extraction attempt",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": "[NGINX SQLi] Boolean-based Blind SQL Injection test_id=GQL_DATA_004-1770842250002-3h03ki pattern_id=GQL_DATA_004 uri=/?q=%7Busers(first%3A10)%7Bid%2Cpassword%7D client=127.0.0.1 method=GET",
+  "sent_at": 1770842296000,
+  "detected_at": 1770842250000,
+  "status": "passed"
+}

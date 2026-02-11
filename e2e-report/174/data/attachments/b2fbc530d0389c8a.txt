@@ -1,0 +1,5 @@
+Pattern ID: PATH_UNI_006
+        Status: passed
+        Latency: ~43000ms
+        Detection: 1 / 1
+        Rule: [NGINX Traversal] Encoded path traversal attack detected test_id=PATH_UNI_006-1770842253068-iezec pattern_id=PATH_UNI_006 uri=/?q=%25252e%25252e%25252f%25252e%25252e%25252fetc%2Fpasswd client=127.0.0.1

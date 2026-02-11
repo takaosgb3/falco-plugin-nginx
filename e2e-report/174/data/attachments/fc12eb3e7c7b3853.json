@@ -1,0 +1,17 @@
+{
+  "pattern_id": "OTHER_REDIS_003",
+  "test_id": "OTHER_REDIS_003-1770842236004-808i2s",
+  "category": "other",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 86340000,
+  "evidence": "20:37:16.000000000: Critical [NGINX Emerging Threat] Redis command injection test_id=OTHER_REDIS_003-1770842236004-808i2s pattern_id=OTHER_REDIS_003 uri=/?q=CONFIG%20SET%20requirepass%20hacked client=127.0.0.1",
+  "rule_name": "[NGINX Emerging Threat] Redis command injection test_id=OTHER_REDIS_003-1770842236004-808i2s pattern_id=OTHER_REDIS_003 uri=/?q=CONFIG%20SET%20requirepass%20hacked client=127.0.0.1",
+  "expected_rule": "[NGINX Emerging Threat] Redis command injection",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Emerging Threat] Redis command injection test_id=OTHER_REDIS_003-1770842236004-808i2s pattern_id=OTHER_REDIS_003 uri=/?q=CONFIG%20SET%20requirepass%20hacked client=127.0.0.1",
+  "sent_at": 1770842296000,
+  "detected_at": 1770842236000,
+  "status": "passed"
+}

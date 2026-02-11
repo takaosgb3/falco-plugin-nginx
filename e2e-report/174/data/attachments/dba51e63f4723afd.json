@@ -1,0 +1,17 @@
+{
+  "pattern_id": "XSS_ADV_059",
+  "test_id": "XSS_ADV_059-1770842243058-ge1ubo",
+  "category": "xss",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 53000,
+  "evidence": "20:37:23.000000000: Critical [NGINX XSS] DOM-based XSS Attack test_id=XSS_ADV_059-1770842243058-ge1ubo pattern_id=XSS_ADV_059 uri=/?q=%3Cmath%3E%3Cmtext%3E%3Ctable%3E%3Cmglyph%3E%3Cstyle%3E%3Cimg%20src%3Dx%20onerror%3Dalert%281%29%3E client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX XSS] DOM-based XSS Attack test_id=XSS_ADV_059-1770842243058-ge1ubo pattern_id=XSS_ADV_059 uri=/?q=%3Cmath%3E%3Cmtext%3E%3Ctable%3E%3Cmglyph%3E%3Cstyle%3E%3Cimg%20src%3Dx%20onerror%3Dalert%281%29%3E client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX XSS] DOM-based XSS Attack",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX XSS] DOM-based XSS Attack test_id=XSS_ADV_059-1770842243058-ge1ubo pattern_id=XSS_ADV_059 uri=/?q=%3Cmath%3E%3Cmtext%3E%3Ctable%3E%3Cmglyph%3E%3Cstyle%3E%3Cimg%20src%3Dx%20onerror%3Dalert%281%29%3E client=127.0.0.1 method=GET",
+  "sent_at": 1770842296000,
+  "detected_at": 1770842243000,
+  "status": "passed"
+}
