@@ -1,0 +1,5 @@
+Pattern ID: SQLI_HEX_001
+        Status: passed
+        Latency: ~29000ms
+        Detection: 1 / 1
+        Rule: [NGINX SQLi] Advanced SQL Injection Attempt test_id=SQLI_HEX_001-1770995223489-q030j6 pattern_id=SQLI_HEX_001 uri=/?q=0x27554e494f4e2053454c454354 client=127.0.0.1 method=GET

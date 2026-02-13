@@ -1,0 +1,17 @@
+{
+  "pattern_id": "XPATH_BLIND_002",
+  "test_id": "XPATH_BLIND_002-1770995209350-7uirgn",
+  "category": "xpath",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 43000,
+  "evidence": "15:06:49.000000000: Warning [NGINX XPath Injection] XPath injection attempt test_id=XPATH_BLIND_002-1770995209350-7uirgn pattern_id=XPATH_BLIND_002 uri=/?q=%27%20and%20string-length%28%2F%2Fuser%5B1%5D%2Fname%29%3E3%20and%20%271%27%3D%271 client=127.0.0.1",
+  "rule_name": "[NGINX XPath Injection] XPath injection attempt test_id=XPATH_BLIND_002-1770995209350-7uirgn pattern_id=XPATH_BLIND_002 uri=/?q=%27%20and%20string-length%28%2F%2Fuser%5B1%5D%2Fname%29%3E3%20and%20%271%27%3D%271 client=127.0.0.1",
+  "expected_rule": "[NGINX XPath Injection] XPath injection attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX XPath Injection] XPath injection attempt test_id=XPATH_BLIND_002-1770995209350-7uirgn pattern_id=XPATH_BLIND_002 uri=/?q=%27%20and%20string-length%28%2F%2Fuser%5B1%5D%2Fname%29%3E3%20and%20%271%27%3D%271 client=127.0.0.1",
+  "sent_at": 1770995252000,
+  "detected_at": 1770995209000,
+  "status": "passed"
+}

@@ -1,0 +1,5 @@
+Pattern ID: API_MASS_004
+        Status: passed
+        Latency: ~28000ms
+        Detection: 1 / 1
+        Rule: [NGINX API Attack] API security vulnerability detected test_id=API_MASS_004-1770995224848-nb4s pattern_id=API_MASS_004 uri=/?q=%7B%22permissions%22%3A%22admin%22%2C%22isAdmin%22%3Atrue%7D client=127.0.0.1

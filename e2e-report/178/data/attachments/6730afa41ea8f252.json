@@ -1,0 +1,17 @@
+{
+  "pattern_id": "XSS_POLY_007",
+  "test_id": "XSS_POLY_007-1770995197899-4qv5zo",
+  "category": "xss",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 55000,
+  "evidence": "15:06:37.000000000: Warning [NGINX SQLi] Encoded SQL Injection Pattern test_id=XSS_POLY_007-1770995197899-4qv5zo pattern_id=XSS_POLY_007 uri=/?q=jaVasCript%3A%2F*-%2F*%60%2F*'%20%2F*onerror%3Dalert(1)%2F%2F%20*%2F client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Encoded SQL Injection Pattern test_id=XSS_POLY_007-1770995197899-4qv5zo pattern_id=XSS_POLY_007 uri=/?q=jaVasCript%3A%2F*-%2F*%60%2F*'%20%2F*onerror%3Dalert(1)%2F%2F%20*%2F client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX SQLi] Encoded SQL Injection Pattern",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX SQLi] Encoded SQL Injection Pattern test_id=XSS_POLY_007-1770995197899-4qv5zo pattern_id=XSS_POLY_007 uri=/?q=jaVasCript%3A%2F*-%2F*%60%2F*'%20%2F*onerror%3Dalert(1)%2F%2F%20*%2F client=127.0.0.1 method=GET",
+  "sent_at": 1770995252000,
+  "detected_at": 1770995197000,
+  "status": "passed"
+}

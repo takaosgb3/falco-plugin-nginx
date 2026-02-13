@@ -1,0 +1,5 @@
+Pattern ID: XPATH_FUNC_004
+        Status: passed
+        Latency: ~42000ms
+        Detection: 1 / 1
+        Rule: [NGINX XPath Injection] XPath injection attempt test_id=XPATH_FUNC_004-1770995210855-mqtcr pattern_id=XPATH_FUNC_004 uri=/?q=substring%28%2F%2Fuser%2C1%2C1%29 client=127.0.0.1

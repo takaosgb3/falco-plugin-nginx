@@ -1,0 +1,5 @@
+Pattern ID: CMD_ENV_002
+        Status: passed
+        Latency: ~50000ms
+        Detection: 1 / 1
+        Rule: [NGINX CMDi] Advanced command injection attempt test_id=CMD_ENV_002-1770995202393-qhivc1g pattern_id=CMD_ENV_002 uri=/?q=LD_PRELOAD%3D%2Ftmp%2Fevil.so%20%2Fbin%2Fid client=127.0.0.1

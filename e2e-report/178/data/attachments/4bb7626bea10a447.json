@@ -1,0 +1,17 @@
+{
+  "pattern_id": "NOSQL_MONGO_006",
+  "test_id": "NOSQL_MONGO_006-1770995222858-e7wmw",
+  "category": "nosql_extended",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 30000,
+  "evidence": "15:07:02.000000000: Critical [NGINX Emerging Threat] MongoDB NoSQL injection test_id=NOSQL_MONGO_006-1770995222858-e7wmw pattern_id=NOSQL_MONGO_006 uri=/?q=%7B%22%24or%22%3A%20%5B%7B%22username%22%3A%20%22admin%22%7D%2C%20%7B%22username%22%3A%20%22root%22%7D%5D%7D client=127.0.0.1",
+  "rule_name": "[NGINX Emerging Threat] MongoDB NoSQL injection test_id=NOSQL_MONGO_006-1770995222858-e7wmw pattern_id=NOSQL_MONGO_006 uri=/?q=%7B%22%24or%22%3A%20%5B%7B%22username%22%3A%20%22admin%22%7D%2C%20%7B%22username%22%3A%20%22root%22%7D%5D%7D client=127.0.0.1",
+  "expected_rule": "[NGINX Emerging Threat] MongoDB NoSQL injection",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Emerging Threat] MongoDB NoSQL injection test_id=NOSQL_MONGO_006-1770995222858-e7wmw pattern_id=NOSQL_MONGO_006 uri=/?q=%7B%22%24or%22%3A%20%5B%7B%22username%22%3A%20%22admin%22%7D%2C%20%7B%22username%22%3A%20%22root%22%7D%5D%7D client=127.0.0.1",
+  "sent_at": 1770995252000,
+  "detected_at": 1770995222000,
+  "status": "passed"
+}

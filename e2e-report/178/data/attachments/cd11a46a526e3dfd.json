@@ -1,0 +1,17 @@
+{
+  "pattern_id": "PP_DOT_001",
+  "test_id": "PP_DOT_001-1770995235851-1vdel",
+  "category": "prototype_pollution",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 17000,
+  "evidence": "15:07:15.000000000: Warning [NGINX PP] Prototype pollution attack attempt test_id=PP_DOT_001-1770995235851-1vdel pattern_id=PP_DOT_001 uri=/?q=constructor%2Eprototype%2Epolluted%3D1 client=127.0.0.1",
+  "rule_name": "[NGINX PP] Prototype pollution attack attempt test_id=PP_DOT_001-1770995235851-1vdel pattern_id=PP_DOT_001 uri=/?q=constructor%2Eprototype%2Epolluted%3D1 client=127.0.0.1",
+  "expected_rule": "[NGINX PP] Prototype pollution attack attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX PP] Prototype pollution attack attempt test_id=PP_DOT_001-1770995235851-1vdel pattern_id=PP_DOT_001 uri=/?q=constructor%2Eprototype%2Epolluted%3D1 client=127.0.0.1",
+  "sent_at": 1770995252000,
+  "detected_at": 1770995235000,
+  "status": "passed"
+}

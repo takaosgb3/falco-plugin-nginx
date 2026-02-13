@@ -1,0 +1,5 @@
+Pattern ID: SQLI_STACK_006
+        Status: passed
+        Latency: ~34000ms
+        Detection: 1 / 1
+        Rule: [NGINX Traversal] File inclusion attack detected test_id=SQLI_STACK_006-1770995218979-f79ugg pattern_id=SQLI_STACK_006 uri=/?q=%27%3B%20SELECT%20pg_read_file%28%27%2Fetc%2Fpasswd%27%29%3B%20-- client=127.0.0.1

@@ -1,0 +1,5 @@
+Pattern ID: EMRG_REDIS_002
+        Status: passed
+        Latency: ~31000ms
+        Detection: 1 / 1
+        Rule: [NGINX Emerging Threat] Redis command injection test_id=EMRG_REDIS_002-1770995221354-xkn4s9 pattern_id=EMRG_REDIS_002 uri=/?q=CONFIG%20GET%20%2A client=127.0.0.1

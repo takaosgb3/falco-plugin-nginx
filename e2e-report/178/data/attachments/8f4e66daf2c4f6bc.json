@@ -1,0 +1,17 @@
+{
+  "pattern_id": "API_JWT_003",
+  "test_id": "API_JWT_003-1770995223345-7qmf",
+  "category": "api_security",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 29000,
+  "evidence": "15:07:03.000000000: Warning [NGINX API Attack] API security vulnerability detected test_id=API_JWT_003-1770995223345-7qmf pattern_id=API_JWT_003 uri=/?q=eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJ1c2VyX2lkIjoiMSIsImFkbWluIjp0cnVlfQ. client=127.0.0.1",
+  "rule_name": "[NGINX API Attack] API security vulnerability detected test_id=API_JWT_003-1770995223345-7qmf pattern_id=API_JWT_003 uri=/?q=eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJ1c2VyX2lkIjoiMSIsImFkbWluIjp0cnVlfQ. client=127.0.0.1",
+  "expected_rule": "[NGINX API Attack] API security vulnerability detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX API Attack] API security vulnerability detected test_id=API_JWT_003-1770995223345-7qmf pattern_id=API_JWT_003 uri=/?q=eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJ1c2VyX2lkIjoiMSIsImFkbWluIjp0cnVlfQ. client=127.0.0.1",
+  "sent_at": 1770995252000,
+  "detected_at": 1770995223000,
+  "status": "passed"
+}

@@ -1,0 +1,5 @@
+Pattern ID: CMD_ADV_056
+        Status: passed
+        Latency: ~45000ms
+        Detection: 1 / 1
+        Rule: [NGINX CMDi] Command substitution attack test_id=CMD_ADV_056-1770995207907-ifgih9 pattern_id=CMD_ADV_056 uri=/?q=%24%28whoami%29 client=127.0.0.1

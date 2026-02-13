@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rule Mapping Trend - E2E Tests #178</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #e0e0e0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        h1 {
+            font-size: 2rem;
+            color: #4CAF50;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            color: #888;
+            font-size: 1rem;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 10px;
+            color: #64b5f6;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .stat-card.match {
+            border-color: rgba(76, 175, 80, 0.5);
+        }
+        .stat-card.mismatch {
+            border-color: rgba(244, 67, 54, 0.5);
+        }
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .stat-value.green { color: #4CAF50; }
+        .stat-value.red { color: #f44336; }
+        .stat-value.blue { color: #2196F3; }
+        .stat-value.gray { color: #9e9e9e; }
+        .stat-label {
+            color: #888;
+            font-size: 0.9rem;
+        }
+        .chart-container {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .chart-title {
+            font-size: 1.2rem;
+            color: #fff;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .chart-wrapper {
+            position: relative;
+            height: 400px;
+        }
+        .legend-info {
+            text-align: center;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.85rem;
+            color: #888;
+        }
+        .legend-item {
+            display: inline-block;
+            margin: 0 15px;
+        }
+        .legend-color {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 2px;
+            margin-right: 5px;
+            vertical-align: middle;
+        }
+        footer {
+            text-align: center;
+            color: #666;
+            font-size: 0.8rem;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Rule Mapping Trend</h1>
+            <p class="subtitle">E2E Tests #178 - Pattern Rule Verification</p>
+            <a href="../178/" class="back-link">&larr; Back to Allure Report</a>
+        </header>
+
+        <div class="stats-grid">
+            <div class="stat-card match">
+                <div class="stat-value green">559</div>
+                <div class="stat-label">Rule Match</div>
+            </div>
+            <div class="stat-card mismatch">
+                <div class="stat-value red">0</div>
+                <div class="stat-label">Rule Mismatch</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value blue">16</div>
+                <div class="stat-label">Expected Not Detected</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value gray">97.2%</div>
+                <div class="stat-label">Match Rate</div>
+            </div>
+        </div>
+
+        <div class="chart-container">
+            <h2 class="chart-title">Rule Mapping Trend (Last 20 Runs)</h2>
+            <div class="chart-wrapper">
+                <canvas id="trendChart"></canvas>
+            </div>
+            <div class="legend-info">
+                <span class="legend-item"><span class="legend-color" style="background: #4CAF50;"></span>Rule Match</span>
+                <span class="legend-item"><span class="legend-color" style="background: #f44336;"></span>Rule Mismatch</span>
+                <span class="legend-item"><span class="legend-color" style="background: #2196F3;"></span>Expected Not Detected</span>
+                <span class="legend-item"><span class="legend-color" style="background: #9e9e9e;"></span>Not Defined</span>
+            </div>
+        </div>
+
+        <div class="chart-container">
+            <h2 class="chart-title">Rule Mismatch Trend (Detailed View)</h2>
+            <div class="chart-wrapper" style="height: 300px;">
+                <canvas id="mismatchChart"></canvas>
+            </div>
+            <div class="legend-info">
+                <span class="legend-item"><span class="legend-color" style="background: #f44336;"></span>Rule Mismatch</span>
+                <span class="legend-item"><span class="legend-color" style="background: #2196F3;"></span>Expected Not Detected</span>
+                <p style="margin-top: 10px; color: #666;">This chart shows Rule Mismatch and Expected Not Detected with a focused scale for better visibility.</p>
+            </div>
+        </div>
+
+        <footer>
+            Generated at 2026-02-13 15:07:44 UTC |
+            <a href="https://github.com/takaosgb3/falco-plugin-nginx" style="color: #64b5f6;">falco-plugin-nginx</a>
+        </footer>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('trendChart').getContext('2d');
+        const labels = ["#130", "#131", "#133", "#134", "#135", "#136", "#137", "#138", "#143", "#146", "#152", "#153", "#154", "#161", "#166", "#168", "#173", "#174", "#176", "#178"];
+        const urls = ["https://takaosgb3.github.io/falco-plugin-nginx/e2e-report/130/", "https://takaosgb3.github.io/falco-plugin-nginx/e2e-report/131/", "https://takaosgb3.github.io/falco-plugin-nginx/e2e-report/133/", "https://takaosgb3.github.io/falco-plugin-nginx/e2e-report/134/", "https://takaosgb3.github.io/falco-plugin-nginx/e2e-report/135/", "https://takaosgb3.github.io/falco-plugin-nginx/e2e-report/136/", "https://takaosgb3.github.io/falco-plugin-nginx/e2e-report/137/", "https://takaosgb3.github.io/falco-plugin-nginx/e2e-report/138/", "https://takaosgb3.github.io/falco-plugin-nginx/e2e-report/143/", "https://takaosgb3.github.io/falco-plugin-nginx/e2e-report/146/", "https://takaosgb3.github.io/falco-plugin-nginx/e2e-report/152/", "https://takaosgb3.github.io/falco-plugin-nginx/e2e-report/153/", "https://takaosgb3.github.io/falco-plugin-nginx/e2e-report/154/", "https://takaosgb3.github.io/falco-plugin-nginx/e2e-report/161/", "https://takaosgb3.github.io/falco-plugin-nginx/e2e-report/166/", "https://takaosgb3.github.io/falco-plugin-nginx/e2e-report/168/", "https://takaosgb3.github.io/falco-plugin-nginx/e2e-report/173/", "https://takaosgb3.github.io/falco-plugin-nginx/e2e-report/174/", "https://takaosgb3.github.io/falco-plugin-nginx/e2e-report/176/", "https://takaosgb3.github.io/falco-plugin-nginx/e2e-report/178/"];
+
+        const chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: 'Rule Match',
+                        data: [348, 348, 353, 353, 372, 375, 377, 398, 418, 433, 441, 441, 441, 459, 483, 503, 549, 549, 559, 559],
+                        borderColor: '#4CAF50',
+                        backgroundColor: 'rgba(76, 175, 80, 0.1)',
+                        fill: true,
+                        tension: 0.3,
+                        pointRadius: 4,
+                        pointHoverRadius: 6
+                    },
+                    {
+                        label: 'Rule Mismatch',
+                        data: [0, 0, 45, 45, 26, 23, 21, 0, 0, 0, 0, 0, 0, 0, 0, 1, 10, 10, 0, 0],
+                        borderColor: '#f44336',
+                        backgroundColor: 'rgba(244, 67, 54, 0.1)',
+                        fill: true,
+                        tension: 0.3,
+                        pointRadius: 4,
+                        pointHoverRadius: 6
+                    },
+                    {
+                        label: 'Expected Not Detected',
+                        data: [2, 2, 2, 2, 2, 2, 2, 2, 2, 12, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16],
+                        borderColor: '#2196F3',
+                        backgroundColor: 'rgba(33, 150, 243, 0.1)',
+                        fill: true,
+                        tension: 0.3,
+                        pointRadius: 4,
+                        pointHoverRadius: 6
+                    },
+                    {
+                        label: 'Not Defined',
+                        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        borderColor: '#9e9e9e',
+                        backgroundColor: 'rgba(158, 158, 158, 0.1)',
+                        fill: true,
+                        tension: 0.3,
+                        pointRadius: 4,
+                        pointHoverRadius: 6
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    mode: 'index',
+                    intersect: false
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        titleColor: '#fff',
+                        bodyColor: '#e0e0e0',
+                        padding: 12,
+                        displayColors: true,
+                        callbacks: {
+                            title: function(context) {
+                                const idx = context[0].dataIndex;
+                                return 'Run ' + labels[idx];
+                            },
+                            afterBody: function(context) {
+                                const idx = context[0].dataIndex;
+                                const total = [348, 348, 353, 353, 372, 375, 377, 398, 418, 433, 441, 441, 441, 459, 483, 503, 549, 549, 559, 559][idx] + [0, 0, 45, 45, 26, 23, 21, 0, 0, 0, 0, 0, 0, 0, 0, 1, 10, 10, 0, 0][idx] +
+                                             [2, 2, 2, 2, 2, 2, 2, 2, 2, 12, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16][idx] + [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0][idx];
+                                const matchRate = total > 0 ? ([348, 348, 353, 353, 372, 375, 377, 398, 418, 433, 441, 441, 441, 459, 483, 503, 549, 549, 559, 559][idx] / total * 100).toFixed(1) : 0;
+                                return '\nMatch Rate: ' + matchRate + '%\nTotal: ' + total;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        ticks: {
+                            color: '#888'
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        ticks: {
+                            color: '#888'
+                        }
+                    }
+                },
+                onClick: function(evt, elements) {
+                    if (elements.length > 0) {
+                        const idx = elements[0].index;
+                        if (urls[idx]) {
+                            window.open(urls[idx], '_blank');
+                        }
+                    }
+                }
+            }
+        });
+
+        // Rule Mismatch Detailed Chart
+        const mismatchCtx = document.getElementById('mismatchChart').getContext('2d');
+        const mismatchChart = new Chart(mismatchCtx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: 'Rule Mismatch',
+                        data: [0, 0, 45, 45, 26, 23, 21, 0, 0, 0, 0, 0, 0, 0, 0, 1, 10, 10, 0, 0],
+                        borderColor: '#f44336',
+                        backgroundColor: 'rgba(244, 67, 54, 0.2)',
+                        fill: true,
+                        tension: 0.3,
+                        pointRadius: 5,
+                        pointHoverRadius: 8,
+                        borderWidth: 3
+                    },
+                    {
+                        label: 'Expected Not Detected',
+                        data: [2, 2, 2, 2, 2, 2, 2, 2, 2, 12, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16],
+                        borderColor: '#2196F3',
+                        backgroundColor: 'rgba(33, 150, 243, 0.2)',
+                        fill: true,
+                        tension: 0.3,
+                        pointRadius: 5,
+                        pointHoverRadius: 8,
+                        borderWidth: 2
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    mode: 'index',
+                    intersect: false
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top',
+                        labels: {
+                            color: '#888',
+                            usePointStyle: true
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        titleColor: '#fff',
+                        bodyColor: '#e0e0e0',
+                        padding: 12,
+                        displayColors: true,
+                        callbacks: {
+                            title: function(context) {
+                                if (!context || !context[0]) return '';
+                                const idx = context[0].dataIndex;
+                                return 'Run ' + labels[idx];
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        ticks: {
+                            color: '#888'
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        suggestedMax: Math.max(...[0, 0, 45, 45, 26, 23, 21, 0, 0, 0, 0, 0, 0, 0, 0, 1, 10, 10, 0, 0], ...[2, 2, 2, 2, 2, 2, 2, 2, 2, 12, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16]) * 1.2 || 10,
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        ticks: {
+                            color: '#888',
+                            stepSize: 5
+                        }
+                    }
+                },
+                onClick: function(evt, elements) {
+                    if (elements.length > 0) {
+                        const idx = elements[0].index;
+                        if (urls[idx]) {
+                            window.open(urls[idx], '_blank');
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

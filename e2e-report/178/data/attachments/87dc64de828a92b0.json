@@ -1,0 +1,17 @@
+{
+  "pattern_id": "CMD_ADV_064",
+  "test_id": "CMD_ADV_064-1770995211919-l8mzev",
+  "category": "cmdinj",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 41000,
+  "evidence": "15:06:51.000000000: Critical [NGINX CMDi] Command injection via pipe test_id=CMD_ADV_064-1770995211919-l8mzev pattern_id=CMD_ADV_064 uri=/?q=%7C%7C%20id client=127.0.0.1",
+  "rule_name": "[NGINX CMDi] Command injection via pipe test_id=CMD_ADV_064-1770995211919-l8mzev pattern_id=CMD_ADV_064 uri=/?q=%7C%7C%20id client=127.0.0.1",
+  "expected_rule": "[NGINX CMDi] Command injection via pipe",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX CMDi] Command injection via pipe test_id=CMD_ADV_064-1770995211919-l8mzev pattern_id=CMD_ADV_064 uri=/?q=%7C%7C%20id client=127.0.0.1",
+  "sent_at": 1770995252000,
+  "detected_at": 1770995211000,
+  "status": "passed"
+}

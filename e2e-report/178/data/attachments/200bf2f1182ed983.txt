@@ -1,0 +1,3 @@
+Expected Rule: [NGINX CRLF] CRLF Injection attempt detected
+Matched Rule: [NGINX CRLF] CRLF Injection attempt detected test_id=CRLF_HDR_002-1770995245839-t5duex pattern_id=CRLF_HDR_002 uri=/?q=%0d%0aX-Injected%3Atrue client=127.0.0.1
+Rule Match: ✅ Match

@@ -1,0 +1,17 @@
+{
+  "pattern_id": "XSS_ADV_064",
+  "test_id": "XSS_ADV_064-1770995201907-w9muc",
+  "category": "xss",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 51000,
+  "evidence": "15:06:41.000000000: Critical [NGINX XSS] DOM-based XSS Attack test_id=XSS_ADV_064-1770995201907-w9muc pattern_id=XSS_ADV_064 uri=/?q=%3Cbody%20onload%3Dalert%281%29%3E client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX XSS] DOM-based XSS Attack test_id=XSS_ADV_064-1770995201907-w9muc pattern_id=XSS_ADV_064 uri=/?q=%3Cbody%20onload%3Dalert%281%29%3E client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX XSS] DOM-based XSS Attack",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX XSS] DOM-based XSS Attack test_id=XSS_ADV_064-1770995201907-w9muc pattern_id=XSS_ADV_064 uri=/?q=%3Cbody%20onload%3Dalert%281%29%3E client=127.0.0.1 method=GET",
+  "sent_at": 1770995252000,
+  "detected_at": 1770995201000,
+  "status": "passed"
+}
