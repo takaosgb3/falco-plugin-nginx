@@ -431,7 +431,38 @@ All notable changes to the Falco nginx plugin binaries will be documented in thi
 
 Falco nginxプラグインバイナリの重要な変更はすべてこのファイルに記録されます。
 
-## [v1.6.0] - 2026-02-01 - E2E 457パターンリリース（Phase 7）（最新）
+## [v1.7.0] - 2026-02-13 - E2E 575パターンリリース（Phase 8 & 9）（最新）
+
+### 追加
+- **Phase 8: 520攻撃パターン**（+63、457から）: 6カテゴリにわたるE2Eテストカバレッジ拡大
+  - **Stage 1**: SSRF (+10) と CRLFインジェクション (+8) パターン
+  - **Stage 2**: APIセキュリティ (+10)、XXE (+10)、NoSQL Extended (+4) パターン
+  - **Stage 3**: GraphQL (+5)、XPath (+5)、Pickle/デシリアライゼーション (+6)、LDAP (+5) パターン
+- **Phase 9: 575攻撃パターン**（+55、520から）: 10カテゴリにわたるE2Eテストカバレッジ拡大
+  - **Stage 1**: CRLF (+7)、SSRF (+5)、SSTI (+5)、Prototype Pollution (+5) パターン
+  - **Stage 2**: GraphQL (+5)、HTTPスマグリング (+5)、Pickle (+5)、Other (+5) パターン
+  - **Stage 3**: XPath (+5)、XXE (+3)、XSS (+5) パターン
+- **新しい攻撃カテゴリ**:
+  - CRLFインジェクション: 15パターン（ヘッダーインジェクション、レスポンス分割、ログインジェクション）
+  - SSRF: 15パターン（クラウドメタデータ、内部ネットワーク、プロトコル悪用）
+
+### 修正
+- **10件のRule Mismatch修正**（Issue #91）: Phase 9パターンのクロスルール例外
+  - Boolean SQLi誤検出: `icontains "ord"`、`icontains "exists"`、`icontains "substring"`
+  - Error SQLi誤検出: GraphQL `__schema`が`icontains "schema"`にマッチ
+  - Advanced SQLi誤検出: URLエンコーディング境界で偽の`0x`マッチが発生
+  - Advanced CMDi誤検出: CRLF `%0A`が改行検出をトリガー
+
+### 技術詳細
+- E2Eパターン: 575（17パターンファイル、19テストカテゴリ）
+- Falcoルール: 44ルール、46マクロ
+- Rule Mismatch: 0（100%ルールマッピング精度）
+- 検出率: 100%（575/575パターン検出）
+- Expected Not Detected: 0（すべてのパターンが検出可能）
+- Falco Plugin SDK v0.8.1でビルド
+- GitHub Actions（ubuntu-24.04）、Falco 0.43.0でE2Eテスト済み
+
+## [v1.6.0] - 2026-02-01 - E2E 457パターンリリース（Phase 7）
 
 ### 追加
 - **Phase 7: 457攻撃パターン**: E2Eテストカバレッジを420から457パターンに拡大
