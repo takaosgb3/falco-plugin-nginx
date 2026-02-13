@@ -27,7 +27,7 @@ A [Falco](https://falco.org) plugin that reads nginx access logs and detects sec
 The easiest way to get started:
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-nginx-plugin/main/install.sh | sudo bash
+curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo bash
 ```
 
 This will automatically:
@@ -41,8 +41,8 @@ This will automatically:
 
 1. **Download the latest release**:
 ```bash
-wget https://github.com/takaosgb3/falco-nginx-plugin/releases/latest/download/libfalco-nginx-plugin-linux-amd64.so
-wget https://github.com/takaosgb3/falco-nginx-plugin/releases/latest/download/nginx_rules.yaml
+wget https://github.com/takaosgb3/falco-plugin-nginx/releases/latest/download/libfalco-nginx-plugin-linux-amd64.so
+wget https://github.com/takaosgb3/falco-plugin-nginx/releases/latest/download/nginx_rules.yaml
 ```
 
 2. **Install the plugin**:
@@ -208,7 +208,7 @@ nginxのアクセスログを読み取り、セキュリティ脅威をリアル
 最も簡単な開始方法：
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-nginx-plugin/main/install.sh | sudo bash
+curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-plugin-nginx/main/install.sh | sudo bash
 ```
 
 これにより自動的に以下が実行されます：
@@ -222,8 +222,8 @@ curl -sSL https://raw.githubusercontent.com/takaosgb3/falco-nginx-plugin/main/in
 
 1. **最新リリースをダウンロード**：
 ```bash
-wget https://github.com/takaosgb3/falco-nginx-plugin/releases/latest/download/libfalco-nginx-plugin-linux-amd64.so
-wget https://github.com/takaosgb3/falco-nginx-plugin/releases/latest/download/nginx_rules.yaml
+wget https://github.com/takaosgb3/falco-plugin-nginx/releases/latest/download/libfalco-nginx-plugin-linux-amd64.so
+wget https://github.com/takaosgb3/falco-plugin-nginx/releases/latest/download/nginx_rules.yaml
 ```
 
 2. **プラグインをインストール**：
