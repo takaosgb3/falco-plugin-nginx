@@ -759,6 +759,19 @@
         - NOSQL_MONGO_004
         - NOSQL_MONGO_005
         - API_IDOR_002
+    # Issue #91 Fix: Phase 9 patterns that trigger boolean SQLi conditions
+    # EMRG_MONGO_008: "$exists" triggers icontains "exists"
+    # XPATH_ENUM_002: "password" in string-length(//password) triggers icontains "ord"
+    # XPATH_FUNC_004: "substring(" triggers icontains "substring"
+    # GQL_DATA_004: "password" in {id,password} triggers icontains "ord"
+    - name: phase9_cross_rule_boolean_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - EMRG_MONGO_008
+        - XPATH_ENUM_002
+        - XPATH_FUNC_004
+        - GQL_DATA_004
   output: "[NGINX SQLi] Boolean-based Blind SQL Injection test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: CRITICAL
   tags: [security, sql_injection, advanced_sqli, boolean_based, phase3]
@@ -778,6 +791,14 @@
       values:
         - GQL_INTRO_001
         - GQL_INTRO_003
+    # Issue #91 Fix: Phase 9 GraphQL patterns that trigger icontains "schema"
+    # __schema contains "schema" substring matching version_metadata condition
+    - name: phase9_graphql_schema_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - GQL_INTRO_005
+        - GQL_INTRO_008
   output: "[NGINX SQLi] Error-based SQL Injection test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: CRITICAL
   tags: [security, sql_injection, advanced_sqli, error_based, phase3]
@@ -842,6 +863,15 @@
         - XXE_SVG_001
         - XXE_ENCODE_001
         - XXE_SSRF_001
+    # Issue #91 Fix: Phase 9 Stage 3 XXE encode patterns
+    # Same root cause as phase8_xxe_hex_patterns: %20xxe creates false "0x" match
+    - name: phase9_xxe_encode_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - XXE_ENCODE_002
+        - XXE_ENCODE_003
+        - XXE_ENCODE_004
   output: "[NGINX SQLi] Advanced SQL Injection Attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: WARNING
   tags: [security, sql_injection, advanced_sqli, enumeration, phase3]
@@ -1903,6 +1933,7 @@
         - CRLF_LOG_003
         - CRLF_RESP_003
         - CRLF_ENC_002
+        - CRLF_ENC_003
 
 # ==============================================================================
 # Emerging Threats Detection Rules (from advanced_emerging_enhanced.yaml)
