@@ -1,0 +1,3 @@
+Expected Rule: [NGINX GraphQL Attack] Mass data extraction attempt
+Matched Rule: [NGINX GraphQL Attack] Mass data extraction attempt test_id=GQL_DATA_006-1770961702229-4x2uhk pattern_id=GQL_DATA_006 uri=/?q=limit:9999 client=127.0.0.1
+Rule Match: ✅ Match

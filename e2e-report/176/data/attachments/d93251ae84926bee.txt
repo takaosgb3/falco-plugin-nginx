@@ -1,0 +1,3 @@
+Expected Rule: [NGINX SQLi] Error-based SQL Injection
+Matched Rule: [NGINX SQLi] Error-based SQL Injection test_id=SQLI_DUMP_001-1770961716330-8ppgrh pattern_id=SQLI_DUMP_001 uri=/?q='%20UNION%20SELECT%200x3C3F706870%20INTO%20DUMPFILE%20'%2Fvar%2Fwww%2Fhtml%2Fbackdoor.php'-- client=127.0.0.1 method=GET
+Rule Match: ✅ Match

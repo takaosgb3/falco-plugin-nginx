@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SSTI_SMARTY_001",
+  "test_id": "SSTI_SMARTY_001-1770961709220-ih87xs",
+  "category": "ssti",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 38000,
+  "evidence": "05:48:29.000000000: Critical [NGINX SSTI] Server-Side Template Injection detected test_id=SSTI_SMARTY_001-1770961709220-ih87xs pattern_id=SSTI_SMARTY_001 uri=/?q=%7Bphp%7Dsystem(%22id%22)%3B%7B%2Fphp%7D client=127.0.0.1",
+  "rule_name": "[NGINX SSTI] Server-Side Template Injection detected test_id=SSTI_SMARTY_001-1770961709220-ih87xs pattern_id=SSTI_SMARTY_001 uri=/?q=%7Bphp%7Dsystem(%22id%22)%3B%7B%2Fphp%7D client=127.0.0.1",
+  "expected_rule": "[NGINX SSTI] Server-Side Template Injection detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX SSTI] Server-Side Template Injection detected test_id=SSTI_SMARTY_001-1770961709220-ih87xs pattern_id=SSTI_SMARTY_001 uri=/?q=%7Bphp%7Dsystem(%22id%22)%3B%7B%2Fphp%7D client=127.0.0.1",
+  "sent_at": 1770961747000,
+  "detected_at": 1770961709000,
+  "status": "passed"
+}

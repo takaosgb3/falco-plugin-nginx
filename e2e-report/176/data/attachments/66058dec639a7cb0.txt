@@ -1,0 +1,5 @@
+Pattern ID: CMD_ADV_062
+        Status: passed
+        Latency: ~42000ms
+        Detection: 1 / 1
+        Rule: [NGINX CMDi] Advanced command injection attempt test_id=CMD_ADV_062-1770961705779-ppprlf pattern_id=CMD_ADV_062 uri=/?q=%26%26%20id client=127.0.0.1

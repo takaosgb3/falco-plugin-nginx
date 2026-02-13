@@ -1,0 +1,5 @@
+Pattern ID: PATH_ABS_008
+        Status: passed
+        Latency: ~63000ms
+        Detection: 1 / 1
+        Rule: [NGINX Traversal] File inclusion attack detected test_id=PATH_ABS_008-1770961684744-qah4hj pattern_id=PATH_ABS_008 uri=/?q=%2Fetc%2Fcrontab client=127.0.0.1

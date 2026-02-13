@@ -1,0 +1,5 @@
+Pattern ID: HRS_ENCTE_001
+        Status: passed
+        Latency: ~11000ms
+        Detection: 1 / 1
+        Rule: [NGINX HRS] HTTP Request Smuggling attempt test_id=HRS_ENCTE_001-1770961736726-17luv pattern_id=HRS_ENCTE_001 uri=/?q=Transfer%2DEncoding%3A%20chunked client=127.0.0.1

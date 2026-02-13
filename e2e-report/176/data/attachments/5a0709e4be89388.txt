@@ -1,0 +1,3 @@
+Expected Rule: [NGINX Pickle Attack] Pickle deserialization attack attempt
+Matched Rule: [NGINX Pickle Attack] Pickle deserialization attack attempt test_id=PICKLE_DESER_008-1770961723721-lkf4aq pattern_id=PICKLE_DESER_008 uri=/?q=__class__.__mro__%5B2%5D.__subclasses__%28%29 client=127.0.0.1
+Rule Match: ✅ Match
