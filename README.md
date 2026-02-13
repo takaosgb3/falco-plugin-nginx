@@ -107,22 +107,27 @@ This repository includes comprehensive E2E tests for security detection validati
 gh workflow run e2e-test.yml
 ```
 
-**Test Coverage** (300 attack patterns across 12 categories):
+**Test Coverage** (575 attack patterns across 17 categories):
 
 | Category | Patterns | Description |
 |----------|----------|-------------|
-| SQL Injection | 79 | Time-based, Boolean-based, Error-based SQLi |
-| XSS | 56 | Reflected, DOM-based, Stored XSS attacks |
-| Path Traversal | 50 | Directory traversal, LFI, RFI patterns |
-| Command Injection | 55 | Shell, OS command injection patterns |
-| LDAP Injection | 10 | LDAP query manipulation |
-| SSTI | 10 | Server-Side Template Injection |
-| NoSQL Injection | 7 | MongoDB, Redis injection patterns |
-| XXE | 8 | XML External Entity attacks |
-| XPath Injection | 5 | XPath query manipulation |
-| GraphQL Injection | 5 | GraphQL query attacks |
-| API Security | 5 | BOLA, authentication bypass |
-| Other | 10 | Additional security patterns |
+| SQL Injection | 124 | Time-based, Boolean-based, Error-based, Advanced SQLi |
+| Command Injection | 89 | Shell, OS command injection, obfuscation bypass |
+| XSS | 86 | Reflected, DOM-based, Advanced, Filter bypass |
+| Path Traversal | 73 | Directory traversal, LFI, RFI, Unicode bypass |
+| NoSQL Injection | 20 | MongoDB, Redis, CouchDB injection patterns |
+| XXE | 18 | XML External Entity, DOCTYPE/ENTITY injection |
+| GraphQL | 15 | Introspection, data extraction, query abuse |
+| XPath Injection | 15 | Boolean-based, blind, function abuse |
+| LDAP Injection | 15 | LDAP query manipulation, filter injection |
+| SSRF | 15 | Cloud metadata, internal network, protocol abuse |
+| CRLF Injection | 15 | Header injection, response splitting, log injection |
+| Prototype Pollution | 15 | `__proto__`, constructor.prototype pollution |
+| HTTP Smuggling | 15 | CL.TE, TE.CL, request splitting |
+| SSTI | 15 | Server-Side Template Injection |
+| Pickle/Deserialization | 15 | Python deserialization, pickle exploitation |
+| API Security | 15 | BOLA, authentication bypass, mass assignment |
+| Other | 15 | Additional security patterns |
 
 **Latest Results**: See [Actions](../../actions/workflows/e2e-test.yml) for test runs and [Allure Report](https://takaosgb3.github.io/falco-plugin-nginx/) for detailed results.
 
@@ -270,22 +275,27 @@ curl "http://localhost/search.php?q=%27%20OR%20%271%27%3D%271"
 gh workflow run e2e-test.yml
 ```
 
-**テストカバレッジ**（300攻撃パターン、12カテゴリ）:
+**テストカバレッジ**（575攻撃パターン、17カテゴリ）:
 
 | カテゴリ | パターン数 | 説明 |
 |----------|------------|------|
-| SQLインジェクション | 79 | 時間ベース、ブールベース、エラーベースSQLi |
-| XSS | 56 | 反射型、DOMベース、格納型XSS攻撃 |
-| パストラバーサル | 50 | ディレクトリトラバーサル、LFI、RFI |
-| コマンドインジェクション | 55 | シェル、OSコマンドインジェクション |
-| LDAPインジェクション | 10 | LDAPクエリ操作 |
-| SSTI | 10 | サーバーサイドテンプレートインジェクション |
-| NoSQLインジェクション | 7 | MongoDB、Redisインジェクション |
-| XXE | 8 | XML外部エンティティ攻撃 |
-| XPathインジェクション | 5 | XPathクエリ操作 |
-| GraphQLインジェクション | 5 | GraphQLクエリ攻撃 |
-| APIセキュリティ | 5 | BOLA、認証バイパス |
-| その他 | 10 | 追加セキュリティパターン |
+| SQLインジェクション | 124 | 時間ベース、ブールベース、エラーベース、高度なSQLi |
+| コマンドインジェクション | 89 | シェル、OSコマンドインジェクション、難読化バイパス |
+| XSS | 86 | 反射型、DOMベース、高度なXSS、フィルターバイパス |
+| パストラバーサル | 73 | ディレクトリトラバーサル、LFI、RFI、Unicodeバイパス |
+| NoSQLインジェクション | 20 | MongoDB、Redis、CouchDBインジェクション |
+| XXE | 18 | XML外部エンティティ、DOCTYPE/ENTITYインジェクション |
+| GraphQLインジェクション | 15 | イントロスペクション、データ抽出、クエリ悪用 |
+| XPathインジェクション | 15 | ブールベース、ブラインド、関数悪用 |
+| LDAPインジェクション | 15 | LDAPクエリ操作、フィルターインジェクション |
+| SSRF | 15 | クラウドメタデータ、内部ネットワーク、プロトコル悪用 |
+| CRLFインジェクション | 15 | ヘッダーインジェクション、レスポンス分割、ログインジェクション |
+| プロトタイプ汚染 | 15 | `__proto__`、constructor.prototype汚染 |
+| HTTPスマグリング | 15 | CL.TE、TE.CL、リクエスト分割 |
+| SSTI | 15 | サーバーサイドテンプレートインジェクション |
+| Pickle/デシリアライゼーション | 15 | Pythonデシリアライゼーション、Pickle悪用 |
+| APIセキュリティ | 15 | BOLA、認証バイパス、マスアサインメント |
+| その他 | 15 | 追加セキュリティパターン |
 
 **最新結果**: テスト実行は[Actions](../../actions/workflows/e2e-test.yml)、詳細結果は[Allure Report](https://takaosgb3.github.io/falco-plugin-nginx/)を参照。
 

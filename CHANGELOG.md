@@ -6,7 +6,38 @@
 
 All notable changes to the Falco nginx plugin binaries will be documented in this file.
 
-## [v1.6.0] - 2026-02-01 - E2E 457 Patterns Release (Phase 7) (Latest)
+## [v1.7.0] - 2026-02-13 - E2E 575 Patterns Release (Phase 8 & 9) (Latest)
+
+### Added
+- **Phase 8: 520 Attack Patterns** (+63 from 457): E2E test coverage expanded across 6 categories
+  - **Stage 1**: SSRF (+10) and CRLF Injection (+8) patterns
+  - **Stage 2**: API Security (+10), XXE (+10), NoSQL Extended (+4) patterns
+  - **Stage 3**: GraphQL (+5), XPath (+5), Pickle/Deserialization (+6), LDAP (+5) patterns
+- **Phase 9: 575 Attack Patterns** (+55 from 520): E2E test coverage expanded across 10 categories
+  - **Stage 1**: CRLF (+7), SSRF (+5), SSTI (+5), Prototype Pollution (+5) patterns
+  - **Stage 2**: GraphQL (+5), HTTP Smuggling (+5), Pickle (+5), Other (+5) patterns
+  - **Stage 3**: XPath (+5), XXE (+3), XSS (+5) patterns
+- **New Attack Categories**:
+  - CRLF Injection: 15 patterns (header injection, response splitting, log injection)
+  - SSRF: 15 patterns (cloud metadata, internal network, protocol abuse)
+
+### Fixed
+- **10 Rule Mismatch Fixes** (Issue #91): Cross-rule exceptions for Phase 9 patterns
+  - Boolean SQLi false matches: `icontains "ord"`, `icontains "exists"`, `icontains "substring"`
+  - Error SQLi false matches: `icontains "schema"` matching GraphQL `__schema`
+  - Advanced SQLi false matches: URL-encoding boundary creating false `0x` matches
+  - Advanced CMDi false matches: CRLF `%0A` triggering newline detection
+
+### Technical Details
+- E2E Patterns: 575 (17 pattern files, 19 test categories)
+- Falco Rules: 44 rules, 46 macros
+- Rule Mismatch: 0 (100% rule mapping accuracy)
+- Detection Rate: 100% (575/575 patterns detected, 0 expected-not-detected)
+- Expected Not Detected: 0 (all patterns now detected)
+- Built with Falco Plugin SDK v0.8.1
+- E2E tested on GitHub Actions (ubuntu-24.04) with Falco 0.43.0
+
+## [v1.6.0] - 2026-02-01 - E2E 457 Patterns Release (Phase 7)
 
 ### Added
 - **Phase 7: 457 Attack Patterns**: E2E test coverage expanded from 420 to 457 patterns
