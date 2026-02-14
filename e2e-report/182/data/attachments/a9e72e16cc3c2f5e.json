@@ -1,0 +1,17 @@
+{
+  "pattern_id": "XSS_POLY_006",
+  "test_id": "XSS_POLY_006-1771076153383-5adr4f",
+  "category": "xss",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 86340000,
+  "evidence": "13:35:53.000000000: Critical [NGINX XSS] DOM-based XSS Attack test_id=XSS_POLY_006-1771076153383-5adr4f pattern_id=XSS_POLY_006 uri=/?q='%2F%3E%3Cimg%20src%3Dx%20onerror%3Dalert(1)%20%2F%3E%3Cinput%20type%3D'hidden'%20value%3D' client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX XSS] DOM-based XSS Attack test_id=XSS_POLY_006-1771076153383-5adr4f pattern_id=XSS_POLY_006 uri=/?q='%2F%3E%3Cimg%20src%3Dx%20onerror%3Dalert(1)%20%2F%3E%3Cinput%20type%3D'hidden'%20value%3D' client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX XSS] DOM-based XSS Attack",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX XSS] DOM-based XSS Attack test_id=XSS_POLY_006-1771076153383-5adr4f pattern_id=XSS_POLY_006 uri=/?q='%2F%3E%3Cimg%20src%3Dx%20onerror%3Dalert(1)%20%2F%3E%3Cinput%20type%3D'hidden'%20value%3D' client=127.0.0.1 method=GET",
+  "sent_at": 1771076213000,
+  "detected_at": 1771076153000,
+  "status": "passed"
+}

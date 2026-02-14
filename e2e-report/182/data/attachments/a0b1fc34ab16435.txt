@@ -1,0 +1,5 @@
+Pattern ID: LDAP_ATTR_004
+        Status: passed
+        Latency: ~61000ms
+        Detection: 1 / 1
+        Rule: [NGINX LDAP Injection] Attribute injection attempt test_id=LDAP_ATTR_004-1771076152841-8owshs pattern_id=LDAP_ATTR_004 uri=/?q=)(mail=admin@target.com client=127.0.0.1

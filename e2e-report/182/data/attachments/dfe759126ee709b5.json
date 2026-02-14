@@ -1,0 +1,17 @@
+{
+  "pattern_id": "XSS_DOM_017",
+  "test_id": "XSS_DOM_017-1771076159896-nkongi",
+  "category": "xss",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 54000,
+  "evidence": "13:35:59.000000000: Critical [NGINX XSS] DOM-based XSS Attack test_id=XSS_DOM_017-1771076159896-nkongi pattern_id=XSS_DOM_017 uri=/?q=onmouseover%3Dalert%28%27DOM%27%29 client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX XSS] DOM-based XSS Attack test_id=XSS_DOM_017-1771076159896-nkongi pattern_id=XSS_DOM_017 uri=/?q=onmouseover%3Dalert%28%27DOM%27%29 client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX XSS] DOM-based XSS Attack",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX XSS] DOM-based XSS Attack test_id=XSS_DOM_017-1771076159896-nkongi pattern_id=XSS_DOM_017 uri=/?q=onmouseover%3Dalert%28%27DOM%27%29 client=127.0.0.1 method=GET",
+  "sent_at": 1771076213000,
+  "detected_at": 1771076159000,
+  "status": "passed"
+}

@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SQLI_ADV_087",
+  "test_id": "SQLI_ADV_087-1771076164423-256mru",
+  "category": "sqli",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 49000,
+  "evidence": "13:36:04.000000000: Warning [NGINX SQLi] Advanced SQL Injection Attempt test_id=SQLI_ADV_087-1771076164423-256mru pattern_id=SQLI_ADV_087 uri=/?q=UPDATE%20users%20SET%20role%3D%27admin%27 client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Advanced SQL Injection Attempt test_id=SQLI_ADV_087-1771076164423-256mru pattern_id=SQLI_ADV_087 uri=/?q=UPDATE%20users%20SET%20role%3D%27admin%27 client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX SQLi] Advanced SQL Injection Attempt test_id=SQLI_ADV_087-1771076164423-256mru pattern_id=SQLI_ADV_087 uri=/?q=UPDATE%20users%20SET%20role%3D%27admin%27 client=127.0.0.1 method=GET",
+  "sent_at": 1771076213000,
+  "detected_at": 1771076164000,
+  "status": "passed"
+}

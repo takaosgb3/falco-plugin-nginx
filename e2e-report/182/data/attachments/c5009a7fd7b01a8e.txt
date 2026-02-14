@@ -1,0 +1,5 @@
+Pattern ID: GQL_DATA_002
+        Status: passed
+        Latency: ~53000ms
+        Detection: 1 / 1
+        Rule: [NGINX GraphQL Attack] Mass data extraction attempt test_id=GQL_DATA_002-1771076160335-oabtdq pattern_id=GQL_DATA_002 uri=/?q=limit%3A999999 client=127.0.0.1

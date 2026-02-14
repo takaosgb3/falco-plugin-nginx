@@ -1,0 +1,5 @@
+Pattern ID: XSS_DOM_011
+        Status: passed
+        Latency: ~65000ms
+        Detection: 1 / 1
+        Rule: [NGINX XSS] DOM-based XSS Attack test_id=XSS_DOM_011-1771076148873-yns6e pattern_id=XSS_DOM_011 uri=/?q=location.hash%3Dalert(1)%2F%2F client=127.0.0.1 method=GET

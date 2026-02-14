@@ -1,0 +1,5 @@
+Pattern ID: GQL_DATA_001
+        Status: passed
+        Latency: ~56000ms
+        Detection: 1 / 1
+        Rule: [NGINX Emerging Threat] Template injection test_id=GQL_DATA_001-1771076157828-n39kr6h pattern_id=GQL_DATA_001 uri=/?q=%7Busers(first%3A999999)%7Bid%2Cemail%2Cpassword%7D%7D client=127.0.0.1

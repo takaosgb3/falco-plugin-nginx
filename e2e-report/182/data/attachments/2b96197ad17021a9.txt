@@ -1,0 +1,5 @@
+Pattern ID: SSTI_EL_001
+        Status: passed
+        Latency: ~41000ms
+        Detection: 1 / 1
+        Rule: [NGINX Emerging Threat] Template injection test_id=SSTI_EL_001-1771076172339-90jbpp pattern_id=SSTI_EL_001 uri=/?q=%24%7B7*7%7D client=127.0.0.1

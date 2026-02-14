@@ -1,0 +1,17 @@
+{
+  "pattern_id": "XXE_SOAP_001",
+  "test_id": "XXE_SOAP_001-1771076156838-oe9fgp",
+  "category": "xxe",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 57000,
+  "evidence": "13:35:56.000000000: Critical [NGINX XXE Attack] DOCTYPE/ENTITY injection test_id=XXE_SOAP_001-1771076156838-oe9fgp pattern_id=XXE_SOAP_001 uri=/?q=%3C%21DOCTYPE%20foo%20%5B%3C%21ENTITY%20xxe%20SYSTEM%20%22http%3A%2F%2Finternal-service%3A8080%2Fadmin%22%3E%5D%3E%3Csoap%3ABody%3E%26xxe%3B%3C%2Fsoap%3ABody%3E client=127.0.0.1",
+  "rule_name": "[NGINX XXE Attack] DOCTYPE/ENTITY injection test_id=XXE_SOAP_001-1771076156838-oe9fgp pattern_id=XXE_SOAP_001 uri=/?q=%3C%21DOCTYPE%20foo%20%5B%3C%21ENTITY%20xxe%20SYSTEM%20%22http%3A%2F%2Finternal-service%3A8080%2Fadmin%22%3E%5D%3E%3Csoap%3ABody%3E%26xxe%3B%3C%2Fsoap%3ABody%3E client=127.0.0.1",
+  "expected_rule": "[NGINX XXE Attack] DOCTYPE/ENTITY injection",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX XXE Attack] DOCTYPE/ENTITY injection test_id=XXE_SOAP_001-1771076156838-oe9fgp pattern_id=XXE_SOAP_001 uri=/?q=%3C%21DOCTYPE%20foo%20%5B%3C%21ENTITY%20xxe%20SYSTEM%20%22http%3A%2F%2Finternal-service%3A8080%2Fadmin%22%3E%5D%3E%3Csoap%3ABody%3E%26xxe%3B%3C%2Fsoap%3ABody%3E client=127.0.0.1",
+  "sent_at": 1771076213000,
+  "detected_at": 1771076156000,
+  "status": "passed"
+}

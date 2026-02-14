@@ -1,0 +1,5 @@
+Pattern ID: PATH_URL_001
+        Status: passed
+        Latency: ~53000ms
+        Detection: 1 / 1
+        Rule: [NGINX SQLi] Encoded SQL Injection Pattern test_id=PATH_URL_001-1771076160390-61mrci pattern_id=PATH_URL_001 uri=/?q=..%252F client=127.0.0.1 method=GET

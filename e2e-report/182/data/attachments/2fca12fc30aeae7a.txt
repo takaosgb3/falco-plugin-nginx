@@ -1,0 +1,5 @@
+Pattern ID: SQLI_ERROR_015
+        Status: passed
+        Latency: ~41000ms
+        Detection: 1 / 1
+        Rule: [NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_ERROR_015-1771076172942-gsh30m pattern_id=SQLI_ERROR_015 uri=/?q=%27%20UNION%20SELECT%20NULL%2Cversion%28%29%2CNULL%20-- client=127.0.0.1 method=GET

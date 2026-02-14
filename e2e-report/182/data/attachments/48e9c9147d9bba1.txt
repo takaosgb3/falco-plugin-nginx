@@ -1,0 +1,5 @@
+Pattern ID: CMD_BASH_005
+        Status: passed
+        Latency: ~40000ms
+        Detection: 1 / 1
+        Rule: [NGINX CMDi] Advanced command injection attempt test_id=CMD_BASH_005-1771076173413-vmyrtp pattern_id=CMD_BASH_005 uri=/?q=%26%26%20bash%20-c%20%27echo%20%24PATH%27 client=127.0.0.1

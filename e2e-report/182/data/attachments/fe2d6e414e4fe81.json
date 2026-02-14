@@ -1,0 +1,17 @@
+{
+  "pattern_id": "XSS_ADV_061",
+  "test_id": "XSS_ADV_061-1771076156388-1ulaxj",
+  "category": "xss",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 57000,
+  "evidence": "13:35:56.000000000: Critical [NGINX XSS] DOM-based XSS Attack test_id=XSS_ADV_061-1771076156388-1ulaxj pattern_id=XSS_ADV_061 uri=/?q=element.outerHTML%3Dpayload client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX XSS] DOM-based XSS Attack test_id=XSS_ADV_061-1771076156388-1ulaxj pattern_id=XSS_ADV_061 uri=/?q=element.outerHTML%3Dpayload client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX XSS] DOM-based XSS Attack",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX XSS] DOM-based XSS Attack test_id=XSS_ADV_061-1771076156388-1ulaxj pattern_id=XSS_ADV_061 uri=/?q=element.outerHTML%3Dpayload client=127.0.0.1 method=GET",
+  "sent_at": 1771076213000,
+  "detected_at": 1771076156000,
+  "status": "passed"
+}

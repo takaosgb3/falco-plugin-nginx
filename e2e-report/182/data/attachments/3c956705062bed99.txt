@@ -1,0 +1,3 @@
+Expected Rule: [NGINX XSS] Polyglot XSS Attack
+Matched Rule: [NGINX XSS] Polyglot XSS Attack test_id=XSS_REFL_008-1771076129830-w1l7qb pattern_id=XSS_REFL_008 uri=/?q=%3Ctextarea%20onfocus%3Dalert%28%27XSS%27%29%20autofocus%3E client=127.0.0.1 method=GET
+Rule Match: ✅ Match

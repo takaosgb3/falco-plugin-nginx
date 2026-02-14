@@ -1,0 +1,5 @@
+Pattern ID: PATH_DBL_005
+        Status: passed
+        Latency: ~52000ms
+        Detection: 1 / 1
+        Rule: [NGINX Traversal] Encoded path traversal attack detected test_id=PATH_DBL_005-1771076161893-y30z9t pattern_id=PATH_DBL_005 uri=/?q=%25252E%25252E%25252F%25252E%25252E%25252Froot%25252F.bash_history client=127.0.0.1

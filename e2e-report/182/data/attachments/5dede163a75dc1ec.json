@@ -1,0 +1,17 @@
+{
+  "pattern_id": "PATH_BASIC_002",
+  "test_id": "PATH_BASIC_002-1771076131826-suxsh",
+  "category": "path",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 86318000,
+  "evidence": "13:35:31.000000000: Critical [NGINX Traversal] Basic path traversal attack detected test_id=PATH_BASIC_002-1771076131826-suxsh pattern_id=PATH_BASIC_002 uri=/?q=../../ client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] Basic path traversal attack detected test_id=PATH_BASIC_002-1771076131826-suxsh pattern_id=PATH_BASIC_002 uri=/?q=../../ client=127.0.0.1",
+  "expected_rule": "[NGINX Traversal] Basic path traversal attack detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Traversal] Basic path traversal attack detected test_id=PATH_BASIC_002-1771076131826-suxsh pattern_id=PATH_BASIC_002 uri=/?q=../../ client=127.0.0.1",
+  "sent_at": 1771076213000,
+  "detected_at": 1771076131000,
+  "status": "passed"
+}
