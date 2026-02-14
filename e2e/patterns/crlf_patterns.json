@@ -2,10 +2,10 @@
   "metadata": {
     "category": "crlf",
     "description": "CRLF (Carriage Return Line Feed) Injection attack patterns",
-    "total_patterns": 15,
-    "phase": "Phase 9 Stage 1",
+    "total_patterns": 25,
+    "phase": "Phase 10 Stage 1",
     "created": "2026-02-11",
-    "updated": "2026-02-12"
+    "updated": "2026-02-14"
   },
   "patterns": [
     {
@@ -194,6 +194,136 @@
       "severity": "high",
       "expected_rule": "[NGINX CRLF] CRLF Injection attempt detected",
       "description": "Phase 9: Tests lowercase %e5%98%8a%e5%98%8d Unicode condition"
+    },
+    {
+      "id": "CRLF_RESP_004",
+      "name": "XSS via CRLF Response Splitting",
+      "category": "crlf",
+      "subcategory": "response_splitting",
+      "payload": "\\r\\n\\r\\n<script>alert(1)</script>",
+      "encoded": "%0d%0a%0d%0a%3Cscript%3Ealert%281%29%3C%2Fscript%3E",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX CRLF] CRLF Injection attempt detected",
+      "description": "Phase 10: XSS payload via CRLF response splitting (needs DOM XSS exception)"
+    },
+    {
+      "id": "CRLF_RESP_005",
+      "name": "Transfer-Encoding Injection via CRLF",
+      "category": "crlf",
+      "subcategory": "response_splitting",
+      "payload": "\\r\\nTransfer-Encoding:chunked\\r\\n",
+      "encoded": "%0d%0aTransfer-Encoding%3Achunked%0d%0a",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX CRLF] CRLF Injection attempt detected",
+      "description": "Phase 10: Transfer-Encoding header injection for HTTP smuggling"
+    },
+    {
+      "id": "CRLF_HDR_006",
+      "name": "X-XSS-Protection Disable via CRLF",
+      "category": "crlf",
+      "subcategory": "header_injection",
+      "payload": "\\r\\nX-XSS-Protection:0",
+      "encoded": "%0d%0aX-XSS-Protection%3A0",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX CRLF] CRLF Injection attempt detected",
+      "description": "Phase 10: Disable browser XSS protection via header injection"
+    },
+    {
+      "id": "CRLF_HDR_007",
+      "name": "CSP Override via CRLF",
+      "category": "crlf",
+      "subcategory": "header_injection",
+      "payload": "\\r\\nContent-Security-Policy:default-src *",
+      "encoded": "%0d%0aContent-Security-Policy%3Adefault-src%20*",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX CRLF] CRLF Injection attempt detected",
+      "description": "Phase 10: Override Content-Security-Policy to allow all sources"
+    },
+    {
+      "id": "CRLF_CACHE_001",
+      "name": "Cache Poisoning via X-Forwarded-Host CRLF",
+      "category": "crlf",
+      "subcategory": "cache_poisoning",
+      "payload": "\\r\\nX-Forwarded-Host:evil.com",
+      "encoded": "%0d%0aX-Forwarded-Host%3Aevil.com",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX CRLF] CRLF Injection attempt detected",
+      "description": "Phase 10: Cache poisoning via X-Forwarded-Host header injection"
+    },
+    {
+      "id": "CRLF_CACHE_002",
+      "name": "Cache Poisoning via X-Original-URL CRLF",
+      "category": "crlf",
+      "subcategory": "cache_poisoning",
+      "payload": "\\r\\nX-Original-URL:/admin",
+      "encoded": "%0d%0aX-Original-URL%3A%2Fadmin",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX CRLF] CRLF Injection attempt detected",
+      "description": "Phase 10: Cache poisoning via X-Original-URL override"
+    },
+    {
+      "id": "CRLF_SESSION_001",
+      "name": "Session Fixation via JSESSIONID CRLF",
+      "category": "crlf",
+      "subcategory": "session_fixation",
+      "payload": "\\r\\nSet-Cookie:JSESSIONID=attacker_session",
+      "encoded": "%0d%0aSet-Cookie%3AJSESSIONID%3Dattacker_session",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX CRLF] CRLF Injection attempt detected",
+      "description": "Phase 10: Java session fixation via Set-Cookie injection"
+    },
+    {
+      "id": "CRLF_SESSION_002",
+      "name": "Session Fixation via PHPSESSID CRLF",
+      "category": "crlf",
+      "subcategory": "session_fixation",
+      "payload": "\\r\\nSet-Cookie:PHPSESSID=evil_session;Path=/",
+      "encoded": "%0d%0aSet-Cookie%3APHPSESSID%3Devil_session%3BPath%3D%2F",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX CRLF] CRLF Injection attempt detected",
+      "description": "Phase 10: PHP session fixation via Set-Cookie injection"
+    },
+    {
+      "id": "CRLF_ENC_005",
+      "name": "Double URL-Encoded CRLF Injection",
+      "category": "crlf",
+      "subcategory": "encoded_crlf",
+      "payload": "Double URL-encoded CRLF with header injection",
+      "encoded": "%250d%250aInjected-Header%3Atrue",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX CRLF] CRLF Injection attempt detected",
+      "description": "Phase 10: Double URL-encoded CRLF (requires rule condition addition for %250d%250a)"
+    },
+    {
+      "id": "CRLF_ENC_006",
+      "name": "Null Byte with CRLF Injection",
+      "category": "crlf",
+      "subcategory": "encoded_crlf",
+      "payload": "Null byte followed by CRLF injection",
+      "encoded": "%00%0d%0aX-Null-Injected%3Atrue",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX CRLF] CRLF Injection attempt detected",
+      "description": "Phase 10: Null byte + CRLF bypass technique"
     }
   ]
 }

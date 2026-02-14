@@ -951,6 +951,21 @@
         - CRLF_LOG_003
         - CRLF_RESP_003
         - CRLF_ENC_002
+# Phase 10: New CRLF patterns
+    - name: phase10_crlf_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - CRLF_RESP_004
+        - CRLF_RESP_005
+        - CRLF_HDR_006
+        - CRLF_HDR_007
+        - CRLF_CACHE_001
+        - CRLF_CACHE_002
+        - CRLF_SESSION_001
+        - CRLF_SESSION_002
+        - CRLF_ENC_005
+        - CRLF_ENC_006
   output: "[NGINX SQLi] Encoded SQL Injection Pattern test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: WARNING
   tags: [security, sql_injection, advanced_sqli, encoding_evasion, phase3]
@@ -1035,6 +1050,12 @@
       comps: in
       values:
         - XSS_BYPASS_003
+    # Phase 10: CRLF response splitting with <script> triggers DOM XSS condition
+    - name: phase10_crlf_dom_xss
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - CRLF_RESP_004
   output: "[NGINX XSS] DOM-based XSS Attack test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: CRITICAL
   tags: [security, xss, dom_based, advanced_xss, phase3]
@@ -1246,6 +1267,13 @@
       comps: in
       values:
         - PP_DOT_001
+    # Phase 10: SSTI Handlebars patterns with "constructor" triggering XSS condition
+    - name: phase10_ssti_constructor_xss
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - SSTI_HANDLE_001
+        - SSTI_HANDLE_002
     # Phase 8 Stage 2: XXE/NoSQL/API patterns with XSS-like substrings
     # XXE_PARAM_001: "eval" in entity name triggers icontains "eval"
     # NOSQL_MONGO_007: "$where=function()" triggers icontains "Function"
@@ -1335,6 +1363,21 @@
         - CRLF_LOG_003
         - CRLF_RESP_003
         - CRLF_ENC_002
+# Phase 10: New CRLF patterns
+    - name: phase10_crlf_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - CRLF_RESP_004
+        - CRLF_RESP_005
+        - CRLF_HDR_006
+        - CRLF_HDR_007
+        - CRLF_CACHE_001
+        - CRLF_CACHE_002
+        - CRLF_SESSION_001
+        - CRLF_SESSION_002
+        - CRLF_ENC_005
+        - CRLF_ENC_006
   output: "[NGINX XSS] XSS Filter Bypass Attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: WARNING
   tags: [security, xss, filter_bypass, advanced_xss, phase3]
@@ -1636,6 +1679,21 @@
         - CRLF_LOG_003
         - CRLF_RESP_003
         - CRLF_ENC_002
+# Phase 10: New CRLF patterns
+    - name: phase10_crlf_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - CRLF_RESP_004
+        - CRLF_RESP_005
+        - CRLF_HDR_006
+        - CRLF_HDR_007
+        - CRLF_CACHE_001
+        - CRLF_CACHE_002
+        - CRLF_SESSION_001
+        - CRLF_SESSION_002
+        - CRLF_ENC_005
+        - CRLF_ENC_006
   output: "[NGINX Traversal] Advanced path traversal attempt detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: WARNING
   tags: [security, path_traversal, advanced_traversal, phase3]
@@ -1934,6 +1992,21 @@
         - CRLF_RESP_003
         - CRLF_ENC_002
         - CRLF_ENC_003
+    # Phase 10: New CRLF patterns with %0d%0a or %0a or %250d%250a triggers
+    - name: phase10_crlf_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - CRLF_RESP_004
+        - CRLF_RESP_005
+        - CRLF_HDR_006
+        - CRLF_HDR_007
+        - CRLF_CACHE_001
+        - CRLF_CACHE_002
+        - CRLF_SESSION_001
+        - CRLF_SESSION_002
+        - CRLF_ENC_005
+        - CRLF_ENC_006
 
 # ==============================================================================
 # Emerging Threats Detection Rules (from advanced_emerging_enhanced.yaml)
@@ -2277,7 +2350,14 @@
       nginx.request_uri icontains "self.module" or
       nginx.request_uri contains "__${T(" or
       nginx.request_uri contains "__%24%7BT(" or
-      (nginx.request_uri icontains "system" and nginx.request_uri contains "(")
+      (nginx.request_uri icontains "system" and nginx.request_uri contains "(") or
+      nginx.request_uri contains "<%=" or
+      nginx.request_uri contains "%3C%25%3D" or
+      nginx.request_uri contains "%3c%25%3d" or
+      nginx.request_uri icontains "System.Diagnostics" or
+      nginx.request_uri contains "@{var" or
+      nginx.request_uri contains "@%7Bvar" or
+      nginx.request_uri contains "%40%7Bvar"
     )
   output: "[NGINX SSTI] Server-Side Template Injection detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: CRITICAL
@@ -2739,7 +2819,20 @@
       nginx.request_uri contains "http%3a%2f%2flocalhost" or
       nginx.request_uri contains "http://0.0.0.0" or
       nginx.request_uri contains "http%3A%2F%2F0.0.0.0" or
-      nginx.request_uri contains "http%3a%2f%2f0.0.0.0"
+      nginx.request_uri contains "http%3a%2f%2f0.0.0.0" or
+      nginx.request_uri contains "[::1]" or
+      nginx.request_uri contains "%5B%3A%3A1%5D" or
+      nginx.request_uri contains "%5b%3a%3a1%5d" or
+      nginx.request_uri contains "0177.0.0.1" or
+      nginx.request_uri contains "127.1/" or
+      nginx.request_uri contains "127.1%2F" or
+      nginx.request_uri contains "127.1%2f" or
+      nginx.request_uri contains "tftp://" or
+      nginx.request_uri contains "tftp%3A%2F%2F" or
+      nginx.request_uri contains "tftp%3a%2f%2f" or
+      nginx.request_uri contains "ldap://" or
+      nginx.request_uri contains "ldap%3A%2F%2F" or
+      nginx.request_uri contains "ldap%3a%2f%2f"
     )
   output: "[NGINX SSRF] SSRF attack attempt detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: CRITICAL
@@ -2765,7 +2858,9 @@
       nginx.request_uri contains "%0a" or
       nginx.request_uri contains "%0A" or
       nginx.request_uri contains "%E5%98%8A%E5%98%8D" or
-      nginx.request_uri contains "%e5%98%8a%e5%98%8d"
+      nginx.request_uri contains "%e5%98%8a%e5%98%8d" or
+      nginx.request_uri contains "%250d%250a" or
+      nginx.request_uri contains "%250D%250A"
     )
   output: "[NGINX CRLF] CRLF Injection attempt detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: WARNING

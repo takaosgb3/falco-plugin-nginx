@@ -1,11 +1,11 @@
 {
   "metadata": {
     "category": "ssti",
-    "total_patterns": 15,
+    "total_patterns": 25,
     "port": 80,
     "description": "k6 test patterns for Server-Side Template Injection attacks",
-    "phase": "Phase 9 Stage 1",
-    "updated": "2026-02-12"
+    "phase": "Phase 10 Stage 1",
+    "updated": "2026-02-14"
   },
   "patterns": [
     {
@@ -192,6 +192,136 @@
       "severity": "high",
       "expected_rule": "[NGINX SSTI] Server-Side Template Injection detected",
       "description": "Phase 9: Django template debug tag for information disclosure"
+    },
+    {
+      "id": "SSTI_JINJA_004",
+      "name": "Jinja2 MRO Class Chain Injection",
+      "category": "ssti",
+      "subcategory": "jinja2",
+      "payload": "{{''.__class__.__mro__[2].__subclasses__()}}",
+      "encoded": "%7B%7B%27%27.__class__.__mro__%5B2%5D.__subclasses__%28%29%7D%7D",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX Emerging Threat] Template injection",
+      "description": "Phase 10: Jinja2 MRO chain for arbitrary class access"
+    },
+    {
+      "id": "SSTI_JINJA_005",
+      "name": "Jinja2 Request Object MRO Injection",
+      "category": "ssti",
+      "subcategory": "jinja2",
+      "payload": "{{request.__class__.__mro__[2].__subclasses__()}}",
+      "encoded": "%7B%7Brequest.__class__.__mro__%5B2%5D.__subclasses__%28%29%7D%7D",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX Emerging Threat] Template injection",
+      "description": "Phase 10: Jinja2 request object MRO chain exploitation"
+    },
+    {
+      "id": "SSTI_VEL_003",
+      "name": "Velocity ProcessBuilder RCE",
+      "category": "ssti",
+      "subcategory": "velocity",
+      "payload": "#set($x=$class.forName(\"java.lang.ProcessBuilder\"))",
+      "encoded": "%23set%28%24x%3D%24class.forName%28%22java.lang.ProcessBuilder%22%29%29",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX Emerging Threat] Spring4Shell attack",
+      "description": "Phase 10: Velocity ProcessBuilder instantiation (matches Spring4Shell rule)"
+    },
+    {
+      "id": "SSTI_HANDLE_001",
+      "name": "Handlebars Constructor Access",
+      "category": "ssti",
+      "subcategory": "handlebars",
+      "payload": "{{#with \"s\" as |string|}}{{string.sub \"constructor\"}}{{/with}}",
+      "encoded": "%7B%7B%23with%20%22s%22%20as%20%7Cstring%7C%7D%7D%7B%7Bstring.sub%20%22constructor%22%7D%7D%7B%7B%2Fwith%7D%7D",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX Emerging Threat] Template injection",
+      "description": "Phase 10: Handlebars constructor access (needs XSS exception for 'constructor')"
+    },
+    {
+      "id": "SSTI_HANDLE_002",
+      "name": "Handlebars Lookup Constructor",
+      "category": "ssti",
+      "subcategory": "handlebars",
+      "payload": "{{lookup (create-object) \"constructor\"}}",
+      "encoded": "%7B%7Blookup%20%28create-object%29%20%22constructor%22%7D%7D",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX Emerging Threat] Template injection",
+      "description": "Phase 10: Handlebars lookup constructor (needs XSS exception for 'constructor')"
+    },
+    {
+      "id": "SSTI_ERB_001",
+      "name": "ERB System Command Execution",
+      "category": "ssti",
+      "subcategory": "erb",
+      "payload": "<%= system(\"id\") %>",
+      "encoded": "%3C%25%3D%20system%28%22id%22%29%20%25%3E",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX Emerging Threat] Template injection",
+      "description": "Phase 10: Ruby ERB template execution (requires rule condition addition for <%=)"
+    },
+    {
+      "id": "SSTI_TORNADO_001",
+      "name": "Tornado Import OS Execution",
+      "category": "ssti",
+      "subcategory": "tornado",
+      "payload": "{%import os%}{{os.popen(\"id\").read()}}",
+      "encoded": "%7B%25import%20os%25%7D%7B%7Bos.popen%28%22id%22%29.read%28%29%7D%7D",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX Emerging Threat] Template injection",
+      "description": "Phase 10: Tornado template OS command execution via {%import%}"
+    },
+    {
+      "id": "SSTI_RAZOR_001",
+      "name": "Razor .NET Process Execution",
+      "category": "ssti",
+      "subcategory": "razor",
+      "payload": "@{var x = System.Diagnostics.Process.Start(\"cmd\");}",
+      "encoded": "%40%7Bvar%20x%20%3D%20System.Diagnostics.Process.Start%28%22cmd%22%29%3B%7D",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX SSTI] Server-Side Template Injection detected",
+      "description": "Phase 10: Razor .NET process execution (requires rule condition addition)"
+    },
+    {
+      "id": "SSTI_PEBBLE_002",
+      "name": "Pebble Set and Lookup Injection",
+      "category": "ssti",
+      "subcategory": "pebble",
+      "payload": "{%set cmd='id'%}{{lookup(cmd)}}",
+      "encoded": "%7B%25set%20cmd%3D%27id%27%25%7D%7B%7Blookup%28cmd%29%7D%7D",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX Emerging Threat] Template injection",
+      "description": "Phase 10: Pebble template variable set and lookup execution"
+    },
+    {
+      "id": "SSTI_FREEMKR_002",
+      "name": "FreeMarker Protection Domain Access",
+      "category": "ssti",
+      "subcategory": "freemarker",
+      "payload": "${.data_model.class.protectionDomain}",
+      "encoded": "%24%7B.data_model.class.protectionDomain%7D",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX Emerging Threat] Spring4Shell attack",
+      "description": "Phase 10: FreeMarker protectionDomain access (matches Spring4Shell rule)"
     }
   ]
 }
