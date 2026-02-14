@@ -1,0 +1,17 @@
+{
+  "pattern_id": "XPATH_BOOL_001",
+  "test_id": "XPATH_BOOL_001-1771059955062-325yat",
+  "category": "xpath",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 47000,
+  "evidence": "09:05:55.000000000: Warning [NGINX XPath Injection] XPath injection attempt test_id=XPATH_BOOL_001-1771059955062-325yat pattern_id=XPATH_BOOL_001 uri=/?q=%27%20or%20%271%27%3D%271 client=127.0.0.1",
+  "rule_name": "[NGINX XPath Injection] XPath injection attempt test_id=XPATH_BOOL_001-1771059955062-325yat pattern_id=XPATH_BOOL_001 uri=/?q=%27%20or%20%271%27%3D%271 client=127.0.0.1",
+  "expected_rule": "XPath injection attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX XPath Injection] XPath injection attempt test_id=XPATH_BOOL_001-1771059955062-325yat pattern_id=XPATH_BOOL_001 uri=/?q=%27%20or%20%271%27%3D%271 client=127.0.0.1",
+  "sent_at": 1771060002000,
+  "detected_at": 1771059955000,
+  "status": "passed"
+}

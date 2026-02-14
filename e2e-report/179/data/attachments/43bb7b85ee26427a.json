@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SSTI_DJANGO_001",
+  "test_id": "SSTI_DJANGO_001-1771059967084-enuvto",
+  "category": "ssti",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 35000,
+  "evidence": "09:06:07.000000000: Critical [NGINX SSTI] Server-Side Template Injection detected test_id=SSTI_DJANGO_001-1771059967084-enuvto pattern_id=SSTI_DJANGO_001 uri=/?q=%7B%25%20debug%20%25%7D client=127.0.0.1",
+  "rule_name": "[NGINX SSTI] Server-Side Template Injection detected test_id=SSTI_DJANGO_001-1771059967084-enuvto pattern_id=SSTI_DJANGO_001 uri=/?q=%7B%25%20debug%20%25%7D client=127.0.0.1",
+  "expected_rule": "[NGINX SSTI] Server-Side Template Injection detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX SSTI] Server-Side Template Injection detected test_id=SSTI_DJANGO_001-1771059967084-enuvto pattern_id=SSTI_DJANGO_001 uri=/?q=%7B%25%20debug%20%25%7D client=127.0.0.1",
+  "sent_at": 1771060002000,
+  "detected_at": 1771059967000,
+  "status": "passed"
+}

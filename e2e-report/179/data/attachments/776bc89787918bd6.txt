@@ -1,0 +1,5 @@
+Pattern ID: HRS_HEADER_001
+        Status: passed
+        Latency: ~14000ms
+        Detection: 1 / 1
+        Rule: [NGINX HRS] HTTP Request Smuggling attempt test_id=HRS_HEADER_001-1771059988069-om6u pattern_id=HRS_HEADER_001 uri=/?q=X-Forwarded-Host%3A%20evil.com client=127.0.0.1

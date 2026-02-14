@@ -1,0 +1,17 @@
+{
+  "pattern_id": "XSS_POLY_008",
+  "test_id": "XSS_POLY_008-1771059954647-fp32d",
+  "category": "xss",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 48000,
+  "evidence": "09:05:54.000000000: Warning [NGINX XSS] XSS Filter Bypass Attempt test_id=XSS_POLY_008-1771059954647-fp32d pattern_id=XSS_POLY_008 uri=/?q=%7Balert%28%27XSS%27%29%7D client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX XSS] XSS Filter Bypass Attempt test_id=XSS_POLY_008-1771059954647-fp32d pattern_id=XSS_POLY_008 uri=/?q=%7Balert%28%27XSS%27%29%7D client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX XSS] XSS Filter Bypass Attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX XSS] XSS Filter Bypass Attempt test_id=XSS_POLY_008-1771059954647-fp32d pattern_id=XSS_POLY_008 uri=/?q=%7Balert%28%27XSS%27%29%7D client=127.0.0.1 method=GET",
+  "sent_at": 1771060002000,
+  "detected_at": 1771059954000,
+  "status": "passed"
+}

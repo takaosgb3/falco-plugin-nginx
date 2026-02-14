@@ -1,0 +1,17 @@
+{
+  "pattern_id": "HRS_TE_CL_002",
+  "test_id": "HRS_TE_CL_002-1771059986565-afrug",
+  "category": "http_smuggling",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 16000,
+  "evidence": "09:06:26.000000000: Critical [NGINX HRS] HTTP Request Smuggling attempt test_id=HRS_TE_CL_002-1771059986565-afrug pattern_id=HRS_TE_CL_002 uri=/?q=0%0D%0A%0D%0ASMUGGLED client=127.0.0.1",
+  "rule_name": "[NGINX HRS] HTTP Request Smuggling attempt test_id=HRS_TE_CL_002-1771059986565-afrug pattern_id=HRS_TE_CL_002 uri=/?q=0%0D%0A%0D%0ASMUGGLED client=127.0.0.1",
+  "expected_rule": "[NGINX HRS] HTTP Request Smuggling attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX HRS] HTTP Request Smuggling attempt test_id=HRS_TE_CL_002-1771059986565-afrug pattern_id=HRS_TE_CL_002 uri=/?q=0%0D%0A%0D%0ASMUGGLED client=127.0.0.1",
+  "sent_at": 1771060002000,
+  "detected_at": 1771059986000,
+  "status": "passed"
+}

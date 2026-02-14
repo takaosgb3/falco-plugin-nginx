@@ -1,0 +1,5 @@
+Pattern ID: SSRF_CLOUD_003
+        Status: passed
+        Latency: ~11000ms
+        Detection: 1 / 1
+        Rule: [NGINX SSRF] SSRF attack attempt detected test_id=SSRF_CLOUD_003-1771059991064-3w9oeg pattern_id=SSRF_CLOUD_003 uri=/?q=http%3A%2F%2F169.254.169.254%2Fmetadata%2Finstance client=127.0.0.1

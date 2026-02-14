@@ -1,0 +1,3 @@
+Expected Rule: [NGINX Emerging Threat] Redis command injection
+Matched Rule: [NGINX Emerging Threat] Redis command injection test_id=OTHER_REDIS_003-1771059942079-tbgme8 pattern_id=OTHER_REDIS_003 uri=/?q=CONFIG%20SET%20requirepass%20hacked client=127.0.0.1
+Rule Match: ✅ Match

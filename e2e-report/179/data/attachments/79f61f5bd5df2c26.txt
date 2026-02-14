@@ -1,0 +1,3 @@
+Expected Rule: [NGINX SQLi] Error-based SQL Injection
+Matched Rule: [NGINX SQLi] Error-based SQL Injection test_id=SQLI_POLY_004-1771059963179-oq139l pattern_id=SQLI_POLY_004 uri=/?q=1%27%2B%28select%2Afrom%28select%20name_const%28%40%40version%2C0%29%29a%29%2B%271 client=127.0.0.1 method=GET
+Rule Match: ✅ Match

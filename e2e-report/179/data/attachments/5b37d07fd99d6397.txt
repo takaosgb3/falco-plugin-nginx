@@ -1,0 +1,3 @@
+Expected Rule: [NGINX CRLF] CRLF Injection attempt detected
+Matched Rule: [NGINX CRLF] CRLF Injection attempt detected test_id=CRLF_RESP_002-1771059999574-ky2oza pattern_id=CRLF_RESP_002 uri=/?q=%0d%0aContent-Type%3Atext%2Fhtml%0d%0a client=127.0.0.1
+Rule Match: ✅ Match

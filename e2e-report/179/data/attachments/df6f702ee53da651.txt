@@ -1,0 +1,5 @@
+Pattern ID: HRS_TE_CL_001
+        Status: passed
+        Latency: ~16000ms
+        Detection: 1 / 1
+        Rule: [NGINX HRS] HTTP Request Smuggling attempt test_id=HRS_TE_CL_001-1771059986064-o4rj3l pattern_id=HRS_TE_CL_001 uri=/?q=Content-Length%3A%200%0D%0A%0D%0A client=127.0.0.1

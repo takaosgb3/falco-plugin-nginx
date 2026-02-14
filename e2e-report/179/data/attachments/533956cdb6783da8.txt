@@ -1,0 +1,5 @@
+Pattern ID: SSRF_INT_002
+        Status: passed
+        Latency: ~9000ms
+        Detection: 1 / 1
+        Rule: [NGINX SSRF] SSRF attack attempt detected test_id=SSRF_INT_002-1771059993069-awspvw pattern_id=SSRF_INT_002 uri=/?q=http%3A%2F%2F127.0.0.1%3A9200%2F_cat%2Findices client=127.0.0.1

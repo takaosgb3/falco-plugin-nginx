@@ -1,0 +1,5 @@
+Pattern ID: PP_BYPASS_002
+        Status: passed
+        Latency: ~17000ms
+        Detection: 1 / 1
+        Rule: [NGINX PP] Prototype pollution attack attempt test_id=PP_BYPASS_002-1771059985074-yb2omt pattern_id=PP_BYPASS_002 uri=/?q=%3F__proto__.polluted%3Dtrue client=127.0.0.1

@@ -1,0 +1,3 @@
+Expected Rule: [NGINX CMDi] Advanced command injection attempt
+Matched Rule: [NGINX CMDi] Advanced command injection attempt test_id=CMD_PROC_003-1771059957134-frdq2c pattern_id=CMD_PROC_003 uri=/?q=%2Ftmp%2Fmalware%20%26%20disown client=127.0.0.1
+Rule Match: ✅ Match

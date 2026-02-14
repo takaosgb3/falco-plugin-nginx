@@ -1,0 +1,3 @@
+Expected Rule: XPath injection attempt
+Matched Rule: [NGINX XPath Injection] XPath injection attempt test_id=XPATH_ENUM_001-1771059957067-hblhzf pattern_id=XPATH_ENUM_001 uri=/?q=%27%20or%20string-length%28%2F%2Fuser%5B1%5D%2Fpassword%29%3E5%20or%20%271%27%3D%272 client=127.0.0.1
+Rule Match: ✅ Match

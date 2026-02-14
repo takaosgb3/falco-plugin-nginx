@@ -1,0 +1,17 @@
+{
+  "pattern_id": "PICKLE_DESER_015",
+  "test_id": "PICKLE_DESER_015-1771059982081-hzol3t",
+  "category": "pickle",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 20000,
+  "evidence": "09:06:22.000000000: Critical [NGINX Emerging Threat] Deserialization attack test_id=PICKLE_DESER_015-1771059982081-hzol3t pattern_id=PICKLE_DESER_015 uri=/?q=!!python/object:os.system client=127.0.0.1",
+  "rule_name": "[NGINX Emerging Threat] Deserialization attack test_id=PICKLE_DESER_015-1771059982081-hzol3t pattern_id=PICKLE_DESER_015 uri=/?q=!!python/object:os.system client=127.0.0.1",
+  "expected_rule": "[NGINX Emerging Threat] Deserialization attack",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Emerging Threat] Deserialization attack test_id=PICKLE_DESER_015-1771059982081-hzol3t pattern_id=PICKLE_DESER_015 uri=/?q=!!python/object:os.system client=127.0.0.1",
+  "sent_at": 1771060002000,
+  "detected_at": 1771059982000,
+  "status": "passed"
+}
