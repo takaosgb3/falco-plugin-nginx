@@ -1,0 +1,3 @@
+Expected Rule: [NGINX LDAP Injection] Attribute injection attempt
+Matched Rule: [NGINX LDAP Injection] Attribute injection attempt test_id=LDAP_ATTR_002-1771076651841-wxm5e pattern_id=LDAP_ATTR_002 uri=/?q=)(objectClass=person client=127.0.0.1
+Rule Match: ✅ Match

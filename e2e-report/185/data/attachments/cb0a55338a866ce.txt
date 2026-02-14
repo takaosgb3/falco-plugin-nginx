@@ -1,0 +1,5 @@
+Pattern ID: CRLF_ENC_006
+        Status: passed
+        Latency: 0ms
+        Detection: 1 / 1
+        Rule: [NGINX Emerging Threat] Advanced emerging threat attempt test_id=CRLF_ENC_006-1771076713362-bl8s1i pattern_id=CRLF_ENC_006 uri=/?q=%00%0d%0aX-Null-Injected%3Atrue client=127.0.0.1

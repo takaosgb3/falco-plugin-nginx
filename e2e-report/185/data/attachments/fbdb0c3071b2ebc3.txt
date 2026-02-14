@@ -1,0 +1,3 @@
+Expected Rule: [NGINX HRS] HTTP Request Smuggling attempt
+Matched Rule: [NGINX HRS] HTTP Request Smuggling attempt test_id=HRS_ENCTE_001-1771076697844-cc89jr pattern_id=HRS_ENCTE_001 uri=/?q=Transfer%2DEncoding%3A%20chunked client=127.0.0.1
+Rule Match: ✅ Match

@@ -1,0 +1,5 @@
+Pattern ID: SQLI_POLY_004
+        Status: passed
+        Latency: ~44000ms
+        Detection: 1 / 1
+        Rule: [NGINX SQLi] Error-based SQL Injection test_id=SQLI_POLY_004-1771076669437-75a4m7 pattern_id=SQLI_POLY_004 uri=/?q=1%27%2B%28select%2Afrom%28select%20name_const%28%40%40version%2C0%29%29a%29%2B%271 client=127.0.0.1 method=GET

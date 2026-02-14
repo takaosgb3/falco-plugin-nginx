@@ -1,0 +1,17 @@
+{
+  "pattern_id": "CRLF_ENC_005",
+  "test_id": "CRLF_ENC_005-1771076712860-p8u6uf",
+  "category": "crlf",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 1000,
+  "evidence": "13:45:12.000000000: Warning [NGINX CRLF] CRLF Injection attempt detected test_id=CRLF_ENC_005-1771076712860-p8u6uf pattern_id=CRLF_ENC_005 uri=/?q=%250d%250aInjected-Header%3Atrue client=127.0.0.1",
+  "rule_name": "[NGINX CRLF] CRLF Injection attempt detected test_id=CRLF_ENC_005-1771076712860-p8u6uf pattern_id=CRLF_ENC_005 uri=/?q=%250d%250aInjected-Header%3Atrue client=127.0.0.1",
+  "expected_rule": "[NGINX CRLF] CRLF Injection attempt detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX CRLF] CRLF Injection attempt detected test_id=CRLF_ENC_005-1771076712860-p8u6uf pattern_id=CRLF_ENC_005 uri=/?q=%250d%250aInjected-Header%3Atrue client=127.0.0.1",
+  "sent_at": 1771076713000,
+  "detected_at": 1771076712000,
+  "status": "passed"
+}

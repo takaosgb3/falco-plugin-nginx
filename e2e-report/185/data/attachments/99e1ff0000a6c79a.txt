@@ -1,0 +1,1 @@
+Test passed: LDAP_ATTR_002

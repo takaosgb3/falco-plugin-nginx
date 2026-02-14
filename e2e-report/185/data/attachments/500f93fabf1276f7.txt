@@ -1,0 +1,5 @@
+Pattern ID: SSTI_RAZOR_001
+        Status: passed
+        Latency: ~36000ms
+        Detection: 1 / 1
+        Rule: [NGINX SQLi] Advanced SQL Injection Attempt test_id=SSTI_RAZOR_001-1771076677353-ny0cx pattern_id=SSTI_RAZOR_001 uri=/?q=%40%7Bvar%20x%20%3D%20System.Diagnostics.Process.Start%28%22cmd%22%29%3B%7D client=127.0.0.1 method=GET

@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SSTI_VEL_003",
+  "test_id": "SSTI_VEL_003-1771076674847-mwuwhg",
+  "category": "ssti",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 39000,
+  "evidence": "13:44:34.000000000: Warning [NGINX SQLi] Encoded SQL Injection Pattern test_id=SSTI_VEL_003-1771076674847-mwuwhg pattern_id=SSTI_VEL_003 uri=/?q=%23set%28%24x%3D%24class.forName%28%22java.lang.ProcessBuilder%22%29%29 client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Encoded SQL Injection Pattern test_id=SSTI_VEL_003-1771076674847-mwuwhg pattern_id=SSTI_VEL_003 uri=/?q=%23set%28%24x%3D%24class.forName%28%22java.lang.ProcessBuilder%22%29%29 client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX Emerging Threat] Spring4Shell attack",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": "[NGINX SQLi] Encoded SQL Injection Pattern test_id=SSTI_VEL_003-1771076674847-mwuwhg pattern_id=SSTI_VEL_003 uri=/?q=%23set%28%24x%3D%24class.forName%28%22java.lang.ProcessBuilder%22%29%29 client=127.0.0.1 method=GET",
+  "sent_at": 1771076713000,
+  "detected_at": 1771076674000,
+  "status": "passed"
+}

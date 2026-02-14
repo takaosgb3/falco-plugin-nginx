@@ -1,0 +1,3 @@
+Expected Rule: [NGINX CMDi] Advanced command injection attempt
+Matched Rule: [NGINX CMDi] Advanced command injection attempt test_id=CMD_BASIC_004-1771076637830-xfr0am pattern_id=CMD_BASIC_004 uri=/?q=%26%20ps%20aux client=127.0.0.1
+Rule Match: ✅ Match

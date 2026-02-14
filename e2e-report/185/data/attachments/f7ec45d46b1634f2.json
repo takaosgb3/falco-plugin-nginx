@@ -1,0 +1,17 @@
+{
+  "pattern_id": "PATH_UNI_005",
+  "test_id": "PATH_UNI_005-1771076664906-o7qk6m",
+  "category": "path",
+  "detected": false,
+  "expected_detection": false,
+  "latency_ms": null,
+  "evidence": "",
+  "rule_name": "",
+  "expected_rule": "[NGINX Traversal] Encoded Path Traversal Attack",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": null,
+  "sent_at": 1771076713000,
+  "detected_at": null,
+  "status": "passed"
+}

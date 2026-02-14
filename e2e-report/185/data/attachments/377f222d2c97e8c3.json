@@ -1,0 +1,17 @@
+{
+  "pattern_id": "GQL_DOS_001",
+  "test_id": "GQL_DOS_001-1771076664848-aeggwk",
+  "category": "graphql",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 49000,
+  "evidence": "13:44:24.000000000: Critical [NGINX Emerging Threat] Template injection test_id=GQL_DOS_001-1771076664848-aeggwk pattern_id=GQL_DOS_001 uri=/?q=query%7Busers(first%3A999)%7Bname%2Cfriends(first%3A999)%7Bname%7D%7D%7D client=127.0.0.1",
+  "rule_name": "[NGINX Emerging Threat] Template injection test_id=GQL_DOS_001-1771076664848-aeggwk pattern_id=GQL_DOS_001 uri=/?q=query%7Busers(first%3A999)%7Bname%2Cfriends(first%3A999)%7Bname%7D%7D%7D client=127.0.0.1",
+  "expected_rule": "[NGINX GraphQL Attack] Mass data extraction attempt",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": "[NGINX Emerging Threat] Template injection test_id=GQL_DOS_001-1771076664848-aeggwk pattern_id=GQL_DOS_001 uri=/?q=query%7Busers(first%3A999)%7Bname%2Cfriends(first%3A999)%7Bname%7D%7D%7D client=127.0.0.1",
+  "sent_at": 1771076713000,
+  "detected_at": 1771076664000,
+  "status": "passed"
+}

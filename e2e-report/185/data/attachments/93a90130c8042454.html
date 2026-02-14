@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: auto;
+            min-height: 600px;
+            overflow: auto;
+        }
+        body {
+            font-family: monospace;
+            padding: 15px;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            line-height: 1.5;
+        }
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            margin: 0;
+            overflow: visible;
+        }
+        .content {
+            overflow: visible;
+        }
+        mark {
+            background-color: #FFFF00;
+            color: #000;
+            padding: 1px 3px;
+            border-radius: 2px;
+        }
+        h3 {
+            color: #4CAF50;
+            margin: 0 0 15px 0;
+        }
+    </style>
+</head>
+<body>
+<h3>Detection Evidence (Falco Log Entry)</h3>
+<pre>13:44:25.000000000: Warning [NGINX XPath Injection] XPath injection attempt test_id=XPATH_BLIND_002-1771076665338-wqim56 pattern_id=XPATH_BLIND_002 uri=/?q=<mark style="background-color: #FFFF00; padding: 1px 3px;">%27%20and%20string-length%28%2F%2Fuser%5B1%5D%2Fname%29%3E3%20and%20%271%27%3D%271</mark> client=127.0.0.1</pre>
+</body>
+</html>

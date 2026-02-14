@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SSTI_HANDLE_001",
+  "test_id": "SSTI_HANDLE_001-1771076675348-tfvxwc",
+  "category": "ssti",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 38000,
+  "evidence": "13:44:35.000000000: Warning [NGINX SQLi] Encoded SQL Injection Pattern test_id=SSTI_HANDLE_001-1771076675348-tfvxwc pattern_id=SSTI_HANDLE_001 uri=/?q=%7B%7B%23with%20%22s%22%20as%20%7Cstring%7C%7D%7D%7B%7Bstring.sub%20%22constructor%22%7D%7D%7B%7B%2Fwith%7D%7D client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Encoded SQL Injection Pattern test_id=SSTI_HANDLE_001-1771076675348-tfvxwc pattern_id=SSTI_HANDLE_001 uri=/?q=%7B%7B%23with%20%22s%22%20as%20%7Cstring%7C%7D%7D%7B%7Bstring.sub%20%22constructor%22%7D%7D%7B%7B%2Fwith%7D%7D client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX Emerging Threat] Template injection",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": "[NGINX SQLi] Encoded SQL Injection Pattern test_id=SSTI_HANDLE_001-1771076675348-tfvxwc pattern_id=SSTI_HANDLE_001 uri=/?q=%7B%7B%23with%20%22s%22%20as%20%7Cstring%7C%7D%7D%7B%7Bstring.sub%20%22constructor%22%7D%7D%7B%7B%2Fwith%7D%7D client=127.0.0.1 method=GET",
+  "sent_at": 1771076713000,
+  "detected_at": 1771076675000,
+  "status": "passed"
+}

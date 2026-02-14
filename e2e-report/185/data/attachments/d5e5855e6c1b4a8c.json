@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SSTI_ERB_001",
+  "test_id": "SSTI_ERB_001-1771076676351-bbnwyfx",
+  "category": "ssti",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 37000,
+  "evidence": "13:44:36.000000000: Critical [NGINX Emerging Threat] Template injection test_id=SSTI_ERB_001-1771076676351-bbnwyfx pattern_id=SSTI_ERB_001 uri=/?q=%3C%25%3D%20system%28%22id%22%29%20%25%3E client=127.0.0.1",
+  "rule_name": "[NGINX Emerging Threat] Template injection test_id=SSTI_ERB_001-1771076676351-bbnwyfx pattern_id=SSTI_ERB_001 uri=/?q=%3C%25%3D%20system%28%22id%22%29%20%25%3E client=127.0.0.1",
+  "expected_rule": "[NGINX Emerging Threat] Template injection",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Emerging Threat] Template injection test_id=SSTI_ERB_001-1771076676351-bbnwyfx pattern_id=SSTI_ERB_001 uri=/?q=%3C%25%3D%20system%28%22id%22%29%20%25%3E client=127.0.0.1",
+  "sent_at": 1771076713000,
+  "detected_at": 1771076676000,
+  "status": "passed"
+}
