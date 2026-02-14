@@ -1,7 +1,7 @@
 {
   "metadata": {
     "category": "xpath",
-    "total_patterns": 15,
+    "total_patterns": 25,
     "port": 8009,
     "description": "k6 test patterns for XPath injection attacks"
   },
@@ -195,6 +195,136 @@
       "severity": "high",
       "expected_rule": "[NGINX XPath Injection] XPath injection attempt",
       "description": "XPath parenthesis bypass combined with count() to test %27%29%20or%20 and count%28%2F%2F conditions together"
+    },
+    {
+      "id": "XPATH_FUNC_005",
+      "name": "XPath concat function injection",
+      "category": "xpath",
+      "subcategory": "function_abuse",
+      "payload": "concat(//user[1]/name,'_',//user[1]/role)",
+      "encoded": "concat%28%2F%2Fuser%5B1%5D%2Fname%2C%27_%27%2C%2F%2Fuser%5B1%5D%2Frole%29",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XPath Injection] XPath injection attempt",
+      "description": "XPath concat() function to test concat%28%2F%2F condition. Needs Error SQLi exception (concat)."
+    },
+    {
+      "id": "XPATH_FUNC_006",
+      "name": "XPath translate function injection",
+      "category": "xpath",
+      "subcategory": "function_abuse",
+      "payload": "translate(//user[1]/name,'abc','ABC')",
+      "encoded": "translate%28%2F%2Fuser%5B1%5D%2Fname%2C%27abc%27%2C%27ABC%27%29",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XPath Injection] XPath injection attempt",
+      "description": "XPath translate() function to test translate%28%2F%2F condition"
+    },
+    {
+      "id": "XPATH_FUNC_007",
+      "name": "XPath contains function injection",
+      "category": "xpath",
+      "subcategory": "function_abuse",
+      "payload": "contains(//user[1]/name,'admin')",
+      "encoded": "contains%28%2F%2Fuser%5B1%5D%2Fname%2C%27admin%27%29",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XPath Injection] XPath injection attempt",
+      "description": "XPath contains() function to test contains%28%2F%2F condition"
+    },
+    {
+      "id": "XPATH_BLIND_003",
+      "name": "XPath substring blind role extraction",
+      "category": "xpath",
+      "subcategory": "blind",
+      "payload": "' or substring(//user[1]/role,1,1)='a' or '1'='2",
+      "encoded": "%27%20or%20substring%28%2F%2Fuser%5B1%5D%2Frole%2C1%2C1%29%3D%27a%27%20or%20%271%27%3D%272",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XPath Injection] XPath injection attempt",
+      "description": "XPath substring blind injection targeting role field. Needs Boolean SQLi exception (substring)."
+    },
+    {
+      "id": "XPATH_BLIND_004",
+      "name": "XPath string-length blind role enumeration",
+      "category": "xpath",
+      "subcategory": "blind",
+      "payload": "' or string-length(//user[1]/role)>3 and '1'='1",
+      "encoded": "%27%20or%20string-length%28%2F%2Fuser%5B1%5D%2Frole%29%3E3%20and%20%271%27%3D%271",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XPath Injection] XPath injection attempt",
+      "description": "XPath string-length blind injection on role field"
+    },
+    {
+      "id": "XPATH_ENUM_003",
+      "name": "XPath position function enumeration",
+      "category": "xpath",
+      "subcategory": "enumeration",
+      "payload": "position()=1",
+      "encoded": "position%28%29%3D1",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XPath Injection] XPath injection attempt",
+      "description": "XPath position() function to test position%28%29 condition"
+    },
+    {
+      "id": "XPATH_ENUM_004",
+      "name": "XPath last function enumeration",
+      "category": "xpath",
+      "subcategory": "enumeration",
+      "payload": "last()",
+      "encoded": "last%28%29",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XPath Injection] XPath injection attempt",
+      "description": "XPath last() function to test last%28%29 condition"
+    },
+    {
+      "id": "XPATH_BOOL_004",
+      "name": "XPath not function boolean injection",
+      "category": "xpath",
+      "subcategory": "boolean_based",
+      "payload": "' or not(false()) or '",
+      "encoded": "%27%20or%20not%28false%28%29%29%20or%20%27",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XPath Injection] XPath injection attempt",
+      "description": "XPath not(false()) boolean injection to test not%28false condition"
+    },
+    {
+      "id": "XPATH_PAREN_004",
+      "name": "XPath parenthesis bypass with position function",
+      "category": "xpath",
+      "subcategory": "authentication_bypass",
+      "payload": "') or position()=1 or ('",
+      "encoded": "%27%29%20or%20position%28%29%3D1%20or%20%28%27",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XPath Injection] XPath injection attempt",
+      "description": "XPath parenthesis bypass with position() to test existing %27%29%20or%20 condition"
+    },
+    {
+      "id": "XPATH_COMMENT_001",
+      "name": "XPath comment injection",
+      "category": "xpath",
+      "subcategory": "comment",
+      "payload": "' or 1=1 (: XPath comment :)",
+      "encoded": "%27%20or%201%3D1%20%28%3A%20XPath%20comment%20%3A%29",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XPath Injection] XPath injection attempt",
+      "description": "XPath comment syntax (: :) to test %28%3A condition for false positive analysis"
     }
   ]
 }

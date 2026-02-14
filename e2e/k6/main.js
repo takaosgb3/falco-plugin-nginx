@@ -303,7 +303,7 @@ export const options = {
     thresholds: {
         'http_req_duration': ['p(95)<5000'],  // 95% of requests under 5s
         'http_req_failed': ['rate<0.05'],      // Less than 5% failure rate
-        'attacks_sent': ['count==605']          // All 605 patterns sent (Phase 10 Stage 1)
+        'attacks_sent': ['count==625']          // All 625 patterns sent (Phase 10 Stage 2)
     },
     summaryTimeUnit: 'ms',
     summaryTrendStats: ['avg', 'med', 'p(90)', 'p(95)', 'p(99)', 'max', 'count']
