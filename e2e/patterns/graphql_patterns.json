@@ -1,7 +1,7 @@
 {
   "metadata": {
     "category": "graphql",
-    "total_patterns": 15,
+    "total_patterns": 25,
     "port": 8008,
     "description": "k6 test patterns for GraphQL injection"
   },
@@ -195,6 +195,136 @@
       "expected_rule": "[NGINX GraphQL Attack] Mass data extraction attempt",
       "severity": "high",
       "description": "Raw limit: with colon to test icontains 'limit:' condition path (not limit%3A)"
+    },
+    {
+      "id": "GQL_BATCH_001",
+      "name": "GraphQL batch query attack with typename",
+      "category": "graphql",
+      "subcategory": "batch_attack",
+      "payload": "[{query:\"{__typename}\"},{query:\"{__typename}\"}]",
+      "encoded": "%5B%7Bquery%3A%22%7B__typename%7D%22%7D%2C%7Bquery%3A%22%7B__typename%7D%22%7D%5D",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "medium",
+      "expected_rule": "[NGINX GraphQL Attack] Introspection query detected",
+      "description": "GraphQL batch query attack using __typename for introspection detection"
+    },
+    {
+      "id": "GQL_BATCH_002",
+      "name": "GraphQL alias batch introspection",
+      "category": "graphql",
+      "subcategory": "batch_attack",
+      "payload": "query{a1:__typename,a2:__typename,a3:__typename}",
+      "encoded": "query%7Ba1%3A__typename%2Ca2%3A__typename%2Ca3%3A__typename%7D",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "medium",
+      "expected_rule": "[NGINX GraphQL Attack] Introspection query detected",
+      "description": "GraphQL alias-based batch introspection using __typename"
+    },
+    {
+      "id": "GQL_DOS_001",
+      "name": "GraphQL nested query DoS with mass extraction",
+      "category": "graphql",
+      "subcategory": "dos",
+      "payload": "query{users(first:999){name,friends(first:999){name}}}",
+      "encoded": "query%7Busers(first%3A999)%7Bname%2Cfriends(first%3A999)%7Bname%7D%7D%7D",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX GraphQL Attack] Mass data extraction attempt",
+      "description": "GraphQL nested query DoS with first:999 for mass data extraction detection"
+    },
+    {
+      "id": "GQL_DOS_002",
+      "name": "GraphQL deep nested DoS with mass extraction",
+      "category": "graphql",
+      "subcategory": "dos",
+      "payload": "query{users(first:999){posts(first:999){comments(first:999){text} } } }",
+      "encoded": "query%7Busers(first%3A999)%7Bposts(first%3A999)%7Bcomments(first%3A999)%7Btext%7D%20%7D%20%7D%20%7D",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX GraphQL Attack] Mass data extraction attempt",
+      "description": "GraphQL deep nested DoS with spaces between closing braces to avoid %7D%7D SSTI match (SUG-FINAL-001)"
+    },
+    {
+      "id": "GQL_FRAG_001",
+      "name": "GraphQL fragment with typename introspection",
+      "category": "graphql",
+      "subcategory": "fragment",
+      "payload": "fragment F on User{id,secret}query{user{...F,__typename}}",
+      "encoded": "fragment%20F%20on%20User%7Bid%2Csecret%7Dquery%7Buser%7B...F%2C__typename%7D%7D",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "medium",
+      "expected_rule": "[NGINX GraphQL Attack] Introspection query detected",
+      "description": "GraphQL named fragment with __typename for introspection detection"
+    },
+    {
+      "id": "GQL_FRAG_002",
+      "name": "GraphQL inline fragment with schema introspection",
+      "category": "graphql",
+      "subcategory": "fragment",
+      "payload": "query{user{...on Admin{__schema{types{name}}}}}",
+      "encoded": "query%7Buser%7B...on%20Admin%7B__schema%7Btypes%7Bname%7D%7D%7D%7D%7D",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "medium",
+      "expected_rule": "[NGINX GraphQL Attack] Introspection query detected",
+      "description": "GraphQL inline fragment with __schema. Needs Error SQLi exception (schema)."
+    },
+    {
+      "id": "GQL_ALIAS_001",
+      "name": "GraphQL alias abuse with type introspection",
+      "category": "graphql",
+      "subcategory": "alias_abuse",
+      "payload": "query{a:__type(name:\"User\"){fields{name}}b:__type(name:\"Admin\"){fields{name}}}",
+      "encoded": "query%7Ba%3A__type(name%3A%22User%22)%7Bfields%7Bname%7D%7Db%3A__type(name%3A%22Admin%22)%7Bfields%7Bname%7D%7D%7D",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "medium",
+      "expected_rule": "[NGINX GraphQL Attack] Introspection query detected",
+      "description": "GraphQL alias abuse with __type for multi-type introspection"
+    },
+    {
+      "id": "GQL_DIR_001",
+      "name": "GraphQL directive with typename introspection",
+      "category": "graphql",
+      "subcategory": "directive",
+      "payload": "query{users @include(if:true){__typename}}",
+      "encoded": "query%7Busers%20%40include(if%3Atrue)%7B__typename%7D%7D",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "medium",
+      "expected_rule": "[NGINX GraphQL Attack] Introspection query detected",
+      "description": "GraphQL directive @include with __typename for introspection detection"
+    },
+    {
+      "id": "GQL_DIR_002",
+      "name": "GraphQL directive with schema introspection",
+      "category": "graphql",
+      "subcategory": "directive",
+      "payload": "query{__schema @deprecated{types{name}}}",
+      "encoded": "query%7B__schema%20%40deprecated%7Btypes%7Bname%7D%7D%7D",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "medium",
+      "expected_rule": "[NGINX GraphQL Attack] Introspection query detected",
+      "description": "GraphQL directive @deprecated with __schema. Needs Error SQLi exception (schema)."
+    },
+    {
+      "id": "GQL_DATA_007",
+      "name": "GraphQL mass extraction with limit and ssn",
+      "category": "graphql",
+      "subcategory": "data_extraction",
+      "payload": "{users(limit:999999){id,email,ssn}}",
+      "encoded": "%7Busers(limit%3A999999)%7Bid%2Cemail%2Cssn%7D%7D",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX GraphQL Attack] Mass data extraction attempt",
+      "description": "GraphQL mass data extraction with limit:999999 and sensitive field ssn"
     }
   ]
 }
