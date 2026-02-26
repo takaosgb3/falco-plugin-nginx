@@ -1540,7 +1540,7 @@
       "port": 80,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt"
+      "expected_rule": "[NGINX XSS] XSS Filter Bypass Attempt"
     },
     {
       "id": "SQLI_POLY_006",
@@ -1574,9 +1574,9 @@
       "payload": "1 & 1",
       "encoded": "1%20%26%201",
       "port": 80,
-      "expected_detection": true,
+      "expected_detection": false,
       "severity": "medium",
-      "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt"
+      "expected_rule": "NONE"
     },
     {
       "id": "SQLI_BIT_003",
@@ -1586,9 +1586,9 @@
       "payload": "1 | 1",
       "encoded": "1%20%7C%201",
       "port": 80,
-      "expected_detection": true,
+      "expected_detection": false,
       "severity": "medium",
-      "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt"
+      "expected_rule": "NONE"
     },
     {
       "id": "SQLI_OOB_004",

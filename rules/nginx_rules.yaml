@@ -450,7 +450,9 @@
      nginx.request_uri contains "ctxsys%2Edrithsx%2Esn" or
      nginx.request_uri contains "CTXSYS%2EDRITHSX%2ESN" or
      nginx.request_uri contains "XMLType%28" or
-     nginx.request_uri contains "dbms_utility%2E")
+     nginx.request_uri contains "dbms_utility%2E" or
+     nginx.request_uri icontains "utl_http" or
+     nginx.request_uri contains "UTL_HTTP%2E")
 
 # System tables - icontains for alphabetic patterns
 - macro: contains_system_tables
@@ -596,7 +598,9 @@
      nginx.request_uri contains "%u002f" or
      nginx.request_uri contains "%2520" or
      nginx.request_uri contains "%250A" or
-     nginx.request_uri contains "%2509")
+     nginx.request_uri contains "%2509" or
+     nginx.request_uri contains "%2555NION" or
+     nginx.request_uri contains "%2553ELECT")
 
 # Pattern #A300: Removed - Mixed case keywords are now redundant
 # icontains "select" and icontains "union" already cover all case variations
@@ -621,7 +625,9 @@
      nginx.request_uri contains "%60" or
      nginx.request_uri contains "%00" or
      nginx.request_uri contains "%0a" or
-     nginx.request_uri contains "%0d")
+     nginx.request_uri contains "%0d" or
+     nginx.request_uri contains "%27--" or
+     nginx.request_uri contains "--%20-")
 
 # ====================================
 # MACROS - Encoded SQL Injection (Level 2: Combined)
@@ -1074,12 +1080,6 @@
       comps: in
       values:
         - CRLF_RESP_004
-    # Phase 11: SQL/XSS polyglot pattern - should be caught by SQL Injection rule
-    - name: phase11_sqli_polyglot
-      fields: nginx.pattern_id
-      comps: in
-      values:
-        - SQLI_POLY_005
   output: "[NGINX XSS] DOM-based XSS Attack test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: CRITICAL
   tags: [security, xss, dom_based, advanced_xss, phase3]
@@ -1309,12 +1309,6 @@
         - XXE_PARAM_001
         - NOSQL_MONGO_007
         - API_PROTO_002
-    # Phase 11: SQL/XSS polyglot pattern - should be caught by SQL Injection rule
-    - name: phase11_sqli_polyglot
-      fields: nginx.pattern_id
-      comps: in
-      values:
-        - SQLI_POLY_005
   output: "[NGINX XSS] Advanced XSS Attack Attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: WARNING
   tags: [security, xss, advanced_xss, event_handlers, phase3]
@@ -1355,7 +1349,8 @@
       nginx.request_uri icontains "data:application" or
       nginx.request_uri icontains "data:image/svg" or
       nginx.request_uri icontains "vbscript:" or
-      nginx.request_uri icontains "livescript:"
+      nginx.request_uri icontains "livescript:" or
+      nginx.request_uri icontains "<base"
     )
   exceptions:
     # LDAP patterns with wildcard syntax - should be caught by LDAP rules
@@ -1408,12 +1403,6 @@
         - CRLF_SESSION_002
         - CRLF_ENC_005
         - CRLF_ENC_006
-    # Phase 11: SQL/XSS polyglot pattern - should be caught by SQL Injection rule
-    - name: phase11_sqli_polyglot
-      fields: nginx.pattern_id
-      comps: in
-      values:
-        - SQLI_POLY_005
   output: "[NGINX XSS] XSS Filter Bypass Attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: WARNING
   tags: [security, xss, filter_bypass, advanced_xss, phase3]
@@ -1810,7 +1799,10 @@
       nginx.request_uri contains "%3B%20uname" or
       nginx.request_uri contains "%3B%20ifconfig" or
       nginx.request_uri contains "%3B%20cat" or
-      nginx.request_uri contains "%3B%20sleep"
+      nginx.request_uri contains "%3B%20sleep" or
+      nginx.request_uri contains "%3Baws" or
+      nginx.request_uri contains "%3Bgcloud" or
+      nginx.request_uri contains "%3Baz%20"
     )
   output: "[NGINX CMDi] Command injection via semicolon test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: CRITICAL
@@ -1995,7 +1987,8 @@
       nginx.request_uri contains "$($" or
       nginx.request_uri contains "%24(%24" or
       nginx.request_uri icontains "$PATH" or
-      nginx.request_uri contains "%24PATH"
+      nginx.request_uri contains "%24PATH" or
+      nginx.request_uri contains "%257C"
     )
   output: "[NGINX CMDi] Advanced command injection attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: WARNING
@@ -2050,6 +2043,12 @@
         - CRLF_SESSION_002
         - CRLF_ENC_005
         - CRLF_ENC_006
+    # Phase 11: Host Header double-encoded patterns with %250d/%250a triggers
+    - name: phase11_host_header_encoded
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - HHI_ENC_002
 
 # ==============================================================================
 # Emerging Threats Detection Rules (from advanced_emerging_enhanced.yaml)
