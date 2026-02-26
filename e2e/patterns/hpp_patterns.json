@@ -1,0 +1,107 @@
+{
+  "metadata": {
+    "category": "hpp",
+    "total_patterns": 8,
+    "port": 80,
+    "description": "k6 test patterns for HTTP Parameter Pollution attacks",
+    "phase": "Phase 11"
+  },
+  "patterns": [
+    {
+      "id": "HPP_ADMIN_001",
+      "name": "Admin privilege escalation via HPP",
+      "category": "hpp",
+      "subcategory": "privilege_escalation",
+      "payload": "&admin=true&role=user",
+      "encoded": "%26admin%3Dtrue%26role%3Duser",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX HPP] HTTP Parameter Pollution attempt detected"
+    },
+    {
+      "id": "HPP_ADMIN_002",
+      "name": "Admin override via HPP",
+      "category": "hpp",
+      "subcategory": "privilege_escalation",
+      "payload": "&override=1&admin=true",
+      "encoded": "%26override%3D1%26admin%3Dtrue",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX HPP] HTTP Parameter Pollution attempt detected"
+    },
+    {
+      "id": "HPP_DEBUG_001",
+      "name": "Debug mode activation via HPP",
+      "category": "hpp",
+      "subcategory": "debug_activation",
+      "payload": "&debug=1&verbose=true",
+      "encoded": "%26debug%3D1%26verbose%3Dtrue",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "medium",
+      "expected_rule": "[NGINX HPP] HTTP Parameter Pollution attempt detected"
+    },
+    {
+      "id": "HPP_DEBUG_002",
+      "name": "Privilege write access via HPP",
+      "category": "hpp",
+      "subcategory": "privilege_escalation",
+      "payload": "&privilege=write&access=admin",
+      "encoded": "%26privilege%3Dwrite%26access%3Dadmin",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX HPP] HTTP Parameter Pollution attempt detected"
+    },
+    {
+      "id": "HPP_AUTH_001",
+      "name": "Authentication bypass via HPP",
+      "category": "hpp",
+      "subcategory": "auth_bypass",
+      "payload": "&authenticated=true",
+      "encoded": "%26authenticated%3Dtrue",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX HPP] HTTP Parameter Pollution attempt detected"
+    },
+    {
+      "id": "HPP_AUTH_002",
+      "name": "Access level override via HPP",
+      "category": "hpp",
+      "subcategory": "auth_bypass",
+      "payload": "&access=all",
+      "encoded": "%26access%3Dall",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX HPP] HTTP Parameter Pollution attempt detected"
+    },
+    {
+      "id": "HPP_PRIV_001",
+      "name": "IsAdmin privilege escalation",
+      "category": "hpp",
+      "subcategory": "privilege_escalation",
+      "payload": "&isadmin=true&privilege=super",
+      "encoded": "%26isadmin%3Dtrue%26privilege%3Dsuper",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX HPP] HTTP Parameter Pollution attempt detected"
+    },
+    {
+      "id": "HPP_BYPASS_001",
+      "name": "Security bypass via HPP",
+      "category": "hpp",
+      "subcategory": "security_bypass",
+      "payload": "&bypass=true&override=1",
+      "encoded": "%26bypass%3Dtrue%26override%3D1",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX HPP] HTTP Parameter Pollution attempt detected"
+    }
+  ]
+}

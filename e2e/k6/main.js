@@ -54,6 +54,9 @@ const httpSmugglingAttacks = new Counter('http_smuggling_attacks');
 // Phase 8: SSRF and CRLF Injection metrics
 const ssrfAttacks = new Counter('ssrf_attacks');
 const crlfAttacks = new Counter('crlf_attacks');
+// Phase 11: Host Header Injection and HPP metrics (Issue #802)
+const hostHeaderAttacks = new Counter('host_header_attacks');
+const hppAttacks = new Counter('hpp_attacks');
 
 // ========================================
 // Load attack patterns (SharedArray for efficiency)
@@ -147,6 +150,18 @@ const ssrfPatterns = new SharedArray('ssrf', function() {
 // Phase 8 Stage 1: CRLF Injection patterns
 const crlfPatterns = new SharedArray('crlf', function() {
     const data = JSON.parse(open('../patterns/crlf_patterns.json'));
+    return data.patterns;
+});
+
+// Phase 11: Host Header Injection patterns (Issue #802)
+const hostHeaderPatterns = new SharedArray('host_header', function() {
+    const data = JSON.parse(open('../patterns/host_header_patterns.json'));
+    return data.patterns;
+});
+
+// Phase 11: HTTP Parameter Pollution patterns (Issue #802)
+const hppPatterns = new SharedArray('hpp', function() {
+    const data = JSON.parse(open('../patterns/hpp_patterns.json'));
     return data.patterns;
 });
 
@@ -298,12 +313,30 @@ export const options = {
             exec: 'testCRLF',
             startTime: '80s',
             tags: { category: 'crlf' }
+        },
+        // Phase 11: Host Header Injection patterns (Issue #802)
+        host_header_test: {
+            executor: 'per-vu-iterations',
+            vus: 1,
+            iterations: hostHeaderPatterns.length,
+            exec: 'testHostHeader',
+            startTime: '85s',
+            tags: { category: 'host_header' }
+        },
+        // Phase 11: HTTP Parameter Pollution patterns (Issue #802)
+        hpp_test: {
+            executor: 'per-vu-iterations',
+            vus: 1,
+            iterations: hppPatterns.length,
+            exec: 'testHPP',
+            startTime: '90s',
+            tags: { category: 'hpp' }
         }
     },
     thresholds: {
         'http_req_duration': ['p(95)<5000'],  // 95% of requests under 5s
         'http_req_failed': ['rate<0.05'],      // Less than 5% failure rate
-        'attacks_sent': ['count==625']          // All 625 patterns sent (Phase 10 Stage 2)
+        'attacks_sent': ['count==700']          // All 700 patterns sent (Phase 11)
     },
     summaryTimeUnit: 'ms',
     summaryTrendStats: ['avg', 'med', 'p(90)', 'p(95)', 'p(99)', 'max', 'count']
@@ -486,6 +519,22 @@ export function testCRLF() {
     });
 }
 
+// Phase 11: Host Header Injection Tests (Issue #802)
+export function testHostHeader() {
+    group('Host Header Injection Tests', function() {
+        const pattern = hostHeaderPatterns[scenario.iterationInTest];
+        executeAttack(pattern, hostHeaderAttacks);
+    });
+}
+
+// Phase 11: HTTP Parameter Pollution Tests (Issue #802)
+export function testHPP() {
+    group('HTTP Parameter Pollution Tests', function() {
+        const pattern = hppPatterns[scenario.iterationInTest];
+        executeAttack(pattern, hppAttacks);
+    });
+}
+
 // ========================================
 // Setup/Teardown
 // ========================================
@@ -493,24 +542,26 @@ export function setup() {
     console.log('========================================');
     console.log('k6 E2E Test Starting (Public Repo Mode)');
     console.log(`Target: ${TARGET_IP}:${TARGET_PORT}`);
-    console.log('Total Patterns: 605 (Phase 10 Stage 1)');
-    console.log('  - SQLi: 124');
-    console.log('  - XSS: 86');
-    console.log('  - Path: 73');
-    console.log('  - CmdInj: 89');
-    console.log('  - Other: 15');
+    console.log('Total Patterns: 700 (Phase 11)');
+    console.log('  - SQLi: 138');
+    console.log('  - XSS: 96');
+    console.log('  - Path: 75');
+    console.log('  - CmdInj: 98');
+    console.log('  - Other: 25');
     console.log('  - LDAP: 15');
     console.log('  - XXE: 18');
-    console.log('  - GraphQL: 15');
-    console.log('  - XPath: 15');
-    console.log('  - SSTI: 15');
+    console.log('  - GraphQL: 25');
+    console.log('  - XPath: 25');
+    console.log('  - SSTI: 25');
     console.log('  - NoSQL Extended: 20');
-    console.log('  - API Security: 15');
+    console.log('  - API Security: 27');
     console.log('  - Pickle: 15');
     console.log('  - Prototype Pollution: 15');
     console.log('  - HTTP Smuggling: 15');
-    console.log('  - SSRF: 15');
-    console.log('  - CRLF: 15');
+    console.log('  - SSRF: 25');
+    console.log('  - CRLF: 25');
+    console.log('  - Host Header: 10');
+    console.log('  - HPP: 8');
     console.log('========================================');
 }
 
@@ -553,7 +604,10 @@ export function handleSummary(data) {
                 http_smuggling: data.metrics.http_smuggling_attacks ? data.metrics.http_smuggling_attacks.values.count : 0,
                 // Phase 8 Stage 1: SSRF and CRLF
                 ssrf: data.metrics.ssrf_attacks ? data.metrics.ssrf_attacks.values.count : 0,
-                crlf: data.metrics.crlf_attacks ? data.metrics.crlf_attacks.values.count : 0
+                crlf: data.metrics.crlf_attacks ? data.metrics.crlf_attacks.values.count : 0,
+                // Phase 11: Host Header Injection and HPP (Issue #802)
+                host_header: data.metrics.host_header_attacks ? data.metrics.host_header_attacks.values.count : 0,
+                hpp: data.metrics.hpp_attacks ? data.metrics.hpp_attacks.values.count : 0
             }
         }
     };
