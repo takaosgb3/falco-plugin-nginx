@@ -1,7 +1,7 @@
 {
   "metadata": {
     "category": "other",
-    "total_patterns": 15,
+    "total_patterns": 25,
     "port": 8005,
     "description": "k6 test patterns for other"
   },
@@ -190,6 +190,126 @@
       "expected_rule": "[NGINX Emerging Threat] Redis command injection",
       "severity": "critical",
       "description": "Redis CONFIG SET to test previously uncovered CONFIG%20SET condition"
+    },
+    {
+      "id": "SENSITIVE_GIT_001",
+      "name": "Git directory access",
+      "category": "other",
+      "subcategory": "git_exposure",
+      "payload": "/.git/config",
+      "encoded": "%2F.git%2Fconfig",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Sensitive] Sensitive file access attempt detected"
+    },
+    {
+      "id": "SENSITIVE_ENV_001",
+      "name": "Env file access",
+      "category": "other",
+      "subcategory": "env_exposure",
+      "payload": "/.env",
+      "encoded": "%2F.env",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Sensitive] Sensitive file access attempt detected"
+    },
+    {
+      "id": "SENSITIVE_WP_001",
+      "name": "WP config access",
+      "category": "other",
+      "subcategory": "wp_exposure",
+      "payload": "/wp-config.php",
+      "encoded": "%2Fwp-config.php",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Sensitive] Sensitive file access attempt detected"
+    },
+    {
+      "id": "SENSITIVE_SSH_001",
+      "name": "SSH key access",
+      "category": "other",
+      "subcategory": "ssh_exposure",
+      "payload": "/.ssh/id_rsa",
+      "encoded": "%2F.ssh%2Fid_rsa",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX Sensitive] Sensitive file access attempt detected"
+    },
+    {
+      "id": "SENSITIVE_HTAC_001",
+      "name": "htaccess access",
+      "category": "other",
+      "subcategory": "htaccess_exposure",
+      "payload": "/.htaccess",
+      "encoded": "%2F.htaccess",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Traversal] File inclusion attack detected"
+    },
+    {
+      "id": "NEG_NORMAL_001",
+      "name": "Normal search query",
+      "category": "other",
+      "subcategory": "normal_request",
+      "payload": "search=laptop+computer",
+      "encoded": "search%3Dlaptop%2Bcomputer",
+      "port": 80,
+      "expected_detection": false,
+      "severity": "info",
+      "expected_rule": "NONE"
+    },
+    {
+      "id": "NEG_NORMAL_002",
+      "name": "Normal pagination",
+      "category": "other",
+      "subcategory": "normal_request",
+      "payload": "page=2&limit=20",
+      "encoded": "page%3D2%26limit%3D20",
+      "port": 80,
+      "expected_detection": false,
+      "severity": "info",
+      "expected_rule": "NONE"
+    },
+    {
+      "id": "NEG_NORMAL_003",
+      "name": "Normal category filter",
+      "category": "other",
+      "subcategory": "normal_request",
+      "payload": "category=electronics",
+      "encoded": "category%3Delectronics",
+      "port": 80,
+      "expected_detection": false,
+      "severity": "info",
+      "expected_rule": "NONE"
+    },
+    {
+      "id": "NEG_NORMAL_004",
+      "name": "Normal form data",
+      "category": "other",
+      "subcategory": "normal_request",
+      "payload": "name=John+Doe",
+      "encoded": "name%3DJohn%2BDoe",
+      "port": 80,
+      "expected_detection": false,
+      "severity": "info",
+      "expected_rule": "NONE"
+    },
+    {
+      "id": "NEG_NORMAL_005",
+      "name": "Normal file download",
+      "category": "other",
+      "subcategory": "normal_request",
+      "payload": "file=report-2026.pdf",
+      "encoded": "file%3Dreport-2026.pdf",
+      "port": 80,
+      "expected_detection": false,
+      "severity": "info",
+      "expected_rule": "NONE"
     }
   ]
 }

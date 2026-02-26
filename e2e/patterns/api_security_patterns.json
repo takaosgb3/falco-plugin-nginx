@@ -1,10 +1,10 @@
 {
   "metadata": {
     "category": "api_security",
-    "total_patterns": 15,
+    "total_patterns": 27,
     "port": 8012,
     "description": "k6 test patterns for API security vulnerabilities (BOLA, JWT, Mass Assignment, GraphQL)",
-    "phase": "Phase 8 Stage 2"
+    "phase": "Phase 11"
   },
   "patterns": [
     {
@@ -201,6 +201,150 @@
       "expected_rule": "[NGINX API Attack] API security vulnerability detected",
       "description": "Prototype pollution via bracket notation",
       "encoded": "__proto__%5BisAdmin%5D%3Dtrue"
+    },
+    {
+      "id": "AUTH_ADMIN_001",
+      "name": "Admin path access attempt",
+      "category": "api_security",
+      "subcategory": "admin_access",
+      "payload": "/admin/dashboard",
+      "encoded": "%2Fadmin%2Fdashboard",
+      "port": 80,
+      "expected_detection": false,
+      "severity": "medium",
+      "expected_rule": "NONE"
+    },
+    {
+      "id": "AUTH_ADMIN_002",
+      "name": "Admin API access attempt",
+      "category": "api_security",
+      "subcategory": "admin_access",
+      "payload": "/admin/api/users",
+      "encoded": "%2Fadmin%2Fapi%2Fusers",
+      "port": 80,
+      "expected_detection": false,
+      "severity": "medium",
+      "expected_rule": "NONE"
+    },
+    {
+      "id": "AUTH_LOGIN_001",
+      "name": "Login brute force path",
+      "category": "api_security",
+      "subcategory": "login_access",
+      "payload": "/login?user=admin&pass=test",
+      "encoded": "%2Flogin%3Fuser%3Dadmin%26pass%3Dtest",
+      "port": 80,
+      "expected_detection": false,
+      "severity": "medium",
+      "expected_rule": "NONE"
+    },
+    {
+      "id": "AUTH_LOGIN_002",
+      "name": "wp-login access attempt",
+      "category": "api_security",
+      "subcategory": "login_access",
+      "payload": "/wp-login.php",
+      "encoded": "%2Fwp-login.php",
+      "port": 80,
+      "expected_detection": false,
+      "severity": "medium",
+      "expected_rule": "NONE"
+    },
+    {
+      "id": "AUTH_API_001",
+      "name": "Protected API access",
+      "category": "api_security",
+      "subcategory": "api_access",
+      "payload": "/api/v1/admin/settings",
+      "encoded": "%2Fapi%2Fv1%2Fadmin%2Fsettings",
+      "port": 80,
+      "expected_detection": false,
+      "severity": "medium",
+      "expected_rule": "NONE"
+    },
+    {
+      "id": "API_JWT_004",
+      "name": "JWT Algorithm None - short form",
+      "category": "api_security",
+      "subcategory": "jwt",
+      "payload": "eyJhbGciOiJub25lIn0",
+      "encoded": "eyJhbGciOiJub25lIn0",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX API Attack] API security vulnerability detected"
+    },
+    {
+      "id": "API_JWT_005",
+      "name": "JWT role admin claim",
+      "category": "api_security",
+      "subcategory": "jwt",
+      "payload": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiYWRtaW4ifQ",
+      "encoded": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiYWRtaW4ifQ",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX API Attack] API security vulnerability detected"
+    },
+    {
+      "id": "API_JWT_006",
+      "name": "JWT expired token bypass",
+      "category": "api_security",
+      "subcategory": "jwt",
+      "payload": "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjB9",
+      "encoded": "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjB9",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX API Attack] API security vulnerability detected"
+    },
+    {
+      "id": "API_OAUTH_001",
+      "name": "OAuth redirect_uri manipulation",
+      "category": "api_security",
+      "subcategory": "oauth",
+      "payload": "redirect_uri=http://evil.com/callback",
+      "encoded": "redirect_uri%3Dhttp%3A%2F%2Fevil.com%2Fcallback",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX API Attack] API security vulnerability detected"
+    },
+    {
+      "id": "API_OAUTH_002",
+      "name": "OAuth state parameter tampering",
+      "category": "api_security",
+      "subcategory": "oauth",
+      "payload": "state=&code=auth_code",
+      "encoded": "state%3D%26code%3Dauth_code",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX API Attack] API security vulnerability detected"
+    },
+    {
+      "id": "API_OAUTH_003",
+      "name": "OAuth scope escalation",
+      "category": "api_security",
+      "subcategory": "oauth",
+      "payload": "scope=admin:all",
+      "encoded": "scope%3Dadmin%3Aall",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX API Attack] API security vulnerability detected"
+    },
+    {
+      "id": "API_TOKEN_001",
+      "name": "Access token with admin privilege",
+      "category": "api_security",
+      "subcategory": "token_abuse",
+      "payload": "access_token=eyJhbGciOi&admin=true",
+      "encoded": "access_token%3DeyJhbGciOi%26admin%3Dtrue",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX API Attack] API security vulnerability detected"
     }
   ]
 }

@@ -1,0 +1,131 @@
+{
+  "metadata": {
+    "category": "host_header",
+    "total_patterns": 10,
+    "port": 80,
+    "description": "k6 test patterns for Host Header Injection attacks",
+    "phase": "Phase 11"
+  },
+  "patterns": [
+    {
+      "id": "HHI_XFH_001",
+      "name": "X-Forwarded-Host redirect",
+      "category": "host_header",
+      "subcategory": "open_redirect",
+      "payload": "X-Forwarded-Host: evil.com",
+      "encoded": "X-Forwarded-Host%3A%20evil.com",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Host Header] Host header injection attempt detected"
+    },
+    {
+      "id": "HHI_XFH_002",
+      "name": "X-Forwarded-Host password reset",
+      "category": "host_header",
+      "subcategory": "open_redirect",
+      "payload": "X-Forwarded-Host: evil.com/reset",
+      "encoded": "X-Forwarded-Host%3A%20evil.com%2Freset",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Host Header] Host header injection attempt detected"
+    },
+    {
+      "id": "HHI_XH_001",
+      "name": "X-Host injection",
+      "category": "host_header",
+      "subcategory": "host_injection",
+      "payload": "X-Host: evil.com",
+      "encoded": "X-Host%3A%20evil.com",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Host Header] Host header injection attempt detected"
+    },
+    {
+      "id": "HHI_XH_002",
+      "name": "X-Original-Host injection",
+      "category": "host_header",
+      "subcategory": "host_injection",
+      "payload": "X-Original-Host: evil.com",
+      "encoded": "X-Original-Host%3A%20evil.com",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Host Header] Host header injection attempt detected"
+    },
+    {
+      "id": "HHI_CRLF_001",
+      "name": "CRLF Host injection",
+      "category": "host_header",
+      "subcategory": "crlf_host",
+      "payload": "\\r\\nHost: evil.com",
+      "encoded": "%0d%0aHost%3A%20evil.com",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX Host Header] Host header injection attempt detected"
+    },
+    {
+      "id": "HHI_CRLF_002",
+      "name": "CRLF X-Forwarded-Host injection",
+      "category": "host_header",
+      "subcategory": "crlf_host",
+      "payload": "\\r\\nX-Forwarded-Host: evil.com",
+      "encoded": "%0d%0aX-Forwarded-Host%3A%20evil.com",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX Host Header] Host header injection attempt detected"
+    },
+    {
+      "id": "HHI_FWD_001",
+      "name": "Forwarded header host",
+      "category": "host_header",
+      "subcategory": "forwarded_header",
+      "payload": "Forwarded: host=evil.com",
+      "encoded": "Forwarded%3A%20host%3Devil.com",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Host Header] Host header injection attempt detected"
+    },
+    {
+      "id": "HHI_FWD_002",
+      "name": "Forwarded header with proto",
+      "category": "host_header",
+      "subcategory": "forwarded_header",
+      "payload": "Forwarded: host=evil.com;proto=https",
+      "encoded": "Forwarded%3A%20host%3Devil.com%3Bproto%3Dhttps",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Host Header] Host header injection attempt detected"
+    },
+    {
+      "id": "HHI_ENC_001",
+      "name": "Double-encoded X-Forwarded-Host",
+      "category": "host_header",
+      "subcategory": "double_encoded",
+      "payload": "X-Forwarded-Host%3A evil.com",
+      "encoded": "X-Forwarded-Host%253A%20evil.com",
+      "port": 80,
+      "expected_detection": false,
+      "severity": "medium",
+      "expected_rule": "NONE"
+    },
+    {
+      "id": "HHI_ENC_002",
+      "name": "Double-encoded CRLF Host",
+      "category": "host_header",
+      "subcategory": "double_encoded",
+      "payload": "%0d%0aHost%3A evil.com",
+      "encoded": "%250d%250aHost%253A%20evil.com",
+      "port": 80,
+      "expected_detection": false,
+      "severity": "medium",
+      "expected_rule": "NONE"
+    }
+  ]
+}

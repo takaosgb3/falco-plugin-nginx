@@ -1,7 +1,7 @@
 {
   "metadata": {
     "category": "xss",
-    "total_patterns": 86,
+    "total_patterns": 96,
     "port": 8002,
     "description": "k6 test patterns for xss"
   },
@@ -1042,6 +1042,126 @@
       "severity": "high",
       "expected_rule": "[NGINX XSS] XSS Filter Bypass Attempt",
       "description": "LiveScript protocol handler to independently test icontains 'livescript:' condition in XSS Filter Bypass"
+    },
+    {
+      "id": "XSS_MUT_011",
+      "name": "Tabindex onfocus XSS",
+      "category": "xss",
+      "subcategory": "mutation_xss",
+      "payload": "<div id=x tabindex=0 onfocus=alert(1)>",
+      "encoded": "%3Cdiv%20id%3Dx%20tabindex%3D0%20onfocus%3Dalert%281%29%3E",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] Advanced XSS Attack Attempt"
+    },
+    {
+      "id": "XSS_MUT_012",
+      "name": "MathML img onerror XSS",
+      "category": "xss",
+      "subcategory": "mutation_xss",
+      "payload": "<math><mtext><img src=x onerror=alert(1)>",
+      "encoded": "%3Cmath%3E%3Cmtext%3E%3Cimg%20src%3Dx%20onerror%3Dalert%281%29%3E",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] Advanced XSS Attack Attempt"
+    },
+    {
+      "id": "XSS_MUT_013",
+      "name": "Template tag XSS",
+      "category": "xss",
+      "subcategory": "mutation_xss",
+      "payload": "<template><img src=x onerror=alert(1)></template>",
+      "encoded": "%3Ctemplate%3E%3Cimg%20src%3Dx%20onerror%3Dalert%281%29%3E%3C%2Ftemplate%3E",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] Advanced XSS Attack Attempt"
+    },
+    {
+      "id": "XSS_SVG_001",
+      "name": "SVG onload XSS",
+      "category": "xss",
+      "subcategory": "svg_xss",
+      "payload": "<svg onload=alert(1)>",
+      "encoded": "%3Csvg%20onload%3Dalert%281%29%3E",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
+    },
+    {
+      "id": "XSS_SVG_002",
+      "name": "SVG animate onbegin XSS",
+      "category": "xss",
+      "subcategory": "svg_xss",
+      "payload": "<svg><animate onbegin=alert(1) attributeName=x>",
+      "encoded": "%3Csvg%3E%3Canimate%20onbegin%3Dalert%281%29%20attributeName%3Dx%3E",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
+    },
+    {
+      "id": "XSS_SVG_003",
+      "name": "SVG foreignObject body onload XSS",
+      "category": "xss",
+      "subcategory": "svg_xss",
+      "payload": "<svg><foreignObject><body onload=alert(1)>",
+      "encoded": "%3Csvg%3E%3CforeignObject%3E%3Cbody%20onload%3Dalert%281%29%3E",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
+    },
+    {
+      "id": "XSS_CSP_001",
+      "name": "Base tag hijacking",
+      "category": "xss",
+      "subcategory": "csp_bypass",
+      "payload": "<base href=\"https://evil.com/\">",
+      "encoded": "%3Cbase%20href%3D%22https%3A%2F%2Fevil.com%2F%22%3E",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] XSS Filter Bypass Attempt"
+    },
+    {
+      "id": "XSS_CSP_002",
+      "name": "Meta refresh javascript redirect",
+      "category": "xss",
+      "subcategory": "csp_bypass",
+      "payload": "<meta http-equiv=\"refresh\" content=\"0;url=javascript:alert(1)\">",
+      "encoded": "%3Cmeta%20http-equiv%3D%22refresh%22%20content%3D%220%3Burl%3Djavascript%3Aalert%281%29%22%3E",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] DOM-based XSS Attack"
+    },
+    {
+      "id": "ENC_XSS_DBL_001",
+      "name": "Double-encoded script tag",
+      "category": "xss",
+      "subcategory": "double_encoded",
+      "payload": "<script>",
+      "encoded": "%253Cscript%253E",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] XSS Filter Bypass Attempt"
+    },
+    {
+      "id": "ENC_XSS_DBL_002",
+      "name": "Double-encoded javascript URI",
+      "category": "xss",
+      "subcategory": "double_encoded",
+      "payload": "javascript:alert(1)",
+      "encoded": "%256Aavascript%253Aalert%25281%2529",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX XSS] XSS Filter Bypass Attempt"
     }
   ]
 }

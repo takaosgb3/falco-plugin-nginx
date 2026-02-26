@@ -1,7 +1,7 @@
 {
   "metadata": {
     "category": "path",
-    "total_patterns": 76,
+    "total_patterns": 75,
     "port": 8003,
     "description": "k6 test patterns for path"
   },
@@ -852,7 +852,7 @@
       "name": "IRI encoded path",
       "category": "path",
       "subcategory": "unicode",
-      "payload": "../\u200B../etc/passwd",
+      "payload": "../​../etc/passwd",
       "encoded": "..%2F%E2%80%8B..%2Fetc%2Fpasswd",
       "port": 8003,
       "expected_detection": true,
@@ -882,6 +882,30 @@
       "expected_detection": false,
       "severity": "critical",
       "expected_rule": "[NGINX Traversal] Encoded Path Traversal Attack"
+    },
+    {
+      "id": "ENC_PATH_DBL_001",
+      "name": "Double-encoded path traversal",
+      "category": "path_traversal",
+      "subcategory": "double_encoded",
+      "payload": "../../etc/passwd",
+      "encoded": "%252e%252e%252f%252e%252e%252fetc%252fpasswd",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Traversal] Encoded path traversal attack detected"
+    },
+    {
+      "id": "ENC_PATH_DBL_002",
+      "name": "Double-encoded dot-dot-slash",
+      "category": "path_traversal",
+      "subcategory": "double_encoded",
+      "payload": "..%2f..%2f",
+      "encoded": "%252e%252e%252f%252e%252e%252f",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Traversal] Encoded path traversal attack detected"
     }
   ]
 }
