@@ -1350,7 +1350,7 @@
       nginx.request_uri icontains "data:image/svg" or
       nginx.request_uri icontains "vbscript:" or
       nginx.request_uri icontains "livescript:" or
-      nginx.request_uri icontains "<base"
+      nginx.request_uri icontains "%3Cbase"
     )
   exceptions:
     # LDAP patterns with wildcard syntax - should be caught by LDAP rules
