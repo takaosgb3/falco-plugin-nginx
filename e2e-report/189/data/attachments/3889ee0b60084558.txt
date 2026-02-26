@@ -1,0 +1,3 @@
+Expected Rule: [NGINX XSS] DOM-based XSS Attack
+Matched Rule: [NGINX XSS] DOM-based XSS Attack test_id=XSS_CSP_002-1772100401796-62eh4 pattern_id=XSS_CSP_002 uri=/?q=%3Cmeta%20http-equiv%3D%22refresh%22%20content%3D%220%3Burl%3Djavascript%3Aalert%281%29%22%3E client=127.0.0.1 method=GET
+Rule Match: ✅ Match

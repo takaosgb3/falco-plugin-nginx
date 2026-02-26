@@ -1,0 +1,5 @@
+Pattern ID: SQLI_ERROR_008
+        Status: passed
+        Latency: ~69000ms
+        Detection: 1 / 1
+        Rule: [NGINX XPath Injection] XPath injection attempt test_id=SQLI_ERROR_008-1772100375742-zhjvrj pattern_id=SQLI_ERROR_008 uri=/?q=%27%20AND%20GTID_SUBSET%28version%28%29%2C1%29%20-- client=127.0.0.1

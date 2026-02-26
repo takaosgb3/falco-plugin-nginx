@@ -1,0 +1,3 @@
+Expected Rule: [NGINX GraphQL Attack] Mass data extraction attempt
+Matched Rule: [NGINX Emerging Threat] Template injection test_id=GQL_DATA_007-1772100397207-v6z4ti pattern_id=GQL_DATA_007 uri=/?q=%7Busers(limit%3A999999)%7Bid%2Cemail%2Cssn%7D%7D client=127.0.0.1
+Rule Match: ❌ Mismatch

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: auto;
+            min-height: 600px;
+            overflow: auto;
+        }
+        body {
+            font-family: monospace;
+            padding: 15px;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            line-height: 1.5;
+        }
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            margin: 0;
+            overflow: visible;
+        }
+        .content {
+            overflow: visible;
+        }
+        mark {
+            background-color: #FFFF00;
+            color: #000;
+            padding: 1px 3px;
+            border-radius: 2px;
+        }
+        h3 {
+            color: #4CAF50;
+            margin: 0 0 15px 0;
+        }
+    </style>
+</head>
+<body>
+<h3>Detection Evidence (Falco Log Entry)</h3>
+<pre>10:06:40.000000000: Critical [NGINX SQLi] Time-based Blind SQL Injection test_id=SQLI_ERROR_012-1772100400298-wk7lop pattern_id=SQLI_ERROR_012 uri=/?q=<mark style="background-color: #FFFF00; padding: 1px 3px;">%27%20AND%20%28SELECT%20CASE%20WHEN%20%281%3D1%29%20THEN%20CAST%28version%28%29%20AS%20int%29%20ELSE%201%20END%29%20--</mark> client=127.0.0.1 method=GET</pre>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "pattern_id": "XXE_ENCODE_004",
+  "test_id": "XXE_ENCODE_004-1772100388702-olenfk",
+  "category": "xxe",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 56000,
+  "evidence": "10:06:28.000000000: Critical [NGINX XXE Attack] DOCTYPE/ENTITY injection test_id=XXE_ENCODE_004-1772100388702-olenfk pattern_id=XXE_ENCODE_004 uri=/?q=%3c%21ENTITY%20xxe%20%22sensitive-data%22%3E client=127.0.0.1",
+  "rule_name": "[NGINX XXE Attack] DOCTYPE/ENTITY injection test_id=XXE_ENCODE_004-1772100388702-olenfk pattern_id=XXE_ENCODE_004 uri=/?q=%3c%21ENTITY%20xxe%20%22sensitive-data%22%3E client=127.0.0.1",
+  "expected_rule": "[NGINX XXE Attack] DOCTYPE/ENTITY injection",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX XXE Attack] DOCTYPE/ENTITY injection test_id=XXE_ENCODE_004-1772100388702-olenfk pattern_id=XXE_ENCODE_004 uri=/?q=%3c%21ENTITY%20xxe%20%22sensitive-data%22%3E client=127.0.0.1",
+  "sent_at": 1772100444000,
+  "detected_at": 1772100388000,
+  "status": "passed"
+}

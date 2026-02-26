@@ -1,0 +1,3 @@
+Expected Rule: [NGINX XSS] DOM-based XSS Attack
+Matched Rule: [NGINX XSS] DOM-based XSS Attack test_id=XSS_REFL_004-1772100356682-xlmppc pattern_id=XSS_REFL_004 uri=/?q=%3Ciframe%20src%3Djavascript%3Aalert%28%27XSS%27%29%3E client=127.0.0.1 method=GET
+Rule Match: ✅ Match

@@ -1,0 +1,17 @@
+{
+  "pattern_id": "ENC_XSS_DBL_002",
+  "test_id": "ENC_XSS_DBL_002-1772100402798-wqmeu",
+  "category": "xss",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 42000,
+  "evidence": "10:06:42.000000000: Warning [NGINX XSS] XSS Filter Bypass Attempt test_id=ENC_XSS_DBL_002-1772100402798-wqmeu pattern_id=ENC_XSS_DBL_002 uri=/?q=%256Aavascript%253Aalert%25281%2529 client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX XSS] XSS Filter Bypass Attempt test_id=ENC_XSS_DBL_002-1772100402798-wqmeu pattern_id=ENC_XSS_DBL_002 uri=/?q=%256Aavascript%253Aalert%25281%2529 client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX XSS] XSS Filter Bypass Attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX XSS] XSS Filter Bypass Attempt test_id=ENC_XSS_DBL_002-1772100402798-wqmeu pattern_id=ENC_XSS_DBL_002 uri=/?q=%256Aavascript%253Aalert%25281%2529 client=127.0.0.1 method=GET",
+  "sent_at": 1772100444000,
+  "detected_at": 1772100402000,
+  "status": "passed"
+}

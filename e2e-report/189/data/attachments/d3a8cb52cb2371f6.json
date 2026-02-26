@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SSTI_EJS_001",
+  "test_id": "SSTI_EJS_001-1772100401695-alzedc",
+  "category": "ssti",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 43000,
+  "evidence": "10:06:41.000000000: Critical [NGINX Emerging Threat] Template injection test_id=SSTI_EJS_001-1772100401695-alzedc pattern_id=SSTI_EJS_001 uri=/?q=%3C%25%3D7*7%25%3E client=127.0.0.1",
+  "rule_name": "[NGINX Emerging Threat] Template injection test_id=SSTI_EJS_001-1772100401695-alzedc pattern_id=SSTI_EJS_001 uri=/?q=%3C%25%3D7*7%25%3E client=127.0.0.1",
+  "expected_rule": "[NGINX Emerging Threat] Template injection",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Emerging Threat] Template injection test_id=SSTI_EJS_001-1772100401695-alzedc pattern_id=SSTI_EJS_001 uri=/?q=%3C%25%3D7*7%25%3E client=127.0.0.1",
+  "sent_at": 1772100444000,
+  "detected_at": 1772100401000,
+  "status": "passed"
+}

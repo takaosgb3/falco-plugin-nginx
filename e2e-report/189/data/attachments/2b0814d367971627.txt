@@ -1,0 +1,3 @@
+Expected Rule: [NGINX CMDi] Advanced command injection attempt
+Matched Rule: [NGINX SQLi] Encoded SQL Injection Pattern test_id=ENC_CMDI_DBL_001-1772100413313-6m5p26 pattern_id=ENC_CMDI_DBL_001 uri=/?q=%253Bcat%20%252Fetc%252Fpasswd client=127.0.0.1 method=GET
+Rule Match: ❌ Mismatch

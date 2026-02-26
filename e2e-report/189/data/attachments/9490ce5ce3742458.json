@@ -1,0 +1,17 @@
+{
+  "pattern_id": "LDAP_BLIND_005",
+  "test_id": "LDAP_BLIND_005-1772100379690-41ugus",
+  "category": "ldap",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 86335000,
+  "evidence": "10:06:19.000000000: Critical [NGINX LDAP Injection] Authentication bypass attempt test_id=LDAP_BLIND_005-1772100379690-41ugus pattern_id=LDAP_BLIND_005 uri=/?q=*)(description%3D*secret*) client=127.0.0.1",
+  "rule_name": "[NGINX LDAP Injection] Authentication bypass attempt test_id=LDAP_BLIND_005-1772100379690-41ugus pattern_id=LDAP_BLIND_005 uri=/?q=*)(description%3D*secret*) client=127.0.0.1",
+  "expected_rule": "[NGINX LDAP Injection] Authentication bypass attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX LDAP Injection] Authentication bypass attempt test_id=LDAP_BLIND_005-1772100379690-41ugus pattern_id=LDAP_BLIND_005 uri=/?q=*)(description%3D*secret*) client=127.0.0.1",
+  "sent_at": 1772100444000,
+  "detected_at": 1772100379000,
+  "status": "passed"
+}

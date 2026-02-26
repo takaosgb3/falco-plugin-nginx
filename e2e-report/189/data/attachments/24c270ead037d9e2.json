@@ -1,0 +1,17 @@
+{
+  "pattern_id": "ENC_MIX_001",
+  "test_id": "ENC_MIX_001-1772100418846-lf5xlh",
+  "category": "sqli",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 26000,
+  "evidence": "10:06:58.000000000: Warning [NGINX SQLi] Encoded SQL Injection Pattern test_id=ENC_MIX_001-1772100418846-lf5xlh pattern_id=ENC_MIX_001 uri=/?q=%27%20%2555NION%20SELECT client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Encoded SQL Injection Pattern test_id=ENC_MIX_001-1772100418846-lf5xlh pattern_id=ENC_MIX_001 uri=/?q=%27%20%2555NION%20SELECT client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX SQLi] Encoded SQL Injection Pattern",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX SQLi] Encoded SQL Injection Pattern test_id=ENC_MIX_001-1772100418846-lf5xlh pattern_id=ENC_MIX_001 uri=/?q=%27%20%2555NION%20SELECT client=127.0.0.1 method=GET",
+  "sent_at": 1772100444000,
+  "detected_at": 1772100418000,
+  "status": "passed"
+}

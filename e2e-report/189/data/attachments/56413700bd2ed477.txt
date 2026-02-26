@@ -1,0 +1,3 @@
+Expected Rule: [NGINX Host Header] Host header injection attempt detected
+Matched Rule: [NGINX SQLi] Encoded SQL Injection Pattern test_id=HHI_CRLF_002-1772100437685-hn7k0i pattern_id=HHI_CRLF_002 uri=/?q=%0d%0aX-Forwarded-Host%3A%20evil.com client=127.0.0.1 method=GET
+Rule Match: ❌ Mismatch

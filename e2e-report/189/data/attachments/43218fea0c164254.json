@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SSRF_INT_007",
+  "test_id": "SSRF_INT_007-1772100436208-kibmgs",
+  "category": "ssrf",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 8000,
+  "evidence": "10:07:16.000000000: Critical [NGINX SSRF] SSRF attack attempt detected test_id=SSRF_INT_007-1772100436208-kibmgs pattern_id=SSRF_INT_007 uri=/?q=http%3A%2F%2Flocalhost%3A2379%2Fv2%2Fkeys client=127.0.0.1",
+  "rule_name": "[NGINX SSRF] SSRF attack attempt detected test_id=SSRF_INT_007-1772100436208-kibmgs pattern_id=SSRF_INT_007 uri=/?q=http%3A%2F%2Flocalhost%3A2379%2Fv2%2Fkeys client=127.0.0.1",
+  "expected_rule": "[NGINX SSRF] SSRF attack attempt detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX SSRF] SSRF attack attempt detected test_id=SSRF_INT_007-1772100436208-kibmgs pattern_id=SSRF_INT_007 uri=/?q=http%3A%2F%2Flocalhost%3A2379%2Fv2%2Fkeys client=127.0.0.1",
+  "sent_at": 1772100444000,
+  "detected_at": 1772100436000,
+  "status": "passed"
+}

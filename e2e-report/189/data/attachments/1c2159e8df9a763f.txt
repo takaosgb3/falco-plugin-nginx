@@ -1,0 +1,5 @@
+Pattern ID: CRLF_RESP_002
+        Status: passed
+        Latency: ~10000ms
+        Detection: 1 / 1
+        Rule: [NGINX CRLF] CRLF Injection attempt detected test_id=CRLF_RESP_002-1772100434690-xgz86 pattern_id=CRLF_RESP_002 uri=/?q=%0d%0aContent-Type%3Atext%2Fhtml%0d%0a client=127.0.0.1

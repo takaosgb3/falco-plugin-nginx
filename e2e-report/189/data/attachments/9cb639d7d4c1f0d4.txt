@@ -1,0 +1,5 @@
+Pattern ID: API_OAUTH_002
+        Status: passed
+        Latency: ~27000ms
+        Detection: 1 / 1
+        Rule: [NGINX API Attack] API security vulnerability detected test_id=API_OAUTH_002-1772100417206-8f03m pattern_id=API_OAUTH_002 uri=/?q=state%3D%26code%3Dauth_code client=127.0.0.1

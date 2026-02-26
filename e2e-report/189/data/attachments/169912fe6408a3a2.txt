@@ -1,0 +1,5 @@
+Pattern ID: OTHER_API_001
+        Status: passed
+        Latency: ~72000ms
+        Detection: 1 / 1
+        Rule: [NGINX Traversal] File inclusion attack detected test_id=OTHER_API_001-1772100372685-8j1qgi pattern_id=OTHER_API_001 uri=/?q=%2Fapi%2Fv1%2Fusers%2F..%2F..%2F..%2Fetc%2Fpasswd client=127.0.0.1

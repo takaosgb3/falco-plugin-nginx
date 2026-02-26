@@ -1,0 +1,17 @@
+{
+  "pattern_id": "HHI_CRLF_002",
+  "test_id": "HHI_CRLF_002-1772100437685-hn7k0i",
+  "category": "host_header",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 7000,
+  "evidence": "10:07:17.000000000: Warning [NGINX SQLi] Encoded SQL Injection Pattern test_id=HHI_CRLF_002-1772100437685-hn7k0i pattern_id=HHI_CRLF_002 uri=/?q=%0d%0aX-Forwarded-Host%3A%20evil.com client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Encoded SQL Injection Pattern test_id=HHI_CRLF_002-1772100437685-hn7k0i pattern_id=HHI_CRLF_002 uri=/?q=%0d%0aX-Forwarded-Host%3A%20evil.com client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX Host Header] Host header injection attempt detected",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": "[NGINX SQLi] Encoded SQL Injection Pattern test_id=HHI_CRLF_002-1772100437685-hn7k0i pattern_id=HHI_CRLF_002 uri=/?q=%0d%0aX-Forwarded-Host%3A%20evil.com client=127.0.0.1 method=GET",
+  "sent_at": 1772100444000,
+  "detected_at": 1772100437000,
+  "status": "passed"
+}

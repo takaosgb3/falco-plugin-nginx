@@ -1,0 +1,3 @@
+Expected Rule: [NGINX CRLF] CRLF Injection attempt detected
+Matched Rule: [NGINX Emerging Threat] Advanced emerging threat attempt test_id=CRLF_ENC_006-1772100442208-zsplhg pattern_id=CRLF_ENC_006 uri=/?q=%00%0d%0aX-Null-Injected%3Atrue client=127.0.0.1
+Rule Match: ❌ Mismatch

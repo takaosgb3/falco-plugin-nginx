@@ -1,0 +1,3 @@
+Expected Rule: [NGINX Emerging Threat] MongoDB NoSQL injection
+Matched Rule: [NGINX Emerging Threat] MongoDB NoSQL injection test_id=EMRG_MONGO_004-1772100371683-0ecut9 pattern_id=EMRG_MONGO_004 uri=/?q=%7B%22%24regex%22%3A%20%22.%2A%22%7D client=127.0.0.1
+Rule Match: ✅ Match

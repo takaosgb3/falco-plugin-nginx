@@ -1,0 +1,17 @@
+{
+  "pattern_id": "XSS_MUT_006",
+  "test_id": "XSS_MUT_006-1772100393274-8lj9ma",
+  "category": "xss",
+  "detected": false,
+  "expected_detection": false,
+  "latency_ms": null,
+  "evidence": "",
+  "rule_name": "",
+  "expected_rule": "",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": null,
+  "sent_at": 1772100444000,
+  "detected_at": null,
+  "status": "passed"
+}

@@ -1,0 +1,17 @@
+{
+  "pattern_id": "CRLF_SESSION_002",
+  "test_id": "CRLF_SESSION_002-1772100441206-wbbilje",
+  "category": "crlf",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 3000,
+  "evidence": "10:07:21.000000000: Warning [NGINX CRLF] CRLF Injection attempt detected test_id=CRLF_SESSION_002-1772100441206-wbbilje pattern_id=CRLF_SESSION_002 uri=/?q=%0d%0aSet-Cookie%3APHPSESSID%3Devil_session%3BPath%3D%2F client=127.0.0.1",
+  "rule_name": "[NGINX CRLF] CRLF Injection attempt detected test_id=CRLF_SESSION_002-1772100441206-wbbilje pattern_id=CRLF_SESSION_002 uri=/?q=%0d%0aSet-Cookie%3APHPSESSID%3Devil_session%3BPath%3D%2F client=127.0.0.1",
+  "expected_rule": "[NGINX CRLF] CRLF Injection attempt detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX CRLF] CRLF Injection attempt detected test_id=CRLF_SESSION_002-1772100441206-wbbilje pattern_id=CRLF_SESSION_002 uri=/?q=%0d%0aSet-Cookie%3APHPSESSID%3Devil_session%3BPath%3D%2F client=127.0.0.1",
+  "sent_at": 1772100444000,
+  "detected_at": 1772100441000,
+  "status": "passed"
+}

@@ -1,0 +1,3 @@
+Expected Rule: [NGINX SQLi] Advanced SQL Injection Attempt
+Matched Rule: [NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_2ND_007-1772100412830-gvymlt pattern_id=SQLI_2ND_007 uri=/?q=test%40x.com%27%20OR%20%271%27%3D%271 client=127.0.0.1 method=GET
+Rule Match: ❌ Mismatch

@@ -1,0 +1,3 @@
+Expected Rule: [NGINX SQLi] Time-based Blind SQL Injection
+Matched Rule: [NGINX SQLi] Time-based Blind SQL Injection test_id=SQLI_TIME_015-1772100357197-r1s3xt pattern_id=SQLI_TIME_015 uri=/?q=/%2A%2A/SLEEP/%2A%2A/%285%29 client=127.0.0.1 method=GET
+Rule Match: ✅ Match

@@ -1,0 +1,17 @@
+{
+  "pattern_id": "CRLF_ENC_006",
+  "test_id": "CRLF_ENC_006-1772100442208-zsplhg",
+  "category": "crlf",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 2000,
+  "evidence": "10:07:22.000000000: Warning [NGINX Emerging Threat] Advanced emerging threat attempt test_id=CRLF_ENC_006-1772100442208-zsplhg pattern_id=CRLF_ENC_006 uri=/?q=%00%0d%0aX-Null-Injected%3Atrue client=127.0.0.1",
+  "rule_name": "[NGINX Emerging Threat] Advanced emerging threat attempt test_id=CRLF_ENC_006-1772100442208-zsplhg pattern_id=CRLF_ENC_006 uri=/?q=%00%0d%0aX-Null-Injected%3Atrue client=127.0.0.1",
+  "expected_rule": "[NGINX CRLF] CRLF Injection attempt detected",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": "[NGINX Emerging Threat] Advanced emerging threat attempt test_id=CRLF_ENC_006-1772100442208-zsplhg pattern_id=CRLF_ENC_006 uri=/?q=%00%0d%0aX-Null-Injected%3Atrue client=127.0.0.1",
+  "sent_at": 1772100444000,
+  "detected_at": 1772100442000,
+  "status": "passed"
+}
