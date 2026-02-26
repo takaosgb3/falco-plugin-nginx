@@ -1,0 +1,5 @@
+Pattern ID: PATH_ADV_002
+        Status: passed
+        Latency: ~67000ms
+        Detection: 1 / 1
+        Rule: [NGINX Traversal] Advanced path traversal attempt detected test_id=PATH_ADV_002-1772113510966-8dzgko pattern_id=PATH_ADV_002 uri=/?q=..%3B%2F client=127.0.0.1

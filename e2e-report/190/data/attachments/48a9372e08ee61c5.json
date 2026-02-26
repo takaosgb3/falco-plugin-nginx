@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SQLI_POLY_005",
+  "test_id": "SQLI_POLY_005-1772113547060-c1ldqg",
+  "category": "sqli",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 30000,
+  "evidence": "13:45:47.000000000: Warning [NGINX SQLi] Encoded SQL Injection Pattern test_id=SQLI_POLY_005-1772113547060-c1ldqg pattern_id=SQLI_POLY_005 uri=/?q=%27%22%3E%3Cscript%3Ealert%281%29%3C%2Fscript%3E--%20- client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Encoded SQL Injection Pattern test_id=SQLI_POLY_005-1772113547060-c1ldqg pattern_id=SQLI_POLY_005 uri=/?q=%27%22%3E%3Cscript%3Ealert%281%29%3C%2Fscript%3E--%20- client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX XSS] XSS Filter Bypass Attempt",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": "[NGINX SQLi] Encoded SQL Injection Pattern test_id=SQLI_POLY_005-1772113547060-c1ldqg pattern_id=SQLI_POLY_005 uri=/?q=%27%22%3E%3Cscript%3Ealert%281%29%3C%2Fscript%3E--%20- client=127.0.0.1 method=GET",
+  "sent_at": 1772113577000,
+  "detected_at": 1772113547000,
+  "status": "passed"
+}

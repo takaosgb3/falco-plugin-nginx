@@ -1,0 +1,5 @@
+Pattern ID: HHI_XH_001
+        Status: passed
+        Latency: ~8000ms
+        Detection: 1 / 1
+        Rule: [NGINX Host Header] Host header injection attempt detected test_id=HHI_XH_001-1772113569430-ujlf0m pattern_id=HHI_XH_001 uri=/?q=X-Host%3A%20evil.com client=127.0.0.1

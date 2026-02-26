@@ -1,0 +1,5 @@
+Pattern ID: XSS_POLY_006
+        Status: passed
+        Latency: ~62000ms
+        Detection: 1 / 1
+        Rule: [NGINX XSS] DOM-based XSS Attack test_id=XSS_POLY_006-1772113515481-4htsu pattern_id=XSS_POLY_006 uri=/?q='%2F%3E%3Cimg%20src%3Dx%20onerror%3Dalert(1)%20%2F%3E%3Cinput%20type%3D'hidden'%20value%3D' client=127.0.0.1 method=GET

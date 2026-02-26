@@ -1,0 +1,17 @@
+{
+  "pattern_id": "GQL_BATCH_001",
+  "test_id": "GQL_BATCH_001-1772113525941-x0auij",
+  "category": "graphql",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 52000,
+  "evidence": "13:45:25.000000000: Warning [NGINX GraphQL Attack] Introspection query detected test_id=GQL_BATCH_001-1772113525941-x0auij pattern_id=GQL_BATCH_001 uri=/?q=%5B%7Bquery%3A%22%7B__typename%7D%22%7D%2C%7Bquery%3A%22%7B__typename%7D%22%7D%5D client=127.0.0.1",
+  "rule_name": "[NGINX GraphQL Attack] Introspection query detected test_id=GQL_BATCH_001-1772113525941-x0auij pattern_id=GQL_BATCH_001 uri=/?q=%5B%7Bquery%3A%22%7B__typename%7D%22%7D%2C%7Bquery%3A%22%7B__typename%7D%22%7D%5D client=127.0.0.1",
+  "expected_rule": "[NGINX GraphQL Attack] Introspection query detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX GraphQL Attack] Introspection query detected test_id=GQL_BATCH_001-1772113525941-x0auij pattern_id=GQL_BATCH_001 uri=/?q=%5B%7Bquery%3A%22%7B__typename%7D%22%7D%2C%7Bquery%3A%22%7B__typename%7D%22%7D%5D client=127.0.0.1",
+  "sent_at": 1772113577000,
+  "detected_at": 1772113525000,
+  "status": "passed"
+}

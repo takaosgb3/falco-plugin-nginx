@@ -1,0 +1,3 @@
+Expected Rule: [NGINX SQLi] Advanced SQL Injection Attempt
+Matched Rule: [NGINX SQLi] Advanced SQL Injection Attempt test_id=CMD_PIPE_005-1772113537504-cqty1e pattern_id=CMD_PIPE_005 uri=/?q=find%20%2F%20-name%20%27%2A.conf%27%20%7C%20xargs%20cat client=127.0.0.1 method=GET
+Rule Match: ✅ Match

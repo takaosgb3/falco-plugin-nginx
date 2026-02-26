@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SQLI_GROUPBY_001",
+  "test_id": "SQLI_GROUPBY_001-1772113545056-b85vpi",
+  "category": "sqli",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 32000,
+  "evidence": "13:45:45.000000000: Critical [NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_GROUPBY_001-1772113545056-b85vpi pattern_id=SQLI_GROUPBY_001 uri=/?q='%20GROUP%20BY%20(SELECT%20table_name%20FROM%20information_schema.tables%20LIMIT%201)-- client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_GROUPBY_001-1772113545056-b85vpi pattern_id=SQLI_GROUPBY_001 uri=/?q='%20GROUP%20BY%20(SELECT%20table_name%20FROM%20information_schema.tables%20LIMIT%201)-- client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX SQLi] Boolean-based Blind SQL Injection",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_GROUPBY_001-1772113545056-b85vpi pattern_id=SQLI_GROUPBY_001 uri=/?q='%20GROUP%20BY%20(SELECT%20table_name%20FROM%20information_schema.tables%20LIMIT%201)-- client=127.0.0.1 method=GET",
+  "sent_at": 1772113577000,
+  "detected_at": 1772113545000,
+  "status": "passed"
+}

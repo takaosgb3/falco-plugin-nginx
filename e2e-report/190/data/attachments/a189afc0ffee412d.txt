@@ -1,0 +1,3 @@
+Expected Rule: [NGINX GraphQL Attack] Introspection query detected
+Matched Rule: [NGINX GraphQL Attack] Introspection query detected test_id=GQL_BATCH_001-1772113525941-x0auij pattern_id=GQL_BATCH_001 uri=/?q=%5B%7Bquery%3A%22%7B__typename%7D%22%7D%2C%7Bquery%3A%22%7B__typename%7D%22%7D%5D client=127.0.0.1
+Rule Match: ✅ Match

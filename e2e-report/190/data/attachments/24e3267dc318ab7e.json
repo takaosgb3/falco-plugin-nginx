@@ -1,0 +1,17 @@
+{
+  "pattern_id": "HHI_ENC_002",
+  "test_id": "HHI_ENC_002-1772113572935-og3kjf",
+  "category": "host_header",
+  "detected": false,
+  "expected_detection": false,
+  "latency_ms": null,
+  "evidence": "",
+  "rule_name": "",
+  "expected_rule": "NONE",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": null,
+  "sent_at": 1772113577000,
+  "detected_at": null,
+  "status": "passed"
+}

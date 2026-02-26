@@ -1,0 +1,3 @@
+Expected Rule: [NGINX CMDi] Command substitution attack
+Matched Rule: [NGINX CMDi] Command substitution attack test_id=CMD_BASIC_017-1772113506441-wu590q pattern_id=CMD_BASIC_017 uri=/?q=%60id%60 client=127.0.0.1
+Rule Match: ✅ Match

@@ -1,0 +1,3 @@
+Expected Rule: [NGINX Emerging Threat] Template injection
+Matched Rule: [NGINX SQLi] Encoded SQL Injection Pattern test_id=SSTI_HANDLE_001-1772113537446-n8hpso pattern_id=SSTI_HANDLE_001 uri=/?q=%7B%7B%23with%20%22s%22%20as%20%7Cstring%7C%7D%7D%7B%7Bstring.sub%20%22constructor%22%7D%7D%7B%7B%2Fwith%7D%7D client=127.0.0.1 method=GET
+Rule Match: ❌ Mismatch

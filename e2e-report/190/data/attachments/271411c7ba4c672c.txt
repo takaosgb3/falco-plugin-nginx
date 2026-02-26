@@ -1,0 +1,5 @@
+Pattern ID: HPP_BYPASS_001
+        Status: passed
+        Latency: ~1000ms
+        Detection: 1 / 1
+        Rule: [NGINX HPP] HTTP Parameter Pollution attempt detected test_id=HPP_BYPASS_001-1772113576933-o0yedj pattern_id=HPP_BYPASS_001 uri=/?q=%26bypass%3Dtrue%26override%3D1 client=127.0.0.1

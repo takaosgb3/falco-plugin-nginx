@@ -1,0 +1,17 @@
+{
+  "pattern_id": "XPATH_FUNC_004",
+  "test_id": "XPATH_FUNC_004-1772113528937-iglhl",
+  "category": "xpath",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 49000,
+  "evidence": "13:45:28.000000000: Warning [NGINX XPath Injection] XPath injection attempt test_id=XPATH_FUNC_004-1772113528937-iglhl pattern_id=XPATH_FUNC_004 uri=/?q=substring%28%2F%2Fuser%2C1%2C1%29 client=127.0.0.1",
+  "rule_name": "[NGINX XPath Injection] XPath injection attempt test_id=XPATH_FUNC_004-1772113528937-iglhl pattern_id=XPATH_FUNC_004 uri=/?q=substring%28%2F%2Fuser%2C1%2C1%29 client=127.0.0.1",
+  "expected_rule": "[NGINX XPath Injection] XPath injection attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX XPath Injection] XPath injection attempt test_id=XPATH_FUNC_004-1772113528937-iglhl pattern_id=XPATH_FUNC_004 uri=/?q=substring%28%2F%2Fuser%2C1%2C1%29 client=127.0.0.1",
+  "sent_at": 1772113577000,
+  "detected_at": 1772113528000,
+  "status": "passed"
+}

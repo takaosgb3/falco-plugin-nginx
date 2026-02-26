@@ -1,0 +1,5 @@
+Pattern ID: SSRF_CLOUD_004
+        Status: passed
+        Latency: ~18000ms
+        Detection: 1 / 1
+        Rule: [NGINX SSRF] SSRF attack attempt detected test_id=SSRF_CLOUD_004-1772113559929-rywtb pattern_id=SSRF_CLOUD_004 uri=/?q=http%3A%2F%2F169.254.169.254%2Flatest%2Fapi%2Ftoken client=127.0.0.1

@@ -1,0 +1,5 @@
+Pattern ID: PATH_ABS_003
+        Status: passed
+        Latency: ~76000ms
+        Detection: 1 / 1
+        Rule: [NGINX Traversal] File inclusion attack detected test_id=PATH_ABS_003-1772113501948-s1z1 pattern_id=PATH_ABS_003 uri=/?q=/root/.ssh/authorized_keys client=127.0.0.1

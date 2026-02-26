@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SENSITIVE_GIT_001",
+  "test_id": "SENSITIVE_GIT_001-1772113510942-qz8qsi",
+  "category": "other",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 86333000,
+  "evidence": "13:45:10.000000000: Warning [NGINX Sensitive] Sensitive file access attempt detected test_id=SENSITIVE_GIT_001-1772113510942-qz8qsi pattern_id=SENSITIVE_GIT_001 uri=/?q=%2F.git%2Fconfig client=127.0.0.1",
+  "rule_name": "[NGINX Sensitive] Sensitive file access attempt detected test_id=SENSITIVE_GIT_001-1772113510942-qz8qsi pattern_id=SENSITIVE_GIT_001 uri=/?q=%2F.git%2Fconfig client=127.0.0.1",
+  "expected_rule": "[NGINX Sensitive] Sensitive file access attempt detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Sensitive] Sensitive file access attempt detected test_id=SENSITIVE_GIT_001-1772113510942-qz8qsi pattern_id=SENSITIVE_GIT_001 uri=/?q=%2F.git%2Fconfig client=127.0.0.1",
+  "sent_at": 1772113577000,
+  "detected_at": 1772113510000,
+  "status": "passed"
+}

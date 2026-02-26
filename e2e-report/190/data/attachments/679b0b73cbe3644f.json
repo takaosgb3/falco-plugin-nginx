@@ -1,0 +1,17 @@
+{
+  "pattern_id": "GQL_DATA_002",
+  "test_id": "GQL_DATA_002-1772113522434-q0pkgr",
+  "category": "graphql",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 55000,
+  "evidence": "13:45:22.000000000: Warning [NGINX GraphQL Attack] Mass data extraction attempt test_id=GQL_DATA_002-1772113522434-q0pkgr pattern_id=GQL_DATA_002 uri=/?q=limit%3A999999 client=127.0.0.1",
+  "rule_name": "[NGINX GraphQL Attack] Mass data extraction attempt test_id=GQL_DATA_002-1772113522434-q0pkgr pattern_id=GQL_DATA_002 uri=/?q=limit%3A999999 client=127.0.0.1",
+  "expected_rule": "[NGINX GraphQL Attack] Mass data extraction attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX GraphQL Attack] Mass data extraction attempt test_id=GQL_DATA_002-1772113522434-q0pkgr pattern_id=GQL_DATA_002 uri=/?q=limit%3A999999 client=127.0.0.1",
+  "sent_at": 1772113577000,
+  "detected_at": 1772113522000,
+  "status": "passed"
+}

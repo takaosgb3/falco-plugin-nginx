@@ -1,0 +1,17 @@
+{
+  "pattern_id": "XSS_MUT_009",
+  "test_id": "XSS_MUT_009-1772113528006-fpa1du",
+  "category": "xss",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 49000,
+  "evidence": "13:45:28.000000000: Critical [NGINX XSS] DOM-based XSS Attack test_id=XSS_MUT_009-1772113528006-fpa1du pattern_id=XSS_MUT_009 uri=/?q=%3Cobject%20data%3Djavascript%3Aalert('XSS')%3E client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX XSS] DOM-based XSS Attack test_id=XSS_MUT_009-1772113528006-fpa1du pattern_id=XSS_MUT_009 uri=/?q=%3Cobject%20data%3Djavascript%3Aalert('XSS')%3E client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX XSS] DOM-based XSS Attack",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX XSS] DOM-based XSS Attack test_id=XSS_MUT_009-1772113528006-fpa1du pattern_id=XSS_MUT_009 uri=/?q=%3Cobject%20data%3Djavascript%3Aalert('XSS')%3E client=127.0.0.1 method=GET",
+  "sent_at": 1772113577000,
+  "detected_at": 1772113528000,
+  "status": "passed"
+}

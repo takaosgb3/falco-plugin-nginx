@@ -1,0 +1,17 @@
+{
+  "pattern_id": "XSS_ADV_069",
+  "test_id": "XSS_ADV_069-1772113530010-xgp4ph",
+  "category": "xss",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 47000,
+  "evidence": "13:45:30.000000000: Warning [NGINX XSS] Advanced XSS Attack Attempt test_id=XSS_ADV_069-1772113530010-xgp4ph pattern_id=XSS_ADV_069 uri=/?q=onkeydown%3Dalert(1) client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX XSS] Advanced XSS Attack Attempt test_id=XSS_ADV_069-1772113530010-xgp4ph pattern_id=XSS_ADV_069 uri=/?q=onkeydown%3Dalert(1) client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX XSS] Advanced XSS Attack Attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX XSS] Advanced XSS Attack Attempt test_id=XSS_ADV_069-1772113530010-xgp4ph pattern_id=XSS_ADV_069 uri=/?q=onkeydown%3Dalert(1) client=127.0.0.1 method=GET",
+  "sent_at": 1772113577000,
+  "detected_at": 1772113530000,
+  "status": "passed"
+}

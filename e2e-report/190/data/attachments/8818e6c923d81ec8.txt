@@ -1,0 +1,3 @@
+Expected Rule: [NGINX Traversal] Basic path traversal attack detected
+Matched Rule: [NGINX Traversal] Basic path traversal attack detected test_id=PATH_TRUNC_001-1772113513472-iz602i pattern_id=PATH_TRUNC_001 uri=/?q=..%2F..%2F..%2Fetc%2Fpasswd%2500.jpg client=127.0.0.1
+Rule Match: ✅ Match

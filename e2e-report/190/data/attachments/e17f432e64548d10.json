@@ -1,0 +1,17 @@
+{
+  "pattern_id": "XXE_ENTITY_001",
+  "test_id": "XXE_ENTITY_001-1772113513426-mxa8ac",
+  "category": "xxe",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 86336000,
+  "evidence": "13:45:13.000000000: Warning [NGINX SQLi] Advanced SQL Injection Attempt test_id=XXE_ENTITY_001-1772113513426-mxa8ac pattern_id=XXE_ENTITY_001 uri=/?q=%3C!DOCTYPE%20test%20%5B%3C!ENTITY%20xxe%20SYSTEM%20%22file%3A%2F%2F%2Fetc%2Fpasswd%22%3E%5D%3E client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Advanced SQL Injection Attempt test_id=XXE_ENTITY_001-1772113513426-mxa8ac pattern_id=XXE_ENTITY_001 uri=/?q=%3C!DOCTYPE%20test%20%5B%3C!ENTITY%20xxe%20SYSTEM%20%22file%3A%2F%2F%2Fetc%2Fpasswd%22%3E%5D%3E client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX SQLi] Advanced SQL Injection Attempt test_id=XXE_ENTITY_001-1772113513426-mxa8ac pattern_id=XXE_ENTITY_001 uri=/?q=%3C!DOCTYPE%20test%20%5B%3C!ENTITY%20xxe%20SYSTEM%20%22file%3A%2F%2F%2Fetc%2Fpasswd%22%3E%5D%3E client=127.0.0.1 method=GET",
+  "sent_at": 1772113577000,
+  "detected_at": 1772113513000,
+  "status": "passed"
+}

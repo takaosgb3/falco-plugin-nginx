@@ -1,0 +1,3 @@
+Expected Rule: [NGINX CRLF] CRLF Injection attempt detected
+Matched Rule: [NGINX HRS] HTTP Request Smuggling attempt test_id=CRLF_CACHE_001-1772113572945-jqnhcke pattern_id=CRLF_CACHE_001 uri=/?q=%0d%0aX-Forwarded-Host%3Aevil.com client=127.0.0.1
+Rule Match: ❌ Mismatch

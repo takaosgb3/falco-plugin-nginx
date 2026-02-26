@@ -1,0 +1,5 @@
+Pattern ID: GQL_FRAG_002
+        Status: passed
+        Latency: ~49000ms
+        Detection: 1 / 1
+        Rule: [NGINX Traversal] Basic path traversal attack detected test_id=GQL_FRAG_002-1772113528446-0ogxtl pattern_id=GQL_FRAG_002 uri=/?q=query%7Buser%7B...on%20Admin%7B__schema%7Btypes%7Bname%7D%7D%7D%7D%7D client=127.0.0.1
