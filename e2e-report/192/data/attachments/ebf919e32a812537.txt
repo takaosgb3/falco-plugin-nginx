@@ -1,0 +1,3 @@
+Expected Rule: [NGINX XSS] Polyglot XSS Attack
+Matched Rule: [NGINX XSS] Polyglot XSS Attack test_id=XSS_MUT_011-1772115459081-zyppf pattern_id=XSS_MUT_011 uri=/?q=%3Cdiv%20id%3Dx%20tabindex%3D0%20onfocus%3Dalert%281%29%3E client=127.0.0.1 method=GET
+Rule Match: ✅ Match

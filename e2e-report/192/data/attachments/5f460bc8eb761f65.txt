@@ -1,0 +1,5 @@
+Pattern ID: XSS_BYPASS_007
+        Status: passed
+        Latency: ~69000ms
+        Detection: 1 / 1
+        Rule: [NGINX XSS] XSS Filter Bypass Attempt test_id=XSS_BYPASS_007-1772115436529-accbp pattern_id=XSS_BYPASS_007 uri=/?q=%3Csvg%3E%3Cscript%20href%3Ddata%3A%2Calert('XSS')%20%2F%3E client=127.0.0.1 method=GET

@@ -1,0 +1,17 @@
+{
+  "pattern_id": "XSS_SVG_002",
+  "test_id": "XSS_SVG_002-1772115461085-57o4qr",
+  "category": "xss",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 44000,
+  "evidence": "14:17:41.000000000: Critical [NGINX XSS] DOM-based XSS Attack test_id=XSS_SVG_002-1772115461085-57o4qr pattern_id=XSS_SVG_002 uri=/?q=%3Csvg%3E%3Canimate%20onbegin%3Dalert%281%29%20attributeName%3Dx%3E client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX XSS] DOM-based XSS Attack test_id=XSS_SVG_002-1772115461085-57o4qr pattern_id=XSS_SVG_002 uri=/?q=%3Csvg%3E%3Canimate%20onbegin%3Dalert%281%29%20attributeName%3Dx%3E client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX XSS] DOM-based XSS Attack",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX XSS] DOM-based XSS Attack test_id=XSS_SVG_002-1772115461085-57o4qr pattern_id=XSS_SVG_002 uri=/?q=%3Csvg%3E%3Canimate%20onbegin%3Dalert%281%29%20attributeName%3Dx%3E client=127.0.0.1 method=GET",
+  "sent_at": 1772115505000,
+  "detected_at": 1772115461000,
+  "status": "passed"
+}

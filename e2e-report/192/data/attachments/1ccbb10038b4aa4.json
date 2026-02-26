@@ -1,0 +1,17 @@
+{
+  "pattern_id": "GQL_ALIAS_001",
+  "test_id": "GQL_ALIAS_001-1772115456513-pboyrv",
+  "category": "graphql",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 49000,
+  "evidence": "14:17:36.000000000: Critical [NGINX Emerging Threat] Template injection test_id=GQL_ALIAS_001-1772115456513-pboyrv pattern_id=GQL_ALIAS_001 uri=/?q=query%7Ba%3A__type(name%3A%22User%22)%7Bfields%7Bname%7D%7Db%3A__type(name%3A%22Admin%22)%7Bfields%7Bname%7D%7D%7D client=127.0.0.1",
+  "rule_name": "[NGINX Emerging Threat] Template injection test_id=GQL_ALIAS_001-1772115456513-pboyrv pattern_id=GQL_ALIAS_001 uri=/?q=query%7Ba%3A__type(name%3A%22User%22)%7Bfields%7Bname%7D%7Db%3A__type(name%3A%22Admin%22)%7Bfields%7Bname%7D%7D%7D client=127.0.0.1",
+  "expected_rule": "[NGINX GraphQL Attack] Introspection query detected",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": "[NGINX Emerging Threat] Template injection test_id=GQL_ALIAS_001-1772115456513-pboyrv pattern_id=GQL_ALIAS_001 uri=/?q=query%7Ba%3A__type(name%3A%22User%22)%7Bfields%7Bname%7D%7Db%3A__type(name%3A%22Admin%22)%7Bfields%7Bname%7D%7D%7D client=127.0.0.1",
+  "sent_at": 1772115505000,
+  "detected_at": 1772115456000,
+  "status": "passed"
+}

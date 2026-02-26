@@ -1,0 +1,5 @@
+Pattern ID: SQLI_UNION_001
+        Status: passed
+        Latency: ~82000ms
+        Detection: 1 / 1
+        Rule: [NGINX SQLi] Advanced SQL Injection Attempt test_id=SQLI_UNION_001-1772115423515-sakq2d pattern_id=SQLI_UNION_001 uri=/?q=UNION%20SELECT%20NULL client=127.0.0.1 method=GET

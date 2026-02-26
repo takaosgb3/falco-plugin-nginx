@@ -1,0 +1,5 @@
+Pattern ID: ENC_PATH_DBL_002
+        Status: passed
+        Latency: ~47000ms
+        Detection: 1 / 1
+        Rule: [NGINX Traversal] Encoded path traversal attack detected test_id=ENC_PATH_DBL_002-1772115458068-lozka8 pattern_id=ENC_PATH_DBL_002 uri=/?q=%252e%252e%252f%252e%252e%252f client=127.0.0.1

@@ -1,0 +1,17 @@
+{
+  "pattern_id": "GQL_FRAG_002",
+  "test_id": "GQL_FRAG_002-1772115456012-cy85wa",
+  "category": "graphql",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 49000,
+  "evidence": "14:17:36.000000000: Critical [NGINX Traversal] Basic path traversal attack detected test_id=GQL_FRAG_002-1772115456012-cy85wa pattern_id=GQL_FRAG_002 uri=/?q=query%7Buser%7B...on%20Admin%7B__schema%7Btypes%7Bname%7D%7D%7D%7D%7D client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] Basic path traversal attack detected test_id=GQL_FRAG_002-1772115456012-cy85wa pattern_id=GQL_FRAG_002 uri=/?q=query%7Buser%7B...on%20Admin%7B__schema%7Btypes%7Bname%7D%7D%7D%7D%7D client=127.0.0.1",
+  "expected_rule": "[NGINX GraphQL Attack] Introspection query detected",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": "[NGINX Traversal] Basic path traversal attack detected test_id=GQL_FRAG_002-1772115456012-cy85wa pattern_id=GQL_FRAG_002 uri=/?q=query%7Buser%7B...on%20Admin%7B__schema%7Btypes%7Bname%7D%7D%7D%7D%7D client=127.0.0.1",
+  "sent_at": 1772115505000,
+  "detected_at": 1772115456000,
+  "status": "passed"
+}

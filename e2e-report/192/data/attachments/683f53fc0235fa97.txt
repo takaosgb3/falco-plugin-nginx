@@ -1,0 +1,3 @@
+Expected Rule: [NGINX Traversal] Encoded path traversal attack detected
+Matched Rule: [NGINX Traversal] Encoded path traversal attack detected test_id=PATH_ADV_054-1772115447543-uf7v7x pattern_id=PATH_ADV_054 uri=/?q=%c0%ae%c0%ae%2F%c0%ae%c0%ae%2Fetc%2Fpasswd client=127.0.0.1
+Rule Match: ✅ Match

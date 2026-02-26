@@ -1,0 +1,3 @@
+Expected Rule: [NGINX XXE Attack] DOCTYPE/ENTITY injection
+Matched Rule: [NGINX XXE Attack] DOCTYPE/ENTITY injection test_id=XXE_ENCODE_002-1772115448507-m65p1 pattern_id=XXE_ENCODE_002 uri=/?q=%3c!DOCTYPE%20foo%20%5B%3c!ENTITY%20xxe%20%22test%22%3E%5D%3E client=127.0.0.1
+Rule Match: ✅ Match

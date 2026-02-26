@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SQLI_BIT_003",
+  "test_id": "SQLI_BIT_003-1772115476635-mvizh6",
+  "category": "sqli",
+  "detected": false,
+  "expected_detection": false,
+  "latency_ms": null,
+  "evidence": "",
+  "rule_name": "",
+  "expected_rule": "NONE",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": null,
+  "sent_at": 1772115505000,
+  "detected_at": null,
+  "status": "passed"
+}

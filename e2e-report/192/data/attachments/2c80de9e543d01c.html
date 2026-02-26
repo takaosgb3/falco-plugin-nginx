@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: auto;
+            min-height: 600px;
+            overflow: auto;
+        }
+        body {
+            font-family: monospace;
+            padding: 15px;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            line-height: 1.5;
+        }
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            margin: 0;
+            overflow: visible;
+        }
+        .content {
+            overflow: visible;
+        }
+        mark {
+            background-color: #FFFF00;
+            color: #000;
+            padding: 1px 3px;
+            border-radius: 2px;
+        }
+        h3 {
+            color: #4CAF50;
+            margin: 0 0 15px 0;
+        }
+    </style>
+</head>
+<body>
+<h3>Detection Evidence (Falco Log Entry)</h3>
+<pre>14:17:39.000000000: Critical [NGINX XSS] DOM-based XSS Attack test_id=XSS_MUT_012-1772115459582-i8dmek pattern_id=XSS_MUT_012 uri=/?q=<mark style="background-color: #FFFF00; padding: 1px 3px;">%3Cmath%3E%3Cmtext%3E%3Cimg%20src%3Dx%20onerror%3Dalert%281%29%3E</mark> client=127.0.0.1 method=GET</pre>
+</body>
+</html>

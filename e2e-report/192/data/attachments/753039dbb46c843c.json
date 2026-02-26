@@ -1,0 +1,17 @@
+{
+  "pattern_id": "API_PROTO_003",
+  "test_id": "API_PROTO_003-1772115473006-d0mlsk",
+  "category": "api_security",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 32000,
+  "evidence": "14:17:53.000000000: Warning [NGINX API Attack] API security vulnerability detected test_id=API_PROTO_003-1772115473006-d0mlsk pattern_id=API_PROTO_003 uri=/?q=__proto__%5BisAdmin%5D%3Dtrue client=127.0.0.1",
+  "rule_name": "[NGINX API Attack] API security vulnerability detected test_id=API_PROTO_003-1772115473006-d0mlsk pattern_id=API_PROTO_003 uri=/?q=__proto__%5BisAdmin%5D%3Dtrue client=127.0.0.1",
+  "expected_rule": "[NGINX API Attack] API security vulnerability detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX API Attack] API security vulnerability detected test_id=API_PROTO_003-1772115473006-d0mlsk pattern_id=API_PROTO_003 uri=/?q=__proto__%5BisAdmin%5D%3Dtrue client=127.0.0.1",
+  "sent_at": 1772115505000,
+  "detected_at": 1772115473000,
+  "status": "passed"
+}

@@ -1,0 +1,5 @@
+Pattern ID: SSRF_DNS_003
+        Status: passed
+        Latency: ~10000ms
+        Detection: 1 / 1
+        Rule: [NGINX SSRF] SSRF attack attempt detected test_id=SSRF_DNS_003-1772115495007-0obbwn pattern_id=SSRF_DNS_003 uri=/?q=http%3A%2F%2F%5B%3A%3A1%5D%2F client=127.0.0.1

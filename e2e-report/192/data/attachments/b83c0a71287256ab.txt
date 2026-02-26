@@ -1,0 +1,3 @@
+Expected Rule: [NGINX HPP] HTTP Parameter Pollution attempt detected
+Matched Rule: [NGINX HPP] HTTP Parameter Pollution attempt detected test_id=HPP_PRIV_001-1772115503993-b05z8 pattern_id=HPP_PRIV_001 uri=/?q=%26isadmin%3Dtrue%26privilege%3Dsuper client=127.0.0.1
+Rule Match: ✅ Match

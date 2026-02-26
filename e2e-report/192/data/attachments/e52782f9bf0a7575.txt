@@ -1,0 +1,5 @@
+Pattern ID: SSTI_THYME_001
+        Status: passed
+        Latency: ~47000ms
+        Detection: 1 / 1
+        Rule: [NGINX Emerging Threat] Spring4Shell attack test_id=SSTI_THYME_001-1772115458994-4qqmta pattern_id=SSTI_THYME_001 uri=/?q=__%24%7BT(java.lang.Runtime).getRuntime().exec(%22id%22)%7D__ client=127.0.0.1

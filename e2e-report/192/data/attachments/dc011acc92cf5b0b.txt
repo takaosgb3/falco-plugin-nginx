@@ -1,0 +1,5 @@
+Pattern ID: ENC_MIX_001
+        Status: passed
+        Latency: ~26000ms
+        Detection: 1 / 1
+        Rule: [NGINX SQLi] Encoded SQL Injection Pattern test_id=ENC_MIX_001-1772115479643-1ml31p pattern_id=ENC_MIX_001 uri=/?q=%27%20%2555NION%20SELECT client=127.0.0.1 method=GET

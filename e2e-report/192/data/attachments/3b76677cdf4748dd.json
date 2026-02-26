@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SQLI_JSON_001",
+  "test_id": "SQLI_JSON_001-1772115470621-mzf5t",
+  "category": "sqli",
+  "detected": false,
+  "expected_detection": false,
+  "latency_ms": null,
+  "evidence": "",
+  "rule_name": "",
+  "expected_rule": "",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": null,
+  "sent_at": 1772115505000,
+  "detected_at": null,
+  "status": "passed"
+}

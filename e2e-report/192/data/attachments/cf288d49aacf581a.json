@@ -1,0 +1,17 @@
+{
+  "pattern_id": "NEG_NORMAL_005",
+  "test_id": "NEG_NORMAL_005-1772115443017-a42g3",
+  "category": "other",
+  "detected": false,
+  "expected_detection": false,
+  "latency_ms": null,
+  "evidence": "",
+  "rule_name": "",
+  "expected_rule": "NONE",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": null,
+  "sent_at": 1772115505000,
+  "detected_at": null,
+  "status": "passed"
+}

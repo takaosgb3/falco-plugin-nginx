@@ -1,0 +1,5 @@
+Pattern ID: HHI_FWD_002
+        Status: passed
+        Latency: ~6000ms
+        Detection: 1 / 1
+        Rule: [NGINX Host Header] Host header injection attempt detected test_id=HHI_FWD_002-1772115499495-rc8cvb pattern_id=HHI_FWD_002 uri=/?q=Forwarded%3A%20host%3Devil.com%3Bproto%3Dhttps client=127.0.0.1

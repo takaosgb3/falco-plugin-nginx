@@ -1,0 +1,5 @@
+Pattern ID: NEG_NORMAL_005
+        Status: passed
+        Latency: N/A
+        Detection: 0 / 1
+        Rule:

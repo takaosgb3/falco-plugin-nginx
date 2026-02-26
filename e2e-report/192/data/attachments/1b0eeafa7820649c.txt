@@ -1,0 +1,3 @@
+Expected Rule: [NGINX SQLi] Encoded SQL Injection Pattern
+Matched Rule: [NGINX SQLi] Encoded SQL Injection Pattern test_id=SQLI_ADV_080-1772115450578-ggjlpr pattern_id=SQLI_ADV_080 uri=/?q=%2F%2A%2150000UNION%2A%2FSELECT client=127.0.0.1 method=GET
+Rule Match: ✅ Match

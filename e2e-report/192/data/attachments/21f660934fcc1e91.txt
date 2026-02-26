@@ -1,0 +1,5 @@
+Pattern ID: OTHER_REDIS_003
+        Status: passed
+        Latency: ~67000ms
+        Detection: 1 / 1
+        Rule: [NGINX Emerging Threat] Redis command injection test_id=OTHER_REDIS_003-1772115438005-drj5xq pattern_id=OTHER_REDIS_003 uri=/?q=CONFIG%20SET%20requirepass%20hacked client=127.0.0.1

@@ -1,0 +1,5 @@
+Pattern ID: HHI_CRLF_002
+        Status: passed
+        Latency: ~7000ms
+        Detection: 1 / 1
+        Rule: [NGINX SQLi] Encoded SQL Injection Pattern test_id=HHI_CRLF_002-1772115498493-vh4ojr pattern_id=HHI_CRLF_002 uri=/?q=%0d%0aX-Forwarded-Host%3A%20evil.com client=127.0.0.1 method=GET
