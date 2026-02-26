@@ -42,6 +42,7 @@ class PreflightValidator:
         self.rules_path = Path(rules_path)
         self.patterns_dir = Path(patterns_dir)
         self.rules: Dict[str, str] = {}
+        self.rule_outputs: Dict[str, str] = {}
         self.macros: Dict[str, str] = {}
         self.patterns: List[dict] = []
 
@@ -63,6 +64,8 @@ class PreflightValidator:
                     continue
                 if 'rule' in item and 'condition' in item:
                     self.rules[str(item['rule'])] = str(item['condition'])
+                    if 'output' in item:
+                        self.rule_outputs[str(item['rule'])] = str(item['output'])
                 elif 'macro' in item and 'condition' in item:
                     self.macros[str(item['macro'])] = str(item['condition'])
         except ImportError:
@@ -74,14 +77,18 @@ class PreflightValidator:
         current_type = None
         current_name = None
         current_cond = []
+        current_output = None
         in_condition = False
+        in_output = False
 
         def flush():
-            nonlocal current_type, current_name, current_cond
+            nonlocal current_type, current_name, current_cond, current_output
             if current_name and current_cond:
                 cond_text = '\n'.join(current_cond)
                 if current_type == 'rule':
                     self.rules[current_name] = cond_text
+                    if current_output:
+                        self.rule_outputs[current_name] = current_output
                 elif current_type == 'macro':
                     self.macros[current_name] = cond_text
 
@@ -89,23 +96,35 @@ class PreflightValidator:
             rm = re.match(r'^- rule:\s*"?(.+?)"?\s*$', line)
             mm = re.match(r'^- macro:\s*(\S+)', line)
             cm = re.match(r'  condition:\s*(.*)', line)
+            om = re.match(r'  output:\s*(.*)', line)
             if rm:
                 flush()
                 current_type = 'rule'
                 current_name = rm.group(1).strip()
                 current_cond = []
+                current_output = None
                 in_condition = False
+                in_output = False
             elif mm:
                 flush()
                 current_type = 'macro'
                 current_name = mm.group(1).strip()
                 current_cond = []
+                current_output = None
                 in_condition = False
+                in_output = False
             elif cm:
                 in_condition = True
+                in_output = False
                 rest = cm.group(1).strip()
                 if rest and rest != '>':
                     current_cond.append(rest)
+            elif om:
+                in_output = True
+                in_condition = False
+                rest = om.group(1).strip()
+                if rest and rest != '>':
+                    current_output = rest
             elif in_condition:
                 if line.startswith('    ') or line.startswith('\t'):
                     current_cond.append(line.strip())
@@ -113,6 +132,16 @@ class PreflightValidator:
                     continue
                 else:
                     in_condition = False
+            elif in_output:
+                if line.startswith('    ') or line.startswith('\t'):
+                    if current_output is None:
+                        current_output = line.strip()
+                    else:
+                        current_output += ' ' + line.strip()
+                elif line.strip() == '':
+                    continue
+                else:
+                    in_output = False
         flush()
 
     def load_patterns(self):
@@ -166,6 +195,7 @@ class PreflightValidator:
         1. Exact match
         2. Normalized match: remove [NGINX XXX] prefix, case-insensitive
         3. Substring match: normalized expected_rule is substring of rule name
+        4. Output match: expected_rule matches the beginning of rule output
         """
         if not expected_rule or expected_rule == 'NONE':
             return None, None
@@ -187,6 +217,12 @@ class PreflightValidator:
                 return name, cond
             if len(norm_name) >= 10 and norm_name in norm_expected:
                 return name, cond
+
+        # 4. Output match: expected_rule matches rule output prefix
+        norm_expected_lower = expected_rule.lower().strip()
+        for name, output in self.rule_outputs.items():
+            if output.lower().strip().startswith(norm_expected_lower):
+                return name, self.rules.get(name)
 
         return None, None
 

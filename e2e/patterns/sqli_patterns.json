@@ -1504,7 +1504,7 @@
       "port": 80,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt"
+      "expected_rule": "[NGINX SQLi] Encoded SQL Injection Pattern"
     },
     {
       "id": "SQLI_2ND_007",
@@ -1564,7 +1564,7 @@
       "port": 80,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt"
+      "expected_rule": "[NGINX Emerging Threat] MongoDB NoSQL injection"
     },
     {
       "id": "SQLI_BIT_002",
@@ -1612,7 +1612,7 @@
       "port": 80,
       "expected_detection": true,
       "severity": "critical",
-      "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt"
+      "expected_rule": "[NGINX SQLi] Error-based SQL Injection"
     },
     {
       "id": "ENC_SQLI_DBL_001",
@@ -1648,7 +1648,7 @@
       "port": 80,
       "expected_detection": true,
       "severity": "high",
-      "expected_rule": "[NGINX SQLi] Encoded SQL Injection Pattern"
+      "expected_rule": "[NGINX SQLi] Boolean-based Blind SQL Injection"
     },
     {
       "id": "ENC_MIX_001",
