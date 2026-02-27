@@ -896,6 +896,12 @@
         - XXE_ENCODE_002
         - XXE_ENCODE_003
         - XXE_ENCODE_004
+    # Issue #804 Fix: SSTI Razor pattern contains "0x" boundary match in encoded form
+    - name: phase11_ssti_razor_hex_pattern
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - SSTI_RAZOR_001
   output: "[NGINX SQLi] Advanced SQL Injection Attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: WARNING
   tags: [security, sql_injection, advanced_sqli, enumeration, phase3]
@@ -990,6 +996,32 @@
         - CRLF_SESSION_002
         - CRLF_ENC_005
         - CRLF_ENC_006
+    # Issue #804: SSTI patterns with %23 (#) - should be caught by Template Injection/Spring4Shell rules
+    - name: phase11_ssti_hash_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - SSTI_VEL_003
+        - SSTI_HANDLE_001
+    # Issue #804: CMDi double-encoded with %252F - should be caught by Advanced CMDi rule
+    - name: phase11_cmdi_double_encoded
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - ENC_CMDI_DBL_001
+    # Issue #804: Host Header Injection with %0d%0a - should be caught by Host Header Injection rule
+    - name: phase11_hhi_crlf_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - HHI_CRLF_001
+        - HHI_CRLF_002
+    # Issue #804: SQLi polyglot with -- - comment - should be caught by XSS Filter Bypass rule
+    - name: phase11_sqli_poly_xss
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - SQLI_POLY_005
   output: "[NGINX SQLi] Encoded SQL Injection Pattern test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: WARNING
   tags: [security, sql_injection, advanced_sqli, encoding_evasion, phase3]
@@ -1080,6 +1112,12 @@
       comps: in
       values:
         - CRLF_RESP_004
+    # Issue #804 Fix: SQLi polyglot with <script>alert - should be caught by XSS Filter Bypass
+    - name: phase11_sqli_poly_script
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - SQLI_POLY_005
   output: "[NGINX XSS] DOM-based XSS Attack test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: CRITICAL
   tags: [security, xss, dom_based, advanced_xss, phase3]
@@ -1403,6 +1441,13 @@
         - CRLF_SESSION_002
         - CRLF_ENC_005
         - CRLF_ENC_006
+    # Issue #804 Fix: Host Header Injection CRLF patterns with %0d%0a triggers
+    - name: phase11_hhi_crlf_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - HHI_CRLF_001
+        - HHI_CRLF_002
   output: "[NGINX XSS] XSS Filter Bypass Attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: WARNING
   tags: [security, xss, filter_bypass, advanced_xss, phase3]
@@ -1467,6 +1512,13 @@
         - PATH_ADV_003
         - PATH_ADV_004
         - PATH_ADV_005
+    # Issue #804: GraphQL fragment patterns with "..." - should be caught by GraphQL rules
+    - name: phase11_graphql_fragment_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - GQL_FRAG_001
+        - GQL_FRAG_002
         - PATH_ADV_006
     # Issue #43 Fix: Windows Path Traversal patterns - should be caught by Windows Path Traversal rule
     - name: path_win_patterns
@@ -1655,6 +1707,12 @@
       comps: in
       values:
         - SSRF_SCHEME_001
+    # Issue #804 Fix: CMDi curl pattern with /etc/passwd - should be caught by CMDi rule
+    - name: phase11_cmdi_curl_pattern
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - CMDI_CURL_001
   output: "[NGINX Traversal] File inclusion attack detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: CRITICAL
   tags: [security, path_traversal, file_inclusion, advanced_traversal, phase3]
@@ -2049,6 +2107,13 @@
       comps: in
       values:
         - HHI_ENC_002
+    # Issue #804 Fix: Host Header CRLF patterns with %0d%0a triggers
+    - name: phase11_hhi_crlf_cmdi
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - HHI_CRLF_001
+        - HHI_CRLF_002
 
 # ==============================================================================
 # Emerging Threats Detection Rules (from advanced_emerging_enhanced.yaml)
@@ -2232,6 +2297,13 @@
   priority: WARNING
   tags: [security, emerging_threats, phase3]
   source: nginx
+  exceptions:
+    # Issue #804 Fix: CRLF encoded pattern contains %00 null byte
+    - name: phase11_crlf_null_byte_pattern
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - CRLF_ENC_006
 
 # ====================================
 # ADV_EMRG_005: MongoDB NoSQL Injection
@@ -2328,6 +2400,18 @@
       comps: in
       values:
         - API_PROTO_002
+    # Issue #804: GraphQL patterns with %7D%7D (}}) - should be caught by GraphQL rules
+    - name: phase11_graphql_brace_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - GQL_DOS_001
+        - GQL_ALIAS_001
+        - GQL_DIR_001
+        - GQL_DIR_002
+        - GQL_DATA_007
+        - GQL_FRAG_001
+        - GQL_FRAG_002
   output: "[NGINX Emerging Threat] Template injection test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: CRITICAL
   tags: [security, emerging_threats, ssti, template_injection, phase5]
@@ -2426,6 +2510,18 @@
       comps: in
       values:
         - API_PROTO_002
+    # Issue #804: GraphQL patterns with %7D%7D (}}) - should be caught by GraphQL rules
+    - name: phase11_graphql_brace_patterns_ssti
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - GQL_DOS_001
+        - GQL_FRAG_001
+        - GQL_FRAG_002
+        - GQL_ALIAS_001
+        - GQL_DIR_001
+        - GQL_DIR_002
+        - GQL_DATA_007
   source: nginx
 
 # =========================================================================
@@ -2849,6 +2945,13 @@
         - HHI_XFH_001
         - HHI_XFH_002
         - HHI_CRLF_002
+    # Issue #804 Fix: CRLF patterns with Transfer-Encoding/X-Forwarded-Host triggers
+    - name: phase11_crlf_hrs_patterns
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - CRLF_RESP_005
+        - CRLF_CACHE_001
 
 
 # ==============================================================================
