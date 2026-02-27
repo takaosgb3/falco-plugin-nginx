@@ -1,0 +1,3 @@
+Expected Rule: [NGINX Host Header] Host header injection attempt detected
+Matched Rule: [NGINX Host Header] Host header injection attempt detected test_id=HHI_XFH_002-1772192228534-3vd0xo pattern_id=HHI_XFH_002 uri=/?q=X-Forwarded-Host%3A%20evil.com%2Freset client=127.0.0.1
+Rule Match: ✅ Match

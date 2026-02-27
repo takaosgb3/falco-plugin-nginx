@@ -1,0 +1,5 @@
+Pattern ID: CRLF_ENC_005
+        Status: passed
+        Latency: ~3000ms
+        Detection: 1 / 1
+        Rule: [NGINX CRLF] CRLF Injection attempt detected test_id=CRLF_ENC_005-1772192234564-gixfm pattern_id=CRLF_ENC_005 uri=/?q=%250d%250aInjected-Header%3Atrue client=127.0.0.1

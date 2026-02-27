@@ -1,0 +1,5 @@
+Pattern ID: GQL_INTRO_008
+        Status: passed
+        Latency: ~54000ms
+        Detection: 1 / 1
+        Rule: [NGINX GraphQL Attack] Introspection query detected test_id=GQL_INTRO_008-1772192183547-yufdqs pattern_id=GQL_INTRO_008 uri=/?q=__schema client=127.0.0.1

@@ -1,0 +1,5 @@
+Pattern ID: GQL_ALIAS_001
+        Status: passed
+        Latency: ~49000ms
+        Detection: 1 / 1
+        Rule: [NGINX GraphQL Attack] Introspection query detected test_id=GQL_ALIAS_001-1772192188560-n2ykko pattern_id=GQL_ALIAS_001 uri=/?q=query%7Ba%3A__type(name%3A%22User%22)%7Bfields%7Bname%7D%7Db%3A__type(name%3A%22Admin%22)%7Bfields%7Bname%7D%7D%7D client=127.0.0.1

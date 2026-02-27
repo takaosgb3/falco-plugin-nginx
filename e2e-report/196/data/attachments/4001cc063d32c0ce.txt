@@ -1,0 +1,3 @@
+Expected Rule: [NGINX CMDi] Advanced command injection attempt
+Matched Rule: [NGINX CMDi] Advanced command injection attempt test_id=CMDI_PS_002-1772192204665-79ggui pattern_id=CMDI_PS_002 uri=/?q=%3Bpowershell%20-enc%20JABjAGwAaQBlAG4AdA client=127.0.0.1
+Rule Match: ✅ Match

@@ -1,0 +1,3 @@
+Expected Rule: [NGINX SQLi] Boolean-based Blind SQL Injection
+Matched Rule: [NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_BOOL_001-1772192150554-uq1q9t pattern_id=SQLI_BOOL_001 uri=/?q=%27%20OR%20%271%27%3D%271 client=127.0.0.1 method=GET
+Rule Match: ✅ Match

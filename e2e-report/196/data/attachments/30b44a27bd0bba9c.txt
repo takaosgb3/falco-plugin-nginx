@@ -1,0 +1,5 @@
+Pattern ID: CMDI_CLOUD_003
+        Status: passed
+        Latency: ~34000ms
+        Detection: 1 / 1
+        Rule: [NGINX CMDi] Command injection via semicolon test_id=CMDI_CLOUD_003-1772192203662-xsksfl pattern_id=CMDI_CLOUD_003 uri=/?q=%3Baz%20account%20show client=127.0.0.1

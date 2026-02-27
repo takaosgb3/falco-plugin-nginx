@@ -1,0 +1,3 @@
+Expected Rule: [NGINX XSS] XSS Filter Bypass Attempt
+Matched Rule: [NGINX XSS] XSS Filter Bypass Attempt test_id=XSS_POLY_008-1772192182636-bk7ymw pattern_id=XSS_POLY_008 uri=/?q=%7Balert%28%27XSS%27%29%7D client=127.0.0.1 method=GET
+Rule Match: ✅ Match

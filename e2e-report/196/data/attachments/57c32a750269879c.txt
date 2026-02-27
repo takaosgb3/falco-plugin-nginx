@@ -1,0 +1,3 @@
+Expected Rule: [NGINX Emerging Threat] Template injection
+Matched Rule: [NGINX Emerging Threat] Template injection test_id=SSTI_JINJA_004-1772192195554-17j2ml pattern_id=SSTI_JINJA_004 uri=/?q=%7B%7B%27%27.__class__.__mro__%5B2%5D.__subclasses__%28%29%7D%7D client=127.0.0.1
+Rule Match: ✅ Match

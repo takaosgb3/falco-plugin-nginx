@@ -1,0 +1,5 @@
+Pattern ID: CRLF_HDR_003
+        Status: passed
+        Latency: ~13000ms
+        Detection: 1 / 1
+        Rule: [NGINX CRLF] CRLF Injection attempt detected test_id=CRLF_HDR_003-1772192224036-l7d2bb pattern_id=CRLF_HDR_003 uri=/?q=%0d%0aLocation%3Ahttp%3A%2F%2Fevil.com client=127.0.0.1

@@ -1,0 +1,5 @@
+Pattern ID: ENC_XSS_DBL_002
+        Status: passed
+        Latency: ~42000ms
+        Detection: 1 / 1
+        Rule: [NGINX XSS] XSS Filter Bypass Attempt test_id=ENC_XSS_DBL_002-1772192195674-zovmrj pattern_id=ENC_XSS_DBL_002 uri=/?q=%256Aavascript%253Aalert%25281%2529 client=127.0.0.1 method=GET

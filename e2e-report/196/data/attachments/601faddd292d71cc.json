@@ -1,0 +1,17 @@
+{
+  "pattern_id": "CRLF_RESP_004",
+  "test_id": "CRLF_RESP_004-1772192230554-r4ukr8",
+  "category": "crlf",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 7000,
+  "evidence": "11:37:10.000000000: Warning [NGINX CRLF] CRLF Injection attempt detected test_id=CRLF_RESP_004-1772192230554-r4ukr8 pattern_id=CRLF_RESP_004 uri=/?q=%0d%0a%0d%0a%3Cscript%3Ealert%281%29%3C%2Fscript%3E client=127.0.0.1",
+  "rule_name": "[NGINX CRLF] CRLF Injection attempt detected test_id=CRLF_RESP_004-1772192230554-r4ukr8 pattern_id=CRLF_RESP_004 uri=/?q=%0d%0a%0d%0a%3Cscript%3Ealert%281%29%3C%2Fscript%3E client=127.0.0.1",
+  "expected_rule": "[NGINX CRLF] CRLF Injection attempt detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX CRLF] CRLF Injection attempt detected test_id=CRLF_RESP_004-1772192230554-r4ukr8 pattern_id=CRLF_RESP_004 uri=/?q=%0d%0a%0d%0a%3Cscript%3Ealert%281%29%3C%2Fscript%3E client=127.0.0.1",
+  "sent_at": 1772192237000,
+  "detected_at": 1772192230000,
+  "status": "passed"
+}

@@ -1,0 +1,3 @@
+Expected Rule: [NGINX API Attack] API security vulnerability detected
+Matched Rule: [NGINX API Attack] API security vulnerability detected test_id=API_IDOR_001-1772192200038-3hj5c2 pattern_id=API_IDOR_001 uri=/?q=%2Fapi%2Fv1%2Forders%2F99999%2Finvoice client=127.0.0.1
+Rule Match: ✅ Match

@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SENSITIVE_SSH_001",
+  "test_id": "SENSITIVE_SSH_001-1772192172057-0zs29",
+  "category": "other",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 86335000,
+  "evidence": "11:36:12.000000000: Warning [NGINX Sensitive] Sensitive file access attempt detected test_id=SENSITIVE_SSH_001-1772192172057-0zs29 pattern_id=SENSITIVE_SSH_001 uri=/?q=%2F.ssh%2Fid_rsa client=127.0.0.1",
+  "rule_name": "[NGINX Sensitive] Sensitive file access attempt detected test_id=SENSITIVE_SSH_001-1772192172057-0zs29 pattern_id=SENSITIVE_SSH_001 uri=/?q=%2F.ssh%2Fid_rsa client=127.0.0.1",
+  "expected_rule": "[NGINX Sensitive] Sensitive file access attempt detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Sensitive] Sensitive file access attempt detected test_id=SENSITIVE_SSH_001-1772192172057-0zs29 pattern_id=SENSITIVE_SSH_001 uri=/?q=%2F.ssh%2Fid_rsa client=127.0.0.1",
+  "sent_at": 1772192237000,
+  "detected_at": 1772192172000,
+  "status": "passed"
+}

@@ -1,0 +1,17 @@
+{
+  "pattern_id": "XPATH_FUNC_005",
+  "test_id": "XPATH_FUNC_005-1772192190555-h52re9",
+  "category": "xpath",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 47000,
+  "evidence": "11:36:30.000000000: Warning [NGINX XPath Injection] XPath injection attempt test_id=XPATH_FUNC_005-1772192190555-h52re9 pattern_id=XPATH_FUNC_005 uri=/?q=concat%28%2F%2Fuser%5B1%5D%2Fname%2C%27_%27%2C%2F%2Fuser%5B1%5D%2Frole%29 client=127.0.0.1",
+  "rule_name": "[NGINX XPath Injection] XPath injection attempt test_id=XPATH_FUNC_005-1772192190555-h52re9 pattern_id=XPATH_FUNC_005 uri=/?q=concat%28%2F%2Fuser%5B1%5D%2Fname%2C%27_%27%2C%2F%2Fuser%5B1%5D%2Frole%29 client=127.0.0.1",
+  "expected_rule": "[NGINX XPath Injection] XPath injection attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX XPath Injection] XPath injection attempt test_id=XPATH_FUNC_005-1772192190555-h52re9 pattern_id=XPATH_FUNC_005 uri=/?q=concat%28%2F%2Fuser%5B1%5D%2Fname%2C%27_%27%2C%2F%2Fuser%5B1%5D%2Frole%29 client=127.0.0.1",
+  "sent_at": 1772192237000,
+  "detected_at": 1772192190000,
+  "status": "passed"
+}

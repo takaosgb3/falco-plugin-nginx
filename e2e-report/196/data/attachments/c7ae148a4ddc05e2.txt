@@ -1,0 +1,5 @@
+Pattern ID: SSRF_DNS_005
+        Status: passed
+        Latency: ~9000ms
+        Detection: 1 / 1
+        Rule: [NGINX SSRF] SSRF attack attempt detected test_id=SSRF_DNS_005-1772192228061-dbj64i pattern_id=SSRF_DNS_005 uri=/?q=http%3A%2F%2F127.1%2F client=127.0.0.1

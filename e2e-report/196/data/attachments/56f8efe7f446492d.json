@@ -1,0 +1,17 @@
+{
+  "pattern_id": "CMDI_CLOUD_002",
+  "test_id": "CMDI_CLOUD_002-1772192203160-gflqqt",
+  "category": "cmdinj",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 34000,
+  "evidence": "11:36:43.000000000: Critical [NGINX CMDi] Command injection via semicolon test_id=CMDI_CLOUD_002-1772192203160-gflqqt pattern_id=CMDI_CLOUD_002 uri=/?q=%3Bgcloud%20auth%20list client=127.0.0.1",
+  "rule_name": "[NGINX CMDi] Command injection via semicolon test_id=CMDI_CLOUD_002-1772192203160-gflqqt pattern_id=CMDI_CLOUD_002 uri=/?q=%3Bgcloud%20auth%20list client=127.0.0.1",
+  "expected_rule": "[NGINX CMDi] Command injection via semicolon",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX CMDi] Command injection via semicolon test_id=CMDI_CLOUD_002-1772192203160-gflqqt pattern_id=CMDI_CLOUD_002 uri=/?q=%3Bgcloud%20auth%20list client=127.0.0.1",
+  "sent_at": 1772192237000,
+  "detected_at": 1772192203000,
+  "status": "passed"
+}

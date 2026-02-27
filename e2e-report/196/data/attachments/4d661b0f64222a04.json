@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SSTI_HANDLE_001",
+  "test_id": "SSTI_HANDLE_001-1772192197058-pnghoj",
+  "category": "ssti",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 40000,
+  "evidence": "11:36:37.000000000: Critical [NGINX Emerging Threat] Template injection test_id=SSTI_HANDLE_001-1772192197058-pnghoj pattern_id=SSTI_HANDLE_001 uri=/?q=%7B%7B%23with%20%22s%22%20as%20%7Cstring%7C%7D%7D%7B%7Bstring.sub%20%22constructor%22%7D%7D%7B%7B%2Fwith%7D%7D client=127.0.0.1",
+  "rule_name": "[NGINX Emerging Threat] Template injection test_id=SSTI_HANDLE_001-1772192197058-pnghoj pattern_id=SSTI_HANDLE_001 uri=/?q=%7B%7B%23with%20%22s%22%20as%20%7Cstring%7C%7D%7D%7B%7Bstring.sub%20%22constructor%22%7D%7D%7B%7B%2Fwith%7D%7D client=127.0.0.1",
+  "expected_rule": "[NGINX Emerging Threat] Template injection",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Emerging Threat] Template injection test_id=SSTI_HANDLE_001-1772192197058-pnghoj pattern_id=SSTI_HANDLE_001 uri=/?q=%7B%7B%23with%20%22s%22%20as%20%7Cstring%7C%7D%7D%7B%7Bstring.sub%20%22constructor%22%7D%7D%7B%7B%2Fwith%7D%7D client=127.0.0.1",
+  "sent_at": 1772192237000,
+  "detected_at": 1772192197000,
+  "status": "passed"
+}

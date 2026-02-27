@@ -1,0 +1,17 @@
+{
+  "pattern_id": "API_MASS_003",
+  "test_id": "API_MASS_003-1772192202043-qxkffo",
+  "category": "api_security",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 35000,
+  "evidence": "11:36:42.000000000: Warning [NGINX API Attack] API security vulnerability detected test_id=API_MASS_003-1772192202043-qxkffo pattern_id=API_MASS_003 uri=/?q=%7B%22email%22%3A%22test%40test.com%22%2C%22role%22%3A%22admin%22%7D client=127.0.0.1",
+  "rule_name": "[NGINX API Attack] API security vulnerability detected test_id=API_MASS_003-1772192202043-qxkffo pattern_id=API_MASS_003 uri=/?q=%7B%22email%22%3A%22test%40test.com%22%2C%22role%22%3A%22admin%22%7D client=127.0.0.1",
+  "expected_rule": "[NGINX API Attack] API security vulnerability detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX API Attack] API security vulnerability detected test_id=API_MASS_003-1772192202043-qxkffo pattern_id=API_MASS_003 uri=/?q=%7B%22email%22%3A%22test%40test.com%22%2C%22role%22%3A%22admin%22%7D client=127.0.0.1",
+  "sent_at": 1772192237000,
+  "detected_at": 1772192202000,
+  "status": "passed"
+}

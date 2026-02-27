@@ -1,0 +1,5 @@
+Pattern ID: ENC_CMDI_DBL_002
+        Status: passed
+        Latency: ~31000ms
+        Detection: 1 / 1
+        Rule: [NGINX CMDi] Advanced command injection attempt test_id=ENC_CMDI_DBL_002-1772192206670-uog0oc pattern_id=ENC_CMDI_DBL_002 uri=/?q=%257Cwhoami client=127.0.0.1

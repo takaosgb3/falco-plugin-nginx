@@ -1,0 +1,17 @@
+{
+  "pattern_id": "CMDI_PS_002",
+  "test_id": "CMDI_PS_002-1772192204665-79ggui",
+  "category": "cmdinj",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 33000,
+  "evidence": "11:36:44.000000000: Warning [NGINX CMDi] Advanced command injection attempt test_id=CMDI_PS_002-1772192204665-79ggui pattern_id=CMDI_PS_002 uri=/?q=%3Bpowershell%20-enc%20JABjAGwAaQBlAG4AdA client=127.0.0.1",
+  "rule_name": "[NGINX CMDi] Advanced command injection attempt test_id=CMDI_PS_002-1772192204665-79ggui pattern_id=CMDI_PS_002 uri=/?q=%3Bpowershell%20-enc%20JABjAGwAaQBlAG4AdA client=127.0.0.1",
+  "expected_rule": "[NGINX CMDi] Advanced command injection attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX CMDi] Advanced command injection attempt test_id=CMDI_PS_002-1772192204665-79ggui pattern_id=CMDI_PS_002 uri=/?q=%3Bpowershell%20-enc%20JABjAGwAaQBlAG4AdA client=127.0.0.1",
+  "sent_at": 1772192237000,
+  "detected_at": 1772192204000,
+  "status": "passed"
+}

@@ -1,0 +1,17 @@
+{
+  "pattern_id": "PATH_UNI_003",
+  "test_id": "PATH_UNI_003-1772192185623-vbai4",
+  "category": "path",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 52000,
+  "evidence": "11:36:25.000000000: Critical [NGINX Traversal] File inclusion attack detected test_id=PATH_UNI_003-1772192185623-vbai4 pattern_id=PATH_UNI_003 uri=/?q=%EF%BC%85%EF%BC%92%EF%BD%85%EF%BC%85%EF%BC%92%EF%BD%85%2Fetc%2Fpasswd client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] File inclusion attack detected test_id=PATH_UNI_003-1772192185623-vbai4 pattern_id=PATH_UNI_003 uri=/?q=%EF%BC%85%EF%BC%92%EF%BD%85%EF%BC%85%EF%BC%92%EF%BD%85%2Fetc%2Fpasswd client=127.0.0.1",
+  "expected_rule": "[NGINX Traversal] File inclusion attack detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Traversal] File inclusion attack detected test_id=PATH_UNI_003-1772192185623-vbai4 pattern_id=PATH_UNI_003 uri=/?q=%EF%BC%85%EF%BC%92%EF%BD%85%EF%BC%85%EF%BC%92%EF%BD%85%2Fetc%2Fpasswd client=127.0.0.1",
+  "sent_at": 1772192237000,
+  "detected_at": 1772192185000,
+  "status": "passed"
+}
