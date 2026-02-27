@@ -2107,6 +2107,13 @@
       comps: in
       values:
         - HHI_ENC_002
+    # Issue #804 Fix: Host Header CRLF patterns with %0d%0a triggers
+    - name: phase11_hhi_crlf_cmdi
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - HHI_CRLF_001
+        - HHI_CRLF_002
 
 # ==============================================================================
 # Emerging Threats Detection Rules (from advanced_emerging_enhanced.yaml)
