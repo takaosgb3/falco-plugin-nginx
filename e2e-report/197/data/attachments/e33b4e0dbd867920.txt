@@ -1,0 +1,3 @@
+Expected Rule: [NGINX HPP] HTTP Parameter Pollution attempt detected
+Matched Rule: [NGINX HPP] HTTP Parameter Pollution attempt detected test_id=HPP_DEBUG_001-1772193356057-pqw16 pattern_id=HPP_DEBUG_001 uri=/?q=%26debug%3D1%26verbose%3Dtrue client=127.0.0.1
+Rule Match: ✅ Match

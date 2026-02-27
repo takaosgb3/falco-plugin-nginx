@@ -1,0 +1,3 @@
+Expected Rule: [NGINX XPath Injection] XPath injection attempt
+Matched Rule: [NGINX XPath Injection] XPath injection attempt test_id=XPATH_BOOL_002-1772193308062-toqdtee pattern_id=XPATH_BOOL_002 uri=/?q=%27%20or%20true%28%29%20or%20%27 client=127.0.0.1
+Rule Match: ✅ Match

@@ -1,0 +1,5 @@
+Pattern ID: SQLI_ERR_001
+        Status: passed
+        Latency: ~81000ms
+        Detection: 1 / 1
+        Rule: [NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_ERR_001-1772193278587-4ybja pattern_id=SQLI_ERR_001 uri=/?q=EXTRACTVALUE(1%2CCONCAT(0x7e%2Cversion())) client=127.0.0.1 method=GET

@@ -1,0 +1,5 @@
+Pattern ID: AUTH_API_001
+        Status: passed
+        Latency: N/A
+        Detection: 0 / 1
+        Rule:

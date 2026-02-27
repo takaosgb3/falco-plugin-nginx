@@ -1,0 +1,5 @@
+Pattern ID: API_OAUTH_001
+        Status: passed
+        Latency: ~28000ms
+        Detection: 1 / 1
+        Rule: [NGINX API Attack] API security vulnerability detected test_id=API_OAUTH_001-1772193331582-128dk pattern_id=API_OAUTH_001 uri=/?q=redirect_uri%3Dhttp%3A%2F%2Fevil.com%2Fcallback client=127.0.0.1

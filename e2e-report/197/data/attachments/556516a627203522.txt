@@ -1,0 +1,5 @@
+Pattern ID: SSTI_RAZOR_001
+        Status: passed
+        Latency: ~38000ms
+        Detection: 1 / 1
+        Rule: [NGINX SSTI] Server-Side Template Injection detected test_id=SSTI_RAZOR_001-1772193321077-b9rhcr pattern_id=SSTI_RAZOR_001 uri=/?q=%40%7Bvar%20x%20%3D%20System.Diagnostics.Process.Start%28%22cmd%22%29%3B%7D client=127.0.0.1

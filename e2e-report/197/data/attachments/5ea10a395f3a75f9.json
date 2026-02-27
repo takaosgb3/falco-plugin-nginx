@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SQLI_POLY_005",
+  "test_id": "SQLI_POLY_005-1772193328703-k22i1w",
+  "category": "sqli",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 31000,
+  "evidence": "11:55:28.000000000: Warning [NGINX XSS] XSS Filter Bypass Attempt test_id=SQLI_POLY_005-1772193328703-k22i1w pattern_id=SQLI_POLY_005 uri=/?q=%27%22%3E%3Cscript%3Ealert%281%29%3C%2Fscript%3E--%20- client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX XSS] XSS Filter Bypass Attempt test_id=SQLI_POLY_005-1772193328703-k22i1w pattern_id=SQLI_POLY_005 uri=/?q=%27%22%3E%3Cscript%3Ealert%281%29%3C%2Fscript%3E--%20- client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX XSS] XSS Filter Bypass Attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX XSS] XSS Filter Bypass Attempt test_id=SQLI_POLY_005-1772193328703-k22i1w pattern_id=SQLI_POLY_005 uri=/?q=%27%22%3E%3Cscript%3Ealert%281%29%3C%2Fscript%3E--%20- client=127.0.0.1 method=GET",
+  "sent_at": 1772193359000,
+  "detected_at": 1772193328000,
+  "status": "passed"
+}

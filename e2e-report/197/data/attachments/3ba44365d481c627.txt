@@ -1,0 +1,1 @@
+Test passed: HRS_ENCLEN_001

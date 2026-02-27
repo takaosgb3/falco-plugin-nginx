@@ -1,0 +1,3 @@
+Expected Rule: [NGINX XSS] XSS Filter Bypass Attempt
+Matched Rule: [NGINX XSS] XSS Filter Bypass Attempt test_id=SQLI_POLY_005-1772193328703-k22i1w pattern_id=SQLI_POLY_005 uri=/?q=%27%22%3E%3Cscript%3Ealert%281%29%3C%2Fscript%3E--%20- client=127.0.0.1 method=GET
+Rule Match: ✅ Match

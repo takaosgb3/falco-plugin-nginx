@@ -1,0 +1,17 @@
+{
+  "pattern_id": "GQL_ALIAS_001",
+  "test_id": "GQL_ALIAS_001-1772193310577-6fj4ym",
+  "category": "graphql",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 49000,
+  "evidence": "11:55:10.000000000: Warning [NGINX GraphQL Attack] Introspection query detected test_id=GQL_ALIAS_001-1772193310577-6fj4ym pattern_id=GQL_ALIAS_001 uri=/?q=query%7Ba%3A__type(name%3A%22User%22)%7Bfields%7Bname%7D%7Db%3A__type(name%3A%22Admin%22)%7Bfields%7Bname%7D%7D%7D client=127.0.0.1",
+  "rule_name": "[NGINX GraphQL Attack] Introspection query detected test_id=GQL_ALIAS_001-1772193310577-6fj4ym pattern_id=GQL_ALIAS_001 uri=/?q=query%7Ba%3A__type(name%3A%22User%22)%7Bfields%7Bname%7D%7Db%3A__type(name%3A%22Admin%22)%7Bfields%7Bname%7D%7D%7D client=127.0.0.1",
+  "expected_rule": "[NGINX GraphQL Attack] Introspection query detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX GraphQL Attack] Introspection query detected test_id=GQL_ALIAS_001-1772193310577-6fj4ym pattern_id=GQL_ALIAS_001 uri=/?q=query%7Ba%3A__type(name%3A%22User%22)%7Bfields%7Bname%7D%7Db%3A__type(name%3A%22Admin%22)%7Bfields%7Bname%7D%7D%7D client=127.0.0.1",
+  "sent_at": 1772193359000,
+  "detected_at": 1772193310000,
+  "status": "passed"
+}

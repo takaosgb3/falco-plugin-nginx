@@ -1,0 +1,1 @@
+Test passed: XXE_ENCODE_002

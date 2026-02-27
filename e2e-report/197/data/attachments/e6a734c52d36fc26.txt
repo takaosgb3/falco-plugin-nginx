@@ -1,0 +1,5 @@
+Pattern ID: PICKLE_DESER_012
+        Status: passed
+        Latency: ~29000ms
+        Detection: 1 / 1
+        Rule: [NGINX Pickle Attack] Pickle deserialization attack attempt test_id=PICKLE_DESER_012-1772193330568-ae3ju4 pattern_id=PICKLE_DESER_012 uri=/?q=%5F%5Fclass%5F%5F.%5F%5Fmro%5F%5F%5B3%5D client=127.0.0.1

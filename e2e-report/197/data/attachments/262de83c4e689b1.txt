@@ -1,0 +1,5 @@
+Pattern ID: SQLI_ERROR_007
+        Status: passed
+        Latency: ~69000ms
+        Detection: 1 / 1
+        Rule: [NGINX SQLi] Error-based SQL Injection test_id=SQLI_ERROR_007-1772193290112-zx3q0r pattern_id=SQLI_ERROR_007 uri=/?q=%27%20AND%20%28SELECT%20%2A%20FROM%20information_schema.tables%20LIMIT%201%29%20-- client=127.0.0.1 method=GET

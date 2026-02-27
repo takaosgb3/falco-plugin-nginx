@@ -1,0 +1,5 @@
+Pattern ID: XSS_BYPASS_011
+        Status: passed
+        Latency: ~47000ms
+        Detection: 1 / 1
+        Rule: [NGINX XSS] XSS Filter Bypass Attempt test_id=XSS_BYPASS_011-1772193312152-8lcsx6 pattern_id=XSS_BYPASS_011 uri=/?q=-moz-binding:url%28evil%29 client=127.0.0.1 method=GET

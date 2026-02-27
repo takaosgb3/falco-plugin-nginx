@@ -1,0 +1,5 @@
+Pattern ID: SSRF_INT_007
+        Status: passed
+        Latency: ~8000ms
+        Detection: 1 / 1
+        Rule: [NGINX SSRF] SSRF attack attempt detected test_id=SSRF_INT_007-1772193351084-tl7aw pattern_id=SSRF_INT_007 uri=/?q=http%3A%2F%2Flocalhost%3A2379%2Fv2%2Fkeys client=127.0.0.1

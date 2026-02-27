@@ -1,0 +1,3 @@
+Expected Rule: [NGINX CRLF] CRLF Injection attempt detected
+Matched Rule: [NGINX CRLF] CRLF Injection attempt detected test_id=CRLF_CACHE_002-1772193355077-lr5spc pattern_id=CRLF_CACHE_002 uri=/?q=%0d%0aX-Original-URL%3A%2Fadmin client=127.0.0.1
+Rule Match: ✅ Match

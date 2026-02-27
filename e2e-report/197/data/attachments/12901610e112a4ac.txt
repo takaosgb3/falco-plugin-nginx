@@ -1,0 +1,5 @@
+Pattern ID: HHI_CRLF_002
+        Status: passed
+        Latency: ~7000ms
+        Detection: 1 / 1
+        Rule: [NGINX Host Header] Host header injection attempt detected test_id=HHI_CRLF_002-1772193352560-qgibj pattern_id=HHI_CRLF_002 uri=/?q=%0d%0aX-Forwarded-Host%3A%20evil.com client=127.0.0.1

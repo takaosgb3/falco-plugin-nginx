@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SQLI_ADV_086",
+  "test_id": "SQLI_ADV_086-1772193307651-zzhze",
+  "category": "sqli",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 52000,
+  "evidence": "11:55:07.000000000: Warning [NGINX SQLi] Advanced SQL Injection Attempt test_id=SQLI_ADV_086-1772193307651-zzhze pattern_id=SQLI_ADV_086 uri=/?q=INSERT%20INTO%20users%20VALUES client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Advanced SQL Injection Attempt test_id=SQLI_ADV_086-1772193307651-zzhze pattern_id=SQLI_ADV_086 uri=/?q=INSERT%20INTO%20users%20VALUES client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX SQLi] Advanced SQL Injection Attempt test_id=SQLI_ADV_086-1772193307651-zzhze pattern_id=SQLI_ADV_086 uri=/?q=INSERT%20INTO%20users%20VALUES client=127.0.0.1 method=GET",
+  "sent_at": 1772193359000,
+  "detected_at": 1772193307000,
+  "status": "passed"
+}

