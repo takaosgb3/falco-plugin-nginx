@@ -2500,6 +2500,12 @@
       comps: in
       values:
         - SSTI_LOG4S_001
+    # Phase 12: Normal GraphQL query contains %7D%7D (}}) matching template injection
+    - name: phase12_fp_graphql_template
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - FP_API_002
   output: "[NGINX Emerging Threat] Template injection test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: CRITICAL
   tags: [security, emerging_threats, ssti, template_injection, phase5]
@@ -2943,6 +2949,12 @@
       comps: in
       values:
         - HPP_WAF_001
+    # Phase 12: Normal RS256 JWT matches eyJhbGciOi (false positive)
+    - name: phase12_fp_jwt_normal
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - FP_JWT_001
 
 # ==============================================================================
 # Phase 5 New Rules: Pickle Deserialization (Issue #64)
