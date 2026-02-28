@@ -1,0 +1,1 @@
+Test passed: SSRF_AZURE_002

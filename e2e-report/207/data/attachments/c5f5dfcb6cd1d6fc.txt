@@ -1,0 +1,3 @@
+Expected Rule: [NGINX API Attack] API security vulnerability detected
+Matched Rule: [NGINX API Attack] API security vulnerability detected test_id=API_OAUTH_001-1772268947124-n16vzo pattern_id=API_OAUTH_001 uri=/?q=redirect_uri%3Dhttp%3A%2F%2Fevil.com%2Fcallback client=127.0.0.1
+Rule Match: ✅ Match

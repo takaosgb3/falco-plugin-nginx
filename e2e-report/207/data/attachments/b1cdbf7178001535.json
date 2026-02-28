@@ -1,0 +1,17 @@
+{
+  "pattern_id": "API_OAUTH_003",
+  "test_id": "API_OAUTH_003-1772268948126-mkddl",
+  "category": "api_security",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 41000,
+  "evidence": "08:55:48.000000000: Warning [NGINX API Attack] API security vulnerability detected test_id=API_OAUTH_003-1772268948126-mkddl pattern_id=API_OAUTH_003 uri=/?q=scope%3Dadmin%3Aall client=127.0.0.1",
+  "rule_name": "[NGINX API Attack] API security vulnerability detected test_id=API_OAUTH_003-1772268948126-mkddl pattern_id=API_OAUTH_003 uri=/?q=scope%3Dadmin%3Aall client=127.0.0.1",
+  "expected_rule": "[NGINX API Attack] API security vulnerability detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX API Attack] API security vulnerability detected test_id=API_OAUTH_003-1772268948126-mkddl pattern_id=API_OAUTH_003 uri=/?q=scope%3Dadmin%3Aall client=127.0.0.1",
+  "sent_at": 1772268989000,
+  "detected_at": 1772268948000,
+  "status": "passed"
+}

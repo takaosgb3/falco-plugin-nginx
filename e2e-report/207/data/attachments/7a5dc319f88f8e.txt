@@ -1,0 +1,5 @@
+Pattern ID: XSS_REFL_014
+        Status: passed
+        Latency: ~97000ms
+        Detection: 1 / 1
+        Rule: [NGINX XSS] DOM-based XSS Attack test_id=XSS_REFL_014-1772268892112-a75d4b pattern_id=XSS_REFL_014 uri=/?q=%3Ca%20href%3D%22javascript%3Aalert(1)%22%3Eclick%3C%2Fa%3E client=127.0.0.1 method=GET

@@ -1,0 +1,3 @@
+Expected Rule: [NGINX SQLi] Boolean-based Blind SQL Injection
+Matched Rule: [NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_BOOL_007-1772268892623-ah7r8n pattern_id=SQLI_BOOL_007 uri=/?q='%20AND%20SUBSTRING(username%2C1%2C1)%3D'a client=127.0.0.1 method=GET
+Rule Match: ✅ Match

@@ -1,0 +1,5 @@
+Pattern ID: JWT_CONFUSION_001
+        Status: passed
+        Latency: ~2000ms
+        Detection: 1 / 1
+        Rule: [NGINX API Attack] API security vulnerability detected test_id=JWT_CONFUSION_001-1772268987099-lc1qpf pattern_id=JWT_CONFUSION_001 uri=/?q=eyJhbGciOiJIUzI1NiJ9.eyJhZG1pbiI6dHJ1ZX0. client=127.0.0.1

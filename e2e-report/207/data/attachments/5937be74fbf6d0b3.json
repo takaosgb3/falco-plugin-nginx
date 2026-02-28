@@ -1,0 +1,17 @@
+{
+  "pattern_id": "XPATH_COMMENT_001",
+  "test_id": "XPATH_COMMENT_001-1772268932623-pkqc9m",
+  "category": "xpath",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 57000,
+  "evidence": "08:55:32.000000000: Warning [NGINX XPath Injection] XPath injection attempt test_id=XPATH_COMMENT_001-1772268932623-pkqc9m pattern_id=XPATH_COMMENT_001 uri=/?q=%27%20or%201%3D1%20%28%3A%20XPath%20comment%20%3A%29 client=127.0.0.1",
+  "rule_name": "[NGINX XPath Injection] XPath injection attempt test_id=XPATH_COMMENT_001-1772268932623-pkqc9m pattern_id=XPATH_COMMENT_001 uri=/?q=%27%20or%201%3D1%20%28%3A%20XPath%20comment%20%3A%29 client=127.0.0.1",
+  "expected_rule": "[NGINX XPath Injection] XPath injection attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX XPath Injection] XPath injection attempt test_id=XPATH_COMMENT_001-1772268932623-pkqc9m pattern_id=XPATH_COMMENT_001 uri=/?q=%27%20or%201%3D1%20%28%3A%20XPath%20comment%20%3A%29 client=127.0.0.1",
+  "sent_at": 1772268989000,
+  "detected_at": 1772268932000,
+  "status": "passed"
+}

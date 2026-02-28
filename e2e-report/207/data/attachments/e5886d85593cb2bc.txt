@@ -1,0 +1,3 @@
+Expected Rule: [NGINX SQLi] Advanced SQL Injection Attempt
+Matched Rule: [NGINX SQLi] Advanced SQL Injection Attempt test_id=SQLI_2ND_008-1772268943738-y7r9o4 pattern_id=SQLI_2ND_008 uri=/?q=123%20Main%20St%27%3B%20DROP%20TABLE-- client=127.0.0.1 method=GET
+Rule Match: ✅ Match

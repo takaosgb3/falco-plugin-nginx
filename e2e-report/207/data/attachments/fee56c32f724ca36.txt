@@ -1,0 +1,5 @@
+Pattern ID: LDAP_BLIND_007
+        Status: passed
+        Latency: ~76000ms
+        Detection: 1 / 1
+        Rule: [NGINX SQLi] Boolean-based Blind SQL Injection test_id=LDAP_BLIND_007-1772268913111-zs35ke pattern_id=LDAP_BLIND_007 uri=/?q=%2A%29%28uid%3Dadmin%29%28password%3Dtest%2A client=127.0.0.1 method=GET

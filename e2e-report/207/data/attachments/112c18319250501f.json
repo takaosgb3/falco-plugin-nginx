@@ -1,0 +1,17 @@
+{
+  "pattern_id": "HHI_CRLF_002",
+  "test_id": "HHI_CRLF_002-1772268968101-mnpdl8",
+  "category": "host_header",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 21000,
+  "evidence": "08:56:08.000000000: Warning [NGINX Host Header] Host header injection attempt detected test_id=HHI_CRLF_002-1772268968101-mnpdl8 pattern_id=HHI_CRLF_002 uri=/?q=%0d%0aX-Forwarded-Host%3A%20evil.com client=127.0.0.1",
+  "rule_name": "[NGINX Host Header] Host header injection attempt detected test_id=HHI_CRLF_002-1772268968101-mnpdl8 pattern_id=HHI_CRLF_002 uri=/?q=%0d%0aX-Forwarded-Host%3A%20evil.com client=127.0.0.1",
+  "expected_rule": "[NGINX Host Header] Host header injection attempt detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Host Header] Host header injection attempt detected test_id=HHI_CRLF_002-1772268968101-mnpdl8 pattern_id=HHI_CRLF_002 uri=/?q=%0d%0aX-Forwarded-Host%3A%20evil.com client=127.0.0.1",
+  "sent_at": 1772268989000,
+  "detected_at": 1772268968000,
+  "status": "passed"
+}

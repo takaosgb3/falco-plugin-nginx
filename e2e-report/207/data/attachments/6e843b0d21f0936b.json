@@ -1,0 +1,17 @@
+{
+  "pattern_id": "API_OAUTH_002",
+  "test_id": "API_OAUTH_002-1772268947625-w7tn9",
+  "category": "api_security",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 42000,
+  "evidence": "08:55:47.000000000: Warning [NGINX API Attack] API security vulnerability detected test_id=API_OAUTH_002-1772268947625-w7tn9 pattern_id=API_OAUTH_002 uri=/?q=state%3D%26code%3Dauth_code client=127.0.0.1",
+  "rule_name": "[NGINX API Attack] API security vulnerability detected test_id=API_OAUTH_002-1772268947625-w7tn9 pattern_id=API_OAUTH_002 uri=/?q=state%3D%26code%3Dauth_code client=127.0.0.1",
+  "expected_rule": "[NGINX API Attack] API security vulnerability detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX API Attack] API security vulnerability detected test_id=API_OAUTH_002-1772268947625-w7tn9 pattern_id=API_OAUTH_002 uri=/?q=state%3D%26code%3Dauth_code client=127.0.0.1",
+  "sent_at": 1772268989000,
+  "detected_at": 1772268947000,
+  "status": "passed"
+}

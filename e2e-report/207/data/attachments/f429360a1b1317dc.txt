@@ -1,0 +1,3 @@
+Expected Rule: [NGINX Sensitive] Sensitive file access attempt detected
+Matched Rule: [NGINX SQLi] Error-based SQL Injection test_id=SENSITIVE_BACKUP_001-1772268915128-g23ryd pattern_id=SENSITIVE_BACKUP_001 uri=/?q=%2Fdatabase.sql.bak client=127.0.0.1 method=GET
+Rule Match: ❌ Mismatch

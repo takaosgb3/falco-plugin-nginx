@@ -1,0 +1,3 @@
+Expected Rule: [NGINX SQLi] Error-based SQL Injection
+Matched Rule: [NGINX SQLi] Error-based SQL Injection test_id=SQLI_UNION_004-1772268903147-c2s35d pattern_id=SQLI_UNION_004 uri=/?q=%27%20UNION%20SELECT%20table_name%2CNULL%2CNULL%20FROM%20information_schema.tables%20-- client=127.0.0.1 method=GET
+Rule Match: ✅ Match

@@ -1,0 +1,5 @@
+Pattern ID: HPP_MULTI_002
+        Status: passed
+        Latency: ~12000ms
+        Detection: 1 / 1
+        Rule: [NGINX HPP] HTTP Parameter Pollution attempt detected test_id=HPP_MULTI_002-1772268977110-as6a4b pattern_id=HPP_MULTI_002 uri=/?q=%26authenticated%3Dtrue%26bypass%3Dtrue client=127.0.0.1

@@ -1,0 +1,3 @@
+Expected Rule: [NGINX Sensitive] Sensitive file access attempt detected
+Matched Rule: [NGINX Sensitive] Sensitive file access attempt detected test_id=SENSITIVE_K8S_001-1772268914126-o7uwhd pattern_id=SENSITIVE_K8S_001 uri=/?q=%2Fkubernetes.yml client=127.0.0.1
+Rule Match: ✅ Match

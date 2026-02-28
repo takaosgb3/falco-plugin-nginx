@@ -1,0 +1,5 @@
+Pattern ID: API_JWT_004
+        Status: passed
+        Latency: ~44000ms
+        Detection: 1 / 1
+        Rule: [NGINX API Attack] API security vulnerability detected test_id=API_JWT_004-1772268945620-qi67vy pattern_id=API_JWT_004 uri=/?q=eyJhbGciOiJub25lIn0 client=127.0.0.1

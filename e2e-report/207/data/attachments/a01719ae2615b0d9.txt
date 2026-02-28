@@ -1,0 +1,1 @@
+Test passed: REDIR_URL_003

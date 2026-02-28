@@ -1,0 +1,3 @@
+Expected Rule: [NGINX CMDi] Command substitution attack
+Matched Rule: [NGINX CMDi] Command substitution attack test_id=CMD_ADV_060-1772268925162-03ferj pattern_id=CMD_ADV_060 uri=/?q=%60id%60 client=127.0.0.1
+Rule Match: ✅ Match

@@ -1,0 +1,17 @@
+{
+  "pattern_id": "XPATH_ENUM_002",
+  "test_id": "XPATH_ENUM_002-1772268926609-1k0h3c",
+  "category": "xpath",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 86337000,
+  "evidence": "08:55:26.000000000: Warning [NGINX XPath Injection] XPath injection attempt test_id=XPATH_ENUM_002-1772268926609-1k0h3c pattern_id=XPATH_ENUM_002 uri=/?q=string-length%28%2F%2Fpassword%29%3E0 client=127.0.0.1",
+  "rule_name": "[NGINX XPath Injection] XPath injection attempt test_id=XPATH_ENUM_002-1772268926609-1k0h3c pattern_id=XPATH_ENUM_002 uri=/?q=string-length%28%2F%2Fpassword%29%3E0 client=127.0.0.1",
+  "expected_rule": "[NGINX XPath Injection] XPath injection attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX XPath Injection] XPath injection attempt test_id=XPATH_ENUM_002-1772268926609-1k0h3c pattern_id=XPATH_ENUM_002 uri=/?q=string-length%28%2F%2Fpassword%29%3E0 client=127.0.0.1",
+  "sent_at": 1772268989000,
+  "detected_at": 1772268926000,
+  "status": "passed"
+}

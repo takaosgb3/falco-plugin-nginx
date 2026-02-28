@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SENSITIVE_ENV_001",
+  "test_id": "SENSITIVE_ENV_001-1772268908615-g09dc9",
+  "category": "other",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 86319000,
+  "evidence": "08:55:08.000000000: Warning [NGINX Sensitive] Sensitive file access attempt detected test_id=SENSITIVE_ENV_001-1772268908615-g09dc9 pattern_id=SENSITIVE_ENV_001 uri=/?q=%2F.env client=127.0.0.1",
+  "rule_name": "[NGINX Sensitive] Sensitive file access attempt detected test_id=SENSITIVE_ENV_001-1772268908615-g09dc9 pattern_id=SENSITIVE_ENV_001 uri=/?q=%2F.env client=127.0.0.1",
+  "expected_rule": "[NGINX Sensitive] Sensitive file access attempt detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Sensitive] Sensitive file access attempt detected test_id=SENSITIVE_ENV_001-1772268908615-g09dc9 pattern_id=SENSITIVE_ENV_001 uri=/?q=%2F.env client=127.0.0.1",
+  "sent_at": 1772268989000,
+  "detected_at": 1772268908000,
+  "status": "passed"
+}

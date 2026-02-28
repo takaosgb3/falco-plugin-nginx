@@ -1,0 +1,3 @@
+Expected Rule: [NGINX Redirect] Open redirect attempt detected
+Matched Rule: [NGINX Redirect] Open redirect attempt detected test_id=REDIR_PROTO_002-1772268978100-k0kszc pattern_id=REDIR_PROTO_002 uri=/?q=url%3Djavascript%3Aalert%281%29 client=127.0.0.1
+Rule Match: ✅ Match
