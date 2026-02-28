@@ -1,7 +1,7 @@
 {
   "metadata": {
     "category": "host_header",
-    "total_patterns": 10,
+    "total_patterns": 15,
     "port": 80,
     "description": "k6 test patterns for Host Header Injection attacks",
     "phase": "Phase 11"
@@ -126,6 +126,66 @@
       "expected_detection": false,
       "severity": "medium",
       "expected_rule": "NONE"
+    },
+    {
+      "id": "HHI_CACHE_001",
+      "name": "X-Forwarded-Host cache poisoning",
+      "category": "host_header",
+      "subcategory": "cache_poisoning",
+      "payload": "X-Forwarded-Host: evil.com",
+      "encoded": "X-Forwarded-Host%3A%20evil.com",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Host Header] Host header injection attempt detected"
+    },
+    {
+      "id": "HHI_CACHE_002",
+      "name": "X-Host cache poisoning",
+      "category": "host_header",
+      "subcategory": "cache_poisoning",
+      "payload": "X-Host: evil.com",
+      "encoded": "X-Host%3A%20evil.com",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Host Header] Host header injection attempt detected"
+    },
+    {
+      "id": "HHI_RESET_001",
+      "name": "X-Forwarded-Host password reset hijack",
+      "category": "host_header",
+      "subcategory": "password_reset",
+      "payload": "X-Forwarded-Host: evil.com/reset-password",
+      "encoded": "X-Forwarded-Host%3A%20evil.com%2Freset-password",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Host Header] Host header injection attempt detected"
+    },
+    {
+      "id": "HHI_SSRF_001",
+      "name": "X-Host SSRF via host header",
+      "category": "host_header",
+      "subcategory": "ssrf",
+      "payload": "X-Host: 127.0.0.1:8080",
+      "encoded": "X-Host%3A%20127.0.0.1%3A8080",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Host Header] Host header injection attempt detected"
+    },
+    {
+      "id": "HHI_MULTI_001",
+      "name": "CRLF double Host injection",
+      "category": "host_header",
+      "subcategory": "multi_host",
+      "payload": "Host: good.com\\r\\nHost: evil.com",
+      "encoded": "Host%3A%20good.com%0d%0aHost%3A%20evil.com",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX Host Header] Host header injection attempt detected"
     }
   ]
 }

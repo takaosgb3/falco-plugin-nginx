@@ -1,7 +1,7 @@
 {
   "metadata": {
     "category": "path",
-    "total_patterns": 75,
+    "total_patterns": 81,
     "port": 8003,
     "description": "k6 test patterns for path"
   },
@@ -906,6 +906,78 @@
       "expected_detection": true,
       "severity": "high",
       "expected_rule": "[NGINX Traversal] Encoded path traversal attack detected"
+    },
+    {
+      "id": "PATH_SYMLINK_001",
+      "name": "Proc self root passwd traversal",
+      "category": "path_traversal",
+      "subcategory": "symlink_traversal",
+      "payload": "/proc/self/root/etc/passwd",
+      "encoded": "%2Fproc%2Fself%2Froot%2Fetc%2Fpasswd",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Traversal] File inclusion attack detected"
+    },
+    {
+      "id": "PATH_NGINX_001",
+      "name": "Nginx alias traversal",
+      "category": "path_traversal",
+      "subcategory": "nginx_specific",
+      "payload": "/static../etc/passwd",
+      "encoded": "%2Fstatic..%2Fetc%2Fpasswd",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Traversal] Basic path traversal attack detected"
+    },
+    {
+      "id": "PATH_ENC_ADV_001",
+      "name": "UTF-8 overlong dot encoding traversal",
+      "category": "path_traversal",
+      "subcategory": "advanced_encoding",
+      "payload": "%c0%ae%c0%ae/etc/passwd",
+      "encoded": "%c0%ae%c0%ae%2Fetc%2Fpasswd",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Traversal] Encoded path traversal attack detected"
+    },
+    {
+      "id": "PATH_ENC_ADV_002",
+      "name": "Unicode dot encoding traversal",
+      "category": "path_traversal",
+      "subcategory": "advanced_encoding",
+      "payload": "%u002e%u002e/etc/passwd",
+      "encoded": "%u002e%u002e%2Fetc%2Fpasswd",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Traversal] File inclusion attack detected"
+    },
+    {
+      "id": "PATH_ENC_ADV_003",
+      "name": "Double-encoded slash traversal",
+      "category": "path_traversal",
+      "subcategory": "advanced_encoding",
+      "payload": "..%252f..%252f/etc/passwd",
+      "encoded": "..%252f..%252f%2Fetc%2Fpasswd",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Traversal] Encoded path traversal attack detected"
+    },
+    {
+      "id": "FP_FILE_001",
+      "name": "Normal static CSS file access",
+      "category": "path_traversal",
+      "subcategory": "false_positive",
+      "payload": "/static/css/style.css",
+      "encoded": "%2Fstatic%2Fcss%2Fstyle.css",
+      "port": 80,
+      "expected_detection": false,
+      "severity": "info",
+      "expected_rule": "NONE"
     }
   ]
 }

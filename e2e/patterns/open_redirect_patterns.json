@@ -1,0 +1,156 @@
+{
+  "metadata": {
+    "category": "open_redirect",
+    "total_patterns": 12,
+    "port": 80,
+    "description": "k6 test patterns for Open Redirect attacks",
+    "phase": "Phase 12",
+    "created": "2026-02-28"
+  },
+  "patterns": [
+    {
+      "id": "REDIR_URL_001",
+      "name": "Open redirect via url param",
+      "category": "open_redirect",
+      "subcategory": "url_param",
+      "payload": "url=https://evil.com",
+      "encoded": "url%3Dhttps%3A%2F%2Fevil.com",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Redirect] Open redirect attempt detected"
+    },
+    {
+      "id": "REDIR_URL_002",
+      "name": "Open redirect via next param protocol-relative",
+      "category": "open_redirect",
+      "subcategory": "url_param",
+      "payload": "next=//evil.com",
+      "encoded": "next%3D%2F%2Fevil.com",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Redirect] Open redirect attempt detected"
+    },
+    {
+      "id": "REDIR_URL_003",
+      "name": "Open redirect via redirect param",
+      "category": "open_redirect",
+      "subcategory": "url_param",
+      "payload": "redirect=https://evil.com",
+      "encoded": "redirect%3Dhttps%3A%2F%2Fevil.com",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Redirect] Open redirect attempt detected"
+    },
+    {
+      "id": "REDIR_URL_004",
+      "name": "Open redirect via return_to param",
+      "category": "open_redirect",
+      "subcategory": "url_param",
+      "payload": "return_to=https://evil.com",
+      "encoded": "return_to%3Dhttps%3A%2F%2Fevil.com",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Redirect] Open redirect attempt detected"
+    },
+    {
+      "id": "REDIR_PROTO_001",
+      "name": "Protocol-relative redirect via url param",
+      "category": "open_redirect",
+      "subcategory": "protocol_relative",
+      "payload": "url=//evil.com",
+      "encoded": "url%3D%2F%2Fevil.com",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Redirect] Open redirect attempt detected"
+    },
+    {
+      "id": "REDIR_PROTO_002",
+      "name": "JavaScript scheme redirect",
+      "category": "open_redirect",
+      "subcategory": "javascript_scheme",
+      "payload": "url=javascript:alert(1)",
+      "encoded": "url%3Djavascript%3Aalert%281%29",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Redirect] Open redirect attempt detected"
+    },
+    {
+      "id": "REDIR_BYPASS_001",
+      "name": "Whitelist bypass via @ in URL",
+      "category": "open_redirect",
+      "subcategory": "whitelist_bypass",
+      "payload": "url=https://good.com@evil.com",
+      "encoded": "url%3Dhttps%3A%2F%2Fgood.com%40evil.com",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Redirect] Open redirect attempt detected"
+    },
+    {
+      "id": "REDIR_BYPASS_002",
+      "name": "Whitelist bypass via backslash @",
+      "category": "open_redirect",
+      "subcategory": "whitelist_bypass",
+      "payload": "redirect=https://good.com\\@evil.com",
+      "encoded": "redirect%3Dhttps%3A%2F%2Fgood.com%5C%40evil.com",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Redirect] Open redirect attempt detected"
+    },
+    {
+      "id": "REDIR_BYPASS_003",
+      "name": "Whitelist bypass via subdomain trick",
+      "category": "open_redirect",
+      "subcategory": "whitelist_bypass",
+      "payload": "redir=https://evil.com.good.com",
+      "encoded": "redir%3Dhttps%3A%2F%2Fevil.com.good.com",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Redirect] Open redirect attempt detected"
+    },
+    {
+      "id": "REDIR_ENC_001",
+      "name": "Double-encoded redirect URL",
+      "category": "open_redirect",
+      "subcategory": "double_encoded",
+      "payload": "url=%68%74%74%70%73%3A%2F%2Fevil.com",
+      "encoded": "url%3D%2568%2574%2574%2570%2573%253A%252F%252Fevil.com",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Redirect] Open redirect attempt detected"
+    },
+    {
+      "id": "FP_AUTH_002",
+      "name": "Normal logout redirect to dashboard",
+      "category": "open_redirect",
+      "subcategory": "false_positive",
+      "payload": "/auth/logout?redirect=/dashboard",
+      "encoded": "%2Fauth%2Flogout%3Fredirect%3D%2Fdashboard",
+      "port": 80,
+      "expected_detection": false,
+      "severity": "info",
+      "expected_rule": "NONE"
+    },
+    {
+      "id": "FP_REDIR_001",
+      "name": "Normal callback return to profile",
+      "category": "open_redirect",
+      "subcategory": "false_positive",
+      "payload": "/callback?return_to=/profile",
+      "encoded": "%2Fcallback%3Freturn_to%3D%2Fprofile",
+      "port": 80,
+      "expected_detection": false,
+      "severity": "info",
+      "expected_rule": "NONE"
+    }
+  ]
+}
