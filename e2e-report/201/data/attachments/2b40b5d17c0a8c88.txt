@@ -1,0 +1,5 @@
+Pattern ID: GQL_BATCH_001
+        Status: passed
+        Latency: ~66000ms
+        Detection: 1 / 1
+        Rule: [NGINX GraphQL Attack] Introspection query detected test_id=GQL_BATCH_001-1772266276149-ysct4 pattern_id=GQL_BATCH_001 uri=/?q=%5B%7Bquery%3A%22%7B__typename%7D%22%7D%2C%7Bquery%3A%22%7B__typename%7D%22%7D%5D client=127.0.0.1

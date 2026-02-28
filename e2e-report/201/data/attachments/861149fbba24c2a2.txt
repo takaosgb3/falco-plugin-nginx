@@ -1,0 +1,3 @@
+Expected Rule: [NGINX API Attack] API security vulnerability detected
+Matched Rule: [NGINX API Attack] API security vulnerability detected test_id=API_PROTO_001-1772266290129-nxw0nr pattern_id=API_PROTO_001 uri=/?q=%7B%22__proto__%22%3A%7B%22isAdmin%22%3Atrue%7D%7D client=127.0.0.1
+Rule Match: ✅ Match

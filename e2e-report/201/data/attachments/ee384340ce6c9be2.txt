@@ -1,0 +1,5 @@
+Pattern ID: REDIR_URL_002
+        Status: passed
+        Latency: ~13000ms
+        Detection: 1 / 1
+        Rule: [NGINX Redirect] Open redirect attempt detected test_id=REDIR_URL_002-1772266329127-2ip3po pattern_id=REDIR_URL_002 uri=/?q=next%3D%2F%2Fevil.com client=127.0.0.1

@@ -1,0 +1,17 @@
+{
+  "pattern_id": "FP_JWT_001",
+  "test_id": "FP_JWT_001-1772266342136-q2ao8c",
+  "category": "jwt",
+  "detected": true,
+  "expected_detection": false,
+  "latency_ms": 0,
+  "evidence": "08:12:22.000000000: Warning [NGINX API Attack] API security vulnerability detected test_id=FP_JWT_001-1772266342136-q2ao8c pattern_id=FP_JWT_001 uri=/?q=%2Fverify%3Ftoken%3DeyJhbGciOiJSUzI1NiJ9 client=127.0.0.1",
+  "rule_name": "[NGINX API Attack] API security vulnerability detected test_id=FP_JWT_001-1772266342136-q2ao8c pattern_id=FP_JWT_001 uri=/?q=%2Fverify%3Ftoken%3DeyJhbGciOiJSUzI1NiJ9 client=127.0.0.1",
+  "expected_rule": "NONE",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": "[NGINX API Attack] API security vulnerability detected test_id=FP_JWT_001-1772266342136-q2ao8c pattern_id=FP_JWT_001 uri=/?q=%2Fverify%3Ftoken%3DeyJhbGciOiJSUzI1NiJ9 client=127.0.0.1",
+  "sent_at": 1772266342000,
+  "detected_at": 1772266342000,
+  "status": "failed"
+}

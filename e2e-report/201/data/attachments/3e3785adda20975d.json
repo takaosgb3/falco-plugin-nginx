@@ -1,0 +1,17 @@
+{
+  "pattern_id": "LDAP_ATTR_002",
+  "test_id": "LDAP_ATTR_002-1772266264139-7za21",
+  "category": "ldap",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 86322000,
+  "evidence": "08:11:04.000000000: Warning [NGINX LDAP Injection] Attribute injection attempt test_id=LDAP_ATTR_002-1772266264139-7za21 pattern_id=LDAP_ATTR_002 uri=/?q=)(objectClass=person client=127.0.0.1",
+  "rule_name": "[NGINX LDAP Injection] Attribute injection attempt test_id=LDAP_ATTR_002-1772266264139-7za21 pattern_id=LDAP_ATTR_002 uri=/?q=)(objectClass=person client=127.0.0.1",
+  "expected_rule": "[NGINX LDAP Injection] Attribute injection attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX LDAP Injection] Attribute injection attempt test_id=LDAP_ATTR_002-1772266264139-7za21 pattern_id=LDAP_ATTR_002 uri=/?q=)(objectClass=person client=127.0.0.1",
+  "sent_at": 1772266342000,
+  "detected_at": 1772266264000,
+  "status": "passed"
+}

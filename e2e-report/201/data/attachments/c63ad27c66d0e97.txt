@@ -1,0 +1,3 @@
+Expected Rule: [NGINX SQLi] Advanced SQL Injection Attempt
+Matched Rule: [NGINX SQLi] Advanced SQL Injection Attempt test_id=SQLI_STACK_007-1772266287764-u0i2eb pattern_id=SQLI_STACK_007 uri=/?q=%27%3B%20SELECT%20INTO%20OUTFILE%20%27%2Fvar%2Fwww%2Fhtml%2Fshell.php%27%20%27PHP_SHELL_CODE%27%3B%20-- client=127.0.0.1 method=GET
+Rule Match: ✅ Match

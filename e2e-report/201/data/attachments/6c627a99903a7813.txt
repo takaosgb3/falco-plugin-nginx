@@ -1,0 +1,5 @@
+Pattern ID: SENSITIVE_ENV_001
+        Status: passed
+        Latency: ~81000ms
+        Detection: 1 / 1
+        Rule: [NGINX Sensitive] Sensitive file access attempt detected test_id=SENSITIVE_ENV_001-1772266261647-wujqyp pattern_id=SENSITIVE_ENV_001 uri=/?q=%2F.env client=127.0.0.1

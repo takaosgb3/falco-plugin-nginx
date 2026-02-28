@@ -1,0 +1,3 @@
+Expected Rule: [NGINX SQLi] Encoded SQL Injection Pattern
+Matched Rule: [NGINX SQLi] Encoded SQL Injection Pattern test_id=ENC_MIX_001-1772266302301-9c48if pattern_id=ENC_MIX_001 uri=/?q=%27%20%2555NION%20SELECT client=127.0.0.1 method=GET
+Rule Match: ✅ Match

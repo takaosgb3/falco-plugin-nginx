@@ -1,0 +1,17 @@
+{
+  "pattern_id": "HHI_CACHE_001",
+  "test_id": "HHI_CACHE_001-1772266323640-dn7zfd",
+  "category": "host_header",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 19000,
+  "evidence": "08:12:03.000000000: Critical [NGINX HRS] HTTP Request Smuggling attempt test_id=HHI_CACHE_001-1772266323640-dn7zfd pattern_id=HHI_CACHE_001 uri=/?q=X-Forwarded-Host%3A%20evil.com client=127.0.0.1",
+  "rule_name": "[NGINX HRS] HTTP Request Smuggling attempt test_id=HHI_CACHE_001-1772266323640-dn7zfd pattern_id=HHI_CACHE_001 uri=/?q=X-Forwarded-Host%3A%20evil.com client=127.0.0.1",
+  "expected_rule": "[NGINX Host Header] Host header injection attempt detected",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": "[NGINX HRS] HTTP Request Smuggling attempt test_id=HHI_CACHE_001-1772266323640-dn7zfd pattern_id=HHI_CACHE_001 uri=/?q=X-Forwarded-Host%3A%20evil.com client=127.0.0.1",
+  "sent_at": 1772266342000,
+  "detected_at": 1772266323000,
+  "status": "passed"
+}

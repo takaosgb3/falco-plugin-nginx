@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SENSITIVE_HTAC_001",
+  "test_id": "SENSITIVE_HTAC_001-1772266263151-w0z3sk",
+  "category": "other",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 86321000,
+  "evidence": "08:11:03.000000000: Critical [NGINX Traversal] File inclusion attack detected test_id=SENSITIVE_HTAC_001-1772266263151-w0z3sk pattern_id=SENSITIVE_HTAC_001 uri=/?q=%2F.htaccess client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] File inclusion attack detected test_id=SENSITIVE_HTAC_001-1772266263151-w0z3sk pattern_id=SENSITIVE_HTAC_001 uri=/?q=%2F.htaccess client=127.0.0.1",
+  "expected_rule": "[NGINX Traversal] File inclusion attack detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Traversal] File inclusion attack detected test_id=SENSITIVE_HTAC_001-1772266263151-w0z3sk pattern_id=SENSITIVE_HTAC_001 uri=/?q=%2F.htaccess client=127.0.0.1",
+  "sent_at": 1772266342000,
+  "detected_at": 1772266263000,
+  "status": "passed"
+}

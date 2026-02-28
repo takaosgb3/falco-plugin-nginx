@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SQLI_BLIND_007",
+  "test_id": "SQLI_BLIND_007-1772266270212-4zixss",
+  "category": "sqli",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 86328000,
+  "evidence": "08:11:10.000000000: Critical [NGINX SQLi] Error-based SQL Injection test_id=SQLI_BLIND_007-1772266270212-4zixss pattern_id=SQLI_BLIND_007 uri=/?q='%20AND%20(SELECT%20LOCATE('admin'%2C(SELECT%20GROUP_CONCAT(username)%20FROM%20users)))%3E0%20-- client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Error-based SQL Injection test_id=SQLI_BLIND_007-1772266270212-4zixss pattern_id=SQLI_BLIND_007 uri=/?q='%20AND%20(SELECT%20LOCATE('admin'%2C(SELECT%20GROUP_CONCAT(username)%20FROM%20users)))%3E0%20-- client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX SQLi] Error-based SQL Injection",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX SQLi] Error-based SQL Injection test_id=SQLI_BLIND_007-1772266270212-4zixss pattern_id=SQLI_BLIND_007 uri=/?q='%20AND%20(SELECT%20LOCATE('admin'%2C(SELECT%20GROUP_CONCAT(username)%20FROM%20users)))%3E0%20-- client=127.0.0.1 method=GET",
+  "sent_at": 1772266342000,
+  "detected_at": 1772266270000,
+  "status": "passed"
+}

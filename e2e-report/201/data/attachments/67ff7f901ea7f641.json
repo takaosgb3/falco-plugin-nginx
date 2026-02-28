@@ -1,0 +1,17 @@
+{
+  "pattern_id": "FP_AUTH_002",
+  "test_id": "FP_AUTH_002-1772266333639-qqkfrf",
+  "category": "open_redirect",
+  "detected": false,
+  "expected_detection": false,
+  "latency_ms": null,
+  "evidence": "",
+  "rule_name": "",
+  "expected_rule": "NONE",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": null,
+  "sent_at": 1772266342000,
+  "detected_at": null,
+  "status": "passed"
+}

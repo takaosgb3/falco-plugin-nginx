@@ -1,0 +1,17 @@
+{
+  "pattern_id": "CRLF_HDR_007",
+  "test_id": "CRLF_HDR_007-1772266322646-gogsxo",
+  "category": "crlf",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 20000,
+  "evidence": "08:12:02.000000000: Warning [NGINX CRLF] CRLF Injection attempt detected test_id=CRLF_HDR_007-1772266322646-gogsxo pattern_id=CRLF_HDR_007 uri=/?q=%0d%0aContent-Security-Policy%3Adefault-src%20* client=127.0.0.1",
+  "rule_name": "[NGINX CRLF] CRLF Injection attempt detected test_id=CRLF_HDR_007-1772266322646-gogsxo pattern_id=CRLF_HDR_007 uri=/?q=%0d%0aContent-Security-Policy%3Adefault-src%20* client=127.0.0.1",
+  "expected_rule": "[NGINX CRLF] CRLF Injection attempt detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX CRLF] CRLF Injection attempt detected test_id=CRLF_HDR_007-1772266322646-gogsxo pattern_id=CRLF_HDR_007 uri=/?q=%0d%0aContent-Security-Policy%3Adefault-src%20* client=127.0.0.1",
+  "sent_at": 1772266342000,
+  "detected_at": 1772266322000,
+  "status": "passed"
+}

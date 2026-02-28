@@ -1,0 +1,3 @@
+Expected Rule: [NGINX SSRF] SSRF attack attempt detected
+Matched Rule: [NGINX SSRF] SSRF attack attempt detected test_id=SSRF_SCHEME_003-1772266315645-27kn75 pattern_id=SSRF_SCHEME_003 uri=/?q=dict%3A%2F%2Fattacker.com%3A11211%2Fstat client=127.0.0.1
+Rule Match: ✅ Match

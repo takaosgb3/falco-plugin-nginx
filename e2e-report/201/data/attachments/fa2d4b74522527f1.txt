@@ -1,0 +1,5 @@
+Pattern ID: FP_JWT_001
+        Status: failed
+        Latency: 0ms
+        Detection: 1 / 1
+        Rule: [NGINX API Attack] API security vulnerability detected test_id=FP_JWT_001-1772266342136-q2ao8c pattern_id=FP_JWT_001 uri=/?q=%2Fverify%3Ftoken%3DeyJhbGciOiJSUzI1NiJ9 client=127.0.0.1

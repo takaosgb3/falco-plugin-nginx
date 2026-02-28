@@ -1,0 +1,17 @@
+{
+  "pattern_id": "API_IDOR_002",
+  "test_id": "API_IDOR_002-1772266294641-0nf0uq",
+  "category": "api_security",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 48000,
+  "evidence": "08:11:34.000000000: Warning [NGINX API Attack] API security vulnerability detected test_id=API_IDOR_002-1772266294641-0nf0uq pattern_id=API_IDOR_002 uri=/?q=%2Fapi%2Fv2%2Forders%2F12345%2Finvoice client=127.0.0.1",
+  "rule_name": "[NGINX API Attack] API security vulnerability detected test_id=API_IDOR_002-1772266294641-0nf0uq pattern_id=API_IDOR_002 uri=/?q=%2Fapi%2Fv2%2Forders%2F12345%2Finvoice client=127.0.0.1",
+  "expected_rule": "[NGINX API Attack] API security vulnerability detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX API Attack] API security vulnerability detected test_id=API_IDOR_002-1772266294641-0nf0uq pattern_id=API_IDOR_002 uri=/?q=%2Fapi%2Fv2%2Forders%2F12345%2Finvoice client=127.0.0.1",
+  "sent_at": 1772266342000,
+  "detected_at": 1772266294000,
+  "status": "passed"
+}

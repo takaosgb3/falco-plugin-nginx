@@ -1,0 +1,5 @@
+Pattern ID: PICKLE_DESER_005
+        Status: passed
+        Latency: ~47000ms
+        Detection: 1 / 1
+        Rule: [NGINX Emerging Threat] Deserialization attack test_id=PICKLE_DESER_005-1772266295630-ppf0ns pattern_id=PICKLE_DESER_005 uri=/?q=module.__reduce__ client=127.0.0.1

@@ -1,0 +1,5 @@
+Pattern ID: WAF_UNICODE_001
+        Status: passed
+        Latency: ~9000ms
+        Detection: 1 / 1
+        Rule: [NGINX WAF Bypass] WAF bypass attempt detected test_id=WAF_UNICODE_001-1772266333625-91cjwu pattern_id=WAF_UNICODE_001 uri=/?q=%EF%BC%9Cscript%EF%BC%9Ealert%281%29%EF%BC%9C%2Fscript%EF%BC%9E client=127.0.0.1

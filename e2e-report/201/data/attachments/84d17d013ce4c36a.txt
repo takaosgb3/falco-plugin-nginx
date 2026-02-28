@@ -1,0 +1,3 @@
+Expected Rule: NONE
+Matched Rule: [NGINX Emerging Threat] Template injection test_id=FP_API_002-1772266302660-89cs6 pattern_id=FP_API_002 uri=/?q=%2Fgraphql%3Fquery%3D%7Buser%7Bname%7D%7D client=127.0.0.1
+Rule Match: ✅ Expected Not Detected

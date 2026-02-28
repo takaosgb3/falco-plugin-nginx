@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SENSITIVE_CI_001",
+  "test_id": "SENSITIVE_CI_001-1772266267661-u3q4is",
+  "category": "other",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 86325000,
+  "evidence": "08:11:07.000000000: Warning [NGINX Sensitive] Sensitive file access attempt detected test_id=SENSITIVE_CI_001-1772266267661-u3q4is pattern_id=SENSITIVE_CI_001 uri=/?q=%2F.github%2Fworkflows client=127.0.0.1",
+  "rule_name": "[NGINX Sensitive] Sensitive file access attempt detected test_id=SENSITIVE_CI_001-1772266267661-u3q4is pattern_id=SENSITIVE_CI_001 uri=/?q=%2F.github%2Fworkflows client=127.0.0.1",
+  "expected_rule": "[NGINX Sensitive] Sensitive file access attempt detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Sensitive] Sensitive file access attempt detected test_id=SENSITIVE_CI_001-1772266267661-u3q4is pattern_id=SENSITIVE_CI_001 uri=/?q=%2F.github%2Fworkflows client=127.0.0.1",
+  "sent_at": 1772266342000,
+  "detected_at": 1772266267000,
+  "status": "passed"
+}

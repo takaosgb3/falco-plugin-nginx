@@ -1,0 +1,3 @@
+Expected Rule: [NGINX Host Header] Host header injection attempt detected
+Matched Rule: [NGINX SQLi] Boolean-based Blind SQL Injection test_id=HHI_RESET_001-1772266324642-qddqwh pattern_id=HHI_RESET_001 uri=/?q=X-Forwarded-Host%3A%20evil.com%2Freset-password client=127.0.0.1 method=GET
+Rule Match: ❌ Mismatch

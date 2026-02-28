@@ -1,0 +1,3 @@
+Expected Rule: [NGINX XSS] Advanced XSS Attack Attempt
+Matched Rule: [NGINX XSS] Advanced XSS Attack Attempt test_id=XSS_ADV_068-1772266279727-cxpvr pattern_id=XSS_ADV_068 uri=/?q=onmousedown%3Dalert(1) client=127.0.0.1 method=GET
+Rule Match: ✅ Match

@@ -1,0 +1,3 @@
+Expected Rule: [NGINX CMDi] Command injection via semicolon
+Matched Rule: [NGINX CMDi] Command injection via semicolon test_id=CMDI_CLOUD_001-1772266293240-qaurbg pattern_id=CMDI_CLOUD_001 uri=/?q=%3Baws%20s3%20ls client=127.0.0.1
+Rule Match: ✅ Match

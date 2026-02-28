@@ -1,0 +1,3 @@
+Expected Rule: [NGINX Sensitive] Sensitive file access attempt detected
+Matched Rule: [NGINX Sensitive] Sensitive file access attempt detected test_id=SENSITIVE_CI_001-1772266267661-u3q4is pattern_id=SENSITIVE_CI_001 uri=/?q=%2F.github%2Fworkflows client=127.0.0.1
+Rule Match: ✅ Match

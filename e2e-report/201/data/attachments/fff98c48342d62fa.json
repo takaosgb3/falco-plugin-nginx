@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SENSITIVE_BACKUP_001",
+  "test_id": "SENSITIVE_BACKUP_001-1772266268163-y3wjpd",
+  "category": "other",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 86326000,
+  "evidence": "08:11:08.000000000: Critical [NGINX SQLi] Error-based SQL Injection test_id=SENSITIVE_BACKUP_001-1772266268163-y3wjpd pattern_id=SENSITIVE_BACKUP_001 uri=/?q=%2Fdatabase.sql.bak client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Error-based SQL Injection test_id=SENSITIVE_BACKUP_001-1772266268163-y3wjpd pattern_id=SENSITIVE_BACKUP_001 uri=/?q=%2Fdatabase.sql.bak client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX Sensitive] Sensitive file access attempt detected",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": "[NGINX SQLi] Error-based SQL Injection test_id=SENSITIVE_BACKUP_001-1772266268163-y3wjpd pattern_id=SENSITIVE_BACKUP_001 uri=/?q=%2Fdatabase.sql.bak client=127.0.0.1 method=GET",
+  "sent_at": 1772266342000,
+  "detected_at": 1772266268000,
+  "status": "passed"
+}

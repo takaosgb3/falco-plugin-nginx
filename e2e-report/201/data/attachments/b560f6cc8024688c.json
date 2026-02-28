@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SSRF_CLOUD_005",
+  "test_id": "SSRF_CLOUD_005-1772266310630-ujobar",
+  "category": "ssrf",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 32000,
+  "evidence": "08:11:50.000000000: Critical [NGINX SSRF] SSRF attack attempt detected test_id=SSRF_CLOUD_005-1772266310630-ujobar pattern_id=SSRF_CLOUD_005 uri=/?q=http%3A%2F%2F169.254.169.254%2Flatest%2Fmeta-data%2Fiam%2Fsecurity-credentials%2F client=127.0.0.1",
+  "rule_name": "[NGINX SSRF] SSRF attack attempt detected test_id=SSRF_CLOUD_005-1772266310630-ujobar pattern_id=SSRF_CLOUD_005 uri=/?q=http%3A%2F%2F169.254.169.254%2Flatest%2Fmeta-data%2Fiam%2Fsecurity-credentials%2F client=127.0.0.1",
+  "expected_rule": "[NGINX SSRF] SSRF attack attempt detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX SSRF] SSRF attack attempt detected test_id=SSRF_CLOUD_005-1772266310630-ujobar pattern_id=SSRF_CLOUD_005 uri=/?q=http%3A%2F%2F169.254.169.254%2Flatest%2Fmeta-data%2Fiam%2Fsecurity-credentials%2F client=127.0.0.1",
+  "sent_at": 1772266342000,
+  "detected_at": 1772266310000,
+  "status": "passed"
+}

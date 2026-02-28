@@ -1,0 +1,17 @@
+{
+  "pattern_id": "PP_BRACKET_001",
+  "test_id": "PP_BRACKET_001-1772266304641-t7f1wc",
+  "category": "prototype_pollution",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 38000,
+  "evidence": "08:11:44.000000000: Warning [NGINX PP] Prototype pollution attack attempt test_id=PP_BRACKET_001-1772266304641-t7f1wc pattern_id=PP_BRACKET_001 uri=/?q=a%5Bprototype%5D%5Bpolluted%5D%3D1 client=127.0.0.1",
+  "rule_name": "[NGINX PP] Prototype pollution attack attempt test_id=PP_BRACKET_001-1772266304641-t7f1wc pattern_id=PP_BRACKET_001 uri=/?q=a%5Bprototype%5D%5Bpolluted%5D%3D1 client=127.0.0.1",
+  "expected_rule": "[NGINX PP] Prototype pollution attack attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX PP] Prototype pollution attack attempt test_id=PP_BRACKET_001-1772266304641-t7f1wc pattern_id=PP_BRACKET_001 uri=/?q=a%5Bprototype%5D%5Bpolluted%5D%3D1 client=127.0.0.1",
+  "sent_at": 1772266342000,
+  "detected_at": 1772266304000,
+  "status": "passed"
+}

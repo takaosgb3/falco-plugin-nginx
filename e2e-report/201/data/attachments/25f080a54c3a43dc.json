@@ -1,0 +1,17 @@
+{
+  "pattern_id": "PATH_ABS_005",
+  "test_id": "PATH_ABS_005-1772266253149-v3gpu",
+  "category": "path",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 86311000,
+  "evidence": "08:10:53.000000000: Critical [NGINX Traversal] File inclusion attack detected test_id=PATH_ABS_005-1772266253149-v3gpu pattern_id=PATH_ABS_005 uri=/?q=/proc/self/environ client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] File inclusion attack detected test_id=PATH_ABS_005-1772266253149-v3gpu pattern_id=PATH_ABS_005 uri=/?q=/proc/self/environ client=127.0.0.1",
+  "expected_rule": "[NGINX Traversal] File inclusion attack detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Traversal] File inclusion attack detected test_id=PATH_ABS_005-1772266253149-v3gpu pattern_id=PATH_ABS_005 uri=/?q=/proc/self/environ client=127.0.0.1",
+  "sent_at": 1772266342000,
+  "detected_at": 1772266253000,
+  "status": "passed"
+}
