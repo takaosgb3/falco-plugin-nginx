@@ -1,0 +1,3 @@
+Expected Rule: [NGINX Redirect] Open redirect attempt detected
+Matched Rule: [NGINX Redirect] Open redirect attempt detected test_id=REDIR_URL_004-1772266865776-l4a0m6 pattern_id=REDIR_URL_004 uri=/?q=return_to%3Dhttps%3A%2F%2Fevil.com client=127.0.0.1
+Rule Match: ✅ Match

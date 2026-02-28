@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SSRF_INT_004",
+  "test_id": "SSRF_INT_004-1772266848282-200mkc",
+  "category": "ssrf",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 30000,
+  "evidence": "08:20:48.000000000: Critical [NGINX SSRF] SSRF attack attempt detected test_id=SSRF_INT_004-1772266848282-200mkc pattern_id=SSRF_INT_004 uri=/?q=http%3a%2f%2flocalhost%3a8443%2fapi%2fv1%2fpods client=127.0.0.1",
+  "rule_name": "[NGINX SSRF] SSRF attack attempt detected test_id=SSRF_INT_004-1772266848282-200mkc pattern_id=SSRF_INT_004 uri=/?q=http%3a%2f%2flocalhost%3a8443%2fapi%2fv1%2fpods client=127.0.0.1",
+  "expected_rule": "[NGINX SSRF] SSRF attack attempt detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX SSRF] SSRF attack attempt detected test_id=SSRF_INT_004-1772266848282-200mkc pattern_id=SSRF_INT_004 uri=/?q=http%3a%2f%2flocalhost%3a8443%2fapi%2fv1%2fpods client=127.0.0.1",
+  "sent_at": 1772266878000,
+  "detected_at": 1772266848000,
+  "status": "passed"
+}

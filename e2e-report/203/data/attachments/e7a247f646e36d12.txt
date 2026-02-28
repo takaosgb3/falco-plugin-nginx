@@ -1,0 +1,5 @@
+Pattern ID: XSS_DOM_017
+        Status: passed
+        Latency: ~71000ms
+        Detection: 1 / 1
+        Rule: [NGINX XSS] DOM-based XSS Attack test_id=XSS_DOM_017-1772266807851-kp2di pattern_id=XSS_DOM_017 uri=/?q=onmouseover%3Dalert%28%27DOM%27%29 client=127.0.0.1 method=GET

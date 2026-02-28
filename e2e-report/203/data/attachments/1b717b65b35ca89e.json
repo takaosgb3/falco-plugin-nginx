@@ -1,0 +1,17 @@
+{
+  "pattern_id": "FP_REDIR_001",
+  "test_id": "FP_REDIR_001-1772266869785-jyd5ff",
+  "category": "open_redirect",
+  "detected": false,
+  "expected_detection": false,
+  "latency_ms": null,
+  "evidence": "",
+  "rule_name": "",
+  "expected_rule": "NONE",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": null,
+  "sent_at": 1772266878000,
+  "detected_at": null,
+  "status": "passed"
+}

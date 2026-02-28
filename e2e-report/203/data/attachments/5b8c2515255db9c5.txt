@@ -1,0 +1,3 @@
+Expected Rule: [NGINX PP] Prototype pollution attack attempt
+Matched Rule: [NGINX PP] Prototype pollution attack attempt test_id=PP_DOT_001-1772266839784-3c3o1 pattern_id=PP_DOT_001 uri=/?q=constructor%2Eprototype%2Epolluted%3D1 client=127.0.0.1
+Rule Match: ✅ Match

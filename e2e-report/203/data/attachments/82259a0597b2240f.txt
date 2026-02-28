@@ -1,0 +1,5 @@
+Pattern ID: SENSITIVE_LOG_001
+        Status: passed
+        Latency: ~74000ms
+        Detection: 1 / 1
+        Rule: [NGINX Sensitive] Sensitive file access attempt detected test_id=SENSITIVE_LOG_001-1772266804307-czci8m pattern_id=SENSITIVE_LOG_001 uri=/?q=%2Fapplication.log client=127.0.0.1

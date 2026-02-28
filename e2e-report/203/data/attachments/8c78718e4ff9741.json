@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SQLI_STACK_004",
+  "test_id": "SQLI_STACK_004-1772266796333-oionol",
+  "category": "sqli",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 86318000,
+  "evidence": "08:19:56.000000000: Warning [NGINX SQLi] Advanced SQL Injection Attempt test_id=SQLI_STACK_004-1772266796333-oionol pattern_id=SQLI_STACK_004 uri=/?q=%27%3B%20CREATE%20TABLE%20backdoor%20%28id%20INT%2C%20cmd%20VARCHAR%28255%29%29%3B%20-- client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Advanced SQL Injection Attempt test_id=SQLI_STACK_004-1772266796333-oionol pattern_id=SQLI_STACK_004 uri=/?q=%27%3B%20CREATE%20TABLE%20backdoor%20%28id%20INT%2C%20cmd%20VARCHAR%28255%29%29%3B%20-- client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX SQLi] Advanced SQL Injection Attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX SQLi] Advanced SQL Injection Attempt test_id=SQLI_STACK_004-1772266796333-oionol pattern_id=SQLI_STACK_004 uri=/?q=%27%3B%20CREATE%20TABLE%20backdoor%20%28id%20INT%2C%20cmd%20VARCHAR%28255%29%29%3B%20-- client=127.0.0.1 method=GET",
+  "sent_at": 1772266878000,
+  "detected_at": 1772266796000,
+  "status": "passed"
+}

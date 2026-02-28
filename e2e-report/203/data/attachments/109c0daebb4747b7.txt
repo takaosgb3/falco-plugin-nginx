@@ -1,0 +1,5 @@
+Pattern ID: XPATH_ENUM_003
+        Status: passed
+        Latency: ~59000ms
+        Detection: 1 / 1
+        Rule: [NGINX XPath Injection] XPath injection attempt test_id=XPATH_ENUM_003-1772266819293-fzu0d pattern_id=XPATH_ENUM_003 uri=/?q=position%28%29%3D1 client=127.0.0.1

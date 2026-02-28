@@ -1,0 +1,5 @@
+Pattern ID: FP_API_002
+        Status: failed
+        Latency: ~40000ms
+        Detection: 1 / 1
+        Rule: [NGINX Emerging Threat] Template injection test_id=FP_API_002-1772266838304-mo4f39 pattern_id=FP_API_002 uri=/?q=%2Fgraphql%3Fquery%3D%7Buser%7Bname%7D%7D client=127.0.0.1

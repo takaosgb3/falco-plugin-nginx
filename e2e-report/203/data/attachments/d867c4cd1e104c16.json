@@ -1,0 +1,17 @@
+{
+  "pattern_id": "GQL_INTRO_007",
+  "test_id": "GQL_INTRO_007-1772266809286-9het",
+  "category": "graphql",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 86331000,
+  "evidence": "08:20:09.000000000: Warning [NGINX GraphQL Attack] Introspection query detected test_id=GQL_INTRO_007-1772266809286-9het pattern_id=GQL_INTRO_007 uri=/?q=%5F%5Ftype(name%3A%22Query%22) client=127.0.0.1",
+  "rule_name": "[NGINX GraphQL Attack] Introspection query detected test_id=GQL_INTRO_007-1772266809286-9het pattern_id=GQL_INTRO_007 uri=/?q=%5F%5Ftype(name%3A%22Query%22) client=127.0.0.1",
+  "expected_rule": "[NGINX GraphQL Attack] Introspection query detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX GraphQL Attack] Introspection query detected test_id=GQL_INTRO_007-1772266809286-9het pattern_id=GQL_INTRO_007 uri=/?q=%5F%5Ftype(name%3A%22Query%22) client=127.0.0.1",
+  "sent_at": 1772266878000,
+  "detected_at": 1772266809000,
+  "status": "passed"
+}

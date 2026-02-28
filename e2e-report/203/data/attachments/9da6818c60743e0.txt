@@ -1,0 +1,5 @@
+Pattern ID: SSRF_SCHEME_005
+        Status: passed
+        Latency: ~22000ms
+        Detection: 1 / 1
+        Rule: [NGINX SSRF] SSRF attack attempt detected test_id=SSRF_SCHEME_005-1772266856298-9jjt6k pattern_id=SSRF_SCHEME_005 uri=/?q=ldap%3A%2F%2Fattacker.com%2Fdc%3Dexample client=127.0.0.1

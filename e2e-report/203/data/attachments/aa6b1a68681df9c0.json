@@ -1,0 +1,17 @@
+{
+  "pattern_id": "REDIR_URL_002",
+  "test_id": "REDIR_URL_002-1772266864774-gxy09",
+  "category": "open_redirect",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 14000,
+  "evidence": "08:21:04.000000000: Warning [NGINX Redirect] Open redirect attempt detected test_id=REDIR_URL_002-1772266864774-gxy09 pattern_id=REDIR_URL_002 uri=/?q=next%3D%2F%2Fevil.com client=127.0.0.1",
+  "rule_name": "[NGINX Redirect] Open redirect attempt detected test_id=REDIR_URL_002-1772266864774-gxy09 pattern_id=REDIR_URL_002 uri=/?q=next%3D%2F%2Fevil.com client=127.0.0.1",
+  "expected_rule": "[NGINX Redirect] Open redirect attempt detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Redirect] Open redirect attempt detected test_id=REDIR_URL_002-1772266864774-gxy09 pattern_id=REDIR_URL_002 uri=/?q=next%3D%2F%2Fevil.com client=127.0.0.1",
+  "sent_at": 1772266878000,
+  "detected_at": 1772266864000,
+  "status": "passed"
+}

@@ -1,0 +1,17 @@
+{
+  "pattern_id": "CMDI_CLOUD_003",
+  "test_id": "CMDI_CLOUD_003-1772266829880-13kzlq",
+  "category": "cmdinj",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 49000,
+  "evidence": "08:20:29.000000000: Critical [NGINX CMDi] Command injection via semicolon test_id=CMDI_CLOUD_003-1772266829880-13kzlq pattern_id=CMDI_CLOUD_003 uri=/?q=%3Baz%20account%20show client=127.0.0.1",
+  "rule_name": "[NGINX CMDi] Command injection via semicolon test_id=CMDI_CLOUD_003-1772266829880-13kzlq pattern_id=CMDI_CLOUD_003 uri=/?q=%3Baz%20account%20show client=127.0.0.1",
+  "expected_rule": "[NGINX CMDi] Command injection via semicolon",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX CMDi] Command injection via semicolon test_id=CMDI_CLOUD_003-1772266829880-13kzlq pattern_id=CMDI_CLOUD_003 uri=/?q=%3Baz%20account%20show client=127.0.0.1",
+  "sent_at": 1772266878000,
+  "detected_at": 1772266829000,
+  "status": "passed"
+}

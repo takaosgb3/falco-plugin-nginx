@@ -1,0 +1,17 @@
+{
+  "pattern_id": "XSS_BYPASS_009",
+  "test_id": "XSS_BYPASS_009-1772266795827-cq2ulw",
+  "category": "xss",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 86317000,
+  "evidence": "08:19:55.000000000: Critical [NGINX XSS] DOM-based XSS Attack test_id=XSS_BYPASS_009-1772266795827-cq2ulw pattern_id=XSS_BYPASS_009 uri=/?q=%3Ciframe%20srcdoc%3D'%3Cscript%3Ealert(1)%3C%2Fscript%3E'%3E client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX XSS] DOM-based XSS Attack test_id=XSS_BYPASS_009-1772266795827-cq2ulw pattern_id=XSS_BYPASS_009 uri=/?q=%3Ciframe%20srcdoc%3D'%3Cscript%3Ealert(1)%3C%2Fscript%3E'%3E client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX XSS] DOM-based XSS Attack",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX XSS] DOM-based XSS Attack test_id=XSS_BYPASS_009-1772266795827-cq2ulw pattern_id=XSS_BYPASS_009 uri=/?q=%3Ciframe%20srcdoc%3D'%3Cscript%3Ealert(1)%3C%2Fscript%3E'%3E client=127.0.0.1 method=GET",
+  "sent_at": 1772266878000,
+  "detected_at": 1772266795000,
+  "status": "passed"
+}

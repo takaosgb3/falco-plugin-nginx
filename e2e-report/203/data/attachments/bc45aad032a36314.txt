@@ -1,0 +1,3 @@
+Expected Rule: [NGINX Sensitive] Sensitive file access attempt detected
+Matched Rule: [NGINX Sensitive] Sensitive file access attempt detected test_id=SENSITIVE_DOCKER_002-1772266802302-xdqey pattern_id=SENSITIVE_DOCKER_002 uri=/?q=%2FDockerfile client=127.0.0.1
+Rule Match: ✅ Match

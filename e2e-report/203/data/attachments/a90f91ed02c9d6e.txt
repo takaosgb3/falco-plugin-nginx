@@ -1,0 +1,5 @@
+Pattern ID: SSRF_ORACLE_001
+        Status: passed
+        Latency: ~19000ms
+        Detection: 1 / 1
+        Rule: [NGINX SSRF] SSRF attack attempt detected test_id=SSRF_ORACLE_001-1772266859305-efqlxf pattern_id=SSRF_ORACLE_001 uri=/?q=http%3A%2F%2F169.254.169.254%2Fopc%2Fv2%2Finstance%2F client=127.0.0.1

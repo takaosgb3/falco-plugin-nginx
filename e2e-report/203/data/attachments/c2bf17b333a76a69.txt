@@ -1,0 +1,5 @@
+Pattern ID: CMDI_PS_002
+        Status: passed
+        Latency: ~48000ms
+        Detection: 1 / 1
+        Rule: [NGINX CMDi] Advanced command injection attempt test_id=CMDI_PS_002-1772266830882-c3t059 pattern_id=CMDI_PS_002 uri=/?q=%3Bpowershell%20-enc%20JABjAGwAaQBlAG4AdA client=127.0.0.1

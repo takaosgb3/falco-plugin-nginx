@@ -1,0 +1,5 @@
+Pattern ID: SQLI_BIT_003
+        Status: passed
+        Latency: N/A
+        Detection: 0 / 1
+        Rule:

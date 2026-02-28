@@ -1,0 +1,17 @@
+{
+  "pattern_id": "CMD_ENC_002",
+  "test_id": "CMD_ENC_002-1772266801812-e3wjxg",
+  "category": "cmdinj",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 86323000,
+  "evidence": "08:20:01.000000000: Warning [NGINX SQLi] Encoded SQL Injection Pattern test_id=CMD_ENC_002-1772266801812-e3wjxg pattern_id=CMD_ENC_002 uri=/?q=%2526%2526%2520ls%2520-la client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Encoded SQL Injection Pattern test_id=CMD_ENC_002-1772266801812-e3wjxg pattern_id=CMD_ENC_002 uri=/?q=%2526%2526%2520ls%2520-la client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX SQLi] Encoded SQL Injection Pattern",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX SQLi] Encoded SQL Injection Pattern test_id=CMD_ENC_002-1772266801812-e3wjxg pattern_id=CMD_ENC_002 uri=/?q=%2526%2526%2520ls%2520-la client=127.0.0.1 method=GET",
+  "sent_at": 1772266878000,
+  "detected_at": 1772266801000,
+  "status": "passed"
+}

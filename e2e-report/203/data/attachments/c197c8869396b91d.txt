@@ -1,0 +1,3 @@
+Expected Rule: [NGINX XSS] DOM-based XSS Attack
+Matched Rule: [NGINX XSS] DOM-based XSS Attack test_id=XSS_SVG_002-1772266819376-9l539o pattern_id=XSS_SVG_002 uri=/?q=%3Csvg%3E%3Canimate%20onbegin%3Dalert%281%29%20attributeName%3Dx%3E client=127.0.0.1 method=GET
+Rule Match: ✅ Match

@@ -1,0 +1,5 @@
+Pattern ID: JWT_CLAIM_001
+        Status: passed
+        Latency: ~2000ms
+        Detection: 1 / 1
+        Rule: [NGINX API Attack] API security vulnerability detected test_id=JWT_CLAIM_001-1772266876278-ir303 pattern_id=JWT_CLAIM_001 uri=/?q=eyJhbGciOiJub25lIn0.eyJhZG1pbiI6dHJ1ZX0. client=127.0.0.1

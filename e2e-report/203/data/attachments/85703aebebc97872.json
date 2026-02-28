@@ -1,0 +1,17 @@
+{
+  "pattern_id": "PICKLE_DESER_014",
+  "test_id": "PICKLE_DESER_014-1772266835791-uypypo",
+  "category": "pickle",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 43000,
+  "evidence": "08:20:35.000000000: Critical [NGINX Emerging Threat] Deserialization attack test_id=PICKLE_DESER_014-1772266835791-uypypo pattern_id=PICKLE_DESER_014 uri=/?q=yaml.load%28data%29 client=127.0.0.1",
+  "rule_name": "[NGINX Emerging Threat] Deserialization attack test_id=PICKLE_DESER_014-1772266835791-uypypo pattern_id=PICKLE_DESER_014 uri=/?q=yaml.load%28data%29 client=127.0.0.1",
+  "expected_rule": "[NGINX Emerging Threat] Deserialization attack",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Emerging Threat] Deserialization attack test_id=PICKLE_DESER_014-1772266835791-uypypo pattern_id=PICKLE_DESER_014 uri=/?q=yaml.load%28data%29 client=127.0.0.1",
+  "sent_at": 1772266878000,
+  "detected_at": 1772266835000,
+  "status": "passed"
+}

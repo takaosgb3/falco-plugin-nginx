@@ -1,0 +1,5 @@
+Pattern ID: CRLF_CACHE_002
+        Status: passed
+        Latency: ~19000ms
+        Detection: 1 / 1
+        Rule: [NGINX CRLF] CRLF Injection attempt detected test_id=CRLF_CACHE_002-1772266859295-r75197 pattern_id=CRLF_CACHE_002 uri=/?q=%0d%0aX-Original-URL%3A%2Fadmin client=127.0.0.1

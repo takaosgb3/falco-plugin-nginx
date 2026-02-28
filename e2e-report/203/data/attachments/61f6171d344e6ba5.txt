@@ -1,0 +1,3 @@
+Expected Rule: [NGINX JWT] JWT token attack attempt detected
+Matched Rule: [NGINX API Attack] API security vulnerability detected test_id=JWT_NONE_002-1772266874773-50qic9 pattern_id=JWT_NONE_002 uri=/?q=eyJhbGciOiJOb25lIn0.eyJzdWIiOiIxMjMifQ. client=127.0.0.1
+Rule Match: ❌ Mismatch

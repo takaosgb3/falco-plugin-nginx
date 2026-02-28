@@ -1,0 +1,17 @@
+{
+  "pattern_id": "HRS_ENCLEN_001",
+  "test_id": "HRS_ENCLEN_001-1772266844285-h6ckebg",
+  "category": "http_smuggling",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 34000,
+  "evidence": "08:20:44.000000000: Critical [NGINX HRS] HTTP Request Smuggling attempt test_id=HRS_ENCLEN_001-1772266844285-h6ckebg pattern_id=HRS_ENCLEN_001 uri=/?q=Content%2DLength%3A%200 client=127.0.0.1",
+  "rule_name": "[NGINX HRS] HTTP Request Smuggling attempt test_id=HRS_ENCLEN_001-1772266844285-h6ckebg pattern_id=HRS_ENCLEN_001 uri=/?q=Content%2DLength%3A%200 client=127.0.0.1",
+  "expected_rule": "[NGINX HRS] HTTP Request Smuggling attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX HRS] HTTP Request Smuggling attempt test_id=HRS_ENCLEN_001-1772266844285-h6ckebg pattern_id=HRS_ENCLEN_001 uri=/?q=Content%2DLength%3A%200 client=127.0.0.1",
+  "sent_at": 1772266878000,
+  "detected_at": 1772266844000,
+  "status": "passed"
+}

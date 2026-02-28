@@ -1,0 +1,1 @@
+Test passed: ENC_CMDI_DBL_002

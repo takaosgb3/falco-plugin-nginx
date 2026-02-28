@@ -1,0 +1,17 @@
+{
+  "pattern_id": "FP_API_002",
+  "test_id": "FP_API_002-1772266838304-mo4f39",
+  "category": "api_security",
+  "detected": true,
+  "expected_detection": false,
+  "latency_ms": 40000,
+  "evidence": "08:20:38.000000000: Critical [NGINX Emerging Threat] Template injection test_id=FP_API_002-1772266838304-mo4f39 pattern_id=FP_API_002 uri=/?q=%2Fgraphql%3Fquery%3D%7Buser%7Bname%7D%7D client=127.0.0.1",
+  "rule_name": "[NGINX Emerging Threat] Template injection test_id=FP_API_002-1772266838304-mo4f39 pattern_id=FP_API_002 uri=/?q=%2Fgraphql%3Fquery%3D%7Buser%7Bname%7D%7D client=127.0.0.1",
+  "expected_rule": "NONE",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": "[NGINX Emerging Threat] Template injection test_id=FP_API_002-1772266838304-mo4f39 pattern_id=FP_API_002 uri=/?q=%2Fgraphql%3Fquery%3D%7Buser%7Bname%7D%7D client=127.0.0.1",
+  "sent_at": 1772266878000,
+  "detected_at": 1772266838000,
+  "status": "failed"
+}

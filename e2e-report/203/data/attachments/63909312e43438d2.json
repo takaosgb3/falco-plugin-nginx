@@ -1,0 +1,17 @@
+{
+  "pattern_id": "PICKLE_DESER_008",
+  "test_id": "PICKLE_DESER_008-1772266832784-hu1to9",
+  "category": "pickle",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 46000,
+  "evidence": "08:20:32.000000000: Critical [NGINX Pickle Attack] Pickle deserialization attack attempt test_id=PICKLE_DESER_008-1772266832784-hu1to9 pattern_id=PICKLE_DESER_008 uri=/?q=__class__.__mro__%5B2%5D.__subclasses__%28%29 client=127.0.0.1",
+  "rule_name": "[NGINX Pickle Attack] Pickle deserialization attack attempt test_id=PICKLE_DESER_008-1772266832784-hu1to9 pattern_id=PICKLE_DESER_008 uri=/?q=__class__.__mro__%5B2%5D.__subclasses__%28%29 client=127.0.0.1",
+  "expected_rule": "[NGINX Pickle Attack] Pickle deserialization attack attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Pickle Attack] Pickle deserialization attack attempt test_id=PICKLE_DESER_008-1772266832784-hu1to9 pattern_id=PICKLE_DESER_008 uri=/?q=__class__.__mro__%5B2%5D.__subclasses__%28%29 client=127.0.0.1",
+  "sent_at": 1772266878000,
+  "detected_at": 1772266832000,
+  "status": "passed"
+}

@@ -1,0 +1,3 @@
+Expected Rule: [NGINX Host Header] Host header injection attempt detected
+Matched Rule: [NGINX Host Header] Host header injection attempt detected test_id=HHI_SSRF_001-1772266860789-81wvhl pattern_id=HHI_SSRF_001 uri=/?q=X-Host%3A%20127.0.0.1%3A8080 client=127.0.0.1
+Rule Match: ✅ Match

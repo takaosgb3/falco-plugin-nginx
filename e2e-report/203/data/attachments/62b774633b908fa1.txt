@@ -1,0 +1,3 @@
+Expected Rule: [NGINX XPath Injection] XPath injection attempt
+Matched Rule: [NGINX XPath Injection] XPath injection attempt test_id=XPATH_BOOL_003-1772266815786-itc7k5 pattern_id=XPATH_BOOL_003 uri=/?q=%27%20and%20normalize-space%28%2F%2Fsecret%29%21%3D%27%27 client=127.0.0.1
+Rule Match: ✅ Match

@@ -1,0 +1,17 @@
+{
+  "pattern_id": "GQL_FRAG_001",
+  "test_id": "GQL_FRAG_001-1772266813796-5a5gq",
+  "category": "graphql",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 86335000,
+  "evidence": "08:20:13.000000000: Warning [NGINX GraphQL Attack] Introspection query detected test_id=GQL_FRAG_001-1772266813796-5a5gq pattern_id=GQL_FRAG_001 uri=/?q=fragment%20F%20on%20User%7Bid%2Csecret%7Dquery%7Buser%7B...F%2C__typename%7D%7D client=127.0.0.1",
+  "rule_name": "[NGINX GraphQL Attack] Introspection query detected test_id=GQL_FRAG_001-1772266813796-5a5gq pattern_id=GQL_FRAG_001 uri=/?q=fragment%20F%20on%20User%7Bid%2Csecret%7Dquery%7Buser%7B...F%2C__typename%7D%7D client=127.0.0.1",
+  "expected_rule": "[NGINX GraphQL Attack] Introspection query detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX GraphQL Attack] Introspection query detected test_id=GQL_FRAG_001-1772266813796-5a5gq pattern_id=GQL_FRAG_001 uri=/?q=fragment%20F%20on%20User%7Bid%2Csecret%7Dquery%7Buser%7B...F%2C__typename%7D%7D client=127.0.0.1",
+  "sent_at": 1772266878000,
+  "detected_at": 1772266813000,
+  "status": "passed"
+}

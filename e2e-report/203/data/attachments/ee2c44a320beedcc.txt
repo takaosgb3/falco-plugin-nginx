@@ -1,0 +1,3 @@
+Expected Rule: [NGINX Redirect] Open redirect attempt detected
+Matched Rule: [NGINX Redirect] Open redirect attempt detected test_id=REDIR_BYPASS_001-1772266867278-0brbyx pattern_id=REDIR_BYPASS_001 uri=/?q=url%3Dhttps%3A%2F%2Fgood.com%40evil.com client=127.0.0.1
+Rule Match: ✅ Match

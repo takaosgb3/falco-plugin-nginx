@@ -1,0 +1,5 @@
+Pattern ID: CMD_BASIC_002
+        Status: passed
+        Latency: ~94000ms
+        Detection: 1 / 1
+        Rule: [NGINX CMDi] Advanced command injection attempt test_id=CMD_BASIC_002-1772266784773-3iv6ad pattern_id=CMD_BASIC_002 uri=/?q=%26%26%20whoami client=127.0.0.1

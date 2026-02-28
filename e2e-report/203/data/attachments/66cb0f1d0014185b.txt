@@ -1,0 +1,1 @@
+Test passed: NEG_NORMAL_002

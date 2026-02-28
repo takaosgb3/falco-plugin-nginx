@@ -1,0 +1,17 @@
+{
+  "pattern_id": "HHI_MULTI_001",
+  "test_id": "HHI_MULTI_001-1772266861291-do5oz8",
+  "category": "host_header",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 17000,
+  "evidence": "08:21:01.000000000: Warning [NGINX Host Header] Host header injection attempt detected test_id=HHI_MULTI_001-1772266861291-do5oz8 pattern_id=HHI_MULTI_001 uri=/?q=Host%3A%20good.com%0d%0aHost%3A%20evil.com client=127.0.0.1",
+  "rule_name": "[NGINX Host Header] Host header injection attempt detected test_id=HHI_MULTI_001-1772266861291-do5oz8 pattern_id=HHI_MULTI_001 uri=/?q=Host%3A%20good.com%0d%0aHost%3A%20evil.com client=127.0.0.1",
+  "expected_rule": "[NGINX Host Header] Host header injection attempt detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Host Header] Host header injection attempt detected test_id=HHI_MULTI_001-1772266861291-do5oz8 pattern_id=HHI_MULTI_001 uri=/?q=Host%3A%20good.com%0d%0aHost%3A%20evil.com client=127.0.0.1",
+  "sent_at": 1772266878000,
+  "detected_at": 1772266861000,
+  "status": "passed"
+}

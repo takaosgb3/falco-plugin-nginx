@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SENSITIVE_K8S_001",
+  "test_id": "SENSITIVE_K8S_001-1772266802803-16fmm",
+  "category": "other",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 86324000,
+  "evidence": "08:20:02.000000000: Warning [NGINX Sensitive] Sensitive file access attempt detected test_id=SENSITIVE_K8S_001-1772266802803-16fmm pattern_id=SENSITIVE_K8S_001 uri=/?q=%2Fkubernetes.yml client=127.0.0.1",
+  "rule_name": "[NGINX Sensitive] Sensitive file access attempt detected test_id=SENSITIVE_K8S_001-1772266802803-16fmm pattern_id=SENSITIVE_K8S_001 uri=/?q=%2Fkubernetes.yml client=127.0.0.1",
+  "expected_rule": "[NGINX Sensitive] Sensitive file access attempt detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Sensitive] Sensitive file access attempt detected test_id=SENSITIVE_K8S_001-1772266802803-16fmm pattern_id=SENSITIVE_K8S_001 uri=/?q=%2Fkubernetes.yml client=127.0.0.1",
+  "sent_at": 1772266878000,
+  "detected_at": 1772266802000,
+  "status": "passed"
+}

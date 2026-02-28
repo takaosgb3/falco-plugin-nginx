@@ -1,0 +1,1 @@
+Test passed: SSTI_SPRING_001

@@ -1,0 +1,3 @@
+Expected Rule: [NGINX XSS] Advanced XSS Attack Attempt
+Matched Rule: [NGINX XSS] Advanced XSS Attack Attempt test_id=XSS_MUT_004-1772266788307-anwl68 pattern_id=XSS_MUT_004 uri=/?q=%3Ctable%3E%3Ctd%2Fonclick%3Dalert%28%27XSS%27%29%3Eclick%3C%2Ftd%3E%3C%2Ftable%3E client=127.0.0.1 method=GET
+Rule Match: ✅ Match

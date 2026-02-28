@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SSTI_TWIG_001",
+  "test_id": "SSTI_TWIG_001-1772266818783-x56ri",
+  "category": "ssti",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 86340000,
+  "evidence": "08:20:18.000000000: Critical [NGINX Traversal] File inclusion attack detected test_id=SSTI_TWIG_001-1772266818783-x56ri pattern_id=SSTI_TWIG_001 uri=/?q=%7B%7B%22%2Fetc%2Fpasswd%22%7Cfile_excerpt(1%2C30)%7D%7D client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] File inclusion attack detected test_id=SSTI_TWIG_001-1772266818783-x56ri pattern_id=SSTI_TWIG_001 uri=/?q=%7B%7B%22%2Fetc%2Fpasswd%22%7Cfile_excerpt(1%2C30)%7D%7D client=127.0.0.1",
+  "expected_rule": "[NGINX Traversal] File inclusion attack detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Traversal] File inclusion attack detected test_id=SSTI_TWIG_001-1772266818783-x56ri pattern_id=SSTI_TWIG_001 uri=/?q=%7B%7B%22%2Fetc%2Fpasswd%22%7Cfile_excerpt(1%2C30)%7D%7D client=127.0.0.1",
+  "sent_at": 1772266878000,
+  "detected_at": 1772266818000,
+  "status": "passed"
+}
