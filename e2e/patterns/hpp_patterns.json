@@ -1,7 +1,7 @@
 {
   "metadata": {
     "category": "hpp",
-    "total_patterns": 15,
+    "total_patterns": 20,
     "port": 80,
     "description": "k6 test patterns for HTTP Parameter Pollution attacks",
     "phase": "Phase 11"
@@ -186,6 +186,66 @@
       "expected_detection": true,
       "severity": "high",
       "expected_rule": "[NGINX HPP] HTTP Parameter Pollution attempt detected"
+    },
+    {
+      "id": "HPP_REST_001",
+      "name": "REST API ID collision with privilege escalation",
+      "category": "hpp",
+      "subcategory": "rest_collision",
+      "payload": "&id=1&id=2&admin=true&role=admin",
+      "encoded": "%26id%3D1%26id%3D2%26admin%3Dtrue%26role%3Dadmin",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX HPP] HTTP Parameter Pollution attempt detected"
+    },
+    {
+      "id": "HPP_ARRAY_001",
+      "name": "Array parameter injection",
+      "category": "hpp",
+      "subcategory": "array_injection",
+      "payload": "&users[]=admin&admin=true&role=super",
+      "encoded": "%26users%5B%5D%3Dadmin%26admin%3Dtrue%26role%3Dsuper",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX HPP] HTTP Parameter Pollution attempt detected"
+    },
+    {
+      "id": "HPP_TYPE_001",
+      "name": "Type confusion via parameter",
+      "category": "hpp",
+      "subcategory": "type_confusion",
+      "payload": "&price=0&price=-1&admin=true&role=",
+      "encoded": "%26price%3D0%26price%3D-1%26admin%3Dtrue%26role%3D",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX HPP] HTTP Parameter Pollution attempt detected"
+    },
+    {
+      "id": "HPP_ORDER_001",
+      "name": "Parameter order abuse",
+      "category": "hpp",
+      "subcategory": "order_abuse",
+      "payload": "&role=user&role=admin&admin=true",
+      "encoded": "%26role%3Duser%26role%3Dadmin%26admin%3Dtrue",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX HPP] HTTP Parameter Pollution attempt detected"
+    },
+    {
+      "id": "FP_HPP_001",
+      "name": "Normal multi-value form submission",
+      "category": "hpp",
+      "subcategory": "false_positive",
+      "payload": "/search?category=books&category=electronics",
+      "encoded": "%2Fsearch%3Fcategory%3Dbooks%26category%3Delectronics",
+      "port": 80,
+      "expected_detection": false,
+      "severity": "info",
+      "expected_rule": "NONE"
     }
   ]
 }

@@ -794,6 +794,12 @@
       comps: in
       values:
         - HPP_WAF_001
+    # Phase 13: SSTI EJS pattern with %27 (') triggering boolean SQLi
+    - name: phase13_ssti_ejs_boolean_sqli
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - SSTI_EJS_002
   output: "[NGINX SQLi] Boolean-based Blind SQL Injection test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: CRITICAL
   tags: [security, sql_injection, advanced_sqli, boolean_based, phase3]
@@ -1148,6 +1154,12 @@
       values:
         - REDIR_PROTO_002
         - WAF_UNICODE_002
+    # Phase 13: REDIR_DATA_001 contains %3Cscript%3E + %3C%2Fscript%3E
+    - name: phase13_redir_data_dom_xss
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - REDIR_DATA_001
   output: "[NGINX XSS] DOM-based XSS Attack test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: CRITICAL
   tags: [security, xss, dom_based, advanced_xss, phase3]
@@ -1504,6 +1516,15 @@
         - WAF_WHITESPACE_001
         - REDIR_PROTO_002
         - WAF_UNICODE_001
+    # Phase 13: Patterns with %0a/%0d/script triggers (#7 + #10)
+    - name: phase13_xss_bypass_exceptions
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - WAF_CHUNK_001
+        - REDIR_META_001
+        - HHI_CHAIN_001
+        - REDIR_DATA_001
   output: "[NGINX XSS] XSS Filter Bypass Attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: WARNING
   tags: [security, xss, filter_bypass, advanced_xss, phase3]
@@ -1854,6 +1875,15 @@
       values:
         - HHI_MULTI_001
         - WAF_NULL_001
+    # Phase 13: Patterns with %0a/%0d that should be caught by their own rules
+    - name: phase13_path_traversal_exceptions
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - FP_CRLF_001
+        - WAF_CHUNK_001
+        - REDIR_META_001
+        - HHI_CHAIN_001
   output: "[NGINX Traversal] Advanced path traversal attempt detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: WARNING
   tags: [security, path_traversal, advanced_traversal, phase3]
@@ -2190,6 +2220,14 @@
       comps: in
       values:
         - HHI_MULTI_001
+    # Phase 13: Patterns with %0a/%0d that should be caught by their own rules
+    - name: phase13_cmdi_exceptions
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - WAF_CHUNK_001
+        - REDIR_META_001
+        - HHI_CHAIN_001
 
 # ==============================================================================
 # Emerging Threats Detection Rules (from advanced_emerging_enhanced.yaml)
@@ -2506,6 +2544,12 @@
       comps: in
       values:
         - FP_API_002
+    # Phase 13: FP_SSTI_001 {{username}} matches template injection
+    - name: phase13_fp_ssti_template
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - FP_SSTI_001
   output: "[NGINX Emerging Threat] Template injection test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: CRITICAL
   tags: [security, emerging_threats, ssti, template_injection, phase5]
@@ -2574,6 +2618,8 @@
       nginx.request_uri contains "<%=" or
       nginx.request_uri contains "%3C%25%3D" or
       nginx.request_uri contains "%3c%25%3d" or
+      nginx.request_uri contains "<%-" or
+      nginx.request_uri contains "%3C%25-" or
       nginx.request_uri icontains "System.Diagnostics" or
       nginx.request_uri contains "@{var" or
       nginx.request_uri contains "@%7Bvar" or
@@ -2628,6 +2674,12 @@
       comps: in
       values:
         - FP_API_002
+    # Phase 13: FP_SSTI_001 {{username}} matches SSTI %7B%7B condition
+    - name: phase13_fp_ssti_ssti
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - FP_SSTI_001
   source: nginx
 
 # =========================================================================
@@ -2961,6 +3013,18 @@
       comps: in
       values:
         - FP_JWT_001
+    # Phase 13: JWT replay pattern matches eyJhbGciOi
+    - name: phase13_jwt_replay_api
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - JWT_REPLAY_001
+    # Phase 13: Normal RS256 JWT FP matches eyJhbGciOi
+    - name: phase13_fp_jwt_api
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - FP_JWT_002
 
 # ==============================================================================
 # Phase 5 New Rules: Pickle Deserialization (Issue #64)
@@ -3163,7 +3227,9 @@
       nginx.request_uri contains "%E5%98%8A%E5%98%8D" or
       nginx.request_uri contains "%e5%98%8a%e5%98%8d" or
       nginx.request_uri contains "%250d%250a" or
-      nginx.request_uri contains "%250D%250A"
+      nginx.request_uri contains "%250D%250A" or
+      nginx.request_uri contains "%09" or
+      nginx.request_uri contains "%E2%80%A8"
     )
   output: "[NGINX CRLF] CRLF Injection attempt detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: WARNING
@@ -3184,6 +3250,15 @@
       comps: in
       values:
         - HHI_MULTI_001
+    # Phase 13: Patterns with %0d%0a/%0a that should be caught by their own rules
+    - name: phase13_crlf_exceptions
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - WAF_CHUNK_001
+        - REDIR_META_001
+        - HHI_CHAIN_001
+        - FP_CRLF_001
 
 # ==============================================================================
 # Phase 11 New Rules (Issue #802)
@@ -3290,12 +3365,21 @@
       nginx.request_uri contains "%3A%2F%2F" or
       nginx.request_uri contains "%2F%2F" or
       nginx.request_uri contains "javascript%3A" or
-      nginx.request_uri contains "%253A%252F%252F"
+      nginx.request_uri contains "%253A%252F%252F" or
+      nginx.request_uri contains "data%3A"
     )
   output: "[NGINX Redirect] Open redirect attempt detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: WARNING
   tags: [security, open_redirect, phase12]
   source: nginx
+  exceptions:
+    # Phase 13: SSRF redirect and FP patterns matching url%3D + %3A%2F%2F
+    - name: phase13_ssrf_redir_redirect
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - SSRF_REDIR_001
+        - FP_SSRF_001
 
 # ==============================================================================
 # WAF Bypass Detection (Phase 12)
@@ -3315,7 +3399,14 @@
       nginx.request_uri contains "SeLeCt" or
       nginx.request_uri contains "SELECT%00" or
       nginx.request_uri contains "SELECT%09" or
-      nginx.request_uri contains "%26id%3D1%26id%3DUNION"
+      nginx.request_uri contains "%26id%3D1%26id%3DUNION" or
+      nginx.request_uri contains "%C0%AE%C0%AE" or
+      nginx.request_uri contains "%2525" or
+      nginx.request_uri contains "CONCAT%28%27" or
+      nginx.request_uri contains "sel%00ect" or
+      nginx.request_uri contains "Transfer-Encoding%3A" or
+      nginx.request_uri contains "multipart%2Fform-data" or
+      nginx.request_uri contains "%22SELECT%20"
     )
   output: "[NGINX WAF Bypass] WAF bypass attempt detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: WARNING
@@ -3335,9 +3426,61 @@
       nginx.request_uri contains "eyJhbGciOiJOb25lI" or
       nginx.request_uri contains "eyJhbGciOiJOT05FI" or
       nginx.request_uri contains "eyJhbGciOiJIUzI1NiJ9" or
-      nginx.request_uri contains "eyJqa3UiOi"
+      nginx.request_uri contains "eyJqa3UiOi" or
+      nginx.request_uri contains "eyJraWQiOi" or
+      nginx.request_uri contains "eyJ4NXUiOi" or
+      nginx.request_uri contains "eyJlbmMiOi"
     )
   output: "[NGINX JWT] JWT token attack attempt detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: WARNING
   tags: [security, jwt_attack, phase12]
+  source: nginx
+
+# ==============================================================================
+# Phase 13: Information Disclosure Detection (Issue #806)
+# ==============================================================================
+# Detects access to debug endpoints, server status pages, and configuration exposure
+
+- rule: Information Disclosure Attempt
+  desc: Detects access to debug endpoints, server status pages, and configuration exposure
+  condition: >-
+    (
+      nginx.request_uri icontains "/actuator/" or
+      nginx.request_uri icontains "phpinfo" or
+      nginx.request_uri icontains "/server-status" or
+      nginx.request_uri icontains "/server-info" or
+      nginx.request_uri icontains "elmah.axd" or
+      nginx.request_uri icontains "/swagger" or
+      nginx.request_uri icontains "debug=true" or
+      nginx.request_uri icontains "_method=TRACE" or
+      nginx.request_uri icontains "/trace" or
+      nginx.request_uri icontains "/__debug__"
+    )
+  output: "[NGINX Info Disclosure] Information disclosure attempt detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
+  priority: WARNING
+  tags: [security, information_disclosure, phase13]
+  source: nginx
+
+# ==============================================================================
+# Phase 13: Authentication Bypass via Path Detection (Issue #806)
+# ==============================================================================
+# Detects path normalization tricks to bypass authentication and authorization
+
+- rule: Authentication Bypass via Path Attempt
+  desc: Detects path normalization tricks to bypass authentication and authorization
+  condition: >-
+    (
+      nginx.request_uri contains "%2Fadmin%3B" or
+      nginx.request_uri contains "%2Fadmin%252F" or
+      nginx.request_uri contains "%2F%2Fadmin" or
+      nginx.request_uri contains "%2FAdmin" or
+      nginx.request_uri contains "%2Fadmin." or
+      nginx.request_uri contains "%2Fadmin%2F.%2F" or
+      nginx.request_uri contains "_method=DELETE" or
+      nginx.request_uri contains "_method=PUT" or
+      nginx.request_uri contains "_method=PATCH"
+    )
+  output: "[NGINX Auth Bypass] Authentication bypass attempt detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
+  priority: WARNING
+  tags: [security, auth_bypass, path_normalization, phase13]
   source: nginx

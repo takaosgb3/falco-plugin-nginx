@@ -2,7 +2,7 @@
   "metadata": {
     "category": "crlf",
     "description": "CRLF (Carriage Return Line Feed) Injection attack patterns",
-    "total_patterns": 25,
+    "total_patterns": 31,
     "phase": "Phase 10 Stage 1",
     "created": "2026-02-11",
     "updated": "2026-02-14"
@@ -324,6 +324,78 @@
       "severity": "high",
       "expected_rule": "[NGINX CRLF] CRLF Injection attempt detected",
       "description": "Phase 10: Null byte + CRLF bypass technique"
+    },
+    {
+      "id": "CRLF_UTF8_001",
+      "name": "UTF-8 encoded CRLF injection",
+      "category": "crlf",
+      "subcategory": "utf8_crlf",
+      "payload": "%E5%98%8A%E5%98%8Dinjected-header:evil",
+      "encoded": "%E5%98%8A%E5%98%8Dinjected-header%3Aevil",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX CRLF] CRLF Injection attempt detected"
+    },
+    {
+      "id": "CRLF_DOUBLE_001",
+      "name": "Double CRLF for body injection",
+      "category": "crlf",
+      "subcategory": "body_injection",
+      "payload": "%0d%0a%0d%0a<html>injected",
+      "encoded": "%0d%0a%0d%0a%3Chtml%3Einjected",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX CRLF] CRLF Injection attempt detected"
+    },
+    {
+      "id": "CRLF_TAB_001",
+      "name": "Tab-based header injection",
+      "category": "crlf",
+      "subcategory": "tab_injection",
+      "payload": "%09injected-header:evil",
+      "encoded": "%09injected-header%3Aevil",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX CRLF] CRLF Injection attempt detected"
+    },
+    {
+      "id": "CRLF_UNICODE_001",
+      "name": "Unicode line separator injection",
+      "category": "crlf",
+      "subcategory": "unicode_separator",
+      "payload": "%E2%80%A8injected",
+      "encoded": "%E2%80%A8injected",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX CRLF] CRLF Injection attempt detected"
+    },
+    {
+      "id": "CRLF_MIXED_001",
+      "name": "Mixed encoding CRLF",
+      "category": "crlf",
+      "subcategory": "mixed_encoding",
+      "payload": "%250d%250a%250d%250ainjected",
+      "encoded": "%250d%250a%250d%250ainjected",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX CRLF] CRLF Injection attempt detected"
+    },
+    {
+      "id": "FP_CRLF_001",
+      "name": "Normal URL with newline in parameter",
+      "category": "crlf",
+      "subcategory": "false_positive",
+      "payload": "/search?q=hello%0aworld",
+      "encoded": "%2Fsearch%3Fq%3Dhello%0aworld",
+      "port": 80,
+      "expected_detection": false,
+      "severity": "info",
+      "expected_rule": "NONE"
     }
   ]
 }
