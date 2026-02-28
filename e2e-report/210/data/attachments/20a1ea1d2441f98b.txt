@@ -1,0 +1,3 @@
+Expected Rule: [NGINX Info Disclosure] Information disclosure attempt detected
+Matched Rule: [NGINX Info Disclosure] Information disclosure attempt detected test_id=INFO_ELMAH_001-1772277112416-piytvs pattern_id=INFO_ELMAH_001 uri=/?q=/elmah.axd client=127.0.0.1
+Rule Match: ✅ Match

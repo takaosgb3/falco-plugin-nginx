@@ -1,0 +1,1 @@
+Test passed: ENC_PATH_DBL_001

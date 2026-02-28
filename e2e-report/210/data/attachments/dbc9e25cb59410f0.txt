@@ -1,0 +1,5 @@
+Pattern ID: CMD_OBF_005
+        Status: passed
+        Latency: ~63000ms
+        Detection: 1 / 1
+        Rule: [NGINX Traversal] File inclusion attack detected test_id=CMD_OBF_005-1772277056505-m2q2x pattern_id=CMD_OBF_005 uri=/?q=%3B%7Bcat%2C%2Fetc%2Fpasswd%7D client=127.0.0.1

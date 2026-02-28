@@ -1,0 +1,5 @@
+Pattern ID: REDIR_PROTO_002
+        Status: passed
+        Latency: ~22000ms
+        Detection: 1 / 1
+        Rule: [NGINX Redirect] Open redirect attempt detected test_id=REDIR_PROTO_002-1772277097416-h95d pattern_id=REDIR_PROTO_002 uri=/?q=url%3Djavascript%3Aalert%281%29 client=127.0.0.1

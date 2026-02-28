@@ -1,0 +1,5 @@
+Pattern ID: AUTH_TRAIL_001
+        Status: passed
+        Latency: ~2000ms
+        Detection: 1 / 1
+        Rule: [NGINX Auth Bypass] Authentication bypass attempt detected test_id=AUTH_TRAIL_001-1772277117416-palbm pattern_id=AUTH_TRAIL_001 uri=/?q=%2Fadmin. client=127.0.0.1

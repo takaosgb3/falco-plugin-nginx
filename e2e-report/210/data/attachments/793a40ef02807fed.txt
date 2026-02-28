@@ -1,0 +1,5 @@
+Pattern ID: SENSITIVE_K8S_001
+        Status: passed
+        Latency: ~86000ms
+        Detection: 1 / 1
+        Rule: [NGINX Sensitive] Sensitive file access attempt detected test_id=SENSITIVE_K8S_001-1772277033438-4ntw0g pattern_id=SENSITIVE_K8S_001 uri=/?q=%2Fkubernetes.yml client=127.0.0.1

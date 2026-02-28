@@ -1,0 +1,17 @@
+{
+  "pattern_id": "HPP_FILTER_001",
+  "test_id": "HPP_FILTER_001-1772277094921-tghcid",
+  "category": "hpp",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 25000,
+  "evidence": "11:11:34.000000000: Warning [NGINX HPP] HTTP Parameter Pollution attempt detected test_id=HPP_FILTER_001-1772277094921-tghcid pattern_id=HPP_FILTER_001 uri=/?q=%26admin%3Dtrue%26role%3Dadmin%26admin%3Dfalse%26role%3Duser client=127.0.0.1",
+  "rule_name": "[NGINX HPP] HTTP Parameter Pollution attempt detected test_id=HPP_FILTER_001-1772277094921-tghcid pattern_id=HPP_FILTER_001 uri=/?q=%26admin%3Dtrue%26role%3Dadmin%26admin%3Dfalse%26role%3Duser client=127.0.0.1",
+  "expected_rule": "[NGINX HPP] HTTP Parameter Pollution attempt detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX HPP] HTTP Parameter Pollution attempt detected test_id=HPP_FILTER_001-1772277094921-tghcid pattern_id=HPP_FILTER_001 uri=/?q=%26admin%3Dtrue%26role%3Dadmin%26admin%3Dfalse%26role%3Duser client=127.0.0.1",
+  "sent_at": 1772277119000,
+  "detected_at": 1772277094000,
+  "status": "passed"
+}

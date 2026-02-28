@@ -1,0 +1,17 @@
+{
+  "pattern_id": "FP_AUTH_003",
+  "test_id": "FP_AUTH_003-1772277118921-lmsu2",
+  "category": "auth_bypass",
+  "detected": false,
+  "expected_detection": false,
+  "latency_ms": null,
+  "evidence": "",
+  "rule_name": "",
+  "expected_rule": "NONE",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": null,
+  "sent_at": 1772277119000,
+  "detected_at": null,
+  "status": "passed"
+}

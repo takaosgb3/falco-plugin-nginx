@@ -1,0 +1,5 @@
+Pattern ID: JWT_KID_001
+        Status: passed
+        Latency: ~11000ms
+        Detection: 1 / 1
+        Rule: [NGINX JWT] JWT token attack attempt detected test_id=JWT_KID_001-1772277108919-xvti8s pattern_id=JWT_KID_001 uri=/?q=eyJraWQiOiIxIE9SIDEiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjMifQ. client=127.0.0.1

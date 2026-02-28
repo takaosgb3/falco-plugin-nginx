@@ -1,0 +1,17 @@
+{
+  "pattern_id": "WAF_COMMENT_002",
+  "test_id": "WAF_COMMENT_002-1772277101412-k0z4b",
+  "category": "waf_bypass",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 18000,
+  "evidence": "11:11:41.000000000: Warning [NGINX WAF Bypass] WAF bypass attempt detected test_id=WAF_COMMENT_002-1772277101412-k0z4b pattern_id=WAF_COMMENT_002 uri=/?q=SEL%2F%2A%2A%2FECT%20%2A%20FROM%20users client=127.0.0.1",
+  "rule_name": "[NGINX WAF Bypass] WAF bypass attempt detected test_id=WAF_COMMENT_002-1772277101412-k0z4b pattern_id=WAF_COMMENT_002 uri=/?q=SEL%2F%2A%2A%2FECT%20%2A%20FROM%20users client=127.0.0.1",
+  "expected_rule": "[NGINX WAF Bypass] WAF bypass attempt detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX WAF Bypass] WAF bypass attempt detected test_id=WAF_COMMENT_002-1772277101412-k0z4b pattern_id=WAF_COMMENT_002 uri=/?q=SEL%2F%2A%2A%2FECT%20%2A%20FROM%20users client=127.0.0.1",
+  "sent_at": 1772277119000,
+  "detected_at": 1772277101000,
+  "status": "passed"
+}

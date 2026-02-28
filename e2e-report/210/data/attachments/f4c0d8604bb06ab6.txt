@@ -1,0 +1,5 @@
+Pattern ID: XPATH_ENUM_002
+        Status: passed
+        Latency: ~74000ms
+        Detection: 1 / 1
+        Rule: [NGINX XPath Injection] XPath injection attempt test_id=XPATH_ENUM_002-1772277045923-afuidu pattern_id=XPATH_ENUM_002 uri=/?q=string-length%28%2F%2Fpassword%29%3E0 client=127.0.0.1

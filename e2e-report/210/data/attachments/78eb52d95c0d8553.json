@@ -1,0 +1,17 @@
+{
+  "pattern_id": "REDIR_BYPASS_002",
+  "test_id": "REDIR_BYPASS_002-1772277098418-websbc",
+  "category": "open_redirect",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 21000,
+  "evidence": "11:11:38.000000000: Warning [NGINX Redirect] Open redirect attempt detected test_id=REDIR_BYPASS_002-1772277098418-websbc pattern_id=REDIR_BYPASS_002 uri=/?q=redirect%3Dhttps%3A%2F%2Fgood.com%5C%40evil.com client=127.0.0.1",
+  "rule_name": "[NGINX Redirect] Open redirect attempt detected test_id=REDIR_BYPASS_002-1772277098418-websbc pattern_id=REDIR_BYPASS_002 uri=/?q=redirect%3Dhttps%3A%2F%2Fgood.com%5C%40evil.com client=127.0.0.1",
+  "expected_rule": "[NGINX Redirect] Open redirect attempt detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Redirect] Open redirect attempt detected test_id=REDIR_BYPASS_002-1772277098418-websbc pattern_id=REDIR_BYPASS_002 uri=/?q=redirect%3Dhttps%3A%2F%2Fgood.com%5C%40evil.com client=127.0.0.1",
+  "sent_at": 1772277119000,
+  "detected_at": 1772277098000,
+  "status": "passed"
+}

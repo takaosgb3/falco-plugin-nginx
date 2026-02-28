@@ -1,0 +1,3 @@
+Expected Rule: [NGINX Redirect] Open redirect attempt detected
+Matched Rule: [NGINX Redirect] Open redirect attempt detected test_id=REDIR_DATA_001-1772277100925-yltc8 pattern_id=REDIR_DATA_001 uri=/?q=url%3Ddata%3Atext%2Fhtml%2C%3Cscript%3Ealert%281%29%3C%2Fscript%3E client=127.0.0.1
+Rule Match: ✅ Match

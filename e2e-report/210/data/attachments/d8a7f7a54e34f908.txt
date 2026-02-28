@@ -1,0 +1,5 @@
+Pattern ID: REDIR_BYPASS_001
+        Status: passed
+        Latency: ~22000ms
+        Detection: 1 / 1
+        Rule: [NGINX Redirect] Open redirect attempt detected test_id=REDIR_BYPASS_001-1772277097917-f6v119 pattern_id=REDIR_BYPASS_001 uri=/?q=url%3Dhttps%3A%2F%2Fgood.com%40evil.com client=127.0.0.1

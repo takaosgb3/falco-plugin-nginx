@@ -1,0 +1,3 @@
+Expected Rule: [NGINX Info Disclosure] Information disclosure attempt detected
+Matched Rule: [NGINX Info Disclosure] Information disclosure attempt detected test_id=INFO_ACTUATOR_001-1772277109909-3rxvf4 pattern_id=INFO_ACTUATOR_001 uri=/?q=/actuator/env client=127.0.0.1
+Rule Match: ✅ Match

@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SQLI_BYPASS_009",
+  "test_id": "SQLI_BYPASS_009-1772277030982-szxx7w",
+  "category": "sqli",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 86311000,
+  "evidence": "11:10:30.000000000: Critical [NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_BYPASS_009-1772277030982-szxx7w pattern_id=SQLI_BYPASS_009 uri=/?q='%2509UNION%250CSELECT%250Dversion()%2CNULL%2CNULL-- client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_BYPASS_009-1772277030982-szxx7w pattern_id=SQLI_BYPASS_009 uri=/?q='%2509UNION%250CSELECT%250Dversion()%2CNULL%2CNULL-- client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX SQLi] Boolean-based Blind SQL Injection",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_BYPASS_009-1772277030982-szxx7w pattern_id=SQLI_BYPASS_009 uri=/?q='%2509UNION%250CSELECT%250Dversion()%2CNULL%2CNULL-- client=127.0.0.1 method=GET",
+  "sent_at": 1772277119000,
+  "detected_at": 1772277030000,
+  "status": "passed"
+}

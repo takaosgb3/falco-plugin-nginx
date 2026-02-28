@@ -1,0 +1,3 @@
+Expected Rule: [NGINX Info Disclosure] Information disclosure attempt detected
+Matched Rule: [NGINX Info Disclosure] Information disclosure attempt detected test_id=INFO_TRACE_001-1772277112917-7i0hyv pattern_id=INFO_TRACE_001 uri=/?q=_method=TRACE client=127.0.0.1
+Rule Match: ✅ Match

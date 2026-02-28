@@ -1,0 +1,17 @@
+{
+  "pattern_id": "JWT_NONE_002",
+  "test_id": "JWT_NONE_002-1772277105410-lnozbs",
+  "category": "jwt",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 14000,
+  "evidence": "11:11:45.000000000: Warning [NGINX API Attack] API security vulnerability detected test_id=JWT_NONE_002-1772277105410-lnozbs pattern_id=JWT_NONE_002 uri=/?q=eyJhbGciOiJOb25lIn0.eyJzdWIiOiIxMjMifQ. client=127.0.0.1",
+  "rule_name": "[NGINX API Attack] API security vulnerability detected test_id=JWT_NONE_002-1772277105410-lnozbs pattern_id=JWT_NONE_002 uri=/?q=eyJhbGciOiJOb25lIn0.eyJzdWIiOiIxMjMifQ. client=127.0.0.1",
+  "expected_rule": "[NGINX JWT] JWT token attack attempt detected",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": "[NGINX API Attack] API security vulnerability detected test_id=JWT_NONE_002-1772277105410-lnozbs pattern_id=JWT_NONE_002 uri=/?q=eyJhbGciOiJOb25lIn0.eyJzdWIiOiIxMjMifQ. client=127.0.0.1",
+  "sent_at": 1772277119000,
+  "detected_at": 1772277105000,
+  "status": "passed"
+}

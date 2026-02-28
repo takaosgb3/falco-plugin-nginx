@@ -1,0 +1,3 @@
+Expected Rule: [NGINX Sensitive] Sensitive file access attempt detected
+Matched Rule: [NGINX Sensitive] Sensitive file access attempt detected test_id=SENSITIVE_SSH_001-1772277028930-uggaba pattern_id=SENSITIVE_SSH_001 uri=/?q=%2F.ssh%2Fid_rsa client=127.0.0.1
+Rule Match: ✅ Match

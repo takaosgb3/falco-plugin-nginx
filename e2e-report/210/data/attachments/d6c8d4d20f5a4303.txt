@@ -1,0 +1,5 @@
+Pattern ID: AUTH_SEMI_002
+        Status: passed
+        Latency: ~4000ms
+        Detection: 1 / 1
+        Rule: [NGINX Auth Bypass] Authentication bypass attempt detected test_id=AUTH_SEMI_002-1772277115410-0l72cfl pattern_id=AUTH_SEMI_002 uri=/?q=%2Fadmin%3B.js client=127.0.0.1

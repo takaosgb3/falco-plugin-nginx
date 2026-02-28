@@ -1,0 +1,17 @@
+{
+  "pattern_id": "XSS_CSP_002",
+  "test_id": "XSS_CSP_002-1772277051516-3h4lxa",
+  "category": "xss",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 86332000,
+  "evidence": "11:10:51.000000000: Critical [NGINX XSS] DOM-based XSS Attack test_id=XSS_CSP_002-1772277051516-3h4lxa pattern_id=XSS_CSP_002 uri=/?q=%3Cmeta%20http-equiv%3D%22refresh%22%20content%3D%220%3Burl%3Djavascript%3Aalert%281%29%22%3E client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX XSS] DOM-based XSS Attack test_id=XSS_CSP_002-1772277051516-3h4lxa pattern_id=XSS_CSP_002 uri=/?q=%3Cmeta%20http-equiv%3D%22refresh%22%20content%3D%220%3Burl%3Djavascript%3Aalert%281%29%22%3E client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX XSS] DOM-based XSS Attack",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX XSS] DOM-based XSS Attack test_id=XSS_CSP_002-1772277051516-3h4lxa pattern_id=XSS_CSP_002 uri=/?q=%3Cmeta%20http-equiv%3D%22refresh%22%20content%3D%220%3Burl%3Djavascript%3Aalert%281%29%22%3E client=127.0.0.1 method=GET",
+  "sent_at": 1772277119000,
+  "detected_at": 1772277051000,
+  "status": "passed"
+}

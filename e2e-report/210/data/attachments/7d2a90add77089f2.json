@@ -1,0 +1,17 @@
+{
+  "pattern_id": "HPP_AUTH_002",
+  "test_id": "HPP_AUTH_002-1772277092415-dnfqr4",
+  "category": "hpp",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 27000,
+  "evidence": "11:11:32.000000000: Warning [NGINX HPP] HTTP Parameter Pollution attempt detected test_id=HPP_AUTH_002-1772277092415-dnfqr4 pattern_id=HPP_AUTH_002 uri=/?q=%26access%3Dall client=127.0.0.1",
+  "rule_name": "[NGINX HPP] HTTP Parameter Pollution attempt detected test_id=HPP_AUTH_002-1772277092415-dnfqr4 pattern_id=HPP_AUTH_002 uri=/?q=%26access%3Dall client=127.0.0.1",
+  "expected_rule": "[NGINX HPP] HTTP Parameter Pollution attempt detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX HPP] HTTP Parameter Pollution attempt detected test_id=HPP_AUTH_002-1772277092415-dnfqr4 pattern_id=HPP_AUTH_002 uri=/?q=%26access%3Dall client=127.0.0.1",
+  "sent_at": 1772277119000,
+  "detected_at": 1772277092000,
+  "status": "passed"
+}

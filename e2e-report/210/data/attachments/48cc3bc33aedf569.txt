@@ -1,0 +1,3 @@
+Expected Rule: [NGINX Emerging Threat] Template injection
+Matched Rule: [NGINX Emerging Threat] Template injection test_id=SSTI_MAKO_002-1772277059943-f174hh pattern_id=SSTI_MAKO_002 uri=/?q=%24%7B__import__%28%27os%27%29.popen%28%27id%27%29.read%28%29%7D client=127.0.0.1
+Rule Match: ✅ Match

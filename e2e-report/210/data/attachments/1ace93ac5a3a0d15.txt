@@ -1,0 +1,5 @@
+Pattern ID: JWT_NONE_001
+        Status: passed
+        Latency: ~15000ms
+        Detection: 1 / 1
+        Rule: [NGINX API Attack] API security vulnerability detected test_id=JWT_NONE_001-1772277104909-z2t1yu pattern_id=JWT_NONE_001 uri=/?q=eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJhZG1pbiI6dHJ1ZX0. client=127.0.0.1

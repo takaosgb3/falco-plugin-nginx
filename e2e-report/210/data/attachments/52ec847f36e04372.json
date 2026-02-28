@@ -1,0 +1,17 @@
+{
+  "pattern_id": "REDIR_PROTO_001",
+  "test_id": "REDIR_PROTO_001-1772277096915-3ivu8m",
+  "category": "open_redirect",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 23000,
+  "evidence": "11:11:36.000000000: Warning [NGINX Redirect] Open redirect attempt detected test_id=REDIR_PROTO_001-1772277096915-3ivu8m pattern_id=REDIR_PROTO_001 uri=/?q=url%3D%2F%2Fevil.com client=127.0.0.1",
+  "rule_name": "[NGINX Redirect] Open redirect attempt detected test_id=REDIR_PROTO_001-1772277096915-3ivu8m pattern_id=REDIR_PROTO_001 uri=/?q=url%3D%2F%2Fevil.com client=127.0.0.1",
+  "expected_rule": "[NGINX Redirect] Open redirect attempt detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Redirect] Open redirect attempt detected test_id=REDIR_PROTO_001-1772277096915-3ivu8m pattern_id=REDIR_PROTO_001 uri=/?q=url%3D%2F%2Fevil.com client=127.0.0.1",
+  "sent_at": 1772277119000,
+  "detected_at": 1772277096000,
+  "status": "passed"
+}

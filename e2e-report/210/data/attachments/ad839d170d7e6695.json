@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SSTI_HBS_001",
+  "test_id": "SSTI_HBS_001-1772277059442-h5d9om",
+  "category": "ssti",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 86340000,
+  "evidence": "11:10:59.000000000: Critical [NGINX Emerging Threat] Template injection test_id=SSTI_HBS_001-1772277059442-h5d9om pattern_id=SSTI_HBS_001 uri=/?q=%7B%7B%23with%20%22s%22%20as%20%7Cstring%7C%7D%7D%7B%7B%2Fwith%7D%7D client=127.0.0.1",
+  "rule_name": "[NGINX Emerging Threat] Template injection test_id=SSTI_HBS_001-1772277059442-h5d9om pattern_id=SSTI_HBS_001 uri=/?q=%7B%7B%23with%20%22s%22%20as%20%7Cstring%7C%7D%7D%7B%7B%2Fwith%7D%7D client=127.0.0.1",
+  "expected_rule": "[NGINX SSTI] Server-Side Template Injection detected",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": "[NGINX Emerging Threat] Template injection test_id=SSTI_HBS_001-1772277059442-h5d9om pattern_id=SSTI_HBS_001 uri=/?q=%7B%7B%23with%20%22s%22%20as%20%7Cstring%7C%7D%7D%7B%7B%2Fwith%7D%7D client=127.0.0.1",
+  "sent_at": 1772277119000,
+  "detected_at": 1772277059000,
+  "status": "passed"
+}

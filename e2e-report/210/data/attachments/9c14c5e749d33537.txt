@@ -1,0 +1,3 @@
+Expected Rule: [NGINX Traversal] Basic path traversal attack detected
+Matched Rule: [NGINX Traversal] Basic path traversal attack detected test_id=PATH_SENS_003-1772277034464-e5x3dk pattern_id=PATH_SENS_003 uri=/?q=..%2F..%2F..%2Fvar%2Frun%2Fdocker.sock client=127.0.0.1
+Rule Match: ✅ Match

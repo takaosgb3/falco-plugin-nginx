@@ -1,0 +1,17 @@
+{
+  "pattern_id": "JWT_REPLAY_001",
+  "test_id": "JWT_REPLAY_001-1772277110923-ngyn7",
+  "category": "jwt",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 9000,
+  "evidence": "11:11:50.000000000: Warning [NGINX JWT] JWT token attack attempt detected test_id=JWT_REPLAY_001-1772277110923-ngyn7 pattern_id=JWT_REPLAY_001 uri=/?q=eyJhbGciOiJub25lIn0.eyJleHAiOjk5OTk5OTk5OTksInN1YiI6IjEyMyJ9. client=127.0.0.1",
+  "rule_name": "[NGINX JWT] JWT token attack attempt detected test_id=JWT_REPLAY_001-1772277110923-ngyn7 pattern_id=JWT_REPLAY_001 uri=/?q=eyJhbGciOiJub25lIn0.eyJleHAiOjk5OTk5OTk5OTksInN1YiI6IjEyMyJ9. client=127.0.0.1",
+  "expected_rule": "[NGINX JWT] JWT token attack attempt detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX JWT] JWT token attack attempt detected test_id=JWT_REPLAY_001-1772277110923-ngyn7 pattern_id=JWT_REPLAY_001 uri=/?q=eyJhbGciOiJub25lIn0.eyJleHAiOjk5OTk5OTk5OTksInN1YiI6IjEyMyJ9. client=127.0.0.1",
+  "sent_at": 1772277119000,
+  "detected_at": 1772277110000,
+  "status": "passed"
+}

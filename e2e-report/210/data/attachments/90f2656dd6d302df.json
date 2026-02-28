@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SQLI_UNION_003",
+  "test_id": "SQLI_UNION_003-1772277021963-x85hu",
+  "category": "sqli",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 86302000,
+  "evidence": "11:10:21.000000000: Critical [NGINX SQLi] Error-based SQL Injection test_id=SQLI_UNION_003-1772277021963-x85hu pattern_id=SQLI_UNION_003 uri=/?q=%27%20UNION%20SELECT%20version%28%29%2Cuser%28%29%2Cdatabase%28%29%20-- client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Error-based SQL Injection test_id=SQLI_UNION_003-1772277021963-x85hu pattern_id=SQLI_UNION_003 uri=/?q=%27%20UNION%20SELECT%20version%28%29%2Cuser%28%29%2Cdatabase%28%29%20-- client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX SQLi] Error-based SQL Injection",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX SQLi] Error-based SQL Injection test_id=SQLI_UNION_003-1772277021963-x85hu pattern_id=SQLI_UNION_003 uri=/?q=%27%20UNION%20SELECT%20version%28%29%2Cuser%28%29%2Cdatabase%28%29%20-- client=127.0.0.1 method=GET",
+  "sent_at": 1772277119000,
+  "detected_at": 1772277021000,
+  "status": "passed"
+}

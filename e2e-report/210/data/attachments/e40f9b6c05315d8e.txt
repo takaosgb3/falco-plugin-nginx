@@ -1,0 +1,5 @@
+Pattern ID: INFO_DEBUG_001
+        Status: passed
+        Latency: ~8000ms
+        Detection: 1 / 1
+        Rule: [NGINX Info Disclosure] Information disclosure attempt detected test_id=INFO_DEBUG_001-1772277111414-k83mat pattern_id=INFO_DEBUG_001 uri=/?q=debug=true client=127.0.0.1

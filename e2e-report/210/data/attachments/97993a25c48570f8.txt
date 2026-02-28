@@ -1,0 +1,5 @@
+Pattern ID: XPATH_COMMENT_001
+        Status: passed
+        Latency: ~68000ms
+        Detection: 1 / 1
+        Rule: [NGINX XPath Injection] XPath injection attempt test_id=XPATH_COMMENT_001-1772277051935-478gah pattern_id=XPATH_COMMENT_001 uri=/?q=%27%20or%201%3D1%20%28%3A%20XPath%20comment%20%3A%29 client=127.0.0.1

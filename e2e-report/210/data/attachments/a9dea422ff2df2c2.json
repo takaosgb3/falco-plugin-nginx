@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SSTI_NUNJUCKS_002",
+  "test_id": "SSTI_NUNJUCKS_002-1772277060444-jgo5ay",
+  "category": "ssti",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 59000,
+  "evidence": "11:11:00.000000000: Critical [NGINX Emerging Threat] Template injection test_id=SSTI_NUNJUCKS_002-1772277060444-jgo5ay pattern_id=SSTI_NUNJUCKS_002 uri=/?q=%7B%7Brange.constructor%28%22return%20this%22%29%28%29%7D%7D client=127.0.0.1",
+  "rule_name": "[NGINX Emerging Threat] Template injection test_id=SSTI_NUNJUCKS_002-1772277060444-jgo5ay pattern_id=SSTI_NUNJUCKS_002 uri=/?q=%7B%7Brange.constructor%28%22return%20this%22%29%28%29%7D%7D client=127.0.0.1",
+  "expected_rule": "[NGINX SSTI] Server-Side Template Injection detected",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": "[NGINX Emerging Threat] Template injection test_id=SSTI_NUNJUCKS_002-1772277060444-jgo5ay pattern_id=SSTI_NUNJUCKS_002 uri=/?q=%7B%7Brange.constructor%28%22return%20this%22%29%28%29%7D%7D client=127.0.0.1",
+  "sent_at": 1772277119000,
+  "detected_at": 1772277060000,
+  "status": "passed"
+}

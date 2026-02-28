@@ -1,0 +1,17 @@
+{
+  "pattern_id": "JWT_X5U_001",
+  "test_id": "JWT_X5U_001-1772277109921-0q2srm",
+  "category": "jwt",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 10000,
+  "evidence": "11:11:49.000000000: Warning [NGINX JWT] JWT token attack attempt detected test_id=JWT_X5U_001-1772277109921-0q2srm pattern_id=JWT_X5U_001 uri=/?q=eyJ4NXUiOiJodHRwczovL2V2aWwuY29tIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiIxMjMifQ. client=127.0.0.1",
+  "rule_name": "[NGINX JWT] JWT token attack attempt detected test_id=JWT_X5U_001-1772277109921-0q2srm pattern_id=JWT_X5U_001 uri=/?q=eyJ4NXUiOiJodHRwczovL2V2aWwuY29tIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiIxMjMifQ. client=127.0.0.1",
+  "expected_rule": "[NGINX JWT] JWT token attack attempt detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX JWT] JWT token attack attempt detected test_id=JWT_X5U_001-1772277109921-0q2srm pattern_id=JWT_X5U_001 uri=/?q=eyJ4NXUiOiJodHRwczovL2V2aWwuY29tIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiIxMjMifQ. client=127.0.0.1",
+  "sent_at": 1772277119000,
+  "detected_at": 1772277109000,
+  "status": "passed"
+}

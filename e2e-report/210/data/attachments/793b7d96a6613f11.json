@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SQLI_BLIND_008",
+  "test_id": "SQLI_BLIND_008-1772277036994-jh5v7d",
+  "category": "sqli",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 86317000,
+  "evidence": "11:10:36.000000000: Critical [NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_BLIND_008-1772277036994-jh5v7d pattern_id=SQLI_BLIND_008 uri=/?q='%20AND%20(SELECT%20SUBSTR(table_name%2C1%2C1)%20FROM%20information_schema.tables%20WHERE%20table_schema%3Ddatabase()%20LIMIT%201)%3D'u'%20-- client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_BLIND_008-1772277036994-jh5v7d pattern_id=SQLI_BLIND_008 uri=/?q='%20AND%20(SELECT%20SUBSTR(table_name%2C1%2C1)%20FROM%20information_schema.tables%20WHERE%20table_schema%3Ddatabase()%20LIMIT%201)%3D'u'%20-- client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX SQLi] Boolean-based Blind SQL Injection",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_BLIND_008-1772277036994-jh5v7d pattern_id=SQLI_BLIND_008 uri=/?q='%20AND%20(SELECT%20SUBSTR(table_name%2C1%2C1)%20FROM%20information_schema.tables%20WHERE%20table_schema%3Ddatabase()%20LIMIT%201)%3D'u'%20-- client=127.0.0.1 method=GET",
+  "sent_at": 1772277119000,
+  "detected_at": 1772277036000,
+  "status": "passed"
+}

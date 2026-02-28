@@ -1,0 +1,3 @@
+Expected Rule: [NGINX CRLF] CRLF Injection attempt detected
+Matched Rule: [NGINX CRLF] CRLF Injection attempt detected test_id=CRLF_SESSION_002-1772277090935-a1s7t pattern_id=CRLF_SESSION_002 uri=/?q=%0d%0aSet-Cookie%3APHPSESSID%3Devil_session%3BPath%3D%2F client=127.0.0.1
+Rule Match: ✅ Match

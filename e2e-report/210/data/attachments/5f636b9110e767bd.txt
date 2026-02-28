@@ -1,0 +1,1 @@
+Test passed: SSTI_LOG4S_001

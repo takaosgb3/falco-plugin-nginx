@@ -1,0 +1,5 @@
+Pattern ID: HPP_REST_001
+        Status: passed
+        Latency: ~22000ms
+        Detection: 1 / 1
+        Rule: [NGINX HPP] HTTP Parameter Pollution attempt detected test_id=HPP_REST_001-1772277097427-a9mtsi pattern_id=HPP_REST_001 uri=/?q=%26id%3D1%26id%3D2%26admin%3Dtrue%26role%3Dadmin client=127.0.0.1

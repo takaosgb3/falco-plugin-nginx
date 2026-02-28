@@ -1,0 +1,3 @@
+Expected Rule: [NGINX JWT] JWT token attack attempt detected
+Matched Rule: [NGINX JWT] JWT token attack attempt detected test_id=JWT_JWKS_001-1772277111424-liv8zhj pattern_id=JWT_JWKS_001 uri=/?q=eyJqa3UiOiJodHRwczovL2V2aWwuY29tLy53ZWxsLWtub3duL2p3a3MuanNvbiIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiIxMjMifQ. client=127.0.0.1
+Rule Match: ✅ Match

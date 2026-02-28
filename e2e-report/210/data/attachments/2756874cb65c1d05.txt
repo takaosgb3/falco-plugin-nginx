@@ -1,0 +1,1 @@
+Test passed: PICKLE_DESER_015

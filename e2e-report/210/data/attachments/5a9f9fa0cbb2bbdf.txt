@@ -1,0 +1,5 @@
+Pattern ID: INFO_ACTUATOR_002
+        Status: passed
+        Latency: ~9000ms
+        Detection: 1 / 1
+        Rule: [NGINX Info Disclosure] Information disclosure attempt detected test_id=INFO_ACTUATOR_002-1772277110411-9d8oos pattern_id=INFO_ACTUATOR_002 uri=/?q=/actuator/health client=127.0.0.1

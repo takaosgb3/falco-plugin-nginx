@@ -1,0 +1,17 @@
+{
+  "pattern_id": "AUTH_LOGIN_002",
+  "test_id": "AUTH_LOGIN_002-1772277063930-4ti3sp",
+  "category": "api_security",
+  "detected": false,
+  "expected_detection": false,
+  "latency_ms": null,
+  "evidence": "",
+  "rule_name": "",
+  "expected_rule": "NONE",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": null,
+  "sent_at": 1772277119000,
+  "detected_at": null,
+  "status": "passed"
+}

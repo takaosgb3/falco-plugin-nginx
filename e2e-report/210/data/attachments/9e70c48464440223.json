@@ -1,0 +1,17 @@
+{
+  "pattern_id": "XSS_BYPASS_012",
+  "test_id": "XSS_BYPASS_012-1772277047507-g3y3mh",
+  "category": "xss",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 86328000,
+  "evidence": "11:10:47.000000000: Warning [NGINX XSS] XSS Filter Bypass Attempt test_id=XSS_BYPASS_012-1772277047507-g3y3mh pattern_id=XSS_BYPASS_012 uri=/?q=livescript:alert%281%29 client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX XSS] XSS Filter Bypass Attempt test_id=XSS_BYPASS_012-1772277047507-g3y3mh pattern_id=XSS_BYPASS_012 uri=/?q=livescript:alert%281%29 client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX XSS] XSS Filter Bypass Attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX XSS] XSS Filter Bypass Attempt test_id=XSS_BYPASS_012-1772277047507-g3y3mh pattern_id=XSS_BYPASS_012 uri=/?q=livescript:alert%281%29 client=127.0.0.1 method=GET",
+  "sent_at": 1772277119000,
+  "detected_at": 1772277047000,
+  "status": "passed"
+}

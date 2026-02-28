@@ -1,0 +1,3 @@
+Expected Rule: [NGINX SSTI] Server-Side Template Injection detected
+Matched Rule: [NGINX Emerging Threat] Template injection test_id=SSTI_HBS_001-1772277059442-h5d9om pattern_id=SSTI_HBS_001 uri=/?q=%7B%7B%23with%20%22s%22%20as%20%7Cstring%7C%7D%7D%7B%7B%2Fwith%7D%7D client=127.0.0.1
+Rule Match: ❌ Mismatch

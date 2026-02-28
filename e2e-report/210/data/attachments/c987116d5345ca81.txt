@@ -1,0 +1,5 @@
+Pattern ID: AUTH_ENCODE_001
+        Status: passed
+        Latency: ~2000ms
+        Detection: 1 / 1
+        Rule: [NGINX Auth Bypass] Authentication bypass attempt detected test_id=AUTH_ENCODE_001-1772277117918-cqaj0r pattern_id=AUTH_ENCODE_001 uri=/?q=%2Fadmin%252F client=127.0.0.1

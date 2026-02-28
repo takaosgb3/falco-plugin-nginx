@@ -1,0 +1,3 @@
+Expected Rule: [NGINX XPath Injection] XPath injection attempt
+Matched Rule: [NGINX XPath Injection] XPath injection attempt test_id=XPATH_FUNC_007-1772277048428-l74ys pattern_id=XPATH_FUNC_007 uri=/?q=contains%28%2F%2Fuser%5B1%5D%2Fname%2C%27admin%27%29 client=127.0.0.1
+Rule Match: ✅ Match

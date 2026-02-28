@@ -1,0 +1,17 @@
+{
+  "pattern_id": "WAF_OVERLONG_001",
+  "test_id": "WAF_OVERLONG_001-1772277106425-wr94ap",
+  "category": "waf_bypass",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 13000,
+  "evidence": "11:11:46.000000000: Warning [NGINX WAF Bypass] WAF bypass attempt detected test_id=WAF_OVERLONG_001-1772277106425-wr94ap pattern_id=WAF_OVERLONG_001 uri=/?q=%C0%AE%C0%AE%C0%AF client=127.0.0.1",
+  "rule_name": "[NGINX WAF Bypass] WAF bypass attempt detected test_id=WAF_OVERLONG_001-1772277106425-wr94ap pattern_id=WAF_OVERLONG_001 uri=/?q=%C0%AE%C0%AE%C0%AF client=127.0.0.1",
+  "expected_rule": "[NGINX WAF Bypass] WAF bypass attempt detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX WAF Bypass] WAF bypass attempt detected test_id=WAF_OVERLONG_001-1772277106425-wr94ap pattern_id=WAF_OVERLONG_001 uri=/?q=%C0%AE%C0%AE%C0%AF client=127.0.0.1",
+  "sent_at": 1772277119000,
+  "detected_at": 1772277106000,
+  "status": "passed"
+}

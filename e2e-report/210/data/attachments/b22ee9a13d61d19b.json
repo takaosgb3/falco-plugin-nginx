@@ -1,0 +1,17 @@
+{
+  "pattern_id": "REDIR_ENC_001",
+  "test_id": "REDIR_ENC_001-1772277099421-lmw1ji",
+  "category": "open_redirect",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 20000,
+  "evidence": "11:11:39.000000000: Warning [NGINX Redirect] Open redirect attempt detected test_id=REDIR_ENC_001-1772277099421-lmw1ji pattern_id=REDIR_ENC_001 uri=/?q=url%3D%2568%2574%2574%2570%2573%253A%252F%252Fevil.com client=127.0.0.1",
+  "rule_name": "[NGINX Redirect] Open redirect attempt detected test_id=REDIR_ENC_001-1772277099421-lmw1ji pattern_id=REDIR_ENC_001 uri=/?q=url%3D%2568%2574%2574%2570%2573%253A%252F%252Fevil.com client=127.0.0.1",
+  "expected_rule": "[NGINX Redirect] Open redirect attempt detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Redirect] Open redirect attempt detected test_id=REDIR_ENC_001-1772277099421-lmw1ji pattern_id=REDIR_ENC_001 uri=/?q=url%3D%2568%2574%2574%2570%2573%253A%252F%252Fevil.com client=127.0.0.1",
+  "sent_at": 1772277119000,
+  "detected_at": 1772277099000,
+  "status": "passed"
+}

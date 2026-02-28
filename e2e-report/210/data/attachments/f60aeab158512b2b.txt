@@ -1,0 +1,3 @@
+Expected Rule: [NGINX CRLF] CRLF Injection attempt detected
+Matched Rule: [NGINX XSS] XSS Filter Bypass Attempt test_id=CRLF_DOUBLE_001-1772277092940-k0vtg pattern_id=CRLF_DOUBLE_001 uri=/?q=%0d%0a%0d%0a%3Chtml%3Einjected client=127.0.0.1 method=GET
+Rule Match: ❌ Mismatch

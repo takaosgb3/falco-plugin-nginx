@@ -1,0 +1,5 @@
+Pattern ID: SENSITIVE_DOCKER_002
+        Status: passed
+        Latency: ~87000ms
+        Detection: 1 / 1
+        Rule: [NGINX Sensitive] Sensitive file access attempt detected test_id=SENSITIVE_DOCKER_002-1772277032937-oohfhi pattern_id=SENSITIVE_DOCKER_002 uri=/?q=%2FDockerfile client=127.0.0.1

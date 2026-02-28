@@ -1,0 +1,17 @@
+{
+  "pattern_id": "JWT_KID_001",
+  "test_id": "JWT_KID_001-1772277108919-xvti8s",
+  "category": "jwt",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 11000,
+  "evidence": "11:11:48.000000000: Warning [NGINX JWT] JWT token attack attempt detected test_id=JWT_KID_001-1772277108919-xvti8s pattern_id=JWT_KID_001 uri=/?q=eyJraWQiOiIxIE9SIDEiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjMifQ. client=127.0.0.1",
+  "rule_name": "[NGINX JWT] JWT token attack attempt detected test_id=JWT_KID_001-1772277108919-xvti8s pattern_id=JWT_KID_001 uri=/?q=eyJraWQiOiIxIE9SIDEiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjMifQ. client=127.0.0.1",
+  "expected_rule": "[NGINX JWT] JWT token attack attempt detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX JWT] JWT token attack attempt detected test_id=JWT_KID_001-1772277108919-xvti8s pattern_id=JWT_KID_001 uri=/?q=eyJraWQiOiIxIE9SIDEiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjMifQ. client=127.0.0.1",
+  "sent_at": 1772277119000,
+  "detected_at": 1772277108000,
+  "status": "passed"
+}

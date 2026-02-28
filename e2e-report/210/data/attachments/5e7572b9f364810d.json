@@ -1,0 +1,17 @@
+{
+  "pattern_id": "NOSQL_REDIS_004",
+  "test_id": "NOSQL_REDIS_004-1772277058931-3cey3z",
+  "category": "nosql_extended",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 86339000,
+  "evidence": "11:10:58.000000000: Critical [NGINX Emerging Threat] Redis command injection test_id=NOSQL_REDIS_004-1772277058931-3cey3z pattern_id=NOSQL_REDIS_004 uri=/?q=DEBUG%20SEGFAULT client=127.0.0.1",
+  "rule_name": "[NGINX Emerging Threat] Redis command injection test_id=NOSQL_REDIS_004-1772277058931-3cey3z pattern_id=NOSQL_REDIS_004 uri=/?q=DEBUG%20SEGFAULT client=127.0.0.1",
+  "expected_rule": "[NGINX Emerging Threat] Redis command injection",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Emerging Threat] Redis command injection test_id=NOSQL_REDIS_004-1772277058931-3cey3z pattern_id=NOSQL_REDIS_004 uri=/?q=DEBUG%20SEGFAULT client=127.0.0.1",
+  "sent_at": 1772277119000,
+  "detected_at": 1772277058000,
+  "status": "passed"
+}

@@ -1,0 +1,17 @@
+{
+  "pattern_id": "ENC_CMDI_DBL_001",
+  "test_id": "ENC_CMDI_DBL_001-1772277063018-bpivvr",
+  "category": "cmdinj",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 56000,
+  "evidence": "11:11:03.000000000: Warning [NGINX CMDi] Advanced command injection attempt test_id=ENC_CMDI_DBL_001-1772277063018-bpivvr pattern_id=ENC_CMDI_DBL_001 uri=/?q=%253Bcat%20%252Fetc%252Fpasswd client=127.0.0.1",
+  "rule_name": "[NGINX CMDi] Advanced command injection attempt test_id=ENC_CMDI_DBL_001-1772277063018-bpivvr pattern_id=ENC_CMDI_DBL_001 uri=/?q=%253Bcat%20%252Fetc%252Fpasswd client=127.0.0.1",
+  "expected_rule": "[NGINX CMDi] Advanced command injection attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX CMDi] Advanced command injection attempt test_id=ENC_CMDI_DBL_001-1772277063018-bpivvr pattern_id=ENC_CMDI_DBL_001 uri=/?q=%253Bcat%20%252Fetc%252Fpasswd client=127.0.0.1",
+  "sent_at": 1772277119000,
+  "detected_at": 1772277063000,
+  "status": "passed"
+}

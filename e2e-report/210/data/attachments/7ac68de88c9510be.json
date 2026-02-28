@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SSTI_DJANGO_001",
+  "test_id": "SSTI_DJANGO_001-1772277051925-b1h8t6",
+  "category": "ssti",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 86332000,
+  "evidence": "11:10:51.000000000: Critical [NGINX SSTI] Server-Side Template Injection detected test_id=SSTI_DJANGO_001-1772277051925-b1h8t6 pattern_id=SSTI_DJANGO_001 uri=/?q=%7B%25%20debug%20%25%7D client=127.0.0.1",
+  "rule_name": "[NGINX SSTI] Server-Side Template Injection detected test_id=SSTI_DJANGO_001-1772277051925-b1h8t6 pattern_id=SSTI_DJANGO_001 uri=/?q=%7B%25%20debug%20%25%7D client=127.0.0.1",
+  "expected_rule": "[NGINX SSTI] Server-Side Template Injection detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX SSTI] Server-Side Template Injection detected test_id=SSTI_DJANGO_001-1772277051925-b1h8t6 pattern_id=SSTI_DJANGO_001 uri=/?q=%7B%25%20debug%20%25%7D client=127.0.0.1",
+  "sent_at": 1772277119000,
+  "detected_at": 1772277051000,
+  "status": "passed"
+}

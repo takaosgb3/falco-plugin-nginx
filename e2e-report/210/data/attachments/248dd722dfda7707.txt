@@ -1,0 +1,3 @@
+Expected Rule: [NGINX Auth Bypass] Authentication bypass attempt detected
+Matched Rule: [NGINX Auth Bypass] Authentication bypass attempt detected test_id=AUTH_CASE_001-1772277116413-psauce pattern_id=AUTH_CASE_001 uri=/?q=%2FAdmin client=127.0.0.1
+Rule Match: ✅ Match

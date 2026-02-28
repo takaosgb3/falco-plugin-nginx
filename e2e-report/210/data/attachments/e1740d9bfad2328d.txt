@@ -1,0 +1,3 @@
+Expected Rule: [NGINX XPath Injection] XPath injection attempt
+Matched Rule: [NGINX XPath Injection] XPath injection attempt test_id=XPATH_BLIND_004-1772277049430-wytnb pattern_id=XPATH_BLIND_004 uri=/?q=%27%20or%20string-length%28%2F%2Fuser%5B1%5D%2Frole%29%3E3%20and%20%271%27%3D%271 client=127.0.0.1
+Rule Match: ✅ Match

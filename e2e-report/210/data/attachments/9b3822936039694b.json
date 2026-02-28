@@ -1,0 +1,17 @@
+{
+  "pattern_id": "FP_CRLF_001",
+  "test_id": "FP_CRLF_001-1772277094944-dkgrao",
+  "category": "crlf",
+  "detected": true,
+  "expected_detection": false,
+  "latency_ms": 25000,
+  "evidence": "11:11:34.000000000: Warning [NGINX XSS] XSS Filter Bypass Attempt test_id=FP_CRLF_001-1772277094944-dkgrao pattern_id=FP_CRLF_001 uri=/?q=%2Fsearch%3Fq%3Dhello%0aworld client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX XSS] XSS Filter Bypass Attempt test_id=FP_CRLF_001-1772277094944-dkgrao pattern_id=FP_CRLF_001 uri=/?q=%2Fsearch%3Fq%3Dhello%0aworld client=127.0.0.1 method=GET",
+  "expected_rule": "NONE",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": "[NGINX XSS] XSS Filter Bypass Attempt test_id=FP_CRLF_001-1772277094944-dkgrao pattern_id=FP_CRLF_001 uri=/?q=%2Fsearch%3Fq%3Dhello%0aworld client=127.0.0.1 method=GET",
+  "sent_at": 1772277119000,
+  "detected_at": 1772277094000,
+  "status": "failed"
+}

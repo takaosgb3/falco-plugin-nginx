@@ -1,0 +1,5 @@
+Pattern ID: WAF_JSON_001
+        Status: passed
+        Latency: ~12000ms
+        Detection: 1 / 1
+        Rule: [NGINX WAF Bypass] WAF bypass attempt detected test_id=WAF_JSON_001-1772277107427-gsyycho pattern_id=WAF_JSON_001 uri=/?q=%7B%22query%22%3A%22SELECT%20%2A%22%7D client=127.0.0.1

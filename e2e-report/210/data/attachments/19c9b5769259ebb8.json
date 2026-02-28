@@ -1,0 +1,17 @@
+{
+  "pattern_id": "LDAP_BLIND_008",
+  "test_id": "LDAP_BLIND_008-1772277032927-8fxdpw",
+  "category": "ldap",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 86313000,
+  "evidence": "11:10:32.000000000: Critical [NGINX SQLi] Boolean-based Blind SQL Injection test_id=LDAP_BLIND_008-1772277032927-8fxdpw pattern_id=LDAP_BLIND_008 uri=/?q=%2A%29%28uid%3Dadmin%29%28password%3DP%40ssw0rd%2A client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Boolean-based Blind SQL Injection test_id=LDAP_BLIND_008-1772277032927-8fxdpw pattern_id=LDAP_BLIND_008 uri=/?q=%2A%29%28uid%3Dadmin%29%28password%3DP%40ssw0rd%2A client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX LDAP Injection] Authentication bypass attempt",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": "[NGINX SQLi] Boolean-based Blind SQL Injection test_id=LDAP_BLIND_008-1772277032927-8fxdpw pattern_id=LDAP_BLIND_008 uri=/?q=%2A%29%28uid%3Dadmin%29%28password%3DP%40ssw0rd%2A client=127.0.0.1 method=GET",
+  "sent_at": 1772277119000,
+  "detected_at": 1772277032000,
+  "status": "passed"
+}

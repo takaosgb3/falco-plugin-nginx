@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SQLI_BLIND_009",
+  "test_id": "SQLI_BLIND_009-1772277037495-mwnrlv",
+  "category": "sqli",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 86318000,
+  "evidence": "11:10:37.000000000: Critical [NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_BLIND_009-1772277037495-mwnrlv pattern_id=SQLI_BLIND_009 uri=/?q='%20AND%20(SELECT%20COUNT(*)%20FROM%20information_schema.columns%20WHERE%20table_name%3D'users')%3E3%20-- client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_BLIND_009-1772277037495-mwnrlv pattern_id=SQLI_BLIND_009 uri=/?q='%20AND%20(SELECT%20COUNT(*)%20FROM%20information_schema.columns%20WHERE%20table_name%3D'users')%3E3%20-- client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX SQLi] Boolean-based Blind SQL Injection",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX SQLi] Boolean-based Blind SQL Injection test_id=SQLI_BLIND_009-1772277037495-mwnrlv pattern_id=SQLI_BLIND_009 uri=/?q='%20AND%20(SELECT%20COUNT(*)%20FROM%20information_schema.columns%20WHERE%20table_name%3D'users')%3E3%20-- client=127.0.0.1 method=GET",
+  "sent_at": 1772277119000,
+  "detected_at": 1772277037000,
+  "status": "passed"
+}

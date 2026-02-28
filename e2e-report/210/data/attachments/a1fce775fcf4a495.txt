@@ -1,0 +1,3 @@
+Expected Rule: [NGINX SSTI] Server-Side Template Injection detected
+Matched Rule: [NGINX Emerging Threat] Template injection test_id=SSTI_NUNJUCKS_002-1772277060444-jgo5ay pattern_id=SSTI_NUNJUCKS_002 uri=/?q=%7B%7Brange.constructor%28%22return%20this%22%29%28%29%7D%7D client=127.0.0.1
+Rule Match: ❌ Mismatch

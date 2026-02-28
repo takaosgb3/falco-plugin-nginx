@@ -1,0 +1,3 @@
+Expected Rule: NONE
+Matched Rule: [NGINX XSS] XSS Filter Bypass Attempt test_id=FP_CRLF_001-1772277094944-dkgrao pattern_id=FP_CRLF_001 uri=/?q=%2Fsearch%3Fq%3Dhello%0aworld client=127.0.0.1 method=GET
+Rule Match: ✅ Expected Not Detected

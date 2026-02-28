@@ -1,0 +1,17 @@
+{
+  "pattern_id": "REDIR_DATA_001",
+  "test_id": "REDIR_DATA_001-1772277100925-yltc8",
+  "category": "open_redirect",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 19000,
+  "evidence": "11:11:40.000000000: Warning [NGINX Redirect] Open redirect attempt detected test_id=REDIR_DATA_001-1772277100925-yltc8 pattern_id=REDIR_DATA_001 uri=/?q=url%3Ddata%3Atext%2Fhtml%2C%3Cscript%3Ealert%281%29%3C%2Fscript%3E client=127.0.0.1",
+  "rule_name": "[NGINX Redirect] Open redirect attempt detected test_id=REDIR_DATA_001-1772277100925-yltc8 pattern_id=REDIR_DATA_001 uri=/?q=url%3Ddata%3Atext%2Fhtml%2C%3Cscript%3Ealert%281%29%3C%2Fscript%3E client=127.0.0.1",
+  "expected_rule": "[NGINX Redirect] Open redirect attempt detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Redirect] Open redirect attempt detected test_id=REDIR_DATA_001-1772277100925-yltc8 pattern_id=REDIR_DATA_001 uri=/?q=url%3Ddata%3Atext%2Fhtml%2C%3Cscript%3Ealert%281%29%3C%2Fscript%3E client=127.0.0.1",
+  "sent_at": 1772277119000,
+  "detected_at": 1772277100000,
+  "status": "passed"
+}

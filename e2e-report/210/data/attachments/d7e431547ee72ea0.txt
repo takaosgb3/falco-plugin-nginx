@@ -1,0 +1,5 @@
+Pattern ID: WAF_WHITESPACE_001
+        Status: passed
+        Latency: ~15000ms
+        Detection: 1 / 1
+        Rule: [NGINX CRLF] CRLF Injection attempt detected test_id=WAF_WHITESPACE_001-1772277104420-5xsnd pattern_id=WAF_WHITESPACE_001 uri=/?q=SELECT%09%2A%09FROM%09users client=127.0.0.1

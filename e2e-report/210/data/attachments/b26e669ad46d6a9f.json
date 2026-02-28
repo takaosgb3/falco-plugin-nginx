@@ -1,0 +1,17 @@
+{
+  "pattern_id": "LDAP_BLIND_009",
+  "test_id": "LDAP_BLIND_009-1772277033428-9b88ok",
+  "category": "ldap",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 86314000,
+  "evidence": "11:10:33.000000000: Warning [NGINX LDAP Injection] Blind injection attempt test_id=LDAP_BLIND_009-1772277033428-9b88ok pattern_id=LDAP_BLIND_009 uri=/?q=cn%3DAdministrators%2Cdc%3Dinternal client=127.0.0.1",
+  "rule_name": "[NGINX LDAP Injection] Blind injection attempt test_id=LDAP_BLIND_009-1772277033428-9b88ok pattern_id=LDAP_BLIND_009 uri=/?q=cn%3DAdministrators%2Cdc%3Dinternal client=127.0.0.1",
+  "expected_rule": "[NGINX LDAP Injection] Blind injection attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX LDAP Injection] Blind injection attempt test_id=LDAP_BLIND_009-1772277033428-9b88ok pattern_id=LDAP_BLIND_009 uri=/?q=cn%3DAdministrators%2Cdc%3Dinternal client=127.0.0.1",
+  "sent_at": 1772277119000,
+  "detected_at": 1772277033000,
+  "status": "passed"
+}

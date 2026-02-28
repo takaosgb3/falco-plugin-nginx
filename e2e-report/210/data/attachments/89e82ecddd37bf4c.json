@@ -1,0 +1,17 @@
+{
+  "pattern_id": "WAF_WHITESPACE_001",
+  "test_id": "WAF_WHITESPACE_001-1772277104420-5xsnd",
+  "category": "waf_bypass",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 15000,
+  "evidence": "11:11:44.000000000: Warning [NGINX CRLF] CRLF Injection attempt detected test_id=WAF_WHITESPACE_001-1772277104420-5xsnd pattern_id=WAF_WHITESPACE_001 uri=/?q=SELECT%09%2A%09FROM%09users client=127.0.0.1",
+  "rule_name": "[NGINX CRLF] CRLF Injection attempt detected test_id=WAF_WHITESPACE_001-1772277104420-5xsnd pattern_id=WAF_WHITESPACE_001 uri=/?q=SELECT%09%2A%09FROM%09users client=127.0.0.1",
+  "expected_rule": "[NGINX WAF Bypass] WAF bypass attempt detected",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": "[NGINX CRLF] CRLF Injection attempt detected test_id=WAF_WHITESPACE_001-1772277104420-5xsnd pattern_id=WAF_WHITESPACE_001 uri=/?q=SELECT%09%2A%09FROM%09users client=127.0.0.1",
+  "sent_at": 1772277119000,
+  "detected_at": 1772277104000,
+  "status": "passed"
+}

@@ -1,0 +1,3 @@
+Expected Rule: [NGINX Emerging Threat] Template injection
+Matched Rule: [NGINX Emerging Threat] Template injection test_id=SSTI_PUG_001-1772277058439-nqpp79 pattern_id=SSTI_PUG_001 uri=/?q=%23%7B7*7%7D client=127.0.0.1
+Rule Match: ✅ Match

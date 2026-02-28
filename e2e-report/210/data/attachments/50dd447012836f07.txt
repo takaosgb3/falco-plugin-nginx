@@ -1,0 +1,5 @@
+Pattern ID: CRLF_MIXED_001
+        Status: passed
+        Latency: ~25000ms
+        Detection: 1 / 1
+        Rule: [NGINX CRLF] CRLF Injection attempt detected test_id=CRLF_MIXED_001-1772277094443-e5inr pattern_id=CRLF_MIXED_001 uri=/?q=%250d%250a%250d%250ainjected client=127.0.0.1

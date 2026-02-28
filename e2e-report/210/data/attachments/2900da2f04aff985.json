@@ -1,0 +1,17 @@
+{
+  "pattern_id": "WAF_UNICODE_002",
+  "test_id": "WAF_UNICODE_002-1772277100410-kvbvzc",
+  "category": "waf_bypass",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 19000,
+  "evidence": "11:11:40.000000000: Warning [NGINX WAF Bypass] WAF bypass attempt detected test_id=WAF_UNICODE_002-1772277100410-kvbvzc pattern_id=WAF_UNICODE_002 uri=/?q=%EF%BC%9Cimg%20src%3Dx%20onerror%3Dalert%281%29%EF%BC%9E client=127.0.0.1",
+  "rule_name": "[NGINX WAF Bypass] WAF bypass attempt detected test_id=WAF_UNICODE_002-1772277100410-kvbvzc pattern_id=WAF_UNICODE_002 uri=/?q=%EF%BC%9Cimg%20src%3Dx%20onerror%3Dalert%281%29%EF%BC%9E client=127.0.0.1",
+  "expected_rule": "[NGINX WAF Bypass] WAF bypass attempt detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX WAF Bypass] WAF bypass attempt detected test_id=WAF_UNICODE_002-1772277100410-kvbvzc pattern_id=WAF_UNICODE_002 uri=/?q=%EF%BC%9Cimg%20src%3Dx%20onerror%3Dalert%281%29%EF%BC%9E client=127.0.0.1",
+  "sent_at": 1772277119000,
+  "detected_at": 1772277100000,
+  "status": "passed"
+}

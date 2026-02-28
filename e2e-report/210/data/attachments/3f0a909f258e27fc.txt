@@ -1,0 +1,5 @@
+Pattern ID: HPP_WAF_001
+        Status: passed
+        Latency: ~26000ms
+        Detection: 1 / 1
+        Rule: [NGINX HPP] HTTP Parameter Pollution attempt detected test_id=HPP_WAF_001-1772277093919-0l1jx pattern_id=HPP_WAF_001 uri=/?q=%26admin%3Dtrue%26role%3Duser%26id%3D1%20OR%201%3D1 client=127.0.0.1

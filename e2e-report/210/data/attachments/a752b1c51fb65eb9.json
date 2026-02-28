@@ -1,0 +1,17 @@
+{
+  "pattern_id": "XPATH_PAREN_003",
+  "test_id": "XPATH_PAREN_003-1772277046925-wr29a",
+  "category": "xpath",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 86327000,
+  "evidence": "11:10:46.000000000: Warning [NGINX XPath Injection] XPath injection attempt test_id=XPATH_PAREN_003-1772277046925-wr29a pattern_id=XPATH_PAREN_003 uri=/?q=%27%29%20or%20count%28%2F%2Fadmin%29%3E0%20or%20%28%27 client=127.0.0.1",
+  "rule_name": "[NGINX XPath Injection] XPath injection attempt test_id=XPATH_PAREN_003-1772277046925-wr29a pattern_id=XPATH_PAREN_003 uri=/?q=%27%29%20or%20count%28%2F%2Fadmin%29%3E0%20or%20%28%27 client=127.0.0.1",
+  "expected_rule": "[NGINX XPath Injection] XPath injection attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX XPath Injection] XPath injection attempt test_id=XPATH_PAREN_003-1772277046925-wr29a pattern_id=XPATH_PAREN_003 uri=/?q=%27%29%20or%20count%28%2F%2Fadmin%29%3E0%20or%20%28%27 client=127.0.0.1",
+  "sent_at": 1772277119000,
+  "detected_at": 1772277046000,
+  "status": "passed"
+}

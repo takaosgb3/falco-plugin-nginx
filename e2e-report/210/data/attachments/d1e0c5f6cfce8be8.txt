@@ -1,0 +1,5 @@
+Pattern ID: REDIR_CREDS_001
+        Status: passed
+        Latency: ~16000ms
+        Detection: 1 / 1
+        Rule: [NGINX Redirect] Open redirect attempt detected test_id=REDIR_CREDS_001-1772277103931-tpiy2 pattern_id=REDIR_CREDS_001 uri=/?q=redirect%3Dhttp%3A%2F%2Fgood.com%40evil.com client=127.0.0.1

@@ -1,0 +1,17 @@
+{
+  "pattern_id": "PATH_DBL_003",
+  "test_id": "PATH_DBL_003-1772277032960-vclifa",
+  "category": "path",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 86313000,
+  "evidence": "11:10:32.000000000: Critical [NGINX Traversal] File inclusion attack detected test_id=PATH_DBL_003-1772277032960-vclifa pattern_id=PATH_DBL_003 uri=/?q=%25252e%25252e%2F%25252e%25252e%2F%25252e%25252e%2Fetc%2Fpasswd client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] File inclusion attack detected test_id=PATH_DBL_003-1772277032960-vclifa pattern_id=PATH_DBL_003 uri=/?q=%25252e%25252e%2F%25252e%25252e%2F%25252e%25252e%2Fetc%2Fpasswd client=127.0.0.1",
+  "expected_rule": "[NGINX Traversal] File inclusion attack detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Traversal] File inclusion attack detected test_id=PATH_DBL_003-1772277032960-vclifa pattern_id=PATH_DBL_003 uri=/?q=%25252e%25252e%2F%25252e%25252e%2F%25252e%25252e%2Fetc%2Fpasswd client=127.0.0.1",
+  "sent_at": 1772277119000,
+  "detected_at": 1772277032000,
+  "status": "passed"
+}

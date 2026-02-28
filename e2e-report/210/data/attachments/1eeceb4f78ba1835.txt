@@ -1,0 +1,3 @@
+Expected Rule: [NGINX LDAP Injection] Authentication bypass attempt
+Matched Rule: [NGINX LDAP Injection] Authentication bypass attempt test_id=LDAP_BASIC_005-1772277026914-4ento pattern_id=LDAP_BASIC_005 uri=/?q=*)(%26(objectClass%3D*) client=127.0.0.1
+Rule Match: ✅ Match

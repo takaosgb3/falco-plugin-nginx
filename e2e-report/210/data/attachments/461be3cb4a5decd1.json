@@ -1,0 +1,17 @@
+{
+  "pattern_id": "PATH_BASIC_002",
+  "test_id": "PATH_BASIC_002-1772277010410-zotyyo",
+  "category": "path",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 86291000,
+  "evidence": "11:10:10.000000000: Critical [NGINX Traversal] Basic path traversal attack detected test_id=PATH_BASIC_002-1772277010410-zotyyo pattern_id=PATH_BASIC_002 uri=/?q=../../ client=127.0.0.1",
+  "rule_name": "[NGINX Traversal] Basic path traversal attack detected test_id=PATH_BASIC_002-1772277010410-zotyyo pattern_id=PATH_BASIC_002 uri=/?q=../../ client=127.0.0.1",
+  "expected_rule": "[NGINX Traversal] Basic path traversal attack detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Traversal] Basic path traversal attack detected test_id=PATH_BASIC_002-1772277010410-zotyyo pattern_id=PATH_BASIC_002 uri=/?q=../../ client=127.0.0.1",
+  "sent_at": 1772277119000,
+  "detected_at": 1772277010000,
+  "status": "passed"
+}

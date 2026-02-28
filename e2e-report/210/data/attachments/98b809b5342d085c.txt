@@ -1,0 +1,5 @@
+Pattern ID: HHI_RESET_001
+        Status: passed
+        Latency: ~29000ms
+        Detection: 1 / 1
+        Rule: [NGINX SQLi] Boolean-based Blind SQL Injection test_id=HHI_RESET_001-1772277090926-d8r3po pattern_id=HHI_RESET_001 uri=/?q=X-Forwarded-Host%3A%20evil.com%2Freset-password client=127.0.0.1 method=GET

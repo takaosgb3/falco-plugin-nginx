@@ -1,0 +1,5 @@
+Pattern ID: XPATH_FUNC_005
+        Status: passed
+        Latency: ~72000ms
+        Detection: 1 / 1
+        Rule: [NGINX XPath Injection] XPath injection attempt test_id=XPATH_FUNC_005-1772277047426-5geau pattern_id=XPATH_FUNC_005 uri=/?q=concat%28%2F%2Fuser%5B1%5D%2Fname%2C%27_%27%2C%2F%2Fuser%5B1%5D%2Frole%29 client=127.0.0.1

@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SSTI_EJS_002",
+  "test_id": "SSTI_EJS_002-1772277058940-je4t9",
+  "category": "ssti",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 86339000,
+  "evidence": "11:10:58.000000000: Critical [NGINX SSTI] Server-Side Template Injection detected test_id=SSTI_EJS_002-1772277058940-je4t9 pattern_id=SSTI_EJS_002 uri=/?q=%3C%25-global.process.mainModule.require%28%27child_process%27%29%25%3E client=127.0.0.1",
+  "rule_name": "[NGINX SSTI] Server-Side Template Injection detected test_id=SSTI_EJS_002-1772277058940-je4t9 pattern_id=SSTI_EJS_002 uri=/?q=%3C%25-global.process.mainModule.require%28%27child_process%27%29%25%3E client=127.0.0.1",
+  "expected_rule": "[NGINX SSTI] Server-Side Template Injection detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX SSTI] Server-Side Template Injection detected test_id=SSTI_EJS_002-1772277058940-je4t9 pattern_id=SSTI_EJS_002 uri=/?q=%3C%25-global.process.mainModule.require%28%27child_process%27%29%25%3E client=127.0.0.1",
+  "sent_at": 1772277119000,
+  "detected_at": 1772277058000,
+  "status": "passed"
+}

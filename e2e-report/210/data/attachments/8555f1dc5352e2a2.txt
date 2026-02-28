@@ -1,0 +1,5 @@
+Pattern ID: SSRF_SCHEME_004
+        Status: passed
+        Latency: ~33000ms
+        Detection: 1 / 1
+        Rule: [NGINX SSRF] SSRF attack attempt detected test_id=SSRF_SCHEME_004-1772277086438-3h562l pattern_id=SSRF_SCHEME_004 uri=/?q=tftp%3A%2F%2Fattacker.com%2Ffile client=127.0.0.1

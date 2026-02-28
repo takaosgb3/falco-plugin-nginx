@@ -1,0 +1,17 @@
+{
+  "pattern_id": "WAF_DOUBLE_001",
+  "test_id": "WAF_DOUBLE_001-1772277105924-v7hpdp",
+  "category": "waf_bypass",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 14000,
+  "evidence": "11:11:45.000000000: Warning [NGINX WAF Bypass] WAF bypass attempt detected test_id=WAF_DOUBLE_001-1772277105924-v7hpdp pattern_id=WAF_DOUBLE_001 uri=/?q=%2525%2533%2563%2572%2569%2570%2574 client=127.0.0.1",
+  "rule_name": "[NGINX WAF Bypass] WAF bypass attempt detected test_id=WAF_DOUBLE_001-1772277105924-v7hpdp pattern_id=WAF_DOUBLE_001 uri=/?q=%2525%2533%2563%2572%2569%2570%2574 client=127.0.0.1",
+  "expected_rule": "[NGINX WAF Bypass] WAF bypass attempt detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX WAF Bypass] WAF bypass attempt detected test_id=WAF_DOUBLE_001-1772277105924-v7hpdp pattern_id=WAF_DOUBLE_001 uri=/?q=%2525%2533%2563%2572%2569%2570%2574 client=127.0.0.1",
+  "sent_at": 1772277119000,
+  "detected_at": 1772277105000,
+  "status": "passed"
+}

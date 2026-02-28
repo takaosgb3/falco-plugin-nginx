@@ -1,0 +1,3 @@
+Expected Rule: [NGINX API Attack] API security vulnerability detected
+Matched Rule: [NGINX API Attack] API security vulnerability detected test_id=API_OAUTH_002-1772277066938-r4i59 pattern_id=API_OAUTH_002 uri=/?q=state%3D%26code%3Dauth_code client=127.0.0.1
+Rule Match: ✅ Match

@@ -1,0 +1,3 @@
+Expected Rule: [NGINX Info Disclosure] Information disclosure attempt detected
+Matched Rule: [NGINX Info Disclosure] Information disclosure attempt detected test_id=INFO_DEBUG_001-1772277111414-k83mat pattern_id=INFO_DEBUG_001 uri=/?q=debug=true client=127.0.0.1
+Rule Match: ✅ Match

@@ -1,0 +1,3 @@
+Expected Rule: [NGINX JWT] JWT token attack attempt detected
+Matched Rule: [NGINX JWT] JWT token attack attempt detected test_id=JWT_REPLAY_001-1772277110923-ngyn7 pattern_id=JWT_REPLAY_001 uri=/?q=eyJhbGciOiJub25lIn0.eyJleHAiOjk5OTk5OTk5OTksInN1YiI6IjEyMyJ9. client=127.0.0.1
+Rule Match: ✅ Match
