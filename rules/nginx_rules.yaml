@@ -2622,6 +2622,12 @@
       comps: in
       values:
         - SSTI_LOG4S_001
+    # Phase 12: Normal GraphQL query contains %7D%7D (}}) matching SSTI
+    - name: phase12_fp_graphql_ssti
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - FP_API_002
   source: nginx
 
 # =========================================================================

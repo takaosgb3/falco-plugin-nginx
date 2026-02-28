@@ -492,6 +492,11 @@ class BatchAnalyzer:
         total = len(pattern_results)
         detected = sum(1 for r in pattern_results if r.get('detected'))
 
+        # Detection rate: only count patterns where detection is expected
+        expected_true = [r for r in pattern_results if r.get('expected_detection', True)]
+        expected_true_detected = sum(1 for r in expected_true if r.get('detected'))
+        expected_true_total = len(expected_true)
+
         latencies = [r['latency_ms'] for r in pattern_results
                     if r['latency_ms'] is not None]
 
@@ -503,7 +508,7 @@ class BatchAnalyzer:
             'total_patterns': total,
             'detected': detected,
             'not_detected': total - detected,
-            'detection_rate': detected / total if total > 0 else 0,
+            'detection_rate': expected_true_detected / expected_true_total if expected_true_total > 0 else 0,
             'latency': {
                 'avg_ms': round(avg_latency, 2),
                 'min_ms': min_latency,
