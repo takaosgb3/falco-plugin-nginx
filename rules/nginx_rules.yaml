@@ -788,6 +788,12 @@
         - XPATH_ENUM_002
         - XPATH_FUNC_004
         - GQL_DATA_004
+    # Phase 12: HPP WAF bypass pattern with OR 1=1
+    - name: phase12_hpp_waf_boolean_sqli
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - HPP_WAF_001
   output: "[NGINX SQLi] Boolean-based Blind SQL Injection test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: CRITICAL
   tags: [security, sql_injection, advanced_sqli, boolean_based, phase3]
@@ -902,6 +908,12 @@
       comps: in
       values:
         - SSTI_RAZOR_001
+    # Phase 12: WAF HPP pattern with UNION SELECT
+    - name: phase12_waf_hpp_advsqli
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - WAF_HPP_001
   output: "[NGINX SQLi] Advanced SQL Injection Attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: WARNING
   tags: [security, sql_injection, advanced_sqli, enumeration, phase3]
@@ -1022,6 +1034,17 @@
       comps: in
       values:
         - SQLI_POLY_005
+    # Phase 12: WAF/Redirect/HHI patterns with encoded chars triggering Encoded SQLi
+    - name: phase12_waf_encoded_sqli
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - WAF_COMMENT_001
+        - REDIR_ENC_001
+        - WAF_CASE_001
+        - WAF_ENCODE_001
+        - WAF_NULL_001
+        - HHI_MULTI_001
   output: "[NGINX SQLi] Encoded SQL Injection Pattern test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: WARNING
   tags: [security, sql_injection, advanced_sqli, encoding_evasion, phase3]
@@ -1118,6 +1141,13 @@
       comps: in
       values:
         - SQLI_POLY_005
+    # Phase 12: WAF/Redirect patterns with javascript:/onerror triggers
+    - name: phase12_waf_redirect_dom_xss
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - REDIR_PROTO_002
+        - WAF_UNICODE_002
   output: "[NGINX XSS] DOM-based XSS Attack test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: CRITICAL
   tags: [security, xss, dom_based, advanced_xss, phase3]
@@ -1162,6 +1192,14 @@
   priority: CRITICAL
   tags: [security, xss, stored_xss, advanced_xss, phase3]
   source: nginx
+  exceptions:
+    # Phase 12: WAF/Redirect patterns with javascript:/onerror triggers
+    - name: phase12_waf_redirect_stored_xss
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - REDIR_PROTO_002
+        - WAF_UNICODE_002
 
 # ====================================
 # ADV_XSS_003: Polyglot XSS
@@ -1236,6 +1274,14 @@
       comps: in
       values:
         - XSS_MUT_004
+    # Phase 12: WAF/Redirect patterns with alert/script triggers
+    - name: phase12_waf_redirect_polyglot
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - REDIR_PROTO_002
+        - WAF_UNICODE_001
+        - WAF_UNICODE_002
   output: "[NGINX XSS] Polyglot XSS Attack test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: CRITICAL
   tags: [security, xss, polyglot, advanced_xss, phase3]
@@ -1448,6 +1494,16 @@
       values:
         - HHI_CRLF_001
         - HHI_CRLF_002
+    # Phase 12: Various patterns with %0a/%0d/%00/%09/script triggers
+    - name: phase12_waf_redirect_xss_bypass
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - HHI_MULTI_001
+        - WAF_NULL_001
+        - WAF_WHITESPACE_001
+        - REDIR_PROTO_002
+        - WAF_UNICODE_001
   output: "[NGINX XSS] XSS Filter Bypass Attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: WARNING
   tags: [security, xss, filter_bypass, advanced_xss, phase3]
@@ -1570,6 +1626,13 @@
   priority: CRITICAL
   tags: [security, path_traversal, advanced_traversal, encoded, phase3]
   source: nginx
+  exceptions:
+    # Phase 12: WAF multi-level encoding bypass with %252E%252E%252F
+    - name: phase12_waf_encode_path
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - WAF_ENCODE_001
 
 # ====================================
 # ADV_TRAV_003: Windows Path Traversal
@@ -1784,6 +1847,13 @@
       values:
         - HHI_CRLF_001
         - HHI_CRLF_002
+    # Phase 12: Host Header multi-host and WAF null byte patterns
+    - name: phase12_hhi_waf_path
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - HHI_MULTI_001
+        - WAF_NULL_001
   output: "[NGINX Traversal] Advanced path traversal attempt detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: WARNING
   tags: [security, path_traversal, advanced_traversal, phase3]
@@ -2114,6 +2184,12 @@
       values:
         - HHI_CRLF_001
         - HHI_CRLF_002
+    # Phase 12: Host Header multi-host injection with %0a
+    - name: phase12_hhi_multi_cmdi
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - HHI_MULTI_001
 
 # ==============================================================================
 # Emerging Threats Detection Rules (from advanced_emerging_enhanced.yaml)
@@ -2304,6 +2380,12 @@
       comps: in
       values:
         - CRLF_ENC_006
+    # Phase 12: WAF null byte bypass pattern triggers via %00
+    - name: phase12_waf_null_emerging
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - WAF_NULL_001
 
 # ====================================
 # ADV_EMRG_005: MongoDB NoSQL Injection
@@ -2412,6 +2494,12 @@
         - GQL_DATA_007
         - GQL_FRAG_001
         - GQL_FRAG_002
+    # Phase 12: Log4Shell pattern triggers Template Injection via ${
+    - name: phase12_log4shell_template
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - SSTI_LOG4S_001
   output: "[NGINX Emerging Threat] Template injection test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: CRITICAL
   tags: [security, emerging_threats, ssti, template_injection, phase5]
@@ -2522,6 +2610,12 @@
         - GQL_DIR_001
         - GQL_DIR_002
         - GQL_DATA_007
+    # Phase 12: Log4Shell pattern triggers SSTI via ${jndi:
+    - name: phase12_log4shell_ssti
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - SSTI_LOG4S_001
   source: nginx
 
 # =========================================================================
@@ -2656,6 +2750,13 @@
   priority: CRITICAL
   tags: [security, xxe_attack, external_resource, phase4]
   source: nginx
+  exceptions:
+    # Phase 12: Spring4Shell pattern triggers XXE via jar:http
+    - name: phase12_spring4shell_xxe
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - SSTI_SPRING_001
 
 # ====================================
 # XXE_ATK_003: XXE Data URI Scheme
@@ -2836,6 +2937,12 @@
         - PP_ENC_001
         - PP_NESTED_003
         - PP_PROTO_001
+    # Phase 12: HPP WAF bypass pattern with admin keyword
+    - name: phase12_hpp_waf_api
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - HPP_WAF_001
 
 # ==============================================================================
 # Phase 5 New Rules: Pickle Deserialization (Issue #64)
@@ -3001,12 +3108,21 @@
       nginx.request_uri contains "tftp%3a%2f%2f" or
       nginx.request_uri contains "ldap://" or
       nginx.request_uri contains "ldap%3A%2F%2F" or
-      nginx.request_uri contains "ldap%3a%2f%2f"
+      nginx.request_uri contains "ldap%3a%2f%2f" or
+      nginx.request_uri icontains "169.254.170.2" or
+      nginx.request_uri icontains "100.100.100.200"
     )
   output: "[NGINX SSRF] SSRF attack attempt detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: CRITICAL
   tags: [security, ssrf, owasp_top10, cloud_metadata, phase8]
   source: nginx
+  exceptions:
+    # Phase 12: Log4Shell JNDI LDAP pattern triggers SSRF via ldap://
+    - name: phase12_log4shell_ssrf
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - SSTI_LOG4S_001
 
 
 # ==============================================================================
@@ -3044,6 +3160,12 @@
         - HHI_CRLF_001
         - HHI_CRLF_002
         - HHI_ENC_002
+    # Phase 12: Host Header multi-host injection with %0d%0a
+    - name: phase12_hhi_multi_crlf
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - HHI_MULTI_001
 
 # ==============================================================================
 # Phase 11 New Rules (Issue #802)
@@ -3068,7 +3190,13 @@
       nginx.request_uri contains "%2F.env" or
       nginx.request_uri contains "wp-config" or
       nginx.request_uri contains ".ssh%2Fid_rsa" or
-      nginx.request_uri contains "%2F.ssh"
+      nginx.request_uri contains "%2F.ssh" or
+      nginx.request_uri icontains "docker-compose" or
+      nginx.request_uri icontains "dockerfile" or
+      nginx.request_uri icontains "kubernetes.yml" or
+      nginx.request_uri contains ".github/workflows" or
+      nginx.request_uri contains ".sql.bak" or
+      nginx.request_uri icontains "application.log"
     )
   output: "[NGINX Sensitive] Sensitive file access attempt detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: WARNING
@@ -3114,9 +3242,84 @@
       (nginx.query_string icontains "%26privilege%3D" and nginx.query_string icontains "%26access%3D") or
       (nginx.query_string icontains "%26debug%3D1" and nginx.query_string icontains "%26verbose%3D") or
       (nginx.query_string icontains "%26authenticated%3Dtrue") or
-      (nginx.query_string icontains "%26access%3Dall")
+      (nginx.query_string icontains "%26access%3Dall") or
+      (nginx.query_string icontains "%26role%3Dadmin") or
+      (nginx.query_string icontains "%26token%3D")
     )
   output: "[NGINX HPP] HTTP Parameter Pollution attempt detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: WARNING
   tags: [security, hpp, parameter_pollution, phase11]
+  source: nginx
+
+# ==============================================================================
+# Open Redirect Detection (Phase 12)
+# ==============================================================================
+# Detects open redirect attempts via URL parameters with external URLs
+
+- rule: Open Redirect Attempt
+  desc: Detects open redirect attempts via URL parameters
+  condition: >-
+    nginx_plugin_event and (
+      nginx.request_uri contains "url%3D" or
+      nginx.request_uri contains "redirect%3D" or
+      nginx.request_uri contains "next%3D" or
+      nginx.request_uri contains "return_to%3D" or
+      nginx.request_uri contains "return%3D" or
+      nginx.request_uri contains "redir%3D" or
+      nginx.request_uri contains "destination%3D" or
+      nginx.request_uri contains "go%3D"
+    ) and (
+      nginx.request_uri contains "%3A%2F%2F" or
+      nginx.request_uri contains "%2F%2F" or
+      nginx.request_uri contains "javascript%3A" or
+      nginx.request_uri contains "%253A%252F%252F"
+    )
+  output: "[NGINX Redirect] Open redirect attempt detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
+  priority: WARNING
+  tags: [security, open_redirect, phase12]
+  source: nginx
+
+# ==============================================================================
+# WAF Bypass Detection (Phase 12)
+# ==============================================================================
+# Detects WAF bypass techniques using encoding and obfuscation
+
+- rule: WAF Bypass Attempt
+  desc: Detects WAF bypass techniques using encoding and obfuscation
+  condition: >-
+    nginx_plugin_event and (
+      nginx.request_uri contains "%EF%BC%9C" or
+      nginx.request_uri contains "%EF%BC%9E" or
+      nginx.request_uri contains "%2F%2A%2150000" or
+      nginx.request_uri contains "%2F%2A%2A%2F" or
+      nginx.request_uri contains "CONC%27%7C%7C%27" or
+      nginx.request_uri contains "%252F%252E%252E" or
+      nginx.request_uri contains "SeLeCt" or
+      nginx.request_uri contains "SELECT%00" or
+      nginx.request_uri contains "SELECT%09" or
+      nginx.request_uri contains "%26id%3D1%26id%3DUNION"
+    )
+  output: "[NGINX WAF Bypass] WAF bypass attempt detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
+  priority: WARNING
+  tags: [security, waf_bypass, phase12]
+  source: nginx
+
+# ==============================================================================
+# JWT Token Attack Detection (Phase 12)
+# ==============================================================================
+# Detects JWT token manipulation and algorithm confusion attacks
+
+- rule: JWT Token Attack Attempt
+  desc: Detects JWT token manipulation and algorithm confusion attacks
+  condition: >-
+    nginx_plugin_event and (
+      nginx.request_uri contains "eyJhbGciOiJub25lI" or
+      nginx.request_uri contains "eyJhbGciOiJOb25lI" or
+      nginx.request_uri contains "eyJhbGciOiJOT05FI" or
+      nginx.request_uri contains "eyJhbGciOiJIUzI1NiJ9" or
+      nginx.request_uri contains "eyJqa3UiOi"
+    )
+  output: "[NGINX JWT] JWT token attack attempt detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
+  priority: WARNING
+  tags: [security, jwt_attack, phase12]
   source: nginx

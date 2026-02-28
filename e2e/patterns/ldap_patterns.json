@@ -1,7 +1,7 @@
 {
   "metadata": {
     "category": "ldap",
-    "total_patterns": 15,
+    "total_patterns": 20,
     "port": 8006,
     "description": "k6 test patterns for LDAP injection"
   },
@@ -190,6 +190,66 @@
       "expected_rule": "[NGINX LDAP Injection] Blind injection attempt",
       "severity": "high",
       "description": "LDAP blind injection targeting Administrators group DN"
+    },
+    {
+      "id": "LDAP_BLIND_007",
+      "name": "LDAP blind admin password enumeration",
+      "category": "ldap",
+      "subcategory": "blind_injection",
+      "payload": "*)(uid=admin)(password=test*",
+      "encoded": "%2A%29%28uid%3Dadmin%29%28password%3Dtest%2A",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX LDAP Injection] Authentication bypass attempt"
+    },
+    {
+      "id": "LDAP_BLIND_008",
+      "name": "LDAP blind admin strong password enumeration",
+      "category": "ldap",
+      "subcategory": "blind_injection",
+      "payload": "*)(uid=admin)(password=P@ssw0rd*",
+      "encoded": "%2A%29%28uid%3Dadmin%29%28password%3DP%40ssw0rd%2A",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX LDAP Injection] Authentication bypass attempt"
+    },
+    {
+      "id": "LDAP_BLIND_009",
+      "name": "LDAP blind internal DC enumeration",
+      "category": "ldap",
+      "subcategory": "blind_injection",
+      "payload": "cn=Administrators,dc=internal",
+      "encoded": "cn%3DAdministrators%2Cdc%3Dinternal",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX LDAP Injection] Blind injection attempt"
+    },
+    {
+      "id": "LDAP_ATTR_005",
+      "name": "LDAP attribute injection via mail with encoded chars",
+      "category": "ldap",
+      "subcategory": "attribute_injection",
+      "payload": ")(mail=admin@target.com",
+      "encoded": "%29%28mail%3Dadmin%40target.com",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "medium",
+      "expected_rule": "[NGINX LDAP Injection] Attribute injection attempt"
+    },
+    {
+      "id": "LDAP_ATTR_006",
+      "name": "LDAP attribute injection via description",
+      "category": "ldap",
+      "subcategory": "attribute_injection",
+      "payload": ")(description=confidential",
+      "encoded": "%29%28description%3Dconfidential",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "medium",
+      "expected_rule": "[NGINX LDAP Injection] Attribute injection attempt"
     }
   ]
 }

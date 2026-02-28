@@ -2,7 +2,7 @@
   "metadata": {
     "category": "ssrf",
     "description": "Server-Side Request Forgery (SSRF) attack patterns",
-    "total_patterns": 25,
+    "total_patterns": 33,
     "phase": "Phase 10 Stage 1",
     "created": "2026-02-11",
     "updated": "2026-02-14"
@@ -322,6 +322,102 @@
       "severity": "high",
       "expected_rule": "[NGINX SSRF] SSRF attack attempt detected",
       "description": "Phase 10: LDAP protocol for directory enumeration (requires rule condition addition)"
+    },
+    {
+      "id": "SSRF_OPENSTACK_001",
+      "name": "OpenStack metadata SSRF",
+      "category": "ssrf",
+      "subcategory": "cloud_metadata",
+      "payload": "http://169.254.169.254/openstack/latest/meta_data.json",
+      "encoded": "http%3A%2F%2F169.254.169.254%2Fopenstack%2Flatest%2Fmeta_data.json",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX SSRF] SSRF attack attempt detected"
+    },
+    {
+      "id": "SSRF_AZURE_002",
+      "name": "Azure OAuth2 token SSRF",
+      "category": "ssrf",
+      "subcategory": "cloud_metadata",
+      "payload": "http://169.254.169.254/metadata/identity/oauth2/token",
+      "encoded": "http%3A%2F%2F169.254.169.254%2Fmetadata%2Fidentity%2Foauth2%2Ftoken",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX SSRF] SSRF attack attempt detected"
+    },
+    {
+      "id": "SSRF_ECS_001",
+      "name": "ECS task metadata SSRF",
+      "category": "ssrf",
+      "subcategory": "cloud_metadata",
+      "payload": "http://169.254.170.2/v2/metadata",
+      "encoded": "http%3A%2F%2F169.254.170.2%2Fv2%2Fmetadata",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX SSRF] SSRF attack attempt detected"
+    },
+    {
+      "id": "SSRF_ECS_002",
+      "name": "ECS task credentials SSRF",
+      "category": "ssrf",
+      "subcategory": "cloud_metadata",
+      "payload": "http://169.254.170.2/v2/credentials",
+      "encoded": "http%3A%2F%2F169.254.170.2%2Fv2%2Fcredentials",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX SSRF] SSRF attack attempt detected"
+    },
+    {
+      "id": "SSRF_IAM_001",
+      "name": "AWS IAM info SSRF",
+      "category": "ssrf",
+      "subcategory": "cloud_metadata",
+      "payload": "http://169.254.169.254/latest/meta-data/iam/info",
+      "encoded": "http%3A%2F%2F169.254.169.254%2Flatest%2Fmeta-data%2Fiam%2Finfo",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX SSRF] SSRF attack attempt detected"
+    },
+    {
+      "id": "SSRF_ORACLE_001",
+      "name": "Oracle Cloud metadata SSRF",
+      "category": "ssrf",
+      "subcategory": "cloud_metadata",
+      "payload": "http://169.254.169.254/opc/v2/instance/",
+      "encoded": "http%3A%2F%2F169.254.169.254%2Fopc%2Fv2%2Finstance%2F",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX SSRF] SSRF attack attempt detected"
+    },
+    {
+      "id": "SSRF_ALIBABA_001",
+      "name": "Alibaba Cloud metadata SSRF",
+      "category": "ssrf",
+      "subcategory": "cloud_metadata",
+      "payload": "http://100.100.100.200/latest/meta-data/",
+      "encoded": "http%3A%2F%2F100.100.100.200%2Flatest%2Fmeta-data%2F",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX SSRF] SSRF attack attempt detected"
+    },
+    {
+      "id": "SSRF_LINKERD_001",
+      "name": "Linkerd metrics SSRF",
+      "category": "ssrf",
+      "subcategory": "cloud_metadata",
+      "payload": "http://localhost:4191/metrics",
+      "encoded": "http%3A%2F%2Flocalhost%3A4191%2Fmetrics",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX SSRF] SSRF attack attempt detected"
     }
   ]
 }

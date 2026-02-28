@@ -1,0 +1,132 @@
+{
+  "metadata": {
+    "category": "waf_bypass",
+    "total_patterns": 10,
+    "port": 80,
+    "description": "k6 test patterns for WAF Bypass techniques",
+    "phase": "Phase 12",
+    "created": "2026-02-28"
+  },
+  "patterns": [
+    {
+      "id": "WAF_UNICODE_001",
+      "name": "Unicode fullwidth tag bypass",
+      "category": "waf_bypass",
+      "subcategory": "unicode_bypass",
+      "payload": "\uff1cscript\uff1ealert(1)\uff1c/script\uff1e",
+      "encoded": "%EF%BC%9Cscript%EF%BC%9Ealert%281%29%EF%BC%9C%2Fscript%EF%BC%9E",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX WAF Bypass] WAF bypass attempt detected"
+    },
+    {
+      "id": "WAF_UNICODE_002",
+      "name": "Unicode fullwidth img tag bypass",
+      "category": "waf_bypass",
+      "subcategory": "unicode_bypass",
+      "payload": "\uff1cimg src=x onerror=alert(1)\uff1e",
+      "encoded": "%EF%BC%9Cimg%20src%3Dx%20onerror%3Dalert%281%29%EF%BC%9E",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX WAF Bypass] WAF bypass attempt detected"
+    },
+    {
+      "id": "WAF_COMMENT_001",
+      "name": "MySQL version comment bypass",
+      "category": "waf_bypass",
+      "subcategory": "sql_comment",
+      "payload": "/*!50000SELECT*/ * FROM users",
+      "encoded": "%2F%2A%2150000SELECT%2A%2F%20%2A%20FROM%20users",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX WAF Bypass] WAF bypass attempt detected"
+    },
+    {
+      "id": "WAF_COMMENT_002",
+      "name": "Inline comment SQL bypass",
+      "category": "waf_bypass",
+      "subcategory": "sql_comment",
+      "payload": "SEL/**/ECT * FROM users",
+      "encoded": "SEL%2F%2A%2A%2FECT%20%2A%20FROM%20users",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX WAF Bypass] WAF bypass attempt detected"
+    },
+    {
+      "id": "WAF_CONCAT_001",
+      "name": "SQL concatenation bypass",
+      "category": "waf_bypass",
+      "subcategory": "concatenation",
+      "payload": "CONC'||'AT('a','b')",
+      "encoded": "CONC%27%7C%7C%27AT%28%27a%27%2C%27b%27%29",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX WAF Bypass] WAF bypass attempt detected"
+    },
+    {
+      "id": "WAF_ENCODE_001",
+      "name": "Multi-level encoding bypass",
+      "category": "waf_bypass",
+      "subcategory": "multi_encoding",
+      "payload": "%252F%252E%252E%252Fetc%252Fpasswd",
+      "encoded": "%252F%252E%252E%252Fetc%252Fpasswd",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX WAF Bypass] WAF bypass attempt detected"
+    },
+    {
+      "id": "WAF_CASE_001",
+      "name": "Mixed case SQL bypass",
+      "category": "waf_bypass",
+      "subcategory": "case_variation",
+      "payload": "SeLeCt * FrOm users",
+      "encoded": "SeLeCt%20%2A%20FrOm%20users",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX WAF Bypass] WAF bypass attempt detected"
+    },
+    {
+      "id": "WAF_NULL_001",
+      "name": "Null byte SQL bypass",
+      "category": "waf_bypass",
+      "subcategory": "null_byte",
+      "payload": "SELECT%00 * FROM users",
+      "encoded": "SELECT%00%20%2A%20FROM%20users",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX WAF Bypass] WAF bypass attempt detected"
+    },
+    {
+      "id": "WAF_HPP_001",
+      "name": "HPP-based SQL injection bypass",
+      "category": "waf_bypass",
+      "subcategory": "hpp_bypass",
+      "payload": "&id=1&id=UNION SELECT",
+      "encoded": "%26id%3D1%26id%3DUNION%20SELECT",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX WAF Bypass] WAF bypass attempt detected"
+    },
+    {
+      "id": "WAF_WHITESPACE_001",
+      "name": "Tab whitespace SQL bypass",
+      "category": "waf_bypass",
+      "subcategory": "whitespace",
+      "payload": "SELECT%09*%09FROM%09users",
+      "encoded": "SELECT%09%2A%09FROM%09users",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX WAF Bypass] WAF bypass attempt detected"
+    }
+  ]
+}
