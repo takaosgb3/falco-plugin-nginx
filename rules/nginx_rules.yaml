@@ -3259,7 +3259,7 @@
 - rule: Open Redirect Attempt
   desc: Detects open redirect attempts via URL parameters
   condition: >-
-    nginx_plugin_event and (
+    (
       nginx.request_uri contains "url%3D" or
       nginx.request_uri contains "redirect%3D" or
       nginx.request_uri contains "next%3D" or
@@ -3287,7 +3287,7 @@
 - rule: WAF Bypass Attempt
   desc: Detects WAF bypass techniques using encoding and obfuscation
   condition: >-
-    nginx_plugin_event and (
+    (
       nginx.request_uri contains "%EF%BC%9C" or
       nginx.request_uri contains "%EF%BC%9E" or
       nginx.request_uri contains "%2F%2A%2150000" or
@@ -3312,7 +3312,7 @@
 - rule: JWT Token Attack Attempt
   desc: Detects JWT token manipulation and algorithm confusion attacks
   condition: >-
-    nginx_plugin_event and (
+    (
       nginx.request_uri contains "eyJhbGciOiJub25lI" or
       nginx.request_uri contains "eyJhbGciOiJOb25lI" or
       nginx.request_uri contains "eyJhbGciOiJOT05FI" or
