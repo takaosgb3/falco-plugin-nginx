@@ -835,6 +835,12 @@
         - XPATH_FUNC_005
         - GQL_FRAG_002
         - GQL_DIR_002
+    # Phase 13: WAF concat pattern with CONCAT(' triggering error-based SQLi
+    - name: phase13_waf_concat_error_sqli
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - WAF_CONCAT_002
   output: "[NGINX SQLi] Error-based SQL Injection test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: CRITICAL
   tags: [security, sql_injection, advanced_sqli, error_based, phase3]
@@ -920,6 +926,12 @@
       comps: in
       values:
         - WAF_HPP_001
+    # Phase 13: SSRF hex pattern with 0x triggering Advanced SQLi
+    - name: phase13_ssrf_hex_advsqli
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - SSRF_HEX_001
   output: "[NGINX SQLi] Advanced SQL Injection Attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: WARNING
   tags: [security, sql_injection, advanced_sqli, enumeration, phase3]
@@ -1051,6 +1063,22 @@
         - WAF_ENCODE_001
         - WAF_NULL_001
         - HHI_MULTI_001
+    # Phase 13: Patterns with %0a/%0d/%23/%00 triggering contains_comment_special_chars
+    - name: phase13_encoded_sqli_exceptions
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - SSTI_PUG_001
+        - SSTI_HBS_001
+        - HHI_CHAIN_001
+        - CRLF_DOUBLE_001
+        - FP_CRLF_001
+        - REDIR_FRAG_001
+        - REDIR_META_001
+        - REDIR_NULL_001
+        - WAF_CHUNK_001
+        - WAF_PARAM_001
+        - AUTH_ENCODE_001
   output: "[NGINX SQLi] Encoded SQL Injection Pattern test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: WARNING
   tags: [security, sql_injection, advanced_sqli, encoding_evasion, phase3]
@@ -1405,6 +1433,12 @@
         - XXE_PARAM_001
         - NOSQL_MONGO_007
         - API_PROTO_002
+    # Phase 13: SSTI Nunjucks pattern with "constructor" triggering XSS condition
+    - name: phase13_ssti_nunjucks_xss
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - SSTI_NUNJUCKS_002
   output: "[NGINX XSS] Advanced XSS Attack Attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: WARNING
   tags: [security, xss, advanced_xss, event_handlers, phase3]
@@ -1516,7 +1550,7 @@
         - WAF_WHITESPACE_001
         - REDIR_PROTO_002
         - WAF_UNICODE_001
-    # Phase 13: Patterns with %0a/%0d/script triggers (#7 + #10)
+    # Phase 13: Patterns with %0a/%0d/%09/script triggers (#7 + #10)
     - name: phase13_xss_bypass_exceptions
       fields: nginx.pattern_id
       comps: in
@@ -1525,6 +1559,7 @@
         - REDIR_META_001
         - HHI_CHAIN_001
         - REDIR_DATA_001
+        - CRLF_TAB_001
   output: "[NGINX XSS] XSS Filter Bypass Attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: WARNING
   tags: [security, xss, filter_bypass, advanced_xss, phase3]
@@ -1607,6 +1642,12 @@
         - PATH_WIN_003
         - PATH_WIN_004
         - PATH_WIN_005
+    # Phase 13: JWT JWE pattern with ".." in Base64 triggering basic path traversal
+    - name: phase13_jwt_jwe_basic_traversal
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - JWT_JWE_001
   output: "[NGINX Traversal] Basic path traversal attack detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: CRITICAL
   tags: [security, path_traversal, advanced_traversal, basic, phase3]
@@ -2228,6 +2269,7 @@
         - WAF_CHUNK_001
         - REDIR_META_001
         - HHI_CHAIN_001
+        - CRLF_MIXED_001
 
 # ==============================================================================
 # Emerging Threats Detection Rules (from advanced_emerging_enhanced.yaml)
@@ -2550,6 +2592,12 @@
       comps: in
       values:
         - FP_SSTI_001
+    # Phase 13: SSTI_EJS_002 <%- matches template injection ${/{% conditions
+    - name: phase13_ssti_ejs_template
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - SSTI_EJS_002
   output: "[NGINX Emerging Threat] Template injection test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: CRITICAL
   tags: [security, emerging_threats, ssti, template_injection, phase5]
@@ -3366,7 +3414,8 @@
       nginx.request_uri contains "%2F%2F" or
       nginx.request_uri contains "javascript%3A" or
       nginx.request_uri contains "%253A%252F%252F" or
-      nginx.request_uri contains "data%3A"
+      nginx.request_uri contains "data%3A" or
+      nginx.request_uri contains "%EF%BC%8F"
     )
   output: "[NGINX Redirect] Open redirect attempt detected test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr"
   priority: WARNING
@@ -3412,6 +3461,13 @@
   priority: WARNING
   tags: [security, waf_bypass, phase12]
   source: nginx
+  exceptions:
+    # Phase 13: FP path traversal pattern with %2525 triggering WAF %2525 condition
+    - name: phase13_path_uni_waf
+      fields: nginx.pattern_id
+      comps: in
+      values:
+        - PATH_UNI_010
 
 # ==============================================================================
 # JWT Token Attack Detection (Phase 12)
