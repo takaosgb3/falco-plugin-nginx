@@ -1,7 +1,7 @@
 {
   "metadata": {
     "category": "host_header",
-    "total_patterns": 15,
+    "total_patterns": 21,
     "port": 80,
     "description": "k6 test patterns for Host Header Injection attacks",
     "phase": "Phase 11"
@@ -186,6 +186,78 @@
       "expected_detection": true,
       "severity": "critical",
       "expected_rule": "[NGINX Host Header] Host header injection attempt detected"
+    },
+    {
+      "id": "HHI_CHAIN_001",
+      "name": "X-Forwarded-Host chain injection",
+      "category": "host_header",
+      "subcategory": "chain_injection",
+      "payload": "x-forwarded-host:evil.com\\r\\nx-forwarded-host:evil2.com",
+      "encoded": "x-forwarded-host%3Aevil.com%0d%0ax-forwarded-host%3Aevil2.com",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Host Header] Host header injection attempt detected"
+    },
+    {
+      "id": "HHI_PORT_001",
+      "name": "Port injection via Host",
+      "category": "host_header",
+      "subcategory": "port_injection",
+      "payload": "x-host:good.com:8443@evil.com",
+      "encoded": "x-host%3Agood.com%3A8443%40evil.com",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Host Header] Host header injection attempt detected"
+    },
+    {
+      "id": "HHI_ABS_001",
+      "name": "Absolute URL Host override",
+      "category": "host_header",
+      "subcategory": "absolute_url",
+      "payload": "x-original-host:https://evil.com",
+      "encoded": "x-original-host%3Ahttps%3A%2F%2Fevil.com",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Host Header] Host header injection attempt detected"
+    },
+    {
+      "id": "HHI_XHOST_001",
+      "name": "X-Host with internal IP",
+      "category": "host_header",
+      "subcategory": "internal_ip",
+      "payload": "x-host:10.0.0.1",
+      "encoded": "x-host%3A10.0.0.1",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Host Header] Host header injection attempt detected"
+    },
+    {
+      "id": "HHI_FWD_PORT_001",
+      "name": "X-Forwarded-Host with port",
+      "category": "host_header",
+      "subcategory": "forwarded_port",
+      "payload": "x-forwarded-host:evil.com:443",
+      "encoded": "x-forwarded-host%3Aevil.com%3A443",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Host Header] Host header injection attempt detected"
+    },
+    {
+      "id": "FP_HHI_001",
+      "name": "Normal X-Forwarded-For header",
+      "category": "host_header",
+      "subcategory": "false_positive",
+      "payload": "x-forwarded-for:192.168.1.1",
+      "encoded": "x-forwarded-for%3A192.168.1.1",
+      "port": 80,
+      "expected_detection": false,
+      "severity": "info",
+      "expected_rule": "NONE"
     }
   ]
 }

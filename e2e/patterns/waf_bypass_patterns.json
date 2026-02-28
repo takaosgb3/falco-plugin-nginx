@@ -1,7 +1,7 @@
 {
   "metadata": {
     "category": "waf_bypass",
-    "total_patterns": 10,
+    "total_patterns": 18,
     "port": 80,
     "description": "k6 test patterns for WAF Bypass techniques",
     "phase": "Phase 12",
@@ -13,7 +13,7 @@
       "name": "Unicode fullwidth tag bypass",
       "category": "waf_bypass",
       "subcategory": "unicode_bypass",
-      "payload": "\uff1cscript\uff1ealert(1)\uff1c/script\uff1e",
+      "payload": "＜script＞alert(1)＜/script＞",
       "encoded": "%EF%BC%9Cscript%EF%BC%9Ealert%281%29%EF%BC%9C%2Fscript%EF%BC%9E",
       "port": 80,
       "expected_detection": true,
@@ -25,7 +25,7 @@
       "name": "Unicode fullwidth img tag bypass",
       "category": "waf_bypass",
       "subcategory": "unicode_bypass",
-      "payload": "\uff1cimg src=x onerror=alert(1)\uff1e",
+      "payload": "＜img src=x onerror=alert(1)＞",
       "encoded": "%EF%BC%9Cimg%20src%3Dx%20onerror%3Dalert%281%29%EF%BC%9E",
       "port": 80,
       "expected_detection": true,
@@ -127,6 +127,102 @@
       "expected_detection": true,
       "severity": "high",
       "expected_rule": "[NGINX WAF Bypass] WAF bypass attempt detected"
+    },
+    {
+      "id": "WAF_CHUNK_001",
+      "name": "Chunked transfer encoding bypass",
+      "category": "waf_bypass",
+      "subcategory": "chunked_bypass",
+      "payload": "Transfer-Encoding:chunked\\r\\n0\\r\\nSELECT",
+      "encoded": "Transfer-Encoding%3Achunked%0d%0a0%0d%0aSELECT",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX WAF Bypass] WAF bypass attempt detected"
+    },
+    {
+      "id": "WAF_MULTI_001",
+      "name": "Multipart boundary injection",
+      "category": "waf_bypass",
+      "subcategory": "multipart_bypass",
+      "payload": "Content-Type:multipart/form-data;boundary=xxx",
+      "encoded": "Content-Type%3Amultipart%2Fform-data%3Bboundary%3Dxxx",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX WAF Bypass] WAF bypass attempt detected"
+    },
+    {
+      "id": "WAF_DOUBLE_001",
+      "name": "Double URL encoding bypass",
+      "category": "waf_bypass",
+      "subcategory": "double_encoding",
+      "payload": "%2525%2533%2563%2572%2569%2570%2574",
+      "encoded": "%2525%2533%2563%2572%2569%2570%2574",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX WAF Bypass] WAF bypass attempt detected"
+    },
+    {
+      "id": "WAF_OVERLONG_001",
+      "name": "UTF-8 overlong encoding",
+      "category": "waf_bypass",
+      "subcategory": "overlong_encoding",
+      "payload": "%C0%AE%C0%AE%C0%AF",
+      "encoded": "%C0%AE%C0%AE%C0%AF",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX WAF Bypass] WAF bypass attempt detected"
+    },
+    {
+      "id": "WAF_PARAM_001",
+      "name": "Parameter fragmentation bypass",
+      "category": "waf_bypass",
+      "subcategory": "null_byte_split",
+      "payload": "sel\\x00ect 1 from users",
+      "encoded": "sel%00ect%201%20from%20users",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX WAF Bypass] WAF bypass attempt detected"
+    },
+    {
+      "id": "WAF_JSON_001",
+      "name": "JSON content-type bypass",
+      "category": "waf_bypass",
+      "subcategory": "json_bypass",
+      "payload": "{\"query\":\"SELECT *\"}",
+      "encoded": "%7B%22query%22%3A%22SELECT%20%2A%22%7D",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX WAF Bypass] WAF bypass attempt detected"
+    },
+    {
+      "id": "WAF_CONCAT_002",
+      "name": "String concatenation bypass (CONCAT function)",
+      "category": "waf_bypass",
+      "subcategory": "concatenation",
+      "payload": "CONCAT('sel','ect')",
+      "encoded": "CONCAT%28%27sel%27%2C%27ect%27%29",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX WAF Bypass] WAF bypass attempt detected"
+    },
+    {
+      "id": "FP_WAF_001",
+      "name": "Normal multipart form upload",
+      "category": "waf_bypass",
+      "subcategory": "false_positive",
+      "payload": "/upload?type=multipart",
+      "encoded": "%2Fupload%3Ftype%3Dmultipart",
+      "port": 80,
+      "expected_detection": false,
+      "severity": "info",
+      "expected_rule": "NONE"
     }
   ]
 }

@@ -1,0 +1,132 @@
+{
+  "metadata": {
+    "category": "auth_bypass",
+    "total_patterns": 10,
+    "port": 80,
+    "description": "k6 test patterns for Authentication Bypass via Path detection",
+    "phase": "Phase 13",
+    "created": "2026-02-28"
+  },
+  "patterns": [
+    {
+      "id": "AUTH_SEMI_001",
+      "name": "Semicolon path bypass",
+      "category": "auth_bypass",
+      "subcategory": "semicolon_bypass",
+      "payload": "/admin;/",
+      "encoded": "%2Fadmin%3B%2F",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Auth Bypass] Authentication bypass attempt detected"
+    },
+    {
+      "id": "AUTH_SEMI_002",
+      "name": "Semicolon with extension bypass",
+      "category": "auth_bypass",
+      "subcategory": "semicolon_bypass",
+      "payload": "/admin;.js",
+      "encoded": "%2Fadmin%3B.js",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Auth Bypass] Authentication bypass attempt detected"
+    },
+    {
+      "id": "AUTH_DOT_001",
+      "name": "Dot segment path bypass",
+      "category": "auth_bypass",
+      "subcategory": "dot_segment",
+      "payload": "/admin/./",
+      "encoded": "%2Fadmin%2F.%2F",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Auth Bypass] Authentication bypass attempt detected"
+    },
+    {
+      "id": "AUTH_CASE_001",
+      "name": "Case variation path bypass",
+      "category": "auth_bypass",
+      "subcategory": "case_variation",
+      "payload": "/Admin",
+      "encoded": "%2FAdmin",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Auth Bypass] Authentication bypass attempt detected"
+    },
+    {
+      "id": "AUTH_DOUBLE_001",
+      "name": "Double slash path bypass",
+      "category": "auth_bypass",
+      "subcategory": "double_slash",
+      "payload": "//admin",
+      "encoded": "%2F%2Fadmin",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Auth Bypass] Authentication bypass attempt detected"
+    },
+    {
+      "id": "AUTH_TRAIL_001",
+      "name": "Trailing dot path bypass",
+      "category": "auth_bypass",
+      "subcategory": "trailing_dot",
+      "payload": "/admin.",
+      "encoded": "%2Fadmin.",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Auth Bypass] Authentication bypass attempt detected"
+    },
+    {
+      "id": "AUTH_ENCODE_001",
+      "name": "Double-encoded slash bypass",
+      "category": "auth_bypass",
+      "subcategory": "encoded_bypass",
+      "payload": "/admin%2F",
+      "encoded": "%2Fadmin%252F",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Auth Bypass] Authentication bypass attempt detected"
+    },
+    {
+      "id": "AUTH_VERB_001",
+      "name": "HTTP method override bypass",
+      "category": "auth_bypass",
+      "subcategory": "method_override",
+      "payload": "?_method=DELETE&target=/admin",
+      "encoded": "_method=DELETE%26target%3D%2Fadmin",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Auth Bypass] Authentication bypass attempt detected"
+    },
+    {
+      "id": "FP_AUTH_003",
+      "name": "Normal admin login page",
+      "category": "auth_bypass",
+      "subcategory": "false_positive",
+      "payload": "/admin/login",
+      "encoded": "%2Fadmin%2Flogin",
+      "port": 80,
+      "expected_detection": false,
+      "severity": "info",
+      "expected_rule": "NONE"
+    },
+    {
+      "id": "FP_AUTH_004",
+      "name": "Normal API admin dashboard",
+      "category": "auth_bypass",
+      "subcategory": "false_positive",
+      "payload": "/api/admin/dashboard",
+      "encoded": "%2Fapi%2Fadmin%2Fdashboard",
+      "port": 80,
+      "expected_detection": false,
+      "severity": "info",
+      "expected_rule": "NONE"
+    }
+  ]
+}

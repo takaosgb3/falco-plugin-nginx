@@ -1,0 +1,132 @@
+{
+  "metadata": {
+    "category": "info_disclosure",
+    "total_patterns": 10,
+    "port": 80,
+    "description": "k6 test patterns for Information Disclosure detection",
+    "phase": "Phase 13",
+    "created": "2026-02-28"
+  },
+  "patterns": [
+    {
+      "id": "INFO_ACTUATOR_001",
+      "name": "Spring Boot Actuator env endpoint",
+      "category": "info_disclosure",
+      "subcategory": "debug_endpoint",
+      "payload": "/actuator/env",
+      "encoded": "/actuator/env",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Info Disclosure] Information disclosure attempt detected"
+    },
+    {
+      "id": "INFO_ACTUATOR_002",
+      "name": "Spring Boot Actuator health endpoint",
+      "category": "info_disclosure",
+      "subcategory": "debug_endpoint",
+      "payload": "/actuator/health",
+      "encoded": "/actuator/health",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Info Disclosure] Information disclosure attempt detected"
+    },
+    {
+      "id": "INFO_PHPINFO_001",
+      "name": "PHP info page access",
+      "category": "info_disclosure",
+      "subcategory": "server_info",
+      "payload": "/phpinfo.php",
+      "encoded": "/phpinfo.php",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Info Disclosure] Information disclosure attempt detected"
+    },
+    {
+      "id": "INFO_DEBUG_001",
+      "name": "Debug mode endpoint access",
+      "category": "info_disclosure",
+      "subcategory": "debug_endpoint",
+      "payload": "/?debug=true",
+      "encoded": "debug=true",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Info Disclosure] Information disclosure attempt detected"
+    },
+    {
+      "id": "INFO_STATUS_001",
+      "name": "Server status page access",
+      "category": "info_disclosure",
+      "subcategory": "server_info",
+      "payload": "/server-status",
+      "encoded": "/server-status",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Info Disclosure] Information disclosure attempt detected"
+    },
+    {
+      "id": "INFO_ELMAH_001",
+      "name": "ELMAH error log access",
+      "category": "info_disclosure",
+      "subcategory": "error_log",
+      "payload": "/elmah.axd",
+      "encoded": "/elmah.axd",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Info Disclosure] Information disclosure attempt detected"
+    },
+    {
+      "id": "INFO_TRACE_001",
+      "name": "HTTP TRACE method override",
+      "category": "info_disclosure",
+      "subcategory": "method_override",
+      "payload": "/?_method=TRACE",
+      "encoded": "_method=TRACE",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Info Disclosure] Information disclosure attempt detected"
+    },
+    {
+      "id": "INFO_SWAGGER_001",
+      "name": "Swagger API documentation access",
+      "category": "info_disclosure",
+      "subcategory": "api_docs",
+      "payload": "/swagger-ui.html",
+      "encoded": "/swagger-ui.html",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Info Disclosure] Information disclosure attempt detected"
+    },
+    {
+      "id": "FP_INFO_001",
+      "name": "Normal health check endpoint",
+      "category": "info_disclosure",
+      "subcategory": "false_positive",
+      "payload": "/health",
+      "encoded": "/health",
+      "port": 80,
+      "expected_detection": false,
+      "severity": "info",
+      "expected_rule": "NONE"
+    },
+    {
+      "id": "FP_INFO_002",
+      "name": "Normal API documentation page",
+      "category": "info_disclosure",
+      "subcategory": "false_positive",
+      "payload": "/docs",
+      "encoded": "/docs",
+      "port": 80,
+      "expected_detection": false,
+      "severity": "info",
+      "expected_rule": "NONE"
+    }
+  ]
+}

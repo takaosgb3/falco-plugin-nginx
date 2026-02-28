@@ -61,6 +61,9 @@ const hppAttacks = new Counter('hpp_attacks');
 const openRedirectAttacks = new Counter('open_redirect_attacks');
 const wafBypassAttacks = new Counter('waf_bypass_attacks');
 const jwtAttacks = new Counter('jwt_attacks');
+// Phase 13: Info Disclosure and Auth Bypass metrics (Issue #806)
+const infoDisclosureAttacks = new Counter('info_disclosure_attacks');
+const authBypassAttacks = new Counter('auth_bypass_attacks');
 
 // ========================================
 // Load attack patterns (SharedArray for efficiency)
@@ -184,6 +187,16 @@ const wafBypassPatterns = new SharedArray('waf_bypass', function() {
 // Phase 12: JWT Attack patterns (Issue #805)
 const jwtPatterns = new SharedArray('jwt', function() {
     const data = JSON.parse(open('../patterns/jwt_patterns.json'));
+    return data.patterns;
+});
+
+// Phase 13: Info Disclosure and Auth Bypass patterns (Issue #806)
+const infoDisclosurePatterns = new SharedArray('info_disclosure', function() {
+    const data = JSON.parse(open('../patterns/info_disclosure_patterns.json'));
+    return data.patterns;
+});
+const authBypassPatterns = new SharedArray('auth_bypass', function() {
+    const data = JSON.parse(open('../patterns/auth_bypass_patterns.json'));
     return data.patterns;
 });
 
@@ -380,12 +393,30 @@ export const options = {
             exec: 'testJWT',
             startTime: '105s',
             tags: { category: 'jwt' }
+        },
+        // Phase 13: Info Disclosure patterns (Issue #806)
+        info_disclosure_test: {
+            executor: 'per-vu-iterations',
+            vus: 1,
+            iterations: infoDisclosurePatterns.length,
+            exec: 'testInfoDisclosure',
+            startTime: '110s',
+            tags: { category: 'info_disclosure' }
+        },
+        // Phase 13: Auth Bypass patterns (Issue #806)
+        auth_bypass_test: {
+            executor: 'per-vu-iterations',
+            vus: 1,
+            iterations: authBypassPatterns.length,
+            exec: 'testAuthBypass',
+            startTime: '115s',
+            tags: { category: 'auth_bypass' }
         }
     },
     thresholds: {
         'http_req_duration': ['p(95)<5000'],  // 95% of requests under 5s
         'http_req_failed': ['rate<0.05'],      // Less than 5% failure rate
-        'attacks_sent': ['count==775']          // All 775 patterns sent (Phase 12)
+        'attacks_sent': ['count==850']          // All 850 patterns sent (Phase 13)
     },
     summaryTimeUnit: 'ms',
     summaryTrendStats: ['avg', 'med', 'p(90)', 'p(95)', 'p(99)', 'max', 'count']
@@ -608,6 +639,22 @@ export function testJWT() {
     });
 }
 
+// Phase 13: Info Disclosure Tests (Issue #806)
+export function testInfoDisclosure() {
+    group('Info Disclosure Tests', function() {
+        const pattern = infoDisclosurePatterns[scenario.iterationInTest];
+        executeAttack(pattern, infoDisclosureAttacks);
+    });
+}
+
+// Phase 13: Auth Bypass Tests (Issue #806)
+export function testAuthBypass() {
+    group('Auth Bypass Tests', function() {
+        const pattern = authBypassPatterns[scenario.iterationInTest];
+        executeAttack(pattern, authBypassAttacks);
+    });
+}
+
 // ========================================
 // Setup/Teardown
 // ========================================
@@ -615,7 +662,7 @@ export function setup() {
     console.log('========================================');
     console.log('k6 E2E Test Starting (Public Repo Mode)');
     console.log(`Target: ${TARGET_IP}:${TARGET_PORT}`);
-    console.log('Total Patterns: 775 (Phase 12)');
+    console.log('Total Patterns: 850 (Phase 13)');
     console.log('  - SQLi: 138');
     console.log('  - XSS: 96');
     console.log('  - Path: 81');
@@ -625,19 +672,21 @@ export function setup() {
     console.log('  - XXE: 18');
     console.log('  - GraphQL: 25');
     console.log('  - XPath: 25');
-    console.log('  - SSTI: 27');
+    console.log(`  - SSTI: ${sstiPatterns.length}`);
     console.log('  - NoSQL Extended: 20');
     console.log('  - API Security: 30');
     console.log('  - Pickle: 15');
     console.log('  - Prototype Pollution: 15');
     console.log('  - HTTP Smuggling: 15');
-    console.log('  - SSRF: 33');
-    console.log('  - CRLF: 25');
-    console.log('  - Host Header: 15');
-    console.log('  - HPP: 15');
+    console.log(`  - SSRF: ${ssrfPatterns.length}`);
+    console.log(`  - CRLF: ${crlfPatterns.length}`);
+    console.log(`  - Host Header: ${hostHeaderPatterns.length}`);
+    console.log(`  - HPP: ${hppPatterns.length}`);
     console.log(`  - Open Redirect: ${openRedirectPatterns.length}`);
     console.log(`  - WAF Bypass: ${wafBypassPatterns.length}`);
     console.log(`  - JWT: ${jwtPatterns.length}`);
+    console.log(`  - Info Disclosure: ${infoDisclosurePatterns.length}`);
+    console.log(`  - Auth Bypass: ${authBypassPatterns.length}`);
     console.log('========================================');
 }
 
@@ -687,7 +736,10 @@ export function handleSummary(data) {
                 // Phase 12: Open Redirect, WAF Bypass, JWT (Issue #805)
                 open_redirect: data.metrics.open_redirect_attacks ? data.metrics.open_redirect_attacks.values.count : 0,
                 waf_bypass: data.metrics.waf_bypass_attacks ? data.metrics.waf_bypass_attacks.values.count : 0,
-                jwt: data.metrics.jwt_attacks ? data.metrics.jwt_attacks.values.count : 0
+                jwt: data.metrics.jwt_attacks ? data.metrics.jwt_attacks.values.count : 0,
+                // Phase 13: Info Disclosure and Auth Bypass (Issue #806)
+                info_disclosure: data.metrics.info_disclosure_attacks ? data.metrics.info_disclosure_attacks.values.count : 0,
+                auth_bypass: data.metrics.auth_bypass_attacks ? data.metrics.auth_bypass_attacks.values.count : 0
             }
         }
     };

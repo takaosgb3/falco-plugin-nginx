@@ -1,7 +1,7 @@
 {
   "metadata": {
     "category": "ssti",
-    "total_patterns": 27,
+    "total_patterns": 34,
     "port": 80,
     "description": "k6 test patterns for Server-Side Template Injection attacks",
     "phase": "Phase 10 Stage 1",
@@ -346,6 +346,90 @@
       "expected_detection": true,
       "severity": "critical",
       "expected_rule": "[NGINX Emerging Threat] Log4Shell attack"
+    },
+    {
+      "id": "SSTI_PUG_001",
+      "name": "Pug/Jade template injection",
+      "category": "ssti",
+      "subcategory": "pug",
+      "payload": "#{7*7}",
+      "encoded": "%23%7B7*7%7D",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "high",
+      "expected_rule": "[NGINX Emerging Threat] Template injection"
+    },
+    {
+      "id": "SSTI_EJS_002",
+      "name": "EJS prototype chain exploitation",
+      "category": "ssti",
+      "subcategory": "ejs",
+      "payload": "<%-global.process.mainModule.require('child_process')%>",
+      "encoded": "%3C%25-global.process.mainModule.require%28%27child_process%27%29%25%3E",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX SSTI] Server-Side Template Injection detected"
+    },
+    {
+      "id": "SSTI_HBS_001",
+      "name": "Handlebars RCE via with helper",
+      "category": "ssti",
+      "subcategory": "handlebars",
+      "payload": "{{#with \"s\" as |string|}}{{/with}}",
+      "encoded": "%7B%7B%23with%20%22s%22%20as%20%7Cstring%7C%7D%7D%7B%7B%2Fwith%7D%7D",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX SSTI] Server-Side Template Injection detected"
+    },
+    {
+      "id": "SSTI_MAKO_002",
+      "name": "Mako OS command execution",
+      "category": "ssti",
+      "subcategory": "mako",
+      "payload": "${__import__('os').popen('id').read()}",
+      "encoded": "%24%7B__import__%28%27os%27%29.popen%28%27id%27%29.read%28%29%7D",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX Emerging Threat] Template injection"
+    },
+    {
+      "id": "SSTI_NUNJUCKS_002",
+      "name": "Nunjucks constructor access",
+      "category": "ssti",
+      "subcategory": "nunjucks",
+      "payload": "{{range.constructor(\"return this\")()}}",
+      "encoded": "%7B%7Brange.constructor%28%22return%20this%22%29%28%29%7D%7D",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX SSTI] Server-Side Template Injection detected"
+    },
+    {
+      "id": "SSTI_JINJA_006",
+      "name": "Jinja2 cycler class exploitation",
+      "category": "ssti",
+      "subcategory": "jinja2",
+      "payload": "{{cycler.__init__.__globals__.os.popen('id').read()}}",
+      "encoded": "%7B%7Bcycler.__init__.__globals__.os.popen%28%27id%27%29.read%28%29%7D%7D",
+      "port": 80,
+      "expected_detection": true,
+      "severity": "critical",
+      "expected_rule": "[NGINX Emerging Threat] Template injection"
+    },
+    {
+      "id": "FP_SSTI_001",
+      "name": "Normal Mustache template variable",
+      "category": "ssti",
+      "subcategory": "false_positive",
+      "payload": "/template?name={{username}}",
+      "encoded": "%2Ftemplate%3Fname%3D%7B%7Busername%7D%7D",
+      "port": 80,
+      "expected_detection": false,
+      "severity": "info",
+      "expected_rule": "NONE"
     }
   ]
 }
