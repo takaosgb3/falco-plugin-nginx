@@ -1,0 +1,1 @@
+Test passed: XSS_CSP_002

@@ -1,0 +1,17 @@
+{
+  "pattern_id": "OTHER_REDIS_002",
+  "test_id": "OTHER_REDIS_002-1772511611869-ziz5m",
+  "category": "other",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 86306000,
+  "evidence": "04:20:11.000000000: Critical [NGINX Emerging Threat] Redis command injection test_id=OTHER_REDIS_002-1772511611869-ziz5m pattern_id=OTHER_REDIS_002 uri=/?q=FLUSHDB client=127.0.0.1",
+  "rule_name": "[NGINX Emerging Threat] Redis command injection test_id=OTHER_REDIS_002-1772511611869-ziz5m pattern_id=OTHER_REDIS_002 uri=/?q=FLUSHDB client=127.0.0.1",
+  "expected_rule": "[NGINX Emerging Threat] Redis command injection",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Emerging Threat] Redis command injection test_id=OTHER_REDIS_002-1772511611869-ziz5m pattern_id=OTHER_REDIS_002 uri=/?q=FLUSHDB client=127.0.0.1",
+  "sent_at": 1772511705000,
+  "detected_at": 1772511611000,
+  "status": "passed"
+}

@@ -1,0 +1,1 @@
+Test passed: CMDI_CURL_001

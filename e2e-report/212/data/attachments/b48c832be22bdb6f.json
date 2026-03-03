@@ -1,0 +1,17 @@
+{
+  "pattern_id": "AUTH_ENCODE_001",
+  "test_id": "AUTH_ENCODE_001-1772511703358-ndvns",
+  "category": "auth_bypass",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 2000,
+  "evidence": "04:21:43.000000000: Warning [NGINX Auth Bypass] Authentication bypass attempt detected test_id=AUTH_ENCODE_001-1772511703358-ndvns pattern_id=AUTH_ENCODE_001 uri=/?q=%2Fadmin%252F client=127.0.0.1",
+  "rule_name": "[NGINX Auth Bypass] Authentication bypass attempt detected test_id=AUTH_ENCODE_001-1772511703358-ndvns pattern_id=AUTH_ENCODE_001 uri=/?q=%2Fadmin%252F client=127.0.0.1",
+  "expected_rule": "[NGINX Auth Bypass] Authentication bypass attempt detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Auth Bypass] Authentication bypass attempt detected test_id=AUTH_ENCODE_001-1772511703358-ndvns pattern_id=AUTH_ENCODE_001 uri=/?q=%2Fadmin%252F client=127.0.0.1",
+  "sent_at": 1772511705000,
+  "detected_at": 1772511703000,
+  "status": "passed"
+}

@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SENSITIVE_LOG_001",
+  "test_id": "SENSITIVE_LOG_001-1772511620388-23fkzu",
+  "category": "other",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 86315000,
+  "evidence": "04:20:20.000000000: Warning [NGINX Sensitive] Sensitive file access attempt detected test_id=SENSITIVE_LOG_001-1772511620388-23fkzu pattern_id=SENSITIVE_LOG_001 uri=/?q=%2Fapplication.log client=127.0.0.1",
+  "rule_name": "[NGINX Sensitive] Sensitive file access attempt detected test_id=SENSITIVE_LOG_001-1772511620388-23fkzu pattern_id=SENSITIVE_LOG_001 uri=/?q=%2Fapplication.log client=127.0.0.1",
+  "expected_rule": "[NGINX Sensitive] Sensitive file access attempt detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Sensitive] Sensitive file access attempt detected test_id=SENSITIVE_LOG_001-1772511620388-23fkzu pattern_id=SENSITIVE_LOG_001 uri=/?q=%2Fapplication.log client=127.0.0.1",
+  "sent_at": 1772511705000,
+  "detected_at": 1772511620000,
+  "status": "passed"
+}

@@ -1,0 +1,17 @@
+{
+  "pattern_id": "AUTH_DOUBLE_001",
+  "test_id": "AUTH_DOUBLE_001-1772511702355-qm56t",
+  "category": "auth_bypass",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 3000,
+  "evidence": "04:21:42.000000000: Warning [NGINX Auth Bypass] Authentication bypass attempt detected test_id=AUTH_DOUBLE_001-1772511702355-qm56t pattern_id=AUTH_DOUBLE_001 uri=/?q=%2F%2Fadmin client=127.0.0.1",
+  "rule_name": "[NGINX Auth Bypass] Authentication bypass attempt detected test_id=AUTH_DOUBLE_001-1772511702355-qm56t pattern_id=AUTH_DOUBLE_001 uri=/?q=%2F%2Fadmin client=127.0.0.1",
+  "expected_rule": "[NGINX Auth Bypass] Authentication bypass attempt detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Auth Bypass] Authentication bypass attempt detected test_id=AUTH_DOUBLE_001-1772511702355-qm56t pattern_id=AUTH_DOUBLE_001 uri=/?q=%2F%2Fadmin client=127.0.0.1",
+  "sent_at": 1772511705000,
+  "detected_at": 1772511702000,
+  "status": "passed"
+}

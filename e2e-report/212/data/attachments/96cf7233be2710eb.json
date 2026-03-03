@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SSTI_PUG_001",
+  "test_id": "SSTI_PUG_001-1772511643885-5bh06q",
+  "category": "ssti",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 86338000,
+  "evidence": "04:20:43.000000000: Critical [NGINX Emerging Threat] Template injection test_id=SSTI_PUG_001-1772511643885-5bh06q pattern_id=SSTI_PUG_001 uri=/?q=%23%7B7*7%7D client=127.0.0.1",
+  "rule_name": "[NGINX Emerging Threat] Template injection test_id=SSTI_PUG_001-1772511643885-5bh06q pattern_id=SSTI_PUG_001 uri=/?q=%23%7B7*7%7D client=127.0.0.1",
+  "expected_rule": "[NGINX Emerging Threat] Template injection",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Emerging Threat] Template injection test_id=SSTI_PUG_001-1772511643885-5bh06q pattern_id=SSTI_PUG_001 uri=/?q=%23%7B7*7%7D client=127.0.0.1",
+  "sent_at": 1772511705000,
+  "detected_at": 1772511643000,
+  "status": "passed"
+}

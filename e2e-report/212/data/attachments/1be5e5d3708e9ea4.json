@@ -1,0 +1,17 @@
+{
+  "pattern_id": "HHI_FWD_PORT_001",
+  "test_id": "HHI_FWD_PORT_001-1772511679876-qrkd",
+  "category": "host_header",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 26000,
+  "evidence": "04:21:19.000000000: Warning [NGINX Host Header] Host header injection attempt detected test_id=HHI_FWD_PORT_001-1772511679876-qrkd pattern_id=HHI_FWD_PORT_001 uri=/?q=x-forwarded-host%3Aevil.com%3A443 client=127.0.0.1",
+  "rule_name": "[NGINX Host Header] Host header injection attempt detected test_id=HHI_FWD_PORT_001-1772511679876-qrkd pattern_id=HHI_FWD_PORT_001 uri=/?q=x-forwarded-host%3Aevil.com%3A443 client=127.0.0.1",
+  "expected_rule": "[NGINX Host Header] Host header injection attempt detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Host Header] Host header injection attempt detected test_id=HHI_FWD_PORT_001-1772511679876-qrkd pattern_id=HHI_FWD_PORT_001 uri=/?q=x-forwarded-host%3Aevil.com%3A443 client=127.0.0.1",
+  "sent_at": 1772511705000,
+  "detected_at": 1772511679000,
+  "status": "passed"
+}

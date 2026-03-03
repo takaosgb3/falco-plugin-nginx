@@ -1,0 +1,1 @@
+Test passed: SENSITIVE_DOCKER_002

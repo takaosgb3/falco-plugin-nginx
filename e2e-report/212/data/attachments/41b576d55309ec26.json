@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SSRF_PDF_001",
+  "test_id": "SSRF_PDF_001-1772511679902-l4fsb2",
+  "category": "ssrf",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 26000,
+  "evidence": "04:21:19.000000000: Critical [NGINX SSRF] SSRF attack attempt detected test_id=SSRF_PDF_001-1772511679902-l4fsb2 pattern_id=SSRF_PDF_001 uri=/?q=pdf%3Furl%3Dhttp%3A%2F%2F169.254.169.254%2Flatest%2Fmeta-data%2F client=127.0.0.1",
+  "rule_name": "[NGINX SSRF] SSRF attack attempt detected test_id=SSRF_PDF_001-1772511679902-l4fsb2 pattern_id=SSRF_PDF_001 uri=/?q=pdf%3Furl%3Dhttp%3A%2F%2F169.254.169.254%2Flatest%2Fmeta-data%2F client=127.0.0.1",
+  "expected_rule": "[NGINX SSRF] SSRF attack attempt detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX SSRF] SSRF attack attempt detected test_id=SSRF_PDF_001-1772511679902-l4fsb2 pattern_id=SSRF_PDF_001 uri=/?q=pdf%3Furl%3Dhttp%3A%2F%2F169.254.169.254%2Flatest%2Fmeta-data%2F client=127.0.0.1",
+  "sent_at": 1772511705000,
+  "detected_at": 1772511679000,
+  "status": "passed"
+}

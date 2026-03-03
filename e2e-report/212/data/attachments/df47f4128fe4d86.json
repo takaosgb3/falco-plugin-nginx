@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SSRF_LINKERD_001",
+  "test_id": "SSRF_LINKERD_001-1772511676394-no2u5",
+  "category": "ssrf",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 29000,
+  "evidence": "04:21:16.000000000: Critical [NGINX SSRF] SSRF attack attempt detected test_id=SSRF_LINKERD_001-1772511676394-no2u5 pattern_id=SSRF_LINKERD_001 uri=/?q=http%3A%2F%2Flocalhost%3A4191%2Fmetrics client=127.0.0.1",
+  "rule_name": "[NGINX SSRF] SSRF attack attempt detected test_id=SSRF_LINKERD_001-1772511676394-no2u5 pattern_id=SSRF_LINKERD_001 uri=/?q=http%3A%2F%2Flocalhost%3A4191%2Fmetrics client=127.0.0.1",
+  "expected_rule": "[NGINX SSRF] SSRF attack attempt detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX SSRF] SSRF attack attempt detected test_id=SSRF_LINKERD_001-1772511676394-no2u5 pattern_id=SSRF_LINKERD_001 uri=/?q=http%3A%2F%2Flocalhost%3A4191%2Fmetrics client=127.0.0.1",
+  "sent_at": 1772511705000,
+  "detected_at": 1772511676000,
+  "status": "passed"
+}

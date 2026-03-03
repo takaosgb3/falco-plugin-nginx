@@ -1,0 +1,17 @@
+{
+  "pattern_id": "INFO_ACTUATOR_002",
+  "test_id": "INFO_ACTUATOR_002-1772511695851-r16yv7",
+  "category": "info_disclosure",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 10000,
+  "evidence": "04:21:35.000000000: Warning [NGINX Info Disclosure] Information disclosure attempt detected test_id=INFO_ACTUATOR_002-1772511695851-r16yv7 pattern_id=INFO_ACTUATOR_002 uri=/?q=/actuator/health client=127.0.0.1",
+  "rule_name": "[NGINX Info Disclosure] Information disclosure attempt detected test_id=INFO_ACTUATOR_002-1772511695851-r16yv7 pattern_id=INFO_ACTUATOR_002 uri=/?q=/actuator/health client=127.0.0.1",
+  "expected_rule": "[NGINX Info Disclosure] Information disclosure attempt detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Info Disclosure] Information disclosure attempt detected test_id=INFO_ACTUATOR_002-1772511695851-r16yv7 pattern_id=INFO_ACTUATOR_002 uri=/?q=/actuator/health client=127.0.0.1",
+  "sent_at": 1772511705000,
+  "detected_at": 1772511695000,
+  "status": "passed"
+}
