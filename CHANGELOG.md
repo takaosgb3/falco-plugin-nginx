@@ -6,7 +6,37 @@
 
 All notable changes to the Falco nginx plugin binaries will be documented in this file.
 
-## [v1.7.0] - 2026-02-13 - E2E 575 Patterns Release (Phase 8 & 9) (Latest)
+## [v1.8.0] - 2026-03-03 - E2E 850 Patterns Release (Phase 10-13) (Latest)
+
+### Added
+- **Phase 10: 625 Attack Patterns** (+50 from 575): SSRF/SSTI/CRLF (+30) and XPath/GraphQL (+20)
+- **Phase 11: 700 Attack Patterns** (+75 from 625): 6 categories across 3 stages
+- **Phase 12: 775 Attack Patterns** (+75 from 700): JWT, WAF Bypass, Open Redirect, SSRF, Host Header
+- **Phase 13: 850 Attack Patterns** (+75 from 775): Phase 12 categories deepened + 2 new categories
+  - Information Disclosure: 10 patterns (8 true positive + 2 false positive)
+  - Auth Bypass via Path: 10 patterns (8 true positive + 2 false positive)
+- **Preflight Validator** (`e2e/scripts/preflight_validator.py`): Pre-E2E rule-pattern validation tool
+  - Check 1: URL Encoding in rule conditions (INFO)
+  - Check 2: Pattern-Rule Coverage (ERROR)
+  - Check 3: Cross-Rule Detection Risk (INFO)
+  - Check 4: FP Exception Coverage (HIGH/WARN) - Added in v1.8.0
+- **New Rules**: 8 new Falco rules (44→52) for emerging threat categories
+- **External Contribution**: GitHub URL update (PR #93, @andrew-aiken)
+
+### Fixed
+- **FP_CRLF_001 False Positive** (Issue #807, FA-210-001): Added exception to XSS Filter Bypass Attempt and Advanced Command Injection rules for `%0a` in normal URL parameters
+- **100+ Rule Mismatch Fixes** (Issues #804, #806): Cross-rule exceptions across Phases 10-13
+- **Format Validation** (Issue #796): Added format validation to `NewParser()`
+
+### Technical Details
+- E2E Patterns: 850 (24 pattern files, 24 test categories)
+- Falco Rules: 52 rules, 46 macros
+- Rule Mismatch: 0 (100% rule mapping accuracy)
+- Detection Rate: 100% (850/850 patterns, 52 false positive patterns properly excepted)
+- Built with Falco Plugin SDK v0.8.1
+- E2E tested on GitHub Actions (ubuntu-24.04) with Falco 0.43.0
+
+## [v1.7.0] - 2026-02-13 - E2E 575 Patterns Release (Phase 8 & 9)
 
 ### Added
 - **Phase 8: 520 Attack Patterns** (+63 from 457): E2E test coverage expanded across 6 categories
@@ -431,7 +461,37 @@ All notable changes to the Falco nginx plugin binaries will be documented in thi
 
 Falco nginxプラグインバイナリの重要な変更はすべてこのファイルに記録されます。
 
-## [v1.7.0] - 2026-02-13 - E2E 575パターンリリース（Phase 8 & 9）（最新）
+## [v1.8.0] - 2026-03-03 - E2E 850パターンリリース（Phase 10-13）（最新）
+
+### 追加
+- **Phase 10: 625攻撃パターン**（+50、575から）: SSRF/SSTI/CRLF (+30) と XPath/GraphQL (+20)
+- **Phase 11: 700攻撃パターン**（+75、625から）: 3ステージ6カテゴリ
+- **Phase 12: 775攻撃パターン**（+75、700から）: JWT、WAFバイパス、オープンリダイレクト、SSRF、Host Header
+- **Phase 13: 850攻撃パターン**（+75、775から）: Phase 12カテゴリ深掘り + 新規2カテゴリ
+  - 情報漏洩: 10パターン（8 TP + 2 FP）
+  - パスベース認証バイパス: 10パターン（8 TP + 2 FP）
+- **Preflight Validator**（`e2e/scripts/preflight_validator.py`）: E2E実行前のルール-パターン検証ツール
+  - Check 1: ルール条件のURLエンコーディング（INFO）
+  - Check 2: パターン-ルールカバレッジ（ERROR）
+  - Check 3: クロスルール検出リスク（INFO）
+  - Check 4: FP例外カバレッジ（HIGH/WARN）- v1.8.0で追加
+- **新規ルール**: 8つの新規Falcoルール（44→52）
+- **外部コントリビューション**: GitHub URL更新（PR #93、@andrew-aiken）
+
+### 修正
+- **FP_CRLF_001偽陽性**（Issue #807、FA-210-001）: 通常URLパラメータの`%0a`がXSS Filter BypassおよびAdvanced CMDiルールで誤検出される問題を修正
+- **100件以上のRule Mismatch修正**（Issue #804、#806）: Phase 10-13のクロスルール例外追加
+- **フォーマットバリデーション**（Issue #796）: `NewParser()`にフォーマット検証を追加
+
+### 技術詳細
+- E2Eパターン: 850（24パターンファイル、24テストカテゴリ）
+- Falcoルール: 52ルール、46マクロ
+- Rule Mismatch: 0（100%ルールマッピング精度）
+- 検出率: 100%（850/850パターン検出、52 FPパターンは適切にexception処理済み）
+- Falco Plugin SDK v0.8.1でビルド
+- GitHub Actions（ubuntu-24.04）、Falco 0.43.0でE2Eテスト済み
+
+## [v1.7.0] - 2026-02-13 - E2E 575パターンリリース（Phase 8 & 9）
 
 ### 追加
 - **Phase 8: 520攻撃パターン**（+63、457から）: 6カテゴリにわたるE2Eテストカバレッジ拡大

@@ -107,27 +107,34 @@ This repository includes comprehensive E2E tests for security detection validati
 gh workflow run e2e-test.yml
 ```
 
-**Test Coverage** (575 attack patterns across 17 categories):
+**Test Coverage** (850 attack patterns across 24 categories):
 
 | Category | Patterns | Description |
 |----------|----------|-------------|
-| SQL Injection | 124 | Time-based, Boolean-based, Error-based, Advanced SQLi |
-| Command Injection | 89 | Shell, OS command injection, obfuscation bypass |
-| XSS | 86 | Reflected, DOM-based, Advanced, Filter bypass |
-| Path Traversal | 73 | Directory traversal, LFI, RFI, Unicode bypass |
+| SQL Injection | 138 | Time-based, Boolean-based, Error-based, Advanced SQLi |
+| Command Injection | 98 | Shell, OS command injection, obfuscation bypass |
+| XSS | 96 | Reflected, DOM-based, Advanced, Filter bypass, Mutation |
+| Path Traversal | 81 | Directory traversal, LFI, RFI, Unicode bypass |
+| SSRF | 41 | Cloud metadata, internal network, hex/IPv6/octal IP |
+| SSTI | 34 | Jinja2, Pug, EJS, Handlebars, Mako, Nunjucks |
+| Other | 34 | Additional security patterns |
+| CRLF Injection | 31 | Header injection, response splitting, Unicode CRLF |
+| API Security | 30 | BOLA, authentication bypass, mass assignment |
+| GraphQL | 25 | Introspection, data extraction, query abuse |
+| XPath Injection | 25 | Boolean-based, blind, function abuse |
+| Host Header Injection | 21 | Multi-host, CRLF, port manipulation |
+| HPP | 20 | HTTP Parameter Pollution, array, type juggling |
+| Open Redirect | 20 | Data URI, fragment, meta refresh, Unicode |
 | NoSQL Injection | 20 | MongoDB, Redis, CouchDB injection patterns |
+| LDAP Injection | 20 | LDAP query manipulation, filter injection |
+| WAF Bypass | 18 | Chunked, multipart, double encoding |
 | XXE | 18 | XML External Entity, DOCTYPE/ENTITY injection |
-| GraphQL | 15 | Introspection, data extraction, query abuse |
-| XPath Injection | 15 | Boolean-based, blind, function abuse |
-| LDAP Injection | 15 | LDAP query manipulation, filter injection |
-| SSRF | 15 | Cloud metadata, internal network, protocol abuse |
-| CRLF Injection | 15 | Header injection, response splitting, log injection |
+| JWT | 15 | KID injection, X5U, JWE, replay, JWKS |
 | Prototype Pollution | 15 | `__proto__`, constructor.prototype pollution |
 | HTTP Smuggling | 15 | CL.TE, TE.CL, request splitting |
-| SSTI | 15 | Server-Side Template Injection |
 | Pickle/Deserialization | 15 | Python deserialization, pickle exploitation |
-| API Security | 15 | BOLA, authentication bypass, mass assignment |
-| Other | 15 | Additional security patterns |
+| Information Disclosure | 10 | Server info, debug endpoints, error pages |
+| Auth Bypass via Path | 10 | Path normalization, case manipulation |
 
 **Latest Results**: See [Actions](../../actions/workflows/e2e-test.yml) for test runs and [Allure Report](https://takaosgb3.github.io/falco-plugin-nginx/) for detailed results.
 
@@ -275,27 +282,34 @@ curl "http://localhost/search.php?q=%27%20OR%20%271%27%3D%271"
 gh workflow run e2e-test.yml
 ```
 
-**テストカバレッジ**（575攻撃パターン、17カテゴリ）:
+**テストカバレッジ**（850攻撃パターン、24カテゴリ）:
 
 | カテゴリ | パターン数 | 説明 |
 |----------|------------|------|
-| SQLインジェクション | 124 | 時間ベース、ブールベース、エラーベース、高度なSQLi |
-| コマンドインジェクション | 89 | シェル、OSコマンドインジェクション、難読化バイパス |
-| XSS | 86 | 反射型、DOMベース、高度なXSS、フィルターバイパス |
-| パストラバーサル | 73 | ディレクトリトラバーサル、LFI、RFI、Unicodeバイパス |
+| SQLインジェクション | 138 | 時間ベース、ブールベース、エラーベース、高度なSQLi |
+| コマンドインジェクション | 98 | シェル、OSコマンドインジェクション、難読化バイパス |
+| XSS | 96 | 反射型、DOMベース、高度なXSS、フィルターバイパス、ミューテーション |
+| パストラバーサル | 81 | ディレクトリトラバーサル、LFI、RFI、Unicodeバイパス |
+| SSRF | 41 | クラウドメタデータ、内部ネットワーク、hex/IPv6/octal IP |
+| SSTI | 34 | Jinja2、Pug、EJS、Handlebars、Mako、Nunjucks |
+| その他 | 34 | 追加セキュリティパターン |
+| CRLFインジェクション | 31 | ヘッダーインジェクション、レスポンス分割、Unicode CRLF |
+| APIセキュリティ | 30 | BOLA、認証バイパス、マスアサインメント |
+| GraphQLインジェクション | 25 | イントロスペクション、データ抽出、クエリ悪用 |
+| XPathインジェクション | 25 | ブールベース、ブラインド、関数悪用 |
+| Host Headerインジェクション | 21 | マルチホスト、CRLF、ポート操作 |
+| HPP | 20 | HTTPパラメータ汚染、配列、型ジャグリング |
+| オープンリダイレクト | 20 | Data URI、フラグメント、metaリフレッシュ、Unicode |
 | NoSQLインジェクション | 20 | MongoDB、Redis、CouchDBインジェクション |
+| LDAPインジェクション | 20 | LDAPクエリ操作、フィルターインジェクション |
+| WAFバイパス | 18 | チャンク、マルチパート、二重エンコーディング |
 | XXE | 18 | XML外部エンティティ、DOCTYPE/ENTITYインジェクション |
-| GraphQLインジェクション | 15 | イントロスペクション、データ抽出、クエリ悪用 |
-| XPathインジェクション | 15 | ブールベース、ブラインド、関数悪用 |
-| LDAPインジェクション | 15 | LDAPクエリ操作、フィルターインジェクション |
-| SSRF | 15 | クラウドメタデータ、内部ネットワーク、プロトコル悪用 |
-| CRLFインジェクション | 15 | ヘッダーインジェクション、レスポンス分割、ログインジェクション |
+| JWT | 15 | KIDインジェクション、X5U、JWE、リプレイ、JWKS |
 | プロトタイプ汚染 | 15 | `__proto__`、constructor.prototype汚染 |
 | HTTPスマグリング | 15 | CL.TE、TE.CL、リクエスト分割 |
-| SSTI | 15 | サーバーサイドテンプレートインジェクション |
 | Pickle/デシリアライゼーション | 15 | Pythonデシリアライゼーション、Pickle悪用 |
-| APIセキュリティ | 15 | BOLA、認証バイパス、マスアサインメント |
-| その他 | 15 | 追加セキュリティパターン |
+| 情報漏洩 | 10 | サーバー情報、デバッグエンドポイント、エラーページ |
+| パスベース認証バイパス | 10 | パス正規化、大文字小文字操作 |
 
 **最新結果**: テスト実行は[Actions](../../actions/workflows/e2e-test.yml)、詳細結果は[Allure Report](https://takaosgb3.github.io/falco-plugin-nginx/)を参照。
 
