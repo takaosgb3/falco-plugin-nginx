@@ -19,7 +19,7 @@ This document explains how to read and understand the E2E Security Test Report g
 
 ## Overview
 
-The E2E Security Test Report provides comprehensive visibility into the security detection capabilities of the Falco nginx plugin. Each test run executes **300 attack patterns** across 12 categories and generates a detailed report showing:
+The E2E Security Test Report provides comprehensive visibility into the security detection capabilities of the Falco nginx plugin. Each test run executes **850 attack patterns** across 24 categories and generates a detailed report showing:
 
 - Detection rate (target: 100%)
 - Per-category breakdown
@@ -54,7 +54,7 @@ The Overview page provides a high-level summary of the test execution:
 
 | Section | Description |
 |---------|-------------|
-| **Test Cases** | Total number of test patterns executed (300) |
+| **Test Cases** | Total number of test patterns executed (850) |
 | **Success Rate** | Percentage of patterns detected (100% = all detected) |
 | **Suites** | Test suite organization |
 | **Environment** | Execution environment details |
@@ -64,7 +64,7 @@ The Overview page provides a high-level summary of the test execution:
 | Field | Description |
 |-------|-------------|
 | Platform | Operating system (ubuntu-24.04) |
-| Falco.Version | Falco version used (0.42.1) |
+| Falco.Version | Falco version used (0.43.0) |
 | Plugin | Plugin name (falco-plugin-nginx) |
 | nginx.Version | nginx version (1.24.0) |
 | k6.Version | k6 load testing tool version |
@@ -92,22 +92,34 @@ The Behaviors page organizes tests by **Epic > Feature > Story** hierarchy:
 
 | Category | Patterns | Description |
 |----------|----------|-------------|
-| **SQLI** | 79 | SQL Injection attacks |
-| **XSS** | 56 | Cross-Site Scripting attacks |
-| **PATH** | 50 | Path Traversal attacks |
-| **CMDINJ** | 55 | Command Injection attacks |
-| **LDAP** | 10 | LDAP Injection attacks |
-| **SSTI** | 10 | Server-Side Template Injection |
-| **NOSQL** | 7 | NoSQL Injection attacks |
-| **XXE** | 8 | XML External Entity attacks |
-| **XPATH** | 5 | XPath Injection attacks |
-| **GRAPHQL** | 5 | GraphQL Injection attacks |
-| **API** | 5 | API Security attacks |
-| **OTHER** | 10 | Other attack patterns |
+| **SQLI** | 138 | SQL Injection attacks |
+| **CMDINJ** | 98 | Command Injection attacks |
+| **XSS** | 96 | Cross-Site Scripting attacks |
+| **PATH** | 81 | Path Traversal attacks |
+| **SSRF** | 41 | Server-Side Request Forgery |
+| **SSTI** | 34 | Server-Side Template Injection |
+| **OTHER** | 34 | Other attack patterns |
+| **CRLF** | 31 | CRLF Injection attacks |
+| **API** | 30 | API Security attacks |
+| **XPATH** | 25 | XPath Injection attacks |
+| **GRAPHQL** | 25 | GraphQL Injection attacks |
+| **HOST_HEADER** | 21 | Host Header Injection attacks |
+| **HPP** | 20 | HTTP Parameter Pollution |
+| **OPEN_REDIRECT** | 20 | Open Redirect attacks |
+| **NOSQL** | 20 | NoSQL Injection attacks |
+| **LDAP** | 20 | LDAP Injection attacks |
+| **WAF_BYPASS** | 18 | WAF Bypass techniques |
+| **XXE** | 18 | XML External Entity attacks |
+| **JWT** | 15 | JWT Security attacks |
+| **PROTOTYPE_POLLUTION** | 15 | Prototype Pollution attacks |
+| **HTTP_SMUGGLING** | 15 | HTTP Request Smuggling |
+| **PICKLE** | 15 | Pickle Deserialization attacks |
+| **INFO_DISCLOSURE** | 10 | Information Disclosure |
+| **AUTH_BYPASS** | 10 | Auth Bypass via Path |
 
 ### Status Indicators
 
-- **Green (300)**: Passed tests
+- **Green (850)**: Passed tests
 - **Red (0)**: Failed tests
 - **Orange (0)**: Broken tests
 - **Gray (0)**: Skipped tests
@@ -245,101 +257,198 @@ Shows category-based results across runs.
 
 ## Test Categories
 
-### SQL Injection (SQLI) - 79 Patterns
+### SQL Injection (SQLI) - 138 Patterns
 
 | Pattern ID | Type | Description |
 |------------|------|-------------|
 | SQLI_TIME_001-025 | Time-based Blind | SLEEP(), BENCHMARK(), WAITFOR DELAY, pg_sleep |
 | SQLI_BOOL_001-025 | Boolean-based Blind | OR '1'='1, AND '1'='1, various bypass techniques |
 | SQLI_ERR_001-029 | Error-based | EXTRACTVALUE, UPDATEXML, error messages |
+| SQLI_ADV_001+ | Advanced SQLi | Stacked queries, UNION-based, filter bypass |
 
 **Detection Rules**: Various SQL Injection Rules
 
-### Cross-Site Scripting (XSS) - 56 Patterns
+### Command Injection (CMDINJ) - 98 Patterns
 
 | Pattern ID | Type | Description |
 |------------|------|-------------|
-| XSS_REFL_001-056 | Reflected/DOM/Stored XSS | script, img onerror, svg onload, iframe, etc. |
-
-**Detection Rules**: XSS Detection Rules
-
-### Path Traversal (PATH) - 50 Patterns
-
-| Pattern ID | Type | Description |
-|------------|------|-------------|
-| PATH_001-050 | LFI/RFI/Directory | ../etc/passwd, ....//....// , various encoding |
-
-**Detection Rules**: Path Traversal Rules
-
-### Command Injection (CMDINJ) - 55 Patterns
-
-| Pattern ID | Type | Description |
-|------------|------|-------------|
-| CMDINJ_001-055 | Shell/OS Commands | ;ls, |cat, \`whoami\`, various bypass techniques |
+| CMDINJ_001+ | Shell/OS Commands | ;ls, |cat, \`whoami\`, various bypass techniques |
 
 **Detection Rules**: Command Injection Rules
 
-### LDAP Injection (LDAP) - 10 Patterns
+### Cross-Site Scripting (XSS) - 96 Patterns
 
 | Pattern ID | Type | Description |
 |------------|------|-------------|
-| LDAP_001-010 | LDAP Query Manipulation | )(uid=*, |(cn=admin) |
+| XSS_REFL_001+ | Reflected/DOM/Stored XSS | script, img onerror, svg onload, iframe, mutation XSS |
 
-**Detection Rules**: LDAP Injection Rules
+**Detection Rules**: XSS Detection Rules
 
-### Server-Side Template Injection (SSTI) - 10 Patterns
+### Path Traversal (PATH) - 81 Patterns
 
 | Pattern ID | Type | Description |
 |------------|------|-------------|
-| SSTI_001-010 | Template Injection | {{7*7}}, ${7*7}, various template syntaxes |
+| PATH_001+ | LFI/RFI/Directory | ../etc/passwd, ....//....// , various encoding, Unicode bypass |
+
+**Detection Rules**: Path Traversal Rules
+
+### SSRF (SSRF) - 41 Patterns
+
+| Pattern ID | Type | Description |
+|------------|------|-------------|
+| SSRF_001+ | Server-Side Request Forgery | Cloud metadata, internal network, hex/IPv6/octal IP |
+
+**Detection Rules**: SSRF Detection Rules
+
+### SSTI (SSTI) - 34 Patterns
+
+| Pattern ID | Type | Description |
+|------------|------|-------------|
+| SSTI_001+ | Template Injection | Jinja2, Pug, EJS, Handlebars, Mako, Nunjucks |
 
 **Detection Rules**: SSTI Detection Rules
 
-### NoSQL Injection (NOSQL) - 7 Patterns
+### CRLF Injection (CRLF) - 31 Patterns
 
 | Pattern ID | Type | Description |
 |------------|------|-------------|
-| NOSQL_001-007 | NoSQL/MongoDB | $where, $regex, $gt |
+| CRLF_001+ | Header Injection | Response splitting, Unicode CRLF, log injection |
 
-**Detection Rules**: NoSQL Injection Rules
+**Detection Rules**: CRLF Injection Rules
 
-### XML External Entity (XXE) - 8 Patterns
-
-| Pattern ID | Type | Description |
-|------------|------|-------------|
-| XXE_001-008 | XXE | <!DOCTYPE, <!ENTITY, SYSTEM references |
-
-**Detection Rules**: XXE Detection Rules
-
-### XPath Injection (XPATH) - 5 Patterns
+### API Security (API) - 30 Patterns
 
 | Pattern ID | Type | Description |
 |------------|------|-------------|
-| XPATH_001-005 | XPath Query | ' or '1'='1, //*, ancestor::* |
-
-**Detection Rules**: XPath Injection Rules
-
-### GraphQL Injection (GRAPHQL) - 5 Patterns
-
-| Pattern ID | Type | Description |
-|------------|------|-------------|
-| GRAPHQL_001-005 | GraphQL Attacks | __schema, introspection queries |
-
-**Detection Rules**: GraphQL Injection Rules
-
-### API Security (API) - 5 Patterns
-
-| Pattern ID | Type | Description |
-|------------|------|-------------|
-| API_001-005 | BOLA/Auth Bypass | Object reference manipulation, auth bypass |
+| API_001+ | BOLA/Auth Bypass | Object reference manipulation, mass assignment |
 
 **Detection Rules**: API Security Rules
 
-### Other (OTHER) - 10 Patterns
+### XPath Injection (XPATH) - 25 Patterns
 
 | Pattern ID | Type | Description |
 |------------|------|-------------|
-| OTHER_001-010 | Additional Patterns | Various security patterns |
+| XPATH_001+ | XPath Query | Boolean-based, blind, function abuse |
+
+**Detection Rules**: XPath Injection Rules
+
+### GraphQL Injection (GRAPHQL) - 25 Patterns
+
+| Pattern ID | Type | Description |
+|------------|------|-------------|
+| GRAPHQL_001+ | GraphQL Attacks | Introspection, data extraction, query abuse |
+
+**Detection Rules**: GraphQL Injection Rules
+
+### Host Header Injection (HOST_HEADER) - 21 Patterns
+
+| Pattern ID | Type | Description |
+|------------|------|-------------|
+| HHI_001+ | Host Header Manipulation | Multi-host, CRLF, port manipulation |
+
+**Detection Rules**: Host Header Injection Rules
+
+### HPP (HPP) - 20 Patterns
+
+| Pattern ID | Type | Description |
+|------------|------|-------------|
+| HPP_001+ | HTTP Parameter Pollution | Array, type juggling, duplicate params |
+
+**Detection Rules**: HPP Detection Rules
+
+### Open Redirect (OPEN_REDIRECT) - 20 Patterns
+
+| Pattern ID | Type | Description |
+|------------|------|-------------|
+| REDIR_001+ | Open Redirect | Data URI, fragment, meta refresh, Unicode |
+
+**Detection Rules**: Open Redirect Rules
+
+### NoSQL Injection (NOSQL) - 20 Patterns
+
+| Pattern ID | Type | Description |
+|------------|------|-------------|
+| NOSQL_001+ | NoSQL/MongoDB | $where, $regex, $gt, Redis, CouchDB |
+
+**Detection Rules**: NoSQL Injection Rules
+
+### LDAP Injection (LDAP) - 20 Patterns
+
+| Pattern ID | Type | Description |
+|------------|------|-------------|
+| LDAP_001+ | LDAP Query Manipulation | Filter injection, query manipulation |
+
+**Detection Rules**: LDAP Injection Rules
+
+### WAF Bypass (WAF_BYPASS) - 18 Patterns
+
+| Pattern ID | Type | Description |
+|------------|------|-------------|
+| WAF_001+ | WAF Evasion | Chunked, multipart, double encoding |
+
+**Detection Rules**: WAF Bypass Rules
+
+### XML External Entity (XXE) - 18 Patterns
+
+| Pattern ID | Type | Description |
+|------------|------|-------------|
+| XXE_001+ | XXE | <!DOCTYPE, <!ENTITY, SYSTEM references |
+
+**Detection Rules**: XXE Detection Rules
+
+### JWT Security (JWT) - 15 Patterns
+
+| Pattern ID | Type | Description |
+|------------|------|-------------|
+| JWT_001+ | JWT Attacks | KID injection, X5U, JWE, replay, JWKS |
+
+**Detection Rules**: JWT Security Rules
+
+### Prototype Pollution (PROTOTYPE_POLLUTION) - 15 Patterns
+
+| Pattern ID | Type | Description |
+|------------|------|-------------|
+| PROTO_001+ | Prototype Pollution | \_\_proto\_\_, constructor.prototype |
+
+**Detection Rules**: Prototype Pollution Rules
+
+### HTTP Smuggling (HTTP_SMUGGLING) - 15 Patterns
+
+| Pattern ID | Type | Description |
+|------------|------|-------------|
+| SMUGGLE_001+ | Request Smuggling | CL.TE, TE.CL, request splitting |
+
+**Detection Rules**: HTTP Smuggling Rules
+
+### Pickle/Deserialization (PICKLE) - 15 Patterns
+
+| Pattern ID | Type | Description |
+|------------|------|-------------|
+| PICKLE_001+ | Deserialization | Python pickle exploitation |
+
+**Detection Rules**: Deserialization Rules
+
+### Information Disclosure (INFO_DISCLOSURE) - 10 Patterns
+
+| Pattern ID | Type | Description |
+|------------|------|-------------|
+| INFO_001+ | Info Leak | Server info, debug endpoints, error pages |
+
+**Detection Rules**: Information Disclosure Rules
+
+### Auth Bypass via Path (AUTH_BYPASS) - 10 Patterns
+
+| Pattern ID | Type | Description |
+|------------|------|-------------|
+| AUTHBYPASS_001+ | Path Manipulation | Path normalization, case manipulation |
+
+**Detection Rules**: Auth Bypass Rules
+
+### Other (OTHER) - 34 Patterns
+
+| Pattern ID | Type | Description |
+|------------|------|-------------|
+| OTHER_001+ | Additional Patterns | Various security patterns |
 
 **Detection Rules**: Other Detection Rules
 
@@ -375,6 +484,7 @@ Shows category-based results across runs.
 
 | Version | Date | Changes |
 |---------|------|---------|
+| 2.0.0 | 2026-03-03 | Updated for v1.8.0 (850 patterns, 24 categories) |
 | 1.0.0 | 2025-12-07 | Initial release |
 
 ---
