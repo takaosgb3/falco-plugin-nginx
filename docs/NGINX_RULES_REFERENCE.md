@@ -2,8 +2,8 @@
 
 > **Falco Nginx Plugin セキュリティルール完全解説 | Comprehensive Security Rules Documentation**
 >
-> Version: 1.5.0 | Compatible with: Falco Plugin SDK for Go
-> Last Updated: 2026-01-12
+> Version: 1.8.0 | Compatible with: Falco Plugin SDK for Go
+> Last Updated: 2026-03-03
 
 ## 🌐 Language | 言語選択
 
