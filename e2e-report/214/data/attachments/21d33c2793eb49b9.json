@@ -1,0 +1,17 @@
+{
+  "pattern_id": "INFO_STATUS_001",
+  "test_id": "INFO_STATUS_001-1772524560228-oqr14e",
+  "category": "info_disclosure",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 8000,
+  "evidence": "07:56:00.000000000: Warning [NGINX Info Disclosure] Information disclosure attempt detected test_id=INFO_STATUS_001-1772524560228-oqr14e pattern_id=INFO_STATUS_001 uri=/?q=/server-status client=127.0.0.1",
+  "rule_name": "[NGINX Info Disclosure] Information disclosure attempt detected test_id=INFO_STATUS_001-1772524560228-oqr14e pattern_id=INFO_STATUS_001 uri=/?q=/server-status client=127.0.0.1",
+  "expected_rule": "[NGINX Info Disclosure] Information disclosure attempt detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Info Disclosure] Information disclosure attempt detected test_id=INFO_STATUS_001-1772524560228-oqr14e pattern_id=INFO_STATUS_001 uri=/?q=/server-status client=127.0.0.1",
+  "sent_at": 1772524568000,
+  "detected_at": 1772524560000,
+  "status": "passed"
+}

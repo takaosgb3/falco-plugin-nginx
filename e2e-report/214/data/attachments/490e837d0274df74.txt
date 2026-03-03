@@ -1,0 +1,1 @@
+Test passed: PATH_DOT_004

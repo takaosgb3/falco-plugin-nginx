@@ -1,0 +1,17 @@
+{
+  "pattern_id": "LDAP_ATTR_006",
+  "test_id": "LDAP_ATTR_006-1772524482745-z5f4yc",
+  "category": "ldap",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 86314000,
+  "evidence": "07:54:42.000000000: Warning [NGINX XSS] XSS Filter Bypass Attempt test_id=LDAP_ATTR_006-1772524482745-z5f4yc pattern_id=LDAP_ATTR_006 uri=/?q=%29%28description%3Dconfidential client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX XSS] XSS Filter Bypass Attempt test_id=LDAP_ATTR_006-1772524482745-z5f4yc pattern_id=LDAP_ATTR_006 uri=/?q=%29%28description%3Dconfidential client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX LDAP Injection] Attribute injection attempt",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": "[NGINX XSS] XSS Filter Bypass Attempt test_id=LDAP_ATTR_006-1772524482745-z5f4yc pattern_id=LDAP_ATTR_006 uri=/?q=%29%28description%3Dconfidential client=127.0.0.1 method=GET",
+  "sent_at": 1772524568000,
+  "detected_at": 1772524482000,
+  "status": "passed"
+}

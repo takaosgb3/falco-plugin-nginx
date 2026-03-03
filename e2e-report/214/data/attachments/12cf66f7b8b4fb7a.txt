@@ -1,0 +1,1 @@
+Test passed: XSS_STORED_002

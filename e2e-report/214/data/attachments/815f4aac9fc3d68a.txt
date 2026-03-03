@@ -1,0 +1,1 @@
+Test passed: AUTH_DOT_001

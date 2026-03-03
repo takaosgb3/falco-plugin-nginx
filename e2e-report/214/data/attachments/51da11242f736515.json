@@ -1,0 +1,17 @@
+{
+  "pattern_id": "WAF_PARAM_001",
+  "test_id": "WAF_PARAM_001-1772524555238-zpyib",
+  "category": "waf_bypass",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 13000,
+  "evidence": "07:55:55.000000000: Warning [NGINX XSS] XSS Filter Bypass Attempt test_id=WAF_PARAM_001-1772524555238-zpyib pattern_id=WAF_PARAM_001 uri=/?q=sel%00ect%201%20from%20users client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX XSS] XSS Filter Bypass Attempt test_id=WAF_PARAM_001-1772524555238-zpyib pattern_id=WAF_PARAM_001 uri=/?q=sel%00ect%201%20from%20users client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX WAF Bypass] WAF bypass attempt detected",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": "[NGINX XSS] XSS Filter Bypass Attempt test_id=WAF_PARAM_001-1772524555238-zpyib pattern_id=WAF_PARAM_001 uri=/?q=sel%00ect%201%20from%20users client=127.0.0.1 method=GET",
+  "sent_at": 1772524568000,
+  "detected_at": 1772524555000,
+  "status": "passed"
+}

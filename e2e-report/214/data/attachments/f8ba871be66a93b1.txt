@@ -1,0 +1,1 @@
+Test passed: CMD_BASIC_015

@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SSTI_MAKO_002",
+  "test_id": "SSTI_MAKO_002-1772524508260-bjjope",
+  "category": "ssti",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 86340000,
+  "evidence": "07:55:08.000000000: Critical [NGINX Emerging Threat] Template injection test_id=SSTI_MAKO_002-1772524508260-bjjope pattern_id=SSTI_MAKO_002 uri=/?q=%24%7B__import__%28%27os%27%29.popen%28%27id%27%29.read%28%29%7D client=127.0.0.1",
+  "rule_name": "[NGINX Emerging Threat] Template injection test_id=SSTI_MAKO_002-1772524508260-bjjope pattern_id=SSTI_MAKO_002 uri=/?q=%24%7B__import__%28%27os%27%29.popen%28%27id%27%29.read%28%29%7D client=127.0.0.1",
+  "expected_rule": "[NGINX Emerging Threat] Template injection",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Emerging Threat] Template injection test_id=SSTI_MAKO_002-1772524508260-bjjope pattern_id=SSTI_MAKO_002 uri=/?q=%24%7B__import__%28%27os%27%29.popen%28%27id%27%29.read%28%29%7D client=127.0.0.1",
+  "sent_at": 1772524568000,
+  "detected_at": 1772524508000,
+  "status": "passed"
+}

@@ -1,0 +1,17 @@
+{
+  "pattern_id": "SQLI_POLY_007",
+  "test_id": "SQLI_POLY_007-1772524512872-sv92s",
+  "category": "sqli",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 56000,
+  "evidence": "07:55:12.000000000: Critical [NGINX Emerging Threat] MongoDB NoSQL injection test_id=SQLI_POLY_007-1772524512872-sv92s pattern_id=SQLI_POLY_007 uri=/?q=%7B%22%24gt%22%3A%22%22%7D%2C%7B%22%24ne%22%3A%22%22%7D client=127.0.0.1",
+  "rule_name": "[NGINX Emerging Threat] MongoDB NoSQL injection test_id=SQLI_POLY_007-1772524512872-sv92s pattern_id=SQLI_POLY_007 uri=/?q=%7B%22%24gt%22%3A%22%22%7D%2C%7B%22%24ne%22%3A%22%22%7D client=127.0.0.1",
+  "expected_rule": "[NGINX Emerging Threat] MongoDB NoSQL injection",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Emerging Threat] MongoDB NoSQL injection test_id=SQLI_POLY_007-1772524512872-sv92s pattern_id=SQLI_POLY_007 uri=/?q=%7B%22%24gt%22%3A%22%22%7D%2C%7B%22%24ne%22%3A%22%22%7D client=127.0.0.1",
+  "sent_at": 1772524568000,
+  "detected_at": 1772524512000,
+  "status": "passed"
+}

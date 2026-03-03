@@ -1,0 +1,17 @@
+{
+  "pattern_id": "HPP_DEBUG_001",
+  "test_id": "HPP_DEBUG_001-1772524539224-s32ej",
+  "category": "hpp",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 29000,
+  "evidence": "07:55:39.000000000: Warning [NGINX HPP] HTTP Parameter Pollution attempt detected test_id=HPP_DEBUG_001-1772524539224-s32ej pattern_id=HPP_DEBUG_001 uri=/?q=%26debug%3D1%26verbose%3Dtrue client=127.0.0.1",
+  "rule_name": "[NGINX HPP] HTTP Parameter Pollution attempt detected test_id=HPP_DEBUG_001-1772524539224-s32ej pattern_id=HPP_DEBUG_001 uri=/?q=%26debug%3D1%26verbose%3Dtrue client=127.0.0.1",
+  "expected_rule": "[NGINX HPP] HTTP Parameter Pollution attempt detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX HPP] HTTP Parameter Pollution attempt detected test_id=HPP_DEBUG_001-1772524539224-s32ej pattern_id=HPP_DEBUG_001 uri=/?q=%26debug%3D1%26verbose%3Dtrue client=127.0.0.1",
+  "sent_at": 1772524568000,
+  "detected_at": 1772524539000,
+  "status": "passed"
+}

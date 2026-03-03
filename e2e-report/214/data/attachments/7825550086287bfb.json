@@ -1,0 +1,17 @@
+{
+  "pattern_id": "JWT_EXPIRED_001",
+  "test_id": "JWT_EXPIRED_001-1772524555728-ralxum",
+  "category": "jwt",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 13000,
+  "evidence": "07:55:55.000000000: Warning [NGINX API Attack] API security vulnerability detected test_id=JWT_EXPIRED_001-1772524555728-ralxum pattern_id=JWT_EXPIRED_001 uri=/?q=eyJhbGciOiJub25lIn0.eyJleHAiOjAsInN1YiI6IjEyMyJ9. client=127.0.0.1",
+  "rule_name": "[NGINX API Attack] API security vulnerability detected test_id=JWT_EXPIRED_001-1772524555728-ralxum pattern_id=JWT_EXPIRED_001 uri=/?q=eyJhbGciOiJub25lIn0.eyJleHAiOjAsInN1YiI6IjEyMyJ9. client=127.0.0.1",
+  "expected_rule": "[NGINX JWT] JWT token attack attempt detected",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": "[NGINX API Attack] API security vulnerability detected test_id=JWT_EXPIRED_001-1772524555728-ralxum pattern_id=JWT_EXPIRED_001 uri=/?q=eyJhbGciOiJub25lIn0.eyJleHAiOjAsInN1YiI6IjEyMyJ9. client=127.0.0.1",
+  "sent_at": 1772524568000,
+  "detected_at": 1772524555000,
+  "status": "passed"
+}

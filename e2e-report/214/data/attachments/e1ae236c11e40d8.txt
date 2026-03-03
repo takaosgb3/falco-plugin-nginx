@@ -1,0 +1,3 @@
+Expected Rule: [NGINX Redirect] Open redirect attempt detected
+Matched Rule: [NGINX Redirect] Open redirect attempt detected test_id=REDIR_CREDS_001-1772524552244-qqrsvh pattern_id=REDIR_CREDS_001 uri=/?q=redirect%3Dhttp%3A%2F%2Fgood.com%40evil.com client=127.0.0.1
+Rule Match: ✅ Match

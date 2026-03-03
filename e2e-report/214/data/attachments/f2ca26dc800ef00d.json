@@ -1,0 +1,17 @@
+{
+  "pattern_id": "AUTH_TRAIL_001",
+  "test_id": "AUTH_TRAIL_001-1772524565729-ub0wb",
+  "category": "auth_bypass",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 3000,
+  "evidence": "07:56:05.000000000: Warning [NGINX Auth Bypass] Authentication bypass attempt detected test_id=AUTH_TRAIL_001-1772524565729-ub0wb pattern_id=AUTH_TRAIL_001 uri=/?q=%2Fadmin. client=127.0.0.1",
+  "rule_name": "[NGINX Auth Bypass] Authentication bypass attempt detected test_id=AUTH_TRAIL_001-1772524565729-ub0wb pattern_id=AUTH_TRAIL_001 uri=/?q=%2Fadmin. client=127.0.0.1",
+  "expected_rule": "[NGINX Auth Bypass] Authentication bypass attempt detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Auth Bypass] Authentication bypass attempt detected test_id=AUTH_TRAIL_001-1772524565729-ub0wb pattern_id=AUTH_TRAIL_001 uri=/?q=%2Fadmin. client=127.0.0.1",
+  "sent_at": 1772524568000,
+  "detected_at": 1772524565000,
+  "status": "passed"
+}

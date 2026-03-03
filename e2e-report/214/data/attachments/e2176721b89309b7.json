@@ -1,0 +1,17 @@
+{
+  "pattern_id": "INFO_PHPINFO_001",
+  "test_id": "INFO_PHPINFO_001-1772524559225-lyrxt",
+  "category": "info_disclosure",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 9000,
+  "evidence": "07:55:59.000000000: Warning [NGINX Info Disclosure] Information disclosure attempt detected test_id=INFO_PHPINFO_001-1772524559225-lyrxt pattern_id=INFO_PHPINFO_001 uri=/?q=/phpinfo.php client=127.0.0.1",
+  "rule_name": "[NGINX Info Disclosure] Information disclosure attempt detected test_id=INFO_PHPINFO_001-1772524559225-lyrxt pattern_id=INFO_PHPINFO_001 uri=/?q=/phpinfo.php client=127.0.0.1",
+  "expected_rule": "[NGINX Info Disclosure] Information disclosure attempt detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Info Disclosure] Information disclosure attempt detected test_id=INFO_PHPINFO_001-1772524559225-lyrxt pattern_id=INFO_PHPINFO_001 uri=/?q=/phpinfo.php client=127.0.0.1",
+  "sent_at": 1772524568000,
+  "detected_at": 1772524559000,
+  "status": "passed"
+}

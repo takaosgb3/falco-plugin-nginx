@@ -1,0 +1,17 @@
+{
+  "pattern_id": "HHI_XH_002",
+  "test_id": "HHI_XH_002-1772524534725-mnz2tn",
+  "category": "host_header",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 34000,
+  "evidence": "07:55:34.000000000: Warning [NGINX Host Header] Host header injection attempt detected test_id=HHI_XH_002-1772524534725-mnz2tn pattern_id=HHI_XH_002 uri=/?q=X-Original-Host%3A%20evil.com client=127.0.0.1",
+  "rule_name": "[NGINX Host Header] Host header injection attempt detected test_id=HHI_XH_002-1772524534725-mnz2tn pattern_id=HHI_XH_002 uri=/?q=X-Original-Host%3A%20evil.com client=127.0.0.1",
+  "expected_rule": "[NGINX Host Header] Host header injection attempt detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Host Header] Host header injection attempt detected test_id=HHI_XH_002-1772524534725-mnz2tn pattern_id=HHI_XH_002 uri=/?q=X-Original-Host%3A%20evil.com client=127.0.0.1",
+  "sent_at": 1772524568000,
+  "detected_at": 1772524534000,
+  "status": "passed"
+}

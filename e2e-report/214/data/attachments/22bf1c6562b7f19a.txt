@@ -1,0 +1,1 @@
+Test passed: XXE_SOAP_001

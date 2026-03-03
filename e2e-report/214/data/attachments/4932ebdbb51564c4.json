@@ -1,0 +1,17 @@
+{
+  "pattern_id": "ENC_CMDI_DBL_002",
+  "test_id": "ENC_CMDI_DBL_002-1772524511836-5yq4ca",
+  "category": "cmdinj",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 57000,
+  "evidence": "07:55:11.000000000: Warning [NGINX CMDi] Advanced command injection attempt test_id=ENC_CMDI_DBL_002-1772524511836-5yq4ca pattern_id=ENC_CMDI_DBL_002 uri=/?q=%257Cwhoami client=127.0.0.1",
+  "rule_name": "[NGINX CMDi] Advanced command injection attempt test_id=ENC_CMDI_DBL_002-1772524511836-5yq4ca pattern_id=ENC_CMDI_DBL_002 uri=/?q=%257Cwhoami client=127.0.0.1",
+  "expected_rule": "[NGINX CMDi] Advanced command injection attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX CMDi] Advanced command injection attempt test_id=ENC_CMDI_DBL_002-1772524511836-5yq4ca pattern_id=ENC_CMDI_DBL_002 uri=/?q=%257Cwhoami client=127.0.0.1",
+  "sent_at": 1772524568000,
+  "detected_at": 1772524511000,
+  "status": "passed"
+}
