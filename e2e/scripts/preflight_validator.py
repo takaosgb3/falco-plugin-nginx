@@ -9,6 +9,7 @@ Checks:
   1. URL Encoding: Rule conditions with raw chars that should be encoded (INFO)
   2. Pattern Coverage: Each true pattern's encoded value matches expected rule (ERROR)
   3. Cross-Rule Risk: Patterns that may trigger unexpected rules (INFO)
+  4. FP Exception Coverage: Each FP pattern is excepted from all matching rules (ERROR)
 
 Usage:
   python3 preflight_validator.py [--rules RULES] [--patterns PATTERNS_DIR]
@@ -43,6 +44,7 @@ class PreflightValidator:
         self.patterns_dir = Path(patterns_dir)
         self.rules: Dict[str, str] = {}
         self.rule_outputs: Dict[str, str] = {}
+        self.rule_exceptions: Dict[str, set] = {}  # rule_name → set of excepted pattern_ids
         self.macros: Dict[str, str] = {}
         self.patterns: List[dict] = []
 
@@ -63,9 +65,19 @@ class PreflightValidator:
                 if not isinstance(item, dict):
                     continue
                 if 'rule' in item and 'condition' in item:
-                    self.rules[str(item['rule'])] = str(item['condition'])
+                    rule_name = str(item['rule'])
+                    self.rules[rule_name] = str(item['condition'])
                     if 'output' in item:
-                        self.rule_outputs[str(item['rule'])] = str(item['output'])
+                        self.rule_outputs[rule_name] = str(item['output'])
+                    # Parse exceptions to extract excepted pattern_ids
+                    excepted_ids = set()
+                    for exc in item.get('exceptions', []):
+                        if (isinstance(exc, dict)
+                                and exc.get('fields') == 'nginx.pattern_id'
+                                and exc.get('comps') == 'in'):
+                            for v in exc.get('values', []):
+                                excepted_ids.add(str(v))
+                    self.rule_exceptions[rule_name] = excepted_ids
                 elif 'macro' in item and 'condition' in item:
                     self.macros[str(item['macro'])] = str(item['condition'])
         except ImportError:
@@ -381,6 +393,79 @@ class PreflightValidator:
         return issues
 
     # ============================
+    # Check 4: FP Exception Coverage
+    # ============================
+
+    def check_false_positive_coverage(self) -> List[dict]:
+        """Verify each false positive pattern is properly excepted from all matching rules.
+
+        For each pattern with expected_detection=false:
+        - Build request_uri from encoded payload
+        - Check which rules' conditions match (approximate: individual contains check)
+        - For each matching rule, verify pattern_id is in that rule's exceptions
+        - WARN: Pattern matches rule condition(s) without exception
+
+        Note: This check uses approximate condition matching (individual contains/icontains
+        patterns). Rules with AND conditions may show false positives because matching a
+        single sub-pattern does not mean the full condition evaluates to true. Results
+        are reported as WARN for human review, not ERROR.
+
+        High-confidence matches are flagged when a rule already has exceptions for
+        other patterns from the same source file (indicating the rule maintainer is
+        aware of the category).
+        """
+        issues = []
+        rule_patterns_cache = {name: self.resolve_condition(cond)
+                               for name, cond in self.rules.items()}
+
+        for pattern in self.patterns:
+            if pattern.get('expected_detection', True):
+                continue
+            encoded = pattern.get('encoded', '')
+            pid = pattern.get('id', 'unknown')
+            source = pattern.get('_source', '')
+            if not encoded:
+                continue
+
+            request_uri = f"/?q={encoded}"
+            matching_rules_without_exception = []
+
+            for rule_name, match_pats in rule_patterns_cache.items():
+                if any(self.matches(op, val, request_uri)
+                       for op, val in match_pats):
+                    excepted = self.rule_exceptions.get(rule_name, set())
+                    if pid not in excepted:
+                        matching_rules_without_exception.append(rule_name)
+
+            if matching_rules_without_exception:
+                # Determine confidence: HIGH if the rule already excepts other
+                # patterns from the same source file (same category awareness)
+                high_confidence_rules = []
+                for rule_name in matching_rules_without_exception:
+                    excepted = self.rule_exceptions.get(rule_name, set())
+                    # Check if any pattern from the same source is excepted
+                    same_source_excepted = any(
+                        p.get('id') in excepted
+                        for p in self.patterns
+                        if p.get('_source') == source and p.get('id') != pid
+                    )
+                    if same_source_excepted:
+                        high_confidence_rules.append(rule_name)
+
+                level = 'HIGH' if high_confidence_rules else 'WARN'
+                issues.append({
+                    'level': level,
+                    'pattern_id': pid,
+                    'source': source,
+                    'matching_rules': matching_rules_without_exception,
+                    'high_confidence_rules': high_confidence_rules,
+                    'count': len(matching_rules_without_exception),
+                    'encoded': encoded[:80],
+                    'detail': 'FP pattern matches rule condition(s) without exception',
+                })
+        return issues
+
+    # ============================
     # Report
     # ============================
 
@@ -477,7 +562,50 @@ class PreflightValidator:
             print("  PASS: No cross-rule detection risks")
         print()
 
+        # --- Check 4: False Positive Exception Coverage (WARN/HIGH) ---
+        # Note: Uses approximate condition matching (individual contains patterns).
+        # Rules with AND conditions may produce false warnings. HIGH confidence
+        # items are flagged when the rule already excepts other same-category patterns.
+        print("-" * 60)
+        print("[Check 4] False Positive Exception Coverage")
+        print("-" * 60)
+        if not self.rule_exceptions:
+            print("  SKIP: Exception data not available (YAML parsing required)")
+            fp_issues = []
+        else:
+            fp_issues = self.check_false_positive_coverage()
+            fp_high = [i for i in fp_issues if i['level'] == 'HIGH']
+            fp_warn = [i for i in fp_issues if i['level'] == 'WARN']
+            if fp_high:
+                print(f"  HIGH: {len(fp_high)} FP pattern(s) likely missing exceptions:")
+                for issue in fp_high:
+                    rules_str = ', '.join(
+                        r[:40] for r in issue['high_confidence_rules'][:3])
+                    if len(issue['high_confidence_rules']) > 3:
+                        rules_str += (
+                            f" (+{len(issue['high_confidence_rules']) - 3} more)")
+                    print(f"    {issue['pattern_id']} ({issue.get('source', '')})")
+                    print(f"      Rules: {rules_str}")
+                print()
+            if fp_warn:
+                print(f"  WARN: {len(fp_warn)} FP pattern(s) match rule conditions"
+                      f" (approximate, may be false positives)")
+                for issue in fp_warn[:5]:
+                    rules_str = ', '.join(
+                        r[:35] for r in issue['matching_rules'][:2])
+                    if issue['count'] > 2:
+                        rules_str += f" (+{issue['count'] - 2} more)"
+                    print(f"    {issue['pattern_id']}: {rules_str}")
+                if len(fp_warn) > 5:
+                    print(f"    ... and {len(fp_warn) - 5} more")
+                print()
+            if not fp_issues:
+                print(f"  PASS: All {false_count} FP patterns properly excepted")
+        print()
+
         # --- Summary ---
+        fp_high_count = len([i for i in fp_issues if i['level'] == 'HIGH'])
+        fp_warn_count = len([i for i in fp_issues if i['level'] == 'WARN'])
         total_warns = len(cov_mismatches) + len(cov_not_found)
         print("=" * 60)
         print("Summary")
@@ -487,13 +615,19 @@ class PreflightValidator:
               f" {len(cov_mismatches)} mismatch(es),"
               f" {len(cov_not_found)} not-found")
         print(f"Check 3 (Cross-Rule Risk):  {len(cross_issues)} info")
+        print(f"Check 4 (FP Exception):     {fp_high_count} high,"
+              f" {fp_warn_count} warn")
         print()
 
         if cov_errors:
             print(f"RESULT: FAIL ({len(cov_errors)} error(s))")
             print("Fix errors before running E2E tests.")
-            print("These patterns match NO rule and will cause E2E failures.")
+            print("- Check 2: Patterns match NO rule and will cause E2E failures.")
             return 1
+        elif fp_high_count > 0:
+            print(f"RESULT: PASS with {fp_high_count} high-priority FP warning(s)")
+            print("Review Check 4 HIGH items - these FP patterns likely need exceptions.")
+            return 0
         elif total_warns > 0:
             print(f"RESULT: PASS with {total_warns} warning(s)")
             return 0
