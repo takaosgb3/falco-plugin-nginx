@@ -1,0 +1,17 @@
+{
+  "pattern_id": "JWT_EXPIRED_001",
+  "test_id": "JWT_EXPIRED_001-1772525830324-bjalj",
+  "category": "jwt",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 12000,
+  "evidence": "08:17:10.000000000: Warning [NGINX API Attack] API security vulnerability detected test_id=JWT_EXPIRED_001-1772525830324-bjalj pattern_id=JWT_EXPIRED_001 uri=/?q=eyJhbGciOiJub25lIn0.eyJleHAiOjAsInN1YiI6IjEyMyJ9. client=127.0.0.1",
+  "rule_name": "[NGINX API Attack] API security vulnerability detected test_id=JWT_EXPIRED_001-1772525830324-bjalj pattern_id=JWT_EXPIRED_001 uri=/?q=eyJhbGciOiJub25lIn0.eyJleHAiOjAsInN1YiI6IjEyMyJ9. client=127.0.0.1",
+  "expected_rule": "[NGINX JWT] JWT token attack attempt detected",
+  "rule_id": "",
+  "rule_match": false,
+  "matched_rule": "[NGINX API Attack] API security vulnerability detected test_id=JWT_EXPIRED_001-1772525830324-bjalj pattern_id=JWT_EXPIRED_001 uri=/?q=eyJhbGciOiJub25lIn0.eyJleHAiOjAsInN1YiI6IjEyMyJ9. client=127.0.0.1",
+  "sent_at": 1772525842000,
+  "detected_at": 1772525830000,
+  "status": "passed"
+}

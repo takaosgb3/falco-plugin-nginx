@@ -1,0 +1,5 @@
+Pattern ID: FP_AUTH_004
+        Status: passed
+        Latency: N/A
+        Detection: 0 / 1
+        Rule:

@@ -1,0 +1,1 @@
+Test passed: XPATH_BLIND_001

@@ -1,0 +1,17 @@
+{
+  "pattern_id": "INFO_SWAGGER_001",
+  "test_id": "INFO_SWAGGER_001-1772525836328-98w11tu",
+  "category": "info_disclosure",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 6000,
+  "evidence": "08:17:16.000000000: Warning [NGINX Info Disclosure] Information disclosure attempt detected test_id=INFO_SWAGGER_001-1772525836328-98w11tu pattern_id=INFO_SWAGGER_001 uri=/?q=/swagger-ui.html client=127.0.0.1",
+  "rule_name": "[NGINX Info Disclosure] Information disclosure attempt detected test_id=INFO_SWAGGER_001-1772525836328-98w11tu pattern_id=INFO_SWAGGER_001 uri=/?q=/swagger-ui.html client=127.0.0.1",
+  "expected_rule": "[NGINX Info Disclosure] Information disclosure attempt detected",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX Info Disclosure] Information disclosure attempt detected test_id=INFO_SWAGGER_001-1772525836328-98w11tu pattern_id=INFO_SWAGGER_001 uri=/?q=/swagger-ui.html client=127.0.0.1",
+  "sent_at": 1772525842000,
+  "detected_at": 1772525836000,
+  "status": "passed"
+}

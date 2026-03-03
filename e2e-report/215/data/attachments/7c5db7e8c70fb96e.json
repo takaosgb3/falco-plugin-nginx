@@ -1,0 +1,17 @@
+{
+  "pattern_id": "XSS_BYPASS_007",
+  "test_id": "XSS_BYPASS_007-1772525748364-kba5ra",
+  "category": "xss",
+  "detected": true,
+  "expected_detection": true,
+  "latency_ms": 86306000,
+  "evidence": "08:15:48.000000000: Warning [NGINX XSS] XSS Filter Bypass Attempt test_id=XSS_BYPASS_007-1772525748364-kba5ra pattern_id=XSS_BYPASS_007 uri=/?q=%3Csvg%3E%3Cscript%20href%3Ddata%3A%2Calert('XSS')%20%2F%3E client=127.0.0.1 method=GET",
+  "rule_name": "[NGINX XSS] XSS Filter Bypass Attempt test_id=XSS_BYPASS_007-1772525748364-kba5ra pattern_id=XSS_BYPASS_007 uri=/?q=%3Csvg%3E%3Cscript%20href%3Ddata%3A%2Calert('XSS')%20%2F%3E client=127.0.0.1 method=GET",
+  "expected_rule": "[NGINX XSS] XSS Filter Bypass Attempt",
+  "rule_id": "",
+  "rule_match": true,
+  "matched_rule": "[NGINX XSS] XSS Filter Bypass Attempt test_id=XSS_BYPASS_007-1772525748364-kba5ra pattern_id=XSS_BYPASS_007 uri=/?q=%3Csvg%3E%3Cscript%20href%3Ddata%3A%2Calert('XSS')%20%2F%3E client=127.0.0.1 method=GET",
+  "sent_at": 1772525842000,
+  "detected_at": 1772525748000,
+  "status": "passed"
+}

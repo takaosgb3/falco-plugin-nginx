@@ -1,0 +1,1 @@
+Test passed: CMDI_CLOUD_001
