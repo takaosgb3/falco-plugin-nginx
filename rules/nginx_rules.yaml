@@ -1551,6 +1551,7 @@
         - REDIR_PROTO_002
         - WAF_UNICODE_001
     # Phase 13: Patterns with %0a/%0d/%09/script triggers (#7 + #10)
+    # FA-210-001: Added FP_CRLF_001 (%0a in normal URL parameter, false positive)
     - name: phase13_xss_bypass_exceptions
       fields: nginx.pattern_id
       comps: in
@@ -1560,6 +1561,7 @@
         - HHI_CHAIN_001
         - REDIR_DATA_001
         - CRLF_TAB_001
+        - FP_CRLF_001
   output: "[NGINX XSS] XSS Filter Bypass Attempt test_id=%nginx.test_id pattern_id=%nginx.pattern_id uri=%nginx.request_uri client=%nginx.remote_addr method=%nginx.method"
   priority: WARNING
   tags: [security, xss, filter_bypass, advanced_xss, phase3]
